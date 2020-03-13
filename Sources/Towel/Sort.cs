@@ -8,64 +8,8 @@ namespace Towel
 	{
 		#region Bubble
 
-		/// <summary>Sorts values using the bubble sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Bubble<T>(T[] array, Compare<T> compare = null) =>
-			Bubble(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the bubble sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Bubble<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Bubble(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the bubble sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Bubble<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Bubble<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the bubble sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Bubble<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Bubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the bubble sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Bubble<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Bubble<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the bubble sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -76,9 +20,38 @@ namespace Towel
 		/// <param name="set">The set function.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Bubble_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Bubble_XML"/>
+		public static void Bubble<T>(T[] array, Compare<T> compare = null) =>
+			Bubble(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Bubble_XML"/>
+		public static void Bubble<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Bubble(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Bubble_XML"/>
+		public static void Bubble<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Bubble<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Bubble_XML"/>
+		public static void Bubble<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Bubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Bubble_XML"/>
+		public static void Bubble<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Bubble<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -102,61 +75,8 @@ namespace Towel
 
 		#region Selection
 
-		/// <summary>Sorts values using the selection sort algoritm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare delegate.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Selection<T>(T[] array, Compare<T> compare = null) =>
-			Selection(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the selection sort algoritm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare delegate.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare delegate.</param>
-		public static void Selection<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Selection(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts an array using the selection sort algoritm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare delegate.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Selection<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Selection<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the selection sort algoritm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare delegate.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare delegate.</param>
-		public static void Selection<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Selection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the selection sort algoritm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare delegate.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Selection<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Selection<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the selection sort algoritm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare delegate.</typeparam>
@@ -167,9 +87,38 @@ namespace Towel
 		/// <param name="compare">The compare delegate.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Selection_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Selection_XML"/>
+		public static void Selection<T>(T[] array, Compare<T> compare = null) =>
+			Selection(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Selection_XML"/>
+		public static void Selection<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Selection(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Selection_XML"/>
+		public static void Selection<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Selection<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Selection_XML"/>
+		public static void Selection<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Selection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Selection_XML"/>
+		public static void Selection<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Selection<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -195,67 +144,8 @@ namespace Towel
 
 		#region Insertion
 
-		/// <summary>Sorts values using the insertion sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Insertion<T>(T[] array, Compare<T> compare = null) =>
-			Insertion(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the insertion sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Insertion<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Insertion(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the insertion sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">Returns positive if left greater than right.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Insertion<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Insertion<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the insertion sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Insertion<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Insertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the insertion sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">Returns positive if left greater than right.</param>
-		/// <param name="get">Delegate for getting a value at a specified index.</param>
-		/// <param name="set">Delegate for setting a value at a specified index.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void Insertion<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Insertion<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the insertion sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -266,9 +156,38 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Insertion_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Insertion_XML"/>
+		public static void Insertion<T>(T[] array, Compare<T> compare = null) =>
+			Insertion(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Insertion_XML"/>
+		public static void Insertion<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Insertion(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Insertion_XML"/>
+		public static void Insertion<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Insertion<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Insertion_XML"/>
+		public static void Insertion<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Insertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Insertion_XML"/>
+		public static void Insertion<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Insertion<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -290,67 +209,8 @@ namespace Towel
 
 		#region Quick
 
-		/// <summary>Sorts values using the quick sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>ln(n)</memory>
-		public static void Quick<T>(T[] array, Compare<T> compare = null) =>
-			Quick(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the quick sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>ln(n)</memory>
-		public static void Quick<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Quick(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the quick sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>ln(n)</memory>
-		public static void Quick<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Quick<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the quick sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>ln(n)</memory>
-		public static void Quick<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Quick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the quick sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">Delegate for setting a value at a specified index.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>ln(n)</memory>
-		public static void Quick<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Quick<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the quick sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -361,47 +221,75 @@ namespace Towel
 		/// <param name="set">The set function.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		public static void Quick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T> =>
-			Quick_Recursive<T, Compare, Get, Set>(start, end - start + 1, compare, get, set);
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Quick_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
-		internal static void Quick_Recursive<T, Compare, Get, Set>(int start, int len, Compare compare, Get get, Set set)
+		/// <inheritdoc cref="Quick_XML"/>
+		public static void Quick<T>(T[] array, Compare<T> compare = null) =>
+			Quick(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Quick_XML"/>
+		public static void Quick<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Quick(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Quick_XML"/>
+		public static void Quick<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Quick<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Quick_XML"/>
+		public static void Quick<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Quick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Quick_XML"/>
+		public static void Quick<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Quick<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Quick_XML"/>
+		public static void Quick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
 		{
-			if (len > 1)
+			Quick_Recursive(start, end - start + 1);
+
+			void Quick_Recursive(int startIndex, int len)
 			{
-				T pivot = get.Do(start);
-				int i = start;
-				int j = start + len - 1;
-				int k = j;
-				while (i <= j)
+				if (len > 1)
 				{
-					if (compare.Do(get.Do(j), pivot) is Less)
+					T pivot = get.Do(startIndex);
+					int i = startIndex;
+					int j = startIndex + len - 1;
+					int k = j;
+					while (i <= j)
 					{
-						T temp = get.Do(i);
-						set.Do(i++, get.Do(j));
-						set.Do(j, temp);
+						if (compare.Do(get.Do(j), pivot) is Less)
+						{
+							T temp = get.Do(i);
+							set.Do(i++, get.Do(j));
+							set.Do(j, temp);
+						}
+						else if (compare.Do(get.Do(j), pivot) is Equal)
+						{
+							j--;
+						}
+						else
+						{
+							T temp = get.Do(k);
+							set.Do(k--, get.Do(j));
+							set.Do(j--, temp);
+						}
 					}
-					else if (compare.Do(get.Do(j), pivot) is Equal)
-					{
-						j--;
-					}
-					else
-					{
-						T temp = get.Do(k);
-						set.Do(k--, get.Do(j));
-						set.Do(j--, temp);
-					}
+					Quick_Recursive(startIndex, i - startIndex);
+					Quick_Recursive(k + 1, startIndex + len - (k + 1));
 				}
-				Quick_Recursive<T, Compare, Get, Set>(start, i - start, compare, get, set);
-				Quick_Recursive<T, Compare, Get, Set>(k + 1, start + len - (k + 1), compare, get, set);
 			}
 		}
 
@@ -409,67 +297,8 @@ namespace Towel
 
 		#region Merge
 
-		/// <summary>Sorts values using the merge sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-		/// <stability>True</stability>
-		/// <memory>Θ(n)</memory>
-		public static void Merge<T>(T[] array, Compare<T> compare = null) =>
-			Merge(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the merge sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-		/// <stability>True</stability>
-		/// <memory>Θ(n)</memory>
-		public static void Merge<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Merge(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the merge sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-		/// <stability>True</stability>
-		/// <memory>Θ(n)</memory>
-		public static void Merge<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Merge<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the merge sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-		/// <stability>True</stability>
-		/// <memory>Θ(n)</memory>
-		public static void Merge<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Merge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the merge sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">Delegate for getting a value at a specified index.</param>
-		/// <param name="set">Delegate for setting a value at a specified index.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-		/// <stability>True</stability>
-		/// <memory>Θ(n)</memory>
-		public static void Merge<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Merge<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the merge sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -480,9 +309,38 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
 		/// <stability>True</stability>
 		/// <memory>Θ(n)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Merge_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Merge_XML"/>
+		public static void Merge<T>(T[] array, Compare<T> compare = null) =>
+			Merge(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Merge_XML"/>
+		public static void Merge<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Merge(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Merge_XML"/>
+		public static void Merge<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Merge<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Merge_XML"/>
+		public static void Merge<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Merge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Merge_XML"/>
+		public static void Merge<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Merge<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -533,67 +391,8 @@ namespace Towel
 
 		#region Heap
 
-		/// <summary>Sorts values using the heap sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Heap<T>(T[] array, Compare<T> compare = null) =>
-			Heap(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the heap sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Heap<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Heap(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the heap sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Heap<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Heap<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the heap sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Heap<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Heap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the heap sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Heap<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Heap<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the heap sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -604,9 +403,38 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Heap_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Heap_XML"/>
+		public static void Heap<T>(T[] array, Compare<T> compare = null) =>
+			Heap(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Heap_XML"/>
+		public static void Heap<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Heap(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Heap_XML"/>
+		public static void Heap<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Heap<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Heap_XML"/>
+		public static void Heap<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Heap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Heap_XML"/>
+		public static void Heap<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Heap<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -615,7 +443,7 @@ namespace Towel
 			int heapSize = end - start + 1;
 			for (int i = heapSize / 2; i >= 0; i--)
 			{
-				MaxHeapify<T, Compare, Get, Set>(heapSize + start, i, start, compare, get, set);
+				MaxHeapify(heapSize + start, i, start);
 			}
 			for (int i = end; i >= start; i--)
 			{
@@ -623,33 +451,30 @@ namespace Towel
 				set.Do(start, get.Do(i));
 				set.Do(i, temp);
 				heapSize--;
-				MaxHeapify<T, Compare, Get, Set>(heapSize + start, 0, start, compare, get, set);
+				MaxHeapify(heapSize + start, 0, start);
 			}
-		}
 
-		internal static void MaxHeapify<T, Compare, Get, Set>(int heapSize, int index, int offset, Compare compare, Get get, Set set)
-			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
-		{
-			int left = ((index + 1) * 2 - 1) + offset;
-			int right = ((index + 1) * 2) + offset;
-			index += offset;
-			int largest = index;
-			if (left < heapSize && compare.Do(get.Do(left), get.Do(largest)) is Greater)
+			void MaxHeapify(int heapSize, int index, int offset)
 			{
-				largest = left;
-			}
-			if (right < heapSize  && compare.Do(get.Do(right), get.Do(largest)) is Greater)
-			{
-				largest = right;
-			}
-			if (largest != index)
-			{
-				T temp = get.Do(index);
-				set.Do(index, get.Do(largest));
-				set.Do(largest, temp);
-				MaxHeapify<T, Compare, Get, Set>(heapSize, largest - offset, offset, compare, get, set);
+				int left = ((index + 1) * 2 - 1) + offset;
+				int right = ((index + 1) * 2) + offset;
+				index += offset;
+				int largest = index;
+				if (left < heapSize && compare.Do(get.Do(left), get.Do(largest)) is Greater)
+				{
+					largest = left;
+				}
+				if (right < heapSize && compare.Do(get.Do(right), get.Do(largest)) is Greater)
+				{
+					largest = right;
+				}
+				if (largest != index)
+				{
+					T temp = get.Do(index);
+					set.Do(index, get.Do(largest));
+					set.Do(largest, temp);
+					MaxHeapify(heapSize, largest - offset, offset);
+				}
 			}
 		}
 
@@ -657,67 +482,8 @@ namespace Towel
 
 		#region OddEven
 
-		/// <summary>Sorts values using the odd even sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void OddEven<T>(T[] array, Compare<T> compare = null) =>
-			OddEven(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the odd even sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void OddEven<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			OddEven(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the odd even sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void OddEven<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			OddEven<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the odd even sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void OddEven<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			OddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the odd even sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
-		public static void OddEven<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			OddEven<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the odd even sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -728,9 +494,38 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void OddEven_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="OddEven_XML"/>
+		public static void OddEven<T>(T[] array, Compare<T> compare = null) =>
+			OddEven(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="OddEven_XML"/>
+		public static void OddEven<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			OddEven(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="OddEven_XML"/>
+		public static void OddEven<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			OddEven<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="OddEven_XML"/>
+		public static void OddEven<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			OddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="OddEven_XML"/>
+		public static void OddEven<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			OddEven<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -838,38 +633,8 @@ namespace Towel
 
 		#region Shuffle
 
-		/// <summary>Sorts values into a randomized order.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to shuffle.</param>
-		/// <param name="random">The random to shuffle with.</param>
-		/// <runtime>O(n)</runtime>
-		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(T[] array, Random random = null) =>
-			Shuffle(array, 0, array.Length - 1, random);
-
-		/// <summary>Sorts values into a randomized order.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to shuffle.</param>
-		/// <param name="start">The starting index of the shuffle.</param>
-		/// <param name="end">The ending index of the shuffle.</param>
-		/// <param name="random">The random to shuffle with.</param>
-		/// <runtime>O(n)</runtime>
-		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(T[] array, int start, int end, Random random = null) =>
-			Shuffle<T, GetIndexArray<T>, SetIndexArray<T>>(start, end, array, array, random);
-
-		/// <summary>Sorts values into a randomized order.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="random">The random to shuffle with.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the shuffle.</param>
-		/// <param name="end">The ending index of the shuffle.</param>
-		/// <runtime>O(n)</runtime>
-		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Random random = null) =>
-			Shuffle<T, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, get, set, random);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values into a randomized order.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Get">The get function.</typeparam>
@@ -879,8 +644,27 @@ namespace Towel
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
 		/// <param name="random">The random to shuffle with.</param>
+		/// <param name="array">The array to shuffle.</param>
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Shuffle_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T>(T[] array, Random random = null) =>
+			Shuffle(array, 0, array.Length - 1, random);
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T>(T[] array, int start, int end, Random random = null) =>
+			Shuffle<T, GetIndexArray<T>, SetIndexArray<T>>(start, end, array, array, random);
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Random random = null) =>
+			Shuffle<T, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, get, set, random);
+
+		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random random = null)
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
@@ -899,72 +683,8 @@ namespace Towel
 
 		#region Bogo
 
-		/// <summary>Sorts values using the bogo sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="random">The random to use while sorting.</param>
-		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Bogo<T>(T[] array, Compare<T> compare = null, Random random = null) =>
-			Bogo(array, 0, array.Length - 1, compare, random);
-
-		/// <summary>Sorts values using the bogo sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="random">The random to use while sorting.</param>
-		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Bogo<T, Compare>(T[] array, Compare compare = default, Random random = null)
-			where Compare : struct, ICompare<T> =>
-			Bogo(array, 0, array.Length - 1, compare, random);
-
-		/// <summary>Sorts values using the bogo sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="random">The random to use while sorting.</param>
-		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Bogo<T>(T[] array, int start, int end, Compare<T> compare = null, Random random = null) =>
-			Bogo<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array, random);
-
-		/// <summary>Sorts values using the bogo sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="random">The random to use while sorting.</param>
-		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Bogo<T, Compare>(T[] array, int start, int end, Compare compare = default, Random random = null)
-			where Compare : struct, ICompare<T> =>
-			Bogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
-
-		/// <summary>Sorts values using the bogo sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="random">The random to use while sorting.</param>
-		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
-		public static void Bogo<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null, Random random = null) =>
-			Bogo<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set, random);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the bogo sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -976,85 +696,68 @@ namespace Towel
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
 		/// <param name="random">The random to use while sorting.</param>
+		/// <param name="array">The array to be sorted.</param>
 		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Bogo_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Bogo_XML"/>
+		public static void Bogo<T>(T[] array, Compare<T> compare = null, Random random = null) =>
+			Bogo(array, 0, array.Length - 1, compare, random);
+
+		/// <inheritdoc cref="Bogo_XML"/>
+		public static void Bogo<T, Compare>(T[] array, Compare compare = default, Random random = null)
+			where Compare : struct, ICompare<T> =>
+			Bogo(array, 0, array.Length - 1, compare, random);
+
+		/// <inheritdoc cref="Bogo_XML"/>
+		public static void Bogo<T>(T[] array, int start, int end, Compare<T> compare = null, Random random = null) =>
+			Bogo<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array, random);
+
+		/// <inheritdoc cref="Bogo_XML"/>
+		public static void Bogo<T, Compare>(T[] array, int start, int end, Compare compare = default, Random random = null)
+			where Compare : struct, ICompare<T> =>
+			Bogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
+
+		/// <inheritdoc cref="Bogo_XML"/>
+		public static void Bogo<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null, Random random = null) =>
+			Bogo<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set, random);
+
+		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
 		{
 			random ??= new Random();
-			while (!BogoCheck<T, Compare, Get>(start, end, compare, get))
+			while (!BogoCheck(start, end))
 			{
 				Shuffle<T, Get, Set>(start, end, get, set, random);
 			}
-		}
 
-		internal static bool BogoCheck<T, Compare, Get>(int start, int end, Compare compare, Get get)
-			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-		{
-			for (int i = start; i <= end - 1; i++)
+			bool BogoCheck(int start, int end)
 			{
-				if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+				for (int i = start; i <= end - 1; i++)
 				{
-					return false;
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					{
+						return false;
+					}
 				}
+				return true;
 			}
-			return true;
 		}
 
 		#endregion
 
 		#region Slow
 
-		/// <summary>Sorts values using the slow sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Slow<T>(T[] array, Compare<T> compare = null) =>
-			Slow(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the slow sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Slow<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Slow(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the slow sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Slow<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Slow<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the slow sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Slow<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Slow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the slow sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		public static void Slow<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Slow<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the slow sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -1065,83 +768,67 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
-		public static void Slow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T> =>
-			Slow_Recursive<T, Compare, Get, Set>(start, end, compare, get, set);
+		/// <param name="array">The array to be sorted.</param>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Slow_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
-		internal static void Slow_Recursive<T, Compare, Get, Set>(int i, int j, Compare compare, Get get, Set set)
+		/// <inheritdoc cref="Slow_XML"/>
+		public static void Slow<T>(T[] array, Compare<T> compare = null) =>
+			Slow(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Slow_XML"/>
+		public static void Slow<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Slow(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Slow_XML"/>
+		public static void Slow<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Slow<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Slow_XML"/>
+		public static void Slow<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Slow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Slow_XML"/>
+		public static void Slow<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Slow<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Slow_XML"/>
+		public static void Slow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
 			where Set : struct, ISetIndex<T>
 		{
-			if (i >= j)
+			Slow_Recursive(start, end);
+
+			void Slow_Recursive(int i, int j)
 			{
-				return;
+				if (i >= j)
+				{
+					return;
+				}
+				int m = (i + j) / 2;
+				Slow_Recursive(i, m);
+				Slow_Recursive(m + 1, j);
+				if (compare.Do(get.Do(j), get.Do(m)) is Less)
+				{
+					T temp = get.Do(j);
+					set.Do(j, get.Do(m));
+					set.Do(m, temp);
+				}
+				Slow_Recursive(i, j - 1);
 			}
-			int m = (i + j) / 2;
-			Slow_Recursive<T, Compare, Get, Set>(i, m, compare, get, set);
-			Slow_Recursive<T, Compare, Get, Set>(m + 1, j, compare, get, set);
-			if (compare.Do(get.Do(j), get.Do(m)) is Less)
-			{
-				T temp = get.Do(j);
-				set.Do(j, get.Do(m));
-				set.Do(m, temp);
-			}
-			Slow_Recursive<T, Compare, Get, Set>(i, j - 1, compare, get, set);
 		}
 
 		#endregion
 
 		#region Gnome
 
-		/// <summary>Sorts values using the gnome sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Gnome<T>(T[] array, Compare<T> compare = null) =>
-			Gnome(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the gnome sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Gnome<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Gnome(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the gnome sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Gnome<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Gnome<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the gnome sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Gnome<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Gnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the gnome sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		public static void Gnome<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Gnome<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the gnome sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -1152,6 +839,35 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Gnome_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Gnome_XML"/>
+		public static void Gnome<T>(T[] array, Compare<T> compare = null) =>
+			Gnome(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Gnome_XML"/>
+		public static void Gnome<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Gnome(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Gnome_XML"/>
+		public static void Gnome<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Gnome<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Gnome_XML"/>
+		public static void Gnome<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Gnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Gnome_XML"/>
+		public static void Gnome<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Gnome<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -1178,52 +894,8 @@ namespace Towel
 
 		#region Comb
 
-		/// <summary>Sorts values using the comb sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Comb<T>(T[] array, Compare<T> compare = null) =>
-			Comb(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the comb sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Comb<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Comb(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the comb sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Comb<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Comb<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the comb sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Comb<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Comb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the comb sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		public static void Comb<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Comb<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the comb sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -1234,6 +906,35 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Comb_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Comb_XML"/>
+		public static void Comb<T>(T[] array, Compare<T> compare = null) =>
+			Comb(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Comb_XML"/>
+		public static void Comb<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Comb(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Comb_XML"/>
+		public static void Comb<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Comb<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Comb_XML"/>
+		public static void Comb<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Comb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Comb_XML"/>
+		public static void Comb<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Comb<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -1267,52 +968,8 @@ namespace Towel
 
 		#region Shell
 
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Shell<T>(T[] array, Compare<T> compare = null) =>
-			Shell(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Shell<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Shell(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Shell<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Shell<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Shell<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Shell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		public static void Shell<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Shell<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the shell sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -1323,6 +980,35 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Shell_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Shell_XML"/>
+		public static void Shell<T>(T[] array, Compare<T> compare = null) =>
+			Shell(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Shell_XML"/>
+		public static void Shell<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Shell(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Shell_XML"/>
+		public static void Shell<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Shell<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Shell_XML"/>
+		public static void Shell<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Shell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Shell_XML"/>
+		public static void Shell<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Shell<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>
@@ -1348,52 +1034,8 @@ namespace Towel
 
 		#region Cocktail
 
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Cocktail<T>(T[] array, Compare<T> compare = null) =>
-			Cocktail(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Cocktail<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Cocktail(array, 0, array.Length - 1, compare);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Cocktail<T>(T[] array, int start, int end, Compare<T> compare = null) =>
-			Cocktail<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <param name="array">The array to be sorted.</param>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		public static void Cocktail<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
-			Cocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="start">The starting index of the sort.</param>
-		/// <param name="end">The ending index of the sort.</param>
-		/// <param name="compare">The compare function.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		public static void Cocktail<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
-			Cocktail<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
-
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the shell sort algorithm.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -1404,6 +1046,35 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
+		/// <param name="array">The array to be sorted.</param>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Cocktail_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Cocktail_XML"/>
+		public static void Cocktail<T>(T[] array, Compare<T> compare = null) =>
+			Cocktail(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Cocktail_XML"/>
+		public static void Cocktail<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Cocktail(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="Cocktail_XML"/>
+		public static void Cocktail<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+			Cocktail<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
+
+		/// <inheritdoc cref="Cocktail_XML"/>
+		public static void Cocktail<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, ICompare<T> =>
+			Cocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="Cocktail_XML"/>
+		public static void Cocktail<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+			Cocktail<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
+
+		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
 			where Get : struct, IGetIndex<T>

@@ -44,12 +44,31 @@ namespace Towel
 		public CorruptedDataStructureException(string message, Exception innerException) : base(message, innerException) { }
 	}
 
+	/// <summary>Thrown when the inequality syntax is missused.</summary>
 	public class InequalitySyntaxException : Exception
 	{
+		/// <summary>Thrown when the inequality syntax is missused.</summary>
 		public InequalitySyntaxException() : base() { }
-
+		/// <summary>Thrown when the inequality syntax is missused.</summary>
+		/// <param name="message">The message of the exception.</param>
 		public InequalitySyntaxException(string message) : base(message) { }
-
+		/// <summary>Thrown when the inequality syntax is missused.</summary>
+		/// <param name="message">The message of the exception.</param>
+		/// <param name="innerException">The inner exception.</param>
 		public InequalitySyntaxException(string message, Exception innerException) : base(message, innerException) { }
+	}
+
+	/// <summary>Thrown when an internal documentation method is called.</summary>
+	public class DocumentationMethodException : Exception
+	{
+		/// <summary>Thrown when an internal documentation method is called.</summary>
+		public DocumentationMethodException() : base() { }
+		/// <summary>Thrown when an internal documentation method is called.</summary>
+		/// <param name="message">The message of the exception.</param>
+		public DocumentationMethodException(string message) : base(message) { }
+		/// <summary>Thrown when an internal documentation method is called.</summary>
+		/// <param name="message">The message of the exception.</param>
+		/// <param name="innerException">The inner exception.</param>
+		public DocumentationMethodException(string message, Exception innerException) : base(message, innerException) { }
 	}
 }
