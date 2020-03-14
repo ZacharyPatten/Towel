@@ -204,9 +204,10 @@ namespace Towel
 
 		#endregion
 
-		#region A* Algorithm
+		#region Graph (Shared)
 
-		/// <summary>Runs the A* search algorithm on a graph.</summary>
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -215,7 +216,52 @@ namespace Towel
 		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
 		/// <param name="check">Checks the status of the search.</param>
 		/// <param name="totalCost">The total cost of the path if a path was found.</param>
+		/// <param name="goal">The goal of the search.</param>
+		/// <param name="graph">The graph to perform the search on.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Graph_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		#endregion
+
+		#region A* Algorithm
+
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+		/// <summary>Runs the A* search algorithm on a graph.</summary>
+		/// <inheritdoc cref="Graph_XML"/>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Graph_Astar_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Graph_Astar_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
+			Graph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
+
+		/// <inheritdoc cref="Graph_Astar_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
+			Graph(start, graph.Neighbors, heuristic, cost, goal, out totalCost);
+
+		/// <inheritdoc cref="Graph_Astar_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+			Graph(start, neighbors, heuristic, cost, goal, Equate.Default, out totalCost);
+
+		/// <inheritdoc cref="Graph_Astar_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Equate<Node> equate, out Numeric totalCost) =>
+			Graph(start, neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
+
+		/// <inheritdoc cref="Graph_Astar_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+			Graph(start, graph, heuristic, cost, goal, Equate.Default, out totalCost);
+
+		/// <inheritdoc cref="Graph_Astar_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Equate<Node> equate, out Numeric totalCost) =>
+			Graph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
+
+		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Check<Node> check, out Numeric totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
@@ -266,102 +312,44 @@ namespace Towel
 			return null; // goal node was not reached (no path exists)
 		}
 
-		#region A* overloads
-
-		/// <summary>Runs the A* search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-		/// <param name="goal">The predicate to determine if the goal has been reached.</param>
-		/// <param name="totalCost">The total cost of the path if a path was found.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
-			Graph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
-
-		/// <summary>Runs the A* search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to perform the search on.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <param name="totalCost">The total cost of the path if a path was found.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
-			Graph(start, graph.Neighbors, heuristic, cost, goal, out totalCost);
-
-		/// <summary>Runs the A* search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-		/// <param name="goal">The goal node.</param>
-		/// <param name="totalCost">The total cost of the path if a path was found.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			Graph(start, neighbors, heuristic, cost, goal, Equate.Default, out totalCost);
-
-		/// <summary>Runs the A* search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-		/// <param name="goal">The goal node.</param>
-		/// <param name="equate">A delegate for checking for equality between two nodes.</param>
-		/// <param name="totalCost">The total cost of the path if a path was found.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Equate<Node> equate, out Numeric totalCost) =>
-			Graph(start, neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
-
-		/// <summary>Runs the A* search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to perform the search on.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-		/// <param name="goal">The goal node.</param>
-		/// <param name="totalCost">The total cost of the path if a path was found.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			Graph(start, graph, heuristic, cost, goal, Equate.Default, out totalCost);
-
-		/// <summary>Runs the A* search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to perform the search on.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-		/// <param name="goal">The goal node.</param>
-		/// <param name="equate">A delegate for checking for equality between two nodes.</param>
-		/// <param name="totalCost">The total cost of the path if a path was found.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Equate<Node> equate, out Numeric totalCost) =>
-			Graph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
-
-		#endregion
-
 		#endregion
 
 		#region Dijkstra Algorithm
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="check">Checks the status of the search.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		/// <inheritdoc cref="Graph_XML"/>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Graph_Dijkstra_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
+			Graph(start, neighbors, heuristic, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
+
+		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal) =>
+			Graph(start, neighbors, heuristic, goal, Equate.Default);
+
+		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal, Equate<Node> equate) =>
+			Graph(start, neighbors, heuristic, node => equate(node, goal));
+
+		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal) =>
+			Graph(start, graph, heuristic, goal, Equate.Default);
+
+		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal, Equate<Node> equate) =>
+			Graph(start, graph.Neighbors, heuristic, node => equate(node, goal));
+
+		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
+			Graph(start, graph.Neighbors, heuristic, goal);
+
+		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Check<Node> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
@@ -407,88 +395,44 @@ namespace Towel
 			return null; // goal node was not reached (no path exists)
 		}
 
-		#region Dijkstra Overloads
-
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
-			Graph(start, neighbors, heuristic, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
-
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal) =>
-			Graph(start, neighbors, heuristic, goal, Equate.Default);
-
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal, Equate<Node> equate) =>
-			Graph(start, neighbors, heuristic, node => equate(node, goal));
-
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to search against.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal) =>
-			Graph(start, graph, heuristic, goal, Equate.Default);
-
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to search against.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal, Equate<Node> equate) =>
-			Graph(start, graph.Neighbors, heuristic, node => equate(node, goal));
-
-		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to search against.</param>
-		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
-			Graph(start, graph.Neighbors, heuristic, goal);
-
-		#endregion
-
 		#endregion
 
 		#region BreadthFirstSearch Algorithm
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="check">Checks the status of the search.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
+		/// <inheritdoc cref="Graph_XML"/>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Graph_BreadthFirstSearch_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal) =>
+			Graph(start, neighbors, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
+
+		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal) =>
+			Graph(start, neighbors, goal, Equate.Default);
+
+		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal, Equate<Node> equate) =>
+			Graph(start, neighbors, node => equate(node, goal));
+
+		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal) =>
+			Graph(start, graph, goal, Equate.Default);
+
+		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal, Equate<Node> equate) =>
+			Graph(start, graph.Neighbors, node => equate(node, goal));
+
+		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Goal<Node> goal) =>
+			Graph(start, graph.Neighbors, goal);
+
+		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Check<Node> check)
 		{
 			IQueue<BreadthFirstSearch<Node>> fringe = new QueueLinked<BreadthFirstSearch<Node>>();
@@ -530,66 +474,6 @@ namespace Towel
 			}
 			return null; // goal node was not reached (no path exists)
 		}
-
-		#region BreadthFirstSearch Overloads
-
-		/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal) =>
-			Graph(start, neighbors, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
-
-		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal) =>
-			Graph(start, neighbors, goal, Equate.Default);
-
-		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal, Equate<Node> equate) =>
-			Graph(start, neighbors, node => equate(node, goal));
-
-		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to search against.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal) =>
-			Graph(start, graph, goal, Equate.Default);
-
-		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to search against.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <param name="equate">Delegate for checking for equality between two nodes.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal, Equate<Node> equate) =>
-			Graph(start, graph.Neighbors, node => equate(node, goal));
-
-		/// <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <param name="start">The node to start at.</param>
-		/// <param name="graph">The graph to search against.</param>
-		/// <param name="goal">Predicate for determining if we have reached the goal node.</param>
-		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Goal<Node> goal) =>
-			Graph(start, graph.Neighbors, goal);
-
-		#endregion
 
 		#endregion
 

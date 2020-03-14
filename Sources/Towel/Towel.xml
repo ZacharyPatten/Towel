@@ -30156,8 +30156,7 @@
             <param name="current">The current node of the search.</param>
             <returns>The status of the search.</returns>
         </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Check{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
+        <member name="M:Towel.Search.Graph_XML">
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -30166,211 +30165,84 @@
             <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
             <param name="check">Checks the status of the search.</param>
             <param name="totalCost">The total cost of the path if a path was found.</param>
+            <param name="goal">The goal of the search.</param>
+            <param name="graph">The graph to perform the search on.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Search.Graph_Astar_XML">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <inheritdoc cref="M:Towel.Search.Graph_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Goal{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The predicate to determine if the goal has been reached.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Goal{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to perform the search on.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Delegate for gettign the neighbors of a node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="equate">A delegate for checking for equality between two nodes.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to perform the search on.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to perform the search on.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="goal">The goal node.</param>
-            <param name="equate">A delegate for checking for equality between two nodes.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Check{``0})">
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Check{``0},``1@)">
+            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Search.Graph_Dijkstra_XML">
             <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="check">Checks the status of the search.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Goal{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0)">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0)">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Goal{``0})">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},Towel.Search.Check{``0})">
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Check{``0})">
+            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Search.Graph_BreadthFirstSearch_XML">
             <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="check">Checks the status of the search.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},Towel.Search.Goal{``0})">
-            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0)">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0,Towel.Equate{``0})">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0,Towel.Equate{``0})">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <param name="equate">Delegate for checking for equality between two nodes.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Goal{``0})">
-            <summary>Runs the BreadthFirstSearch search algorithm on a graph.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="graph">The graph to search against.</param>
-            <param name="goal">Predicate for determining if we have reached the goal node.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
+            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},Towel.Search.Check{``0})">
+            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="T:Towel.Serialization">
             <summary>Static class containing serialization code.</summary>
