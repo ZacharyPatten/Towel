@@ -16881,31 +16881,25 @@
             <summary>Computes the trace of a square matrix.</summary>
             <returns>The computed trace.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Minor(Towel.Mathematics.Matrix{`0},System.Int32,System.Int32,Towel.Mathematics.Matrix{`0}@)">
+        <member name="M:Towel.Mathematics.Matrix`1.Minor_XML">
             <summary>Gets the minor of a matrix.</summary>
             <param name="a">The matrix to get the minor of.</param>
             <param name="row">The restricted row to form the minor.</param>
             <param name="column">The restricted column to form the minor.</param>
             <param name="b">The minor of the matrix.</param>
-        </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Minor(Towel.Mathematics.Matrix{`0},System.Int32,System.Int32)">
-            <summary>Gets the minor of a matrix.</summary>
-            <param name="a">The matrix to get the minor of.</param>
-            <param name="row">The restricted row to form the minor.</param>
-            <param name="column">The restricted column to form the minor.</param>
             <returns>The minor of the matrix.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Minor(System.Int32,System.Int32,Towel.Mathematics.Matrix{`0}@)">
-            <summary>Gets the minor of a matrix.</summary>
-            <param name="row">The restricted row to form the minor.</param>
-            <param name="column">The restricted column to form the minor.</param>
-            <param name="b">The minor of the matrix.</param>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Minor(System.Int32,System.Int32)">
-            <summary>Gets the minor of a matrix.</summary>
-            <param name="row">The restricted row to form the minor.</param>
-            <param name="column">The restricted column to form the minor.</param>
-            <returns>The minor of the matrix.</returns>
+            <inheritdoc cref="M:Towel.Mathematics.Matrix`1.Minor_XML"/>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.Minor(Towel.Mathematics.Matrix{`0},System.Int32,System.Int32)">
+            <inheritdoc cref="M:Towel.Mathematics.Matrix`1.Minor_XML"/>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.Minor(System.Int32,System.Int32,Towel.Mathematics.Matrix{`0}@)">
+            <inheritdoc cref="M:Towel.Mathematics.Matrix`1.Minor_XML"/>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.Minor(Towel.Mathematics.Matrix{`0},System.Int32,System.Int32,Towel.Mathematics.Matrix{`0}@)">
+            <inheritdoc cref="M:Towel.Mathematics.Matrix`1.Minor_XML"/>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.ConcatenateRowWise(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)">
             <summary>Combines two matrices from left to right 

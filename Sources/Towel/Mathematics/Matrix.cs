@@ -232,7 +232,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryZeroImplementation = (rows, columns) =>
 		{
-			if (EqualTo(default(T), Constant<T>.Zero))
+			if (EqualTo(default, Constant<T>.Zero))
 			{
 				FactoryZeroImplementation = (ROWS, COLUMNS) => new Matrix<T>(ROWS, COLUMNS);
 			}
@@ -267,7 +267,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryIdentityImplementation = (rows, columns) =>
 		{
-			if (EqualTo(default(T), Constant<T>.Zero))
+			if (EqualTo(default, Constant<T>.Zero))
 			{
 				FactoryIdentityImplementation = (ROWS, COLUMNS) =>
 				{
@@ -1190,27 +1190,52 @@ namespace Towel.Mathematics
 
 		#region Minor
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Gets the minor of a matrix.</summary>
 		/// <param name="a">The matrix to get the minor of.</param>
 		/// <param name="row">The restricted row to form the minor.</param>
 		/// <param name="column">The restricted column to form the minor.</param>
 		/// <param name="b">The minor of the matrix.</param>
+		/// <returns>The minor of the matrix.</returns>
+		[Obsolete("This method is for documentation only.", true)]
+		internal static void Minor_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Minor_XML"/>
+		public Matrix<T> Minor(int row, int column) =>
+			Minor(this, row, column);
+
+		/// <inheritdoc cref="Minor_XML"/>
+		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
+		{
+			Matrix<T> b = null;
+			Minor(a, row, column, ref b);
+			return b;
+		}
+
+		/// <inheritdoc cref="Minor_XML"/>
+		public void Minor(int row, int column, ref Matrix<T> b) =>
+			Minor(this, row, column, ref b);
+
+		/// <inheritdoc cref="Minor_XML"/>
 		public static void Minor(Matrix<T> a, int row, int column, ref Matrix<T> b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (a._rows < 2 || a._columns < 2)
 			{
-				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.Rows) + " >= 2 && " + nameof(a) + "." + nameof(a.Columns) + " >= 2)");
+				throw new MathematicsException($"{nameof(a)}.{nameof(a.Rows)} < 2 || {nameof(a)}.{nameof(a.Columns)} < 2");
 			}
-			if (row < 0 || row >= a._rows)
+			if (!(0 <= row && row < a._rows))
 			{
-				throw new ArgumentOutOfRangeException(nameof(row), row, "!(" + nameof(row) + " > 0)");
+				throw new ArgumentOutOfRangeException(nameof(row), row, $"!(0 <= {nameof(row)} < {nameof(a)}.{nameof(a.Rows)})");
 			}
-			if (column < 0 || column >= a._columns)
+			if (!(0 <= column && column < a._columns))
 			{
-				throw new ArgumentOutOfRangeException(nameof(column), column, "!(" + nameof(column) + " > 0)");
+				throw new ArgumentOutOfRangeException(nameof(column), column, $"!(0 <= {nameof(column)} < {nameof(a)}.{nameof(a.Columns)})");
 			}
-			if (object.ReferenceEquals(a, b))
+			if (ReferenceEquals(a, b))
 			{
 				a = a.Clone();
 			}
@@ -1230,8 +1255,7 @@ namespace Towel.Mathematics
 			}
 			T[] B = b._matrix;
 			T[] A = a._matrix;
-			int m = 0, n = 0;
-			for (int i = 0; i < a_rows; i++)
+			for (int i = 0, m = 0; i < a_rows; i++)
 			{
 				if (i == row)
 				{
@@ -1239,8 +1263,7 @@ namespace Towel.Mathematics
 				}
 				int i_times_a_columns = i * a_columns;
 				int m_times_b_columns = m * b_columns;
-				n = 0;
-				for (int j = 0; j < a_columns; j++)
+				for (int j = 0, n = 0; j < a_columns; j++)
 				{
 					if (j == column)
 					{
@@ -1252,36 +1275,6 @@ namespace Towel.Mathematics
 				}
 				m++;
 			}
-		}
-
-		/// <summary>Gets the minor of a matrix.</summary>
-		/// <param name="a">The matrix to get the minor of.</param>
-		/// <param name="row">The restricted row to form the minor.</param>
-		/// <param name="column">The restricted column to form the minor.</param>
-		/// <returns>The minor of the matrix.</returns>
-		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
-		{
-			Matrix<T> b = null;
-			Minor(a, row, column, ref b);
-			return b;
-		}
-
-		/// <summary>Gets the minor of a matrix.</summary>
-		/// <param name="row">The restricted row to form the minor.</param>
-		/// <param name="column">The restricted column to form the minor.</param>
-		/// <param name="b">The minor of the matrix.</param>
-		public void Minor(int row, int column, ref Matrix<T> b)
-		{
-			Minor(this, row, column, ref b);
-		}
-
-		/// <summary>Gets the minor of a matrix.</summary>
-		/// <param name="row">The restricted row to form the minor.</param>
-		/// <param name="column">The restricted column to form the minor.</param>
-		/// <returns>The minor of the matrix.</returns>
-		public Matrix<T> Minor(int row, int column)
-		{
-			return Minor(this, row, column);
 		}
 
 		#endregion
@@ -1786,20 +1779,18 @@ namespace Towel.Mathematics
 			{
 				b = new Matrix<T>(dimension, dimension, Length);
 			}
-
 			if (dimension == 1)
 			{
 				b.Set(0, 0, Constant<T>.One);
 				return;
 			}
-			T sign = Constant<T>.One;
 			Matrix<T> temp = new Matrix<T>(dimension, dimension, Length);
 			for (int i = 0; i < dimension; i++)
 			{
 				for (int j = 0; j < dimension; j++)
 				{
 					GetCofactor(a, temp, i, j, dimension);
-					sign = (i + j) % 2 == 0 ? Constant<T>.One : Constant<T>.NegativeOne;
+					T sign = (i + j) % 2 == 0 ? Constant<T>.One : Constant<T>.NegativeOne;
 					b.Set(j, i, Multiplication(sign, GetDeterminant(temp, dimension - 1)));
 				}
 			}
@@ -1954,11 +1945,11 @@ namespace Towel.Mathematics
 			{
 				permutation[i] = i;
 			}
-			T p = Constant<T>.Zero, pom2, detOfP = Constant<T>.One;
-			int k0 = 0, pom1 = 0;
+			T pom2, detOfP = Constant<T>.One;
+			int k0 = 0;
 			for (int k = 0; k < matrix.Columns - 1; k++)
 			{
-				p = Constant<T>.Zero;
+				T p = Constant<T>.Zero;
 				for (int i = k; i < matrix.Rows; i++)
 				{
 					if (GreaterThan(GreaterThan(upper[i, k], Constant<T>.Zero) ? upper[i, k] : Negation(upper[i, k]), p))
@@ -1971,7 +1962,7 @@ namespace Towel.Mathematics
 				{
 					throw new MathematicsException("The matrix is singular!");
 				}
-				pom1 = permutation[k];
+				int pom1 = permutation[k];
 				permutation[k] = permutation[k0];
 				permutation[k0] = pom1;
 				for (int i = 0; i < k; i++)

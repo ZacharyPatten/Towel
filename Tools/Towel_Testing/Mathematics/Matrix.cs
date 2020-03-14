@@ -916,8 +916,133 @@ namespace Towel_Testing.Mathematics
 
 		[TestMethod] public void Minor()
 		{
-			Assert.Inconclusive("Test Not Implemented");
+			#region 2x2
+			{
+				Matrix<int> A = new int[,]
+				{
+					{ 1, 2, },
+					{ 3, 4, },
+				};
+
+				{ // row 0, column 0
+					Matrix<int> B = new int[,]
+					{
+						{ 4, },
+					};
+					Assert.IsTrue(A.Minor(0, 0) == B);
+				}
+				{ // row 0, column 1
+					Matrix<int> B = new int[,]
+					{
+						{ 3, },
+					};
+					Assert.IsTrue(A.Minor(0, 1) == B);
+				}
+				{ // row 1, column 0
+					Matrix<int> B = new int[,]
+					{
+						{ 2, },
+					};
+					Assert.IsTrue(A.Minor(1, 0) == B);
+				}
+				{ // row 1, column 1
+					Matrix<int> B = new int[,]
+					{
+						{ 1, },
+					};
+					Assert.IsTrue(A.Minor(1, 1) == B);
+				}
+			}
+			#endregion
+
+			#region 3x3
+			{
+				Matrix<int> A = new int[,]
+				{
+					{ 1, 2, 3 },
+					{ 4, 5, 6 },
+					{ 7, 8, 9 },
+				};
+
+				{ // row 0, column 0
+					Matrix<int> B = new int[,]
+					{
+						{ 5, 6, },
+						{ 8, 9, },
+					};
+					Assert.IsTrue(A.Minor(0, 0) == B);
+				}
+				{ // row 0, column 1
+					Matrix<int> B = new int[,]
+					{
+						{ 4, 6, },
+						{ 7, 9, },
+					};
+					Assert.IsTrue(A.Minor(0, 1) == B);
+				}
+				{ // row 0, column 2
+					Matrix<int> B = new int[,]
+					{
+						{ 4, 5, },
+						{ 7, 8, },
+					};
+					Assert.IsTrue(A.Minor(0, 2) == B);
+				}
+				{ // row 1, column 0
+					Matrix<int> B = new int[,]
+					{
+						{ 2, 3, },
+						{ 8, 9, },
+					};
+					Assert.IsTrue(A.Minor(1, 0) == B);
+				}
+				{ // row 1, column 1
+					Matrix<int> B = new int[,]
+					{
+						{ 1, 3, },
+						{ 7, 9, },
+					};
+					Assert.IsTrue(A.Minor(1, 1) == B);
+				}
+				{ // row 1, column 2
+					Matrix<int> B = new int[,]
+					{
+						{ 1, 2, },
+						{ 7, 8, },
+					};
+					Assert.IsTrue(A.Minor(1, 2) == B);
+				}
+				{ // row 2, column 0
+					Matrix<int> B = new int[,]
+					{
+						{ 2, 3, },
+						{ 5, 6, },
+					};
+					Assert.IsTrue(A.Minor(2, 0) == B);
+				}
+				{ // row 2, column 1
+					Matrix<int> B = new int[,]
+					{
+						{ 1, 3, },
+						{ 4, 6, },
+					};
+					Assert.IsTrue(A.Minor(2, 1) == B);
+				}
+				{ // row 2, column 2
+					Matrix<int> B = new int[,]
+					{
+						{ 1, 2, },
+						{ 4, 5, },
+					};
+					Assert.IsTrue(A.Minor(2, 2) == B);
+				}
+			}
+			#endregion
 		}
+
+		#endregion
+
+		#region ConcatenateRowWise
 
 		[TestMethod] public void ConcatenateRowWise()
 		{
