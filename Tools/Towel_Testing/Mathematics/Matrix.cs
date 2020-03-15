@@ -916,7 +916,7 @@ namespace Towel_Testing.Mathematics
 
 		[TestMethod] public void Minor()
 		{
-			#region 2x2
+			#region 2x2 Success
 			{
 				Matrix<int> A = new int[,]
 				{
@@ -955,7 +955,7 @@ namespace Towel_Testing.Mathematics
 			}
 			#endregion
 
-			#region 3x3
+			#region 3x3 Success
 			{
 				Matrix<int> A = new int[,]
 				{
@@ -1035,6 +1035,52 @@ namespace Towel_Testing.Mathematics
 						{ 4, 5, },
 					};
 					Assert.IsTrue(A.Minor(2, 2) == B);
+				}
+			}
+			#endregion
+
+			#region Exceptions
+			{
+				// null
+				{
+					Assert.ThrowsException<ArgumentNullException>(() => Matrix<int>.Minor(null, 0, 0));
+				}
+				// 1x1
+				{
+					Matrix<int> A = new int[,]
+					{
+						{ 1, },
+					};
+					Assert.ThrowsException<MathematicsException>(() => A.Minor(0, 0));
+				}
+				// 2x2
+				{
+					Matrix<int> A = new int[,]
+					{
+						{ 1, 2, },
+						{ 3, 4, },
+					};
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  2));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  2));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -2));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2,  0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2, -2));
+				}
+				// 3x3
+				{
+					Matrix<int> A = new int[,]
+					{
+						{ 1, 2, 3 },
+						{ 4, 5, 6 },
+						{ 7, 8, 9 },
+					};
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  3));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  3));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -3));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3,  0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3, -3));
 				}
 			}
 			#endregion
