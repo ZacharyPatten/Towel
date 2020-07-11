@@ -1725,6 +1725,13 @@ namespace Towel_Testing.Mathematics
 			public static implicit operator MyFloat(float a) => new MyFloat(a);
 			public static implicit operator float(MyFloat a) => a.value;
 			public static implicit operator MyFloat(int a) => new MyFloat(a); // this one is needed for Constant<T>.Zero
+
+			// additional necesary operators beyond the provided example in the github issue
+			public static bool operator <=(MyFloat a, MyFloat b) => a.value <= b.value;
+			public static bool operator >=(MyFloat a, MyFloat b) => a.value >= b.value;
+			public static bool operator ==(MyFloat a, MyFloat b) => a.value == b.value;
+			public static bool operator !=(MyFloat a, MyFloat b) => a.value == b.value;
+			public static MyFloat operator -(MyFloat a) => new MyFloat(-a.value);
 		}
 
 		[TestMethod] public void GithubIssue53()
@@ -1740,7 +1747,14 @@ namespace Towel_Testing.Mathematics
 					b[i, j] = 5;
 
 			var c = a * b;
-			//Console.WriteLine(c);
+
+			Matrix<MyFloat> expectedResult = new MyFloat[,]
+			{
+				{ 75,  75,  75,  75,  75,  75, },
+				{ 75,  75,  75,  75,  75,  75, },
+				{ 75,  75,  75,  75,  75,  75, },
+			};
+			Assert.IsTrue(c == expectedResult);
 		}
 
 		#endregion

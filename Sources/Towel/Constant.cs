@@ -61,7 +61,7 @@ namespace Towel
 			if (predicate is null)
 			{
 				int iterations = 0;
-				predicate = PI => iterations < 100;
+				predicate = PI => ++iterations < 100;
 			}
 
 			T pi = Constant<T>.One;
