@@ -1730,7 +1730,7 @@ namespace Towel_Testing.Mathematics
 			public static bool operator <=(MyFloat a, MyFloat b) => a.value <= b.value;
 			public static bool operator >=(MyFloat a, MyFloat b) => a.value >= b.value;
 			public static bool operator ==(MyFloat a, MyFloat b) => a.value == b.value;
-			public static bool operator !=(MyFloat a, MyFloat b) => a.value == b.value;
+			public static bool operator !=(MyFloat a, MyFloat b) => a.value != b.value;
 			public static MyFloat operator -(MyFloat a) => new MyFloat(-a.value);
 		}
 
