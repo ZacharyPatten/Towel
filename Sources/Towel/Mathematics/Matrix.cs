@@ -384,29 +384,144 @@ namespace Towel.Mathematics
 
 		#region GetDeterminant
 
-		internal static T GetDeterminant(Matrix<T> a, int n)
-		{
-			T determinent = Constant<T>.Zero;
-			if (n == 1)
-			{
-				return a.Get(0, 0);
-			}
-			Matrix<T> temp = new Matrix<T>(n, n);
-			T sign = Constant<T>.One;
-			for (int f = 0; f < n; f++)
-			{
-				GetCofactor(a, temp, 0, f, n);
-				determinent =
-					Addition(determinent,
-						Multiplication(sign,
-							Multiplication(a.Get(0, f),
-								GetDeterminant(temp, n - 1))));
-				sign = Negation(sign);
-			}
-			return determinent;
-		}
+		/// <summary>
+		/// Used to avoid issues when 1/2 + 1/2 = 0 + 0 = 0 instead of 1 for types, where division results in precision loss
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+        private sealed class MatrixElementFraction<T>
+        {
+            private T Numerator;
+            private T Denominator;
 
-		#endregion
+            internal MatrixElementFraction(T value)
+            {
+                Numerator = value;
+                Denominator = Constant<T>.One;
+            }
+
+            internal MatrixElementFraction(T num, T den)
+            {
+                Numerator = num;
+                Denominator = den;
+            }
+
+            public T Value => Division(Numerator, Denominator);
+
+			// a / b + c / d = (a * d + b * c) / (b * d)
+            public static MatrixElementFraction<T> operator +(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => new MatrixElementFraction<T>(Addition(
+                    Multiplication(a.Numerator, b.Denominator),
+                    Multiplication(a.Denominator, b.Numerator)
+                ), Multiplication(a.Denominator, b.Denominator));
+
+            public static MatrixElementFraction<T> operator *(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => new MatrixElementFraction<T>(Multiplication(a.Numerator, b.Numerator), Multiplication(a.Denominator, b.Denominator));
+
+            public static MatrixElementFraction<T> operator -(MatrixElementFraction<T> a)
+                => new MatrixElementFraction<T>(Multiplication(a.Numerator, Constant<T>.NegativeOne), a.Denominator);
+
+            public static MatrixElementFraction<T> operator -(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => a + (-b);
+
+			// a / b / (d / c) = (a * c) / (b * d)
+            public static MatrixElementFraction<T> operator /(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => new MatrixElementFraction<T>(Multiplication(a.Numerator, b.Denominator), Multiplication(a.Denominator, b.Numerator));
+
+            public static bool operator <(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+            {
+                var c = Multiplication(a.Numerator, b.Denominator);
+                var d = Multiplication(b.Numerator, a.Denominator);
+                if (IsPositive(Multiplication(a.Denominator, b.Denominator)))
+                    return LessThan(c, d);
+                else
+                    return !LessThan(c, d);
+            }
+
+            public static bool operator ==(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => Compare.Default(a.Numerator, b.Numerator) == CompareResult.Equal &&
+                   Compare.Default(a.Denominator, b.Denominator) == CompareResult.Equal;
+            public static bool operator !=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => !(a == b);
+
+            public static bool operator >(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => a >= b && !(a == b);
+
+            public static bool operator >=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => !(a < b);
+
+            public static bool operator <=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+                => a < b || a == b;
+
+            public static explicit operator MatrixElementFraction<T>(int val)
+                => new MatrixElementFraction<T>(Convert<int, T>(val));
+
+            public MatrixElementFraction<T> Abs()
+                => new MatrixElementFraction<T>(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
+        }
+
+		/// <summary>
+		/// Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
+		/// </summary>
+        internal static T GetDeterminant(Matrix<T> src, int n)
+        {
+            if (n == 1)
+            {
+                return src.Get(0, 0);
+            }
+            var determinent = new MatrixElementFraction<T>(Constant<T>.One);
+
+            void SwapRows(Matrix<MatrixElementFraction<T>> A, int row1, int row2, int size)
+            {
+                for (int i = 0; i < size; i++)
+                    (A[row1, i], A[row2, i]) = (A[row2, i], A[row1, i]);
+            }
+
+            var fractioned = new Matrix<MatrixElementFraction<T>>(src.Rows, src.Columns);
+			for (int x = 0; x < src.Rows; x++)
+            for (int y = 0; y < src.Columns; y++)
+                fractioned[x, y] = new MatrixElementFraction<T>(src[x, y]);
+			
+            for (int i = 0; i < n; i++)
+            {
+                var pivotElement = fractioned[i, i];
+                var pivotRow = i;
+                for (int row = i + 1; row < n; ++row)
+                {
+                    if (fractioned[row, i].Abs() > pivotElement.Abs())
+                    {
+                        pivotElement = fractioned[row, i];
+                        pivotRow = row;
+                    }
+                }
+                if (pivotElement.Equals(Constant<T>.Zero))
+                {
+                    return Constant<T>.Zero;
+                }
+                if (pivotRow != i)
+                {
+                    SwapRows(fractioned, i, pivotRow, n);
+                    determinent = Negation(determinent);
+                }
+
+                determinent = determinent * pivotElement;
+
+                for (int row = i + 1; row < n; ++row)
+                {
+                    for (int col = i + 1; col < n; ++col)
+                    {
+						// from reference: matrix[row][col] -= matrix[row][i] * matrix[i][col] / pivotElement;
+                        fractioned[row, col] =
+                            Subtraction(fractioned[row, col], 
+                                Division(Multiplication(fractioned[row, i], fractioned[i, col]), pivotElement));
+                    }
+                }
+			}
+
+            return determinent.Value;
+        }
+
+
+        #endregion
 
 		#region IsSymetric
 

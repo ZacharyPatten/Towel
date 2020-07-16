@@ -16623,6 +16623,17 @@
             <param name="value">The value to assign every spot in the matrix.</param>
             <returns>The newly constructed matrix filled with the uniform value.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Matrix`1.MatrixElementFraction`1">
+            <summary>
+            Used to avoid issues when 1/2 + 1/2 = 0 + 0 = 0 instead of 1 for types, where division results in precision loss
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.GetDeterminant(Towel.Mathematics.Matrix{`0},System.Int32)">
+            <summary>
+            Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
+            </summary>
+        </member>
         <member name="M:Towel.Mathematics.Matrix`1.GetIsSymetric(Towel.Mathematics.Matrix{`0})">
             <summary>Determines if the matrix is symetric.</summary>
             <param name="a">The matrix to determine if symetric.</param>

@@ -1414,7 +1414,7 @@ namespace Towel
 						Expression.LessThan(A, Expression.Constant(Constant<T>.Zero)),
 						Expression.Return(RETURN, Expression.Negate(A)),
 						Expression.Return(RETURN, A)),
-					Expression.Label(RETURN, Expression.Constant(default(T))));
+					Expression.Label(RETURN, Expression.Constant(default(T), typeof(T))));
 				Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
 				return Function(a);
 			};
