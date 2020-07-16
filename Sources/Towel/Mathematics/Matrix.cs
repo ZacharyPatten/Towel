@@ -457,6 +457,8 @@ namespace Towel.Mathematics
 
             public MatrixElementFraction<T> Abs()
                 => new MatrixElementFraction<T>(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
+
+            public bool IsDividedByZero => Compare.Default(Denominator, Constant<T>.Zero) == CompareResult.Equal;
         }
 
 		/// <summary>
@@ -517,7 +519,8 @@ namespace Towel.Mathematics
                 }
 			}
 
-            return determinent.Value;
+			// TODO: should we return zero if determinent's denominator is zero?
+            return determinent.IsDividedByZero ? Constant<T>.Zero : determinent.Value;
         }
 
 
