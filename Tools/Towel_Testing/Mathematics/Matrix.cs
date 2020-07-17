@@ -795,7 +795,8 @@ namespace Towel_Testing.Mathematics
 					{ 1, 2, },
 					{ 3, 4, },
 				};
-				Assert.IsTrue(a.Determinent() == -2);
+				Assert.IsTrue(a.DeterminentLaplace() == -2);
+                Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<int> a = new int[,]
@@ -804,7 +805,8 @@ namespace Towel_Testing.Mathematics
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
 				};
-				Assert.IsTrue(a.Determinent() == 0);
+				Assert.IsTrue(a.DeterminentLaplace() == 0);
+                Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// float
@@ -814,7 +816,8 @@ namespace Towel_Testing.Mathematics
 					{ 1f, 2f, },
 					{ 3f, 4f, },
 				};
-				Assert.IsTrue(a.Determinent() == -2);
+				Assert.IsTrue(a.DeterminentLaplace() == -2);
+                Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<float> a = new float[,]
@@ -823,7 +826,8 @@ namespace Towel_Testing.Mathematics
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
 				};
-				Assert.IsTrue(a.Determinent() == 0);
+				Assert.IsTrue(a.DeterminentLaplace() == 0);
+                Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// double
@@ -833,7 +837,8 @@ namespace Towel_Testing.Mathematics
 					{ 1d, 2d, },
 					{ 3d, 4d, },
 				};
-				Assert.IsTrue(a.Determinent() == -2);
+				Assert.IsTrue(a.DeterminentLaplace() == -2);
+                Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<double> a = new double[,]
@@ -842,7 +847,8 @@ namespace Towel_Testing.Mathematics
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
 				};
-				Assert.IsTrue(a.Determinent() == 0);
+				Assert.IsTrue(a.DeterminentLaplace() == 0);
+                Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// decimal
@@ -852,7 +858,8 @@ namespace Towel_Testing.Mathematics
 					{ 1m, 2m, },
 					{ 3m, 4m, },
 				};
-				Assert.IsTrue(a.Determinent() == -2);
+				Assert.IsTrue(a.DeterminentLaplace() == -2);
+                Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<decimal> a = new decimal[,]
@@ -861,13 +868,14 @@ namespace Towel_Testing.Mathematics
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
 				};
-				Assert.IsTrue(a.Determinent() == 0);
+				Assert.IsTrue(a.DeterminentLaplace() == 0);
+                Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// Exceptions
 			{
 				Matrix<decimal> a = new Matrix<decimal>(2, 3);
-				Assert.ThrowsException<MathematicsException>(() => a.Determinent());
+				Assert.ThrowsException<MathematicsException>(() => a.DeterminentLaplace());
 			}
 		}
 
