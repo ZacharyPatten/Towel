@@ -785,7 +785,7 @@ namespace Towel_Testing.Mathematics
 					{ 3, 4, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == -2);
-                Assert.IsTrue(a.DeterminentGaussian() == -2);
+				Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<int> a = new int[,]
@@ -795,7 +795,7 @@ namespace Towel_Testing.Mathematics
 					{ 7, 8, 9, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == 0);
-                Assert.IsTrue(a.DeterminentGaussian() == 0);
+				Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// float
@@ -806,7 +806,7 @@ namespace Towel_Testing.Mathematics
 					{ 3f, 4f, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == -2);
-                Assert.IsTrue(a.DeterminentGaussian() == -2);
+				Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<float> a = new float[,]
@@ -816,7 +816,7 @@ namespace Towel_Testing.Mathematics
 					{ 7f, 8f, 9f, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == 0);
-                Assert.IsTrue(a.DeterminentGaussian() == 0);
+				Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// double
@@ -827,7 +827,7 @@ namespace Towel_Testing.Mathematics
 					{ 3d, 4d, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == -2);
-                Assert.IsTrue(a.DeterminentGaussian() == -2);
+				Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<double> a = new double[,]
@@ -837,7 +837,7 @@ namespace Towel_Testing.Mathematics
 					{ 7d, 8d, 9d, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == 0);
-                Assert.IsTrue(a.DeterminentGaussian() == 0);
+				Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// decimal
@@ -848,7 +848,7 @@ namespace Towel_Testing.Mathematics
 					{ 3m, 4m, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == -2);
-                Assert.IsTrue(a.DeterminentGaussian() == -2);
+				Assert.IsTrue(a.DeterminentGaussian() == -2);
 			}
 			{
 				Matrix<decimal> a = new decimal[,]
@@ -858,7 +858,7 @@ namespace Towel_Testing.Mathematics
 					{ 7m, 8m, 9m, },
 				};
 				Assert.IsTrue(a.DeterminentLaplace() == 0);
-                Assert.IsTrue(a.DeterminentGaussian() == 0);
+				Assert.IsTrue(a.DeterminentGaussian() == 0);
 			}
 
 			// Exceptions
