@@ -545,7 +545,7 @@ namespace Towel.Mathematics
 					Addition(determinent,
 						Multiplication(sign,
 							Multiplication(a.Get(0, f),
-								GetDeterminantGaussian(temp, n - 1))));
+								GetDeterminantLaplace(temp, n - 1))));
 				sign = Negation(sign);
 			}
 			return determinent;
