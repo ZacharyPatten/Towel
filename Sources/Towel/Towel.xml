@@ -16629,7 +16629,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.GetDeterminant(Towel.Mathematics.Matrix{`0},System.Int32)">
+        <member name="M:Towel.Mathematics.Matrix`1.GetDeterminantGaussian(Towel.Mathematics.Matrix{`0},System.Int32)">
             <summary>
             Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
             </summary>
@@ -16875,12 +16875,30 @@
             <returns>The resulting matrix of the power operation.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Determinent(Towel.Mathematics.Matrix{`0})">
-            <summary>Computes the determinent of a square matrix.</summary>
+            <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
+            <param name="a">The matrix to compute the determinent of.</param>
+            <returns>The computed determinent.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminentGaussian(Towel.Mathematics.Matrix{`0})">
+            <summary>Computes the determinent of a square matrix via Gaussian elimination.</summary>
+            <param name="a">The matrix to compute the determinent of.</param>
+            <returns>The computed determinent.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminentLaplace(Towel.Mathematics.Matrix{`0})">
+            <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
             <param name="a">The matrix to compute the determinent of.</param>
             <returns>The computed determinent.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Determinent">
-            <summary>Computes the determinent of a square matrix.</summary>
+            <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
+            <returns>The computed determinent.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminentLaplace">
+            <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
+            <returns>The computed determinent.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminentGaussian">
+            <summary>Computes the determinent of a square matrix via Gaussian elimination.</summary>
             <returns>The computed determinent.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Trace(Towel.Mathematics.Matrix{`0})">

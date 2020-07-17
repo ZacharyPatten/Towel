@@ -382,13 +382,14 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region GetDeterminant
+		#region GetDeterminant Gaussian elimination
 
+		#region MatrixElementFraction
 		/// <summary>
 		/// Used to avoid issues when 1/2 + 1/2 = 0 + 0 = 0 instead of 1 for types, where division results in precision loss
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
-        private sealed class MatrixElementFraction<T>
+		private sealed class MatrixElementFraction<T>
         {
             private T Numerator;
             private T Denominator;
@@ -460,11 +461,12 @@ namespace Towel.Mathematics
 
             public bool IsDividedByZero => Compare.Default(Denominator, Constant<T>.Zero) == CompareResult.Equal;
         }
+#endregion
 
 		/// <summary>
 		/// Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
 		/// </summary>
-        internal static T GetDeterminant(Matrix<T> src, int n)
+		internal static T GetDeterminantGaussian(Matrix<T> src, int n)
         {
             if (n == 1)
             {
@@ -524,7 +526,31 @@ namespace Towel.Mathematics
         }
 
 
-        #endregion
+		#endregion
+
+		#region GetDeterminant Laplace method
+        internal static T GetDeterminantLaplace(Matrix<T> a, int n)
+        {
+            T determinent = Constant<T>.Zero;
+            if (n == 1)
+            {
+                return a.Get(0, 0);
+            }
+            Matrix<T> temp = new Matrix<T>(n, n);
+            T sign = Constant<T>.One;
+            for (int f = 0; f < n; f++)
+            {
+                GetCofactor(a, temp, 0, f, n);
+                determinent =
+                    Addition(determinent,
+                        Multiplication(sign,
+                            Multiplication(a.Get(0, f),
+                                GetDeterminantGaussian(temp, n - 1))));
+                sign = Negation(sign);
+            }
+            return determinent;
+        }
+		#endregion
 
 		#region IsSymetric
 
@@ -1205,71 +1231,109 @@ namespace Towel.Mathematics
 
 		#region Determinent
 
-		/// <summary>Computes the determinent of a square matrix.</summary>
+		/// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
 		/// <param name="a">The matrix to compute the determinent of.</param>
 		/// <returns>The computed determinent.</returns>
+		[Obsolete("Use DeterminentGaussian or DeterminentLaplace instead")]
 		public static T Determinent(Matrix<T> a)
-		{
-			_ = a ?? throw new ArgumentNullException(nameof(a));
-			if (!a.IsSquare)
-			{
-				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-			}
-			return GetDeterminant(a, a.Rows);
+        {
+            return DeterminentLaplace(a);
 
-			#region Old Version
+            #region Old Version
 
-			//if (a is null)
-			//{
-			//    throw new ArgumentNullException(nameof(a));
-			//}
-			//if (!a.IsSquare)
-			//{
-			//    throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-			//}
-			//T determinant = Constant<T>.One;
-			//Matrix<T> rref = a.Clone();
-			//int a_rows = a._rows;
-			//for (int i = 0; i < a_rows; i++)
-			//{
-			//    if (Compute.Equal(rref[i, i], Constant<T>.Zero))
-			//    {
-			//        for (int j = i + 1; j < rref.Rows; j++)
-			//        {
-			//            if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
-			//            {
-			//                SwapRows(rref, i, j);
-			//                determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
-			//            }
-			//        }
-			//    }
-			//    determinant = Compute.Multiply(determinant, rref.Get(i, i));
-			//    T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
-			//    RowMultiplication(rref, i, temp_rowMultiplication);
-			//    for (int j = i + 1; j < rref.Rows; j++)
-			//    {
-			//        T scalar = Compute.Negate(rref.Get(j, i));
-			//        RowAddition(rref, j, i, scalar);
+            //if (a is null)
+            //{
+            //    throw new ArgumentNullException(nameof(a));
+            //}
+            //if (!a.IsSquare)
+            //{
+            //    throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            //}
+            //T determinant = Constant<T>.One;
+            //Matrix<T> rref = a.Clone();
+            //int a_rows = a._rows;
+            //for (int i = 0; i < a_rows; i++)
+            //{
+            //    if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+            //    {
+            //        for (int j = i + 1; j < rref.Rows; j++)
+            //        {
+            //            if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
+            //            {
+            //                SwapRows(rref, i, j);
+            //                determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
+            //            }
+            //        }
+            //    }
+            //    determinant = Compute.Multiply(determinant, rref.Get(i, i));
+            //    T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
+            //    RowMultiplication(rref, i, temp_rowMultiplication);
+            //    for (int j = i + 1; j < rref.Rows; j++)
+            //    {
+            //        T scalar = Compute.Negate(rref.Get(j, i));
+            //        RowAddition(rref, j, i, scalar);
 
-			//    }
-			//    for (int j = i - 1; j >= 0; j--)
-			//    {
-			//        T scalar = Compute.Negate(rref.Get(j, i));
-			//        RowAddition(rref, j, i, scalar);
+            //    }
+            //    for (int j = i - 1; j >= 0; j--)
+            //    {
+            //        T scalar = Compute.Negate(rref.Get(j, i));
+            //        RowAddition(rref, j, i, scalar);
 
-			//    }
-			//}
-			//return determinant;
+            //    }
+            //}
+            //return determinant;
 
-			#endregion
+            #endregion
+
+        }
+
+        /// <summary>Computes the determinent of a square matrix via Gaussian elimination.</summary>
+        /// <param name="a">The matrix to compute the determinent of.</param>
+        /// <returns>The computed determinent.</returns>
+		public static T DeterminentGaussian(Matrix<T> a)
+        {
+            _ = a ?? throw new ArgumentNullException(nameof(a));
+            if (!a.IsSquare)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            }
+            return GetDeterminantGaussian(a, a.Rows);
 		}
 
-		/// <summary>Computes the determinent of a square matrix.</summary>
+        /// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
+        /// <param name="a">The matrix to compute the determinent of.</param>
+        /// <returns>The computed determinent.</returns>
+		public static T DeterminentLaplace(Matrix<T> a)
+        {
+            _ = a ?? throw new ArgumentNullException(nameof(a));
+            if (!a.IsSquare)
+            {
+                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+            }
+            return GetDeterminantLaplace(a, a.Rows);
+        }
+
+		/// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
 		/// <returns>The computed determinent.</returns>
+		[Obsolete("Use DeterminentGaussian or DeterminentLaplace instead")]
 		public T Determinent()
 		{
-			return Determinent(this);
+			return DeterminentLaplace(this);
 		}
+
+        /// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
+        /// <returns>The computed determinent.</returns>
+        public T DeterminentLaplace()
+        {
+            return DeterminentLaplace(this);
+        }
+
+        /// <summary>Computes the determinent of a square matrix via Gaussian elimination.</summary>
+        /// <returns>The computed determinent.</returns>
+        public T DeterminentGaussian()
+        {
+            return DeterminentGaussian(this);
+        }
 
 		#endregion
 
@@ -1909,7 +1973,7 @@ namespace Towel.Mathematics
 				{
 					GetCofactor(a, temp, i, j, dimension);
 					T sign = (i + j) % 2 == 0 ? Constant<T>.One : Constant<T>.NegativeOne;
-					b.Set(j, i, Multiplication(sign, GetDeterminant(temp, dimension - 1)));
+					b.Set(j, i, Multiplication(sign, GetDeterminantGaussian(temp, dimension - 1)));
 				}
 			}
 
