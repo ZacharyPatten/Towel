@@ -345,10 +345,12 @@ namespace Towel.Mathematics
 
 		#region SwapRows
 
-		internal static void SwapRows(Matrix<T> matrix, int row1, int row2)
+		internal static void SwapRows(Matrix<T> matrix, int row1, int row2) =>
+			SwapRows(matrix, row1, row2, 0, matrix.Columns - 1);
+
+		internal static void SwapRows(Matrix<T> matrix, int row1, int row2, int columnStart, int columnEnd)
 		{
-			int columns = matrix.Columns;
-			for (int i = 0; i < columns; i++)
+			for (int i = columnStart; i <= columnEnd; i++)
 			{
 				T temp = matrix.Get(row1, i);
 				matrix.Set(row1, i, matrix.Get(row2, i));
@@ -474,12 +476,6 @@ namespace Towel.Mathematics
 			}
 			var determinant = new MatrixElementFraction<T>(Constant<T>.One);
 
-			void SwapRows(Matrix<MatrixElementFraction<T>> A, int row1, int row2, int size)
-			{
-				for (int i = 0; i < size; i++)
-					(A[row1, i], A[row2, i]) = (A[row2, i], A[row1, i]);
-			}
-
 			var fractioned = new Matrix<MatrixElementFraction<T>>(src.Rows, src.Columns);
 			for (int x = 0; x < src.Rows; x++)
 			for (int y = 0; y < src.Columns; y++)
@@ -503,7 +499,7 @@ namespace Towel.Mathematics
 				}
 				if (pivotRow != i)
 				{
-					SwapRows(fractioned, i, pivotRow, n);
+					Matrix<MatrixElementFraction<T>>.SwapRows(fractioned, i, pivotRow, 0, n - 1);
 					determinant = Negation(determinant);
 				}
 
