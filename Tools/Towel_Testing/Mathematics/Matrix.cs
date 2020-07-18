@@ -1144,11 +1144,11 @@ namespace Towel_Testing.Mathematics
 						{ 1, 2, },
 						{ 3, 4, },
 					};
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(0, 2));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(2, 0));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(2, 2));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(0, -2));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2, 0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  2));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  2));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -2));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2,  0));
 					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2, -2));
 				}
 				// 3x3
@@ -1159,11 +1159,11 @@ namespace Towel_Testing.Mathematics
 						{ 4, 5, 6 },
 						{ 7, 8, 9 },
 					};
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(0, 3));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(3, 0));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(3, 3));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(0, -3));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3, 0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  3));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  0));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  3));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -3));
+					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3,  0));
 					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3, -3));
 				}
 			}
