@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Reflection;
 using static Towel.Syntax;
 
 namespace Towel
@@ -87,8 +88,12 @@ namespace Towel
 				}
 				pi = Multiplication(Constant<T>.Two, pi);
 			}
-			pi = Maximum(pi, Constant<T>.Three);
-			return pi;
+			
+			// this is necessary because user's classes may not contain <, >, etc. operators, but they shouldn't be required
+			// to define them to work with, say, matrices
+			if (!(typeof(T).GetMethod("op_GreaterThanOrEqual", BindingFlags.Static | BindingFlags.Public) is null) || typeof(T) == typeof(int))
+			    pi = Maximum(pi, Constant<T>.Three);
+            return pi;
 		}
 
 		internal static class AddMultiplyDivideAddImplementation
