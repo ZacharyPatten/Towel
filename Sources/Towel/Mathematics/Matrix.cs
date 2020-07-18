@@ -468,19 +468,17 @@ namespace Towel.Mathematics
 		/// <summary>
 		/// Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
 		/// </summary>
-		internal static T GetDeterminantGaussian(Matrix<T> src, int n)
+		internal static T GetDeterminantGaussian(Matrix<T> matrix, int n)
 		{
 			// Note: the reasoning behind using MatrixElementFraction is to account for
 			// rounding errors such as 2.00...01 instead of 2
 
 			if (n == 1)
 			{
-				return src.Get(0, 0);
+				return matrix.Get(0, 0);
 			}
-			var determinant = new MatrixElementFraction<T>(Constant<T>.One);
-
-			var fractioned = new Matrix<MatrixElementFraction<T>>(src.Rows, src.Columns, (r, c) => new MatrixElementFraction<T>(src.Get(r, c)));
-			
+			MatrixElementFraction<T> determinant = new MatrixElementFraction<T>(Constant<T>.One);
+			Matrix<MatrixElementFraction<T>> fractioned = new Matrix<MatrixElementFraction<T>>(matrix.Rows, matrix.Columns, (r, c) => new MatrixElementFraction<T>(matrix.Get(r, c)));
 			for (int i = 0; i < n; i++)
 			{
 				var pivotElement = fractioned.Get(i, i);
@@ -502,25 +500,22 @@ namespace Towel.Mathematics
 					Matrix<MatrixElementFraction<T>>.SwapRows(fractioned, i, pivotRow, 0, n - 1);
 					determinant = Negation(determinant);
 				}
-
 				determinant *= pivotElement;
-
-				for (int row = i + 1; row < n; ++row)
+				for (int row = i + 1; row < n; row++)
 				{
-					for (int col = i + 1; col < n; ++col)
+					for (int column = i + 1; column < n; column++)
 					{
-						// from reference: matrix[row][col] -= matrix[row][i] * matrix[i][col] / pivotElement;
-						fractioned.Set(row, col,
+						// reference: matrix[row][column] -= matrix[row][i] * matrix[i][column] / pivotElement;
+						fractioned.Set(row, column,
 							// D - A * B / C
 							D_subtract_A_multiply_B_divide_C<MatrixElementFraction<T>>.Function(
 								fractioned.Get(row, i), /*     A */
-								fractioned.Get(i, col), /*     B */
+								fractioned.Get(i, column), /*     B */
 								pivotElement, /*               C */
-								fractioned.Get(row, col))); /* D */
+								fractioned.Get(row, column))); /* D */
 					}
 				}
 			}
-
 			// TODO: should we return zero if determinant's denominator is zero?
 			return determinant.IsDividedByZero ? Constant<T>.Zero : determinant.Value;
 		}
@@ -529,6 +524,7 @@ namespace Towel.Mathematics
 		#endregion
 
 		#region GetDeterminant Laplace method
+
 		internal static T GetDeterminantLaplace(Matrix<T> a, int n)
 		{
 			T determinant = Constant<T>.Zero;
@@ -550,6 +546,7 @@ namespace Towel.Mathematics
 			}
 			return determinant;
 		}
+
 		#endregion
 
 		#region IsSymetric
