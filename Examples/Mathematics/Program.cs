@@ -326,7 +326,7 @@ namespace Mathematics
 			ConsoleWrite(Matrix<double>.ReducedEchelon(M));
 
 			// Matrix Determinant
-			Console.WriteLine("    determinent(M): " + string.Format("{0:0.00}", Matrix<double>.Determinent(M)));
+			Console.WriteLine("    determinant(M): " + string.Format("{0:0.00}", Matrix<double>.Determinant(M)));
 			Console.WriteLine();
 
 			// Matrix-Vector Multiplication

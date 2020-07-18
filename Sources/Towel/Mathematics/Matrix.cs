@@ -472,7 +472,7 @@ namespace Towel.Mathematics
 			{
 				return src.Get(0, 0);
 			}
-			var determinent = new MatrixElementFraction<T>(Constant<T>.One);
+			var determinant = new MatrixElementFraction<T>(Constant<T>.One);
 
 			void SwapRows(Matrix<MatrixElementFraction<T>> A, int row1, int row2, int size)
 			{
@@ -504,10 +504,10 @@ namespace Towel.Mathematics
 				if (pivotRow != i)
 				{
 					SwapRows(fractioned, i, pivotRow, n);
-					determinent = Negation(determinent);
+					determinant = Negation(determinant);
 				}
 
-				determinent = determinent * pivotElement;
+				determinant = determinant * pivotElement;
 
 				for (int row = i + 1; row < n; ++row)
 				{
@@ -521,8 +521,8 @@ namespace Towel.Mathematics
 				}
 			}
 
-			// TODO: should we return zero if determinent's denominator is zero?
-			return determinent.IsDividedByZero ? Constant<T>.Zero : determinent.Value;
+			// TODO: should we return zero if determinant's denominator is zero?
+			return determinant.IsDividedByZero ? Constant<T>.Zero : determinant.Value;
 		}
 
 
@@ -531,7 +531,7 @@ namespace Towel.Mathematics
 		#region GetDeterminant Laplace method
 		internal static T GetDeterminantLaplace(Matrix<T> a, int n)
 		{
-			T determinent = Constant<T>.Zero;
+			T determinant = Constant<T>.Zero;
 			if (n == 1)
 			{
 				return a.Get(0, 0);
@@ -541,14 +541,14 @@ namespace Towel.Mathematics
 			for (int f = 0; f < n; f++)
 			{
 				GetCofactor(a, temp, 0, f, n);
-				determinent =
-					Addition(determinent,
+				determinant =
+					Addition(determinant,
 						Multiplication(sign,
 							Multiplication(a.Get(0, f),
 								GetDeterminantLaplace(temp, n - 1))));
 				sign = Negation(sign);
 			}
-			return determinent;
+			return determinant;
 		}
 		#endregion
 
@@ -1229,15 +1229,14 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Determinent
+		#region Determinant
 
-		/// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
-		/// <param name="a">The matrix to compute the determinent of.</param>
-		/// <returns>The computed determinent.</returns>
-		[Obsolete("Use DeterminentGaussian or DeterminentLaplace instead")]
-		public static T Determinent(Matrix<T> a)
+		/// <summary>Computes the determinant of a square matrix.</summary>
+		/// <param name="a">The matrix to compute the determinant of.</param>
+		/// <returns>The computed determinant.</returns>
+		public static T Determinant(Matrix<T> a)
 		{
-			return DeterminentLaplace(a);
+			return DeterminantGaussian(a);
 
 			#region Old Version
 
@@ -1287,10 +1286,10 @@ namespace Towel.Mathematics
 
 		}
 
-		/// <summary>Computes the determinent of a square matrix via Gaussian elimination.</summary>
-		/// <param name="a">The matrix to compute the determinent of.</param>
-		/// <returns>The computed determinent.</returns>
-		public static T DeterminentGaussian(Matrix<T> a)
+		/// <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
+		/// <param name="a">The matrix to compute the determinant of.</param>
+		/// <returns>The computed determinant.</returns>
+		public static T DeterminantGaussian(Matrix<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
@@ -1300,10 +1299,10 @@ namespace Towel.Mathematics
 			return GetDeterminantGaussian(a, a.Rows);
 		}
 
-		/// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
-		/// <param name="a">The matrix to compute the determinent of.</param>
-		/// <returns>The computed determinent.</returns>
-		public static T DeterminentLaplace(Matrix<T> a)
+		/// <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
+		/// <param name="a">The matrix to compute the determinant of.</param>
+		/// <returns>The computed determinant.</returns>
+		public static T DeterminantLaplace(Matrix<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
@@ -1313,26 +1312,25 @@ namespace Towel.Mathematics
 			return GetDeterminantLaplace(a, a.Rows);
 		}
 
-		/// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
-		/// <returns>The computed determinent.</returns>
-		[Obsolete("Use DeterminentGaussian or DeterminentLaplace instead")]
-		public T Determinent()
+		/// <summary>Computes the determinant of a square matrix.</summary>
+		/// <returns>The computed determinant.</returns>
+		public T Determinant()
 		{
-			return DeterminentLaplace(this);
+			return DeterminantGaussian(this);
 		}
 
-		/// <summary>Computes the determinent of a square matrix via Laplace's method.</summary>
-		/// <returns>The computed determinent.</returns>
-		public T DeterminentLaplace()
+		/// <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
+		/// <returns>The computed determinant.</returns>
+		public T DeterminantLaplace()
 		{
-			return DeterminentLaplace(this);
+			return DeterminantLaplace(this);
 		}
 
-		/// <summary>Computes the determinent of a square matrix via Gaussian elimination.</summary>
-		/// <returns>The computed determinent.</returns>
-		public T DeterminentGaussian()
+		/// <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
+		/// <returns>The computed determinant.</returns>
+		public T DeterminantGaussian()
 		{
-			return DeterminentGaussian(this);
+			return DeterminantGaussian(this);
 		}
 
 		#endregion
@@ -1810,8 +1808,8 @@ namespace Towel.Mathematics
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
 			}
-			T determinent = Determinent(a);
-			if (EqualTo(determinent, Constant<T>.Zero))
+			T determinant = Determinant(a);
+			if (EqualTo(determinant, Constant<T>.Zero))
 			{
 				throw new MathematicsException("Singular matrix encountered during inverse caluculation (cannot be inversed).");
 			}
@@ -1835,7 +1833,7 @@ namespace Towel.Mathematics
 			{
 				for (int j = 0; j < dimension; j++)
 				{
-					b.Set(i, j, Division(adjoint.Get(i, j), determinent));
+					b.Set(i, j, Division(adjoint.Get(i, j), determinant));
 				}
 			}
 
@@ -1847,7 +1845,7 @@ namespace Towel.Mathematics
 			//{
 			//    throw new ArgumentNullException(nameof(a));
 			//}
-			//if (Compute.Equal(Determinent(a), Constant<T>.Zero))
+			//if (Compute.Equal(Determinant(a), Constant<T>.Zero))
 			//{
 			//    throw new MathematicsException("inverse calculation failed.");
 			//}
@@ -2009,11 +2007,11 @@ namespace Towel.Mathematics
 			//    {
 			//        if (Compute.IsEven(a.Get(i, j)))
 			//        {
-			//            b[i, j] = Determinent(Minor(a, i, j));
+			//            b[i, j] = Determinant(Minor(a, i, j));
 			//        }
 			//        else
 			//        {
-			//            b[i, j] = Compute.Negate(Determinent(Minor(a, i, j)));
+			//            b[i, j] = Compute.Negate(Determinant(Minor(a, i, j)));
 			//        }
 			//    }
 			//}
