@@ -470,26 +470,26 @@ namespace Towel.Mathematics
 		/// </summary>
 		internal static T GetDeterminantGaussian(Matrix<T> src, int n)
 		{
+			// Note: the reasoning behind using MatrixElementFraction is to account for
+			// rounding errors such as 2.00...01 instead of 2
+
 			if (n == 1)
 			{
 				return src.Get(0, 0);
 			}
 			var determinant = new MatrixElementFraction<T>(Constant<T>.One);
 
-			var fractioned = new Matrix<MatrixElementFraction<T>>(src.Rows, src.Columns);
-			for (int x = 0; x < src.Rows; x++)
-			for (int y = 0; y < src.Columns; y++)
-				fractioned[x, y] = new MatrixElementFraction<T>(src[x, y]);
+			var fractioned = new Matrix<MatrixElementFraction<T>>(src.Rows, src.Columns, (r, c) => new MatrixElementFraction<T>(src.Get(r, c)));
 			
 			for (int i = 0; i < n; i++)
 			{
-				var pivotElement = fractioned[i, i];
+				var pivotElement = fractioned.Get(i, i);
 				var pivotRow = i;
 				for (int row = i + 1; row < n; ++row)
 				{
 					if (fractioned[row, i].Abs() > pivotElement.Abs())
 					{
-						pivotElement = fractioned[row, i];
+						pivotElement = fractioned.Get(row, i);
 						pivotRow = row;
 					}
 				}
@@ -503,16 +503,20 @@ namespace Towel.Mathematics
 					determinant = Negation(determinant);
 				}
 
-				determinant = determinant * pivotElement;
+				determinant *= pivotElement;
 
 				for (int row = i + 1; row < n; ++row)
 				{
 					for (int col = i + 1; col < n; ++col)
 					{
 						// from reference: matrix[row][col] -= matrix[row][i] * matrix[i][col] / pivotElement;
-						fractioned[row, col] =
-							Subtraction(fractioned[row, col], 
-								Division(Multiplication(fractioned[row, i], fractioned[i, col]), pivotElement));
+						fractioned.Set(row, col,
+							// D - A * B / C
+							D_subtract_A_multiply_B_divide_C<MatrixElementFraction<T>>.Function(
+								fractioned.Get(row, i), /*     A */
+								fractioned.Get(i, col), /*     B */
+								pivotElement, /*               C */
+								fractioned.Get(row, col))); /* D */
 					}
 				}
 			}

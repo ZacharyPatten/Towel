@@ -31271,6 +31271,9 @@
         <member name="T:Towel.Syntax.MultiplyAddImplementation`1">
             <summary>a * b + c</summary>
         </member>
+        <member name="T:Towel.Syntax.D_subtract_A_multiply_B_divide_C`1">
+            <summary>d - a * b / c</summary>
+        </member>
         <member name="M:Towel.Syntax.TryParse``1(System.String,``0)">
             <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
             <typeparam name="A">The generic type to make assumptions about.</typeparam>
