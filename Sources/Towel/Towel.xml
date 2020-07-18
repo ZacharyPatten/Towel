@@ -16883,11 +16883,13 @@
             <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
             <param name="a">The matrix to compute the determinant of.</param>
             <returns>The computed determinant.</returns>
+            <runtime>O((n^3 + 2n^−3) / 3)</runtime>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.DeterminantLaplace(Towel.Mathematics.Matrix{`0})">
             <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
             <param name="a">The matrix to compute the determinant of.</param>
             <returns>The computed determinant.</returns>
+            <runtime>O(n(2^(n − 1) − 1))</runtime>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Determinant">
             <summary>Computes the determinant of a square matrix.</summary>
