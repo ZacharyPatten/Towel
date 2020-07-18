@@ -1709,46 +1709,21 @@ namespace Towel_Testing.Mathematics
 
 		#region Github Issue #53
 
-		public class MyFloat
-		{
-			private float value;
-			public MyFloat(float value)
-			{
-				this.value = value;
-			}
-
-			public static MyFloat operator *(MyFloat a, MyFloat b) => new MyFloat(a.value * b.value);
-			public static MyFloat operator +(MyFloat a, MyFloat b) => new MyFloat(a.value + b.value);
-			public static MyFloat operator /(MyFloat a, MyFloat b) => new MyFloat(a.value / b.value);
-			public static MyFloat operator -(MyFloat a, MyFloat b) => new MyFloat(a.value - b.value);
-			public static MyFloat Zero => new MyFloat(0);
-			public static implicit operator MyFloat(float a) => new MyFloat(a);
-			public static implicit operator float(MyFloat a) => a.value;
-			public static implicit operator MyFloat(int a) => new MyFloat(a); // this one is needed for Constant<T>.Zero
-
-			// additional necesary operators beyond the provided example in the github issue
-			public static bool operator <=(MyFloat a, MyFloat b) => a.value <= b.value;
-			public static bool operator >=(MyFloat a, MyFloat b) => a.value >= b.value;
-			public static bool operator ==(MyFloat a, MyFloat b) => a.value == b.value;
-			public static bool operator !=(MyFloat a, MyFloat b) => a.value != b.value;
-			public static MyFloat operator -(MyFloat a) => new MyFloat(-a.value);
-		}
-
 		[TestMethod] public void GithubIssue53()
 		{
-			var a = new Matrix<MyFloat>(3, 5);
+			var a = new Matrix<RefNumeric<float>>(3, 5);
 			for (int i = 0; i < a.Rows; i++)
 				for (int j = 0; j < a.Columns; j++)
 					a[i, j] = 3;
 
-			var b = new Matrix<MyFloat>(5, 6);
+			var b = new Matrix<RefNumeric<float>>(5, 6);
 			for (int i = 0; i < b.Rows; i++)
 				for (int j = 0; j < b.Columns; j++)
 					b[i, j] = 5;
 
 			var c = a * b;
 
-			Matrix<MyFloat> expectedResult = new MyFloat[,]
+			Matrix<RefNumeric<float>> expectedResult = new RefNumeric<float>[,]
 			{
 				{ 75,  75,  75,  75,  75,  75, },
 				{ 75,  75,  75,  75,  75,  75, },
