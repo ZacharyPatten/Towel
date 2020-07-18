@@ -16623,6 +16623,17 @@
             <param name="value">The value to assign every spot in the matrix.</param>
             <returns>The newly constructed matrix filled with the uniform value.</returns>
         </member>
+        <member name="T:Towel.Mathematics.Matrix`1.MatrixElementFraction`1">
+            <summary>
+            Used to avoid issues when 1/2 + 1/2 = 0 + 0 = 0 instead of 1 for types, where division results in precision loss
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.GetDeterminantGaussian(Towel.Mathematics.Matrix{`0},System.Int32)">
+            <summary>
+            Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
+            </summary>
+        </member>
         <member name="M:Towel.Mathematics.Matrix`1.GetIsSymetric(Towel.Mathematics.Matrix{`0})">
             <summary>Determines if the matrix is symetric.</summary>
             <param name="a">The matrix to determine if symetric.</param>
@@ -16863,14 +16874,34 @@
             <param name="b">The power to apply to the matrix.</param>
             <returns>The resulting matrix of the power operation.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Determinent(Towel.Mathematics.Matrix{`0})">
-            <summary>Computes the determinent of a square matrix.</summary>
-            <param name="a">The matrix to compute the determinent of.</param>
-            <returns>The computed determinent.</returns>
+        <member name="M:Towel.Mathematics.Matrix`1.Determinant(Towel.Mathematics.Matrix{`0})">
+            <summary>Computes the determinant of a square matrix.</summary>
+            <param name="a">The matrix to compute the determinant of.</param>
+            <returns>The computed determinant.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.Determinent">
-            <summary>Computes the determinent of a square matrix.</summary>
-            <returns>The computed determinent.</returns>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminantGaussian(Towel.Mathematics.Matrix{`0})">
+            <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
+            <param name="a">The matrix to compute the determinant of.</param>
+            <returns>The computed determinant.</returns>
+            <runtime>O((n^3 + 2n^−3) / 3)</runtime>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminantLaplace(Towel.Mathematics.Matrix{`0})">
+            <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
+            <param name="a">The matrix to compute the determinant of.</param>
+            <returns>The computed determinant.</returns>
+            <runtime>O(n(2^(n − 1) − 1))</runtime>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.Determinant">
+            <summary>Computes the determinant of a square matrix.</summary>
+            <returns>The computed determinant.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminantLaplace">
+            <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
+            <returns>The computed determinant.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Matrix`1.DeterminantGaussian">
+            <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
+            <returns>The computed determinant.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Trace(Towel.Mathematics.Matrix{`0})">
             <summary>Computes the trace of a square matrix.</summary>
@@ -31241,6 +31272,9 @@
         </member>
         <member name="T:Towel.Syntax.MultiplyAddImplementation`1">
             <summary>a * b + c</summary>
+        </member>
+        <member name="T:Towel.Syntax.D_subtract_A_multiply_B_divide_C`1">
+            <summary>d - a * b / c</summary>
         </member>
         <member name="M:Towel.Syntax.TryParse``1(System.String,``0)">
             <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>

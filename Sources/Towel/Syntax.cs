@@ -30,6 +30,21 @@ namespace Towel
 			};
 		}
 
+		/// <summary>d - a * b / c</summary>
+		internal static class D_subtract_A_multiply_B_divide_C<T>
+		{
+			internal static Func<T, T, T, T, T> Function = (a, b, c, d) =>
+			{
+				ParameterExpression A = Expression.Parameter(typeof(T));
+				ParameterExpression B = Expression.Parameter(typeof(T));
+				ParameterExpression C = Expression.Parameter(typeof(T));
+				ParameterExpression D = Expression.Parameter(typeof(T));
+				Expression BODY = Expression.Subtract(D, Expression.Divide(Expression.Multiply(A, B), C));
+				Function = Expression.Lambda<Func<T, T, T, T, T>>(BODY, A, B, C, D).Compile();
+				return Function(a, b, c, d);
+			};
+		}
+
 		internal static T OperationOnStepper<T>(Stepper<T> stepper, Func<T, T, T> operation)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
@@ -1414,7 +1429,7 @@ namespace Towel
 						Expression.LessThan(A, Expression.Constant(Constant<T>.Zero)),
 						Expression.Return(RETURN, Expression.Negate(A)),
 						Expression.Return(RETURN, A)),
-					Expression.Label(RETURN, Expression.Constant(default(T))));
+					Expression.Label(RETURN, Expression.Constant(default(T), typeof(T))));
 				Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
 				return Function(a);
 			};
