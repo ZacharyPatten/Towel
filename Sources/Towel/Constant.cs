@@ -92,8 +92,8 @@ namespace Towel
 			// this is necessary because user's classes may not contain <, >, etc. operators, but they shouldn't be required
 			// to define them to work with, say, matrices
 			if (!(typeof(T).GetMethod("op_GreaterThanOrEqual", BindingFlags.Static | BindingFlags.Public) is null) || typeof(T) == typeof(int))
-			    pi = Maximum(pi, Constant<T>.Three);
-            return pi;
+				pi = Maximum(pi, Constant<T>.Three);
+			return pi;
 		}
 
 		internal static class AddMultiplyDivideAddImplementation

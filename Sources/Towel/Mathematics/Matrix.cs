@@ -384,7 +384,7 @@ namespace Towel.Mathematics
 
 		#endregion
 
-        // Used for determinants
+		// Used for determinants
 		#region MatrixElementFraction
 		/// <summary>
 		/// Used to avoid issues when 1/2 + 1/2 = 0 + 0 = 0 instead of 1 for types, where division results in precision loss
@@ -468,27 +468,27 @@ namespace Towel.Mathematics
 #endregion
 
 #region GetDeterminant Gaussian elimination analytically
-        internal static T GetDeterminantNonNumericGaussian(Matrix<T> matrix, int n)
-        {
-            if (n == 1)
-                return matrix.Get(0, 0);
+		internal static T GetDeterminantNonNumericGaussian(Matrix<T> matrix, int n)
+		{
+			if (n == 1)
+				return matrix.Get(0, 0);
 
-            var elemMatrix = new Matrix<MatrixElementFraction<T>>(n, n, 
-                (x, y) => new MatrixElementFraction<T>(matrix.Get(x, y)));
-            for (int k = 1; k < n; k++)
-                for (int j = k; j < n; j++)
-                {
-                    var m = elemMatrix.Get(j, k - 1) / elemMatrix.Get(k - 1, k - 1);
-                    for (int i = 0; i < n + 0; i++)
-                        elemMatrix.Set(j, i, elemMatrix.Get(j, i) - m * elemMatrix.Get(k - 1, i));
-                }
+			var elemMatrix = new Matrix<MatrixElementFraction<T>>(n, n, 
+				(x, y) => new MatrixElementFraction<T>(matrix.Get(x, y)));
+			for (int k = 1; k < n; k++)
+				for (int j = k; j < n; j++)
+				{
+					var m = elemMatrix.Get(j, k - 1) / elemMatrix.Get(k - 1, k - 1);
+					for (int i = 0; i < n + 0; i++)
+						elemMatrix.Set(j, i, elemMatrix.Get(j, i) - m * elemMatrix.Get(k - 1, i));
+				}
 
-            var det = new MatrixElementFraction<T>(Constant<T>.One);
-            for (int i = 0; i < n; i++)
-                det *= elemMatrix.Get(i, i);
+			var det = new MatrixElementFraction<T>(Constant<T>.One);
+			for (int i = 0; i < n; i++)
+				det *= elemMatrix.Get(i, i);
 
-            return det.Value;
-        }
+			return det.Value;
+		}
 		#endregion
 
 		#region GetDeterminant Gaussian elimination
@@ -1327,21 +1327,21 @@ namespace Towel.Mathematics
 			return GetDeterminantGaussian(a, a.Rows);
 		}
 
-        /// <summary>Computes the determinant of a square matrix via Gaussian elimination
-        /// for elements which don't have less, greater operators implemented
-        /// </summary>
-        /// <param name="a">The matrix to compute the determinant of.</param>
-        /// <returns>The computed determinant.</returns>
-        /// <runtime>O((n^3 + 2n^−3) / 3)</runtime>
-        public static T DeterminantNonNumericGaussian(Matrix<T> a)
-        {
-            _ = a ?? throw new ArgumentNullException(nameof(a));
-            if (!a.IsSquare)
-            {
-                throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-            }
-            return GetDeterminantNonNumericGaussian(a, a.Rows);
-        }
+		/// <summary>Computes the determinant of a square matrix via Gaussian elimination
+		/// for elements which don't have less, greater operators implemented
+		/// </summary>
+		/// <param name="a">The matrix to compute the determinant of.</param>
+		/// <returns>The computed determinant.</returns>
+		/// <runtime>O((n^3 + 2n^−3) / 3)</runtime>
+		public static T DeterminantNonNumericGaussian(Matrix<T> a)
+		{
+			_ = a ?? throw new ArgumentNullException(nameof(a));
+			if (!a.IsSquare)
+			{
+				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+			}
+			return GetDeterminantNonNumericGaussian(a, a.Rows);
+		}
 
 		/// <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
 		/// <param name="a">The matrix to compute the determinant of.</param>
