@@ -1286,6 +1286,7 @@ namespace Towel.Mathematics
 		/// <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
 		/// <param name="a">The matrix to compute the determinant of.</param>
 		/// <returns>The computed determinant.</returns>
+		/// <runtime>O((n^3 + 2n^−3) / 3)</runtime>
 		public static T DeterminantGaussian(Matrix<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
@@ -1299,6 +1300,7 @@ namespace Towel.Mathematics
 		/// <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
 		/// <param name="a">The matrix to compute the determinant of.</param>
 		/// <returns>The computed determinant.</returns>
+		/// <runtime>O(n(2^(n − 1) − 1))</runtime>
 		public static T DeterminantLaplace(Matrix<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
