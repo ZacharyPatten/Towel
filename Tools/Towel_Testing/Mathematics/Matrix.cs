@@ -5,8 +5,7 @@ using Towel.Mathematics;
 
 namespace Towel_Testing.Mathematics
 {
-	[TestClass]
-	public class Matrix_Testing
+	[TestClass] public class Matrix_Testing
 	{
 		#region FactoryIdentity
 
@@ -486,15 +485,9 @@ namespace Towel_Testing.Mathematics
 			{
 				Matrix<int> A = new Matrix<int>(3, 3)
 				{
-					[0] = 2,
-					[1] = 3,
-					[2] = -4,
-					[3] = 11,
-					[4] = 8,
-					[5] = 7,
-					[6] = 2,
-					[7] = 5,
-					[8] = 3,
+					[0] =  2, [1] = 3, [2] = -4,
+					[3] = 11, [4] = 8, [5] =  7,
+					[6] =  2, [7] = 5, [8] =  3,
 				};
 				Vector<int> B = new Vector<int>(3, 7, 5);
 				Vector<int> C = new Vector<int>(7, 124, 56);
