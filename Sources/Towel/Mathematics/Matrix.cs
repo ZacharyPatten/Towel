@@ -461,10 +461,7 @@ namespace Towel.Mathematics
 				=> new MatrixElementFraction<T>(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
 
 			public bool IsDividedByZero => Compare.Default(Denominator, Constant<T>.Zero) == CompareResult.Equal;
-
-            public override string ToString()
-                => $"{Numerator.ToString()} / {Denominator.ToString()}";
-        }
+		}
 #endregion
 
 #region GetDeterminant Gaussian elimination analytically
@@ -1380,10 +1377,10 @@ namespace Towel.Mathematics
 
         /// <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
         /// <returns>The computed determinant.</returns>
-        public T DeterminantNonNumericGaussian()
-        {
-            return DeterminantNonNumericGaussian(this);
-        }
+		public T DeterminantNonNumericGaussian()
+		{
+			return DeterminantNonNumericGaussian(this);
+		}
 
 		#endregion
 
