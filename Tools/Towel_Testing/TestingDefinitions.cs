@@ -26,7 +26,7 @@ namespace Towel_Testing
 
 	public class RefNumeric<T>
 	{
-		private readonly T _value;
+		public readonly T _value;
 		public RefNumeric(T value) => _value = value;
 		public static RefNumeric<T> operator *(RefNumeric<T> a, RefNumeric<T> b) => new RefNumeric<T>(Multiplication(a._value, b._value));
 		public static RefNumeric<T> operator +(RefNumeric<T> a, RefNumeric<T> b) => new RefNumeric<T>(Addition(a._value, b._value));

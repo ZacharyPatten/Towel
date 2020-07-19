@@ -765,7 +765,7 @@ namespace Towel_Testing
 				bool isOdd = false;
 				for (int i = -100; i < 100; i++)
 				{
-					Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+					Assert.IsTrue(isOdd == IsOdd(i));
 					isOdd = !isOdd;
 				}
 			}
@@ -773,7 +773,7 @@ namespace Towel_Testing
 				bool isOdd = false;
 				for (float i = -100f; i < 100; i++)
 				{
-					Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+					Assert.IsTrue(isOdd == IsOdd(i));
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
@@ -789,7 +789,7 @@ namespace Towel_Testing
 				bool isOdd = false;
 				for (double i = -100; i < 100d; i++)
 				{
-					Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+					Assert.IsTrue(isOdd == IsOdd(i));
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
@@ -804,7 +804,7 @@ namespace Towel_Testing
 				bool isOdd = false;
 				for (decimal i = -100; i < 100m; i++)
 				{
-					Assert.IsTrue(isOdd ? IsOdd(i) : !IsOdd(i));
+					Assert.IsTrue(isOdd == IsOdd(i));
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
@@ -812,6 +812,60 @@ namespace Towel_Testing
 					if (randomRatio > 0m)
 					{
 						Assert.IsFalse(IsOdd(i + randomRatio));
+					}
+				}
+			}
+			{ // RefNumeric<int>
+				bool isOdd = false;
+				for (int i = -100; i < 100; i++)
+				{
+					Assert.IsTrue(isOdd == IsOdd(new RefNumeric<int>(i)));
+					isOdd = !isOdd;
+				}
+			}
+			{ // RefNumeric<float>
+				bool isOdd = false;
+				for (float i = -100f; i < 100; i++)
+				{
+					Assert.IsTrue(isOdd == IsOdd<RefNumeric<float>>(i));
+					isOdd = !isOdd;
+
+					// only whole numbers can be even... test a random rational value
+					float randomRatio = (float)random.NextDouble();
+					if (randomRatio > 0d)
+					{
+						Assert.IsFalse(IsOdd<RefNumeric<float>>(i + randomRatio));
+					}
+				}
+				random.NextDouble();
+			}
+			{ // RefNumeric<double>
+				bool isOdd = false;
+				for (double i = -100; i < 100d; i++)
+				{
+					Assert.IsTrue(isOdd == IsOdd<RefNumeric<double>>(i));
+					isOdd = !isOdd;
+
+					// only whole numbers can be even... test a random rational value
+					double randomRatio = random.NextDouble();
+					if (randomRatio > 0d)
+					{
+						Assert.IsFalse(IsOdd<RefNumeric<double>>(i + randomRatio));
+					}
+				}
+			}
+			{ // RefNumeric<decimal>
+				bool isOdd = false;
+				for (decimal i = -100; i < 100m; i++)
+				{
+					Assert.IsTrue(isOdd == IsOdd<RefNumeric<decimal>>(i));
+					isOdd = !isOdd;
+
+					// only whole numbers can be even... test a random rational value
+					decimal randomRatio = random.NextDecimal(10000) / 10000;
+					if (randomRatio > 0m)
+					{
+						Assert.IsFalse(IsOdd<RefNumeric<decimal>>(i + randomRatio));
 					}
 				}
 			}
@@ -864,6 +918,48 @@ namespace Towel_Testing
 				Assert.IsTrue(AbsoluteValue(1m) == 1m);
 				Assert.IsTrue(AbsoluteValue(2m) == 2m);
 				Assert.IsTrue(AbsoluteValue(3m) == 3m);
+			}
+			{ // RefNumeric<int>
+				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(-3))._value == 3);
+				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(-2))._value == 2);
+				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(-1))._value == 1);
+				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(0))._value == 0);
+				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(1))._value == 1);
+				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(2))._value == 2);
+				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(3))._value == 3);
+			}
+			{ // RefNumeric<float>
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-3f) == 3f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-2f) == 2f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-1f) == 1f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-0.5f) == 0.5f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(0f) == 0f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(0.5f) == 0.5f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(1f) == 1f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(2f) == 2f);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(3f) == 3f);
+			}
+			{ // RefNumeric<double>
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-3d) == 3d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-2d) == 2d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-1d) == 1d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-0.5d) == 0.5d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(0d) == 0d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(0.5d) == 0.5d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(1d) == 1d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(2d) == 2d);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(3d) == 3d);
+			}
+			{ // RefNumeric<decimal>
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-3m) == 3m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-2m) == 2m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-1m) == 1m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-0.5m) == 0.5m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(0m) == 0m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(0.5m) == 0.5m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(1m) == 1m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(2m) == 2m);
+				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(3m) == 3m);
 			}
 		}
 
@@ -1136,6 +1232,27 @@ namespace Towel_Testing
 				Assert.IsTrue(Clamp(5m, 3m, 7m) == 5m);
 				Assert.IsTrue(Clamp(3m, 5m, 7m) == 5m);
 				Assert.IsTrue(Clamp(9m, 3m, 7m) == 7m);
+			}
+
+			{ // RefNumeric<int>
+				Assert.IsTrue(Clamp(new RefNumeric<int>(5), new RefNumeric<int>(3), new RefNumeric<int>(7)) == new RefNumeric<int>(5));
+				Assert.IsTrue(Clamp(new RefNumeric<int>(3), new RefNumeric<int>(5), new RefNumeric<int>(7)) == new RefNumeric<int>(5));
+				Assert.IsTrue(Clamp(new RefNumeric<int>(9), new RefNumeric<int>(3), new RefNumeric<int>(7)) == new RefNumeric<int>(7));
+			}
+			{ // RefNumeric<float>
+				Assert.IsTrue(Clamp<RefNumeric<float>>(5f, 3f, 7f) == 5f);
+				Assert.IsTrue(Clamp<RefNumeric<float>>(3f, 5f, 7f) == 5f);
+				Assert.IsTrue(Clamp<RefNumeric<float>>(9f, 3f, 7f) == 7f);
+			}
+			{ // RefNumeric<double>
+				Assert.IsTrue(Clamp<RefNumeric<double>>(5d, 3d, 7d) == 5d);
+				Assert.IsTrue(Clamp<RefNumeric<double>>(3d, 5d, 7d) == 5d);
+				Assert.IsTrue(Clamp<RefNumeric<double>>(9d, 3d, 7d) == 7d);
+			}
+			{ // RefNumeric<decimal>
+				Assert.IsTrue(Clamp<RefNumeric<decimal>>(5m, 3m, 7m) == 5m);
+				Assert.IsTrue(Clamp<RefNumeric<decimal>>(3m, 5m, 7m) == 5m);
+				Assert.IsTrue(Clamp<RefNumeric<decimal>>(9m, 3m, 7m) == 7m);
 			}
 		}
 

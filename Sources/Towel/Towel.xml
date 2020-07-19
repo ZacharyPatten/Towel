@@ -184,61 +184,61 @@
             <summary>Contains generic static numerical constant values.</summary>
             <typeparam name="T">The generic numeric type of the constants.</typeparam>
         </member>
-        <member name="F:Towel.Constant`1.Zero">
+        <member name="P:Towel.Constant`1.Zero">
             <summary>Zero [0]</summary>
         </member>
-        <member name="F:Towel.Constant`1.One">
+        <member name="P:Towel.Constant`1.One">
             <summary>One [1]</summary>
         </member>
-        <member name="F:Towel.Constant`1.Two">
+        <member name="P:Towel.Constant`1.Two">
             <summary>Two [2]</summary>
         </member>
-        <member name="F:Towel.Constant`1.Three">
+        <member name="P:Towel.Constant`1.Three">
             <summary>Three [3]</summary>
         </member>
-        <member name="F:Towel.Constant`1.Four">
+        <member name="P:Towel.Constant`1.Four">
             <summary>Four [4]</summary>
         </member>
-        <member name="F:Towel.Constant`1.Ten">
+        <member name="P:Towel.Constant`1.Ten">
             <summary>Ten [10]</summary>
         </member>
-        <member name="F:Towel.Constant`1.NegativeOne">
+        <member name="P:Towel.Constant`1.NegativeOne">
             <summary>Negative One [-1]</summary>
         </member>
-        <member name="F:Towel.Constant`1.Pi">
+        <member name="P:Towel.Constant`1.Pi">
             <summary>π [3.14...]</summary>
         </member>
-        <member name="F:Towel.Constant`1.π">
+        <member name="P:Towel.Constant`1.π">
             <summary>π [3.14...]</summary>
         </member>
-        <member name="F:Towel.Constant`1.Pi2">
+        <member name="P:Towel.Constant`1.Pi2">
             <summary>2π [6.28...]</summary>
         </member>
-        <member name="F:Towel.Constant`1.π2">
+        <member name="P:Towel.Constant`1.π2">
             <summary>2π [6.28...]</summary>
         </member>
-        <member name="F:Towel.Constant`1.PiOver2">
+        <member name="P:Towel.Constant`1.PiOver2">
             <summary>π / 2</summary>
         </member>
-        <member name="F:Towel.Constant`1.πOver2">
+        <member name="P:Towel.Constant`1.πOver2">
             <summary>π / 2</summary>
         </member>
-        <member name="F:Towel.Constant`1.Pi3Over2">
+        <member name="P:Towel.Constant`1.Pi3Over2">
             <summary>3π/2</summary>
         </member>
-        <member name="F:Towel.Constant`1.π3Over2">
+        <member name="P:Towel.Constant`1.π3Over2">
             <summary>3π/2</summary>
         </member>
-        <member name="F:Towel.Constant`1.FourOverPiSquared">
+        <member name="P:Towel.Constant`1.FourOverPiSquared">
             <summary>4/(π^2)</summary>
         </member>
-        <member name="F:Towel.Constant`1.FourOverπSquared">
+        <member name="P:Towel.Constant`1.FourOverπSquared">
             <summary>4/(π^2)</summary>
         </member>
-        <member name="F:Towel.Constant`1.Negative4OverPiSquared">
+        <member name="P:Towel.Constant`1.Negative4OverPiSquared">
             <summary>-4/(π^2)</summary>
         </member>
-        <member name="F:Towel.Constant`1.Negative4OverπSquared">
+        <member name="P:Towel.Constant`1.Negative4OverπSquared">
             <summary>-4/(π^2)</summary>
         </member>
         <member name="M:Towel.Constant`1.ComputePi(System.Predicate{`0})">

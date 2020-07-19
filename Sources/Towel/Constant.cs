@@ -8,45 +8,398 @@ namespace Towel
 	/// <typeparam name="T">The generic numeric type of the constants.</typeparam>
 	public static class Constant<T>
 	{
+		internal static bool _zero_assigned;
+		internal static bool _one_assigned;
+		internal static bool _two_assigned;
+		internal static bool _three_assigned;
+		internal static bool _four_assigned;
+		internal static bool _ten_assigned;
+		internal static bool _negativeOne_assigned;
+		internal static bool _pi_assigned;
+		internal static bool _pi2_assigned;
+		internal static bool _piOver2_assigned;
+		internal static bool _pi3Over2_assigned;
+		internal static bool _fourOverPiSquared_assigned;
+		internal static bool _fourOverπSquared_assigned;
+		internal static bool _negative4OverPiSquared_assigned;
+		internal static bool _negative4OverπSquared_assigned;
+
+		internal static T _zero;
+		internal static T _one;
+		internal static T _two;
+		internal static T _three;
+		internal static T _four;
+		internal static T _ten;
+		internal static T _negativeOne;
+		internal static T _pi;
+		internal static T _pi2;
+		internal static T _piOver2;
+		internal static T _pi3Over2;
+		internal static T _fourOverPiSquared;
+		internal static T _fourOverπSquared;
+		internal static T _negative4OverPiSquared;
+		internal static T _negative4OverπSquared;
+
 		/// <summary>Zero [0]</summary>
-		public static readonly T Zero = Convert<int, T>(0);
+		public static T Zero
+		{
+			get
+			{
+				if (!_zero_assigned)
+				{
+					_zero = Convert<int, T>(0);
+					_zero_assigned = true;
+				}
+				return _zero;
+			}
+			set
+			{
+				_zero = value;
+				_zero_assigned = true;
+			}
+		}
+
 		/// <summary>One [1]</summary>
-		public static readonly T One = Convert<int, T>(1);
+		public static T One
+		{
+			get
+			{
+				if (!_one_assigned)
+				{
+					_one = Convert<int, T>(1);
+					_one_assigned = true;
+				}
+				return _one;
+			}
+			set
+			{
+				_one = value;
+				_one_assigned = true;
+			}
+		}
+
 		/// <summary>Two [2]</summary>
-		public static readonly T Two = Convert<int, T>(2);
+		public static T Two
+		{
+			get
+			{
+				if (!_two_assigned)
+				{
+					_two = Convert<int, T>(2);
+					_two_assigned = true;
+				}
+				return _two;
+			}
+			set
+			{
+				_two = value;
+				_two_assigned = true;
+			}
+		}
+
 		/// <summary>Three [3]</summary>
-		public static readonly T Three = Convert<int, T>(3);
+		public static T Three
+		{
+			get
+			{
+				if (!_three_assigned)
+				{
+					_three = Convert<int, T>(3);
+					_three_assigned = true;
+				}
+				return _three;
+			}
+			set
+			{
+				_three = value;
+				_three_assigned = true;
+			}
+		}
+
 		/// <summary>Four [4]</summary>
-		public static readonly T Four = Convert<int, T>(4);
+		public static T Four
+		{
+			get
+			{
+				if (!_four_assigned)
+				{
+					_four = Convert<int, T>(4);
+					_four_assigned = true;
+				}
+				return _four;
+			}
+			set
+			{
+				_four = value;
+				_four_assigned = true;
+			}
+		}
+
 		/// <summary>Ten [10]</summary>
-		public static readonly T Ten = Convert<int, T>(10);
+		public static T Ten
+		{
+			get
+			{
+				if (!_ten_assigned)
+				{
+					_ten = Convert<int, T>(10);
+					_ten_assigned = true;
+				}
+				return _ten;
+			}
+			set
+			{
+				_ten = value;
+				_ten_assigned = true;
+			}
+		}
+
 		/// <summary>Negative One [-1]</summary>
-		public static readonly T NegativeOne = Convert<int, T>(-1);
+		public static T NegativeOne
+		{
+			get
+			{
+				if (!_negativeOne_assigned)
+				{
+					_negativeOne = Convert<int, T>(-1);
+					_negativeOne_assigned = true;
+				}
+				return _negativeOne;
+			}
+			set
+			{
+				_negativeOne = value;
+				_negativeOne_assigned = true;
+			}
+		}
 
 		/// <summary>π [3.14...]</summary>
-		public static readonly T Pi = ComputePi();
+		public static T Pi
+		{
+			get
+			{
+				if (!_pi_assigned)
+				{
+					_pi = ComputePi();
+					_pi_assigned = true;
+				}
+				return _pi;
+			}
+			set
+			{
+				_pi = value;
+				_pi_assigned = true;
+			}
+		}
+
 		/// <summary>π [3.14...]</summary>
-		public static readonly T π = Pi;
+		public static T π
+		{
+			get
+			{
+				if (!_pi_assigned)
+				{
+					_pi = ComputePi();
+					_pi_assigned = true;
+				}
+				return _pi;
+			}
+			set
+			{
+				_pi = value;
+				_pi_assigned = true;
+			}
+		}
+
 		/// <summary>2π [6.28...]</summary>
-		public static readonly T Pi2 = Multiplication(Two, Pi);
+		public static T Pi2
+		{
+			get
+			{
+				if (!_pi2_assigned)
+				{
+					_pi2 = Multiplication(Two, Pi);
+					_pi2_assigned = true;
+				}
+				return _pi2;
+			}
+			set
+			{
+				_pi2 = value;
+				_pi2_assigned = true;
+			}
+		}
+
 		/// <summary>2π [6.28...]</summary>
-		public static readonly T π2 = Pi2;
+		public static T π2
+		{
+			get
+			{
+				if (!_pi2_assigned)
+				{
+					_pi2 = Multiplication(Two, Pi);
+					_pi2_assigned = true;
+				}
+				return _pi2;
+			}
+			set
+			{
+				_pi2 = value;
+				_pi2_assigned = true;
+			}
+		}
+
 		/// <summary>π / 2</summary>
-		public static readonly T PiOver2 = Division(Pi, Two);
+		public static T PiOver2
+		{
+			get
+			{
+				if (!_piOver2_assigned)
+				{
+					_piOver2 = Division(Pi, Two);
+					_piOver2_assigned = true;
+				}
+				return _piOver2;
+			}
+			set
+			{
+				_piOver2 = value;
+				_piOver2_assigned = true;
+			}
+		}
+
 		/// <summary>π / 2</summary>
-		public static readonly T πOver2 = PiOver2;
+		public static T πOver2
+		{
+			get
+			{
+				if (!_piOver2_assigned)
+				{
+					_piOver2 = Division(Pi, Two);
+					_piOver2_assigned = true;
+				}
+				return _piOver2;
+			}
+			set
+			{
+				_piOver2 = value;
+				_piOver2_assigned = true;
+			}
+		}
+
 		/// <summary>3π/2</summary>
-		public static readonly T Pi3Over2 = Division(Multiplication(Three, Pi), Two);
+		public static T Pi3Over2
+		{
+			get
+			{
+				if (!_pi3Over2_assigned)
+				{
+					_pi3Over2 = Division(Multiplication(Three, Pi), Two);
+					_pi3Over2_assigned = true;
+				}
+				return _pi3Over2;
+			}
+			set
+			{
+				_pi3Over2 = value;
+				_pi3Over2_assigned = true;
+			}
+		}
+
 		/// <summary>3π/2</summary>
-		public static readonly T π3Over2 = Pi3Over2;
+		public static T π3Over2
+		{
+			get
+			{
+				if (!_pi3Over2_assigned)
+				{
+					_pi3Over2 = Division(Multiplication(Three, Pi), Two);
+					_pi3Over2_assigned = true;
+				}
+				return _pi3Over2;
+			}
+			set
+			{
+				_pi3Over2 = value;
+				_pi3Over2_assigned = true;
+			}
+		}
+
 		/// <summary>4/(π^2)</summary>
-		public static readonly T FourOverPiSquared = Division(Multiplication(Three, Pi), Two);
+		public static T FourOverPiSquared
+		{
+			get
+			{
+				if (!_fourOverPiSquared_assigned)
+				{
+					_fourOverPiSquared = Division(Multiplication(Three, Pi), Two);
+					_fourOverPiSquared_assigned = true;
+				}
+				return _fourOverPiSquared;
+			}
+			set
+			{
+				_fourOverPiSquared = value;
+				_fourOverPiSquared_assigned = true;
+			}
+		}
+
 		/// <summary>4/(π^2)</summary>
-		public static readonly T FourOverπSquared = FourOverPiSquared;
+		public static T FourOverπSquared
+		{
+			get
+			{
+				if (!_fourOverPiSquared_assigned)
+				{
+					_fourOverPiSquared = Division(Multiplication(Three, Pi), Two);
+					_fourOverPiSquared_assigned = true;
+				}
+				return _fourOverPiSquared;
+			}
+			set
+			{
+				_fourOverPiSquared = value;
+				_fourOverPiSquared_assigned = true;
+			}
+		}
+
 		/// <summary>-4/(π^2)</summary>
-		public static readonly T Negative4OverPiSquared = Negation(FourOverPiSquared);
+		public static T Negative4OverPiSquared
+		{
+			get
+			{
+				if (!_negative4OverPiSquared_assigned)
+				{
+					_negative4OverPiSquared = Negation(FourOverPiSquared);
+					_negative4OverPiSquared_assigned = true;
+				}
+				return _negative4OverPiSquared;
+			}
+			set
+			{
+				_negative4OverPiSquared = value;
+				_negative4OverPiSquared_assigned = true;
+			}
+		}
+
 		/// <summary>-4/(π^2)</summary>
-		public static readonly T Negative4OverπSquared = Negative4OverPiSquared;
+		public static T Negative4OverπSquared
+		{
+			get
+			{
+				if (!_negative4OverPiSquared_assigned)
+				{
+					_negative4OverPiSquared = Negation(FourOverPiSquared);
+					_negative4OverPiSquared_assigned = true;
+				}
+				return _negative4OverPiSquared;
+			}
+			set
+			{
+				_negative4OverPiSquared = value;
+				_negative4OverPiSquared_assigned = true;
+			}
+		}
 
 		#region Pi
 
