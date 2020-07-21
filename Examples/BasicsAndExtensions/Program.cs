@@ -213,7 +213,7 @@ namespace BasicsAndExtensions
 				Console.Write("    XML Documentation On Towel.Syntax:");
 				Console.WriteLine(typeof(Towel.Syntax).GetDocumentation());
 				Console.Write("    XML Documentation On Towel.Constant<float>.Pi:");
-				Console.WriteLine(typeof(Constant<float>).GetField(nameof(Constant<float>.Pi)).GetDocumentation());
+				Console.WriteLine(typeof(Constant<float>).GetProperty(nameof(Constant<float>.Pi)).GetDocumentation());
 			}
 			#endregion
 
