@@ -11,6 +11,7 @@ namespace Towel_Benchmarking
 			BenchmarkRunner.Run(typeof(Permute_Benchmarks));
 			BenchmarkRunner.Run(typeof(Sort_Benchmarks));
 			BenchmarkRunner.Run(typeof(DataStructures_Benchmarks));
+            BenchmarkRunner.Run(typeof(MatrixBenchmark));
 		}
 	}
 }
