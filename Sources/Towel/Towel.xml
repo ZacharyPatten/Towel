@@ -16849,13 +16849,13 @@
         <member name="M:Towel.Mathematics.Matrix`1.Power(Towel.Mathematics.Matrix{`0},System.Int32,Towel.Mathematics.Matrix{`0}@)">
             <summary>Applies a power to a square matrix.</summary>
             <param name="a">The matrix to be powered by.</param>
-            <param name="b">The power to apply to the matrix.</param>
-            <param name="c">The resulting matrix of the power operation.</param>
+            <param name="power">The power to apply to the matrix.</param>
+            <param name="destination">The resulting matrix of the power operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Power(Towel.Mathematics.Matrix{`0},System.Int32)">
             <summary>Applies a power to a square matrix.</summary>
             <param name="a">The matrix to be powered by.</param>
-            <param name="b">The power to apply to the matrix.</param>
+            <param name="power">The power to apply to the matrix.</param>
             <returns>The resulting matrix of the power operation.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.op_ExclusiveOr(Towel.Mathematics.Matrix{`0},System.Int32)">
