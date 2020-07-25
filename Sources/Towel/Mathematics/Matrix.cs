@@ -1201,10 +1201,10 @@ namespace Towel.Mathematics
 				throw new MathematicsException("Invalid power (!" + nameof(a) + ".IsSquare)");
 			}
 			if (power < 0)
-            {
-                Power(a.Inverse(), -power, ref destination);
-                return;
-            }
+			{
+				Power(a.Inverse(), -power, ref destination);
+				return;
+			}
 			if (power == 0)
 			{
 				if (!(destination is null) && destination.IsSquare)
@@ -1234,12 +1234,12 @@ namespace Towel.Mathematics
 			{
 				destination = a.Clone();
 			}
-            if (power == 1)
-                return;
+			if (power == 1)
+				return;
 			if (squareMatrixFactory is null || squareMatrixFactory.DiagonalLength != a._rows)
-                squareMatrixFactory = new SquareMatrixFactory(a._rows);
-            PowerPositiveSafe(a, power, ref destination);
-        }
+				squareMatrixFactory = new SquareMatrixFactory(a._rows);
+			PowerPositiveSafe(a, power, ref destination);
+		}
 
 		/// <summary>Applies a power to a square matrix.</summary>
 		/// <param name="a">The matrix to be powered by.</param>
