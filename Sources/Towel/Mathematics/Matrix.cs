@@ -1135,59 +1135,59 @@ namespace Towel.Mathematics
 
 		#region Power (Matrix ^ Scalar)
 
-        private class SquareMatrixFactory
-        {
-            private List<Matrix<T>> cache = new List<Matrix<T>>();
-            private int pointer = 0;
-            public readonly int DiagonalLength;
-            public SquareMatrixFactory(int diagonalLength)
-            {
-                this.DiagonalLength = diagonalLength;
-            }
+		private class SquareMatrixFactory
+		{
+			private List<Matrix<T>> cache = new List<Matrix<T>>();
+			private int pointer = 0;
+			public readonly int DiagonalLength;
+			public SquareMatrixFactory(int diagonalLength)
+			{
+				this.DiagonalLength = diagonalLength;
+			}
 
-            public Matrix<T> Get()
-            {
-                if (pointer == cache.Count)
-                    cache.Add(new Matrix<T>(DiagonalLength, DiagonalLength));
-                var res = cache[pointer];
-                pointer++;
-                return res;
-            }
+			public Matrix<T> Get()
+			{
+				if (pointer == cache.Count)
+					cache.Add(new Matrix<T>(DiagonalLength, DiagonalLength));
+				var res = cache[pointer];
+				pointer++;
+				return res;
+			}
 
-            public void Return()
-            {
-                pointer--;
-            }
-        }
+			public void Return()
+			{
+				pointer--;
+			}
+		}
 
 		[ThreadStatic]
-        private static SquareMatrixFactory squareMatrixFactory;
+		private static SquareMatrixFactory squareMatrixFactory;
 
 
-        // Approach to
-        // needed: a ^ (-13)
+		// Approach to
+		// needed: a ^ (-13)
 		// b = a ^ -1
 		// needed: b ^ 13
 		// mp2 = b ^ 6 (goto beginning)
 		// needed: mp2 * mp2 * b
 		// that's it, works for O(log(power))
-        internal static void PowerPositiveSafe(Matrix<T> a, int power, ref Matrix<T> destination)
-        {
-            var dest = squareMatrixFactory.Get();
-            Power(a, power / 2, ref dest);
-            var mp2 = squareMatrixFactory.Get();
-            Multiply(dest, dest, ref mp2);
-            if (power % 2 == 1)
-            {
-                var tmp = squareMatrixFactory.Get();
-                Multiply(mp2, dest, ref tmp);
-                mp2 = tmp;
-            }
-            destination = mp2;
-            squareMatrixFactory.Return();
-            squareMatrixFactory.Return();
-            squareMatrixFactory.Return();
-        }
+		internal static void PowerPositiveSafe(Matrix<T> a, int power, ref Matrix<T> destination)
+		{
+			var dest = squareMatrixFactory.Get();
+			Power(a, power / 2, ref dest);
+			var mp2 = squareMatrixFactory.Get();
+			Multiply(dest, dest, ref mp2);
+			if (power % 2 == 1)
+			{
+				var tmp = squareMatrixFactory.Get();
+				Multiply(mp2, dest, ref tmp);
+				mp2 = tmp;
+			}
+			destination = mp2;
+			squareMatrixFactory.Return();
+			squareMatrixFactory.Return();
+			squareMatrixFactory.Return();
+		}
 
 		/// <summary>Applies a power to a square matrix.</summary>
 		/// <param name="a">The matrix to be powered by.</param>
