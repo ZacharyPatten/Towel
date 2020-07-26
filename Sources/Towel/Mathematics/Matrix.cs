@@ -1174,7 +1174,7 @@ namespace Towel.Mathematics
 		internal static void PowerPositiveSafe(Matrix<T> a, int power, ref Matrix<T> destination)
 		{
 			var dest = squareMatrixFactory.Get();
-            Power(a, power / 2, ref dest);
+			Power(a, power / 2, ref dest);
 			var mp2 = squareMatrixFactory.Get();
 			Multiply(dest, dest, ref mp2);
 			if (power % 2 == 1)
@@ -1182,10 +1182,10 @@ namespace Towel.Mathematics
 				var tmp = squareMatrixFactory.Get();
 				Multiply(mp2, a, ref tmp);
 				mp2 = tmp;
-                squareMatrixFactory.Return();
+				squareMatrixFactory.Return();
 			}
 			destination = mp2;
-            squareMatrixFactory.Return();
+			squareMatrixFactory.Return();
 			squareMatrixFactory.Return();
 		}
 
