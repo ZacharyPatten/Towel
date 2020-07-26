@@ -704,57 +704,111 @@ namespace Towel_Testing.Mathematics
 					{ 1, 2, },
 					{ 3, 4, },
 				};
-				Matrix<int> B = new int[,]
+				Matrix<int> A3 = new int[,]
 				{
 					{ 37,  54, },
 					{ 81, 118, },
 				};
-				Assert.AreEqual(A ^ 3, B);
+                Matrix<int> A5 = new int[,]
+                {
+                    { 1069,  1558, },
+                    { 2337,  3406, },
+                };
+                Matrix<int> Am6 = new int[,]
+                {
+                    { 169, -70, },
+                    { -70,  29, },
+                };
+                var act3 = A ^ 3;
+                var act5 = A ^ 5;
+                var actm6 = A ^ (-6);
+				Assert.AreEqual(A3, act3);
+                Assert.AreEqual(A5, act5);
+                Assert.AreEqual(Am6, actm6);
 			}
 
 			// float
 			{
-				Matrix<float> A = new float[,]
-				{
-					{ 1f, 2f, },
-					{ 3f, 4f, },
-				};
-				Matrix<float> B = new float[,]
-				{
-					{ 37f,  54f, },
-					{ 81f, 118f, },
-				};
-				Assert.AreEqual(A ^ 3, B);
+                Matrix<float> A = new float[,]
+                {
+                    { 1, 2, },
+                    { 3, 4, },
+                };
+                Matrix<float> A3 = new float[,]
+                {
+                    { 37,  54, },
+                    { 81, 118, },
+                };
+                Matrix<float> A5 = new float[,]
+                {
+                    { 1069,  1558, },
+                    { 2337,  3406, },
+                };
+                var act3 = A ^ 3;
+                var act5 = A ^ 5;
+                var actm6 = A ^ (-6);
+                var act6 = A ^ 6;
+                Assert.AreEqual(A3, act3);
+                Assert.AreEqual(A5, act5);
+                var I = Matrix<float>.FactoryIdentity(2, 2);
+                var multiplied = actm6 * act6;
+                Assert.AreEqual(I, multiplied);
 			}
 
 			// double
 			{
-				Matrix<double> A = new double[,]
-				{
-					{ 1d, 2d, },
-					{ 3d, 4d, },
-				};
-				Matrix<double> B = new double[,]
-				{
-					{ 37d,  54d, },
-					{ 81d, 118d, },
-				};
-				Assert.AreEqual(A ^ 3, B);
+                Matrix<double> A = new double[,]
+                {
+                    { 1, 2, },
+                    { 3, 4, },
+                };
+                Matrix<double> A3 = new double[,]
+                {
+                    { 37,  54, },
+                    { 81, 118, },
+                };
+                Matrix<double> A5 = new double[,]
+                {
+                    { 1069,  1558, },
+                    { 2337,  3406, },
+                };
+                var act3 = A ^ 3;
+                var act5 = A ^ 5;
+                var actm6 = A ^ (-6);
+                var act6 = A ^ 6;
+                Assert.AreEqual(A3, act3);
+                Assert.AreEqual(A5, act5);
+                var I = Matrix<double>.FactoryIdentity(2, 2);
+                var multiplied = actm6 * act6;
+                Assert.AreEqual(I, multiplied);
 			}
 
 			// decimal
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
-					{ 1m, 2m, },
-					{ 3m, 4m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
-					{ 37m,  54m, },
-					{ 81m, 118m, },
-				};
-				Assert.AreEqual(A ^ 3, B);
+                Matrix<decimal> A = new decimal[,]
+                {
+                    { 1, 2, },
+                    { 3, 4, },
+                };
+                Matrix<decimal> A3 = new decimal[,]
+                {
+                    { 37,  54, },
+                    { 81, 118, },
+                };
+                Matrix<decimal> A5 = new decimal[,]
+                {
+                    { 1069,  1558, },
+                    { 2337,  3406, },
+                };
+                var act3 = A ^ 3;
+                var act5 = A ^ 5;
+                var actm6 = A ^ (-6);
+                var act6 = A ^ 6;
+                Assert.AreEqual(A3, act3);
+                Assert.AreEqual(A5, act5);
+                var I = Matrix<decimal>.FactoryIdentity(2, 2);
+                var multiplied = actm6 * act6;
+                Assert.AreEqual(I, multiplied);
 			}
 
 			// Exceptions
