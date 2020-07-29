@@ -172,7 +172,7 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("    Random.NextLong(): " + random.NextLong());
 				Console.WriteLine("    Random.NextDateTime(): " + random.NextDateTime());
-				Console.WriteLine("    Random.NextAlphaNumericString(15): " + random.NextAlphaNumericString(15));
+				Console.WriteLine("    Random.NextAlphaNumericString(15): " + random.NextEnglishAlphaNumericString(15));
 				Console.WriteLine("    Random.NextChar('a', 'z'): " + random.NextChar('a', 'z'));
 				Console.WriteLine("    Random.NextDecimal(): " + random.NextDecimal());
 				Console.WriteLine("    Random.NextTimeSpan(): " + random.NextTimeSpan());

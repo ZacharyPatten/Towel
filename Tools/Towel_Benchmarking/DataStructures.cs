@@ -50,8 +50,8 @@ namespace Towel_Benchmarking
 						data[i] = new Person()
 						{
 							Id = Guid.NewGuid(),
-							FirstName = random.NextAlphabeticString(random.Next(5, 11)),
-							LastName = random.NextAlphabeticString(random.Next(5, 11)),
+							FirstName = random.NextEnglishAlphabeticString(random.Next(5, 11)),
+							LastName = random.NextEnglishAlphabeticString(random.Next(5, 11)),
 							DateOfBirth = random.NextDateTime(minimumBirthDate, maximumBirthDate)
 						};
 					}
