@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Towel.Measurements;
@@ -1134,41 +1135,96 @@ namespace Towel.Mathematics
 
 		#region Power (Matrix ^ Scalar)
 
+		private class SquareMatrixFactory
+		{
+			private List<Matrix<T>> cache = new List<Matrix<T>>();
+			private int pointer = 0;
+			public readonly int DiagonalLength;
+			public SquareMatrixFactory(int diagonalLength)
+			{
+				this.DiagonalLength = diagonalLength;
+			}
+
+			public Matrix<T> Get()
+			{
+				if (pointer == cache.Count)
+					cache.Add(new Matrix<T>(DiagonalLength, DiagonalLength));
+				var res = cache[pointer];
+				pointer++;
+				return res;
+			}
+
+			public void Return()
+			{
+				pointer--;
+			}
+		}
+
+		[ThreadStatic]
+		private static SquareMatrixFactory squareMatrixFactory;
+
+
+		// Approach to
+		// needed: a ^ (-13)
+		// b = a ^ -1
+		// needed: b ^ 13
+		// mp2 = b ^ 6 (goto beginning)
+		// needed: mp2 * mp2 * b
+		// that's it, works for O(log(power))
+		internal static void PowerPositiveSafe(Matrix<T> a, int power, ref Matrix<T> destination)
+		{
+			var dest = squareMatrixFactory.Get();
+			Power(a, power / 2, ref dest);
+			var mp2 = squareMatrixFactory.Get();
+			Multiply(dest, dest, ref mp2);
+			if (power % 2 == 1)
+			{
+				var tmp = squareMatrixFactory.Get();
+				Multiply(mp2, a, ref tmp);
+				mp2 = tmp;
+				squareMatrixFactory.Return();
+			}
+			destination = mp2;
+			squareMatrixFactory.Return();
+			squareMatrixFactory.Return();
+		}
+
 		/// <summary>Applies a power to a square matrix.</summary>
 		/// <param name="a">The matrix to be powered by.</param>
-		/// <param name="b">The power to apply to the matrix.</param>
-		/// <param name="c">The resulting matrix of the power operation.</param>
-		public static void Power(Matrix<T> a, int b, ref Matrix<T> c)
+		/// <param name="power">The power to apply to the matrix.</param>
+		/// <param name="destination">The resulting matrix of the power operation.</param>
+		public static void Power(Matrix<T> a, int power, ref Matrix<T> destination)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
 			{
 				throw new MathematicsException("Invalid power (!" + nameof(a) + ".IsSquare)");
 			}
-			if (b < 0)
+			if (power < 0)
 			{
-				throw new ArgumentOutOfRangeException(nameof(b), b, "!(" + nameof(b) + " >= 0)");
+				Power(a.Inverse(), -power, ref destination);
+				return;
 			}
-			if (b == 0)
+			if (power == 0)
 			{
-				if (!(c is null) && c._matrix.Length == a._matrix.Length)
+				if (!(destination is null) && destination.IsSquare)
 				{
-					c._rows = a._rows;
-					c._columns = a._columns;
-					Format(c, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
+					destination._rows = a._rows;
+					destination._columns = a._columns;
+					Format(destination, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
 				}
 				else
 				{
-					c = Matrix<T>.FactoryIdentity(a._rows, a._columns);
+					destination = Matrix<T>.FactoryIdentity(a._rows, a._columns);
 				}
 				return;
 			}
-			if (!(c is null) && c._matrix.Length == a._matrix.Length)
+			if (!(destination is null) && destination._matrix.Length == a._matrix.Length)
 			{
-				c._rows = a._rows;
-				c._columns = a._columns;
+				destination._rows = a._rows;
+				destination._columns = a._columns;
 				T[] A = a._matrix;
-				T[] C = c._matrix;
+				T[] C = destination._matrix;
 				for (int i = 0; i < a._matrix.Length; i++)
 				{
 					C[i] = A[i];
@@ -1176,26 +1232,24 @@ namespace Towel.Mathematics
 			}
 			else
 			{
-				c = a.Clone();
+				destination = a.Clone();
 			}
-			Matrix<T> d = new Matrix<T>(a._rows, a._columns, a._matrix.Length);
-			for (int i = 0; i < b; i++)
-			{
-				Multiply(c, a, ref d);
-				Matrix<T> temp = d;
-				d = c;
-				c = d;
-			}
-		}
+			if (power == 1)
+				return;
+			if (squareMatrixFactory is null || squareMatrixFactory.DiagonalLength != a._rows)
+				squareMatrixFactory = new SquareMatrixFactory(a._rows);
+			PowerPositiveSafe(a, power, ref destination);
+            destination = destination.Clone();
+        }
 
 		/// <summary>Applies a power to a square matrix.</summary>
 		/// <param name="a">The matrix to be powered by.</param>
-		/// <param name="b">The power to apply to the matrix.</param>
+		/// <param name="power">The power to apply to the matrix.</param>
 		/// <returns>The resulting matrix of the power operation.</returns>
-		public static Matrix<T> Power(Matrix<T> a, int b)
+		public static Matrix<T> Power(Matrix<T> a, int power)
 		{
 			Matrix<T> c = null;
-			Power(a, b, ref c);
+			Power(a, power, ref c);
 			return c;
 		}
 
@@ -2393,7 +2447,7 @@ namespace Towel.Mathematics
 			return this == b;
 		}
 
-		#endregion
+        #endregion
 
 		#region Equal (+leniency)
 
