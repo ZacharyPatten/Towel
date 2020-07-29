@@ -7,6 +7,38 @@ namespace Towel_Testing
 {
 	[TestClass] public class TowelDotNetExtensions_Testing
 	{
+		#region string
+
+		[TestMethod] public void string_Replace()
+		{
+			Assert.AreEqual("aaa bbb c ddd e", "a b c d e".Replace(("a", "aaa"), ("b", "bbb"), ("d", "ddd")));
+
+			Assert.ThrowsException<ArgumentNullException>(() => Extensions.Replace(null, ("a", "b")));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(null));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace((null, "a")));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(("a", null)));
+
+			Assert.ThrowsException<ArgumentException>(() => string.Empty.Replace());
+			Assert.ThrowsException<ArgumentException>(() => string.Empty.Replace(("a", "b"), ("a", "c")));
+			Assert.ThrowsException<ArgumentException>(() => string.Empty.Replace((string.Empty, "a")));
+		}
+
+		[TestMethod] public void string_ReplaceCached()
+		{
+			Assert.AreEqual("aaa bbb c ddd e", "a b c d e".ReplaceCached(("a", "aaa"), ("b", "bbb"), ("d", "ddd")));
+
+			Assert.ThrowsException<ArgumentNullException>(() => Extensions.ReplaceCached(null, ("a", "b")));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.ReplaceCached(null));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.ReplaceCached((null, "a")));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.ReplaceCached(("a", null)));
+
+			Assert.ThrowsException<ArgumentException>(() => string.Empty.ReplaceCached());
+			Assert.ThrowsException<ArgumentException>(() => string.Empty.ReplaceCached(("a", "b"), ("a", "c")));
+			Assert.ThrowsException<ArgumentException>(() => string.Empty.ReplaceCached((string.Empty, "a")));
+		}
+
+		#endregion
+
 		#region Decimal Testing
 
 		[TestMethod] public void Decimal_ToEnglishWords()

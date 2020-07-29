@@ -16,6 +16,20 @@ namespace BasicsAndExtensions
 			Console.WriteLine("============================================");
 			Console.WriteLine();
 
+			#region Multi String Replace
+			{
+				Console.WriteLine("  String Replace (multi) ---------------------");
+				Console.WriteLine();
+
+				string original = "a b c d";
+				string modified = original.Replace(("a", "aaa"), ("c", "ccc"));
+
+				Console.WriteLine("    original: \"a b c d\"");
+				Console.WriteLine("    original.Replace((\"a\", \"aaa\"), (\"c\", \"ccc\"): \"" + modified + "\"");
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region TryParse
 			{
 				TryParse("123.4",   out double a);
