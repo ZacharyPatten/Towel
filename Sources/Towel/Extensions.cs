@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
@@ -24,6 +25,17 @@ namespace Towel
 			return @string;
 		}
 
+		/// <summary>Applies all replacement rules to a string</summary>
+		/// <param name="string">The string to sequentially apply the replacement rules</param>
+		/// <param name="rules">An IEnumerable of pairs of rules</param>
+		/// <returns>New string with those replacement rules applied</returns>
+		public static string Replace(this string @string, IEnumerable<(string oldPattern, string newPattern)> rules)
+		{
+			foreach (var rule in rules)
+				@string = @string.Replace(rule.oldPattern, rule.newPattern);
+			return @string;
+		}
+
 		/// <summary>Checks if a string contains any of a collections on characters.</summary>
 		/// <param name="string">The string to see if it contains any of the specified characters.</param>
 		/// <param name="chars">The characters to check if the string contains any of them.</param>
@@ -37,7 +49,7 @@ namespace Towel
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
 			}
 
-			ISet<char> set = new SetHashLinked<char>();
+            DataStructures.ISet<char> set = new SetHashLinked<char>();
 			foreach (char c in chars)
 			{
 				set.Add(c);
