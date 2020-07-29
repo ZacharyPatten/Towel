@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
@@ -29,7 +28,7 @@ namespace Towel
 		/// <param name="string">The string to sequentially apply the replacement rules</param>
 		/// <param name="rules">An IEnumerable of pairs of rules</param>
 		/// <returns>New string with those replacement rules applied</returns>
-		public static string Replace(this string @string, IEnumerable<(string oldPattern, string newPattern)> rules)
+		public static string Replace(this string @string, System.Collections.Generic.IEnumerable<(string oldPattern, string newPattern)> rules)
 		{
 			foreach (var rule in rules)
 				@string = @string.Replace(rule.oldPattern, rule.newPattern);

@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Towel;
 using Towel.DataStructures;
 
@@ -16,7 +15,7 @@ namespace Towel_Testing
 			Assert.AreEqual("run go swim".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "ran went swam");
 			Assert.AreEqual("quack".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "quack");
 
-			IEnumerable<(string, string)> someIEnum = new[] {("run", "ran"), ("swim", "swam"), ("go", "went")};
+			System.Collections.Generic.IEnumerable<(string, string)> someIEnum = new[] {("run", "ran"), ("swim", "swam"), ("go", "went")};
 			Assert.AreEqual("run go swim".Replace(someIEnum), "ran went swam");
 		}
 
@@ -85,19 +84,19 @@ namespace Towel_Testing
 			{ // test shifting from maxValue
 				int i = 999;
 				TestingRandom random = new TestingRandom(() => i--);
-                Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(5, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from 0
 				TestingRandom random = new TestingRandom(() => 0);
-                Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from inner value
 				TestingRandom random = new TestingRandom(() => 7);
-                Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
@@ -105,7 +104,7 @@ namespace Towel_Testing
 				Random random = new Random();
 				for (int i = 0; i < 10000; i++)
 				{
-                    Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+					ISet<int> set = new SetHashLinked<int>();
 					random.NextUnique(5, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 					Assert.IsTrue(set.Count == 5);
 				}
@@ -126,19 +125,19 @@ namespace Towel_Testing
 			{ // test shifting from maxValue
 				int i = 999;
 				TestingRandom random = new TestingRandom(() => i--);
-                Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(100, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from 0
 				TestingRandom random = new TestingRandom(() => 0);
-                Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from inner value
 				TestingRandom random = new TestingRandom(() => 7);
-                Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
@@ -146,7 +145,7 @@ namespace Towel_Testing
 				Random random = new Random();
 				for (int i = 0; i < 10000; i++)
 				{
-                    Towel.DataStructures.ISet<int> set = new SetHashLinked<int>();
+					ISet<int> set = new SetHashLinked<int>();
 					random.NextUnique(100, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 					Assert.IsTrue(set.Count == 100);
 				}
