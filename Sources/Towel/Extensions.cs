@@ -33,7 +33,6 @@ namespace Towel
 		private static bool StringMatchesLinkList(ListLinked<char>.Node since, ref string toMatch, out ListLinked<char>.Node firstNotToMatch)
 		{
 			var id = 0;
-			ListLinked<char>.Node last = null;
 			while (since is {} && id < toMatch.Length)
 			{
 				if (since.Value != toMatch[id])
@@ -42,13 +41,18 @@ namespace Towel
 					return false;
 				}
 				id++;
-				last = since;
 				since = since.Next;
 			}
 			firstNotToMatch = since;
 			return true;
 		}
 
+		/// <summary>
+		///   f g h
+		/// a b \/ c d
+		/// =>
+		/// a b f g h c d
+		/// </summary>
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private static void ReplaceInLinkedList(ListLinked<char> dstAndSrc, ref string oldPattern, ref string newPattern)
 		{
@@ -61,6 +65,8 @@ namespace Towel
 					curr = firstNotToMatch;
 					for (int cid = 0; cid < newPattern.Length; cid++)
 					{
+						// TODO: actually, we could use already created nodes instead
+						// of creating new ones. Also, we surely need a factory for that
 						if (cid == 0)
 							prev.Value = newPattern[cid];
 						else
