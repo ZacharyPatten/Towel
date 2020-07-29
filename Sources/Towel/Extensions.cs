@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using Towel.DataStructures;
@@ -13,15 +14,81 @@ namespace Towel
 	{
 		#region System.String
 
+		private static ListLinked<char> StringToLinkedList(string @string)
+		{
+			var res = new ListLinked<char>();
+			foreach (var c in @string)
+				res.Add(c);
+			return res;
+		}
+
+		private static string LinkedListToString(ListLinked<char> list)
+		{
+			var sb = new StringBuilder(list.Count);
+			foreach (var el in list)
+				sb.Append(el);
+			return sb.ToString();
+		}
+
+		private static bool StringMatchesLinkList(ListLinked<char>.Node since, ref string toMatch, out ListLinked<char>.Node firstNotToMatch)
+		{
+			var id = 0;
+			ListLinked<char>.Node last = null;
+			while (since is {} && id < toMatch.Length)
+			{
+				if (since.Value != toMatch[id])
+				{
+					firstNotToMatch = null;
+					return false;
+				}
+				id++;
+				last = since;
+				since = since.Next;
+			}
+			firstNotToMatch = since;
+			return true;
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		private static void ReplaceInLinkedList(ListLinked<char> dstAndSrc, ref string oldPattern, ref string newPattern)
+		{
+			var curr = dstAndSrc._head;
+			while (curr is {})
+			{
+				if (StringMatchesLinkList(curr, ref oldPattern, out var firstNotToMatch))
+				{
+					var prev = curr;
+					curr = firstNotToMatch;
+					for (int cid = 0; cid < newPattern.Length; cid++)
+					{
+						if (cid == 0)
+							prev.Value = newPattern[cid];
+						else
+						{
+							var newNode = new ListLinked<char>.Node(newPattern[cid]);
+							prev.Next = newNode;
+							prev = prev.Next;
+						}
+					}
+					prev.Next = curr;
+				}
+				else
+				{
+					curr = curr.Next;
+				}
+			}
+		}
+
 		/// <summary>Applies all replacement rules to a string</summary>
 		/// <param name="string">The string to sequentially apply the replacement rules</param>
 		/// <param name="rules">The array of pair of strings where the first one is replaced by the second one</param>
 		/// <returns>New string with those replacement rules applied</returns>
 		public static string Replace(this string @string, params (string oldPattern, string newPattern)[] rules)
 		{
-			foreach (var rule in rules)
-				@string = @string.Replace(rule.oldPattern, rule.newPattern);
-			return @string;
+			var ll = StringToLinkedList(@string);
+			for (int i = 0; i < rules.Length; i++)
+				ReplaceInLinkedList(ll, ref rules[i].oldPattern, ref rules[i].newPattern);
+			return LinkedListToString(ll);
 		}
 
 		/// <summary>Applies all replacement rules to a string</summary>
@@ -30,9 +97,14 @@ namespace Towel
 		/// <returns>New string with those replacement rules applied</returns>
 		public static string Replace(this string @string, System.Collections.Generic.IEnumerable<(string oldPattern, string newPattern)> rules)
 		{
+			var ll = StringToLinkedList(@string);
 			foreach (var rule in rules)
-				@string = @string.Replace(rule.oldPattern, rule.newPattern);
-			return @string;
+			{
+				// TODO: how do we avoid Copying?
+				var ruleCopy = rule;
+				ReplaceInLinkedList(ll, ref ruleCopy.oldPattern, ref ruleCopy.newPattern);
+			}
+			return LinkedListToString(ll);
 		}
 
 		/// <summary>Checks if a string contains any of a collections on characters.</summary>
@@ -48,7 +120,7 @@ namespace Towel
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
 			}
 
-			ISet<char> set = new SetHashLinked<char>();
+			DataStructures.ISet<char> set = new SetHashLinked<char>();
 			foreach (char c in chars)
 			{
 				set.Add(c);

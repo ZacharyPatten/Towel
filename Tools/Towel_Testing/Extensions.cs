@@ -11,11 +11,14 @@ namespace Towel_Testing
 
 		[TestMethod] public void String_MultipleReplacing()
 		{
-			Assert.AreEqual("run go swim".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "ran went swam");
-			Assert.AreEqual("quack".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "quack");
+			AssertAreEqualReversed("towel".Replace(("wel", "rtoise")), "tortoise");
+			AssertAreEqualReversed("run go swim".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "ran went swam");
+			AssertAreEqualReversed("quack".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "quack");
+			AssertAreEqualReversed("quack".Replace(("q", "k")), "kuack");
+			AssertAreEqualReversed("quack".Replace(("qu", "12"), ("ck", "666")), "12a666");
 
 			System.Collections.Generic.IEnumerable<(string, string)> someIEnum = new[] {("run", "ran"), ("swim", "swam"), ("go", "went")};
-			Assert.AreEqual("run go swim".Replace(someIEnum), "ran went swam");
+			AssertAreEqualReversed("run go swim".Replace(someIEnum), "ran went swam");
 		}
 
 		public void AssertAreEqualReversed<A, B>(A actual, B expected)
