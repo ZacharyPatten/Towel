@@ -13,6 +13,17 @@ namespace Towel
 	{
 		#region System.String
 
+        /// <summary>Applies all replacement rules to a string</summary>
+        /// <param name="string">The string to sequentially apply the replacement rules</param>
+        /// <param name="rules">The array of pair of strings where the first one is replaced by the second one</param>
+        /// <returns>New string with those replacement rules applied</returns>
+        public static string Replace(this string @string, params (string oldPattern, string newPattern)[] rules)
+        {
+            foreach (var rule in rules)
+                @string = @string.Replace(rule.oldPattern, rule.newPattern);
+            return @string;
+        }
+
 		/// <summary>Checks if a string contains any of a collections on characters.</summary>
 		/// <param name="string">The string to see if it contains any of the specified characters.</param>
 		/// <param name="chars">The characters to check if the string contains any of them.</param>

@@ -9,28 +9,37 @@ namespace Towel_Testing
 	{
 		#region Decimal Testing
 
+        [TestMethod] public void String_MultipleReplacing()
+        {
+            Assert.AreEqual("run go swim".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "ran went swam");
+            Assert.AreEqual("quack".Replace(("run", "ran"), ("swim", "swam"), ("go", "went")), "quack");
+        }
+
+        public void AssertAreEqualReversed<A, B>(A actual, B expected)
+            => Assert.AreEqual(expected, actual);
+
 		[TestMethod] public void Decimal_ToEnglishWords()
 		{
-			Assert.IsTrue((        0m).ToEnglishWords() == "Zero");
-			Assert.IsTrue((        1m).ToEnglishWords() == "One");
-			Assert.IsTrue((       -1m).ToEnglishWords() == "Negative One");
-			Assert.IsTrue((        2m).ToEnglishWords() == "Two");
-			Assert.IsTrue((       -2m).ToEnglishWords() == "Negative Two");
-			Assert.IsTrue((      1.5m).ToEnglishWords() == "One And Five Tenths");
-			Assert.IsTrue((       69m).ToEnglishWords() == "Sixty-Nine");
-			Assert.IsTrue((      120m).ToEnglishWords() == "One Hundred Twenty");
-			Assert.IsTrue((     1300m).ToEnglishWords() == "One Thousand Three Hundred");
-			Assert.IsTrue((     7725m).ToEnglishWords() == "Seven Thousand Seven Hundred Twenty-Five");
-			Assert.IsTrue((       12m).ToEnglishWords() == "Twelve");
-			Assert.IsTrue((     1000m).ToEnglishWords() == "One Thousand");
-			Assert.IsTrue((    10000m).ToEnglishWords() == "Ten Thousand");
-			Assert.IsTrue((   100000m).ToEnglishWords() == "One Hundred Thousand");
-			Assert.IsTrue((  1000000m).ToEnglishWords() == "One Million");
-			Assert.IsTrue(( 10000000m).ToEnglishWords() == "Ten Million");
-			Assert.IsTrue((100000000m).ToEnglishWords() == "One Hundred Million");
-			Assert.IsTrue((   0.1234m).ToEnglishWords() == "One Thousand Two Hundred Thirty-Four Ten-Thousandths");
-			Assert.IsTrue((  -0.1234m).ToEnglishWords() == "Negative One Thousand Two Hundred Thirty-Four Ten-Thousandths");
-			Assert.IsTrue(decimal.MaxValue.ToEnglishWords() == "Seventy-Nine Octillion Two Hundred Twenty-Eight Septillion One Hundred Sixty-Two Sextillion Five Hundred Fourteen Quintillion Two Hundred Sixty-Four Quadrillion Three Hundred Thirty-Seven Trillion Five Hundred Ninety-Three Billion Five Hundred Forty-Three Million Nine Hundred Fifty Thousand Three Hundred Thirty-Five");
+            AssertAreEqualReversed((        0m).ToEnglishWords(), "Zero");
+            AssertAreEqualReversed((        1m).ToEnglishWords(), "One");
+            AssertAreEqualReversed((       -1m).ToEnglishWords(), "Negative One");
+            AssertAreEqualReversed((        2m).ToEnglishWords(), "Two");
+            AssertAreEqualReversed((       -2m).ToEnglishWords(), "Negative Two");
+            AssertAreEqualReversed((      1.5m).ToEnglishWords(), "One And Five Tenths");
+            AssertAreEqualReversed((       69m).ToEnglishWords(), "Sixty-Nine");
+            AssertAreEqualReversed((      120m).ToEnglishWords(), "One Hundred Twenty");
+            AssertAreEqualReversed((     1300m).ToEnglishWords(), "One Thousand Three Hundred");
+            AssertAreEqualReversed((     7725m).ToEnglishWords(), "Seven Thousand Seven Hundred Twenty-Five");
+            AssertAreEqualReversed((       12m).ToEnglishWords(), "Twelve");
+            AssertAreEqualReversed((     1000m).ToEnglishWords(), "One Thousand");
+            AssertAreEqualReversed((    10000m).ToEnglishWords(), "Ten Thousand");
+            AssertAreEqualReversed((   100000m).ToEnglishWords(), "One Hundred Thousand");
+            AssertAreEqualReversed((  1000000m).ToEnglishWords(), "One Million");
+            AssertAreEqualReversed(( 10000000m).ToEnglishWords(), "Ten Million");
+            AssertAreEqualReversed((100000000m).ToEnglishWords(), "One Hundred Million");
+            AssertAreEqualReversed((   0.1234m).ToEnglishWords(), "One Thousand Two Hundred Thirty-Four Ten-Thousandths");
+            AssertAreEqualReversed((  -0.1234m).ToEnglishWords(), "Negative One Thousand Two Hundred Thirty-Four Ten-Thousandths");
+            AssertAreEqualReversed(decimal.MaxValue.ToEnglishWords(), "Seventy-Nine Octillion Two Hundred Twenty-Eight Septillion One Hundred Sixty-Two Sextillion Five Hundred Fourteen Quintillion Two Hundred Sixty-Four Quadrillion Three Hundred Thirty-Seven Trillion Five Hundred Ninety-Three Billion Five Hundred Forty-Three Million Nine Hundred Fifty Thousand Three Hundred Thirty-Five");
 
 			// test a bunch of whole numbers for exceptions
 			for (decimal i = 0; i < 1000000; i += 13)
