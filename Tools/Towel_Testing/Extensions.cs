@@ -149,6 +149,48 @@ namespace Towel_Testing
 			#endregion
 		}
 
+		[TestMethod] public void Random_NextDecimal()
+		{
+			Random random = new Random(7);
+			_ = random.NextDecimal();
+			{
+				const decimal min = 0;
+				const decimal max = 100000;
+				decimal a = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= a && a <= max);
+				decimal b = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= b && b <= max);
+				decimal c = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= c && c <= max);
+			}
+			{
+				const decimal min = -100000;
+				const decimal max = 0;
+				decimal a = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= a && a <= max);
+				decimal b = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= b && b <= max);
+				decimal c = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= c && c <= max);
+			}
+			{
+				const decimal min = -100000;
+				const decimal max = 100000;
+				decimal a = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= a && a <= max);
+				decimal b = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= b && b <= max);
+				decimal c = random.NextDecimal(min, max);
+				Assert.IsTrue(min <= c && c <= max);
+			}
+			{
+				const decimal min = decimal.MinValue;
+				const decimal max = decimal.MaxValue;
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => random.NextDecimal(min, max));
+			}
+			// todo... more testing...
+		}
+
 		#endregion
 	}
 }

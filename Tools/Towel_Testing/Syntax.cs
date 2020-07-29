@@ -808,7 +808,7 @@ namespace Towel_Testing
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
-					decimal randomRatio = random.NextDecimal(10000) / 10000;
+					decimal randomRatio = random.NextDecimal(0, 10000) / 10000;
 					if (randomRatio > 0m)
 					{
 						Assert.IsFalse(IsOdd(i + randomRatio));
@@ -862,7 +862,7 @@ namespace Towel_Testing
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
-					decimal randomRatio = random.NextDecimal(10000) / 10000;
+					decimal randomRatio = random.NextDecimal(0, 10000) / 10000;
 					if (randomRatio > 0m)
 					{
 						Assert.IsFalse(IsOdd<RefNumeric<decimal>>(i + randomRatio));

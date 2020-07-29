@@ -292,12 +292,30 @@ namespace Towel
 
 		#region System.Random
 
-		#region String
+		#region bool
 
-		/// <summary>Generates a random string of a given length using the System.Random generator.</summary>
+		/// <summary>Generates a random <see cref="bool"/> value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
-		/// <param name="length">The length of the randomized string to generate.</param>
-		/// <returns>The generated randomized string.</returns>
+		/// <returns>A randomly generated <see cref="bool"/> value.</returns>
+		public static bool NextBool(this Random random) => random.Next(2) == 0;
+
+		#endregion
+
+		#region byte
+
+		/// <summary>Generates a random <see cref="byte"/> value.</summary>
+		/// <param name="random">The random generation algorithm.</param>
+		/// <returns>A randomly generated <see cref="byte"/> value.</returns>
+		public static byte NextByte(this Random random) => (byte)random.Next(byte.MinValue, byte.MaxValue);
+
+		#endregion
+
+		#region string
+
+		/// <summary>Generates a random <see cref="string"/> of a given length using the System.Random generator.</summary>
+		/// <param name="random">The random generation algorithm.</param>
+		/// <param name="length">The length of the randomized <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized <see cref="string"/>.</returns>
 		public static string NextString(this Random random, int length)
 		{
 			_ = random ?? throw new ArgumentNullException(nameof(random));
@@ -313,11 +331,11 @@ namespace Towel
 			return new string(randomstring);
 		}
 
-		/// <summary>Generates a random string of a given length using the System.Random generator with a specific set of characters.</summary>
+		/// <summary>Generates a random <see cref="string"/> of a given length using the System.Random generator with a specific set of characters.</summary>
 		/// <param name="random">The random generation algorithm.</param>
-		/// <param name="length">The length of the randomized string to generate.</param>
+		/// <param name="length">The length of the randomized <see cref="string"/> to generate.</param>
 		/// <param name="characterPool">The set of allowable characters.</param>
-		/// <returns>The generated randomized string.</returns>
+		/// <returns>The generated randomized <see cref="string"/>.</returns>
 		public static string NextString(this Random random, int length, char[] characterPool)
 		{
 			_ = random ?? throw new ArgumentNullException(nameof(random));
@@ -338,26 +356,58 @@ namespace Towel
 			return new string(randomstring);
 		}
 
-		/// <summary>Generates a random alphanumeric string of a given length using the System.Random generator.</summary>
-		/// <param name="random">The random generation algorithm.</param>
-		/// <param name="length">The length of the randomized alphanumeric string to generate.</param>
-		/// <returns>The generated randomized alphanumeric string.</returns>
-		public static string NextAlphaNumericString(this Random random, int length) =>
-			NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".ToCharArray());
+		internal const string UpperCaseEnglishCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		internal const string LowerCaseEnglishCharacters = "abcdefghijklmnopqrstuvwxyz";
+		internal const string EnglishDigits = "0123456789";
 
-		/// <summary>Generates a random numeric string of a given length using the System.Random generator.</summary>
+		/// <summary>Generates a random English alphanumeric <see cref="string"/> of a given length (includes upper and lower case characters).</summary>
 		/// <param name="random">The random generation algorithm.</param>
-		/// <param name="length">The length of the randomized numeric string to generate.</param>
-		/// <returns>The generated randomized numeric string.</returns>
-		public static string NumericString(this Random random, int length) =>
-			NextString(random, length, "0123456789".ToCharArray());
+		/// <param name="length">The length of the randomized alphanumeric <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized alphanumeric <see cref="string"/>.</returns>
+		public static string NextEnglishAlphaNumericString(this Random random, int length) =>
+			NextString(random, length, (UpperCaseEnglishCharacters + LowerCaseEnglishCharacters + EnglishDigits).ToCharArray());
 
-		/// <summary>Generates a random alhpabetical string of a given length using the System.Random generator.</summary>
+		/// <summary>Generates a random English alphanumeric <see cref="string"/> of a given length (upper case characters only).</summary>
 		/// <param name="random">The random generation algorithm.</param>
-		/// <param name="length">The length of the randomized alphabetical string to generate.</param>
-		/// <returns>The generated randomized alphabetical string.</returns>
-		public static string NextAlphabeticString(this Random random, int length) =>
-			NextString(random, length, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray());
+		/// <param name="length">The length of the randomized alphanumeric <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized alphanumeric <see cref="string"/>.</returns>
+		public static string NextUpperCaseEnglishAlphaNumericString(this Random random, int length) =>
+			NextString(random, length, (UpperCaseEnglishCharacters + EnglishDigits).ToCharArray());
+
+		/// <summary>Generates a random English alphanumeric <see cref="string"/> of a given length (lower case characters only).</summary>
+		/// <param name="random">The random generation algorithm.</param>
+		/// <param name="length">The length of the randomized alphanumeric <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized alphanumeric <see cref="string"/>.</returns>
+		public static string NextLowerCaseEnglishAlphaNumericString(this Random random, int length) =>
+			NextString(random, length, (LowerCaseEnglishCharacters + EnglishDigits).ToCharArray());
+
+		/// <summary>Generates a random English numeric <see cref="string"/> of a given length.</summary>
+		/// <param name="random">The random generation algorithm.</param>
+		/// <param name="length">The length of the randomized numeric <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized numeric <see cref="string"/>.</returns>
+		public static string NumericEnglishString(this Random random, int length) =>
+			NextString(random, length, EnglishDigits.ToCharArray());
+
+		/// <summary>Generates a random English alhpabetical <see cref="string"/> of a given length (includes upper and lower case characters).</summary>
+		/// <param name="random">The random generation algorithm.</param>
+		/// <param name="length">The length of the randomized alphabetical <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized alphabetical <see cref="string"/>.</returns>
+		public static string NextEnglishAlphabeticString(this Random random, int length) =>
+			NextString(random, length, (UpperCaseEnglishCharacters + LowerCaseEnglishCharacters).ToCharArray());
+
+		/// <summary>Generates a random English alhpabetical <see cref="string"/> of a given length (upper case characters only).</summary>
+		/// <param name="random">The random generation algorithm.</param>
+		/// <param name="length">The length of the randomized alphabetical <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized alphabetical <see cref="string"/>.</returns>
+		public static string NextUpperCaseEnglishAlphabeticString(this Random random, int length) =>
+			NextString(random, length, (UpperCaseEnglishCharacters).ToCharArray());
+
+		/// <summary>Generates a random English alhpabetical <see cref="string"/> of a given length (lower case characters only).</summary>
+		/// <param name="random">The random generation algorithm.</param>
+		/// <param name="length">The length of the randomized alphabetical <see cref="string"/> to generate.</param>
+		/// <returns>The generated randomized alphabetical <see cref="string"/>.</returns>
+		public static string NextLowerCaseEnglishAlphabeticString(this Random random, int length) =>
+			NextString(random, length, (LowerCaseEnglishCharacters).ToCharArray());
 
 		#endregion
 
@@ -416,39 +466,35 @@ namespace Towel
 
 		#region decimal
 
-		/// <summary>Generates a random decimal value.</summary>
+		/// <summary>Generates a random <see cref="decimal"/> value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
-		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this Random random)
-		{
-			int NextInt()
-			{
-				unchecked
-				{
-					int firstBits = random.Next(0, 1 << 4) << 28;
-					int lastBits = random.Next(0, 1 << 28);
-					return firstBits | lastBits;
-				}
-			}
-			byte scale = (byte)random.Next(29);
-			bool sign = random.Next(2) == 1;
-			return new decimal(NextInt(), NextInt(), NextInt(), sign, scale);
-		}
+		/// <returns>A randomly generated <see cref="decimal"/> value.</returns>
+		public static decimal NextDecimal(this Random random) =>
+			new decimal(
+				random.Next(int.MinValue, int.MaxValue),
+				random.Next(int.MinValue, int.MaxValue),
+				random.Next(int.MinValue, int.MaxValue),
+				random.NextBool(),
+				(byte)random.Next(29));
 
-		/// <summary>Generates a random decimal value.</summary>
-		/// <param name="random">The random generation algorithm.</param>
-		/// <param name="max">The maximum allowed value of the random generation.</param>
-		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this Random random, decimal max) =>
-			NextDecimal(random, 0, max);
-
-		/// <summary>Generates a random decimal value.</summary>
+		/// <summary>Generates a random <see cref="decimal"/> value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="min">The minimum allowed value of the random generation.</param>
 		/// <param name="max">The maximum allowed value of the random generation.</param>
-		/// <returns>A randomly generated decimal value.</returns>
-		public static decimal NextDecimal(this Random random, decimal min, decimal max) =>
-			(NextDecimal(random) % (max - min)) + min;
+		/// <returns>A randomly generated <see cref="decimal"/> value.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">Called if the range of random generation is too large and therefore invalid.</exception>
+		public static decimal NextDecimal(this Random random, decimal min, decimal max)
+		{
+			try
+			{
+				decimal next = NextDecimal(random);
+				return checked((next < 0 ? -next : next) % (max - min) + min);
+			}
+			catch (OverflowException exception)
+			{
+				throw new ArgumentOutOfRangeException("The bounds of random generation were to large (min...max).", exception);
+			}
+		}
 
 		#endregion
 
@@ -1497,8 +1543,10 @@ namespace Towel
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
+		/// <typeparam name="Status">The status check of the operation that allows for cancellation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="status">The status check of the operation that allows for cancellation.</param>
 		public static void PermuteIterative<T, Action, Status>(this T[] array, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
@@ -1507,13 +1555,16 @@ namespace Towel
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="array">The array to iterate the permutations of.</param>
+		/// <param name="status">The status check of the operation that allows for cancellation.</param>
 		public static void PermuteIterative<T>(this T[] array, Action action, Func<StepStatus> status) =>
 			Permute.Iterative<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
+		/// <typeparam name="Status">The status check of the operation that allows for cancellation.</typeparam>
 		/// <param name="action">The action to perform on each permutation.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
+		/// <param name="status">The status check of the operation that allows for cancellation.</param>
 		public static void PermuteIterative<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
@@ -1558,11 +1609,11 @@ namespace Towel
 
 		#region System.Collections.Generic.IEnumerable<T>
 
-		/// <summary>Tries to get the first value in an IEnumerable.</summary>
-		/// <typeparam name="T">The generic type of IEnumerable.</typeparam>
+		/// <summary>Tries to get the first value in an <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/>.</summary>
+		/// <typeparam name="T">The generic type of <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/>.</typeparam>
 		/// <param name="iEnumerable">The IEnumerable to try to get the first value of.</param>
-		/// <param name="first">The first value of the IEnumerable or default if empty.</param>
-		/// <returns>True if the IEnumerable has a first value or false if it is empty.</returns>
+		/// <param name="first">The first value of the <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/> or default if empty.</param>
+		/// <returns>True if the <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/> has a first value or false if it is empty.</returns>
 		public static bool TryFirst<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable, out T first)
 		{
 			foreach (T value in iEnumerable)
@@ -1578,10 +1629,10 @@ namespace Towel
 
 		#region System.Reflection.MethodInfo
 
-		/// <summary>Creates a delegate of the specified type from this method.</summary>
+		/// <summary>Creates a delegate of the specified type from this <see cref="MethodInfo"/>.</summary>
 		/// <typeparam name="Delegate">The type of the delegate to create.</typeparam>
-		/// <param name="methodInfo">The method value to create the delegate from.</param>
-		/// <returns>The delegate for this method.</returns>
+		/// <param name="methodInfo">The <see cref="MethodInfo"/> to create the delegate from.</param>
+		/// <returns>The delegate for this <see cref="MethodInfo"/>.</returns>
 		/// <remarks>This extension is syntax sugar so you don't have to cast the return.</remarks>
 		public static Delegate CreateDelegate<Delegate>(this MethodInfo methodInfo)
 			where Delegate : System.Delegate =>
