@@ -1347,47 +1347,47 @@ namespace Towel
 		/// <summary>Converts a <see cref="decimal"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="decimal">The <see cref="decimal"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="decimal"/> value.</returns>
-		public static string ToEnglishWords(this decimal @decimal) => ToEnglishWords(@decimal.ToString());
+		public static string ToEnglishWords(this decimal @decimal) => ToEnglishWords(@decimal.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="int"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="int">The <see cref="int"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="int"/> value.</returns>
-		public static string ToEnglishWords(this int @int) => ToEnglishWords(@int.ToString());
+		public static string ToEnglishWords(this int @int) => ToEnglishWords(@int.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="long"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="long">The <see cref="long"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="long"/> value.</returns>
-		public static string ToEnglishWords(this long @long) => ToEnglishWords(@long.ToString());
+		public static string ToEnglishWords(this long @long) => ToEnglishWords(@long.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="byte"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="byte">The <see cref="byte"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="byte"/> value.</returns>
-		public static string ToEnglishWords(this byte @byte) => ToEnglishWords(@byte.ToString());
+		public static string ToEnglishWords(this byte @byte) => ToEnglishWords(@byte.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="sbyte"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="sbyte">The <see cref="sbyte"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="sbyte"/> value.</returns>
-		public static string ToEnglishWords(this sbyte @sbyte) => ToEnglishWords(@sbyte.ToString());
+		public static string ToEnglishWords(this sbyte @sbyte) => ToEnglishWords(@sbyte.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="uint"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="uint">The <see cref="uint"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="uint"/> value.</returns>
-		public static string ToEnglishWords(this uint @uint) => ToEnglishWords(@uint.ToString());
+		public static string ToEnglishWords(this uint @uint) => ToEnglishWords(@uint.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="ulong"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="ulong">The <see cref="ulong"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="ulong"/> value.</returns>
-		public static string ToEnglishWords(this ulong @ulong) => ToEnglishWords(@ulong.ToString());
+		public static string ToEnglishWords(this ulong @ulong) => ToEnglishWords(@ulong.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="short"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="short">The <see cref="short"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="short"/> value.</returns>
-		public static string ToEnglishWords(this short @short) => ToEnglishWords(@short.ToString());
+		public static string ToEnglishWords(this short @short) => ToEnglishWords(@short.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		/// <summary>Converts a <see cref="ushort"/> to the English words <see cref="string"/> representation.</summary>
 		/// <param name="ushort">The <see cref="ushort"/> value to convert to English words <see cref="string"/> representation.</param>
 		/// <returns>The English words <see cref="string"/> representation of the <see cref="ushort"/> value.</returns>
-		public static string ToEnglishWords(this ushort @ushort) => ToEnglishWords(@ushort.ToString());
+		public static string ToEnglishWords(this ushort @ushort) => ToEnglishWords(@ushort.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
 		#endregion
 
