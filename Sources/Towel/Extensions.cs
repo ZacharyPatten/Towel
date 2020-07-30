@@ -45,19 +45,19 @@ namespace Towel
 			if (!cached || !ReplaceCachedCache.TryGetValue(rules, out (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet) regexAndRuleSet))
 			{
 				regexAndRuleSet.RuleSet = new System.Collections.Generic.Dictionary<string, string>(rules.Length);
-				foreach (var rule in rules)
+				foreach (var (Pattern, Replacement) in rules)
 				{
-					if (rule.Pattern is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(rule.Pattern)}s");
-					if (rule.Replacement is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(rule.Replacement)}s");
-					if (rule.Pattern == string.Empty) throw new ArgumentException(nameof(rules), $"{nameof(rules)} contains empty {nameof(rule.Pattern)}s");
+					if (Pattern is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Pattern)}s");
+					if (Replacement is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Replacement)}s");
+					if (Pattern == string.Empty) throw new ArgumentException(nameof(rules), $"{nameof(rules)} contains empty {nameof(Pattern)}s");
 					// TODO: TryAdd when available
-					if (regexAndRuleSet.RuleSet.ContainsKey(rule.Pattern))
+					if (regexAndRuleSet.RuleSet.ContainsKey(Pattern))
 					{
-						throw new ArgumentException($"{nameof(rules)} contains duplicate {nameof(rule.Pattern)}s");
+						throw new ArgumentException($"{nameof(rules)} contains duplicate {nameof(Pattern)}s");
 					}
 					else
 					{
-						regexAndRuleSet.RuleSet.Add(rule.Pattern, rule.Replacement);
+						regexAndRuleSet.RuleSet.Add(Pattern, Replacement);
 					}
 				}
 				string regexPattern = string.Join("|", System.Linq.Enumerable.Select(rules, rule => Regex.Escape(rule.Pattern)));
