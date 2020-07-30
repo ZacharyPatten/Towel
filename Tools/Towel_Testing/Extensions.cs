@@ -13,6 +13,8 @@ namespace Towel_Testing
 		{
 			Assert.AreEqual("aaa bbb c ddd e", "a b c d e".Replace(("a", "aaa"), ("b", "bbb"), ("d", "ddd")));
 
+			Assert.AreEqual("aaa bbb c d e", "a b c d e".Replace(("a", "aaa"), ("b", "bbb"), ("aaa", "ERROR")));
+
 			Assert.ThrowsException<ArgumentNullException>(() => Extensions.Replace(null, ("a", "b")));
 			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(null));
 			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace((null, "a")));
@@ -26,6 +28,8 @@ namespace Towel_Testing
 		[TestMethod] public void string_ReplaceCached()
 		{
 			Assert.AreEqual("aaa bbb c ddd e", "a b c d e".ReplaceCached(("a", "aaa"), ("b", "bbb"), ("d", "ddd")));
+
+			Assert.AreEqual("aaa bbb c d e", "a b c d e".ReplaceCached(("a", "aaa"), ("b", "bbb"), ("aaa", "ERROR")));
 
 			Assert.ThrowsException<ArgumentNullException>(() => Extensions.ReplaceCached(null, ("a", "b")));
 			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.ReplaceCached(null));
