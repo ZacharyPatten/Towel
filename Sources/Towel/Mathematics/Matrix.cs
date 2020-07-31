@@ -48,11 +48,11 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				if (row < 0 || row > Rows)
+				if (row < 0 || row >= Rows)
 				{
 					throw new ArgumentOutOfRangeException(nameof(row), row, "!(" + nameof(row) + " >= 0) || !(" + nameof(row) + " < " + nameof(Rows) + ")");
 				}
-				if (column < 0 || column > Columns)
+				if (column < 0 || column >= Columns)
 				{
 					throw new ArgumentOutOfRangeException(nameof(column), row, "!(" + nameof(column) + " >= 0) || !(" + nameof(column) + " < " + nameof(Columns) + ")");
 				}
@@ -60,11 +60,11 @@ namespace Towel.Mathematics
 			}
 			set
 			{
-				if (row < 0 || row > Rows)
+				if (row < 0 || row >= Rows)
 				{
 					throw new ArgumentOutOfRangeException(nameof(row), row, "!(" + nameof(row) + " >= 0) || !(" + nameof(row) + " < " + nameof(Rows) + ")");
 				}
-				if (column < 0 || column > Columns)
+				if (column < 0 || column >= Columns)
 				{
 					throw new ArgumentOutOfRangeException(nameof(column), row, "!(" + nameof(column) + " >= 0) || !(" + nameof(column) + " < " + nameof(Columns) + ")");
 				}
