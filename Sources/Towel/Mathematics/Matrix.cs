@@ -1203,6 +1203,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to be powered by.</param>
 		/// <param name="b">The power to apply to the matrix.</param>
 		/// <returns>The resulting matrix of the power operation.</returns>
+		[Obsolete("Please use the Power method. The ^ operator in C# does not follow the mathematical order of operations.", true)]
 		public static Matrix<T> operator ^(Matrix<T> a, int b)
 		{
 			return Power(a, b);
@@ -1221,7 +1222,7 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the power operation.</returns>
 		public Matrix<T> Power(int b)
 		{
-			return this ^ b;
+			return Power(this, b);
 		}
 
 		#endregion
