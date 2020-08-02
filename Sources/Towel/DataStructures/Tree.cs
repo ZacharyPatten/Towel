@@ -81,7 +81,7 @@ namespace Towel.DataStructures
 			_head = head;
 			_tree = new MapHashLinked<Node, T>(_equate, _hash)
 			{
-				{ _head, new Node(default(T), new SetHashLinked<T>(_equate, _hash)) }
+				{ _head, new Node(default, new SetHashLinked<T>(_equate, _hash)) }
 			};
 		}
 

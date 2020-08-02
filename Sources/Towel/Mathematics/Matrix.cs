@@ -393,8 +393,8 @@ namespace Towel.Mathematics
 		/// <typeparam name="T"></typeparam>
 		private sealed class MatrixElementFraction<T>
 		{
-			private T Numerator;
-			private T Denominator;
+			private readonly T Numerator;
+			private readonly T Denominator;
 
 			internal MatrixElementFraction(T value)
 			{
@@ -2618,9 +2618,7 @@ namespace Towel.Mathematics
 		/// <summary>Does an equality check by value.</summary>
 		/// <param name="b">The object to compare to.</param>
 		/// <returns>True if the references are equal, false if not.</returns>
-		public override bool Equals(object b) => b is Matrix<T> B
-			? Equal(this, B)
-			: false;
+		public override bool Equals(object b) => b is Matrix<T> B && Equal(this, B);
 
 		#endregion
 	}

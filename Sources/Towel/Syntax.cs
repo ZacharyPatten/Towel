@@ -300,11 +300,17 @@ namespace Towel
 		{
 			internal T[] Value;
 
+			/// <summary>Constructs a new universal quantification from an array.</summary>
+			/// <param name="array">The array value of the universal quantification.</param>
 			public UniversalQuantification(T[] array) => Value = array;
 
 			#region Towel.Datastructures.IArray<T>
+			/// <summary>The number of values in this universal quantification.</summary>
 			public int Length => Value.Length;
+			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
+			/// <param name="step"></param>
 			public void Stepper(Step<T> step) => Value.Stepper(step);
+			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
 			public StepStatus Stepper(StepBreak<T> step) => Value.Stepper(step);
 			#endregion
 
@@ -327,26 +333,56 @@ namespace Towel
 			#endregion
 
 			#region System.Collections.Generic.IEnumerable<T>
+			/// <summary>Gets the <see cref="System.Collections.Generic.IEnumerator{T}"/> for this universal quantification.</summary>
+			/// <returns>The <see cref="System.Collections.Generic.IEnumerator{T}"/> for this universal quantification.</returns>
 			public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)Value).GetEnumerator();
 			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => Value.GetEnumerator();
 			#endregion
 
 			#region Implicit Casting Operators
 
-			public static implicit operator T[](UniversalQuantification<T> array) => array.Value;
-			public static implicit operator System.Collections.Generic.List<T>(UniversalQuantification<T> array) => new System.Collections.Generic.List<T>(array.Value);
-			public static implicit operator System.Collections.Generic.HashSet<T>(UniversalQuantification<T> array) => new System.Collections.Generic.HashSet<T>(array.Value);
-			public static implicit operator System.Collections.Generic.LinkedList<T>(UniversalQuantification<T> array) => new System.Collections.Generic.LinkedList<T>(array.Value);
-			public static implicit operator System.Collections.Generic.Stack<T>(UniversalQuantification<T> array) => new System.Collections.Generic.Stack<T>(array.Value);
-			public static implicit operator System.Collections.Generic.Queue<T>(UniversalQuantification<T> array) => new System.Collections.Generic.Queue<T>(array.Value);
-			public static implicit operator System.Collections.Generic.SortedSet<T>(UniversalQuantification<T> array) => new System.Collections.Generic.SortedSet<T>(array.Value);
-			public static implicit operator Stepper<T>(UniversalQuantification<T> array) => array.Value.ToStepper();
-			public static implicit operator StepperRef<T>(UniversalQuantification<T> array) => array.Value.ToStepperRef();
-			public static implicit operator StepperBreak<T>(UniversalQuantification<T> array) => array.Value.ToStepperBreak();
-			public static implicit operator StepperRefBreak<T>(UniversalQuantification<T> array) => array.Value.ToStepperRefBreak();
-			public static implicit operator Towel.DataStructures.Array<T>(UniversalQuantification<T> array) => array.Value;
-			public static implicit operator Towel.DataStructures.ListArray<T>(UniversalQuantification<T> array) => new ListArray<T>(array.Value, array.Value.Length);
-			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> array) => new StackArray<T>(array.Value, array.Length);
+			/// <summary>Converts a universal quantification to an array.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator T[](UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
+			/// <summary>Converts a universal quantification to a <see cref="System.Collections.Generic.List{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator System.Collections.Generic.List<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.List<T>(universalQuantification.Value);
+			/// <summary>Converts a universal quantification to an <see cref="System.Collections.Generic.HashSet{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator System.Collections.Generic.HashSet<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.HashSet<T>(universalQuantification.Value);
+			/// <summary>Converts a universal quantification to a <see cref="System.Collections.Generic.LinkedList{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator System.Collections.Generic.LinkedList<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.LinkedList<T>(universalQuantification.Value);
+			/// <summary>Converts a universal quantification to an <see cref="System.Collections.Generic.Stack{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator System.Collections.Generic.Stack<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.Stack<T>(universalQuantification.Value);
+			/// <summary>Converts a universal quantification to an <see cref="System.Collections.Generic.Queue{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator System.Collections.Generic.Queue<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.Queue<T>(universalQuantification.Value);
+			/// <summary>Converts a universal quantification to a sorted <see cref="System.Collections.Generic.SortedSet{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator System.Collections.Generic.SortedSet<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.SortedSet<T>(universalQuantification.Value);
+			/// <summary>Converts a universal quantification to an <see cref="Stepper{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator Stepper<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepper();
+			/// <summary>Converts a universal quantification to an <see cref="StepperRef{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator StepperRef<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRef();
+			/// <summary>Converts a universal quantification to an <see cref="StepperBreak{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator StepperBreak<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperBreak();
+			/// <summary>Converts a universal quantification to an <see cref="StepperRefBreak{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator StepperRefBreak<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRefBreak();
+			/// <summary>Converts a universal quantification to an <see cref="Array{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator Towel.DataStructures.Array<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
+			/// <summary>Converts a universal quantification to an <see cref="ListArray{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator Towel.DataStructures.ListArray<T>(UniversalQuantification<T> universalQuantification) => new ListArray<T>(universalQuantification.Value, universalQuantification.Value.Length);
+			/// <summary>Converts a universal quantification to an <see cref="StackArray{T}"/>.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> universalQuantification) => new StackArray<T>(universalQuantification.Value, universalQuantification.Length);
 
 			#endregion
 		}

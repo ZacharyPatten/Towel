@@ -31403,6 +31403,80 @@
             <summary>Universal Quantification.</summary>
             <typeparam name="T">The element type of the universal quantification.</typeparam>
         </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.#ctor(`0[])">
+            <summary>Constructs a new universal quantification from an array.</summary>
+            <param name="array">The array value of the universal quantification.</param>
+        </member>
+        <member name="P:Towel.Syntax.UniversalQuantification`1.Length">
+            <summary>The number of values in this universal quantification.</summary>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.Stepper(Towel.Step{`0})">
+            <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
+            <param name="step"></param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.Stepper(Towel.StepBreak{`0})">
+            <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.GetEnumerator">
+            <summary>Gets the <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</summary>
+            <returns>The <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</returns>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~`0[]">
+            <summary>Converts a universal quantification to an array.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.List{`0}">
+            <summary>Converts a universal quantification to a <see cref="T:System.Collections.Generic.List`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.HashSet{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:System.Collections.Generic.HashSet`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.LinkedList{`0}">
+            <summary>Converts a universal quantification to a <see cref="T:System.Collections.Generic.LinkedList`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.Stack{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:System.Collections.Generic.Stack`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.Queue{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:System.Collections.Generic.Queue`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.SortedSet{`0}">
+            <summary>Converts a universal quantification to a sorted <see cref="T:System.Collections.Generic.SortedSet`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.Stepper{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:Towel.Stepper`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.StepperRef{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:Towel.StepperRef`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.StepperBreak{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:Towel.StepperBreak`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.StepperRefBreak{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:Towel.StepperRefBreak`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.DataStructures.Array{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:Towel.DataStructures.Array`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.DataStructures.ListArray{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:Towel.DataStructures.ListArray`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.DataStructures.StackArray{`0}">
+            <summary>Converts a universal quantification to an <see cref="T:Towel.DataStructures.StackArray`1"/>.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
         <member name="M:Towel.Syntax.EqualTo``3(``0,``1)">
             <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>

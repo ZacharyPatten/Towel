@@ -9,7 +9,7 @@ namespace Towel_Testing
 	{
 		#region string
 
-		[TestMethod] public void string_Replace()
+		[TestMethod] public void String_Replace()
 		{
 			Assert.AreEqual("aaa bbb c ddd e", "a b c d e".Replace(("a", "aaa"), ("b", "bbb"), ("d", "ddd")));
 
@@ -25,7 +25,7 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentException>(() => string.Empty.Replace((string.Empty, "a")));
 		}
 
-		[TestMethod] public void string_ReplaceCached()
+		[TestMethod] public void String_ReplaceCached()
 		{
 			Assert.AreEqual("aaa bbb c ddd e", "a b c d e".ReplaceCached(("a", "aaa"), ("b", "bbb"), ("d", "ddd")));
 

@@ -85,8 +85,8 @@ namespace Towel.DataStructures
 		/// <param name="graph">The graph to construct a clone of.</param>
 		internal GraphSetOmnitree(GraphSetOmnitree<T> graph)
 		{
-			_edges = graph._edges.Clone() as OmnitreePointsLinked<Edge, T, T>;
-			_nodes = graph._nodes.Clone() as SetHashLinked<T>;
+			_edges = graph._edges.Clone();
+			_nodes = graph._nodes.Clone();
 		}
 
 		/// <summary>Constructs a new GraphSetOmnitree.</summary>
@@ -98,9 +98,9 @@ namespace Towel.DataStructures
 			Compare<T> compare = null,
 			Hash<T> hash = null)
 		{
-			equate = equate ?? Equate.Default;
-			compare = compare ?? Compare.Default;
-			hash = hash ?? Hash.Default;
+			equate ??= Equate.Default;
+			compare ??= Compare.Default;
+			hash ??= Hash.Default;
 
 			_nodes = new SetHashLinked<T>(equate, hash);
 			_edges = new OmnitreePointsLinked<Edge, T, T>(

@@ -1689,11 +1689,11 @@ namespace Towel
 
 		#region System.Collections.Generic.IEnumerable<T>
 
-		/// <summary>Tries to get the first value in an <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/>.</summary>
-		/// <typeparam name="T">The generic type of <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/>.</typeparam>
+		/// <summary>Tries to get the first value in an <see cref="System.Collections.Generic.IEnumerable{T}"/>.</summary>
+		/// <typeparam name="T">The generic type of <see cref="System.Collections.Generic.IEnumerable{T}"/>.</typeparam>
 		/// <param name="iEnumerable">The IEnumerable to try to get the first value of.</param>
-		/// <param name="first">The first value of the <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/> or default if empty.</param>
-		/// <returns>True if the <see cref="System.Collections.Generic.IEnumerable&lt;T&gt;"/> has a first value or false if it is empty.</returns>
+		/// <param name="first">The first value of the <see cref="System.Collections.Generic.IEnumerable{T}"/> or default if empty.</param>
+		/// <returns>True if the <see cref="System.Collections.Generic.IEnumerable{T}"/> has a first value or false if it is empty.</returns>
 		public static bool TryFirst<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable, out T first)
 		{
 			foreach (T value in iEnumerable)

@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using static Towel.Syntax;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Towel
 {
 	/// <summary>Contains generic static numerical constant values.</summary>
@@ -496,3 +498,5 @@ namespace Towel
 		#endregion
 	}
 }
+
+#pragma warning restore IDE1006 // Naming Styles

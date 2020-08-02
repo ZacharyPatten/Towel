@@ -247,8 +247,8 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand.</param>
 		/// <returns>The result of the equality check.</returns>
 		public static bool Equality(Fraction<T> a, Fraction<T> b) =>
-			Syntax.EqualTo(a._numerator, b._numerator) &&
-			Syntax.EqualTo(a._denominator, b._denominator);
+			EqualTo(a._numerator, b._numerator) &&
+			EqualTo(a._denominator, b._denominator);
 
 		/// <summary>Checks for equality between two values.</summary>
 		/// <param name="b">The second operand.</param>
@@ -259,10 +259,8 @@ namespace Towel.Mathematics
 		/// <summary>Checks for equality with another object.</summary>
 		/// <param name="obj">The object to equate with this.</param>
 		/// <returns>The result of the equate.</returns>
-		public override bool Equals(object obj) =>
-			obj is Fraction<T>
-			? Fraction<T>.Equality(this, (Fraction<T>)obj)
-			: false;
+		public override bool Equals(object obj) => 
+			obj is Fraction<T> fraction && Fraction<T>.Equality(this, fraction);
 
 		#endregion
 
