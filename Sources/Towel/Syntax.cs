@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Linq;
 using Towel.DataStructures;
 using Towel.Measurements;
+using System.Net;
 
 namespace Towel
 {
@@ -208,76 +209,269 @@ namespace Towel
 		public static SwitchSyntax.SwitchDelegate<T> Switch<T>(T value) =>
 			SwitchSyntax.Do<T>(value);
 
+		/// <summary>Definitions for Switch syntax.</summary>
+		public static class SwitchSyntax
+		{
+			internal static SwitchDelegate<T> Do<T>(T value) =>
+				possibleActions =>
+				{
+					foreach (var possibleAction in possibleActions)
+					{
+						if (possibleAction.Condition.Resolve(value))
+						{
+							possibleAction.Action();
+							return;
+						}
+					}
+				};
+
+			internal static void Do(params (Condition Condition, Action Action)[] possibleActions)
+			{
+				foreach (var possibleAction in possibleActions)
+				{
+					if (possibleAction.Condition)
+					{
+						possibleAction.Action();
+						return;
+					}
+				}
+			}
+
+			public enum Keyword
+			{
+				Default,
+			}
+
+			/// <summary>The delegate of the Switch statement.</summary>
+			/// <typeparam name="T">The generic type of the Switch statement.</typeparam>
+			/// <param name="possibleActions">The possible actions of the Switch statement.</param>
+			public delegate void SwitchDelegate<T>(params (Condition<T> Condition, Action Action)[] possibleActions);
+
+			public abstract class Condition<T>
+			{
+				public abstract bool Resolve(T b);
+				public static implicit operator Condition<T>(T value) => new Value<T> { A = value, };
+				public static implicit operator Condition<T>(bool result) => new Bool<T> { Result = result, };
+				public static implicit operator Condition<T>(Keyword keyword) => new Default<T>();
+			}
+
+			internal class Value<T> : Condition<T>
+			{
+				internal T A;
+				public override bool Resolve(T b) => A.Equals(b);
+			}
+
+			internal class Bool<T> : Condition<T>
+			{
+				internal bool Result;
+				public override bool Resolve(T b) => Result;
+			}
+
+			internal class Default<T> : Condition<T>
+			{
+				public override bool Resolve(T b) => true;
+			}
+
+			public abstract class Condition
+			{
+				public abstract bool Resolve();
+				public static implicit operator Condition(bool result) => new Bool { Result = result, };
+				public static implicit operator Condition(Keyword keyword) => new Default();
+				public static implicit operator bool(Condition condition) => condition.Resolve();
+			}
+
+			internal class Bool : Condition
+			{
+				internal bool Result;
+				public override bool Resolve() => Result;
+			}
+
+			internal class Default : Condition
+			{
+				public override bool Resolve() => true;
+			}
+		}
+
 		#endregion
 
 		#region Chance
 
+		/// <summary>Allows chance syntax with "using static Towel.Syntax;".</summary>
+		/// <example>25% Chance</example>
 		public static ChanceSyntax Chance => default;
+
+		/// <summary>Struct that allows percentage syntax that will be evaluated at runtime.</summary>
+		public struct ChanceSyntax
+		{
+			/// <summary>The random algorithm currently being used by chance syntax.</summary>
+			public static Random Algorithm = new Random();
+
+			//public static ChanceSyntax Chance => default;
+
+#pragma warning disable IDE0060 // Remove unused parameter
+
+			/// <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
+			/// <param name="percentage">The value of the percentage.</param>
+			/// <param name="chance">The chance syntax struct object.</param>
+			/// <returns></returns>
+			public static bool operator %(double percentage, ChanceSyntax chance) =>
+				percentage < 0 ? throw new ArgumentOutOfRangeException(nameof(chance)) :
+				percentage > 100 ? throw new ArgumentOutOfRangeException(nameof(chance)) :
+				percentage is 100 ? true :
+				percentage is 0 ? false :
+				Algorithm.NextDouble() < percentage / 100;
+
+#pragma warning restore IDE0060 // Remove unused parameter
+		}
 
 		#endregion
 
 		#region Inequality
 
+		/// <summary>Used for inequality syntax.</summary>
+		/// <typeparam name="T">The generic type of elements the inequality is being used on.</typeparam>
 		public struct Inequality<T>
 		{
-			private bool Cast;
-			private T A;
+			internal bool Cast;
+			internal T A;
 
+			/// <summary>Contructs a new <see cref="Inequality{T}"/>.</summary>
+			/// <param name="a">The initial value of the running inequality.</param>
 			public static implicit operator Inequality<T>(T a) =>
 				new Inequality<T>()
 				{
 					Cast = true,
 					A = a,
 				};
-
+			/// <summary>Adds a greater than operation to a running inequality.</summary>
+			/// <param name="a">The current running inequality and left hand operand.</param>
+			/// <param name="b">The value of the right hand operand of the greater than operation.</param>
+			/// <returns>A running inequality with the additonal greater than operation.</returns>
 			public static OperatorValidated.Inequality<T> operator >(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == CompareResult.Greater, b);
-
+			/// <summary>Adds a less than operation to a running inequality.</summary>
+			/// <param name="a">The current running inequality and left hand operand.</param>
+			/// <param name="b">The value of the right hand operand of the less than operation.</param>
+			/// <returns>A running inequality with the additonal less than operation.</returns>
 			public static OperatorValidated.Inequality<T> operator <(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == CompareResult.Less, b);
-
+			/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
+			/// <param name="a">The current running inequality and left hand operand.</param>
+			/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
+			/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator >=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != CompareResult.Less, b);
-
+			/// <summary>Adds a less than or equal operation to a running inequality.</summary>
+			/// <param name="a">The current running inequality and left hand operand.</param>
+			/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
+			/// <returns>A running inequality with the additonal less than or equal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator <=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != CompareResult.Greater, b);
+			/// <summary>Adds an equal operation to a running inequality.</summary>
+			/// <param name="a">The current running inequality and left hand operand.</param>
+			/// <param name="b">The value of the right hand operand of the equal operation.</param>
+			/// <returns>A running inequality with the additonal equal operation.</returns>
+			public static OperatorValidated.Inequality<T> operator ==(Inequality<T> a, T b) =>
+				!a.Cast ? throw new InequalitySyntaxException() :
+				new OperatorValidated.Inequality<T>(EqualTo(a.A, b), b);
+			/// <summary>Adds an inequal operation to a running inequality.</summary>
+			/// <param name="a">The current running inequality and left hand operand.</param>
+			/// <param name="b">The value of the right hand operand of the inequal operation.</param>
+			/// <returns>A running inequality with the additonal inequal operation.</returns>
+			public static OperatorValidated.Inequality<T> operator !=(Inequality<T> a, T b) =>
+				!a.Cast ? throw new InequalitySyntaxException() :
+				new OperatorValidated.Inequality<T>(InequalTo(a.A, b), b);
 
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+			/// <summary>This member is not intended to be invoked.</summary>
+			/// <returns>This member is not intended to be invoked.</returns>
+			[Obsolete(TowelConstants.NotIntended, true)]
 			public override string ToString() => throw new InequalitySyntaxException();
+			/// <summary>This member is not intended to be invoked.</summary>
+			/// <param name="obj">This member is not intended to be invoked.</param>
+			/// <returns>This member is not intended to be invoked.</returns>
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public override bool Equals(object obj) => throw new InequalitySyntaxException();
+			/// <summary>This member is not intended to be invoked.</summary>
+			/// <returns>This member is not intended to be invoked.</returns>
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public override int GetHashCode() => throw new InequalitySyntaxException();
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 		}
 
+		/// <summary>Helper type for inequality syntax. Contains an Inequality type that has been operator validated.</summary>
 		public static partial class OperatorValidated
 		{
+			/// <summary>Used for inequality syntax.</summary>
+			/// <typeparam name="T">The generic type of elements the inequality is being used on.</typeparam>
 			public struct Inequality<T>
 			{
-				private readonly bool Result;
-				private readonly T A;
+				internal readonly bool Result;
+				internal readonly T A;
 
 				internal Inequality(bool result, T a)
 				{
 					Result = result;
 					A = a;
 				}
-
+				/// <summary>Converts this running inequality into the result of the expression.</summary>
+				/// <param name="inequality">The inequality to convert into the result of the expression.</param>
 				public static implicit operator bool(Inequality<T> inequality) =>
 					inequality.Result;
-
+				/// <summary>Adds a greater than operation to a running inequality.</summary>
+				/// <param name="a">The current running inequality and left hand operand.</param>
+				/// <param name="b">The value of the right hand operand of the greater than operation.</param>
+				/// <returns>A running inequality with the additonal greater than operation.</returns>
 				public static Inequality<T> operator >(Inequality<T> a, T b) =>
 					new Inequality<T>(a.Result && Comparison(a.A, b) == CompareResult.Greater, b);
-
+				/// <summary>Adds a less than operation to a running inequality.</summary>
+				/// <param name="a">The current running inequality and left hand operand.</param>
+				/// <param name="b">The value of the right hand operand of the less than operation.</param>
+				/// <returns>A running inequality with the additonal less than operation.</returns>
 				public static Inequality<T> operator <(Inequality<T> a, T b) =>
 					new Inequality<T>(a.Result && Comparison(a.A, b) == CompareResult.Less, b);
-
+				/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
+				/// <param name="a">The current running inequality and left hand operand.</param>
+				/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
+				/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
 				public static Inequality<T> operator >=(Inequality<T> a, T b) =>
 					new Inequality<T>(a.Result && Comparison(a.A, b) != CompareResult.Less, b);
-
+				/// <summary>Adds a less than or equal operation to a running inequality.</summary>
+				/// <param name="a">The current running inequality and left hand operand.</param>
+				/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
+				/// <returns>A running inequality with the additonal less than or equal operation.</returns>
 				public static Inequality<T> operator <=(Inequality<T> a, T b) =>
 					new Inequality<T>(a.Result && Comparison(a.A, b) != CompareResult.Greater, b);
-
+				/// <summary>Adds an equal operation to a running inequality.</summary>
+				/// <param name="a">The current running inequality and left hand operand.</param>
+				/// <param name="b">The value of the right hand operand of the equal operation.</param>
+				/// <returns>A running inequality with the additonal equal operation.</returns>
+				public static Inequality<T> operator ==(Inequality<T> a, T b) =>
+					new Inequality<T>(a.Result && EqualTo(a.A, b), b);
+				/// <summary>Adds an inequal operation to a running inequality.</summary>
+				/// <param name="a">The current running inequality and left hand operand.</param>
+				/// <param name="b">The value of the right hand operand of the inequal operation.</param>
+				/// <returns>A running inequality with the additonal inequal operation.</returns>
+				public static Inequality<T> operator !=(Inequality<T> a, T b) =>
+					new Inequality<T>(a.Result && InequalTo(a.A, b), b);
+				/// <summary>Converts the result of this inequality to a <see cref="string"/>.</summary>
+				/// <returns>The result of this inequality converted to a <see cref="string"/>.</returns>
 				public override string ToString() => Result.ToString();
+#pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+				/// <summary>This member is not intended to be invoked.</summary>
+				/// <param name="obj">This member is not intended to be invoked.</param>
+				/// <returns>This member is not intended to be invoked.</returns>
+				[Obsolete(TowelConstants.NotIntended, true)]
+				public override bool Equals(object obj) => throw new InequalitySyntaxException();
+				/// <summary>This member is not intended to be invoked.</summary>
+				/// <returns>This member is not intended to be invoked.</returns>
+				[Obsolete(TowelConstants.NotIntended, true)]
+				public override int GetHashCode() => throw new InequalitySyntaxException();
+#pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 			}
 		}
 
@@ -302,39 +496,121 @@ namespace Towel
 
 			/// <summary>Constructs a new universal quantification from an array.</summary>
 			/// <param name="array">The array value of the universal quantification.</param>
-			public UniversalQuantification(T[] array) => Value = array;
+			internal UniversalQuantification(T[] array) => Value = array;
 
 			#region Towel.Datastructures.IArray<T>
 			/// <summary>The number of values in this universal quantification.</summary>
+			[Obsolete(TowelConstants.NotIntended, true)]
 			public int Length => Value.Length;
 			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
-			/// <param name="step"></param>
+			/// <param name="step">The action to perform on every step of the iteration.</param>
+			[Obsolete(TowelConstants.NotIntended, true)]
 			public void Stepper(Step<T> step) => Value.Stepper(step);
 			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
+			[Obsolete(TowelConstants.NotIntended, true)]
 			public StepStatus Stepper(StepBreak<T> step) => Value.Stepper(step);
 			#endregion
 
 			#region System.Collections.Generic.IList<T>
+			/// <summary>Index property for get/set operations.</summary>
+			/// <param name="index">The index to get/set.</param>
+			/// <returns>The value at the provided index.</returns>
+			[Obsolete(TowelConstants.NotIntended, true)]
 			public T this[int index]
 			{
-				get => ((System.Collections.Generic.IList<T>)Value)[index];
-				set => ((System.Collections.Generic.IList<T>)Value)[index] = value;
+				get => Value[index];
+				set => Value[index] = value;
 			}
-			public int Count => ((System.Collections.Generic.IList<T>)Value).Count;
-			public bool IsReadOnly => ((System.Collections.Generic.IList<T>)Value).IsReadOnly;
-			public void Add(T item) => ((System.Collections.Generic.IList<T>)Value).Add(item);
-			public void Clear() => ((System.Collections.Generic.IList<T>)Value).Clear();
-			public bool Contains(T item) => ((System.Collections.Generic.IList<T>)Value).Contains(item);
-			public void CopyTo(T[] array, int arrayIndex) => ((System.Collections.Generic.IList<T>)Value).CopyTo(array, arrayIndex);
-			public int IndexOf(T item) => ((System.Collections.Generic.IList<T>)Value).IndexOf(item);
-			public void Insert(int index, T item) => ((System.Collections.Generic.IList<T>)Value).Insert(index, item);
-			public bool Remove(T item) => ((System.Collections.Generic.IList<T>)Value).Remove(item);
-			public void RemoveAt(int index) => ((System.Collections.Generic.IList<T>)Value).RemoveAt(index);
+			/// <summary>Gets the number of elements in this universal quantification.</summary>
+			public int Count => Value.Length;
+			/// <summary>Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}"/> is read-only.</summary>
+			public bool IsReadOnly => false;
+			/// <summary>Adds an item to this universal quantifier.</summary>
+			/// <param name="item">The item to add to this universal quantifier.</param>
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public void Add(T item)
+			{
+				T[] newValue = new T[Value.Length + 1];
+				Array.Copy(Value, newValue, Value.Length);
+				newValue[Value.Length] = item;
+				Value = newValue;
+			}
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public void Clear() => Value = new T[0];
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public bool Contains(T item) => Value.Contains(item);
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public void CopyTo(T[] array, int arrayIndex) =>
+				Array.Copy(Value, 0, array, arrayIndex, Value.Length);
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public int IndexOf(T item) => Array.IndexOf(Value, item);
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public void Insert(int index, T item)
+			{
+				T[] newValue = new T[Value.Length + 1];
+				for (int i = 0; i < newValue.Length; i++)
+				{
+					newValue[i] = i == index
+						? item
+						: i < index
+							? Value[i]
+							: Value[i - 1];
+				}
+				Value = newValue;
+			}
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public bool Remove(T item)
+			{
+				T[] newValue = new T[Value.Length - 1];
+				bool found = false;
+				for (int i = 0; i < Value.Length; i++)
+				{
+					if (Value[i].Equals(item))
+					{
+						found = true;
+					}
+					else if (found)
+					{
+						newValue[i] = Value[i - 1];
+					}
+					else
+					{
+						newValue[i] = Value[i];
+					}
+				}
+				if (!found)
+				{
+					return false;
+				}
+				Value = newValue;
+				return true;
+			}
+			[Obsolete(TowelConstants.NotIntended, true)]
+			public void RemoveAt(int index)
+			{
+				T[] newValue = new T[Value.Length - 1];
+				for (int i = 0; i < Value.Length; i++)
+				{
+					if (i != index)
+					{
+						if (i < index)
+						{
+							newValue[i] = Value[i];
+						}
+						else
+						{
+							newValue[i] = Value[i - 1];
+						}
+					}
+				}
+				Value = newValue;
+			}
 			#endregion
 
 			#region System.Collections.Generic.IEnumerable<T>
 			/// <summary>Gets the <see cref="System.Collections.Generic.IEnumerator{T}"/> for this universal quantification.</summary>
 			/// <returns>The <see cref="System.Collections.Generic.IEnumerator{T}"/> for this universal quantification.</returns>
+			[Obsolete(TowelConstants.NotIntended, true)]
 			public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)Value).GetEnumerator();
 			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => Value.GetEnumerator();
 			#endregion
@@ -382,7 +658,7 @@ namespace Towel
 			public static implicit operator Towel.DataStructures.ListArray<T>(UniversalQuantification<T> universalQuantification) => new ListArray<T>(universalQuantification.Value, universalQuantification.Value.Length);
 			/// <summary>Converts a universal quantification to an <see cref="StackArray{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> universalQuantification) => new StackArray<T>(universalQuantification.Value, universalQuantification.Length);
+			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> universalQuantification) => new StackArray<T>(universalQuantification.Value, universalQuantification.Value.Length);
 
 			#endregion
 		}

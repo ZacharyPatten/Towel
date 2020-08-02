@@ -1378,7 +1378,7 @@ namespace Towel.Mathematics
 		/// <param name="column">The restricted column to form the minor.</param>
 		/// <param name="b">The minor of the matrix.</param>
 		/// <returns>The minor of the matrix.</returns>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Minor_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name

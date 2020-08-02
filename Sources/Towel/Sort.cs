@@ -24,7 +24,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Bubble_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -91,7 +91,7 @@ namespace Towel
 		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Selection_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -160,7 +160,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Insertion_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -225,7 +225,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>ln(n)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Quick_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -313,7 +313,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
 		/// <stability>True</stability>
 		/// <memory>Θ(n)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Merge_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -407,7 +407,7 @@ namespace Towel
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Heap_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -498,7 +498,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
 		/// <memory>O(1)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void OddEven_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -647,7 +647,7 @@ namespace Towel
 		/// <param name="array">The array to shuffle.</param>
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Shuffle_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -700,7 +700,7 @@ namespace Towel
 		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
 		/// <stability>False</stability>
 		/// <memory>O(1)</memory>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Bogo_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -769,7 +769,7 @@ namespace Towel
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
 		/// <param name="array">The array to be sorted.</param>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Slow_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -840,7 +840,7 @@ namespace Towel
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
 		/// <param name="array">The array to be sorted.</param>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Gnome_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -907,7 +907,7 @@ namespace Towel
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
 		/// <param name="array">The array to be sorted.</param>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Comb_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -981,7 +981,7 @@ namespace Towel
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
 		/// <param name="array">The array to be sorted.</param>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Shell_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -1047,7 +1047,7 @@ namespace Towel
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
 		/// <param name="array">The array to be sorted.</param>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Cocktail_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name

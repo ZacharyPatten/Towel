@@ -4,18 +4,6 @@
         <name>Towel</name>
     </assembly>
     <members>
-        <member name="T:Towel.ChanceSyntax">
-            <summary>Struct that allows percentage syntax that will be evaluated at runtime.</summary>
-        </member>
-        <member name="F:Towel.ChanceSyntax.Algorithm">
-            <summary>The random algorithm currently being used by chance syntax.</summary>
-        </member>
-        <member name="M:Towel.ChanceSyntax.op_Modulus(System.Double,Towel.ChanceSyntax)">
-            <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
-            <param name="percentage">The value of the percentage.</param>
-            <param name="chance">The chance syntax struct object.</param>
-            <returns></returns>
-        </member>
         <member name="T:Towel.CommandLine">
             <summary>Contains static helpers for handling command line input and output.</summary>
         </member>
@@ -31321,14 +31309,6 @@
             <param name="stepper">The stepper to concatenate the values into a string.</param>
             <returns>The string of the concatenated chars.</returns>
         </member>
-        <member name="T:Towel.SwitchSyntax">
-            <summary>Definitions for Switch syntax.</summary>
-        </member>
-        <member name="T:Towel.SwitchSyntax.SwitchDelegate`1">
-            <summary>The delegate of the Switch statement.</summary>
-            <typeparam name="T">The generic type of the Switch statement.</typeparam>
-            <param name="possibleActions">The possible actions of the Switch statement.</param>
-        </member>
         <member name="T:Towel.Syntax">
             <summary>Towel syntax.</summary>
         </member>
@@ -31383,7 +31363,7 @@
         <member name="F:Towel.Syntax.Default">
             <summary>The default case in a Switch statement (true).</summary>
         </member>
-        <member name="M:Towel.Syntax.Switch(System.ValueTuple{Towel.SwitchSyntax.Condition,System.Action}[])">
+        <member name="M:Towel.Syntax.Switch(System.ValueTuple{Towel.Syntax.SwitchSyntax.Condition,System.Action}[])">
             <summary>Syntax sugar Switch statements.</summary>
             <param name="possibleActions">The possible actions of the Switch statement.</param>
         </member>
@@ -31392,6 +31372,147 @@
             <typeparam name="T">The generic type parameter to the Switch statement.</typeparam>
             <param name="value">The value argument of the Switch statement.</param>
             <returns>The delegate for the Switch statement.</returns>
+        </member>
+        <member name="T:Towel.Syntax.SwitchSyntax">
+            <summary>Definitions for Switch syntax.</summary>
+        </member>
+        <member name="T:Towel.Syntax.SwitchSyntax.SwitchDelegate`1">
+            <summary>The delegate of the Switch statement.</summary>
+            <typeparam name="T">The generic type of the Switch statement.</typeparam>
+            <param name="possibleActions">The possible actions of the Switch statement.</param>
+        </member>
+        <member name="P:Towel.Syntax.Chance">
+            <summary>Allows chance syntax with "using static Towel.Syntax;".</summary>
+            <example>25% Chance</example>
+        </member>
+        <member name="T:Towel.Syntax.ChanceSyntax">
+            <summary>Struct that allows percentage syntax that will be evaluated at runtime.</summary>
+        </member>
+        <member name="F:Towel.Syntax.ChanceSyntax.Algorithm">
+            <summary>The random algorithm currently being used by chance syntax.</summary>
+        </member>
+        <member name="M:Towel.Syntax.ChanceSyntax.op_Modulus(System.Double,Towel.Syntax.ChanceSyntax)">
+            <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
+            <param name="percentage">The value of the percentage.</param>
+            <param name="chance">The chance syntax struct object.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Towel.Syntax.Inequality`1">
+            <summary>Used for inequality syntax.</summary>
+            <typeparam name="T">The generic type of elements the inequality is being used on.</typeparam>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.op_Implicit(`0)~Towel.Syntax.Inequality{`0}">
+            <summary>Contructs a new <see cref="T:Towel.Syntax.Inequality`1"/>.</summary>
+            <param name="a">The initial value of the running inequality.</param>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.op_GreaterThan(Towel.Syntax.Inequality{`0},`0)">
+            <summary>Adds a greater than operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the greater than operation.</param>
+            <returns>A running inequality with the additonal greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.op_LessThan(Towel.Syntax.Inequality{`0},`0)">
+            <summary>Adds a less than operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the less than operation.</param>
+            <returns>A running inequality with the additonal less than operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.op_GreaterThanOrEqual(Towel.Syntax.Inequality{`0},`0)">
+            <summary>Adds a greater than or equal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
+            <returns>A running inequality with the additonal greater than or equal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.op_LessThanOrEqual(Towel.Syntax.Inequality{`0},`0)">
+            <summary>Adds a less than or equal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the less than or equal operation.</param>
+            <returns>A running inequality with the additonal less than or equal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.op_Equality(Towel.Syntax.Inequality{`0},`0)">
+            <summary>Adds an equal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the equal operation.</param>
+            <returns>A running inequality with the additonal equal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.op_Inequality(Towel.Syntax.Inequality{`0},`0)">
+            <summary>Adds an inequal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the inequal operation.</param>
+            <returns>A running inequality with the additonal inequal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.ToString">
+            <summary>This member is not intended to be invoked.</summary>
+            <returns>This member is not intended to be invoked.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.Equals(System.Object)">
+            <summary>This member is not intended to be invoked.</summary>
+            <param name="obj">This member is not intended to be invoked.</param>
+            <returns>This member is not intended to be invoked.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Inequality`1.GetHashCode">
+            <summary>This member is not intended to be invoked.</summary>
+            <returns>This member is not intended to be invoked.</returns>
+        </member>
+        <member name="T:Towel.Syntax.OperatorValidated">
+            <summary>Helper type for inequality syntax. Contains an Inequality type that has been operator validated.</summary>
+        </member>
+        <member name="T:Towel.Syntax.OperatorValidated.Inequality`1">
+            <summary>Used for inequality syntax.</summary>
+            <typeparam name="T">The generic type of elements the inequality is being used on.</typeparam>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_Implicit(Towel.Syntax.OperatorValidated.Inequality{`0})~System.Boolean">
+            <summary>Converts this running inequality into the result of the expression.</summary>
+            <param name="inequality">The inequality to convert into the result of the expression.</param>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_GreaterThan(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+            <summary>Adds a greater than operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the greater than operation.</param>
+            <returns>A running inequality with the additonal greater than operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_LessThan(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+            <summary>Adds a less than operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the less than operation.</param>
+            <returns>A running inequality with the additonal less than operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_GreaterThanOrEqual(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+            <summary>Adds a greater than or equal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
+            <returns>A running inequality with the additonal greater than or equal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_LessThanOrEqual(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+            <summary>Adds a less than or equal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the less than or equal operation.</param>
+            <returns>A running inequality with the additonal less than or equal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_Equality(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+            <summary>Adds an equal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the equal operation.</param>
+            <returns>A running inequality with the additonal equal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_Inequality(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+            <summary>Adds an inequal operation to a running inequality.</summary>
+            <param name="a">The current running inequality and left hand operand.</param>
+            <param name="b">The value of the right hand operand of the inequal operation.</param>
+            <returns>A running inequality with the additonal inequal operation.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.ToString">
+            <summary>Converts the result of this inequality to a <see cref="T:System.String"/>.</summary>
+            <returns>The result of this inequality converted to a <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.Equals(System.Object)">
+            <summary>This member is not intended to be invoked.</summary>
+            <param name="obj">This member is not intended to be invoked.</param>
+            <returns>This member is not intended to be invoked.</returns>
+        </member>
+        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.GetHashCode">
+            <summary>This member is not intended to be invoked.</summary>
+            <returns>This member is not intended to be invoked.</returns>
         </member>
         <member name="M:Towel.Syntax.Ɐ``1(``0[])">
             <summary>Universal Quantification Operator.</summary>
@@ -31412,10 +31533,25 @@
         </member>
         <member name="M:Towel.Syntax.UniversalQuantification`1.Stepper(Towel.Step{`0})">
             <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
-            <param name="step"></param>
+            <param name="step">The action to perform on every step of the iteration.</param>
         </member>
         <member name="M:Towel.Syntax.UniversalQuantification`1.Stepper(Towel.StepBreak{`0})">
             <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
+        </member>
+        <member name="P:Towel.Syntax.UniversalQuantification`1.Item(System.Int32)">
+            <summary>Index property for get/set operations.</summary>
+            <param name="index">The index to get/set.</param>
+            <returns>The value at the provided index.</returns>
+        </member>
+        <member name="P:Towel.Syntax.UniversalQuantification`1.Count">
+            <summary>Gets the number of elements in this universal quantification.</summary>
+        </member>
+        <member name="P:Towel.Syntax.UniversalQuantification`1.IsReadOnly">
+            <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
+        </member>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.Add(`0)">
+            <summary>Adds an item to this universal quantifier.</summary>
+            <param name="item">The item to add to this universal quantifier.</param>
         </member>
         <member name="M:Towel.Syntax.UniversalQuantification`1.GetEnumerator">
             <summary>Gets the <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</summary>

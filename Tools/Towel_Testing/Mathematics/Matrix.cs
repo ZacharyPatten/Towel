@@ -709,7 +709,7 @@ namespace Towel_Testing.Mathematics
 					{ 37,  54, },
 					{ 81, 118, },
 				};
-				Assert.IsTrue((A ^ 3) == B);
+				Assert.IsTrue((A.Power(3)) == B);
 			}
 
 			// float
@@ -724,7 +724,7 @@ namespace Towel_Testing.Mathematics
 					{ 37f,  54f, },
 					{ 81f, 118f, },
 				};
-				Assert.IsTrue((A ^ 3) == B);
+				Assert.IsTrue((A.Power(3)) == B);
 			}
 
 			// double
@@ -739,7 +739,7 @@ namespace Towel_Testing.Mathematics
 					{ 37d,  54d, },
 					{ 81d, 118d, },
 				};
-				Assert.IsTrue((A ^ 3) == B);
+				Assert.IsTrue((A.Power(3)) == B);
 			}
 
 			// decimal
@@ -754,13 +754,13 @@ namespace Towel_Testing.Mathematics
 					{ 37m,  54m, },
 					{ 81m, 118m, },
 				};
-				Assert.IsTrue((A ^ 3) == B);
+				Assert.IsTrue((A.Power(3)) == B);
 			}
 
 			// Exceptions
 			{
 				Matrix<decimal> A = new Matrix<decimal>(2, 3);
-				Assert.ThrowsException<MathematicsException>(() => A ^ 3);
+				Assert.ThrowsException<MathematicsException>(() => A.Power(3));
 			}
 		}
 

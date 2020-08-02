@@ -311,7 +311,7 @@ namespace Mathematics
 
 			// Matrix Power
 			Console.WriteLine("    M ^ 3: ");
-			ConsoleWrite(M ^ 3);
+			ConsoleWrite(M.Power(3));
 
 			// Matrix Multiplication
 			Console.WriteLine("    minor(M, 1, 1): ");

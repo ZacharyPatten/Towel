@@ -219,7 +219,7 @@ namespace Towel
 		/// <param name="goal">The goal of the search.</param>
 		/// <param name="graph">The graph to perform the search on.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Graph_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -232,7 +232,7 @@ namespace Towel
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the A* search algorithm on a graph.</summary>
 		/// <inheritdoc cref="Graph_XML"/>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Graph_Astar_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -320,7 +320,7 @@ namespace Towel
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <inheritdoc cref="Graph_XML"/>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Graph_Dijkstra_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -403,7 +403,7 @@ namespace Towel
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
 		/// <inheritdoc cref="Graph_XML"/>
-		[Obsolete("This method is for documentation only.", true)]
+		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Graph_BreadthFirstSearch_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
