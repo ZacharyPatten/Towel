@@ -18,12 +18,9 @@ Towel is a C# .Net Standard libary intended to add core functionality that is mi
 
 ## Pages
 
-- [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md)
-- [Development Environments](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Development%20Environments.md)
 - [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTING.md)
-- [Code Documentation](https://zacharypatten.github.io/Towel/Documentation)
-	- _Note: This page still needs a lot of work_
-- [Coding Standards](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Code%20Standards.md)
+- [Docfx Generated Code Documentation](https://zacharypatten.github.io/Towel/api/index.html)
+- [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md)
 
 ## Generic Mathematics & Logic
 
@@ -677,11 +674,6 @@ string GetDocumentation(this ParameterInfo parameterInfo);
 void PermuteRecursive<T>(this T[] array, Step<T[]> step);
 void PermuteIterative<T>(this T[] array, Step<T[]> step);
 ```
-
-## Resources
-
-- [MSDN Magazine volume 34 number 10 - Accessing XML Documentation via Reflection](https://msdn.microsoft.com/en-us/magazine/mt833526)
-- [Generating Unique Random Data: A Practical Example Of Algorithm Analysis](https://gist.github.com/ZacharyPatten/c9b43a2c9e8a5a5523883e77410f742d)
 
 ## Developer(s)
 
