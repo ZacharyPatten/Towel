@@ -1,0 +1,1562 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Permute
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Permute
+   ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.Permute">
+  
+  
+  <h1 id="Towel_Permute" data-uid="Towel.Permute" class="text-break">Class Permute
+  </h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">Permute</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.html">Towel</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_Permute_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Permute</code></pre>
+  </div>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__1___0___System_Action_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%601(%60%600%5B%5D%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L207">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__1___0___System_Action_" data-uid="Towel.Permute.Iterative``1(``0[],System.Action)">Iterative&lt;T&gt;(T[], Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T&gt;(T[] array, Action action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__1___0___System_Action_System_Func_Towel_StepStatus__.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%601(%60%600%5B%5D%2CSystem.Action%2CSystem.Func%7BTowel.StepStatus%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L240">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__1___0___System_Action_System_Func_Towel_StepStatus__" data-uid="Towel.Permute.Iterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">Iterative&lt;T&gt;(T[], Action, Func&lt;StepStatus&gt;)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T&gt;(T[] array, Action action, Func&lt;StepStatus&gt; status)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<a class="xref" href="Towel.StepStatus.html">StepStatus</a>&gt;</td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__1_Towel_DataStructures_ListArray___0__System_Action_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%601(Towel.DataStructures.ListArray%7B%60%600%7D%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L221">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__1_Towel_DataStructures_ListArray___0__System_Action_" data-uid="Towel.Permute.Iterative``1(Towel.DataStructures.ListArray{``0},System.Action)">Iterative&lt;T&gt;(ListArray&lt;T&gt;, Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T&gt;(ListArray&lt;T&gt; list, Action action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__1_Towel_DataStructures_ListArray___0__System_Action_System_Func_Towel_StepStatus__.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%601(Towel.DataStructures.ListArray%7B%60%600%7D%2CSystem.Action%2CSystem.Func%7BTowel.StepStatus%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L258">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__1_Towel_DataStructures_ListArray___0__System_Action_System_Func_Towel_StepStatus__" data-uid="Towel.Permute.Iterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">Iterative&lt;T&gt;(ListArray&lt;T&gt;, Action, Func&lt;StepStatus&gt;)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T&gt;(ListArray&lt;T&gt; list, Action action, Func&lt;StepStatus&gt; status)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<a class="xref" href="Towel.StepStatus.html">StepStatus</a>&gt;</td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__2___0_____1_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%602(%60%600%5B%5D%2C%60%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L200">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__2___0_____1_" data-uid="Towel.Permute.Iterative``2(``0[],``1)">Iterative&lt;T, Action&gt;(T[], Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T, Action&gt;(T[] array, Action action = default(Action))
+
+    where Action : struct, IAction</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__2_Towel_DataStructures_ListArray___0____1_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%602(Towel.DataStructures.ListArray%7B%60%600%7D%2C%60%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L214">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__2_Towel_DataStructures_ListArray___0____1_" data-uid="Towel.Permute.Iterative``2(Towel.DataStructures.ListArray{``0},``1)">Iterative&lt;T, Action&gt;(ListArray&lt;T&gt;, Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T, Action&gt;(ListArray&lt;T&gt; list, Action action = default(Action))
+
+    where Action : struct, IAction</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__3___0_____1___2_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%603(%60%600%5B%5D%2C%60%601%2C%60%602)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L231">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__3___0_____1___2_" data-uid="Towel.Permute.Iterative``3(``0[],``1,``2)">Iterative&lt;T, Action, Status&gt;(T[], Action, Status)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T, Action, Status&gt;(T[] array, Action action = default(Action), Status status = default(Status))
+
+    where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Status</span></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__3_Towel_DataStructures_ListArray___0____1___2_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%603(Towel.DataStructures.ListArray%7B%60%600%7D%2C%60%601%2C%60%602)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L249">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__3_Towel_DataStructures_ListArray___0____1___2_" data-uid="Towel.Permute.Iterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">Iterative&lt;T, Action, Status&gt;(ListArray&lt;T&gt;, Action, Status)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T, Action, Status&gt;(ListArray&lt;T&gt; list, Action action = default(Action), Status status = default(Status))
+
+    where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Status</span></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__4_System_Int32_System_Int32___1___2___3_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%604(System.Int32%2CSystem.Int32%2C%60%601%2C%60%602%2C%60%603)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L189">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__4_System_Int32_System_Int32___1___2___3_" data-uid="Towel.Permute.Iterative``4(System.Int32,System.Int32,``1,``2,``3)">Iterative&lt;T, Action, Get, Set&gt;(Int32, Int32, Action, Get, Set)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T, Action, Get, Set&gt;(int start, int end, Action action = default(Action), Get get = default(Get), Set set = default(Set))
+
+    where Action : struct, IAction where Get : struct, IGetIndex&lt;T&gt; where Set : struct, ISetIndex&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The starting index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Get</span></td>
+        <td><span class="parametername">get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Set</span></td>
+        <td><span class="parametername">set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Iterative__5_System_Int32_System_Int32___1___2___3___4_.md&amp;value=---%0Auid%3A%20Towel.Permute.Iterative%60%605(System.Int32%2CSystem.Int32%2C%60%601%2C%60%602%2C%60%603%2C%60%604)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L152">View Source</a>
+  </span>
+  <a id="Towel_Permute_Iterative_" data-uid="Towel.Permute.Iterative*"></a>
+  <h4 id="Towel_Permute_Iterative__5_System_Int32_System_Int32___1___2___3___4_" data-uid="Towel.Permute.Iterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">Iterative&lt;T, Action, Status, Get, Set&gt;(Int32, Int32, Action, Status, Get, Set)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Iterative&lt;T, Action, Status, Get, Set&gt;(int start, int end, Action action = default(Action), Status status = default(Status), Get get = default(Get), Set set = default(Set))
+
+    where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt; where Get : struct, IGetIndex&lt;T&gt; where Set : struct, ISetIndex&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The starting index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Status</span></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Get</span></td>
+        <td><span class="parametername">get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Set</span></td>
+        <td><span class="parametername">set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__1___0___System_Action_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%601(%60%600%5B%5D%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L84">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__1___0___System_Action_" data-uid="Towel.Permute.Recursive``1(``0[],System.Action)">Recursive&lt;T&gt;(T[], Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T&gt;(T[] array, Action action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__1___0___System_Action_System_Func_Towel_StepStatus__.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%601(%60%600%5B%5D%2CSystem.Action%2CSystem.Func%7BTowel.StepStatus%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L117">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__1___0___System_Action_System_Func_Towel_StepStatus__" data-uid="Towel.Permute.Recursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">Recursive&lt;T&gt;(T[], Action, Func&lt;StepStatus&gt;)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T&gt;(T[] array, Action action, Func&lt;StepStatus&gt; status)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<a class="xref" href="Towel.StepStatus.html">StepStatus</a>&gt;</td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__1_Towel_DataStructures_ListArray___0__System_Action_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%601(Towel.DataStructures.ListArray%7B%60%600%7D%2CSystem.Action)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L98">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__1_Towel_DataStructures_ListArray___0__System_Action_" data-uid="Towel.Permute.Recursive``1(Towel.DataStructures.ListArray{``0},System.Action)">Recursive&lt;T&gt;(ListArray&lt;T&gt;, Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T&gt;(ListArray&lt;T&gt; list, Action action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__1_Towel_DataStructures_ListArray___0__System_Action_System_Func_Towel_StepStatus__.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%601(Towel.DataStructures.ListArray%7B%60%600%7D%2CSystem.Action%2CSystem.Func%7BTowel.StepStatus%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L135">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__1_Towel_DataStructures_ListArray___0__System_Action_System_Func_Towel_StepStatus__" data-uid="Towel.Permute.Recursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">Recursive&lt;T&gt;(ListArray&lt;T&gt;, Action, Func&lt;StepStatus&gt;)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T&gt;(ListArray&lt;T&gt; list, Action action, Func&lt;StepStatus&gt; status)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<a class="xref" href="Towel.StepStatus.html">StepStatus</a>&gt;</td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__2___0_____1_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%602(%60%600%5B%5D%2C%60%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L77">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__2___0_____1_" data-uid="Towel.Permute.Recursive``2(``0[],``1)">Recursive&lt;T, Action&gt;(T[], Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T, Action&gt;(T[] array, Action action = default(Action))
+
+    where Action : struct, IAction</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__2_Towel_DataStructures_ListArray___0____1_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%602(Towel.DataStructures.ListArray%7B%60%600%7D%2C%60%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L91">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__2_Towel_DataStructures_ListArray___0____1_" data-uid="Towel.Permute.Recursive``2(Towel.DataStructures.ListArray{``0},``1)">Recursive&lt;T, Action&gt;(ListArray&lt;T&gt;, Action)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T, Action&gt;(ListArray&lt;T&gt; list, Action action = default(Action))
+
+    where Action : struct, IAction</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__3___0_____1___2_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%603(%60%600%5B%5D%2C%60%601%2C%60%602)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L108">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__3___0_____1___2_" data-uid="Towel.Permute.Recursive``3(``0[],``1,``2)">Recursive&lt;T, Action, Status&gt;(T[], Action, Status)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T, Action, Status&gt;(T[] array, Action action = default(Action), Status status = default(Status))
+
+    where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Status</span></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__3_Towel_DataStructures_ListArray___0____1___2_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%603(Towel.DataStructures.ListArray%7B%60%600%7D%2C%60%601%2C%60%602)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L126">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__3_Towel_DataStructures_ListArray___0____1___2_" data-uid="Towel.Permute.Recursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">Recursive&lt;T, Action, Status&gt;(ListArray&lt;T&gt;, Action, Status)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T, Action, Status&gt;(ListArray&lt;T&gt; list, Action action = default(Action), Status status = default(Status))
+
+    where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.ListArray-1.html">ListArray</a>&lt;T&gt;</td>
+        <td><span class="parametername">list</span></td>
+        <td><p>The list to iterate the permutations of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Status</span></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__4_System_Int32_System_Int32___1___2___3_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%604(System.Int32%2CSystem.Int32%2C%60%601%2C%60%602%2C%60%603)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L66">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__4_System_Int32_System_Int32___1___2___3_" data-uid="Towel.Permute.Recursive``4(System.Int32,System.Int32,``1,``2,``3)">Recursive&lt;T, Action, Get, Set&gt;(Int32, Int32, Action, Get, Set)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T, Action, Get, Set&gt;(int start, int end, Action action = default(Action), Get get = default(Get), Set set = default(Set))
+
+    where Action : struct, IAction where Get : struct, IGetIndex&lt;T&gt; where Set : struct, ISetIndex&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The starting index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Get</span></td>
+        <td><span class="parametername">get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Set</span></td>
+        <td><span class="parametername">set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute_Recursive__5_System_Int32_System_Int32___1___2___3___4_.md&amp;value=---%0Auid%3A%20Towel.Permute.Recursive%60%605(System.Int32%2CSystem.Int32%2C%60%601%2C%60%602%2C%60%603%2C%60%604)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L21">View Source</a>
+  </span>
+  <a id="Towel_Permute_Recursive_" data-uid="Towel.Permute.Recursive*"></a>
+  <h4 id="Towel_Permute_Recursive__5_System_Int32_System_Int32___1___2___3___4_" data-uid="Towel.Permute.Recursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">Recursive&lt;T, Action, Status, Get, Set&gt;(Int32, Int32, Action, Status, Get, Set)</h4>
+  <div class="markdown level1 summary"><p>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Recursive&lt;T, Action, Status, Get, Set&gt;(int start, int end, Action action = default(Action), Status status = default(Status), Get get = default(Get), Set set = default(Set))
+
+    where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt; where Get : struct, IGetIndex&lt;T&gt; where Set : struct, ISetIndex&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The starting index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending index of the values to permute.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Status</span></td>
+        <td><span class="parametername">status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Get</span></td>
+        <td><span class="parametername">get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Set</span></td>
+        <td><span class="parametername">set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic element type of the indexed collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Action</span></td>
+        <td><p>The action to perform on each permutation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Status</span></td>
+        <td><p>The status checker for cancellation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Get</span></td>
+        <td><p>The get index operation of the collection.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Set</span></td>
+        <td><p>The set index operation of the collection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_Permute.md&amp;value=---%0Auid%3A%20Towel.Permute%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/Permute.cs/#L7" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

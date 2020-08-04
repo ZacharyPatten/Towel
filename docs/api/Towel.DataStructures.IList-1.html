@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IList&lt;T&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IList&lt;T&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.IList`1">
+  
+  
+  <h1 id="Towel_DataStructures_IList_1" data-uid="Towel.DataStructures.IList`1" class="text-break">Interface IList&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A primitive dynamic sized data structure.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html#Towel_DataStructures_IDataStructure_1_Stepper_Towel_Step__0__">IDataStructure&lt;T&gt;.Stepper(Step&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html#Towel_DataStructures_IDataStructure_1_Stepper_Towel_StepBreak__0__">IDataStructure&lt;T&gt;.Stepper(StepBreak&lt;T&gt;)</a>
+    </div>
+    <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;.GetEnumerator()</span>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html#Towel_DataStructures_DataStructure_IAddable_1_TryAdd__0_System_Exception__">DataStructure.IAddable&lt;T&gt;.TryAdd(T, Exception)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html#Towel_DataStructures_DataStructure_ICountable_Count">DataStructure.ICountable.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html#Towel_DataStructures_DataStructure_IClearable_Clear">DataStructure.IClearable.Clear()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_IList_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IList&lt;T&gt; : IDataStructure&lt;T&gt;, IEnumerable&lt;T&gt;, IEnumerable, DataStructure.IAddable&lt;T&gt;, DataStructure.ICountable, DataStructure.IClearable</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of items to store in the list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_IList_1_RemoveAll__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IList%601.RemoveAll%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/List.cs/#L24">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IList_1_RemoveAll_" data-uid="Towel.DataStructures.IList`1.RemoveAll*"></a>
+  <h4 id="Towel_DataStructures_IList_1_RemoveAll__1___0_" data-uid="Towel.DataStructures.IList`1.RemoveAll``1(``0)">RemoveAll&lt;Predicate&gt;(Predicate)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void RemoveAll&lt;Predicate&gt;(Predicate predicate = default(Predicate))
+
+    where Predicate : struct, IFunc&lt;T, bool&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Predicate</span></td>
+        <td><span class="parametername">predicate</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Predicate</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_IList_1_TryRemoveFirst__1_System_Exception____0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IList%601.TryRemoveFirst%60%601(System.Exception%40%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/List.cs/#L21">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IList_1_TryRemoveFirst_" data-uid="Towel.DataStructures.IList`1.TryRemoveFirst*"></a>
+  <h4 id="Towel_DataStructures_IList_1_TryRemoveFirst__1_System_Exception____0_" data-uid="Towel.DataStructures.IList`1.TryRemoveFirst``1(System.Exception@,``0)">TryRemoveFirst&lt;Predicate&gt;(out Exception, Predicate)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove the first predicated value if the value exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryRemoveFirst&lt;Predicate&gt;(out Exception exception, Predicate predicate = default(Predicate))
+
+    where Predicate : struct, IFunc&lt;T, bool&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the remove failed.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Predicate</span></td>
+        <td><span class="parametername">predicate</span></td>
+        <td><p>The predicate to determine removal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value was removed. False if the value did not exist.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Predicate</span></td>
+        <td><p>The predicate to determine removal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Towel.Extensions.html#Towel_Extensions_TryFirst__1_System_Collections_Generic_IEnumerable___0____0__">Extensions.TryFirst&lt;T&gt;(IEnumerable&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepper__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepper&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepperBreak__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepperBreak&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Stepper__1_Towel_DataStructures_IDataStructure___0__">DataStructure.Stepper&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_StepperBreak__1_Towel_DataStructures_IDataStructure___0__">DataStructure.StepperBreak&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryAdd__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.TryAdd&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Add__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.Add&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_RemoveAll__1_Towel_DataStructures_IList___0__System_Func___0_System_Boolean__">List.RemoveAll&lt;T&gt;(IList&lt;T&gt;, Func&lt;T, Boolean&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_TryRemoveFirst__1_Towel_DataStructures_IList___0__System_Func___0_System_Boolean__">List.TryRemoveFirst&lt;T&gt;(IList&lt;T&gt;, Func&lt;T, Boolean&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_TryRemoveFirst__1_Towel_DataStructures_IList___0__System_Func___0_System_Boolean__System_Exception__">List.TryRemoveFirst&lt;T&gt;(IList&lt;T&gt;, Func&lt;T, Boolean&gt;, out Exception)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_RemoveFirst__1_Towel_DataStructures_IList___0__System_Func___0_System_Boolean__">List.RemoveFirst&lt;T&gt;(IList&lt;T&gt;, Func&lt;T, Boolean&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_RemoveFirst__1_Towel_DataStructures_IList___0____0_">List.RemoveFirst&lt;T&gt;(IList&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_RemoveFirst__1_Towel_DataStructures_IList___0____0_Towel_Equate___0__">List.RemoveFirst&lt;T&gt;(IList&lt;T&gt;, T, Equate&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_TryRemoveFirst__1_Towel_DataStructures_IList___0____0_">List.TryRemoveFirst&lt;T&gt;(IList&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_TryRemoveFirst__1_Towel_DataStructures_IList___0____0_Towel_Equate___0__">List.TryRemoveFirst&lt;T&gt;(IList&lt;T&gt;, T, Equate&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_RemoveAll__1_Towel_DataStructures_IList___0____0_">List.RemoveAll&lt;T&gt;(IList&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.List.html#Towel_DataStructures_List_RemoveAll__1_Towel_DataStructures_IList___0____0_Towel_Equate___0__">List.RemoveAll&lt;T&gt;(IList&lt;T&gt;, T, Equate&lt;T&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_IList_1.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IList%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/List.cs/#L8" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

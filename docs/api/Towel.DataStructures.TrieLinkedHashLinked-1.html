@@ -1,0 +1,708 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TrieLinkedHashLinked&lt;T&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TrieLinkedHashLinked&lt;T&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1">
+  
+  
+  <h1 id="Towel_DataStructures_TrieLinkedHashLinked_1" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1" class="text-break">Class TrieLinkedHashLinked&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A trie data structure that allows partial value sharing to reduce redundant memory.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">TrieLinkedHashLinked&lt;T&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Towel.DataStructures.ITrie-1.html">ITrie</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure</a>&lt;<a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;<a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;&gt;</div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IEquating-1.html">DataStructure.IEquating</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable</a>&lt;<a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable</a>&lt;<a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IHashing-1.html">DataStructure.IHashing</a>&lt;T&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_TrieLinkedHashLinked_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TrieLinkedHashLinked&lt;T&gt; : ITrie&lt;T&gt;, IDataStructure&lt;Stepper&lt;T&gt;&gt;, IEnumerable&lt;Stepper&lt;T&gt;&gt;, IEnumerable, DataStructure.ICountable, DataStructure.IClearable, DataStructure.IEquating&lt;T&gt;, DataStructure.IAddable&lt;Stepper&lt;T&gt;&gt;, DataStructure.IRemovable&lt;Stepper&lt;T&gt;&gt;, DataStructure.IHashing&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of values in the trie.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1__ctor_Towel_Equate__0__Towel_Hash__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.%23ctor(Towel.Equate%7B%600%7D%2CTowel.Hash%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L132">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1__ctor_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.#ctor*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1__ctor_Towel_Equate__0__Towel_Hash__0__" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.#ctor(Towel.Equate{`0},Towel.Hash{`0})">TrieLinkedHashLinked(Equate&lt;T&gt;, Hash&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new trie that uses linked hash tables of linked lists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TrieLinkedHashLinked(Equate&lt;T&gt; equate = null, Hash&lt;T&gt; hash = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Equate-1.html">Equate</a>&lt;T&gt;</td>
+        <td><span class="parametername">equate</span></td>
+        <td><p>The equality delegate for the keys.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Hash-1.html">Hash</a>&lt;T&gt;</td>
+        <td><span class="parametername">hash</span></td>
+        <td><p>The hashing function for the keys.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_Count.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L145">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_Count_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Count*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_Count" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Count">Count</h4>
+  <div class="markdown level1 summary"><p>The current count of the trie.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_Equate.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.Equate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L147">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_Equate_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Equate*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_Equate" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Equate">Equate</h4>
+  <div class="markdown level1 summary"><p>The equality function of the keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Equate&lt;T&gt; Equate { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Equate-1.html">Equate</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_Hash.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.Hash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L149">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_Hash_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Hash*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_Hash" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Hash">Hash</h4>
+  <div class="markdown level1 summary"><p>The hash fucntion for the keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Hash&lt;T&gt; Hash { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Hash-1.html">Hash</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_Clear.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L325">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_Clear_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Clear*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_Clear" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Returns the trie to an empty state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_Contains_Towel_Stepper__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.Contains(Towel.Stepper%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L287">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_Contains_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Contains*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_Contains_Towel_Stepper__0__" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Contains(Towel.Stepper{`0})">Contains(Stepper&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if the trie contains the relative keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(Stepper&lt;T&gt; stepper)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;</td>
+        <td><span class="parametername">stepper</span></td>
+        <td><p>The relative keys.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the trie contains th relative keys or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_GetEnumerator.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L380">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_GetEnumerator_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.GetEnumerator*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_GetEnumerator" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Gets the enumerator for the trie.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;Stepper&lt;T&gt;&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerator</span>&lt;<a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;&gt;</td>
+        <td><p>The enumerator for the trie.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_Stepper_Towel_Step_Towel_Stepper__0___.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.Stepper(Towel.Step%7BTowel.Stepper%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L337">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_Stepper_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Stepper*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_Stepper_Towel_Step_Towel_Stepper__0___" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(Towel.Step{Towel.Stepper{`0}})">Stepper(Step&lt;Stepper&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stepper(Step&lt;Stepper&lt;T&gt;&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;<a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_Stepper_Towel_StepBreak_Towel_Stepper__0___.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.Stepper(Towel.StepBreak%7BTowel.Stepper%7B%600%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L356">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_Stepper_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Stepper*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_Stepper_Towel_StepBreak_Towel_Stepper__0___" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(Towel.StepBreak{Towel.Stepper{`0}})">Stepper(StepBreak&lt;Stepper&lt;T&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus Stepper(StepBreak&lt;Stepper&lt;T&gt;&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;<a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_TryAdd_Towel_Stepper__0__System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.TryAdd(Towel.Stepper%7B%600%7D%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L161">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_TryAdd_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_TryAdd_Towel_Stepper__0__System_Exception__" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.TryAdd(Towel.Stepper{`0},System.Exception@)">TryAdd(Stepper&lt;T&gt;, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to add a value to the trie.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAdd(Stepper&lt;T&gt; stepper, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;</td>
+        <td><span class="parametername">stepper</span></td>
+        <td><p>The relative keys of the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the add failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value was added or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_TryRemove_Towel_Stepper__0__System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.TryRemove(Towel.Stepper%7B%600%7D%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L215">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_TryRemove_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_TryRemove_Towel_Stepper__0__System_Exception__" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.TryRemove(Towel.Stepper{`0},System.Exception@)">TryRemove(Stepper&lt;T&gt;, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemove(Stepper&lt;T&gt; stepper, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Stepper-1.html">Stepper</a>&lt;T&gt;</td>
+        <td><span class="parametername">stepper</span></td>
+        <td><p>The relative keys of the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the remove failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the remove was successful or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1_System_Collections_IEnumerable_GetEnumerator.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601.System%23Collections%23IEnumerable%23GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L375">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_TrieLinkedHashLinked_1_System_Collections_IEnumerable_GetEnumerator_" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.System#Collections#IEnumerable#GetEnumerator*"></a>
+  <h4 id="Towel_DataStructures_TrieLinkedHashLinked_1_System_Collections_IEnumerable_GetEnumerator" data-uid="Towel.DataStructures.TrieLinkedHashLinked`1.System#Collections#IEnumerable#GetEnumerator">IEnumerable.GetEnumerator()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.IEnumerator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Towel.DataStructures.ITrie-1.html">ITrie&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure&lt;T&gt;</a>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IEquating-1.html">DataStructure.IEquating&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IHashing-1.html">DataStructure.IHashing&lt;T&gt;</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Towel.Extensions.html#Towel_Extensions_TryFirst__1_System_Collections_Generic_IEnumerable___0____0__">Extensions.TryFirst&lt;T&gt;(IEnumerable&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepper__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepper&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepperBreak__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepperBreak&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Stepper__1_Towel_DataStructures_IDataStructure___0__">DataStructure.Stepper&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_StepperBreak__1_Towel_DataStructures_IDataStructure___0__">DataStructure.StepperBreak&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryAdd__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.TryAdd&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Add__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.Add&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryRemove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.TryRemove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Remove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.Remove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_TrieLinkedHashLinked_1.md&amp;value=---%0Auid%3A%20Towel.DataStructures.TrieLinkedHashLinked%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Trie.cs/#L103" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

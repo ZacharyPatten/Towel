@@ -1,0 +1,2725 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RedBlackTreeLinked&lt;T, Compare&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RedBlackTreeLinked&lt;T, Compare&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.RedBlackTreeLinked`2">
+  
+  
+  <h1 id="Towel_DataStructures_RedBlackTreeLinked_2" data-uid="Towel.DataStructures.RedBlackTreeLinked`2" class="text-break">Class RedBlackTreeLinked&lt;T, Compare&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A self sorting binary tree using the red-black tree algorithms.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">RedBlackTreeLinked&lt;T, Compare&gt;</span></div>
+      <div class="level2"><a class="xref" href="Towel.DataStructures.RedBlackTreeLinked-1.html">RedBlackTreeLinked&lt;T&gt;</a></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Towel.DataStructures.IRedBlackTree-1.html">IRedBlackTree</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html">ISortedBinaryTree</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure</a>&lt;T&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IComparing-1.html">DataStructure.IComparing</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html">DataStructure.IAuditable</a>&lt;T&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_RedBlackTreeLinked_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class RedBlackTreeLinked&lt;T, Compare&gt; : IRedBlackTree&lt;T&gt;, ISortedBinaryTree&lt;T&gt;, IDataStructure&lt;T&gt;, IEnumerable&lt;T&gt;, IEnumerable, DataStructure.IAddable&lt;T&gt;, DataStructure.IRemovable&lt;T&gt;, DataStructure.ICountable, DataStructure.IClearable, DataStructure.IComparing&lt;T&gt;, DataStructure.IAuditable&lt;T&gt; where Compare : struct, ICompare&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic type of the structure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Compare</span></td>
+        <td><p>The compare delegate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2__ctor__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.%23ctor(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L45">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2__ctor_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.#ctor*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2__ctor__1_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.#ctor(`1)">RedBlackTreeLinked(Compare)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new Red Black Tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedBlackTreeLinked(Compare compare = default(Compare))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Compare</span></td>
+        <td><span class="parametername">compare</span></td>
+        <td><p>The comparison method to be used when sorting the values of the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Count.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L117">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Count_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Count*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Count" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Count">Count</h4>
+  <div class="markdown level1 summary"><p>The number of items in this data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_CurrentGreatest.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.CurrentGreatest%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L99">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_CurrentGreatest_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.CurrentGreatest*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_CurrentGreatest" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.CurrentGreatest">CurrentGreatest</h4>
+  <div class="markdown level1 summary"><p>Gets the current greated item in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T CurrentGreatest { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_CurrentLeast.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.CurrentLeast%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L81">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_CurrentLeast_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.CurrentLeast*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_CurrentLeast" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.CurrentLeast">CurrentLeast</h4>
+  <div class="markdown level1 summary"><p>Gets the current least item in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T CurrentLeast { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Clear.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L203">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Clear_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Clear*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Clear" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Returns the tree to an empty state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Clone.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L215">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Clone_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Clone*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Clone" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Clone">Clone()</h4>
+  <div class="markdown level1 summary"><p>Creates a shallow clone of this data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RedBlackTreeLinked&lt;T, Compare&gt; Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.RedBlackTreeLinked-2.html">RedBlackTreeLinked</a>&lt;T, Compare&gt;</td>
+        <td><p>A shallow clone of this data structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Contains__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Contains(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L224">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Contains_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Contains*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Contains__0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Contains(`0)">Contains(T)</h4>
+  <div class="markdown level1 summary"><p>Determines if the tree contains a given value;</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to see if the tree contains.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the tree contains the value. False if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Contains_Towel_CompareToKnownValue__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Contains(Towel.CompareToKnownValue%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L230">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Contains_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Contains*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Contains_Towel_CompareToKnownValue__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Contains(Towel.CompareToKnownValue{`0})">Contains(CompareToKnownValue&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if this structure contains an item by a given key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(CompareToKnownValue&lt;T&gt; compare)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.CompareToKnownValue-1.html">CompareToKnownValue</a>&lt;T&gt;</td>
+        <td><span class="parametername">compare</span></td>
+        <td><p>The sorting technique (must synchronize with this structure's sorting).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True of contained, False if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_GetEnumerator.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L754">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_GetEnumerator_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.GetEnumerator*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_GetEnumerator" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Returns the IEnumerator for this data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;T&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerator</span>&lt;T&gt;</td>
+        <td><p>The IEnumerator for this data structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_Step__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(%600%2C%600%2CTowel.Step%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L483">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_Step__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.Step{`0})">Stepper(T, T, Step&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Stepper(T minimum, T maximum, Step&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_StepBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(%600%2C%600%2CTowel.StepBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L517">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_StepBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.StepBreak{`0})">Stepper(T, T, StepBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus Stepper(T minimum, T maximum, StepBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(%600%2C%600%2CTowel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L500">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_StepRef__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.StepRef{`0})">Stepper(T, T, StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Stepper(T minimum, T maximum, StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(%600%2C%600%2CTowel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L563">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper__0__0_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(`0,`0,Towel.StepRefBreak{`0})">Stepper(T, T, StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus Stepper(T minimum, T maximum, StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_Step__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(Towel.Step%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L404">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_Step__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.Step{`0})">Stepper(Step&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stepper(Step&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_StepBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(Towel.StepBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L434">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_StepBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.StepBreak{`0})">Stepper(StepBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus Stepper(StepBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(Towel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L418">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_StepRef__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.StepRef{`0})">Stepper(StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stepper(StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper(Towel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L463">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper(Towel.StepRefBreak{`0})">Stepper(StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus Stepper(StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L397">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper``1(``0)">Stepper&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stepper&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStep&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Stepper__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Stepper%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L474">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Stepper__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Stepper``1(`0,`0,``0)">Stepper&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Stepper&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStep&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperBreak__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperBreak%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L426">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperBreak__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperBreak``1(``0)">StepperBreak&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperBreak&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStepBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperBreak__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperBreak%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L508">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperBreak__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperBreak``1(`0,`0,``0)">StepperBreak&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus StepperBreak&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStepBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperRef__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperRef%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L411">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRef_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRef*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRef__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRef``1(``0)">StepperRef&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperRef&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStepRef&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperRef__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperRef%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L491">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRef_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRef*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRef__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRef``1(`0,`0,``0)">StepperRef&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void StepperRef&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStepRef&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperRefBreak__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperRefBreak%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L441">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRefBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRefBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRefBreak__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRefBreak``1(``0)">StepperRefBreak&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperRefBreak&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStepRefBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperRefBreak__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperRefBreak%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L525">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRefBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRefBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperRefBreak__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperRefBreak``1(`0,`0,``0)">StepperRefBreak&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus StepperRefBreak&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStepRefBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_Step__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(%600%2C%600%2CTowel.Step%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L658">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_Step__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.Step{`0})">StepperReverse(T, T, Step&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void StepperReverse(T minimum, T maximum, Step&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_StepBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(%600%2C%600%2CTowel.StepBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L692">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_StepBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.StepBreak{`0})">StepperReverse(T, T, StepBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus StepperReverse(T minimum, T maximum, StepBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(%600%2C%600%2CTowel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L675">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_StepRef__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.StepRef{`0})">StepperReverse(T, T, StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void StepperReverse(T minimum, T maximum, StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(%600%2C%600%2CTowel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L738">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__0__0_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">StepperReverse(T, T, StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus StepperReverse(T minimum, T maximum, StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_Step__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(Towel.Step%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L580">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_Step__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.Step{`0})">StepperReverse(Step&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperReverse(Step&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_StepBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(Towel.StepBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L608">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_StepBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.StepBreak{`0})">StepperReverse(StepBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperReverse(StepBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(Towel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L593">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_StepRef__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.StepRef{`0})">StepperReverse(StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperReverse(StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse(Towel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L637">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse(Towel.StepRefBreak{`0})">StepperReverse(StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperReverse(StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L573">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse``1(``0)">StepperReverse&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperReverse&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStep&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverse%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L649">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverse__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverse``1(`0,`0,``0)">StepperReverse&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void StepperReverse&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStep&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseBreak__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverseBreak%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L600">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseBreak__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseBreak``1(``0)">StepperReverseBreak&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperReverseBreak&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStepBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseBreak__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverseBreak%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L683">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseBreak__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseBreak``1(`0,`0,``0)">StepperReverseBreak&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus StepperReverseBreak&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStepBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRef__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverseRef%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L586">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRef_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRef*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRef__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRef``1(``0)">StepperReverseRef&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperReverseRef&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStepRef&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRef__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverseRef%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L666">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRef_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRef*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRef__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRef``1(`0,`0,``0)">StepperReverseRef&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void StepperReverseRef&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStepRef&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRefBreak__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverseRefBreak%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L615">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRefBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRefBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRefBreak__1___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRefBreak``1(``0)">StepperReverseRefBreak&lt;Step&gt;(Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperReverseRefBreak&lt;Step&gt;(Step step = default(Step))
+
+    where Step : struct, IStepRefBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRefBreak__1__0__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.StepperReverseRefBreak%60%601(%600%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L700">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRefBreak_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRefBreak*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_StepperReverseRefBreak__1__0__0___0_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.StepperReverseRefBreak``1(`0,`0,``0)">StepperReverseRefBreak&lt;Step&gt;(T, T, Step)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual StepStatus StepperReverseRefBreak&lt;Step&gt;(T minimum, T maximum, Step step = default(Step))
+
+    where Step : struct, IStepRefBreak&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum value of the optimized stepper function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Step</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">Step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_TryAdd__0_System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.TryAdd(%600%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L136">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_TryAdd_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_TryAdd__0_System_Exception__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryAdd(`0,System.Exception@)">TryAdd(T, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to add a value to the Red-Black tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAdd(T value, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to be added to the Red-Black tree.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the add failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the add was successful or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_TryGet_Towel_CompareToKnownValue__0___0__System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.TryGet(Towel.CompareToKnownValue%7B%600%7D%2C%600%40%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L265">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_TryGet_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryGet*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_TryGet_Towel_CompareToKnownValue__0___0__System_Exception__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">TryGet(CompareToKnownValue&lt;T&gt;, out T, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to get a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGet(CompareToKnownValue&lt;T&gt; compare, out T value, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.CompareToKnownValue-1.html">CompareToKnownValue</a>&lt;T&gt;</td>
+        <td><span class="parametername">compare</span></td>
+        <td><p>The compare delegate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value if it was found or default.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the get failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value was found or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_TryRemove__0_System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.TryRemove(%600%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L299">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_TryRemove_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_TryRemove__0_System_Exception__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(`0,System.Exception@)">TryRemove(T, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemove(T value, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to remove.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the remove failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the remove was successful or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_TryRemove_Towel_CompareToKnownValue__0__System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.TryRemove(Towel.CompareToKnownValue%7B%600%7D%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L305">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_TryRemove_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_TryRemove_Towel_CompareToKnownValue__0__System_Exception__" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">TryRemove(CompareToKnownValue&lt;T&gt;, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemove(CompareToKnownValue&lt;T&gt; compare, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.CompareToKnownValue-1.html">CompareToKnownValue</a>&lt;T&gt;</td>
+        <td><span class="parametername">compare</span></td>
+        <td><p>The compare delegate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the remove failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the remove was successful or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_System_Collections_IEnumerable_GetEnumerator.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.System%23Collections%23IEnumerable%23GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L747">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_System_Collections_IEnumerable_GetEnumerator_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.System#Collections#IEnumerable#GetEnumerator*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_System_Collections_IEnumerable_GetEnumerator" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.System#Collections#IEnumerable#GetEnumerator">IEnumerable.GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Returns the IEnumerator for this data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.IEnumerator</span></td>
+        <td><p>The IEnumerator for this data structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2_Towel_DataStructures_DataStructure_IComparing_T__Compare.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602.Towel%23DataStructures%23DataStructure%23IComparing%7BT%7D%23Compare%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L121">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_RedBlackTreeLinked_2_Towel_DataStructures_DataStructure_IComparing_T__Compare_" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare*"></a>
+  <h4 id="Towel_DataStructures_RedBlackTreeLinked_2_Towel_DataStructures_DataStructure_IComparing_T__Compare" data-uid="Towel.DataStructures.RedBlackTreeLinked`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare">DataStructure.IComparing&lt;T&gt;.Compare</h4>
+  <div class="markdown level1 summary"><p>The comparison function being utilized by this structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Compare&lt;T&gt; DataStructure.IComparing&lt;T&gt;.Compare { get; }</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Compare-1.html">Compare</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IRedBlackTree-1.html">IRedBlackTree&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html">ISortedBinaryTree&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure&lt;T&gt;</a>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IComparing-1.html">DataStructure.IComparing&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html">DataStructure.IAuditable&lt;T&gt;</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Towel.Extensions.html#Towel_Extensions_TryFirst__1_System_Collections_Generic_IEnumerable___0____0__">Extensions.TryFirst&lt;T&gt;(IEnumerable&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepper__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepper&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepperBreak__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepperBreak&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Stepper__1_Towel_DataStructures_IDataStructure___0__">DataStructure.Stepper&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_StepperBreak__1_Towel_DataStructures_IDataStructure___0__">DataStructure.StepperBreak&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryAdd__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.TryAdd&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Add__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.Add&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryRemove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.TryRemove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Remove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.Remove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Stepper__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.Stepper&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRef__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.StepperRef&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreak__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.StepperBreak&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreak__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.StepperRefBreak&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperReverse__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.StepperReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefReverse__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.StepperRefReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreakReverse__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.StepperBreakReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreakReverse__1_Towel_DataStructures_ISortedBinaryTree___0__">SortedBinaryTree.StepperRefBreakReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Stepper__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.Stepper&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRef__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.StepperRef&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreak__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.StepperBreak&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreak__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.StepperRefBreak&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperReverse__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.StepperReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefReverse__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.StepperRefReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreakReverse__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.StepperBreakReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreakReverse__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_">SortedBinaryTree.StepperRefBreakReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_TryGet__1_Towel_DataStructures_ISortedBinaryTree___0__Towel_CompareToKnownValue___0____0__">SortedBinaryTree.TryGet&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, CompareToKnownValue&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Get__1_Towel_DataStructures_ISortedBinaryTree___0__Towel_CompareToKnownValue___0__">SortedBinaryTree.Get&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, CompareToKnownValue&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_TryRemove__1_Towel_DataStructures_ISortedBinaryTree___0__Towel_CompareToKnownValue___0__">SortedBinaryTree.TryRemove&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, CompareToKnownValue&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Remove__1_Towel_DataStructures_ISortedBinaryTree___0__Towel_CompareToKnownValue___0__">SortedBinaryTree.Remove&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, CompareToKnownValue&lt;T&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_RedBlackTreeLinked_2.md&amp;value=---%0Auid%3A%20Towel.DataStructures.RedBlackTreeLinked%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/RedBlackTree.cs/#L17" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

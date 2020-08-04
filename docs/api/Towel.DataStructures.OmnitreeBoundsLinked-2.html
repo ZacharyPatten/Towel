@@ -1,0 +1,2545 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class OmnitreeBoundsLinked&lt;T, Axis1&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class OmnitreeBoundsLinked&lt;T, Axis1&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2">
+  
+  
+  <h1 id="Towel_DataStructures_OmnitreeBoundsLinked_2" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2" class="text-break">Class OmnitreeBoundsLinked&lt;T, Axis1&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Omnitree that stores bounds along 1 dimensions implemented as a linked tree.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">OmnitreeBoundsLinked&lt;T, Axis1&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Towel.DataStructures.IOmnitreeBounds-2.html">IOmnitreeBounds</a>&lt;T, Axis1&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IOmnitree-2.html">IOmnitree</a>&lt;T, Axis1&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IOmnitree-1.html">IOmnitree</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure</a>&lt;T&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</div>
+    <div><span class="xref">System.Collections.IEnumerable</span></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable</a>&lt;T&gt;</div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.Equals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetHashCode()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.GetType()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.MemberwiseClone()</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ReferenceEquals(System.Object, System.Object)</span>
+    </div>
+    <div>
+      <span class="xref">System.Object.ToString()</span>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_OmnitreeBoundsLinked_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class OmnitreeBoundsLinked&lt;T, Axis1&gt; : IOmnitreeBounds&lt;T, Axis1&gt;, IOmnitree&lt;T, Axis1&gt;, IOmnitree&lt;T&gt;, IDataStructure&lt;T&gt;, IEnumerable&lt;T&gt;, IEnumerable, DataStructure.ICountable, DataStructure.IAddable&lt;T&gt;, DataStructure.IClearable, DataStructure.IRemovable&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of items to store in the omnitree.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">Axis1</span></td>
+        <td><p>The type 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2__ctor_Towel_DataStructures_Omnitree_GetBoundings__0__1__Towel_Compare__1__Towel_DataStructures_Omnitree_SubdivisionOverride__0__1_Towel_DataStructures_Omnitree_Bounds__1___.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.%23ctor(Towel.DataStructures.Omnitree.GetBoundings%7B%600%2C%601%7D%2CTowel.Compare%7B%601%7D%2CTowel.DataStructures.Omnitree.SubdivisionOverride%7B%600%2C%601%2CTowel.DataStructures.Omnitree.Bounds%7B%601%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16800">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2__ctor_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2__ctor_Towel_DataStructures_Omnitree_GetBoundings__0__1__Towel_Compare__1__Towel_DataStructures_Omnitree_SubdivisionOverride__0__1_Towel_DataStructures_Omnitree_Bounds__1___" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">OmnitreeBoundsLinked(Omnitree.GetBoundings&lt;T, Axis1&gt;, Compare&lt;Axis1&gt;, Omnitree.SubdivisionOverride&lt;T, Axis1, Omnitree.Bounds&lt;Axis1&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new 1D omnitree that stores bounds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OmnitreeBoundsLinked(Omnitree.GetBoundings&lt;T, Axis1&gt; getBoundings, Compare&lt;Axis1&gt; compare1 = null, Omnitree.SubdivisionOverride&lt;T, Axis1, Omnitree.Bounds&lt;Axis1&gt;&gt; subdivisionOverride1 = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.GetBoundings-2.html">Omnitree.GetBoundings</a>&lt;T, Axis1&gt;</td>
+        <td><span class="parametername">getBoundings</span></td>
+        <td><p>The delegate for getting object bounds in 1D space.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Compare-1.html">Compare</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">compare1</span></td>
+        <td><p>The delegate for comparing values along the 1D axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.SubdivisionOverride-3.html">Omnitree.SubdivisionOverride</a>&lt;T, Axis1, <a class="xref" href="Towel.DataStructures.Omnitree.Bounds-1.html">Omnitree.Bounds</a>&lt;Axis1&gt;&gt;</td>
+        <td><span class="parametername">subdivisionOverride1</span></td>
+        <td><p>The subdivision overide to be used when splitting the 1 dimension.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2__ctor_Towel_DataStructures_Omnitree_GetBounds__0__1__Towel_Compare__1__Towel_DataStructures_Omnitree_SubdivisionOverride__0__1_Towel_DataStructures_Omnitree_Bounds__1___.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.%23ctor(Towel.DataStructures.Omnitree.GetBounds%7B%600%2C%601%7D%2CTowel.Compare%7B%601%7D%2CTowel.DataStructures.Omnitree.SubdivisionOverride%7B%600%2C%601%2CTowel.DataStructures.Omnitree.Bounds%7B%601%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16783">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2__ctor_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2__ctor_Towel_DataStructures_Omnitree_GetBounds__0__1__Towel_Compare__1__Towel_DataStructures_Omnitree_SubdivisionOverride__0__1_Towel_DataStructures_Omnitree_Bounds__1___" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">OmnitreeBoundsLinked(Omnitree.GetBounds&lt;T, Axis1&gt;, Compare&lt;Axis1&gt;, Omnitree.SubdivisionOverride&lt;T, Axis1, Omnitree.Bounds&lt;Axis1&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new 1D omnitree that stores bounds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OmnitreeBoundsLinked(Omnitree.GetBounds&lt;T, Axis1&gt; getBounds, Compare&lt;Axis1&gt; compare1 = null, Omnitree.SubdivisionOverride&lt;T, Axis1, Omnitree.Bounds&lt;Axis1&gt;&gt; subdivisionOverride1 = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.GetBounds-2.html">Omnitree.GetBounds</a>&lt;T, Axis1&gt;</td>
+        <td><span class="parametername">getBounds</span></td>
+        <td><p>The delegate for getting object bounds in 1D space.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Compare-1.html">Compare</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">compare1</span></td>
+        <td><p>The delegate for comparing values along the 1D axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.SubdivisionOverride-3.html">Omnitree.SubdivisionOverride</a>&lt;T, Axis1, <a class="xref" href="Towel.DataStructures.Omnitree.Bounds-1.html">Omnitree.Bounds</a>&lt;Axis1&gt;&gt;</td>
+        <td><span class="parametername">subdivisionOverride1</span></td>
+        <td><p>The subdivision overide to be used when splitting the 1 dimension.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Compare1.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Compare1%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16825">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Compare1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Compare1*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Compare1" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Compare1">Compare1</h4>
+  <div class="markdown level1 summary"><p>The comparison function the Omnitree is using along the 1D axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Compare&lt;Axis1&gt; Compare1 { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Compare-1.html">Compare</a>&lt;Axis1&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Count.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16828">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Count_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Count*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Count" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Count">Count</h4>
+  <div class="markdown level1 summary"><p>The current number of items in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Dimensions.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Dimensions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16817">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Dimensions_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Dimensions*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Dimensions" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Dimensions">Dimensions</h4>
+  <div class="markdown level1 summary"><p>The number of dimensions in this tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Dimensions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_GetBounds.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.GetBounds%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16820">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_GetBounds_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.GetBounds*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_GetBounds" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.GetBounds">GetBounds</h4>
+  <div class="markdown level1 summary"><p>The delegate being used by the omnitree to locate items in 1D space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Omnitree.GetBounds&lt;T, Axis1&gt; GetBounds { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.GetBounds-2.html">Omnitree.GetBounds</a>&lt;T, Axis1&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_MaxDepth.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.MaxDepth%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16832">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_MaxDepth_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.MaxDepth*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_MaxDepth" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.MaxDepth">MaxDepth</h4>
+  <div class="markdown level1 summary"><p>Finds the current maximum depth of the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int MaxDepth { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_NodeCount.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.NodeCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16853">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_NodeCount_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.NodeCount*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_NodeCount" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.NodeCount">NodeCount</h4>
+  <div class="markdown level1 summary"><p>Counts the current number of nodes in the tree. NOT AN O(1) OPERATION. Intended for educational purposes only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int NodeCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Add__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Add(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16894">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Add_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Add*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Add__0_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Add(`0)">Add(T)</h4>
+  <div class="markdown level1 summary"><p>Adds an item to the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(T addition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">addition</span></td>
+        <td><p>The item to be added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Clear.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17057">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Clear_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Clear*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Clear" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Returns the tree to an empty state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Clone.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17069">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Clone_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Clone*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Clone" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Clone">Clone()</h4>
+  <div class="markdown level1 summary"><p>Creates a shallow clone of this data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OmnitreeBoundsLinked&lt;T, Axis1&gt; Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.OmnitreeBoundsLinked-2.html">OmnitreeBoundsLinked</a>&lt;T, Axis1&gt;</td>
+        <td><p>A shallow clone of this data structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceEncapsulated(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17097">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated(`1)">CountSubSpaceEncapsulated(Axis1)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items encapsulated by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceEncapsulated(Axis1 axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The coordinate along the 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated__1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceEncapsulated(%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17082">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated__1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated(`1,`1)">CountSubSpaceEncapsulated(Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items encapsulated by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceEncapsulated(Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceEncapsulated(Towel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17104">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated(Towel.DataStructures.Omnitree.Bound{`1})">CountSubSpaceEncapsulated(Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items encapsulated by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceEncapsulated(Omnitree.Bound&lt;Axis1&gt; axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The coordinate along the 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceEncapsulated(Towel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17090">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceEncapsulated_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">CountSubSpaceEncapsulated(Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items encapsulated by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceEncapsulated(Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceOverlapped(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17128">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped(`1)">CountSubSpaceOverlapped(Axis1)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items overlapped by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceOverlapped(Axis1 axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The coordinate along the 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped__1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceOverlapped(%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17113">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped__1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped(`1,`1)">CountSubSpaceOverlapped(Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items overlapped by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceOverlapped(Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceOverlapped(Towel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17135">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped(Towel.DataStructures.Omnitree.Bound{`1})">CountSubSpaceOverlapped(Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items overlapped by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceOverlapped(Omnitree.Bound&lt;Axis1&gt; axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The coordinate along the 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.CountSubSpaceOverlapped(Towel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17121">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_CountSubSpaceOverlapped_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.CountSubSpaceOverlapped(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">CountSubSpaceOverlapped(Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Counts the number of items overlapped by a sub space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CountSubSpaceOverlapped(Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The number of items in the provided sub space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_GetEnumerator.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17824">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_GetEnumerator_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.GetEnumerator*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_GetEnumerator" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;T&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerator</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Remove__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Remove(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17622">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Remove_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Remove*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Remove__0_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Remove(`0)">Remove(T)</h4>
+  <div class="markdown level1 summary"><p>Removes all instances of a given value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Remove(T removal)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">removal</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Remove__0_Towel_Equate__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Remove(%600%2CTowel.Equate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17625">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Remove_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Remove*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Remove__0_Towel_Equate__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Remove(`0,Towel.Equate{`0})">Remove(T, Equate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all instances of a given value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Remove(T removal, Equate&lt;T&gt; equate)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">removal</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Equate-1.html">Equate</a>&lt;T&gt;</td>
+        <td><span class="parametername">equate</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Remove_System_Predicate__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Remove(System.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17345">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Remove_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Remove*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Remove_System_Predicate__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Remove(System.Predicate{`0})">Remove(Predicate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items qualified by the delegate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Remove(Predicate&lt;T&gt; where)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;T&gt;</td>
+        <td><span class="parametername">where</span></td>
+        <td><p>The predicate to qualify removals.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated__1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveEncapsulated(%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17405">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated__1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated(`1,`1)">RemoveEncapsulated(Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items encapsulated in a given space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEncapsulated(Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated__1__1_System_Predicate__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveEncapsulated(%601%2C%601%2CSystem.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17513">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated__1__1_System_Predicate__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated(`1,`1,System.Predicate{`0})">RemoveEncapsulated(Axis1, Axis1, Predicate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items in a given space validated by a predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEncapsulated(Axis1 min1, Axis1 max1, Predicate&lt;T&gt; where)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;T&gt;</td>
+        <td><span class="parametername">where</span></td>
+        <td><p>The equality constraint of the removal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17419">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1})">RemoveEncapsulated(Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items encapsulated in a given space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEncapsulated(Omnitree.Bound&lt;Axis1&gt; axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The coordinate along the 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17413">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">RemoveEncapsulated(Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items encapsulated in a given space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEncapsulated(Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__System_Predicate__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D%2CSystem.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17521">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveEncapsulated_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__System_Predicate__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveEncapsulated(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},System.Predicate{`0})">RemoveEncapsulated(Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;, Predicate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items in a given space validated by a predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveEncapsulated(Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1, Predicate&lt;T&gt; where)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;T&gt;</td>
+        <td><span class="parametername">where</span></td>
+        <td><p>The equality constraint of the removal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveOverlapped(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17630">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped(`1)">RemoveOverlapped(Axis1)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items in a given space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOverlapped(Axis1 axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The axis of the removal along the  1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveOverlapped(%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17434">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped(`1,`1)">RemoveOverlapped(Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items overlapping a given space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOverlapped(Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1__1_System_Predicate__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveOverlapped(%601%2C%601%2CSystem.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17536">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1__1_System_Predicate__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped(`1,`1,System.Predicate{`0})">RemoveOverlapped(Axis1, Axis1, Predicate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items in a given space validated by a predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOverlapped(Axis1 min1, Axis1 max1, Predicate&lt;T&gt; where)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;T&gt;</td>
+        <td><span class="parametername">where</span></td>
+        <td><p>The equality constraint of the removal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1_System_Predicate__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveOverlapped(%601%2CSystem.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17641">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped__1_System_Predicate__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped(`1,System.Predicate{`0})">RemoveOverlapped(Axis1, Predicate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items in a given space validated by a predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOverlapped(Axis1 axis1, Predicate&lt;T&gt; where)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The axis of the removal along the  1D axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;T&gt;</td>
+        <td><span class="parametername">where</span></td>
+        <td><p>The equality constraint of the removal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveOverlapped(Towel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17442">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">RemoveOverlapped(Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items overlapping a given space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOverlapped(Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__System_Predicate__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.RemoveOverlapped(Towel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D%2CSystem.Predicate%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17544">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_RemoveOverlapped_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__System_Predicate__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1},System.Predicate{`0})">RemoveOverlapped(Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;, Predicate&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes all the items in a given space validated by a predicate.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveOverlapped(Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1, Predicate&lt;T&gt; where)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Predicate</span>&lt;T&gt;</td>
+        <td><span class="parametername">where</span></td>
+        <td><p>The equality constraint of the removal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Stepper_Towel_Step__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Stepper(Towel.Step%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17654">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Stepper_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Stepper_Towel_Step__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Stepper(Towel.Step{`0})">Stepper(Step&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Traverses every item in the tree and performs the delegate in them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Stepper(Step&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on every item in the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Stepper_Towel_StepBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Stepper(Towel.StepBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17672">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Stepper_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Stepper_Towel_StepBreak__0__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Stepper(Towel.StepBreak{`0})">Stepper(StepBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Traverses every item in the tree and performs the delegate in them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus Stepper(StepBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on every item in the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_Step__0___1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperEncapsulated(Towel.Step%7B%600%7D%2C%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17695">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_Step__0___1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.Step{`0},`1,`1)">StepperEncapsulated(Step&lt;T&gt;, Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperEncapsulated(Step&lt;T&gt; step, Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_Step__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperEncapsulated(Towel.Step%7B%600%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17702">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_Step__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">StepperEncapsulated(Step&lt;T&gt;, Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperEncapsulated(Step&lt;T&gt; step, Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_StepBreak__0___1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperEncapsulated(Towel.StepBreak%7B%600%7D%2C%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17750">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_StepBreak__0___1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.StepBreak{`0},`1,`1)">StepperEncapsulated(StepBreak&lt;T&gt;, Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperEncapsulated(StepBreak&lt;T&gt; step, Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_StepBreak__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperEncapsulated(Towel.StepBreak%7B%600%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17757">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperEncapsulated_Towel_StepBreak__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperEncapsulated(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">StepperEncapsulated(StepBreak&lt;T&gt;, Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperEncapsulated(StepBreak&lt;T&gt; step, Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_Step__0___1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperOverlapped(Towel.Step%7B%600%7D%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17811">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_Step__0___1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.Step{`0},`1)">StepperOverlapped(Step&lt;T&gt;, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperOverlapped(Step&lt;T&gt; step, Axis1 axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The axis of the removal along the  1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_Step__0___1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperOverlapped(Towel.Step%7B%600%7D%2C%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17712">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_Step__0___1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.Step{`0},`1,`1)">StepperOverlapped(Step&lt;T&gt;, Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperOverlapped(Step&lt;T&gt; step, Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_Step__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperOverlapped(Towel.Step%7B%600%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17719">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_Step__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.Step{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">StepperOverlapped(Step&lt;T&gt;, Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepperOverlapped(Step&lt;T&gt; step, Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Step-1.html">Step</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_StepBreak__0___1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperOverlapped(Towel.StepBreak%7B%600%7D%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17818">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_StepBreak__0___1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.StepBreak{`0},`1)">StepperOverlapped(StepBreak&lt;T&gt;, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperOverlapped(StepBreak&lt;T&gt; step, Axis1 axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The axis of the removal along the  1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_StepBreak__0___1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperOverlapped(Towel.StepBreak%7B%600%7D%2C%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17767">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_StepBreak__0___1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.StepBreak{`0},`1,`1)">StepperOverlapped(StepBreak&lt;T&gt;, Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperOverlapped(StepBreak&lt;T&gt; step, Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_StepBreak__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.StepperOverlapped(Towel.StepBreak%7B%600%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17774">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_StepperOverlapped_Towel_StepBreak__0__Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.StepperOverlapped(Towel.StepBreak{`0},Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">StepperOverlapped(StepBreak&lt;T&gt;, Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperOverlapped(StepBreak&lt;T&gt; step, Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepBreak-1.html">StepBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to perform on all items in the tree within the given bounds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_TryAdd__0_System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.TryAdd(%600%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16885">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_TryAdd_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_TryAdd__0_System_Exception__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.TryAdd(`0,System.Exception@)">TryAdd(T, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to add a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryAdd(T value, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to be added.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the add failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if successful or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_TryRemove__0_System_Exception__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.TryRemove(%600%2CSystem.Exception%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17614">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_TryRemove_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_TryRemove__0_System_Exception__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.TryRemove(`0,System.Exception@)">TryRemove(T, out Exception)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryRemove(T value, out Exception exception)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to remove.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Exception</span></td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the remove failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if successful or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Update.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Update%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17189">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update">Update()</h4>
+  <div class="markdown level1 summary"><p>Iterates through the entire tree and ensures each item is in the proper leaf.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Update()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Update__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Update(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17271">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update(`1)">Update(Axis1)</h4>
+  <div class="markdown level1 summary"><p>Iterates through the provided dimensions and ensures each item is in the proper leaf.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Update(Axis1 axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The coordinate along the 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Update__1__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Update(%601%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17258">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update__1__1_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update(`1,`1)">Update(Axis1, Axis1)</h4>
+  <div class="markdown level1 summary"><p>Iterates through the provided dimensions and ensures each item is in the proper leaf.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Update(Axis1 min1, Axis1 max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Axis1</span></td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Update_Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Update(Towel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17277">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update_Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update(Towel.DataStructures.Omnitree.Bound{`1})">Update(Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Iterates through the provided dimensions and ensures each item is in the proper leaf.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Update(Omnitree.Bound&lt;Axis1&gt; axis1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">axis1</span></td>
+        <td><p>The coordinate along the 1D axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_Update_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.Update(Towel.DataStructures.Omnitree.Bound%7B%601%7D%2CTowel.DataStructures.Omnitree.Bound%7B%601%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17265">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_Update_Towel_DataStructures_Omnitree_Bound__1__Towel_DataStructures_Omnitree_Bound__1__" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.Update(Towel.DataStructures.Omnitree.Bound{`1},Towel.DataStructures.Omnitree.Bound{`1})">Update(Omnitree.Bound&lt;Axis1&gt;, Omnitree.Bound&lt;Axis1&gt;)</h4>
+  <div class="markdown level1 summary"><p>Iterates through the provided dimensions and ensures each item is in the proper leaf.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Update(Omnitree.Bound&lt;Axis1&gt; min1, Omnitree.Bound&lt;Axis1&gt; max1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">min1</span></td>
+        <td><p>The minimum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.Omnitree.Bound-1.html">Omnitree.Bound</a>&lt;Axis1&gt;</td>
+        <td><span class="parametername">max1</span></td>
+        <td><p>The maximum coordinate of the space along the 1 axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2_System_Collections_IEnumerable_GetEnumerator.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602.System%23Collections%23IEnumerable%23GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L17822">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_OmnitreeBoundsLinked_2_System_Collections_IEnumerable_GetEnumerator_" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.System#Collections#IEnumerable#GetEnumerator*"></a>
+  <h4 id="Towel_DataStructures_OmnitreeBoundsLinked_2_System_Collections_IEnumerable_GetEnumerator" data-uid="Towel.DataStructures.OmnitreeBoundsLinked`2.System#Collections#IEnumerable#GetEnumerator">IEnumerable.GetEnumerator()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerator IEnumerable.GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.IEnumerator</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IOmnitreeBounds-2.html">IOmnitreeBounds&lt;T, Axis1&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IOmnitree-2.html">IOmnitree&lt;T, Axis1&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IOmnitree-1.html">IOmnitree&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure&lt;T&gt;</a>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;T&gt;</span>
+  </div>
+  <div>
+      <span class="xref">System.Collections.IEnumerable</span>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable&lt;T&gt;</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Towel.Extensions.html#Towel_Extensions_TryFirst__1_System_Collections_Generic_IEnumerable___0____0__">Extensions.TryFirst&lt;T&gt;(IEnumerable&lt;T&gt;, out T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepper__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepper&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Stepper.html#Towel_Stepper_ToStepperBreak__1_System_Collections_Generic_IEnumerable___0__">Stepper.ToStepperBreak&lt;T&gt;(IEnumerable&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Stepper__1_Towel_DataStructures_IDataStructure___0__">DataStructure.Stepper&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_StepperBreak__1_Towel_DataStructures_IDataStructure___0__">DataStructure.StepperBreak&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryAdd__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.TryAdd&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Add__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.Add&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryRemove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.TryRemove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Remove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.Remove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Omnitree.html#Towel_DataStructures_Omnitree_Remove__2_Towel_DataStructures_IOmnitreeBounds___0___1____0_">Omnitree.Remove&lt;T, Axis1&gt;(IOmnitreeBounds&lt;T, Axis1&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Omnitree.html#Towel_DataStructures_Omnitree_Remove__2_Towel_DataStructures_IOmnitreeBounds___0___1____0_Towel_Equate___0__">Omnitree.Remove&lt;T, Axis1&gt;(IOmnitreeBounds&lt;T, Axis1&gt;, T, Equate&lt;T&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_OmnitreeBoundsLinked_2.md&amp;value=---%0Auid%3A%20Towel.DataStructures.OmnitreeBoundsLinked%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/Omnitree.cs/#L16577" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
