@@ -15883,119 +15883,52 @@
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt16"/> value.</returns>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``2(``0[],``1)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``3(``0[],``1,``2)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <typeparam name="Status">The status checker for cancellation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
-            <param name="status">The status checker for cancellation.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
-            <param name="status">The status checker for cancellation.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <typeparam name="Status">The status checker for cancellation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
-            <param name="status">The status checker for cancellation.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
-            <param name="status">The status checker for cancellation.</param>
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``2(``0[],``1)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``3(``0[],``1,``2)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <typeparam name="Status">The status check of the operation that allows for cancellation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
-            <param name="status">The status check of the operation that allows for cancellation.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="array">The array to iterate the permutations of.</param>
-            <param name="status">The status check of the operation that allows for cancellation.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <typeparam name="Status">The status check of the operation that allows for cancellation.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
-            <param name="status">The status check of the operation that allows for cancellation.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="list">The list to iterate the permutations of.</param>
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Extensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>
