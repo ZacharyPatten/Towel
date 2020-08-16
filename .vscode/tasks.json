@@ -178,7 +178,7 @@
 			[
 				"build",
 				"--configuration", "Debug",
-				"${workspaceFolder}/Analysis/Towel_Documenting/Towel_Documenting.csproj",
+				"${workspaceFolder}/Tools/Towel_Documenting/Towel_Documenting.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
@@ -192,7 +192,7 @@
 			[
 				"build",
 				"--configuration", "Release",
-				"${workspaceFolder}/Analysis/Towel_Documenting/Towel_Documenting.csproj",
+				"${workspaceFolder}/Tools/Towel_Documenting/Towel_Documenting.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
@@ -206,7 +206,7 @@
 			[
 				"build",
 				"--configuration", "Debug",
-				"${workspaceFolder}/Analysis/Towel_Benchmarking/Towel_Benchmarking.csproj",
+				"${workspaceFolder}/Tools/Towel_Benchmarking/Towel_Benchmarking.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
@@ -220,7 +220,7 @@
 			[
 				"build",
 				"--configuration", "Release",
-				"${workspaceFolder}/Analysis/Towel_Benchmarking/Towel_Benchmarking.csproj",
+				"${workspaceFolder}/Tools/Towel_Benchmarking/Towel_Benchmarking.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
@@ -234,7 +234,7 @@
 			[
 				"build",
 				"--configuration", "Debug",
-				"${workspaceFolder}/Analysis/Towel_Testing/Towel_Testing.csproj",
+				"${workspaceFolder}/Tools/Towel_Testing/Towel_Testing.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
@@ -248,7 +248,21 @@
 			[
 				"build",
 				"--configuration", "Release",
-				"${workspaceFolder}/Analysis/Towel_Testing/Towel_Testing.csproj",
+				"${workspaceFolder}/Tools/Towel_Testing/Towel_Testing.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build OmnitreeGraphicsDemo Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/OmnitreeGraphicsDemo/OmnitreeGraphicsDemo.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
