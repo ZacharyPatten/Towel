@@ -410,14 +410,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (LengthUnits1 != _LengthUnits1)
                 {
-                    if (LengthUnits1 < _LengthUnits1)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //if (LengthUnits1 < _LengthUnits1)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
+                    //}
                 }
                 if (TimeUnits2 != _TimeUnits2)
                 {
@@ -1327,14 +1328,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (AngleUnits1 != _AngleUnits1)
                 {
-                    if (AngleUnits1 < _AngleUnits1)
-                    {
-                        measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Angle<T>.Table[(int)AngleUnits1][(int)_AngleUnits1](measurement);
-                    }
+					measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
+                    //if (AngleUnits1 < _AngleUnits1)
+                    //{
+                    //    measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Angle<T>.Table[(int)AngleUnits1][(int)_AngleUnits1](measurement);
+                    //}
                 }
                 if (TimeUnits2 != _TimeUnits2)
                 {
@@ -2015,14 +2017,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (AngleUnits1 != _AngleUnits1)
                 {
-                    if (AngleUnits1 < _AngleUnits1)
-                    {
-                        measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Angle<T>.Table[(int)AngleUnits1][(int)_AngleUnits1](measurement);
-                    }
+					measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
+                    //if (AngleUnits1 < _AngleUnits1)
+                    //{
+                    //    measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Angle<T>.Table[(int)AngleUnits1][(int)_AngleUnits1](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -2782,14 +2785,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (AngleUnits1 != _AngleUnits1)
                 {
-                    if (AngleUnits1 < _AngleUnits1)
-                    {
-                        measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Angle<T>.Table[(int)AngleUnits1][(int)_AngleUnits1](measurement);
-                    }
+					measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
+                    //if (AngleUnits1 < _AngleUnits1)
+                    //{
+                    //    measurement = Angle<T>.Table[(int)_AngleUnits1][(int)AngleUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Angle<T>.Table[(int)AngleUnits1][(int)_AngleUnits1](measurement);
+                    //}
                 }
                 if (TimeUnits2 != _TimeUnits2)
                 {
@@ -3526,25 +3530,27 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (LengthUnits1 != _LengthUnits1)
                 {
-                    if (LengthUnits1 < _LengthUnits1)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //if (LengthUnits1 < _LengthUnits1)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -4461,14 +4467,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
@@ -5451,14 +5458,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
@@ -6238,14 +6246,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (ElectricChargeUnits1 != _ElectricChargeUnits1)
                 {
-                    if (ElectricChargeUnits1 < _ElectricChargeUnits1)
-                    {
-                        measurement = ElectricCharge<T>.Table[(int)_ElectricChargeUnits1][(int)ElectricChargeUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = ElectricCharge<T>.Table[(int)ElectricChargeUnits1][(int)_ElectricChargeUnits1](measurement);
-                    }
+					measurement = ElectricCharge<T>.Table[(int)_ElectricChargeUnits1][(int)ElectricChargeUnits1](measurement);
+                    //if (ElectricChargeUnits1 < _ElectricChargeUnits1)
+                    //{
+                    //    measurement = ElectricCharge<T>.Table[(int)_ElectricChargeUnits1][(int)ElectricChargeUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = ElectricCharge<T>.Table[(int)ElectricChargeUnits1][(int)_ElectricChargeUnits1](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -6925,14 +6934,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (ElectricChargeUnits1 != _ElectricChargeUnits1)
                 {
-                    if (ElectricChargeUnits1 < _ElectricChargeUnits1)
-                    {
-                        measurement = ElectricCharge<T>.Table[(int)_ElectricChargeUnits1][(int)ElectricChargeUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = ElectricCharge<T>.Table[(int)ElectricChargeUnits1][(int)_ElectricChargeUnits1](measurement);
-                    }
+					measurement = ElectricCharge<T>.Table[(int)_ElectricChargeUnits1][(int)ElectricChargeUnits1](measurement);
+                    //if (ElectricChargeUnits1 < _ElectricChargeUnits1)
+                    //{
+                    //    measurement = ElectricCharge<T>.Table[(int)_ElectricChargeUnits1][(int)ElectricChargeUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = ElectricCharge<T>.Table[(int)ElectricChargeUnits1][(int)_ElectricChargeUnits1](measurement);
+                    //}
                 }
                 if (TimeUnits2 != _TimeUnits2)
                 {
@@ -7688,36 +7698,39 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 if (LengthUnits3 != _LengthUnits3)
                 {
-                    if (LengthUnits3 < _LengthUnits3)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //if (LengthUnits3 < _LengthUnits3)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
+                    //}
                 }
                 if (TimeUnits4 != _TimeUnits4)
                 {
@@ -8852,25 +8865,27 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 if (TimeUnits3 != _TimeUnits3)
                 {
@@ -9889,14 +9904,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (LengthUnits1 != _LengthUnits1)
                 {
-                    if (LengthUnits1 < _LengthUnits1)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //if (LengthUnits1 < _LengthUnits1)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -10968,14 +10984,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
@@ -11954,25 +11971,27 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -13055,25 +13074,27 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 if (TimeUnits3 != _TimeUnits3)
                 {
@@ -14113,14 +14134,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -15157,14 +15179,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (TimeUnits2 != _TimeUnits2)
                 {
@@ -16196,36 +16219,39 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 if (LengthUnits3 != _LengthUnits3)
                 {
-                    if (LengthUnits3 < _LengthUnits3)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //if (LengthUnits3 < _LengthUnits3)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
+                    //}
                 }
                 if (TimeUnits4 != _TimeUnits4)
                 {
@@ -17254,14 +17280,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (MassUnits1 != _MassUnits1)
                 {
-                    if (MassUnits1 < _MassUnits1)
-                    {
-                        measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
-                    }
+					measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //if (MassUnits1 < _MassUnits1)
+                    //{
+                    //    measurement = Mass<T>.Table[(int)_MassUnits1][(int)MassUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Mass<T>.Table[(int)MassUnits1][(int)_MassUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
@@ -18162,14 +18189,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (LengthUnits1 != _LengthUnits1)
                 {
-                    if (LengthUnits1 < _LengthUnits1)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //if (LengthUnits1 < _LengthUnits1)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
+                    //}
                 }
                 if (TimeUnits2 != _TimeUnits2)
                 {
@@ -19115,14 +19143,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (TempuratureUnits1 != _TempuratureUnits1)
                 {
-                    if (TempuratureUnits1 < _TempuratureUnits1)
-                    {
-                        measurement = Tempurature<T>.Table[(int)_TempuratureUnits1][(int)TempuratureUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Tempurature<T>.Table[(int)TempuratureUnits1][(int)_TempuratureUnits1](measurement);
-                    }
+					measurement = Tempurature<T>.Table[(int)_TempuratureUnits1][(int)TempuratureUnits1](measurement);
+                    //if (TempuratureUnits1 < _TempuratureUnits1)
+                    //{
+                    //    measurement = Tempurature<T>.Table[(int)_TempuratureUnits1][(int)TempuratureUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Tempurature<T>.Table[(int)TempuratureUnits1][(int)_TempuratureUnits1](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -19692,14 +19721,15 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (TimeUnits1 != _TimeUnits1)
                 {
-                    if (TimeUnits1 < _TimeUnits1)
-                    {
-                        measurement = Time<T>.Table[(int)_TimeUnits1][(int)TimeUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Time<T>.Table[(int)TimeUnits1][(int)_TimeUnits1](measurement);
-                    }
+					measurement = Time<T>.Table[(int)_TimeUnits1][(int)TimeUnits1](measurement);
+                    //if (TimeUnits1 < _TimeUnits1)
+                    //{
+                    //    measurement = Time<T>.Table[(int)_TimeUnits1][(int)TimeUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Time<T>.Table[(int)TimeUnits1][(int)_TimeUnits1](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -20730,25 +20760,27 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (TimeUnits1 != _TimeUnits1)
                 {
-                    if (TimeUnits1 < _TimeUnits1)
-                    {
-                        measurement = Time<T>.Table[(int)_TimeUnits1][(int)TimeUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Time<T>.Table[(int)TimeUnits1][(int)_TimeUnits1](measurement);
-                    }
+					measurement = Time<T>.Table[(int)_TimeUnits1][(int)TimeUnits1](measurement);
+                    //if (TimeUnits1 < _TimeUnits1)
+                    //{
+                    //    measurement = Time<T>.Table[(int)_TimeUnits1][(int)TimeUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Time<T>.Table[(int)TimeUnits1][(int)_TimeUnits1](measurement);
+                    //}
                 }
                 if (TimeUnits2 != _TimeUnits2)
                 {
-                    if (TimeUnits2 < _TimeUnits2)
-                    {
-                        measurement = Time<T>.Table[(int)_TimeUnits2][(int)TimeUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Time<T>.Table[(int)TimeUnits2][(int)_TimeUnits2](measurement);
-                    }
+					measurement = Time<T>.Table[(int)_TimeUnits2][(int)TimeUnits2](measurement);
+                    //if (TimeUnits2 < _TimeUnits2)
+                    //{
+                    //    measurement = Time<T>.Table[(int)_TimeUnits2][(int)TimeUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Time<T>.Table[(int)TimeUnits2][(int)_TimeUnits2](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -21585,36 +21617,39 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (LengthUnits1 != _LengthUnits1)
                 {
-                    if (LengthUnits1 < _LengthUnits1)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //if (LengthUnits1 < _LengthUnits1)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 if (LengthUnits3 != _LengthUnits3)
                 {
-                    if (LengthUnits3 < _LengthUnits3)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //if (LengthUnits3 < _LengthUnits3)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
+                    //}
                 }
                 return measurement;
             }
@@ -22576,36 +22611,39 @@ namespace Towel.Measurements
                 T measurement = _measurement;
                 if (LengthUnits1 != _LengthUnits1)
                 {
-                    if (LengthUnits1 < _LengthUnits1)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //if (LengthUnits1 < _LengthUnits1)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits1][(int)LengthUnits1](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits1][(int)_LengthUnits1](measurement);
+                    //}
                 }
                 if (LengthUnits2 != _LengthUnits2)
                 {
-                    if (LengthUnits2 < _LengthUnits2)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //if (LengthUnits2 < _LengthUnits2)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits2][(int)LengthUnits2](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits2][(int)_LengthUnits2](measurement);
+                    //}
                 }
                 if (LengthUnits3 != _LengthUnits3)
                 {
-                    if (LengthUnits3 < _LengthUnits3)
-                    {
-                        measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
-                    }
-                    else
-                    {
-                        measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
-                    }
+					measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //if (LengthUnits3 < _LengthUnits3)
+                    //{
+                    //    measurement = Length<T>.Table[(int)_LengthUnits3][(int)LengthUnits3](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = Length<T>.Table[(int)LengthUnits3][(int)_LengthUnits3](measurement);
+                    //}
                 }
                 if (TimeUnits4 != _TimeUnits4)
                 {

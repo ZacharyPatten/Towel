@@ -322,14 +322,15 @@ namespace Towel.Measurements
 <# { int baseUnitIndex = 0; foreach (var numerator in measurement.Item2) { #>
                 if (<#= numerator #>Units<#= baseUnitIndex + 1 #> != _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
                 {
-                    if (<#= numerator #>Units<#= baseUnitIndex + 1 #> < _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
-                    {
-                        measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    }
-                    else
-                    {
-                        measurement = <#= numerator #><T>.Table[(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    }
+					measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
+                    //if (<#= numerator #>Units<#= baseUnitIndex + 1 #> < _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
+                    //{
+                    //    measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = <#= numerator #><T>.Table[(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
+                    //}
                 }
 <# baseUnitIndex++; } #>
 <# foreach (var denominator in measurement.Item3) { #>
