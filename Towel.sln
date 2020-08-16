@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicsAndExtensions", "Exam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandLine", "Examples\CommandLine\CommandLine.csproj", "{102EC2AC-A2CA-44C0-8812-15CC9C6CFFF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmnitreeGraphicsDemo", "OmnitreeGraphicsDemo\OmnitreeGraphicsDemo.csproj", "{E7E2CDFE-EE20-4A15-95A3-B632A7ECD3F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmnitreeGraphicsDemo", "Examples\OmnitreeGraphicsDemo\OmnitreeGraphicsDemo.csproj", "{E7E2CDFE-EE20-4A15-95A3-B632A7ECD3F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
