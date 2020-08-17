@@ -261,6 +261,20 @@
 			"args":
 			[
 				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/OmnitreeGraphicsDemo/OmnitreeGraphicsDemo.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build OmnitreeGraphicsDemo Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
 				"--configuration", "Release",
 				"${workspaceFolder}/Examples/OmnitreeGraphicsDemo/OmnitreeGraphicsDemo.csproj",
 				"/property:GenerateFullPaths=true",
