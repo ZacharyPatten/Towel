@@ -885,6 +885,9 @@ namespace DataStructures
 
 			Console.WriteLine("============================================");
 			Console.WriteLine("Examples Complete...");
+			Console.WriteLine();
+			Console.WriteLine("Press [enter] to continue...");
+			Console.ReadLine();
 		}
 	}
 }

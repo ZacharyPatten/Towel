@@ -13,7 +13,7 @@
 			"program": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug/netcoreapp3.1/BasicsAndExtensions.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug/netcoreapp3.1",
-			"console": "internalConsole",
+			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
 		{
@@ -24,7 +24,7 @@
 			"program": "${workspaceFolder}/Examples/DataStructures/bin/Debug/netcoreapp3.1/DataStructures.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Examples/DataStructures/bin/Debug/netcoreapp3.1",
-			"console": "internalConsole",
+			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
 		{
@@ -35,7 +35,7 @@
 			"program": "${workspaceFolder}/Examples/GraphSearch/bin/Debug/netcoreapp3.1/GraphSearch.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Examples/GraphSearch/bin/Debug/netcoreapp3.1",
-			"console": "internalConsole",
+			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
 		{
@@ -46,7 +46,7 @@
 			"program": "${workspaceFolder}/Examples/Mathematics/bin/Debug/netcoreapp3.1/Mathematics.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Examples/Mathematics/bin/Debug/netcoreapp3.1",
-			"console": "internalConsole",
+			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
 		{
@@ -57,7 +57,7 @@
 			"program": "${workspaceFolder}/Examples/Measurements/bin/Debug/netcoreapp3.1/Measurements.dll",
 			"args": [],
 			"cwd": "${workspaceFolder}/Examples/Measurements/bin/Debug/netcoreapp3.1",
-			"console": "internalConsole",
+			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
 		{

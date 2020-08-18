@@ -58,6 +58,10 @@ namespace CommandLine
 			// - DuplicateProvided: The argument was provided multiple times. The command line arguments are invalid.
 			// - ParseFailed: The argument was provided, but the relative value was not valid.
 			// - ValueProvided: The argument was provided and successfully parsed.
+
+			WriteLine();
+			WriteLine("Press [enter] to continue...");
+			ReadLine();
 		}
 	}
 }
