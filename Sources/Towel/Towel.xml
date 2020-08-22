@@ -29612,6 +29612,21 @@
         <member name="T:Towel.Meta">
             <summary>Constains static analysis methods of the code (reflection).</summary>
         </member>
+        <member name="M:Towel.Meta.SourceFile(System.String)">
+            <summary>Gets the file name of the current location in source code.</summary>
+            <param name="file">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute"/>.</param>
+            <returns>The file name of the current location in source code.</returns>
+        </member>
+        <member name="M:Towel.Meta.SourceMemberName(System.String)">
+            <summary>Gets the member name of the current location in source code.</summary>
+            <param name="member">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/>.</param>
+            <returns>The member name of the current location in source code.</returns>
+        </member>
+        <member name="M:Towel.Meta.SourceLineNumber(System.Int32)">
+            <summary>Gets the line number of the current location in source code.</summary>
+            <param name="lineNumber">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute"/>.</param>
+            <returns>The line number of the current location in source code.</returns>
+        </member>
         <member name="M:Towel.Meta.GetMethod``1(System.Type)">
             <summary>Gets a method on a type by signature.</summary>
             <typeparam name="Signature">
