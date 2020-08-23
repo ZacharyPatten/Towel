@@ -518,8 +518,7 @@ namespace BasicsAndExtensions
 			Console.WriteLine("============================================");
 			Console.WriteLine("Example Complete...");
 			Console.WriteLine();
-			Console.WriteLine("Press [enter] to continue...");
-			Console.ReadLine();
+			ConsoleHelper.PressEnterToContinue();
 		}
 	}
 }

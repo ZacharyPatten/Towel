@@ -163,8 +163,7 @@ void main()
 		private static void Main()
 		{
 			Console.WriteLine("This example is still in heavy development.");
-			Console.WriteLine("Press [enter] to continue...");
-			Console.ReadLine();
+			ConsoleHelper.PressEnterToContinue();
 
 			var options = WindowOptions.Default;
 			options.Size = new Size(Width, Height);

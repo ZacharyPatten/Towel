@@ -1,4 +1,5 @@
 ﻿using System;
+using Towel;
 using static System.Console;
 using static Towel.CommandLine;
 
@@ -60,8 +61,7 @@ namespace CommandLine
 			// - ValueProvided: The argument was provided and successfully parsed.
 
 			WriteLine();
-			WriteLine("Press [enter] to continue...");
-			ReadLine();
+			ConsoleHelper.PressEnterToContinue();
 		}
 	}
 }

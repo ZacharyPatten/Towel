@@ -168,6 +168,36 @@
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="compare">The runtime Compare delegate.</param>
         </member>
+        <member name="T:Towel.ConsoleHelper">
+            <summary>Contains static helper methods for <see cref="T:System.Console"/>.</summary>
+        </member>
+        <member name="M:Towel.ConsoleHelper.FlushInputBuffer(System.Boolean)">
+            <summary>Flushes the console input buffer.</summary>
+        </member>
+        <member name="M:Towel.ConsoleHelper.PressEnterToContinue(System.String)">
+            <summary>Prompts the user to press [enter] in the console before continuing.</summary>
+            <param name="prompt">The prompt to display to the user. Default: "Press [enter] to continue...".</param>
+        </member>
+        <member name="M:Towel.ConsoleHelper.IntMenu(System.ValueTuple{System.String,System.Action}[])">
+            <summary>Prompts the user to select a menu option in the console before continuing.</summary>
+            <param name="options">The options of the menu.</param>
+        </member>
+        <member name="M:Towel.ConsoleHelper.IntMenu(System.String,System.String,System.String,System.ValueTuple{System.String,System.Action}[])">
+            <summary>Prompts the user to select a menu option in the console before continuing.</summary>
+            <param name="title">The title of the menu.</param>
+            <param name="prompt">The prompt message to display when requesting console input from the user.</param>
+            <param name="invalidMessage">The message to display if invalid input is detected.</param>
+            <param name="options">The options of the menu.</param>
+        </member>
+        <member name="M:Towel.ConsoleHelper.GetInput``1(System.String,System.String,Towel.TryParse{``0},System.Predicate{``0})">
+            <summary>Gets console input from the user.</summary>
+            <typeparam name="T">The generic type of console input to get from the user.</typeparam>
+            <param name="prompt">The prompt message to display when requesting console input from the user.</param>
+            <param name="invalidMessage">The message to display if invalid input is detected.</param>
+            <param name="tryParse">The TryParse method for converting the console input into the generic type.</param>
+            <param name="validation">The predicate for validating the value of the input.</param>
+            <returns>The validated value of the console input provided by the user.</returns>
+        </member>
         <member name="T:Towel.Constant`1">
             <summary>Contains generic static numerical constant values.</summary>
             <typeparam name="T">The generic numeric type of the constants.</typeparam>
