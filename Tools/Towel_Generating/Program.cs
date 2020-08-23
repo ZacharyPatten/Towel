@@ -7,10 +7,10 @@ namespace Towel_Generating
 		internal static void Main()
 		{
 			Console.WriteLine("This is a code generation tool for Towel.");
-			Console.WriteLine();
-			Console.WriteLine("I'm working to replace the T4 templates with with this tool for code generation.");
-			Console.WriteLine();
+
+			Console.WriteLine("Generating Omnitree.cs...");
 			Omnitree.Generate();
+			Console.WriteLine("Omnitree.cs Generation Complete. :)");
 		}
 	}
 }
