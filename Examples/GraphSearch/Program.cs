@@ -319,7 +319,7 @@ namespace GraphSearch
 			Console.WriteLine("============================================");
 			Console.WriteLine("Example Complete...");
 			Console.WriteLine();
-			ConsoleHelper.PressEnterToContinue();
+			ConsoleHelper.PromptPressToContinue();
 		}
 	}
 }

@@ -443,7 +443,7 @@ namespace Mathematics
 			Console.WriteLine("=================================================");
 			Console.WriteLine("Example Complete...");
 			Console.WriteLine();
-			ConsoleHelper.PressEnterToContinue();
+			ConsoleHelper.PromptPressToContinue();
 		}
 
 		#region Output Helpers

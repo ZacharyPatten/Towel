@@ -163,7 +163,7 @@ void main()
 		private static void Main()
 		{
 			Console.WriteLine("This example is still in heavy development.");
-			ConsoleHelper.PressEnterToContinue();
+			ConsoleHelper.PromptPressToContinue();
 
 			var options = WindowOptions.Default;
 			options.Size = new Size(Width, Height);

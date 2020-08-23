@@ -174,8 +174,13 @@
         <member name="M:Towel.ConsoleHelper.FlushInputBuffer(System.Boolean)">
             <summary>Flushes the console input buffer.</summary>
         </member>
-        <member name="M:Towel.ConsoleHelper.PressEnterToContinue(System.String)">
+        <member name="M:Towel.ConsoleHelper.PressToContinue(System.ConsoleKey)">
             <summary>Prompts the user to press [enter] in the console before continuing.</summary>
+            <param name="key">The key to wait for the user to press before continuing.</param>
+        </member>
+        <member name="M:Towel.ConsoleHelper.PromptPressToContinue(System.String,System.ConsoleKey)">
+            <summary>Prompts the user to press [enter] in the console before continuing.</summary>
+            <param name="key">The key to wait for the user to press before continuing.</param>
             <param name="prompt">The prompt to display to the user. Default: "Press [enter] to continue...".</param>
         </member>
         <member name="M:Towel.ConsoleHelper.IntMenu(System.ValueTuple{System.String,System.Action}[])">
@@ -15983,6 +15988,12 @@
             <param name="methodInfo">The <see cref="T:System.Reflection.MethodInfo"/> to create the delegate from.</param>
             <returns>The delegate for this <see cref="T:System.Reflection.MethodInfo"/>.</returns>
             <remarks>This extension is syntax sugar so you don't have to cast the return.</remarks>
+        </member>
+        <member name="M:Towel.Extensions.IsDefined``1(``0)">
+            <summary>Returns an indication whether a constant with a specified value exists in a specified enumeration.</summary>
+            <typeparam name="T">The type of the enum.</typeparam>
+            <param name="value">The value to determine if it is defined.</param>
+            <returns>true if a constant in enumType has a value equal to value; otherwise, false.</returns>
         </member>
         <member name="T:Towel.IAction">
             <summary>Interface for a compile time delegate.</summary>

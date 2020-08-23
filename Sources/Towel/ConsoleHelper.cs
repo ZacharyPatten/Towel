@@ -15,15 +15,31 @@ namespace Towel
 		}
 
 		/// <summary>Prompts the user to press [enter] in the console before continuing.</summary>
-		/// <param name="prompt">The prompt to display to the user. Default: "Press [enter] to continue...".</param>
-		public static void PressEnterToContinue(string prompt = null)
+		/// <param name="key">The key to wait for the user to press before continuing.</param>
+		public static void PressToContinue(ConsoleKey key = ConsoleKey.Enter)
 		{
-			prompt ??= "Press [enter] to continue...";
-			Console.Write(prompt);
-			while (Console.ReadKey(true).Key != ConsoleKey.Enter)
+			if (!key.IsDefined())
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), key, $"{nameof(key)} is not a defined value in the {nameof(ConsoleKey)} enum");
+			}
+			while (Console.ReadKey(true).Key != key)
 			{
 				continue;
 			}
+		}
+
+		/// <summary>Prompts the user to press [enter] in the console before continuing.</summary>
+		/// <param name="key">The key to wait for the user to press before continuing.</param>
+		/// <param name="prompt">The prompt to display to the user. Default: "Press [enter] to continue...".</param>
+		public static void PromptPressToContinue(string prompt = null, ConsoleKey key = ConsoleKey.Enter)
+		{
+			if (!key.IsDefined())
+			{
+				throw new ArgumentOutOfRangeException(nameof(key), key, $"{nameof(key)} is not a defined value in the {nameof(ConsoleKey)} enum");
+			}
+			prompt ??= $"Press [{key}] to continue...";
+			Console.Write(prompt);
+			PressToContinue(key);
 		}
 
 		/// <summary>Prompts the user to select a menu option in the console before continuing.</summary>

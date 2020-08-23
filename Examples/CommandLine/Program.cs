@@ -61,7 +61,7 @@ namespace CommandLine
 			// - ValueProvided: The argument was provided and successfully parsed.
 
 			WriteLine();
-			ConsoleHelper.PressEnterToContinue();
+			ConsoleHelper.PromptPressToContinue();
 		}
 	}
 }
