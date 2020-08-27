@@ -62,10 +62,11 @@ namespace Towel
 	{
 		internal Func<A> Func;
 
+		/// <summary>The invocation of the compile time delegate.</summary>
 		public A Do() => Func();
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="step">The runtime delegate.</param>
+		/// <param name="func">The runtime delegate.</param>
 		public static implicit operator FuncRuntime<A>(Func<A> func) =>
 			new FuncRuntime<A>() { Func = func, };
 	}

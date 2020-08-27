@@ -13,7 +13,7 @@ namespace Towel_Benchmarking
 			decimal increment = Range / 200000;
 			for (decimal i = 0; i < Range; i += increment)
 			{
-				string englishWords = i.ToEnglishWords();
+				_ = i.ToEnglishWords();
 			}
 		}
 	}

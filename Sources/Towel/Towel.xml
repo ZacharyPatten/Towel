@@ -2523,6 +2523,27 @@
         <member name="T:Towel.DataStructures.List">
             <summary>Contains static extension methods for IList types.</summary>
         </member>
+        <member name="M:Towel.DataStructures.List.RemoveAll``1(Towel.DataStructures.IList{``0},System.Func{``0,System.Boolean})">
+            <summary>Removes all predicated values from an <see cref="T:Towel.DataStructures.IList`1"/>.</summary>
+            <typeparam name="T">The generic type of elements inside the <see cref="T:Towel.DataStructures.IList`1"/>.</typeparam>
+            <param name="iList">The <see cref="T:Towel.DataStructures.IList`1"/> to remove elements from.</param>
+            <param name="predicate">The predicate for selecting removals from the <see cref="T:Towel.DataStructures.IList`1"/>.</param>
+        </member>
+        <member name="M:Towel.DataStructures.List.TryRemoveFirst``1(Towel.DataStructures.IList{``0},System.Func{``0,System.Boolean})">
+            <summary>Tries to removes the first predicated value from an <see cref="T:Towel.DataStructures.IList`1"/>.</summary>
+            <typeparam name="T">The generic type of elements inside the <see cref="T:Towel.DataStructures.IList`1"/>.</typeparam>
+            <param name="iList">The <see cref="T:Towel.DataStructures.IList`1"/> to remove an element from.</param>
+            <param name="predicate">The predicate for selecting the removal from the <see cref="T:Towel.DataStructures.IList`1"/>.</param>
+            <returns>True if the predicated element was found and removed. False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.List.TryRemoveFirst``1(Towel.DataStructures.IList{``0},System.Func{``0,System.Boolean},System.Exception@)">
+            <summary>Tries to removes the first predicated value from an <see cref="T:Towel.DataStructures.IList`1"/>.</summary>
+            <typeparam name="T">The generic type of elements inside the <see cref="T:Towel.DataStructures.IList`1"/>.</typeparam>
+            <param name="iList">The <see cref="T:Towel.DataStructures.IList`1"/> to remove an element from.</param>
+            <param name="predicate">The predicate for selecting the removal from the <see cref="T:Towel.DataStructures.IList`1"/>.</param>
+            <param name="exception">The exception that occured if the removal failed.</param>
+            <returns>True if the predicated element was found and removed. False if not.</returns>
+        </member>
         <member name="M:Towel.DataStructures.List.RemoveFirst``1(Towel.DataStructures.IList{``0},System.Func{``0,System.Boolean})">
             <summary>Removes the first equality by object reference.</summary>
             <param name="iList">The list to remove the value from.</param>
@@ -2767,11 +2788,13 @@
         <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(System.Func{`0,System.Boolean},System.Exception@)">
             <summary>Removes the first predicated value from the list wihtout shrinking the list.</summary>
             <param name="predicate">The predicate to determine removals.</param>
+            <param name="exception">The exception that occured if the removal failed.</param>
             <runtime>O(n), Ω(1)</runtime>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.TryRemoveFirst(System.Func{`0,System.Boolean},System.Exception@)">
             <summary>Tries to remove the first predicated value if the value exists.</summary>
             <param name="predicate">The predicate to determine removals.</param>
+            <param name="exception">The exception that occured if the removal failed.</param>
             <returns>True if the item was found and removed. False if not.</returns>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.TryRemoveFirst``1(System.Exception@,``0)">
@@ -14158,6 +14181,8 @@
         <member name="T:Towel.DataStructures.SetHashLinked`3">
             <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
             <typeparam name="T">The type of values to store in the set.</typeparam>
+            <typeparam name="Equate">The function for equality comparing values.</typeparam>
+            <typeparam name="Hash">The function for computing hash codes.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`3.#ctor(`1,`2,System.Nullable{System.Int32})">
             <summary>Constructs a hashed set.</summary>
@@ -16019,7 +16044,7 @@
         </member>
         <member name="M:Towel.ActionRuntime.op_Implicit(System.Action)~Towel.ActionRuntime">
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="step">The runtime delegate.</param>
+            <param name="action">The runtime delegate.</param>
         </member>
         <member name="T:Towel.IAction`1">
             <summary>Interface for a compile time delegate.</summary>
@@ -16048,9 +16073,12 @@
         <member name="T:Towel.FuncRuntime`1">
             <summary>Built in struct for runtime computations.</summary>
         </member>
+        <member name="M:Towel.FuncRuntime`1.Do">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
         <member name="M:Towel.FuncRuntime`1.op_Implicit(System.Func{`0})~Towel.FuncRuntime{`0}">
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="step">The runtime delegate.</param>
+            <param name="func">The runtime delegate.</param>
         </member>
         <member name="T:Towel.IFunc`2">
             <summary>Interface for a compile time delegate.</summary>
@@ -30828,6 +30856,13 @@
         </member>
         <member name="F:Towel.StepStatus.Break">
             <summary>Stepper was broken.</summary>
+        </member>
+        <member name="T:Towel.StepContinue">
+            <summary>Compile time resulution to the <see cref="F:Towel.StepStatus.Continue"/> value.</summary>
+        </member>
+        <member name="M:Towel.StepContinue.Do">
+            <summary>Returns <see cref="F:Towel.StepStatus.Continue"/>.</summary>
+            <returns><see cref="F:Towel.StepStatus.Continue"/></returns>
         </member>
         <member name="T:Towel.Step`1">
             <summary>Delegate for data structure iteration.</summary>

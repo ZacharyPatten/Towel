@@ -4,7 +4,7 @@
 
 > "It's a tough galaxy. If you want to survive, you've gotta know... where your towel is." - Ford Prefect
 
-Towel is a C# .Net Standard libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.
+Towel is a C# .Net Core libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.
 
 | Topic | Info |
 | :---    | :--- |
