@@ -4,17 +4,17 @@
 		<PackageProjectUrl></PackageProjectUrl>
 		<PackageIconUrl></PackageIconUrl>
 		<RepositoryUrl>https://github.com/ZacharyPatten/Towel</RepositoryUrl>
-		<PackageTags>mathematics,matrix,vector,quaternion,linear-algebra,linear-regression,data-structures,pathfinding,generic-mathematics,sorting-algorithms,avl-tree,graph-algorithms,octree,quadtree,omnitree,redblacktree,symbolic-computation,measurements,statistics,algorithms</PackageTags>
+		<PackageTags>library, framework, algorithms, data-structures, mathematics, extensions</PackageTags>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<Copyright>Copyright (c) 2020 Zachary Patten</Copyright>
-		<Description>Towel is a C# .Net Standard libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.</Description>
+		<Description>Towel is a C# .Net Core libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.</Description>
 		<PackageReleaseNotes>Towel is in an alpha (pre-release) state.</PackageReleaseNotes>
 		<Authors>Zachary Patten</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.0.13-alpha</Version>
+		<Version>1.0.14-alpha</Version>
 		<LangVersion>8.0</LangVersion>
-		<AssemblyVersion>1.0.13.0</AssemblyVersion>
-		<FileVersion>1.0.13.0</FileVersion>
+		<AssemblyVersion>1.0.14.0</AssemblyVersion>
+		<FileVersion>1.0.14.0</FileVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryType></RepositoryType>
 		<Company />
