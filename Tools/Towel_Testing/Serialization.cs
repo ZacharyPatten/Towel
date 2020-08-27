@@ -6,8 +6,6 @@ namespace Towel_Testing
 {
 	[TestClass] public class Serialization_Testing
 	{
-		#region Static Delegate
-
 		public static decimal StaticMethod(int a, string b, object c) => throw new NotImplementedException();
 
 		public void NonStaticMethod() => throw new NotImplementedException();
@@ -48,6 +46,40 @@ namespace Towel_Testing
 			}
 		}
 
-		#endregion
+		[TestMethod] public void StaticDelegateToJson_Testing()
+		{
+			{ // Should Succeed
+				Func<int, string, object, decimal> functionToSerialize = StaticMethod;
+				string serialization = Serialization.StaticDelegateToJson(functionToSerialize);
+				Assert.IsFalse(string.IsNullOrWhiteSpace(serialization));
+			}
+			{ // Should Fail (Non-Static)
+				Action nonStaticDelegate = NonStaticMethod;
+				Assert.ThrowsException<NotSupportedException>(() => Serialization.StaticDelegateToJson(nonStaticDelegate));
+			}
+			{ // Should Fail (Local Function)
+				Exception notImplemented = new NotImplementedException();
+				void LocalFunctionToSerializeFail() => throw notImplemented;
+				Action nonStaticDelegate = LocalFunctionToSerializeFail;
+				Assert.ThrowsException<NotSupportedException>(() => Serialization.StaticDelegateToJson(nonStaticDelegate));
+			}
+			{ // Should Fail (Static Local Function)
+				static void StaticLocalFunctionToSerialize() => throw new NotImplementedException();
+				Action nonStaticDelegate = StaticLocalFunctionToSerialize;
+				Assert.ThrowsException<NotSupportedException>(() => Serialization.StaticDelegateToJson(nonStaticDelegate));
+			}
+		}
+
+		[TestMethod] public void StaticDelegateFromJson_Testing()
+		{
+			{ // Should Succeed
+				Func<int, string, object, decimal> functionToSerialize = StaticMethod;
+				string serialization = Serialization.StaticDelegateToJson(functionToSerialize);
+				Assert.IsFalse(string.IsNullOrWhiteSpace(serialization));
+				var deserialization = Serialization.StaticDelegateFromJson<Func<int, string, object, decimal>>(serialization);
+				Assert.IsFalse(deserialization is null);
+				Assert.ThrowsException<NotImplementedException>(() => deserialization(default, default, default));
+			}
+		}
 	}
 }

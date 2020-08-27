@@ -30391,6 +30391,36 @@
             Thrown when deserialization fails. See the inner exception for more information.
             </exception>
         </member>
+        <member name="T:Towel.Serialization.Json">
+            <summary>An object for the purposes of serializing static delegates.</summary>
+        </member>
+        <member name="T:Towel.Serialization.Json.Delegate">
+            <summary>An object for the purposes of serializing static delegates.</summary>
+        </member>
+        <member name="P:Towel.Serialization.Json.Delegate.DeclaringType">
+            <summary>The assemlby qualified declaring type of the method.</summary>
+        </member>
+        <member name="P:Towel.Serialization.Json.Delegate.MethodName">
+            <summary>The name of the method.</summary>
+        </member>
+        <member name="P:Towel.Serialization.Json.Delegate.ParameterTypes">
+            <summary>The assembly qualified parameter types of the method.</summary>
+        </member>
+        <member name="P:Towel.Serialization.Json.Delegate.ReturnType">
+            <summary>The assembly qualified return type of the method.</summary>
+        </member>
+        <member name="M:Towel.Serialization.StaticDelegateToJson``1(``0)">
+            <summary>Serializes a static delegate to JSON.</summary>
+            <typeparam name="T">The type of delegate to serialize.</typeparam>
+            <param name="delegate">The delegate to serialize.</param>
+            <returns>The JSON serialization of the delegate.</returns>
+        </member>
+        <member name="M:Towel.Serialization.StaticDelegateFromJson``1(System.String)">
+            <summary>Deserializes a static delegate from JSON.</summary>
+            <typeparam name="Delegate">The type of the delegate to deserialize.</typeparam>
+            <param name="string">The string of JSON content to deserialize.</param>
+            <returns>The deserialized delegate.</returns>
+        </member>
         <member name="T:Towel.Sort">
             <summary>Contains static sorting algorithms.</summary>
         </member>

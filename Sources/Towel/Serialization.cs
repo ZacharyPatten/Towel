@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
 using Towel.DataStructures;
@@ -90,7 +91,7 @@ namespace Towel
 
 		#region Static Delegates
 
-		#region Shared
+		#region XML
 
 		internal static partial class StaticDelegateConstants
 		{
@@ -101,8 +102,6 @@ namespace Towel
 			internal const string ParameterType = "ParameterType.AssemblyQualifiedName";
 			internal const string ReturnType = "Method.ReturnType";
 		}
-
-		#endregion
 
 		#region To XML
 
@@ -312,6 +311,117 @@ namespace Towel
 			ThrowReturnTypeMisMatchException:
 			throw new InvalidOperationException("Deserialization failed due to a return type mis-match.");
 		}
+
+		#endregion
+
+		#endregion
+
+		#region JSON
+
+		/// <summary>An object for the purposes of serializing static delegates.</summary>
+		public static class Json
+		{
+			/// <summary>An object for the purposes of serializing static delegates.</summary>
+			public class Delegate
+			{
+				/// <summary>The assemlby qualified declaring type of the method.</summary>
+				public string DeclaringType { get; set; }
+				/// <summary>The name of the method.</summary>
+				public string MethodName { get; set; }
+				/// <summary>The assembly qualified parameter types of the method.</summary>
+				public string[] ParameterTypes { get; set; }
+				/// <summary>The assembly qualified return type of the method.</summary>
+				public string ReturnType { get; set; }
+			}
+		}
+
+		#region To JSON
+
+		/// <summary>Serializes a static delegate to JSON.</summary>
+		/// <typeparam name="T">The type of delegate to serialize.</typeparam>
+		/// <param name="delegate">The delegate to serialize.</param>
+		/// <returns>The JSON serialization of the delegate.</returns>
+		public static string StaticDelegateToJson<T>(T @delegate) where T : Delegate
+		{
+			MethodInfo methodInfo = @delegate.Method;
+			if (methodInfo.IsLocalFunction())
+			{
+				throw new NotSupportedException("delegates assigned to local functions are not supported");
+			}
+			if (!methodInfo.IsStatic)
+			{
+				throw new NotSupportedException("delegates assigned to non-static methods are not supported");
+			}
+			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+			string[] parameterTypes = new string[parameterInfos.Length];
+			for (int i = 0; i < parameterTypes.Length; i++)
+			{
+				parameterTypes[i] = parameterInfos[i].ParameterType.AssemblyQualifiedName;
+			}
+
+			Json.Delegate delegateObject = new Json.Delegate()
+			{
+				DeclaringType = methodInfo.DeclaringType.AssemblyQualifiedName,
+				MethodName = methodInfo.Name,
+				ParameterTypes = parameterTypes,
+				ReturnType = methodInfo.ReturnType.AssemblyQualifiedName,
+			};
+
+			return JsonSerializer.Serialize(delegateObject);
+		}
+
+		#endregion
+
+		#region From JSON
+
+		/// <summary>Deserializes a static delegate from JSON.</summary>
+		/// <typeparam name="Delegate">The type of the delegate to deserialize.</typeparam>
+		/// <param name="string">The string of JSON content to deserialize.</param>
+		/// <returns>The deserialized delegate.</returns>
+		public static Delegate StaticDelegateFromJson<Delegate>(string @string) where Delegate : System.Delegate
+		{
+			Json.Delegate delegateObject = JsonSerializer.Deserialize<Json.Delegate>(@string);
+			Type declaringType = Type.GetType(delegateObject.DeclaringType);
+			Type returnType = Type.GetType(delegateObject.ReturnType);
+			MethodInfo methodInfo = null;
+			if (delegateObject.ParameterTypes.Length > 0)
+			{
+				Type[] parameterTypes = delegateObject.ParameterTypes.Select(x => Type.GetType(x)).ToArray();
+				methodInfo = declaringType.GetMethod(delegateObject.MethodName, parameterTypes);
+			}
+			else
+			{
+				methodInfo = declaringType.GetMethod(delegateObject.MethodName);
+			}
+			if (methodInfo.IsLocalFunction())
+			{
+				goto ThrowLocalFunctionException;
+			}
+			if (!methodInfo.IsStatic)
+			{
+				goto ThrowNonStaticException;
+			}
+			if (methodInfo.ReturnType != returnType)
+			{
+				goto ThrowReturnTypeMisMatchException;
+			}
+			try
+			{
+				return methodInfo.CreateDelegate<Delegate>();
+			}
+			catch (Exception exception)
+			{
+				throw new Exception("Deserialization failed.", exception);
+			}
+		ThrowNonStaticException:
+			throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
+		ThrowLocalFunctionException:
+			throw new NotSupportedException("Delegates assigned to local functions are not supported.");
+		ThrowReturnTypeMisMatchException:
+			throw new InvalidOperationException("Deserialization failed due to a return type mis-match.");
+		}
+
+		#endregion
 
 		#endregion
 
