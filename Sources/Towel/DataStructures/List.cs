@@ -21,6 +21,9 @@ namespace Towel.DataStructures
 		bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>;
 
+		/// <summary>Removes all occurences of predicated values from the list.</summary>
+		/// <typeparam name="Predicate">The predicate to determine removals.</typeparam>
+		/// <param name="predicate">The predicate to determine removals.</param>
 		void RemoveAll<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>;
 
@@ -32,12 +35,27 @@ namespace Towel.DataStructures
 	{
 		#region Extensions
 
+		/// <summary>Removes all predicated values from an <see cref="IList{T}"/>.</summary>
+		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
+		/// <param name="iList">The <see cref="IList{T}"/> to remove elements from.</param>
+		/// <param name="predicate">The predicate for selecting removals from the <see cref="IList{T}"/>.</param>
 		public static void RemoveAll<T>(this IList<T> iList, Func<T, bool> predicate) =>
 			iList.RemoveAll<PredicateRuntime<T>>(predicate);
 
+		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
+		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
+		/// <param name="iList">The <see cref="IList{T}"/> to remove an element from.</param>
+		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
+		/// <returns>True if the predicated element was found and removed. False if not.</returns>
 		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate) =>
 			iList.TryRemoveFirst<PredicateRuntime<T>>(out _, predicate);
 
+		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
+		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
+		/// <param name="iList">The <see cref="IList{T}"/> to remove an element from.</param>
+		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
+		/// <param name="exception">The exception that occured if the removal failed.</param>
+		/// <returns>True if the predicated element was found and removed. False if not.</returns>
 		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate, out Exception exception) =>
 			iList.TryRemoveFirst<PredicateRuntime<T>>(out exception, predicate);
 
@@ -713,6 +731,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes the first predicated value from the list wihtout shrinking the list.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
+		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <runtime>O(n), Ω(1)</runtime>
 		public void RemoveFirstWithoutShrink(Func<T, bool> predicate, out Exception exception)
 		{
@@ -724,6 +743,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
+		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <returns>True if the item was found and removed. False if not.</returns>
 		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception exception) =>
 			TryRemoveFirst<PredicateRuntime<T>>(out exception, predicate);

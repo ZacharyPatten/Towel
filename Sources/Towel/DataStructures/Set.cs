@@ -18,6 +18,8 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
 	/// <typeparam name="T">The type of values to store in the set.</typeparam>
+	/// <typeparam name="Equate">The function for equality comparing values.</typeparam>
+	/// <typeparam name="Hash">The function for computing hash codes.</typeparam>
 	public class SetHashLinked<T, Equate, Hash> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>

@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Linq;
 using Towel.DataStructures;
 using Towel.Measurements;
-using System.Net;
 
 namespace Towel
 {
@@ -172,6 +171,18 @@ namespace Towel
 
 		#endregion
 
+		#region Join
+
+		/// <summary>Iterates a <see cref="System.Range"/> and joins the results of a System.Func&lt;int, string&gt; seperated by a <see cref="string"/> <paramref name="seperator"/>.</summary>
+		/// <param name="range">The range of values to use use on the &lt;System.Func{int, string&gt; <paramref name="func"/>.</param>
+		/// <param name="func">The System.Func&lt;int, string&gt;.</param>
+		/// <param name="seperator">The <see cref="string"/> seperator to join the values with.</param>
+		/// <returns>The resulting <see cref="string"/> of the join.</returns>
+		public static string Join(Range range, Func<int, string> func, string seperator) =>
+			string.Join(seperator, range.ToIEnumerable().Select(func));
+
+		#endregion
+
 		#region Syntax Sugar
 
 		#region Keywords
@@ -247,12 +258,16 @@ namespace Towel
 			/// <param name="possibleActions">The possible actions of the Switch statement.</param>
 			public delegate void SwitchDelegate<T>(params (Condition<T> Condition, Action Action)[] possibleActions);
 
+			/// <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
+			/// <typeparam name="T">The generic type of the Switch condition for equality checks.</typeparam>
 			public abstract class Condition<T>
 			{
 				public abstract bool Resolve(T b);
 				public static implicit operator Condition<T>(T value) => new Value<T> { A = value, };
 				public static implicit operator Condition<T>(bool result) => new Bool<T> { Result = result, };
+#pragma warning disable IDE0060 // Remove unused parameter
 				public static implicit operator Condition<T>(Keyword keyword) => new Default<T>();
+#pragma warning restore IDE0060 // Remove unused parameter
 			}
 
 			internal class Value<T> : Condition<T>
@@ -276,7 +291,9 @@ namespace Towel
 			{
 				public abstract bool Resolve();
 				public static implicit operator Condition(bool result) => new Bool { Result = result, };
+#pragma warning disable IDE0060 // Remove unused parameter
 				public static implicit operator Condition(Keyword keyword) => new Default();
+#pragma warning restore IDE0060 // Remove unused parameter
 				public static implicit operator bool(Condition condition) => condition.Resolve();
 			}
 
@@ -309,18 +326,21 @@ namespace Towel
 			//public static ChanceSyntax Chance => default;
 
 #pragma warning disable IDE0060 // Remove unused parameter
+#pragma warning disable IDE0075 // Simplify conditional expression
 
 			/// <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
 			/// <param name="percentage">The value of the percentage.</param>
 			/// <param name="chance">The chance syntax struct object.</param>
-			/// <returns></returns>
+			/// <returns>True if the the chance hits. False if not.</returns>
 			public static bool operator %(double percentage, ChanceSyntax chance) =>
-				percentage < 0 ? throw new ArgumentOutOfRangeException(nameof(chance)) :
-				percentage > 100 ? throw new ArgumentOutOfRangeException(nameof(chance)) :
-				percentage is 100 ? true :
-				percentage is 0 ? false :
-				Algorithm.NextDouble() < percentage / 100;
+				percentage < 0d ? throw new ArgumentOutOfRangeException(nameof(chance)) :
+				percentage > 100d ? throw new ArgumentOutOfRangeException(nameof(chance)) :
 
+				percentage is 100d ? true :
+				percentage is 0d ? false :
+				Algorithm.NextDouble() < percentage / 100d;
+
+#pragma warning restore IDE0075 // Simplify conditional expression
 #pragma warning restore IDE0060 // Remove unused parameter
 		}
 
@@ -2616,7 +2636,7 @@ namespace Towel
 			Sort.Quick(ordered, Comparison);
 			T[] resultingQuantiles = new T[quantiles + 1];
 			resultingQuantiles[0] = ordered[0];
-			resultingQuantiles[resultingQuantiles.Length - 1] = ordered[ordered.Length - 1];
+			resultingQuantiles[^1] = ordered[^1];
 			T QUANTILES_PLUS_1 = Convert<int, T>(quantiles + 1);
 			T ORDERED_LENGTH = Convert<int, T>(ordered.Length);
 			for (int i = 1; i < quantiles; i++)

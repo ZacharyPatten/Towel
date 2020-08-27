@@ -628,7 +628,7 @@ namespace Towel
 			{
 				throw new InvalidOperationException("Attempting to get the last enum value of an enum type with no values.");
 			}
-			return values[values.Length - 1];
+			return values[^1];
 		}
 
 		#endregion

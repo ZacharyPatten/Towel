@@ -254,7 +254,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(end), end, "!(" + nameof(start) + " <= " + nameof(end) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
 			}
 			string header = @string.Substring(0, start).StandardizeNewLines();
-			string body = string.Concat(@string.Substring(start, end - start).RemoveCarriageReturns().Replace("\n", Environment.NewLine + padding));
+			string body = string.Concat(@string[start..end].RemoveCarriageReturns().Replace("\n", Environment.NewLine + padding));
 			string footer = @string.Substring(end).StandardizeNewLines();
 			return string.Concat(header, body, footer);
 		}
@@ -278,7 +278,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(end), end, "!(" + nameof(start) + " <= " + nameof(end) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
 			}
 			string header = @string.Substring(0, start).StandardizeNewLines();
-			string body = string.Concat(@string.Substring(start, end - start).RemoveCarriageReturns().Replace("\n", padding + Environment.NewLine));
+			string body = string.Concat(@string[start..end].RemoveCarriageReturns().Replace("\n", padding + Environment.NewLine));
 			string footer = @string.Substring(end).StandardizeNewLines();
 			return string.Concat(header, body, footer);
 		}
@@ -1673,6 +1673,23 @@ namespace Towel
 		/// <returns>true if a constant in enumType has a value equal to value; otherwise, false.</returns>
 		public static bool IsDefined<T>(this T value) where T : Enum =>
 			Enum.IsDefined(typeof(T), value);
+
+		#endregion
+
+		#region System.Range
+
+		/// <summary>Converts a <see cref="System.Range"/> to an <see cref="System.Collections.Generic.IEnumerable{T}"/>.</summary>
+		/// <param name="range">The <see cref="System.Range"/> to convert int a <see cref="System.Collections.Generic.IEnumerable{T}"/>.</param>
+		/// <returns>The resulting <see cref="System.Collections.Generic.IEnumerable{T}"/> of the conversion.</returns>
+		internal static System.Collections.Generic.IEnumerable<int> ToIEnumerable(this Range range)
+		{
+			int a = range.Start.Value < range.End.Value ? range.Start.Value : range.End.Value;
+			int b = range.Start.Value > range.End.Value ? range.Start.Value : range.End.Value;
+			for (int i = a; i < b; i++)
+			{
+				yield return i;
+			}
+		}
 
 		#endregion
 	}

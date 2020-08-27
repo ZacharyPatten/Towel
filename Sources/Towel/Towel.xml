@@ -2515,6 +2515,11 @@
             <param name="predicate">The predicate to determine removal.</param>
             <returns>True if the value was removed. False if the value did not exist.</returns>
         </member>
+        <member name="M:Towel.DataStructures.IList`1.RemoveAll``1(``0)">
+            <summary>Removes all occurences of predicated values from the list.</summary>
+            <typeparam name="Predicate">The predicate to determine removals.</typeparam>
+            <param name="predicate">The predicate to determine removals.</param>
+        </member>
         <member name="T:Towel.DataStructures.List">
             <summary>Contains static extension methods for IList types.</summary>
         </member>
@@ -15994,6 +15999,11 @@
             <typeparam name="T">The type of the enum.</typeparam>
             <param name="value">The value to determine if it is defined.</param>
             <returns>true if a constant in enumType has a value equal to value; otherwise, false.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ToIEnumerable(System.Range)">
+            <summary>Converts a <see cref="T:System.Range"/> to an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</summary>
+            <param name="range">The <see cref="T:System.Range"/> to convert int a <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</param>
+            <returns>The resulting <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the conversion.</returns>
         </member>
         <member name="T:Towel.IAction">
             <summary>Interface for a compile time delegate.</summary>
@@ -31246,6 +31256,13 @@
             <param name="a">The value to convert.</param>
             <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
         </member>
+        <member name="M:Towel.Syntax.Join(System.Range,System.Func{System.Int32,System.String},System.String)">
+            <summary>Iterates a <see cref="T:System.Range"/> and joins the results of a System.Func&lt;int, string&gt; seperated by a <see cref="T:System.String"/> <paramref name="seperator"/>.</summary>
+            <param name="range">The range of values to use use on the &lt;System.Func{int, string&gt; <paramref name="func"/>.</param>
+            <param name="func">The System.Func&lt;int, string&gt;.</param>
+            <param name="seperator">The <see cref="T:System.String"/> seperator to join the values with.</param>
+            <returns>The resulting <see cref="T:System.String"/> of the join.</returns>
+        </member>
         <member name="F:Towel.Syntax.Continue">
             <summary>Stepper was not broken.</summary>
         </member>
@@ -31288,6 +31305,10 @@
             <typeparam name="T">The generic type of the Switch statement.</typeparam>
             <param name="possibleActions">The possible actions of the Switch statement.</param>
         </member>
+        <member name="T:Towel.Syntax.SwitchSyntax.Condition`1">
+            <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
+            <typeparam name="T">The generic type of the Switch condition for equality checks.</typeparam>
+        </member>
         <member name="P:Towel.Syntax.Chance">
             <summary>Allows chance syntax with "using static Towel.Syntax;".</summary>
             <example>25% Chance</example>
@@ -31302,7 +31323,7 @@
             <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
             <param name="percentage">The value of the percentage.</param>
             <param name="chance">The chance syntax struct object.</param>
-            <returns></returns>
+            <returns>True if the the chance hits. False if not.</returns>
         </member>
         <member name="T:Towel.Syntax.Inequality`1">
             <summary>Used for inequality syntax.</summary>

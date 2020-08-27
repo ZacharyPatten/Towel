@@ -245,7 +245,7 @@ void main()
 
 			#region Omnitree Initialization
 
-			void Locate(Cube obj,
+			static void Locate(Cube obj,
 				out float x,
 				out float y,
 				out float z)

@@ -21,8 +21,11 @@ namespace Towel
 
 	#region StepStatus - Built In Structs
 
+	/// <summary>Compile time resulution to the <see cref="StepStatus.Continue"/> value.</summary>
 	public struct StepContinue : IFunc<StepStatus>
 	{
+		/// <summary>Returns <see cref="StepStatus.Continue"/>.</summary>
+		/// <returns><see cref="StepStatus.Continue"/></returns>
 		public StepStatus Do() => Continue;
 	}
 

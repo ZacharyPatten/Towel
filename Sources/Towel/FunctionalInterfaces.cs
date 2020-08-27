@@ -20,7 +20,7 @@ namespace Towel
 		public void Do() => Action();
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="step">The runtime delegate.</param>
+		/// <param name="action">The runtime delegate.</param>
 		public static implicit operator ActionRuntime(Action action) =>
 			new ActionRuntime() { Action = action, };
 	}
