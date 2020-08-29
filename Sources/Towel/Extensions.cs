@@ -1347,9 +1347,12 @@ namespace Towel
 			};
 		}
 
-		internal static string ToEnglishWords(string number)
+		internal static string ToEnglishWords(string number) =>
+			ToEnglishWords(number.AsSpan());
+
+		internal static string ToEnglishWords(ReadOnlySpan<char> number)
 		{
-			if (number == "0")
+			if (number.Length == 1 && number[0] == '0')
 			{
 				return "Zero";
 			}
@@ -1359,17 +1362,17 @@ namespace Towel
 			{
 				Append("Negative");
 				spaceNeeded = true;
-				number = number.Substring(1);
+				number = number[1..];
 			}
 			if (number[0] == '0')
 			{
-				number = number.Substring(1);
+				number = number[1..];
 			}
 			int decimalIndex = number.IndexOf('.');
 			if (decimalIndex != 0)
 			{
-				string wholeNumber = decimalIndex >= 0
-					? number.Substring(0, decimalIndex)
+				ReadOnlySpan<char> wholeNumber = decimalIndex >= 0
+					? number[0..decimalIndex]
 					: number;
 				WholeNumber(wholeNumber);
 			}
@@ -1380,7 +1383,7 @@ namespace Towel
 					AppendLeadingSpace();
 					Append("And");
 				}
-				string fractionalNumber = number.Substring(decimalIndex + 1);
+				ReadOnlySpan<char> fractionalNumber = number[(decimalIndex + 1)..];
 				WholeNumber(fractionalNumber);
 				AppendLeadingSpace();
 				Append(ToEnglishWordsDefinitions.FractionalSufix[fractionalNumber.Length]);
@@ -1402,7 +1405,7 @@ namespace Towel
 				}
 			}
 
-			void WholeNumber(string wholeNumber)
+			void WholeNumber(ReadOnlySpan<char> wholeNumber)
 			{
 				// A "digit group" is a set of hundreds + tens + ones digits.
 				// In the number 123456789 the digit groups are the following: 123, 456, 789
