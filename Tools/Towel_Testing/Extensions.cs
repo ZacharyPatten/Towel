@@ -5,7 +5,7 @@ using Towel.DataStructures;
 
 namespace Towel_Testing
 {
-	[TestClass] public class TowelDotNetExtensions_Testing
+	[TestClass] public class Extensions_Testing
 	{
 		#region string
 
