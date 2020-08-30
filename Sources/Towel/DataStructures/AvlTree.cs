@@ -186,25 +186,25 @@ namespace Towel.DataStructures
 		/// <returns>Whether or not the AVL tree contains the value.</returns>
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
 		public bool Contains(T value) =>
-			Contains(x => _compare.Do(value, x));
+			Contains(x => _compare.Do(x, value));
 
 		/// <summary>Determines if this structure contains an item by a given key.</summary>
-		/// <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
+		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
 		/// <returns>True of contained, False if not.</returns>
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
-		public bool Contains(CompareToKnownValue<T> comparison)
+		public bool Contains(Sift<T> sift)
 		{
 			Node node = _root;
 			while (!(node is null))
 			{
-				CompareResult compareResult = comparison(node.Value);
+				CompareResult compareResult = sift(node.Value);
 				if (compareResult is Less)
 				{
-					node = node.LeftChild;
+					node = node.RightChild;
 				}
 				else if (compareResult is Greater)
 				{
-					node = node.RightChild;
+					node = node.LeftChild;
 				}
 				else // (compareResult == Copmarison.Equal)
 				{
@@ -219,17 +219,17 @@ namespace Towel.DataStructures
 		#region Get
 
 		/// <summary>Tries to get a value.</summary>
-		/// <param name="compare">The compare delegate.</param>
+		/// <param name="sift">The compare delegate.</param>
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the get succeeded or false if not.</returns>
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
-		public bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception)
+		public bool TryGet(Sift<T> sift, out T value, out Exception exception)
 		{
 			Node node = _root;
 			while (!(node is null))
 			{
-				CompareResult comparison = compare(node.Value);
+				CompareResult comparison = sift(node.Value);
 				if (comparison is Less)
 				{
 					node = node.LeftChild;
@@ -262,17 +262,17 @@ namespace Towel.DataStructures
 			TryRemove(x => _compare.Do(x, value), out exception);
 
 		/// <summary>Tries to remove a value.</summary>
-		/// <param name="compare">The compare delegate.</param>
+		/// <param name="sift">The compare delegate.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(CompareToKnownValue<T> compare, out Exception exception)
+		public bool TryRemove(Sift<T> sift, out Exception exception)
 		{
 			Exception capturedException = null;
 			Node Remove(Node node)
 			{
 				if (!(node is null))
 				{
-					CompareResult compareResult = compare(node.Value);
+					CompareResult compareResult = sift(node.Value);
 					if (compareResult is Less)
 					{
 						node.RightChild = Remove(node.RightChild);

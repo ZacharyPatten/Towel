@@ -9,57 +9,73 @@ namespace Towel
 	{
 		#region Binary
 
-		/// <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
-		/// <typeparam name="T">The generic type of the set of values.</typeparam>
-		/// <param name="array">The array to binary search on.</param>
-		/// <param name="compare">Comparison delegate.</param>
-		/// <returns>The index where the specific value fits into the index, sorted items.</returns>
-		public static int Binary<T>(T[] array, CompareToKnownValue<T> compare) =>
-			Binary(array.WrapGetIndex(), array.Length, compare);
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
+		/// <summary>Performs a binary search on sorted indexed data.</summary>
+		/// <typeparam name="T">The type of elements to search through.</typeparam>
+		/// <typeparam name="Get">The function for getting an element at an index.</typeparam>
+		/// <typeparam name="Sift">The function for sifting through the elements.</typeparam>
+		/// <param name="index">The starting index of the binary search.</param>
+		/// <param name="length">The number of elements to be searched after the starting <paramref name="index"/>.</param>
+		/// <param name="get">The function for getting an element at an index.</param>
+		/// <param name="sift">The function for comparing the the elements to th desired target.</param>
+		/// <returns>The boolean indicating if a match was found and the final idex which will always be &lt;= the desired match.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void Binary_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
-		/// <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
-		/// <typeparam name="T">The generic type of the set of values.</typeparam>
-		/// <param name="get">Indexer delegate.</param>
-		/// <param name="length">The number of indexed items.</param>
-		/// <param name="compare">Comparison delegate.</param>
-		/// <returns>The index where the specific value fits into the index, sorted items.</returns>
-		public static int Binary<T>(GetIndex<T> get, int length, CompareToKnownValue<T> compare)
+		/// <inheritdoc cref="Binary_XML"/>
+		public static (bool Success, int Index) Binary<T>(T[] array, Sift<T> sift) =>
+			Binary<T, GetIndexArray<T>, SiftRuntime<T>>(0, array.Length, array, sift);
+
+		/// <inheritdoc cref="Binary_XML"/>
+		public static (bool Success, int Index) Binary<T, Sift>(T[] array, Sift sift = default)
+			where Sift : ISift<T> =>
+			Binary<T, GetIndexArray<T>, Sift>(0, array.Length, array, sift);
+
+		/// <inheritdoc cref="Binary_XML"/>
+		public static (bool Success, int Index) Binary<T>(int length, GetIndex<T> get, Sift<T> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
-			_ = compare ?? throw new ArgumentNullException(nameof(compare));
+			_ = sift ?? throw new ArgumentNullException(nameof(sift));
+			return Binary<T, GetIndexRuntime<T>, SiftRuntime<T>>(0, length, get, sift);
+		}
+
+		/// <inheritdoc cref="Binary_XML"/>
+		public static (bool Success, int Index) Binary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
+			where Get : IGetIndex<T>
+			where Sift : ISift<T>
+		{
 			if (length <= 0)
 			{
 				throw new ArgumentOutOfRangeException(nameof(length), length, "!(" + nameof(length) + " > 0)");
 			}
-			return Binary(get, 0, length, compare);
-		}
-
-		internal static int Binary<T>(GetIndex<T> get, int index, int length, CompareToKnownValue<T> compare)
-		{
+			if (index < 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(index), index, "!(" + nameof(index) + " > 0)");
+			}
+			if (length > int.MaxValue / 2 && index > int.MaxValue / 2)
+			{
+				throw new ArgumentOutOfRangeException($"{nameof(length)} > {int.MaxValue / 2} && {nameof(index)} / {int.MaxValue / 2}", default(Exception));
+			}
 			int low = index;
 			int hi = index + length - 1;
 			while (low <= hi)
 			{
-				int median = low + (hi - low >> 1);
-				CompareResult compareResult = compare(get(median));
-				if (compareResult is Less)
+				int median = low + (hi - low) / 2;
+				T value = get.Do(median);
+				switch (sift.Do(value))
 				{
-					low = median + 1;
-				}
-				else if (compareResult is Greater)
-				{
-					hi = median - 1;
-				}
-				else if (compareResult is Equal)
-				{
-					return median;
-				}
-				else
-				{
-					throw new TowelBugException("Unhandled CompareResult.");
+					case Less:    low = median + 1; break;
+					case Greater: hi  = median - 1; break;
+					case Equal:   return (true, median);
+					default: throw new TowelBugException("Unhandled CompareResult.");
 				}
 			}
-			return ~low;
+			return (false, Math.Min(low, hi));
 		}
 
 		#endregion

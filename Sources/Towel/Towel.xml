@@ -108,7 +108,7 @@
             <param name="b">The right operand of the comparison.</param>
             <returns>The Comparison operator between the operands to form a true logic statement.</returns>
         </member>
-        <member name="T:Towel.CompareToKnownValue`1">
+        <member name="T:Towel.Sift`1">
             <summary>Delegate for comparing a value to a known value.</summary>
             <typeparam name="T">The generic types to compare.</typeparam>
             <param name="b">The value to compare to the known value.</param>
@@ -167,6 +167,21 @@
         <member name="M:Towel.CompareRuntime`1.op_Implicit(Towel.Compare{`0})~Towel.CompareRuntime{`0}">
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="compare">The runtime Compare delegate.</param>
+        </member>
+        <member name="T:Towel.ISift`1">
+            <summary>A compile time delegate for comparing two values.</summary>
+            <typeparam name="T">The generic type of values to compare.</typeparam>
+        </member>
+        <member name="T:Towel.SiftRuntime`1">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+        </member>
+        <member name="M:Towel.SiftRuntime`1.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.SiftRuntime`1.op_Implicit(Towel.Sift{`0})~Towel.SiftRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="sift">The runtime Compare delegate.</param>
         </member>
         <member name="T:Towel.ConsoleHelper">
             <summary>Contains static helper methods for <see cref="T:System.Console"/>.</summary>
@@ -455,15 +470,15 @@
             <returns>Whether or not the AVL tree contains the value.</returns>
             <runtime>O(ln(Count)) Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Contains(Towel.CompareToKnownValue{`0})">
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Contains(Towel.Sift{`0})">
             <summary>Determines if this structure contains an item by a given key.</summary>
-            <param name="comparison">The sorting technique (must synchronize with this structure's sorting).</param>
+            <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
             <returns>True of contained, False if not.</returns>
             <runtime>O(ln(Count)) Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryGet(Towel.Sift{`0},`0@,System.Exception@)">
             <summary>Tries to get a value.</summary>
-            <param name="compare">The compare delegate.</param>
+            <param name="sift">The compare delegate.</param>
             <param name="value">The value if found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the get succeeded or false if not.</returns>
@@ -475,9 +490,9 @@
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryRemove(Towel.Sift{`0},System.Exception@)">
             <summary>Tries to remove a value.</summary>
-            <param name="compare">The compare delegate.</param>
+            <param name="sift">The compare delegate.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
@@ -13915,15 +13930,15 @@
             <param name="value">The value to see if the tree contains.</param>
             <returns>True if the tree contains the value. False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Contains(Towel.CompareToKnownValue{`0})">
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Contains(Towel.Sift{`0})">
             <summary>Determines if this structure contains an item by a given key.</summary>
-            <param name="compare">The sorting technique (must synchronize with this structure's sorting).</param>
+            <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
             <returns>True of contained, False if not.</returns>
             <runtime>O(ln(Count)) Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryGet(Towel.Sift{`0},`0@,System.Exception@)">
             <summary>Tries to get a value.</summary>
-            <param name="compare">The compare delegate.</param>
+            <param name="sift">The compare delegate.</param>
             <param name="value">The value if it was found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the value was found or false if not.</returns>
@@ -13934,9 +13949,9 @@
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(Towel.Sift{`0},System.Exception@)">
             <summary>Tries to remove a value.</summary>
-            <param name="compare">The compare delegate.</param>
+            <param name="sift">The compare delegate.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
@@ -14421,21 +14436,21 @@
         <member name="P:Towel.DataStructures.ISortedBinaryTree`1.CurrentGreatest">
             <summary>Gets the current greated value in the tree.</summary>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Contains(Towel.CompareToKnownValue{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Contains(Towel.Sift{`0})">
             <summary>Determines if the tree contains a value.</summary>
-            <param name="compare">The compare delegate. This must match the compare delegate of the tree.</param>
+            <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <returns>True if the value is in the tree or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryGet(Towel.CompareToKnownValue{`0},`0@,System.Exception@)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryGet(Towel.Sift{`0},`0@,System.Exception@)">
             <summary>Tries to get a value.</summary>
-            <param name="compare">The compare delegate. This must match the compare delegate of the tree.</param>
+            <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="value">The value if found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the value was found or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryRemove(Towel.CompareToKnownValue{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryRemove(Towel.Sift{`0},System.Exception@)">
             <summary>Tries to remove a value.</summary>
-            <param name="compare">The compare delegate. This must match the compare delegate of the tree.</param>
+            <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove succeeded or false if not.</returns>
         </member>
@@ -14633,33 +14648,33 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.TryGet``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.CompareToKnownValue{``0},``0@)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.TryGet``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.Sift{``0},``0@)">
             <summary>Tries to get a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to get the value from.</param>
-            <param name="compare">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
+            <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
             <param name="value">The value if it is found.</param>
             <returns>True if the value was found or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.Get``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.CompareToKnownValue{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.Get``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.Sift{``0})">
             <summary>Gets a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to get the value from.</param>
-            <param name="compare">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
+            <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
             <returns>The value.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.TryRemove``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.CompareToKnownValue{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.TryRemove``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.Sift{``0})">
             <summary>Tries to remove a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to remove the value from.</param>
-            <param name="compare">The compare delegate.</param>
+            <param name="sift">The compare delegate.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.Remove``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.CompareToKnownValue{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.Remove``1(Towel.DataStructures.ISortedBinaryTree{``0},Towel.Sift{``0})">
             <summary>Removes a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to remove the value from.</param>
-            <param name="compare">The compare delegate.</param>
+            <param name="sift">The compare delegate.</param>
         </member>
         <member name="T:Towel.DataStructures.IStack`1">
             <summary>Implements a First-In-Last-Out stack data structure.</summary>
@@ -30094,20 +30109,28 @@
         <member name="T:Towel.Search">
             <summary>Static class taht constains algorithms for searching.</summary>
         </member>
-        <member name="M:Towel.Search.Binary``1(``0[],Towel.CompareToKnownValue{``0})">
-            <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
-            <typeparam name="T">The generic type of the set of values.</typeparam>
-            <param name="array">The array to binary search on.</param>
-            <param name="compare">Comparison delegate.</param>
-            <returns>The index where the specific value fits into the index, sorted items.</returns>
+        <member name="M:Towel.Search.Binary_XML">
+            <summary>Performs a binary search on sorted indexed data.</summary>
+            <typeparam name="T">The type of elements to search through.</typeparam>
+            <typeparam name="Get">The function for getting an element at an index.</typeparam>
+            <typeparam name="Sift">The function for sifting through the elements.</typeparam>
+            <param name="index">The starting index of the binary search.</param>
+            <param name="length">The number of elements to be searched after the starting <paramref name="index"/>.</param>
+            <param name="get">The function for getting an element at an index.</param>
+            <param name="sift">The function for comparing the the elements to th desired target.</param>
+            <returns>The boolean indicating if a match was found and the final idex which will always be &lt;= the desired match.</returns>
         </member>
-        <member name="M:Towel.Search.Binary``1(Towel.GetIndex{``0},System.Int32,Towel.CompareToKnownValue{``0})">
-            <summary>Performs a binary search to find the index where a specific value fits in indexed, sorted items.</summary>
-            <typeparam name="T">The generic type of the set of values.</typeparam>
-            <param name="get">Indexer delegate.</param>
-            <param name="length">The number of indexed items.</param>
-            <param name="compare">Comparison delegate.</param>
-            <returns>The index where the specific value fits into the index, sorted items.</returns>
+        <member name="M:Towel.Search.Binary``1(``0[],Towel.Sift{``0})">
+            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
+        </member>
+        <member name="M:Towel.Search.Binary``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
+        </member>
+        <member name="M:Towel.Search.Binary``1(System.Int32,Towel.GetIndex{``0},Towel.Sift{``0})">
+            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
+        </member>
+        <member name="M:Towel.Search.Binary``3(System.Int32,System.Int32,``1,``2)">
+            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
         </member>
         <member name="T:Towel.Search.GraphSearchStatus">
             <summary>The status of a graph search algorithm.</summary>

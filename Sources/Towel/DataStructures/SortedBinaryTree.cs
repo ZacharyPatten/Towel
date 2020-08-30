@@ -23,20 +23,20 @@ namespace Towel.DataStructures
 		T CurrentGreatest { get; }
 
 		/// <summary>Determines if the tree contains a value.</summary>
-		/// <param name="compare">The compare delegate. This must match the compare delegate of the tree.</param>
+		/// <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
 		/// <returns>True if the value is in the tree or false if not.</returns>
-		bool Contains(CompareToKnownValue<T> compare);
+		bool Contains(Sift<T> sift);
 		/// <summary>Tries to get a value.</summary>
-		/// <param name="compare">The compare delegate. This must match the compare delegate of the tree.</param>
+		/// <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		bool TryGet(CompareToKnownValue<T> compare, out T value, out Exception exception);
+		bool TryGet(Sift<T> sift, out T value, out Exception exception);
 		/// <summary>Tries to remove a value.</summary>
-		/// <param name="compare">The compare delegate. This must match the compare delegate of the tree.</param>
+		/// <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove succeeded or false if not.</returns>
-		bool TryRemove(CompareToKnownValue<T> compare, out Exception exception);
+		bool TryRemove(Sift<T> sift, out Exception exception);
 		/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		void Stepper(StepRef<T> step);
@@ -242,37 +242,37 @@ namespace Towel.DataStructures
 		/// <summary>Tries to get a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="tree">The tree to get the value from.</param>
-		/// <param name="compare">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
+		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <param name="value">The value if it is found.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		public static bool TryGet<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare, out T value) =>
-			tree.TryGet(compare, out value, out _);
+		public static bool TryGet<T>(this ISortedBinaryTree<T> tree, Sift<T> sift, out T value) =>
+			tree.TryGet(sift, out value, out _);
 
 		/// <summary>Gets a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="tree">The tree to get the value from.</param>
-		/// <param name="compare">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
+		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <returns>The value.</returns>
-		public static T Get<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare) =>
-			tree.TryGet(compare, out T value, out Exception exception)
+		public static T Get<T>(this ISortedBinaryTree<T> tree, Sift<T> sift) =>
+			tree.TryGet(sift, out T value, out Exception exception)
 			? value
 			: throw exception;
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="tree">The tree to remove the value from.</param>
-		/// <param name="compare">The compare delegate.</param>
+		/// <param name="sift">The compare delegate.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare) =>
-			tree.TryRemove(compare, out _);
+		public static bool TryRemove<T>(this ISortedBinaryTree<T> tree, Sift<T> sift) =>
+			tree.TryRemove(sift, out _);
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="tree">The tree to remove the value from.</param>
-		/// <param name="compare">The compare delegate.</param>
-		public static void Remove<T>(this ISortedBinaryTree<T> tree, CompareToKnownValue<T> compare)
+		/// <param name="sift">The compare delegate.</param>
+		public static void Remove<T>(this ISortedBinaryTree<T> tree, Sift<T> sift)
 		{
-			if (!tree.TryRemove(compare, out Exception exception))
+			if (!tree.TryRemove(sift, out Exception exception))
 			{
 				throw exception;
 			}
