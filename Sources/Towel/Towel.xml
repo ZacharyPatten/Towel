@@ -1043,6 +1043,10 @@
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="hash">The hash function for the data structure to use.</param>
         </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(Towel.DataStructures.GraphMap{`0})">
+            <summary>Constructor for cloning purposes.</summary>
+            <param name="graphToClone">The graph to clone.</param>
+        </member>
         <member name="P:Towel.DataStructures.GraphMap`1.EdgeCount">
             <summary>Gets the number of edges in the graph.</summary>
         </member>
@@ -1080,6 +1084,35 @@
             <summary>Steps through all the neighbors of a node.</summary>
             <param name="a">The node to step through the children of.</param>
             <param name="step">The action to perform on all the neighbors of the provided node.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(Towel.Step{`0})">
+            <summary>Steps through all the nodes in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
+            <param name="step">The action to perform on every node in the graph.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(Towel.StepBreak{`0})">
+            <summary>Steps through all the nodes in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
+            <param name="step">The action to perform on every node in the graph.</param>
+            <returns>The status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(Towel.Step{`0,`0})">
+            <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
+            <param name="step">The action to perform on every edge in the graph.</param>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(Towel.StepBreak{`0,`0})">
+            <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
+            <param name="step">The action to perform on every edge in the graph.</param>
+            <returns>The status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Clone">
+            <summary>Makes a clone of this <see cref="T:Towel.DataStructures.GraphMap`1"/>.</summary>
+            <returns></returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.ToArray">
+            <summary>Gets an with all the nodes of th graph in it.</summary>
+            <returns>An array with all the nodes of th graph in it.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.Clear">
+            <summary>Clears this graph to an empty state.</summary>
         </member>
         <member name="T:Towel.DataStructures.IHeap`1">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>

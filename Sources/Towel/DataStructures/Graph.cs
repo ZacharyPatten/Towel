@@ -260,7 +260,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic node type of this graph.</typeparam>
 	public class GraphMap<T> : IGraph<T>
 	{
-		internal MapHashLinked<MapHashLinked<bool, T>, T> _map;
+		internal MapHashLinked<SetHashLinked<T>, T> _map;
 		internal int _edges;
 
 		#region Edge
@@ -296,7 +296,14 @@ namespace Towel.DataStructures
 		public GraphMap(Equate<T> equate, Hash<T> hash)
 		{
 			_edges = 0;
-			_map = new MapHashLinked<MapHashLinked<bool, T>, T>(equate, hash);
+			_map = new MapHashLinked<SetHashLinked<T>, T>(equate, hash);
+		}
+
+		/// <summary>Constructor for cloning purposes.</summary>
+		/// <param name="graphToClone">The graph to clone.</param>
+		internal GraphMap(GraphMap<T> graphToClone)
+		{
+			throw new NotImplementedException();
 		}
 
 		#endregion
@@ -319,7 +326,7 @@ namespace Towel.DataStructures
 		public bool TryAdd(T node, out Exception exception)
 		{
 			
-			return _map.TryAdd(node, new MapHashLinked<bool, T>(_map.Equate, _map.Hash), out exception);
+			return _map.TryAdd(node, new SetHashLinked<T>(_map.Equate, _map.Hash), out exception);
 		}
 
 		/// <summary>Adds an edge to the graph.</summary>
@@ -332,9 +339,9 @@ namespace Towel.DataStructures
 			if (!_map[start].Contains(end))
 				throw new InvalidOperationException("Adding an edge to a non-existing ending node.");
 			if (_map[start] is null)
-				_map[start] = new MapHashLinked<bool, T>(_map.Equate, _map.Hash);
+				_map[start] = new SetHashLinked<T>(_map.Equate, _map.Hash);
 
-			_map[start].Add(end, true);
+			_map[start].Add(end);
 		}
 
 		/// <summary>Removes a node from the graph.</summary>
@@ -351,7 +358,7 @@ namespace Towel.DataStructures
 		/// <param name="end">The ending point of the edge to remove.</param>
 		public void Remove(T start, T end)
 		{
-			if (_map.TryGet(start, out MapHashLinked<bool, T> foundValue) && foundValue.TryRemove(end))
+			if (_map.TryGet(start, out SetHashLinked<T> foundValue) && foundValue.TryRemove(end))
 			{
 				return;
 			}
@@ -364,12 +371,9 @@ namespace Towel.DataStructures
 		/// <returns>True if ajacent. False if not.</returns>
 		public bool Adjacent(T a, T b)
 		{
-			if (_map.TryGet(a, out MapHashLinked<bool, T> map))
+			if (_map.TryGet(a, out SetHashLinked<T> map))
 			{
-				if (map.TryGet(a, out bool boolean))
-				{
-					return boolean;
-				}
+				return map.Contains(b);
 			}
 			return false;
 		}
@@ -379,60 +383,49 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on all the neighbors of the provided node.</param>
 		public void Neighbors(T a, Step<T> step)
 		{
-			if (_map.TryGet(a, out MapHashLinked<bool, T> map))
+			if (_map.TryGet(a, out SetHashLinked<T> map))
 			{
-				map.Keys(step);
+				map.Stepper(step);
 			}
 		}
 
-		public void Stepper(Step<T> step)
-		{
-			throw new NotImplementedException();
-		}
+		/// <summary>Steps through all the nodes in the <see cref="GraphMap{T}"/></summary>
+		/// <param name="step">The action to perform on every node in the graph.</param>
+		public void Stepper(Step<T> step) =>
+			_map.Keys(step);
 
-		public void Stepper(StepRef<T> step)
-		{
-			throw new NotImplementedException();
-		}
+		/// <summary>Steps through all the nodes in the <see cref="GraphMap{T}"/></summary>
+		/// <param name="step">The action to perform on every node in the graph.</param>
+		/// <returns>The status of the iteration.</returns>
+		public StepStatus Stepper(StepBreak<T> step) =>
+			_map.Keys(step);
 
-		public StepStatus Stepper(StepBreak<T> step)
-		{
-			throw new NotImplementedException();
-		}
+		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
+		/// <param name="step">The action to perform on every edge in the graph.</param>
+		public void Stepper(Step<T, T> step) =>
+			_map.Stepper((edges, a) =>
+				edges.Stepper(b => step(a, b)));
 
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			throw new NotImplementedException();
-		}
+		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
+		/// <param name="step">The action to perform on every edge in the graph.</param>
+		/// <returns>The status of the iteration.</returns>
+		public StepStatus Stepper(StepBreak<T, T> step) =>
+			_map.Stepper((edges, a) =>
+				edges.Stepper(b => step(a, b)));
 
-		public void Stepper(Step<T, T> step)
-		{
-			throw new NotImplementedException();
-		}
+		/// <summary>Makes a clone of this <see cref="GraphMap{T}"/>.</summary>
+		/// <returns></returns>
+		public GraphMap<T> Clone() =>
+			new GraphMap<T>(this);
 
-		public void Stepper(StepRef<T, T> step)
-		{
-			throw new NotImplementedException();
-		}
-
-		public StepStatus Stepper(StepBreak<T, T> step)
-		{
-			throw new NotImplementedException();
-		}
-
-		public StepStatus Stepper(StepRefBreak<T, T> step)
-		{
-			throw new NotImplementedException();
-		}
-
-		public IDataStructure<T> Clone()
-		{
-			throw new NotImplementedException();
-		}
-
+		/// <summary>Gets an with all the nodes of th graph in it.</summary>
+		/// <returns>An array with all the nodes of th graph in it.</returns>
 		public T[] ToArray()
 		{
-			throw new NotImplementedException();
+			T[] nodes = new T[_map.Count];
+			int i = 0;
+			_map.Keys(key => nodes[i++] = key);
+			return nodes;
 		}
 
 		System.Collections.IEnumerator
@@ -447,10 +440,11 @@ namespace Towel.DataStructures
 			throw new NotImplementedException();
 		}
 
+		/// <summary>Clears this graph to an empty state.</summary>
 		public void Clear()
 		{
 			_edges = 0;
-			_map = new MapHashLinked<MapHashLinked<bool, T>, T>(_map.Equate, _map.Hash);
+			_map = new MapHashLinked<SetHashLinked<T>, T>(_map.Equate, _map.Hash);
 		}
 
 		#endregion
