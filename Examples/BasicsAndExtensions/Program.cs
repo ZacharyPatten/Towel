@@ -25,7 +25,7 @@ namespace BasicsAndExtensions
 				string modified = original.Replace(("a", "aaa"), ("c", "ccc"));
 
 				Console.WriteLine("    original: \"a b c d\"");
-				Console.WriteLine("    original.Replace((\"a\", \"aaa\"), (\"c\", \"ccc\"): \"" + modified + "\"");
+				Console.WriteLine($@"    original.Replace((""a"", ""aaa""), (""c"", ""ccc""): ""{modified}""");
 				Console.WriteLine();
 			}
 			#endregion
@@ -42,19 +42,21 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  TryParse------------------------------------");
 				Console.WriteLine();
-				Console.WriteLine("    TryParse(\"123.4\", out double a) := " + a + "d");
-				Console.WriteLine("    TryParse(\"12.3\", out float b) := " + b + "f");
-				Console.WriteLine("    TryParse(\"1\", out byte c) := " + c);
-				Console.WriteLine("    TryParse(\"1234\", out int d) := " + d);
-				Console.WriteLine("    TryParse(\"1234\", out Program e) := " + (e?.ToString() ?? "null"));
-				Console.WriteLine("    TryParse(\"Red\", out ConsoleColor f) := " + f);
-				Console.WriteLine("    TryParse(\"Ordinal\", out StringComparison g) := " + g);
+				Console.WriteLine($"    TryParse(\"123.4\", out double a) := {a}d");
+				Console.WriteLine($"    TryParse(\"12.3\", out float b) := {b}f");
+				Console.WriteLine($"    TryParse(\"1\", out byte c) := {c}");
+				Console.WriteLine($"    TryParse(\"1234\", out int d) := {d}");
+				Console.WriteLine($"    TryParse(\"1234\", out Program e) := {e?.ToString() ?? "null"}");
+				Console.WriteLine($"    TryParse(\"Red\", out ConsoleColor f) := {f}");
+				Console.WriteLine($"    TryParse(\"Ordinal\", out StringComparison g) := {g}");
 				Console.WriteLine();
 			}
 			#endregion
 
 			#region Convert
 			{
+				// Note: the main use case for this is converting types when using generics.
+
 				double a = Convert<int, double>(1234);
 				float b = Convert<int, float>(123);
 				int c = Convert<double, int>(123.4d);
@@ -62,10 +64,10 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  Convert------------------------------------");
 				Console.WriteLine();
-				Console.WriteLine("    Convert<int, double>(1234) := " + a + "d");
-				Console.WriteLine("    Convert<int, float>(123) := " + b + "f");
-				Console.WriteLine("    Convert<double, int>(123.4d) := " + c);
-				Console.WriteLine("    Convert<float, int>(12.3f) := " + d);
+				Console.WriteLine($"    Convert<int, double>(1234) := {a}d");
+				Console.WriteLine($"    Convert<int, float>(123) := {b}f");
+				Console.WriteLine($"    Convert<double, int>(123.4d) := {c}");
+				Console.WriteLine($"    Convert<float, int>(12.3f) := {d}");
 				Console.WriteLine();
 			}
 			#endregion
@@ -148,16 +150,16 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				decimal value1 = 12345.6789m;
-				Console.WriteLine("    Value1 = " + value1);
-				Console.WriteLine("    Value1 To Words = " + value1.ToEnglishWords());
+				Console.WriteLine($"    Value1 = {value1}");
+				Console.WriteLine($"    Value1 To Words = {value1.ToEnglishWords()}");
 
 				decimal value2 = 999.888m;
-				Console.WriteLine("    Value2 = " + value2);
-				Console.WriteLine("    Value2 To Words = " + value2.ToEnglishWords());
+				Console.WriteLine($"    Value2 = {value2}");
+				Console.WriteLine($"    Value2 To Words = {value2.ToEnglishWords()}");
 
 				decimal value3 = 1111111.2m;
-				Console.WriteLine("    Value3 = " + value3);
-				Console.WriteLine("    Value3 To Words = " + value3.ToEnglishWords());
+				Console.WriteLine($"    Value3 = {value3}");
+				Console.WriteLine($"    Value3 To Words = {value3.ToEnglishWords()}");
 				Console.WriteLine();
 			}
 			#endregion
@@ -184,13 +186,13 @@ namespace BasicsAndExtensions
 
 				Random random = new Random();
 
-				Console.WriteLine("    Random.NextLong(): " + random.NextLong());
-				Console.WriteLine("    Random.NextDateTime(): " + random.NextDateTime());
-				Console.WriteLine("    Random.NextAlphaNumericString(15): " + random.NextEnglishAlphaNumericString(15));
-				Console.WriteLine("    Random.NextChar('a', 'z'): " + random.NextChar('a', 'z'));
-				Console.WriteLine("    Random.NextDecimal(): " + random.NextDecimal());
-				Console.WriteLine("    Random.NextTimeSpan(): " + random.NextTimeSpan());
-				Console.WriteLine("    Random.NextUnique(5, 0, 100): " + string.Join(", ", random.NextUnique(5, 0, 100)));
+				Console.WriteLine($"    Random.NextLong(): {random.NextLong()}");
+				Console.WriteLine($"    Random.NextDateTime(): {random.NextDateTime()}");
+				Console.WriteLine($"    Random.NextAlphaNumericString(15): {random.NextEnglishAlphaNumericString(15)}");
+				Console.WriteLine($"    Random.NextChar('a', 'z'): {random.NextChar('a', 'z')}");
+				Console.WriteLine($"    Random.NextDecimal(): {random.NextDecimal()}");
+				Console.WriteLine($"    Random.NextTimeSpan(): {random.NextTimeSpan()}");
+				Console.WriteLine($"    Random.NextUnique(5, 0, 100): {string.Join(", ", random.NextUnique(5, 0, 100))}");
 
 				var weightedNames = new (string Name, double Weight)[]
 				{
@@ -206,9 +208,9 @@ namespace BasicsAndExtensions
 				Console.WriteLine("        | Name           | Weight |");
 				Console.WriteLine("        |----------------|--------|");
 				foreach (var (Name, Weight) in weightedNames)
-					Console.WriteLine("        | " + Name + " |   " + Weight + "   |");
+					Console.WriteLine($"        | {Name} |   {Weight}   |");
 				Console.WriteLine();
-				Console.WriteLine("        Random Weighted Selection: " + random.Next(weightedNames));
+				Console.WriteLine($"        Random Weighted Selection: {random.Next(weightedNames)}");
 				Console.WriteLine();
 			}
 			#endregion
@@ -239,13 +241,13 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  Sorting Algorithms----------------------");
 				Console.WriteLine();
-				int[] dataSet = Ɐ(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-				Console.Write("    Data Set: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				int[] dataSet = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+				Console.Write($"    Data Set: {string.Join(", ", dataSet.Select(x => x.ToString()))}");
 				Console.WriteLine();
 
 				// Shuffling (Randomizing)
 				Sort.Shuffle(dataSet);
-				Console.Write("    Shuffle (Randomizing): " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Shuffle (Randomizing): {string.Join(", ", dataSet.Select(x => x.ToString()))}");
 				Console.WriteLine();
 
 				void ShuffleDataSet()
@@ -253,78 +255,81 @@ namespace BasicsAndExtensions
 					Console.WriteLine("    shuffling dataSet...");
 					Sort.Shuffle(dataSet);
 				}
+
+				string DataSetToString() => string.Join(", ", dataSet.Select(x => x.ToString()));
+
 				Console.WriteLine();
 
 				// Bubble
 				Sort.Bubble(dataSet);
-				Console.Write("    Bubble:    " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Bubble:    {DataSetToString()}");
 				Console.WriteLine();
 
 				// Selection
 				ShuffleDataSet();
 				Sort.Selection(dataSet);
-				Console.Write("    Selection: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Selection: {DataSetToString()}");
 				Console.WriteLine();
 
 				// Insertion
 				ShuffleDataSet();
 				Sort.Insertion(dataSet);
-				Console.Write("    Insertion: " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Insertion: {DataSetToString()}");
 				Console.WriteLine();
 
 				// Quick
 				ShuffleDataSet();
 				Sort.Quick(dataSet);
-				Console.Write("    Quick:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Quick:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Merge
 				Console.WriteLine("    shuffling dataSet...");
 				Sort.Shuffle(dataSet);
 				Sort.Merge(dataSet);
-				Console.Write("    Merge:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Merge:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Heap
 				ShuffleDataSet();
 				Sort.Heap(dataSet);
-				Console.Write("    Heap:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Heap:      {DataSetToString()}");
 				Console.WriteLine();
 
 				// OddEven
 				ShuffleDataSet();
 				Sort.OddEven(dataSet);
-				Console.Write("    OddEven:   " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    OddEven:   {DataSetToString()}");
 				Console.WriteLine();
 
 				// Slow
 				ShuffleDataSet();
 				Sort.Slow(dataSet);
-				Console.Write("    Slow:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Slow:      {DataSetToString()}");
 				Console.WriteLine();
 
 				// Cocktail
 				ShuffleDataSet();
 				Sort.Cocktail(dataSet);
-				Console.Write("    Cocktail:  " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Cocktail:  {DataSetToString()}");
 				Console.WriteLine();
 
 				// Shell
 				ShuffleDataSet();
 				Sort.Shell(dataSet);
-				Console.Write("    Shell:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Shell:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Gnome
 				ShuffleDataSet();
 				Sort.Gnome(dataSet);
-				Console.Write("    Gnome:     " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Gnome:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Comb
 				ShuffleDataSet();
 				Sort.Comb(dataSet);
-				Console.Write("    Comb:      " + string.Join(", ", dataSet.Select(x => x.ToString())));
+				Console.Write($"    Comb:      {DataSetToString()}");
 				Console.WriteLine();
 
 				// Bogo
@@ -352,9 +357,9 @@ namespace BasicsAndExtensions
 					// Parameter
 					Switch (i)
 					(
-						(1,       () => Console.Write(1 + ", ")),
-						(2,       () => Console.Write(2 + ", ")),
-						(3,       () => Console.Write(3 + ", ")),
+						(1,       () => Console.Write("1, ")),
+						(2,       () => Console.Write("2, ")),
+						(3,       () => Console.Write("3, ")),
 						(Default, () => Console.Write("Default"))
 					);
 				}
@@ -366,9 +371,9 @@ namespace BasicsAndExtensions
 					// No Parameter
 					Switch
 					(
-						(i == 1,  () => Console.Write(1 + ", ")),
-						(i == 2,  () => Console.Write(2 + ", ")),
-						(i == 3,  () => Console.Write(3 + ", ")),
+						(i == 1,  () => Console.Write("1, ")),
+						(i == 2,  () => Console.Write("2, ")),
+						(i == 3,  () => Console.Write("3, ")),
 						(Default, () => Console.Write("Default"))
 					);
 				}
@@ -380,9 +385,9 @@ namespace BasicsAndExtensions
 					// Parameter + Conditions
 					Switch (i)
 					(
-						(1,          () => Console.Write(1 + ", ")),
-						(i == 2,     () => Console.Write(2 + ", ")),
-						(i % 3 == 0, () => Console.Write(3 + ", ")),
+						(1,          () => Console.Write("1, ")),
+						(i == 2,     () => Console.Write("2, ")),
+						(i % 3 == 0, () => Console.Write("3, ")),
 						(Default,    () => Console.Write("Default"))
 					);
 				}
@@ -438,9 +443,9 @@ namespace BasicsAndExtensions
 				Console.WriteLine("  Chance syntax----------------------");
 				Console.WriteLine();
 
-				Console.WriteLine("    20% Chance: " + (20% Chance));
-				Console.WriteLine("    50% Chance: " + (50% Chance));
-				Console.WriteLine("    70% Chance: " + (70% Chance));
+				Console.WriteLine($"    20% Chance: {20% Chance}");
+				Console.WriteLine($"    50% Chance: {50% Chance}");
+				Console.WriteLine($"    70% Chance: {70% Chance}");
 				Console.WriteLine();
 			}
 			#endregion
@@ -451,10 +456,10 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 				// valid syntax
 				{
-					Console.WriteLine("    " + ((Inequality<float>) 1 < 2 < 3 < 4 <= 4 < 5 < 6));
-					Console.WriteLine("    " + ((Inequality<float>) 6 > 5 > 4 >= 4 > 3 > 2 > 1));
-					Console.WriteLine("    " + ((Inequality<float>) 3 < 2 < 1));
-					Console.WriteLine("    " + ((Inequality<float>) 1 > 2 > 3));
+					Console.WriteLine($"    {(Inequality<float>) 1 < 2 < 3 < 4 <= 4 < 5 < 6}");
+					Console.WriteLine($"    {(Inequality<float>) 6 > 5 > 4 >= 4 > 3 > 2 > 1}");
+					Console.WriteLine($"    {(Inequality<float>) 3 < 2 < 1}");
+					Console.WriteLine($"    {(Inequality<float>) 1 > 2 > 3}");
 				}
 				// invalid syntax
 				{
@@ -466,7 +471,7 @@ namespace BasicsAndExtensions
 
 					try
 					{
-						Console.WriteLine("    " + ((Inequality<float>) 1));
+						Console.WriteLine($"    {(Inequality<float>) 1}");
 					}
 					catch (InequalitySyntaxException)
 					{
@@ -476,7 +481,7 @@ namespace BasicsAndExtensions
 					try
 					{
 						Inequality<float> a = default;
-						Console.WriteLine("    " + (a < 1));
+						Console.WriteLine($"    {a < 1}");
 					}
 					catch (InequalitySyntaxException)
 					{

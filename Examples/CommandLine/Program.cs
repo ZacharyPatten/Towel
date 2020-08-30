@@ -35,16 +35,16 @@ namespace CommandLine
 				WriteLine("  Contact(s): TODO");
 				return;
 			}
-			WriteLine("A: " + A);
-			WriteLine("B: " + (B - 1));
-			WriteLine("C: " + (C - 1.5));
-			WriteLine("D: " + (D.HasValue ? D.Value : D.Status.ToString()));
+			WriteLine($"A: {A}");
+			WriteLine($"B: {B}");
+			WriteLine($"C: {C}");
+			WriteLine($"D: {(D.HasValue ? D.Value : D.Status.ToString())}");
 
 			WriteLine();
-			WriteLine("Index Of Argument B: " + (B.Index.HasValue ? B.Index.ToString() : "null"));
+			WriteLine($@"Index Of Argument B: {(B.Index.HasValue ? B.Index.ToString() : "null")}");
 
 			WriteLine();
-			WriteLine("Default Value Of C: " + C.DefaultValue);
+			WriteLine($"Default Value Of C: {C.DefaultValue}");
 
 			// The "DefaultValue" property gets the default value that the argument was constructed with.
 
