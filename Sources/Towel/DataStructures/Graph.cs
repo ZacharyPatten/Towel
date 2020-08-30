@@ -1,4 +1,5 @@
 ﻿using System;
+using Towel;
 using static Towel.Syntax;
 
 namespace Towel.DataStructures
@@ -303,7 +304,12 @@ namespace Towel.DataStructures
 		/// <param name="graphToClone">The graph to clone.</param>
 		internal GraphMap(GraphMap<T> graphToClone)
 		{
-			throw new NotImplementedException();
+			_edges = graphToClone._edges;
+			_map = new MapHashLinked<SetHashLinked<T>, T>(
+				graphToClone._map.Equate,
+				graphToClone._map.Hash);
+			Stepper((T node) => this.Add(node));
+			Stepper((T a, T b) => Add(a, b));
 		}
 
 		#endregion
