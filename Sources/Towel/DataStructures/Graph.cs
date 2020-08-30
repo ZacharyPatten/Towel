@@ -1,5 +1,4 @@
 ﻿using System;
-using Towel;
 using static Towel.Syntax;
 
 namespace Towel.DataStructures
