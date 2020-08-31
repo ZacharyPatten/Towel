@@ -755,7 +755,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public void Clear()
 		{
-			_table = new Structure[Towel.Hash.TableSizes[0]];
+			_table = new Structure[2];
 			_count = 0;
 		}
 
