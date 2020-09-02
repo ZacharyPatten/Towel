@@ -15,6 +15,7 @@ namespace Towel_Testing
 					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(i)));
 					Assert.IsTrue(result.Success);
 					Assert.IsTrue(result.Index == i);
+					Assert.IsTrue(result.Value == i);
 				}
 			}
 			{ // [odd] collection size [found]
@@ -24,6 +25,7 @@ namespace Towel_Testing
 					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(i)));
 					Assert.IsTrue(result.Success);
 					Assert.IsTrue(result.Index == i);
+					Assert.IsTrue(result.Value == i);
 				}
 			}
 			{ // [even] collection size [not found]
@@ -33,6 +35,7 @@ namespace Towel_Testing
 					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(j)));
 					Assert.IsTrue(!result.Success);
 					Assert.IsTrue(result.Index == i - 1);
+					Assert.IsTrue(result.Value == default);
 				}
 			}
 			{ // [odd] collection size [not found]
@@ -42,6 +45,7 @@ namespace Towel_Testing
 					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(j)));
 					Assert.IsTrue(!result.Success);
 					Assert.IsTrue(result.Index == i - 1);
+					Assert.IsTrue(result.Value == default);
 				}
 			}
 		}

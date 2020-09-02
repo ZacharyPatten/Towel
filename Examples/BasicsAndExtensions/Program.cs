@@ -343,6 +343,26 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region Binary Search
+			{
+				Console.WriteLine("  Search.Binary----------------------");
+				Console.WriteLine();
+
+				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, 9, };
+				Console.WriteLine($"    {nameof(values)}: {{ {string.Join(", ", values)} }}");
+				Console.WriteLine();
+
+				int valueToSearchFor = values[^2];
+				Console.WriteLine($"    Let's search for value {valueToSearchFor}...");
+
+				var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(valueToSearchFor)));
+				Console.WriteLine($"      Success: {result.Success}");
+				Console.WriteLine($"      Index: {result.Index}");
+				Console.WriteLine($"      Value: {result.Value}");
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Switch
 			{
 				Console.WriteLine("  Switch syntax----------------------");

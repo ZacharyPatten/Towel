@@ -323,8 +323,6 @@ namespace Towel
 			/// <summary>The random algorithm currently being used by chance syntax.</summary>
 			public static Random Algorithm = new Random();
 
-			//public static ChanceSyntax Chance => default;
-
 #pragma warning disable IDE0060 // Remove unused parameter
 #pragma warning disable IDE0075 // Simplify conditional expression
 

@@ -118,7 +118,7 @@ namespace Towel
 	/// <typeparam name="T">The generic type of values to compare.</typeparam>
 	public interface ISift<T> : IFunc<T, CompareResult> { }
 
-	#region SiftRuntime - Built In Structs
+	#region Sift - Built In Structs
 
 	/// <summary>Built in Compare struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
@@ -133,6 +133,28 @@ namespace Towel
 		/// <param name="sift">The runtime Compare delegate.</param>
 		public static implicit operator SiftRuntime<T>(Sift<T> sift) =>
 			new SiftRuntime<T>() { Sift = sift, };
+	}
+
+	/// <summary>Built in Compare struct for runtime computations.</summary>
+	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+	/// /// <typeparam name="Compare">The compare function.</typeparam>
+	public struct SiftFromCompareAndValue<T, Compare> : ISift<T>
+		where Compare : ICompare<T>
+	{
+		internal Compare CompareFunction;
+		internal T Value;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public CompareResult Do(T a) => CompareFunction.Do(a, Value);
+
+		/// <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
+		/// <param name="value">The value for future values to be compared against.</param>
+		/// <param name="compare">The compare function.</param>
+		public SiftFromCompareAndValue(T value, Compare compare = default)
+		{
+			Value = value;
+			CompareFunction = compare;
+		}
 	}
 
 	#endregion

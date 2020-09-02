@@ -630,6 +630,8 @@ Sort.Shell<T>(...);
 Sort.Bogo<T>(...);
 Sort.Slow<T>(...);
 
+Search.Binary<T>(...);
+
 // Path Finding (Graph Search)
 // Note: overloads for A*, Dijkstra, and Breadth-First-Search algorithms
 Search.Graph<Node, Numeric>(...);

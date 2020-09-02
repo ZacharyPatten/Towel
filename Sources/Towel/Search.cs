@@ -12,32 +12,52 @@ namespace Towel
 #pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
+#pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 		/// <summary>Performs a binary search on sorted indexed data.</summary>
 		/// <typeparam name="T">The type of elements to search through.</typeparam>
 		/// <typeparam name="Get">The function for getting an element at an index.</typeparam>
 		/// <typeparam name="Sift">The function for sifting through the elements.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
 		/// <param name="index">The starting index of the binary search.</param>
 		/// <param name="length">The number of elements to be searched after the starting <paramref name="index"/>.</param>
 		/// <param name="get">The function for getting an element at an index.</param>
 		/// <param name="sift">The function for comparing the the elements to th desired target.</param>
-		/// <returns>The boolean indicating if a match was found and the final idex which will always be &lt;= the desired match.</returns>
+		/// <param name="array">The array search.</param>
+		/// <param name="element">The element to search for.</param>
+		/// <param name="compare">The compare function.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Success, <see cref="int"/> Index, <typeparamref name="T"/> Value)
+		/// <para>- <see cref="bool"/> Success: True if a match was found; False if not.</para>
+		/// <para>- <see cref="int"/> Index: The resulting index of the search that will always be &lt;= the desired match.</para>
+		/// <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
+		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Binary_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 #pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index) Binary<T>(T[] array, Sift<T> sift) =>
+		public static (bool Success, int Index, T Value) Binary<T>(T[] array, T element, Compare<T> compare = default) =>
+			Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, CompareRuntime<T>>>(0, array.Length, array, new SiftFromCompareAndValue<T, CompareRuntime<T>>(element, compare ?? Compare.Default));
+
+		/// <inheritdoc cref="Binary_XML"/>
+		public static (bool Success, int Index, T Value) Binary<T, Compare>(T[] array, T element, Compare compare = default)
+			where Compare : ICompare<T> =>
+			Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, Compare>>(0, array.Length, array, new SiftFromCompareAndValue<T, Compare>(element, compare));
+
+		/// <inheritdoc cref="Binary_XML"/>
+		public static (bool Success, int Index, T Value) Binary<T>(T[] array, Sift<T> sift) =>
 			Binary<T, GetIndexArray<T>, SiftRuntime<T>>(0, array.Length, array, sift);
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index) Binary<T, Sift>(T[] array, Sift sift = default)
+		public static (bool Success, int Index, T Value) Binary<T, Sift>(T[] array, Sift sift = default)
 			where Sift : ISift<T> =>
 			Binary<T, GetIndexArray<T>, Sift>(0, array.Length, array, sift);
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index) Binary<T>(int length, GetIndex<T> get, Sift<T> sift)
+		public static (bool Success, int Index, T Value) Binary<T>(int length, GetIndex<T> get, Sift<T> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
@@ -45,7 +65,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index) Binary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
+		public static (bool Success, int Index, T Value) Binary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
 			where Get : IGetIndex<T>
 			where Sift : ISift<T>
 		{
@@ -71,11 +91,11 @@ namespace Towel
 				{
 					case Less:    low = median + 1; break;
 					case Greater: hi  = median - 1; break;
-					case Equal:   return (true, median);
+					case Equal:   return (true, median, value);
 					default: throw new TowelBugException("Unhandled CompareResult.");
 				}
 			}
-			return (false, Math.Min(low, hi));
+			return (false, Math.Min(low, hi), default);
 		}
 
 		#endregion
