@@ -12,7 +12,7 @@ namespace Towel_Testing
 				int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
 				for (int i = 0; i < values.Length; i++)
 				{
-					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(i)));
+					var result = Search.Binary(values, i);
 					Assert.IsTrue(result.Success);
 					Assert.IsTrue(result.Index == i);
 					Assert.IsTrue(result.Value == i);
@@ -22,7 +22,7 @@ namespace Towel_Testing
 				int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8, };
 				for (int i = 0; i < values.Length; i++)
 				{
-					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(i)));
+					var result = Search.Binary(values, i);
 					Assert.IsTrue(result.Success);
 					Assert.IsTrue(result.Index == i);
 					Assert.IsTrue(result.Value == i);
@@ -32,7 +32,7 @@ namespace Towel_Testing
 				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, 9, };
 				for (int i = 0, j = -10; j <= 10; i++, j += 2)
 				{
-					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(j)));
+					var result = Search.Binary(values, j);
 					Assert.IsTrue(!result.Success);
 					Assert.IsTrue(result.Index == i - 1);
 					Assert.IsTrue(result.Value == default);
@@ -42,7 +42,7 @@ namespace Towel_Testing
 				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, };
 				for (int i = 0, j = -10; j <= 8; i++, j += 2)
 				{
-					var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(j)));
+					var result = Search.Binary(values, j);
 					Assert.IsTrue(!result.Success);
 					Assert.IsTrue(result.Index == i - 1);
 					Assert.IsTrue(result.Value == default);
