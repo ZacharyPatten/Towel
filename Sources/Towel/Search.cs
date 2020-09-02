@@ -87,12 +87,13 @@ namespace Towel
 			{
 				int median = low + (hi - low) / 2;
 				T value = get.Do(median);
-				switch (sift.Do(value))
+				CompareResult compareResult = sift.Do(value);
+				switch (compareResult)
 				{
 					case Less:    low = median + 1; break;
 					case Greater: hi  = median - 1; break;
 					case Equal:   return (true, median, value);
-					default: throw new TowelBugException("Unhandled CompareResult.");
+					default: throw new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.");
 				}
 			}
 			return (false, Math.Min(low, hi), default);
