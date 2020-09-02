@@ -132,13 +132,17 @@ namespace Towel
 			action.Do();
 			int[] indeces = new int[end + 2 - start];
 			for (int i = 0; i < indeces.Length; i++)
+			{
 				indeces[i] = i;
+			}
 			for (int i = start + 1; i < end + 1 && status.Do() is Continue; action.Do())
 			{
 				indeces[i]--;
 				Swap(i, i % 2 == 1 ? indeces[i] : 0);
 				for (i = 1; indeces[i] == 0; i++)
+				{
 					indeces[i] = i;
+				}
 			}
 			void Swap(int a, int b)
 			{
