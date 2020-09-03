@@ -13,25 +13,6 @@ namespace Towel
 	/// <summary>Constains static analysis methods of the code (reflection).</summary>
 	public static class Meta
 	{
-		#region Source
-
-		/// <summary>Gets the file name of the current location in source code.</summary>
-		/// <param name="file">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
-		/// <returns>The file name of the current location in source code.</returns>
-		public static string SourceFile([CallerFilePath] string file = default) => file;
-
-		/// <summary>Gets the member name of the current location in source code.</summary>
-		/// <param name="member">Intended to leave default. This value is set by the compiler via <see cref="CallerMemberNameAttribute"/>.</param>
-		/// <returns>The member name of the current location in source code.</returns>
-		public static string SourceMemberName([CallerMemberName] string member = default) => member;
-
-		/// <summary>Gets the line number of the current location in source code.</summary>
-		/// <param name="lineNumber">Intended to leave default. This value is set by the compiler via <see cref="CallerLineNumberAttribute"/>.</param>
-		/// <returns>The line number of the current location in source code.</returns>
-		public static int SourceLineNumber([CallerLineNumber] int lineNumber = default) => lineNumber;
-
-		#endregion
-
 		#region Getting Methods Via Reflection
 
 		#region System.Type.GetMethod

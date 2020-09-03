@@ -4,11 +4,54 @@ using Towel;
 using static Towel.Syntax;
 using Towel.Measurements;
 using Towel.DataStructures;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Towel_Testing
 {
 	[TestClass] public class Syntax_Testing
 	{
+		#region source...
+
+		#pragma warning disable IDE1006 // Naming Styles
+
+		[TestMethod] public void sourcelineNumber_Testing() =>
+			sourcelinenumberTest(sourcelinenumber());
+		public static void sourcelinenumberTest(int result, [CallerLineNumber] int expected = default) =>
+			Assert.IsTrue(result == expected);
+
+		[TestMethod] public void sourcefilename_Testing() =>
+			sourcefilepathTest(sourcefilepath());
+		public static void sourcefilepathTest(string result, [CallerFilePath] string expected = default) => 
+			Assert.IsTrue(result == expected);
+
+		[TestMethod] public void sourcemembername_Testing() =>
+			sourcemembernameTest(sourcemembername());
+		public static void sourcemembernameTest(string result, [CallerMemberName] string expected = default) =>
+			Assert.IsTrue(result == expected);
+
+		[TestMethod] public void sourceof_Testing()
+		{
+			// Note: if this test fails it means that the CallerArgumentExpression is
+			// available in the current version of C# and the "sourceof" methods in Towel
+			// should be enabled.
+			Assert.IsTrue(sourceofTempTest(1 == 2) is null);
+
+			#if false
+			sourceofTest(sourceof(1 == 2).Source, 1 == 2);
+			sourceof(1 == 2, out string source);
+			sourceofTest(source, 1 == 2);
+			#endif
+		}
+		public static void sourceofTest<T>(string result, T expression, [CallerArgumentExpression("expression")] string expected = default) =>
+			Assert.IsTrue(result == expected);
+		public static string sourceofTempTest<T>(T expression, [CallerArgumentExpression("expression")] string expected = default) =>
+			expected;
+
+		#pragma warning restore IDE1006 // Naming Styles
+
+		#endregion
+
 		#region TryParse_Testing
 
 		[TestMethod] public void TryParse_Testing()

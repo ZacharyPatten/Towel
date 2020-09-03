@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Linq;
 using Towel.DataStructures;
 using Towel.Measurements;
+using System.Runtime.CompilerServices;
 
 namespace Towel
 {
@@ -66,6 +67,50 @@ namespace Towel
 				? result
 				: throw new ArgumentException(nameof(stepper), nameof(stepper) + " is empty.");
 		}
+
+		#endregion
+
+		#region source...
+
+		#pragma warning disable IDE1006 // Naming Styles
+
+		/// <summary>Gets the file path of the current location in source code.</summary>
+		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
+		/// <returns>The file path of the current location in source code.</returns>
+		public static string sourcefilepath([CallerFilePath] string DEFAULT = default) => DEFAULT;
+
+		/// <summary>Gets the member name of the current location in source code.</summary>
+		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerMemberNameAttribute"/>.</param>
+		/// <returns>The member name of the current location in source code.</returns>
+		public static string sourcemembername([CallerMemberName] string DEFAULT = default) => DEFAULT;
+
+		/// <summary>Gets the line number of the current location in source code.</summary>
+		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerLineNumberAttribute"/>.</param>
+		/// <returns>The line number of the current location in source code.</returns>
+		public static int sourcelinenumber([CallerLineNumber] int DEFAULT = default) => DEFAULT;
+
+		#if false
+		/// <summary>Gets the source code and evaluation of an expression.</summary>
+		/// <typeparam name="T">The type the expression will evaluate to.</typeparam>
+		/// <param name="expression">The expression to evaluate and get the source of.</param>
+		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerArgumentExpressionAttribute"/>.</param>
+		/// <returns>The source code and evaluation of the expression.</returns>
+		public static (T Value, string Source) sourceof<T>(T expression, [CallerArgumentExpression("expression")] string DEFAULT = default) => (expression, DEFAULT);
+
+		/// <summary>Gets the source code and evaluation of an expression.</summary>
+		/// <typeparam name="T">The type the expression will evaluate to.</typeparam>
+		/// <param name="expression">The expression to evaluate and get the source of.</param>
+		/// <param name="source">The source code of the expression.</param>
+		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerArgumentExpressionAttribute"/>.</param>
+		/// <returns>The evaluation of the expression.</returns>
+		public static T sourceof<T>(T expression, out string source, [CallerArgumentExpression("expression")] string DEFAULT = default)
+		{
+			source = DEFAULT;
+			return expression;
+		}
+		#endif
+
+		#pragma warning restore IDE1006 // Naming Styles
 
 		#endregion
 
