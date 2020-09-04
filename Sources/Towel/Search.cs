@@ -39,22 +39,34 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index, T Value) Binary<T>(T[] array, T element, Compare<T> compare = default) =>
-			Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, CompareRuntime<T>>>(0, array.Length, array, new SiftFromCompareAndValue<T, CompareRuntime<T>>(element, compare ?? Compare.Default));
+		public static (bool Success, int Index, T Value) Binary<T>(T[] array, T element, Compare<T> compare = default)
+		{
+			_ = array ?? throw new ArgumentNullException(nameof(array));
+			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, CompareRuntime<T>>>(0, array.Length, array, new SiftFromCompareAndValue<T, CompareRuntime<T>>(element, compare ?? Compare.Default));
+		}
 
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T, Compare>(T[] array, T element, Compare compare = default)
-			where Compare : ICompare<T> =>
-			Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, Compare>>(0, array.Length, array, new SiftFromCompareAndValue<T, Compare>(element, compare));
+			where Compare : ICompare<T>
+		{
+			_ = array ?? throw new ArgumentNullException(nameof(array));
+			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, Compare>>(0, array.Length, array, new SiftFromCompareAndValue<T, Compare>(element, compare));
+		}
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index, T Value) Binary<T>(T[] array, Sift<T> sift) =>
-			Binary<T, GetIndexArray<T>, SiftRuntime<T>>(0, array.Length, array, sift);
+		public static (bool Success, int Index, T Value) Binary<T>(T[] array, Sift<T> sift)
+		{
+			_ = array ?? throw new ArgumentNullException(nameof(array));
+			return Binary<T, GetIndexArray<T>, SiftRuntime<T>>(0, array.Length, array, sift);
+		}
 
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T, Sift>(T[] array, Sift sift = default)
-			where Sift : ISift<T> =>
-			Binary<T, GetIndexArray<T>, Sift>(0, array.Length, array, sift);
+			where Sift : ISift<T>
+		{
+			_ = array ?? throw new ArgumentNullException(nameof(array));
+			return Binary<T, GetIndexArray<T>, Sift>(0, array.Length, array, sift);
+		}
 
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T>(int length, GetIndex<T> get, Sift<T> sift)
@@ -93,7 +105,10 @@ namespace Towel
 					case Less:    low = median + 1; break;
 					case Greater: hi  = median - 1; break;
 					case Equal:   return (true, median, value);
-					default: throw new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.");
+					default:
+						throw compareResult.IsDefined()
+						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+						: new ArgumentException($"Invalid {nameof(Sift)} function; an undefined {nameof(CompareResult)} was returned.", nameof(sift));
 				}
 			}
 			return (false, Math.Min(low, hi), default);

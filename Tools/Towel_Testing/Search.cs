@@ -48,6 +48,14 @@ namespace Towel_Testing
 					Assert.IsTrue(result.Value == default);
 				}
 			}
+			{ // exception: invalid compare function
+				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, };
+				Assert.ThrowsException<ArgumentException>(() => Search.Binary(values, a => (CompareResult)int.MinValue));
+			}
+			{ // exception: null argument
+				int[] values = null;
+				Assert.ThrowsException<ArgumentNullException>(() => Search.Binary(values, 7));
+			}
 		}
 	}
 }
