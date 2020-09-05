@@ -280,14 +280,10 @@ namespace Towel
 
 		#region A* Algorithm
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the A* search algorithm on a graph.</summary>
 		/// <inheritdoc cref="Graph_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Graph_Astar_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
@@ -368,14 +364,10 @@ namespace Towel
 
 		#region Dijkstra Algorithm
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 		/// <inheritdoc cref="Graph_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Graph_Dijkstra_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
@@ -451,14 +443,10 @@ namespace Towel
 
 		#region BreadthFirstSearch Algorithm
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
 		/// <inheritdoc cref="Graph_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Graph_BreadthFirstSearch_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal) =>

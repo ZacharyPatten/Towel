@@ -7,8 +7,6 @@ using System.Text;
 using Towel;
 using static Towel.Syntax;
 
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-
 namespace Towel_Generating
 {
 	internal static class Omnitree
@@ -4580,5 +4578,3 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 		}
 	}
 }
-
-#pragma warning restore IDE0059 // Unnecessary assignment of a value

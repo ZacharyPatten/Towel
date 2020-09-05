@@ -255,7 +255,7 @@ namespace Towel
 			}
 			string header = @string.Substring(0, start).StandardizeNewLines();
 			string body = string.Concat(@string[start..end].RemoveCarriageReturns().Replace("\n", Environment.NewLine + padding));
-			string footer = @string.Substring(end).StandardizeNewLines();
+			string footer = @string[end..].StandardizeNewLines();
 			return string.Concat(header, body, footer);
 		}
 
@@ -279,7 +279,7 @@ namespace Towel
 			}
 			string header = @string.Substring(0, start).StandardizeNewLines();
 			string body = string.Concat(@string[start..end].RemoveCarriageReturns().Replace("\n", padding + Environment.NewLine));
-			string footer = @string.Substring(end).StandardizeNewLines();
+			string footer = @string[end..].StandardizeNewLines();
 			return string.Concat(header, body, footer);
 		}
 

@@ -412,28 +412,28 @@ namespace Towel
 			/// <returns>A running inequality with the additonal greater than operation.</returns>
 			public static OperatorValidated.Inequality<T> operator >(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == CompareResult.Greater, b);
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == Greater, b);
 			/// <summary>Adds a less than operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the less than operation.</param>
 			/// <returns>A running inequality with the additonal less than operation.</returns>
 			public static OperatorValidated.Inequality<T> operator <(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == CompareResult.Less, b);
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == Less, b);
 			/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
 			/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator >=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != CompareResult.Less, b);
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != Less, b);
 			/// <summary>Adds a less than or equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
 			/// <returns>A running inequality with the additonal less than or equal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator <=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != CompareResult.Greater, b);
+				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != Greater, b);
 			/// <summary>Adds an equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the equal operation.</param>
@@ -490,25 +490,25 @@ namespace Towel
 				/// <param name="b">The value of the right hand operand of the greater than operation.</param>
 				/// <returns>A running inequality with the additonal greater than operation.</returns>
 				public static Inequality<T> operator >(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) == CompareResult.Greater, b);
+					new Inequality<T>(a.Result && Comparison(a.A, b) == Greater, b);
 				/// <summary>Adds a less than operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than operation.</param>
 				/// <returns>A running inequality with the additonal less than operation.</returns>
 				public static Inequality<T> operator <(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) == CompareResult.Less, b);
+					new Inequality<T>(a.Result && Comparison(a.A, b) == Less, b);
 				/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
 				/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
 				public static Inequality<T> operator >=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) != CompareResult.Less, b);
+					new Inequality<T>(a.Result && Comparison(a.A, b) != Less, b);
 				/// <summary>Adds a less than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
 				/// <returns>A running inequality with the additonal less than or equal operation.</returns>
 				public static Inequality<T> operator <=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) != CompareResult.Greater, b);
+					new Inequality<T>(a.Result && Comparison(a.A, b) != Greater, b);
 				/// <summary>Adds an equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the equal operation.</param>
