@@ -33,7 +33,7 @@ namespace DataStructures
 			link.Stepper(i => Console.Write(i));
 			Console.WriteLine();
 
-			Console.WriteLine("    Size: " + link.Size);
+			Console.WriteLine($"    Size: {link.Size}");
 			Console.WriteLine();
 
 			#endregion
@@ -50,7 +50,7 @@ namespace DataStructures
 
 			IArray<int> array = new Array<int>(test);
 
-			Console.Write("    Filling in (0-" + (test - 1) + ")...");
+			Console.Write($"    Filling in (0-{test - 1})...");
 			for (int i = 0; i < test; i++)
 			{
 				array[i] = i;
@@ -61,7 +61,7 @@ namespace DataStructures
 			array.Stepper(i => Console.Write(i));
 			Console.WriteLine();
 
-			Console.WriteLine("    Length: " + array.Length);
+			Console.WriteLine($"    Length: {array.Length}");
 
 			Console.WriteLine();
 
@@ -85,7 +85,7 @@ namespace DataStructures
 			// ListArray ---------------------------------------
 			IList<int> listArray = new ListArray<int>(test);
 
-			Console.Write("    [ListArray] Adding (0-" + (test - 1) + ")...");
+			Console.Write($"    [ListArray] Adding (0-{test - 1})...");
 			for (int i = 0; i < test; i++)
 			{
 				listArray.Add(i);
@@ -96,7 +96,7 @@ namespace DataStructures
 			listArray.Stepper(i => Console.Write(i));
 			Console.WriteLine();
 
-			Console.WriteLine("    [ListArray] Count: " + listArray.Count);
+			Console.WriteLine($"    [ListArray] Count: {listArray.Count}");
 
 			listArray.Clear(); // Clears the addable
 
@@ -105,7 +105,7 @@ namespace DataStructures
 			// ListLinked ---------------------------------------
 			IList<int> listLinked = new ListLinked<int>();
 
-			Console.Write("    [ListLinked] Adding (0-" + (test - 1) + ")...");
+			Console.Write($"    [ListLinked] Adding (0-{test - 1})...");
 			for (int i = 0; i < test; i++)
 			{
 				listLinked.Add(i);
@@ -116,7 +116,7 @@ namespace DataStructures
 			listLinked.Stepper(i => Console.Write(i));
 			Console.WriteLine();
 
-			Console.WriteLine("    [ListLinked] Count: " + listLinked.Count);
+			Console.WriteLine($"    [ListLinked] Count: {listLinked.Count}");
 
 			listLinked.Clear(); // Clears the addable
 
@@ -138,7 +138,7 @@ namespace DataStructures
 
 				IStack<int> stackArray = new StackArray<int>();
 
-				Console.Write("    [StackArray] Pushing (0-" + (test - 1) + ")...");
+				Console.Write($"    [StackArray] Pushing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					stackArray.Push(i);
@@ -149,11 +149,11 @@ namespace DataStructures
 				stackArray.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [StackArray] Pop: " + stackArray.Pop());
-				Console.WriteLine("    [StackArray] Pop: " + stackArray.Pop());
-				Console.WriteLine("    [StackArray] Peek: " + stackArray.Peek());
-				Console.WriteLine("    [StackArray] Pop: " + stackArray.Pop());
-				Console.WriteLine("    [StackArray] Count: " + stackArray.Count);
+				Console.WriteLine($"    [StackArray] Pop: {stackArray.Pop()}");
+				Console.WriteLine($"    [StackArray] Pop: {stackArray.Pop()}");
+				Console.WriteLine($"    [StackArray] Peek: {stackArray.Peek()}");
+				Console.WriteLine($"    [StackArray] Pop: {stackArray.Pop()}");
+				Console.WriteLine($"    [StackArray] Count: {stackArray.Count}");
 
 				stackArray.Clear(); // Clears the firstInLastOut
 
@@ -161,7 +161,7 @@ namespace DataStructures
 
 				IStack<int> stackLinked = new StackLinked<int>();
 
-				Console.Write("    [StackLinked] Pushing (0-" + (test - 1) + ")...");
+				Console.Write($"    [StackLinked] Pushing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					stackLinked.Push(i);
@@ -172,11 +172,11 @@ namespace DataStructures
 				stackLinked.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [StackLinked] Pop: " + stackLinked.Pop());
-				Console.WriteLine("    [StackLinked] Pop: " + stackLinked.Pop());
-				Console.WriteLine("    [StackLinked] Peek: " + stackLinked.Peek());
-				Console.WriteLine("    [StackLinked] Pop: " + stackLinked.Pop());
-				Console.WriteLine("    [StackLinked] Count: " + stackLinked.Count);
+				Console.WriteLine($"    [StackLinked] Pop: {stackLinked.Pop()}");
+				Console.WriteLine($"    [StackLinked] Pop: {stackLinked.Pop()}");
+				Console.WriteLine($"    [StackLinked] Peek: {stackLinked.Peek()}");
+				Console.WriteLine($"    [StackLinked] Pop: {stackLinked.Pop()}");
+				Console.WriteLine($"    [StackLinked] Count: {stackLinked.Count}");
 
 				stackLinked.Clear(); // Clears the firstInLastOut
 
@@ -198,7 +198,7 @@ namespace DataStructures
 
 				IQueue<int> queueArray = new QueueArray<int>();
 
-				Console.Write("    [QueueArray] Enqueuing (0-" + (test - 1) + ")...");
+				Console.Write($"    [QueueArray] Enqueuing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					queueArray.Enqueue(i);
@@ -209,11 +209,11 @@ namespace DataStructures
 				queueArray.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [QueueArray] Dequeue: " + queueArray.Dequeue());
-				Console.WriteLine("    [QueueArray] Dequeue: " + queueArray.Dequeue());
-				Console.WriteLine("    [QueueArray] Peek: " + queueArray.Peek());
-				Console.WriteLine("    [QueueArray] Dequeue: " + queueArray.Dequeue());
-				Console.WriteLine("    [QueueArray] Count: " + queueArray.Count);
+				Console.WriteLine($"    [QueueArray] Dequeue: {queueArray.Dequeue()}");
+				Console.WriteLine($"    [QueueArray] Dequeue: {queueArray.Dequeue()}");
+				Console.WriteLine($"    [QueueArray] Peek: {queueArray.Peek()}");
+				Console.WriteLine($"    [QueueArray] Dequeue: {queueArray.Dequeue()}");
+				Console.WriteLine($"    [QueueArray] Count: {queueArray.Count}");
 
 				queueArray.Clear(); // Clears the firstInLastOut
 
@@ -221,7 +221,7 @@ namespace DataStructures
 
 				IQueue<int> queueLinked = new QueueLinked<int>();
 
-				Console.Write("    [QueueLinked] Enqueuing (0-" + (test - 1) + ")...");
+				Console.Write($"    [QueueLinked] Enqueuing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					queueLinked.Enqueue(i);
@@ -232,11 +232,11 @@ namespace DataStructures
 				queueLinked.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    [QueueLinked] Pop: " + queueLinked.Dequeue());
-				Console.WriteLine("    [QueueLinked] Pop: " + queueLinked.Dequeue());
-				Console.WriteLine("    [QueueLinked] Peek: " + queueLinked.Peek());
-				Console.WriteLine("    [QueueLinked] Pop: " + queueLinked.Dequeue());
-				Console.WriteLine("    [QueueLinked] Count: " + queueLinked.Count);
+				Console.WriteLine($"    [QueueLinked] Pop: {queueLinked.Dequeue()}");
+				Console.WriteLine($"    [QueueLinked] Pop: {queueLinked.Dequeue()}");
+				Console.WriteLine($"    [QueueLinked] Peek: {queueLinked.Peek()}");
+				Console.WriteLine($"    [QueueLinked] Pop: {queueLinked.Dequeue()}");
+				Console.WriteLine($"    [QueueLinked] Count: {queueLinked.Count}");
 
 				queueLinked.Clear(); // Clears the firstInLastOut
 
@@ -270,18 +270,18 @@ namespace DataStructures
 
 				IHeap<int> heapArray = new HeapArray<int>(Priority);
 
-				Console.Write("    [HeapArray] Enqueuing (0-" + (test - 1) + ")...");
+				Console.Write($"    [HeapArray] Enqueuing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					heapArray.Enqueue(i);
 				}
 				Console.WriteLine();
 
-				Console.WriteLine("    [HeapArray] Dequeue: " + heapArray.Dequeue());
-				Console.WriteLine("    [HeapArray] Dequeue: " + heapArray.Dequeue());
-				Console.WriteLine("    [HeapArray] Peek: " + heapArray.Peek());
-				Console.WriteLine("    [HeapArray] Dequeue: " + heapArray.Dequeue());
-				Console.WriteLine("    [HeapArray] Count: " + heapArray.Count);
+				Console.WriteLine($"    [HeapArray] Dequeue: {heapArray.Dequeue()}");
+				Console.WriteLine($"    [HeapArray] Dequeue: {heapArray.Dequeue()}");
+				Console.WriteLine($"    [HeapArray] Peek: {heapArray.Peek()}");
+				Console.WriteLine($"    [HeapArray] Dequeue: {heapArray.Dequeue()}");
+				Console.WriteLine($"    [HeapArray] Count: {heapArray.Count}");
 
 				heapArray.Clear(); // Clears the heapArray
 
@@ -325,7 +325,7 @@ namespace DataStructures
 
 				IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 
-				Console.Write("    Adding (0-" + (test - 1) + ")...");
+				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					avlTree.Add(i);
@@ -348,21 +348,21 @@ namespace DataStructures
 
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
-				Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
+				Console.Write($"    Ranged Traversal [{minimum}-{maximum}]: ");
 				avlTree.Stepper(minimum, maximum, i => Console.Write(i));
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);
-				Console.Write("    Remove(" + removal + "): ");
+				Console.Write($"    Remove({removal}): ");
 				avlTree.Remove(removal);
 				avlTree.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
 				int contains = random.Next(0, test);
-				Console.WriteLine("    Contains(" + contains + "): " + avlTree.Contains(contains));
-				Console.WriteLine("    Current Least: " + avlTree.CurrentLeast);
-				Console.WriteLine("    Current Greatest: " + avlTree.CurrentGreatest);
-				Console.WriteLine("    Count: " + avlTree.Count);
+				Console.WriteLine($"    Contains({contains}): {avlTree.Contains(contains)}");
+				Console.WriteLine($"    Current Least: {avlTree.CurrentLeast}");
+				Console.WriteLine($"    Current Greatest: {avlTree.CurrentGreatest}");
+				Console.WriteLine($"    Count: {avlTree.Count}");
 
 				avlTree.Clear(); // Clears the AVL tree
 
@@ -382,7 +382,7 @@ namespace DataStructures
 
 				IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 
-				Console.Write("    Adding (0-" + (test - 1) + ")...");
+				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					redBlackTree.Add(i);
@@ -395,21 +395,21 @@ namespace DataStructures
 
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
-				Console.Write("    Ranged Traversal [" + minimum + "-" + maximum + "]: ");
+				Console.Write($"    Ranged Traversal [{minimum}-{maximum}]: ");
 				redBlackTree.Stepper(minimum, maximum, i => Console.Write(i));
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);
-				Console.Write("    Remove(" + removal + "): ");
+				Console.Write($"    Remove({removal}): ");
 				redBlackTree.Remove(removal);
 				redBlackTree.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
 				int contains = random.Next(0, test);
-				Console.WriteLine("    Contains(" + contains + "): " + redBlackTree.Contains(contains));
-				Console.WriteLine("    Current Least: " + redBlackTree.CurrentLeast);
-				Console.WriteLine("    Current Greatest: " + redBlackTree.CurrentGreatest);
-				Console.WriteLine("    Count: " + redBlackTree.Count);
+				Console.WriteLine($"    Contains({contains}): {redBlackTree.Contains(contains)}");
+				Console.WriteLine($"    Current Least: {redBlackTree.CurrentLeast}");
+				Console.WriteLine($"    Current Greatest: {redBlackTree.CurrentGreatest}");
+				Console.WriteLine($"    Count: {redBlackTree.Count}");
 
 				redBlackTree.Clear(); // Clears the Red Black tree
 
@@ -446,7 +446,7 @@ namespace DataStructures
 
 				ISet<int> setHashLinked = new SetHashLinked<int>();
 
-				Console.Write("    Adding (0-" + (test - 1) + ")...");
+				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					setHashLinked.Add(i);
@@ -459,13 +459,13 @@ namespace DataStructures
 
 				int a = random.Next(0, test);
 				setHashLinked.Remove(a);
-				Console.Write("    Remove(" + a + "): ");
+				Console.Write($"    Remove({a}): ");
 				setHashLinked.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
 				int b = random.Next(0, test);
-				Console.WriteLine("    Contains(" + b + "): " + setHashLinked.Contains(b));
-				Console.WriteLine("    Count: " + setHashLinked.Count);
+				Console.WriteLine($"    Contains({b}): {setHashLinked.Contains(b)}");
+				Console.WriteLine($"    Count: {setHashLinked.Count}");
 
 				Console.WriteLine();
 			}
@@ -488,7 +488,7 @@ namespace DataStructures
 
 				Console.WriteLine("    Let's map each int to its word representation (ex 1 -> One).");
 
-				Console.Write("    Adding (0-" + (test - 1) + ")...");
+				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					mapHashLinked.Add(i, ((decimal)i).ToEnglishWords());
@@ -496,18 +496,18 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.WriteLine("    Traversal: ");
-				mapHashLinked.Stepper((value, key) => Console.WriteLine("      " + key + "->" + value));
+				mapHashLinked.Stepper((value, key) => Console.WriteLine($"      {key}->{value}"));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
 				mapHashLinked.Remove(a);
-				Console.Write("    Remove(" + a + "): ");
+				Console.Write($"    Remove({a}): ");
 				mapHashLinked.Keys(key => Console.Write(key));
 				Console.WriteLine();
 
 				int b = random.Next(0, test);
-				Console.WriteLine("    Contains(" + b + "): " + mapHashLinked.Contains(b));
-				Console.WriteLine("    Count: " + mapHashLinked.Count);
+				Console.WriteLine($"    Contains({b}): {mapHashLinked.Contains(b)}");
+				Console.WriteLine($"    Count: {mapHashLinked.Count}");
 
 				Console.WriteLine();
 			}
@@ -538,7 +538,7 @@ namespace DataStructures
 							c = index;
 						});
 
-				Console.Write("    Adding (0-" + (test - 1) + ")...");
+				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					omnitree.Add(i);
@@ -564,8 +564,8 @@ namespace DataStructures
 				string minimumY = minimumXZ.ToString();
 				string maximumY = maximumXZ.ToString();
 				Console.Write("    Spacial Traversal [" +
-					"(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
-					"(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: ");
+					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
+					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: ");
 				omnitree.Stepper(i => Console.Write(i),
 					minimumXZ, maximumXZ,
 					minimumY, maximumY,
@@ -576,7 +576,7 @@ namespace DataStructures
 				// wil only give us one result.
 				int lookUp = random.Next(0, test);
 				string lookUpToString = lookUp.ToString();
-				Console.Write("    Look Up (" + lookUp + ", \"" + lookUpToString + "\", " + lookUp + "): ");
+				Console.Write($"    Look Up ({lookUp}, \"{lookUpToString}\", {lookUp}m): ");
 				omnitree.Stepper(i => Console.Write(i),
 					lookUp, lookUp,
 					lookUp.ToString(), lookUp.ToString(),
@@ -592,8 +592,8 @@ namespace DataStructures
 					None, None);
 
 				Console.Write("    Counting Items In a Space [" +
-					"(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
-					"(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: " +
+					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
+					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: " +
 					omnitree.CountSubSpace(
 						minimumXZ, maximumXZ,
 						minimumY, maximumY,
@@ -604,7 +604,7 @@ namespace DataStructures
 				int removalMaximum = random.Next(1, test / 2) + test / 2;
 				string removalMinimumY = removalMinimum.ToString();
 				string removalMaximumY = removalMaximum.ToString();
-				Console.Write("    Remove (" + removalMinimum + "-" + removalMaximum + "): ");
+				Console.Write($"    Remove ({removalMinimum}-{removalMaximum}): ");
 				omnitree.Remove(
 					removalMinimum, removalMaximum,
 					removalMinimumY, removalMaximumY,
@@ -612,8 +612,8 @@ namespace DataStructures
 				omnitree.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    Dimensions: " + omnitree.Dimensions);
-				Console.WriteLine("    Count: " + omnitree.Count);
+				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
+				Console.WriteLine($"    Count: {omnitree.Count}");
 
 				omnitree.Clear(); // Clears the Omnitree
 
@@ -652,7 +652,7 @@ namespace DataStructures
 						min3 = index; max3 = index;
 					});
 
-				Console.Write("    Adding (0-" + (test - 1) + ")...");
+				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					omnitree.Add(i);
@@ -678,8 +678,8 @@ namespace DataStructures
 				string minimumY = minimumXZ.ToString();
 				string maximumY = maximumXZ.ToString();
 				Console.Write("    Spacial Traversal [" +
-					"(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
-					"(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: ");
+					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
+					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: ");
 				omnitree.StepperOverlapped(i => Console.Write(i),
 					minimumXZ, maximumXZ,
 					minimumY, maximumY,
@@ -690,7 +690,7 @@ namespace DataStructures
 				// wil only give us one result.
 				int lookUpXZ = random.Next(0, test);
 				string lookUpY = lookUpXZ.ToString();
-				Console.Write("    Look Up (" + lookUpXZ + ", \"" + lookUpY + "\", " + lookUpXZ + "): ");
+				Console.Write($"    Look Up ({lookUpXZ}, \"{lookUpY}\", {lookUpXZ}m): ");
 				omnitree.StepperOverlapped(i => Console.Write(i),
 					lookUpXZ, lookUpXZ,
 					lookUpY, lookUpY,
@@ -706,8 +706,8 @@ namespace DataStructures
 					None, None);
 
 				Console.Write("    Counting Items In a Space [" +
-					"(" + minimumXZ + ", \"" + minimumY + "\", " + minimumXZ + ")->" +
-					"(" + maximumXZ + ", \"" + maximumY + "\", " + maximumXZ + ")]: " +
+					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
+					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: " +
 					omnitree.CountSubSpaceOverlapped(
 						minimumXZ, maximumXZ,
 						minimumY, maximumY,
@@ -718,7 +718,7 @@ namespace DataStructures
 				int removalMaximumXZ = random.Next(1, test / 2) + test / 2;
 				string removalMinimumY = removalMinimumXZ.ToString();
 				string removalMaximumY = removalMaximumXZ.ToString();
-				Console.Write("    Remove (" + removalMinimumXZ + "-" + removalMaximumXZ + "): ");
+				Console.Write($"    Remove ({removalMinimumXZ}-{removalMaximumXZ}): ");
 				omnitree.RemoveOverlapped(
 					removalMinimumXZ, removalMaximumXZ,
 					removalMinimumY, removalMaximumY,
@@ -726,8 +726,8 @@ namespace DataStructures
 				omnitree.Stepper(i => Console.Write(i));
 				Console.WriteLine();
 
-				Console.WriteLine("    Dimensions: " + omnitree.Dimensions);
-				Console.WriteLine("    Count: " + omnitree.Count);
+				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
+				Console.WriteLine($"    Count: {omnitree.Count}");
 
 				omnitree.Clear(); // Clears the Omnitree
 
@@ -766,7 +766,7 @@ namespace DataStructures
 
 				IGraph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
 
-				Console.WriteLine("    Adding Nodes (0-" + (test - 1) + ")...");
+				Console.WriteLine($"    Adding Nodes (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
 					graphSetOmnitree.Add(i);
@@ -799,21 +799,21 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.WriteLine("    Edges (Traversal): ");
-				graphSetOmnitree.Stepper((from, to) => Console.WriteLine("      " + from + "->" + to));
+				graphSetOmnitree.Stepper((from, to) => Console.WriteLine($"      {from}->{to}"));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
-				Console.Write("    Neighbors (" + a + "):");
-				graphSetOmnitree.Neighbors(a, i => Console.Write(" " + i));
+				Console.Write($"    Neighbors ({a}):");
+				graphSetOmnitree.Neighbors(a, i => Console.Write($" {i}"));
 				Console.WriteLine();
 
 				int b = random.Next(0, test / 2);
 				int c = random.Next(test / 2, test);
-				Console.WriteLine("    Are Adjacent (" + b + ", " + c + "): " + graphSetOmnitree.Adjacent(b, c));
-				Console.WriteLine("    Node Count: " + graphSetOmnitree.NodeCount);
-				Console.WriteLine("    Edge Count: " + graphSetOmnitree.EdgeCount);
+				Console.WriteLine($"    Are Adjacent ({b}, {c}): {graphSetOmnitree.Adjacent(b, c)}");
+				Console.WriteLine($"    Node Count: {graphSetOmnitree.NodeCount}");
+				Console.WriteLine($"    Edge Count: {graphSetOmnitree.EdgeCount}");
 
-				graphSetOmnitree.Clear(); // Clears the graph
+				graphSetOmnitree.Clear();
 
 				Console.WriteLine();
 			}
@@ -855,7 +855,7 @@ namespace DataStructures
 				}
 
 				Console.WriteLine("    Traversal:");
-				trie.Stepper((stepper, value) => Console.WriteLine("      " + stepper.ConcatToString() + ": " + value));
+				trie.Stepper((stepper, value) => Console.WriteLine($"      {stepper.ConcatToString()}: {value}"));
 
 				//// The "foreach" enumeration works for tries, but it is not optimized
 				//// and you should prefer the stepper function (it is faster).
@@ -866,18 +866,18 @@ namespace DataStructures
 				//	Console.WriteLine("      " + i.ConcatToString());
 				//}
 
-				Console.WriteLine("    Count: " + trie.Count);
+				Console.WriteLine($"    Count: {trie.Count}");
 
-				Console.WriteLine("    Get(\"three\"): " + trie.Get("three".ToStepper()));
+				Console.WriteLine($"    Get(\"three\"): {trie.Get("three".ToStepper())}");
 
-				Console.WriteLine("    Contains(\"six\"): " + trie.Contains("six".ToStepper()));
+				Console.WriteLine($"    Contains(\"six\"): {trie.Contains("six".ToStepper())}");
 
 				Console.WriteLine("    Remove(\"six\")...");
 				trie.Remove("six".ToStepper());
 
-				Console.WriteLine("    Contains(\"six\"): " + trie.Contains("six".ToStepper()));
+				Console.WriteLine($"    Contains(\"six\"): {trie.Contains("six".ToStepper())}");
 
-				Console.WriteLine("    Count: " + trie.Count);
+				Console.WriteLine($"    Count: {trie.Count}");
 
 				Console.WriteLine();
 			}
