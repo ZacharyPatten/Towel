@@ -132,23 +132,18 @@ namespace Towel.DataStructures
 					return new Node() { Value = value, };
 				}
 				CompareResult compareResult = _compare.Do(node.Value, value);
-				if (compareResult is Less)
+				switch (compareResult)
 				{
-					node.RightChild = Add(node.RightChild);
-				}
-				else if (compareResult is Greater)
-				{
-					node.LeftChild = Add(node.LeftChild);
-				}
-				else if (compareResult is Equal)
-				{
-					capturedException = new ArgumentException("Adding to add a duplicate value to an AVL tree.", nameof(value));
-					return node;
-				}
-				else
-				{
-					capturedException = new TowelBugException("Encountered Unhandled CompareResult.");
-					return node;
+					case Less:    node.RightChild = Add(node.RightChild); break;
+					case Greater: node.LeftChild  = Add(node.LeftChild);  break;
+					case Equal:
+						capturedException = new ArgumentException($"Adding to add a duplicate value to an {nameof(AvlTreeLinked<T>)}: {value}.", nameof(value));
+						return node;
+					default:
+						capturedException = compareResult.IsDefined()
+						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+						: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(Compare));
+						break;
 				}
 				return capturedException is null ? Balance(node) : node;
 			}

@@ -16,8 +16,9 @@
 		<AssemblyVersion>1.0.14.0</AssemblyVersion>
 		<FileVersion>1.0.14.0</FileVersion>
 		<PackageIcon>icon.png</PackageIcon>
-		<RepositoryType></RepositoryType>
+		<RepositoryType>git</RepositoryType>
 		<Company />
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>

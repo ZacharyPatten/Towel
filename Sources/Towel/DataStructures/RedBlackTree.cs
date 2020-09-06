@@ -142,20 +142,21 @@ namespace Towel.DataStructures
 			{
 				addition.Parent = temp;
 				CompareResult compareResult = _compare.Do(value, temp.Value);
-				if (compareResult is Greater)
+				switch (compareResult)
 				{
-					temp = temp.RightChild;
-				}
-				else if (compareResult is Less)
-				{
-					temp = temp.LeftChild;
-				}
-				else
-				{
-					capturedException = new ArgumentException("Attempting to add duplicate value to a Red-Black tree.", nameof(value));
-					break;
+					case Less:    temp = temp.LeftChild; break;
+					case Greater: temp = temp.RightChild; break;
+					case Equal:
+						capturedException = new ArgumentException($"Adding to add a duplicate value to a {nameof(RedBlackTreeLinked<T>)}: {value}.", nameof(value));
+						goto Break;
+					default:
+						capturedException = compareResult.IsDefined()
+						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+						: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(Compare));
+						goto Break;
 				}
 			}
+			Break:
 
 			if (!(capturedException is null))
 			{
