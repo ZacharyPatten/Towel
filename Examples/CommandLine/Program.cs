@@ -38,7 +38,7 @@ namespace CommandLine
 
 		/// <summary>This is a test method A.</summary>
 		/// <param name="a">The parameter a.</param>
-		[Command] static void A(
+		[Command] public static void A(
 			string a = default)
 		{
 			Console.WriteLine($"Method A Called.");
@@ -48,7 +48,7 @@ namespace CommandLine
 		/// <summary>This is a test method B.</summary>
 		/// <param name="a">The parameter a.</param>
 		/// <param name="b">The parameter b.</param>
-		[Command] static void B(
+		[Command] public static void B(
 			string a = default,
 			int b = default)
 		{
@@ -61,7 +61,7 @@ namespace CommandLine
 		/// <param name="a">The parameter a.</param>
 		/// <param name="b">The parameter b.</param>
 		/// <param name="c">The parameter c.</param>
-		[Command] static void C(
+		[Command] public static void C(
 			string a,
 			int b,
 			decimal c)
