@@ -625,7 +625,11 @@ namespace Towel
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
-				foreach (EventInfo eventInfo in type.GetEvents())
+				foreach (EventInfo eventInfo in type.GetEvents(
+					BindingFlags.Instance |
+					BindingFlags.Static |
+					BindingFlags.Public |
+					BindingFlags.NonPublic))
 				{
 					if (eventInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
 					{
@@ -644,7 +648,10 @@ namespace Towel
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
-				foreach (ConstructorInfo constructorInfo in type.GetConstructors())
+				foreach (ConstructorInfo constructorInfo in type.GetConstructors(
+					BindingFlags.Instance |
+					BindingFlags.Public |
+					BindingFlags.NonPublic))
 				{
 					if (constructorInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
 					{
@@ -663,7 +670,11 @@ namespace Towel
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
-				foreach (PropertyInfo propertyInfo in type.GetProperties())
+				foreach (PropertyInfo propertyInfo in type.GetProperties(
+					BindingFlags.Instance |
+					BindingFlags.Static |
+					BindingFlags.Public |
+					BindingFlags.NonPublic))
 				{
 					if (propertyInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
 					{
@@ -682,7 +693,11 @@ namespace Towel
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
-				foreach (FieldInfo fieldInfo in type.GetFields())
+				foreach (FieldInfo fieldInfo in type.GetFields(
+					BindingFlags.Instance |
+					BindingFlags.Static |
+					BindingFlags.Public |
+					BindingFlags.NonPublic))
 				{
 					if (fieldInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
 					{
@@ -701,7 +716,11 @@ namespace Towel
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
-				foreach (MethodInfo methodInfo in type.GetMethods())
+				foreach (MethodInfo methodInfo in type.GetMethods(
+					BindingFlags.Instance |
+					BindingFlags.Static |
+					BindingFlags.Public |
+					BindingFlags.NonPublic))
 				{
 					if (methodInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
 					{

@@ -1,67 +1,75 @@
 ﻿using System;
-using Towel;
-using static System.Console;
 using static Towel.CommandLine;
 
 namespace CommandLine
 {
-	class Program
+	static class Program
 	{
-		// The "Towel.CommandLine.Argument" type helps handle command line arguments. If used as a static
-		// field in the entry type of a console application, it will be automatically assigned from the
-		// command line arguments. Examples Of Command Lines:
-		//
-		//     dotnet CommandLine.dll A: "hello world"
-		//     dotnet CommandLine.dll B: 3
-		//     dotnet CommandLine.dll A: 1 B: 2 C: 3 D: 4
-		//     dotnet CommandLine.dll A: hello, D: world
-		//     dotnet CommandLine.dll Help
-		//     dotnet CommandLine.dll Version
-
-		static Argument Version;
-		static Argument Help;
-		static Argument<string> A = "default";
-		static Argument<int> B = -1;
-		static Argument<float> C = -1.5f;
-		static Argument<string> D;
-
-		static void Main()
+		static void Main(string[] args)
 		{
-			if (Version.Exists || Help.Exists)
+			string[] example_args =
 			{
-				WriteLine(DefaultInfoString);
-				WriteLine("  Summary: TODO");
-				WriteLine("  Documentation: TODO");
-				WriteLine("  Contact(s): TODO");
-				return;
+				@"A --a helloworld",
+				@"B --b 8",
+				@"C --a test1 --b 5 --c 7.7",
+				@"C --a test1",
+				@"Help",
+				@"Version",
+				@"Help A",
+				@"Help B",
+				@"Help C",
+			};
+
+			foreach (string example in example_args)
+			{
+				Console.WriteLine("Example args: " + example);
+				args = example.Split(' ');
+
+				// This line of code and the attributes are the only 
+				// lines of code you would need to add to your code.
+				HandleArguments(args);
+
+				Console.WriteLine();
 			}
-			WriteLine($"A: {A}");
-			WriteLine($"B: {B}");
-			WriteLine($"C: {C}");
-			WriteLine($"D: {(D.HasValue ? D.Value : D.Status.ToString())}");
 
-			WriteLine();
-			WriteLine($@"Index Of Argument B: {(B.Index.HasValue ? B.Index.ToString() : "null")}");
+			Console.WriteLine("Press [Enter] To Continue...");
+			Console.ReadLine();
+		}
 
-			WriteLine();
-			WriteLine($"Default Value Of C: {C.DefaultValue}");
+		/// <summary>This is a test method A.</summary>
+		/// <param name="a">The parameter a.</param>
+		[Command] static void A(
+			string a = default)
+		{
+			Console.WriteLine($"Method A Called.");
+			Console.WriteLine($"a: {a ?? "null"}");
+		}
 
-			// The "DefaultValue" property gets the default value that the argument was constructed with.
+		/// <summary>This is a test method B.</summary>
+		/// <param name="a">The parameter a.</param>
+		/// <param name="b">The parameter b.</param>
+		[Command] static void B(
+			string a = default,
+			int b = default)
+		{
+			Console.WriteLine($"Method B Called.");
+			Console.WriteLine($"a: {a ?? "null"}");
+			Console.WriteLine($"b: {b}");
+		}
 
-			// The "Index" property is the location of the relative argument if it was found.
-
-			// The "HasValue" property returns true if the Status is Default or ValueProvided.
-
-			// The "Status" property gives you information about the argument.
-			// - Default: The arguemnt was not provided but a default value exists.
-			// - SyntaxError: The definition of the CommandLineArgument is invalid (not supported). The code needs to be updated.
-			// - NotProvided: The argument was not provided by the command line arguments and no default exists.
-			// - DuplicateProvided: The argument was provided multiple times. The command line arguments are invalid.
-			// - ParseFailed: The argument was provided, but the relative value was not valid.
-			// - ValueProvided: The argument was provided and successfully parsed.
-
-			WriteLine();
-			ConsoleHelper.PromptPressToContinue();
+		/// <summary>This is a test method C.</summary>
+		/// <param name="a">The parameter a.</param>
+		/// <param name="b">The parameter b.</param>
+		/// <param name="c">The parameter c.</param>
+		[Command] static void C(
+			string a,
+			int b,
+			decimal c)
+		{
+			Console.WriteLine($"Method C Called.");
+			Console.WriteLine($"a: {a ?? "null"}");
+			Console.WriteLine($"b: {b}");
+			Console.WriteLine($"c: {c}");
 		}
 	}
 }

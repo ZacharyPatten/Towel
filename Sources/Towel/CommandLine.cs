@@ -1,380 +1,206 @@
 ﻿using System;
 using System.Reflection;
-using System.Text;
-using static Towel.Syntax;
 
 namespace Towel
 {
 	/// <summary>Contains static helpers for handling command line input and output.</summary>
 	public static class CommandLine
 	{
-		/// <summary>The default information string for the entry assembly of the currently running application.</summary>
-		public static string DefaultInfoString
+#pragma warning disable CS0618 // Type or member is obsolete
+
+		/// <summary>Handles the command line arguments by invoking the relative <see cref="CommandAttribute"/> method in the calling <see cref="Assembly"/>.</summary>
+		/// <param name="args">The command line arguments.</param>
+		public static void HandleArguments(string[] args = null)
 		{
-			get
+			Assembly assembly = Assembly.GetCallingAssembly();
+			args ??= Environment.GetCommandLineArgs();
+			if (args.Length < 1)
 			{
-				StringBuilder stringBuilder = new StringBuilder();
-				Assembly entryAssembly = Assembly.GetEntryAssembly();
-				AssemblyName assemblyName = entryAssembly.GetName();
-				stringBuilder.Append("  Name: ");
-				stringBuilder.AppendLine(assemblyName.Name);
-				stringBuilder.Append("  Version: ");
-				stringBuilder.AppendLine(assemblyName.Version.ToString());
-				stringBuilder.Append("  Command Line Arguments:");
-				MethodInfo entryMethod = entryAssembly.EntryPoint;
-				Type entryType = entryMethod.DeclaringType;
-				FieldInfo[] fieldInfos = entryType.GetFields(
-					BindingFlags.Static |
-					BindingFlags.Public |
-					BindingFlags.NonPublic);
-				bool hasCommandLineArguments = false;
-				for (int i = 0; i < fieldInfos.Length; i++)
-				{
-					FieldInfo field = fieldInfos[i];
-					object fieldValue = field.GetValue(null);
-					if (fieldValue is IGenericArgument genericArgument)
-					{
-						hasCommandLineArguments = true;
-						stringBuilder.AppendLine();
-						stringBuilder.Append("    ");
-						stringBuilder.Append(field.Name);
-						stringBuilder.AppendLine(":");
-						stringBuilder.Append("      Type: ");
-						stringBuilder.Append(genericArgument.Type.Name);
-						if (genericArgument.HasDefaultValue)
-						{
-							stringBuilder.AppendLine();
-							stringBuilder.Append("      Default: ");
-							stringBuilder.Append(genericArgument.DefaultValueObject.ToString());
-						}
-					}
-					else if (fieldValue is Argument)
-					{
-						hasCommandLineArguments = true;
-						stringBuilder.AppendLine();
-						stringBuilder.Append("    ");
-						stringBuilder.Append(field.Name);
-					}
-				}
-				if (!hasCommandLineArguments)
-				{
-					stringBuilder.Append(" N/A");
-				}
-				string result = stringBuilder.ToString();
-				return result;
-			}
-		}
-
-		/// <summary>An enum representing the statuses of command line arguemnts.</summary>
-		public enum ArgumentStatus
-		{
-			/// <summary>The default value of null representing a command line argument that has not been processed.</summary>
-			Null = 0,
-			/// <summary>The default value of null representing a command line argument that has not been processed.</summary>
-			Default,
-			/// <summary>There is a syntax error in the source code for this command line argument instance.</summary>
-			SyntaxError,
-			/// <summary>The command line argument was not provided and no default value exists.</summary>
-			NotProvided,
-			/// <summary>The command line argument was provided multiple times. The argument is in error.</summary>
-			DuplicateProvided,
-			/// <summary>The command line argument was provided but it failed to parse to the expected type. The argument is in error.</summary>
-			ParseFailed,
-			/// <summary>The command line argument was provided and it successfully parsed.</summary>
-			ValueProvided,
-		}
-
-		internal interface IGenericArgument
-		{
-			bool HasDefaultValue { get; }
-			object DefaultValueObject { get; }
-			Type Type { get; }
-		}
-
-		/// <summary>A helper type for processing command line arguments.</summary>
-		public struct Argument
-		{
-			internal class Data
-			{
-				internal ArgumentStatus _status;
-				internal int? _index;
-			}
-
-			internal Data _data;
-
-			/// <summary>True if a value for this command line argument exists.</summary>
-			public bool Exists
-			{
-				get
-				{
-					Process();
-					return _data._status is ArgumentStatus.ValueProvided;
-				}
-			}
-
-			/// <summary>Gets the status of the command line argument.</summary>
-			public ArgumentStatus Status
-			{
-				get
-				{
-					Process();
-					return _data._status;
-				}
-			}
-
-			/// <summary>The index of the parameter if it was found in the command line arguments.</summary>
-			public int? Index => _data._index;
-
-			internal void Process()
-			{
-				_data ??= new Data();
-				if (!(_data._status is ArgumentStatus.Null))
-				{
-					return;
-				}
-				Assembly entryAssembly = Assembly.GetEntryAssembly();
-				MethodInfo entryMethod = entryAssembly.EntryPoint;
-				Type entryType = entryMethod.DeclaringType;
-				FieldInfo[] fieldInfos = entryType.GetFields(
-					BindingFlags.Static |
-					BindingFlags.Public |
-					BindingFlags.NonPublic);
-				foreach (FieldInfo field in fieldInfos)
-				{
-					if (field.GetValue(null) is Argument argumentT)
-					{
-						if (argumentT._data is null || !(argumentT._data._status is ArgumentStatus.Null))
-						{
-							continue;
-						}
-						if (argumentT._data == _data)
-						{
-							string name = field.Name;
-							int index = -1;
-							string[] args = Environment.GetCommandLineArgs();
-							for (int i = 0; i < args.Length; i++)
-							{
-								if (args[i] == name)
-								{
-									if (index > -1)
-									{
-										_data._status = ArgumentStatus.DuplicateProvided;
-										_data._index = null;
-										return;
-									}
-									else
-									{
-										index = i;
-										_data._index = i;
-									}
-								}
-							}
-							if (index == -1)
-							{
-								_data._status = ArgumentStatus.NotProvided;
-								return;
-							}
-							else
-							{
-								_data._status = ArgumentStatus.ValueProvided;
-								return;
-							}
-						}
-					}
-				}
-				_data._status = ArgumentStatus.SyntaxError;
+				Console.Error.WriteLine("No command provided.");
 				return;
 			}
-		}
-
-		/// <summary>A helper type for processing command line arguments.</summary>
-		public struct Argument<T> : IGenericArgument
-		{
-			internal class Data
+			System.Collections.Generic.List<MethodInfo> commandMatches = new System.Collections.Generic.List<MethodInfo>();
+			foreach (MethodInfo possibleCommand in assembly.GetMethodInfosWithAttribute<CommandAttribute>())
 			{
-				internal ArgumentStatus _status;
-				internal T _value;
-				internal T _defaultValue;
-				internal bool _hasDefault;
-				internal int? _index;
-			}
-
-			internal Data _data;
-
-			/// <summary>The value of the command line argument.</summary>
-			public T Value
-			{
-				get
+				string command = possibleCommand.Name;
+				if (command == args[0])
 				{
-					Process();
-					return _data._status is ArgumentStatus.ValueProvided || _data._status is ArgumentStatus.Default
-						? _data._value
-						: throw new InvalidOperationException("Attempted to get a command line argument with a status of " + _data._status + ".");
+					commandMatches.Add(possibleCommand);
 				}
 			}
-
-			/// <summary>True if the command line argument is defined with a default value.</summary>
-			public bool HasDefaultValue
+			if (commandMatches.Count > 1)
 			{
-				get
-				{
-					Process();
-					return _data._hasDefault;
-				}
+				throw new Exception("syntax error: multiple matching commands");
 			}
-
-			/// <summary>The default value of the command line argument.</summary>
-			public T DefaultValue
+			else if (commandMatches.Count <= 0)
 			{
-				get
+				string arg = args[0].ToLower().Replace("-", "");
+				if (arg == "help" ||
+					arg == "h")
 				{
-					Process();
-					return _data._hasDefault
-						? _data._defaultValue
-						: throw new InvalidOperationException("Attempted to get the default value of a command line argument with no default value.");
-				}
-			}
-
-			/// <summary>The default value of the command line argument.</summary>
-			public object DefaultValueObject
-			{
-				get
-				{
-					Process();
-					return _data._hasDefault
-						? _data._defaultValue
-						: throw new InvalidOperationException("Attempted to get the default value string of a command line argument with no default value.");
-				}
-			}
-
-			/// <summary>True if the command line argument has a value.</summary>
-			public bool HasValue
-			{
-				get
-				{
-					Process();
-					return _data._status is ArgumentStatus.ValueProvided || _data._status is ArgumentStatus.Default;
-				}
-			}
-
-			/// <summary>The status of the command line argument.</summary>
-			public ArgumentStatus Status
-			{
-				get
-				{
-					Process();
-					return _data._status;
-				}
-			}
-
-			/// <summary>The index of the parameter if it was found in the command line arguments.</summary>
-			public int? Index => _data._index;
-
-			/// <summary>The type of the command line argument.</summary>
-			public Type Type => typeof(T);
-
-			internal void Process()
-			{
-				_data ??= new Data();
-				if (!(_data._status is ArgumentStatus.Null))
-				{
+					if (args.Length == 2)
+					{
+						DefaultHelp(assembly, args[1]);
+					}
+					else
+					{
+						DefaultHelp(assembly);
+					}
 					return;
 				}
-				Assembly entryAssembly = Assembly.GetEntryAssembly();
-				MethodInfo entryMethod = entryAssembly.EntryPoint;
-				Type entryType = entryMethod.DeclaringType;
-				FieldInfo[] fieldInfos = entryType.GetFields(
-					BindingFlags.Static |
-					BindingFlags.Public |
-					BindingFlags.NonPublic);
-				foreach (FieldInfo field in fieldInfos)
+				if (arg == "version" ||
+					arg == "v")
 				{
-					if (field.GetValue(null) is Argument<T> argumentT)
-					{
-						if (argumentT._data is null || !(argumentT._data._status is ArgumentStatus.Null))
-						{
-							continue;
-						}
-						if (argumentT._data == _data)
-						{
-							string name = field.Name + ":";
-							int index = -1;
-							string[] args = Environment.GetCommandLineArgs();
-							for (int i = 0; i < args.Length; i++)
-							{
-								if (args[i] == name)
-								{
-									if (index > -1)
-									{
-										_data._status = ArgumentStatus.DuplicateProvided;
-										_data._index = null;
-										return;
-									}
-									else
-									{
-										index = i;
-										_data._index = i;
-									}
-								}
-							}
-							if (index == -1)
-							{
-								if (_data._hasDefault)
-								{
-									_data._status = ArgumentStatus.Default;
-									return;
-								}
-								else
-								{
-									_data._status = ArgumentStatus.NotProvided;
-									return;
-								}
-							}
-							else if (index == args.Length - 1)
-							{
-								_data._status = ArgumentStatus.NotProvided;
-								return;
-							}
-							else if (typeof(T) == typeof(string))
-							{
-								Argument<string>.Data data_string = _data as Argument<string>.Data;
-								data_string._value = args[index + 1];
-								_data._status = ArgumentStatus.ValueProvided;
-								return;
-							}
-							else if (TryParse(args[index + 1], out _data._value))
-							{
-								_data._status = ArgumentStatus.ValueProvided;
-								return;
-							}
-							else
-							{
-								_data._status = ArgumentStatus.ParseFailed;
-								return;
-							}
-						}
-					}
+					DefaultVersion(assembly);
+					return;
 				}
-				_data._status = ArgumentStatus.SyntaxError;
+				Console.Error.WriteLine("command not found");
 				return;
 			}
+			if ((args.Length - 1) % 2 != 0)
+			{
+				Console.Error.WriteLine($"Invalid argument count.");
+				return;
+			}
+			MethodInfo methodInfo = commandMatches[0];
+			if (!methodInfo.IsStatic)
+			{
+				throw new Exception("syntax error: relative command not static");
+			}
 
-			/// <summary>Converts the command line argument into its current value.</summary>
-			/// <param name="argument">The command line argument to get the value of.</param>
-			public static implicit operator T(Argument<T> argument) => argument.Value;
-
-			/// <summary>Creates a command line argument from a default value.</summary>
-			/// <param name="value">The default value of the command line argument.</param>
-			public static implicit operator Argument<T>(T value) =>
-				new Argument<T>()
+			System.Collections.Generic.Dictionary<string, int> parameterMap = new System.Collections.Generic.Dictionary<string, int>();
+			int parameterCount = 0;
+			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+			foreach (ParameterInfo parameterInfo in parameterInfos)
+			{
+				parameterMap.Add(parameterInfo.Name, parameterCount++);
+			}
+			object[] parameters = new object[parameterCount];
+			for (int i = 1; i < args.Length; i += 2)
+			{
+				string arg = args[i];
+				if (arg.Length < 3 || arg[0] != '-' || arg[0] != '-')
 				{
-					_data = new Data()
+					Console.Error.WriteLine($"Invalid parameter {arg} in index {i}.");
+					return;
+				}
+				arg = arg[2..];
+				if (!parameterMap.TryGetValue(arg, out int index))
+				{
+					Console.Error.WriteLine($"Invalid parameter --{arg} in index {i}.");
+					return;
+				}
+				if (!(parameters[index] is null))
+				{
+					Console.Error.WriteLine($"Duplicate parameters provided --{arg}.");
+					return;
+				}
+				Type parameterType = parameterInfos[index].ParameterType;
+				if (parameterType == typeof(string))
+				{
+					parameters[index] = args[i + 1];
+				}
+				else
+				{
+					MethodInfo tryParse = Meta.GetTryParseMethod(parameterType);
+					if (tryParse is null)
 					{
-						_defaultValue = value,
-						_hasDefault = true,
-						_value = value,
+						throw new Exception("syntax error: invalid type used (no tryparse found)");
 					}
-				};
+					object[] tryParseParameters = new object[2];
+					tryParseParameters[0] = args[i + 1];
+					object result = tryParse.Invoke(null, tryParseParameters);
+					if (!(result is bool resultBool) || !resultBool)
+					{
+						Console.Error.WriteLine($"Could not parse parameter value --{arg} {args[i + 1]}.");
+						return;
+					}
+					parameters[index] = tryParseParameters[1];
+				}
+			}
+			for (int i = 0; i < parameters.Length; i++)
+			{
+				if (parameters[i] is null)
+				{
+					if (!parameterInfos[i].HasDefaultValue)
+					{
+						Console.Error.WriteLine($"Missing required parameter --{parameterInfos[i].Name} {parameterInfos[i].ParameterType}.");
+						return;
+					}
+					parameters[i] = parameterInfos[i].DefaultValue;
+				}
+			}
+			methodInfo.Invoke(null, parameters);
 		}
+
+#pragma warning restore CS0618 // Type or member is obsolete
+
+		/// <summary>This method is going to be changed...</summary>
+		[Obsolete("warning, this method is going to be changed... it is new and the design isn't finalized", false)]
+		public static void DefaultVersion(Assembly assembly = null)
+		{
+			assembly ??= Assembly.GetCallingAssembly();
+			AssemblyName assemblyName = assembly.GetName();
+			Console.WriteLine($"Assembly: {assemblyName.Name}");
+			Console.WriteLine($"Version: {assemblyName.Version}");
+		}
+
+		/// <summary>This method is going to be changed...</summary>
+		[Obsolete("warning, this method is going to be changed... it is new and the design isn't finalized", false)]
+		public static void DefaultHelp(Assembly assembly = null, string command = null)
+		{
+			if (command is null)
+			{
+				DefaultVersion(assembly);
+				Console.WriteLine("Commands:");
+				foreach (MethodInfo methodInfo in assembly.GetMethodInfosWithAttribute<CommandAttribute>())
+				{
+					Console.WriteLine("  " + methodInfo.Name);
+				}
+				Console.WriteLine(@"Use ""Help X"" for detailed info per ""X"" command.");
+			}
+			else
+			{
+				System.Collections.Generic.List<MethodInfo> commandMatches = new System.Collections.Generic.List<MethodInfo>();
+				foreach (MethodInfo methodInfo in assembly.GetMethodInfosWithAttribute<CommandAttribute>())
+				{
+					string methodName = methodInfo.Name;
+					if (methodName == command)
+					{
+						commandMatches.Add(methodInfo);
+					}
+				}
+				if (commandMatches.Count > 1)
+				{
+					throw new Exception("syntax error: multiple matching commands");
+				}
+				else if (commandMatches.Count <= 0)
+				{
+					Console.Error.WriteLine("command not found");
+					return;
+				}
+				else
+				{
+					MethodInfo methodInfo = commandMatches[0];
+					string documentation = Meta.GetDocumentation(methodInfo);
+					if (documentation is null)
+					{
+						Console.WriteLine("Parameters:");
+						foreach (ParameterInfo parameterInfo in methodInfo.GetParameters())
+						{
+							Console.WriteLine("--" + parameterInfo.Name);
+						}
+					}
+					else
+					{
+						Console.WriteLine(documentation);
+					}
+				}
+			}
+		}
+
+		/// <summary>Indicates that a method is invocable from the command line arguments.</summary>
+		[AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+		public class CommandAttribute : Attribute { }
 	}
 }
