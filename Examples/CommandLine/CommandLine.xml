@@ -13,7 +13,7 @@
             <param name="a">The parameter a.</param>
             <param name="b">The parameter b.</param>
         </member>
-        <member name="M:CommandLine.Program.C(System.String,System.Int32,System.Decimal)">
+        <member name="M:CommandLine.Program.C(System.String,System.Int32,System.IO.FileInfo)">
             <summary>This is a test method C.</summary>
             <param name="a">The parameter a.</param>
             <param name="b">The parameter b.</param>

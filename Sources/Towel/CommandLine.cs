@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using static Towel.Syntax;
 
 namespace Towel
 {
@@ -102,20 +103,28 @@ namespace Towel
 				}
 				else
 				{
-					MethodInfo tryParse = Meta.GetTryParseMethod(parameterType);
-					if (tryParse is null)
+					MethodInfo tryParse;
+					ConstructorInfo constuctor;
+					if (!((tryParse = Meta.GetTryParseMethod(parameterType)) is null))
+					{
+						object[] tryParseParameters = new object[2];
+						tryParseParameters[0] = args[i + 1];
+						object result = tryParse.Invoke(null, tryParseParameters);
+						if (!(result is bool resultBool) || !resultBool)
+						{
+							Console.Error.WriteLine($"Could not parse parameter value --{arg} {args[i + 1]}.");
+							return;
+						}
+						parameters[index] = tryParseParameters[1];
+					}
+					else if (!((constuctor = parameterType.GetConstructor(Ɐ(typeof(string)))) is null))
+					{
+						parameters[index] = constuctor.Invoke(Ɐ(args[i + 1]));
+					}
+					else
 					{
 						throw new Exception("syntax error: invalid type used (no tryparse found)");
 					}
-					object[] tryParseParameters = new object[2];
-					tryParseParameters[0] = args[i + 1];
-					object result = tryParse.Invoke(null, tryParseParameters);
-					if (!(result is bool resultBool) || !resultBool)
-					{
-						Console.Error.WriteLine($"Could not parse parameter value --{arg} {args[i + 1]}.");
-						return;
-					}
-					parameters[index] = tryParseParameters[1];
 				}
 			}
 			for (int i = 0; i < parameters.Length; i++)

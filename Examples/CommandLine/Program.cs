@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using static Towel.Syntax;
 using static Towel.CommandLine;
 
 namespace CommandLine
@@ -11,7 +13,7 @@ namespace CommandLine
 			{
 				@"A --a helloworld",
 				@"B --b 8",
-				@"C --a test1 --b 5 --c 7.7",
+				$@"C --a test1 --b 5 --c {sourcefilepath()}",
 				@"C --a test1",
 				@"Help",
 				@"Version",
@@ -64,12 +66,12 @@ namespace CommandLine
 		[Command] public static void C(
 			string a,
 			int b,
-			decimal c)
+			FileInfo c)
 		{
 			Console.WriteLine($"Method C Called.");
 			Console.WriteLine($"a: {a ?? "null"}");
 			Console.WriteLine($"b: {b}");
-			Console.WriteLine($"c: {c}");
+			Console.WriteLine($"c: {c.Name}");
 		}
 	}
 }
