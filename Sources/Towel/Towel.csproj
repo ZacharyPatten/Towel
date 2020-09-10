@@ -11,10 +11,10 @@
 		<PackageReleaseNotes>Towel is in an alpha (pre-release) state.</PackageReleaseNotes>
 		<Authors>Zachary Patten</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.0.14-alpha</Version>
+		<Version>1.0.15-alpha</Version>
 		<LangVersion>8.0</LangVersion>
-		<AssemblyVersion>1.0.14.0</AssemblyVersion>
-		<FileVersion>1.0.14.0</FileVersion>
+		<AssemblyVersion>1.0.15.0</AssemblyVersion>
+		<FileVersion>1.0.15.0</FileVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryType>git</RepositoryType>
 		<Company />
