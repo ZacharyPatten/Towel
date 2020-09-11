@@ -15,7 +15,7 @@ namespace GraphSearch
 			Console.WriteLine("======================================================");
 			Console.WriteLine();
 
-			#region Simple/Small Example
+			#region Simple Example
 			{
 				Console.WriteLine("  Graph Searching----------------------");
 				Console.WriteLine();

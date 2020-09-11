@@ -13,7 +13,7 @@ using Towel.Measurements;
 using static Towel.Syntax;
 using static Towel.Measurements.MeasurementsSyntax;
 
-namespace Tutorial
+namespace OmnitreeGraphicsDemo
 {
 	class Cube
 	{

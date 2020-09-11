@@ -133,7 +133,7 @@ namespace ConsoleHelpers
 			#region Flush Input Buffer Example
 			{
 				Console.WriteLine("---------------------");
-				Console.WriteLine("If you want to prefent console input, you can");
+				Console.WriteLine("If you want to prevent console input, you can");
 				Console.WriteLine("use FlushInputBuffer and all input prior to");
 				Console.WriteLine("calling it will be ignored.");
 				ConsoleHelper.FlushInputBuffer();

@@ -11,13 +11,13 @@ namespace Mathematics
 {
 	class Program
 	{
-		static readonly Random random = new Random();
-
 		static void Main()
 		{
 			Console.WriteLine("You are runnning the Mathematics example.");
 			Console.WriteLine("==========================================");
 			Console.WriteLine();
+
+			Random random = new Random();
 
 			#region Basic Operations
 

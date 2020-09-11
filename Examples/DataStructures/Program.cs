@@ -98,7 +98,7 @@ namespace DataStructures
 
 			Console.WriteLine($"    [ListArray] Count: {listArray.Count}");
 
-			listArray.Clear(); // Clears the addable
+			listArray.Clear();
 
 			Console.WriteLine();
 
@@ -118,7 +118,7 @@ namespace DataStructures
 
 			Console.WriteLine($"    [ListLinked] Count: {listLinked.Count}");
 
-			listLinked.Clear(); // Clears the addable
+			listLinked.Clear();
 
 			Console.WriteLine();
 
@@ -155,7 +155,7 @@ namespace DataStructures
 				Console.WriteLine($"    [StackArray] Pop: {stackArray.Pop()}");
 				Console.WriteLine($"    [StackArray] Count: {stackArray.Count}");
 
-				stackArray.Clear(); // Clears the firstInLastOut
+				stackArray.Clear();
 
 				Console.WriteLine();
 
@@ -178,7 +178,7 @@ namespace DataStructures
 				Console.WriteLine($"    [StackLinked] Pop: {stackLinked.Pop()}");
 				Console.WriteLine($"    [StackLinked] Count: {stackLinked.Count}");
 
-				stackLinked.Clear(); // Clears the firstInLastOut
+				stackLinked.Clear();
 
 				Console.WriteLine();
 			}
@@ -215,7 +215,7 @@ namespace DataStructures
 				Console.WriteLine($"    [QueueArray] Dequeue: {queueArray.Dequeue()}");
 				Console.WriteLine($"    [QueueArray] Count: {queueArray.Count}");
 
-				queueArray.Clear(); // Clears the firstInLastOut
+				queueArray.Clear();
 
 				Console.WriteLine();
 
@@ -238,7 +238,7 @@ namespace DataStructures
 				Console.WriteLine($"    [QueueLinked] Pop: {queueLinked.Dequeue()}");
 				Console.WriteLine($"    [QueueLinked] Count: {queueLinked.Count}");
 
-				queueLinked.Clear(); // Clears the firstInLastOut
+				queueLinked.Clear();
 
 				Console.WriteLine();
 			}
@@ -283,7 +283,7 @@ namespace DataStructures
 				Console.WriteLine($"    [HeapArray] Dequeue: {heapArray.Dequeue()}");
 				Console.WriteLine($"    [HeapArray] Count: {heapArray.Count}");
 
-				heapArray.Clear(); // Clears the heapArray
+				heapArray.Clear();
 
 				Console.WriteLine();
 			}
@@ -364,7 +364,7 @@ namespace DataStructures
 				Console.WriteLine($"    Current Greatest: {avlTree.CurrentGreatest}");
 				Console.WriteLine($"    Count: {avlTree.Count}");
 
-				avlTree.Clear(); // Clears the AVL tree
+				avlTree.Clear();
 
 				Console.WriteLine();
 			}
@@ -411,7 +411,7 @@ namespace DataStructures
 				Console.WriteLine($"    Current Greatest: {redBlackTree.CurrentGreatest}");
 				Console.WriteLine($"    Count: {redBlackTree.Count}");
 
-				redBlackTree.Clear(); // Clears the Red Black tree
+				redBlackTree.Clear();
 
 				Console.WriteLine();
 			}
@@ -615,7 +615,7 @@ namespace DataStructures
 				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
 				Console.WriteLine($"    Count: {omnitree.Count}");
 
-				omnitree.Clear(); // Clears the Omnitree
+				omnitree.Clear();
 
 				Console.WriteLine();
 
@@ -729,7 +729,7 @@ namespace DataStructures
 				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
 				Console.WriteLine($"    Count: {omnitree.Count}");
 
-				omnitree.Clear(); // Clears the Omnitree
+				omnitree.Clear();
 
 				Console.WriteLine();
 			}

@@ -15,6 +15,7 @@ namespace CommandLine
 				@"B --b 8",
 				$@"C --a test1 --b 5 --c {sourcefilepath()}",
 				@"C --a test1",
+				@"",
 				@"Help",
 				@"Version",
 				@"Help A",

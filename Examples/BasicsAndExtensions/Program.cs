@@ -18,7 +18,7 @@ namespace BasicsAndExtensions
 
 			#region Multi String Replace
 			{
-				Console.WriteLine("  String Replace (multi) ---------------------");
+				Console.WriteLine("  Multi String Replace -----------------------");
 				Console.WriteLine();
 
 				string original = "a b c d";
