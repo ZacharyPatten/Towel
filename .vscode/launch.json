@@ -17,6 +17,28 @@
 			"stopAtEntry": false
 		},
 		{
+			"name": "CommandLine Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build CommandLine Example [Debug]",
+			"program": "${workspaceFolder}/Examples/CommandLine/bin/Debug/netcoreapp3.1/CommandLine.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/CommandLine/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false
+		},
+		{
+			"name": "ConsoleHelpers Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build ConsoleHelpers Example [Debug]",
+			"program": "${workspaceFolder}/Examples/ConsoleHelpers/bin/Debug/netcoreapp3.1/ConsoleHelpers.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/ConsoleHelpers/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false
+		},
+		{
 			"name": "Data Structures Example [Debug]",
 			"type": "coreclr",
 			"request": "launch",

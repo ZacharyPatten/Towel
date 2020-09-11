@@ -282,5 +282,61 @@
 			],
 			"problemMatcher": "$msCompile"
 		},
+		{
+			"label": "Build ConsoleHelpers Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/ConsoleHelpers/ConsoleHelpers.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build ConsoleHelpers Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/ConsoleHelpers/ConsoleHelpers.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build CommandLine Example [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}/Examples/CommandLine/CommandLine.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build CommandLine Example [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}/Examples/CommandLine/CommandLine.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
 	]
 }

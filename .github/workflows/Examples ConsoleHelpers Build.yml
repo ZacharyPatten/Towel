@@ -1,0 +1,12 @@
+name: Examples ConsoleHelpers Build
+on:
+  push:
+    paths:
+    - 'Examples/ConsoleHelpers/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: dotnet build
+      run: dotnet build Examples/ConsoleHelpers/ConsoleHelpers.csproj --configuration 'Release'

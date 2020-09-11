@@ -170,6 +170,28 @@
             <param name="validation">The predicate for validating the value of the input.</param>
             <returns>The validated value of the console input provided by the user.</returns>
         </member>
+        <member name="M:Towel.ConsoleHelper.HiddenReadLine(System.Char)">
+            <summary>Similar to <see cref="M:System.Console.ReadLine"/> but with hidden input characters.</summary>
+            <param name="shownCharacter">The display character to use for all input.</param>
+            <returns>The <see cref="T:System.String"/> input provided by the user.</returns>
+        </member>
+        <member name="M:Towel.ConsoleHelper.AnimatedElipsis(System.Func{System.Boolean},System.Action,System.Int32)">
+            <summary>Animates an elipsis in the console to indicate processing.</summary>
+            <param name="condition">The condition of the loop.</param>
+            <param name="delay">The delay function.</param>
+            <param name="length">The length of the ellipsis.</param>
+        </member>
+        <member name="M:Towel.ConsoleHelper.ProgressBar(System.Action{System.Action{System.Double}},System.Int32,System.Char,System.Char,System.Char,System.Char,System.Char,System.Boolean)">
+            <summary>Displays a progress bar in the console.</summary>
+            <param name="action">The action to track the progress of.</param>
+            <param name="length">The character length of the progress bar (must be >= 6).</param>
+            <param name="header">The header character of the progress bar.</param>
+            <param name="footer">The footer character of the progress bar.</param>
+            <param name="done">The character for represening completed progress.</param>
+            <param name="remaining">The character representing ongoing processing.</param>
+            <param name="errorDigit">The characters to display in the numerical display when an invalid percentage is recieved.</param>
+            <param name="postClear">Whether or not to clear the progress bar from the view when complete.</param>
+        </member>
         <member name="T:Towel.Constant`1">
             <summary>Contains generic static numerical constant values.</summary>
             <typeparam name="T">The generic numeric type of the constants.</typeparam>
