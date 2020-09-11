@@ -115,6 +115,52 @@
   </h3>
   <span class="small pull-right mobile-hide">
     <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_ConsoleHelper_AnimatedEllipsis_System_Func_System_Boolean__System_Action_System_Int32_.md&amp;value=---%0Auid%3A%20Towel.ConsoleHelper.AnimatedEllipsis(System.Func%7BSystem.Boolean%7D%2CSystem.Action%2CSystem.Int32)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/ConsoleHelper.cs/#L348">View Source</a>
+  </span>
+  <a id="Towel_ConsoleHelper_AnimatedEllipsis_" data-uid="Towel.ConsoleHelper.AnimatedEllipsis*"></a>
+  <h4 id="Towel_ConsoleHelper_AnimatedEllipsis_System_Func_System_Boolean__System_Action_System_Int32_" data-uid="Towel.ConsoleHelper.AnimatedEllipsis(System.Func{System.Boolean},System.Action,System.Int32)">AnimatedEllipsis(Func&lt;Boolean&gt;, Action, Int32)</h4>
+  <div class="markdown level1 summary"><p>Animates an elipsis in the console to indicate processing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void AnimatedEllipsis(Func&lt;bool&gt; condition, Action delay, int length = 3)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Func</span>&lt;<span class="xref">System.Boolean</span>&gt;</td>
+        <td><span class="parametername">condition</span></td>
+        <td><p>The condition of the loop.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Action</span></td>
+        <td><span class="parametername">delay</span></td>
+        <td><p>The delay function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">length</span></td>
+        <td><p>The length of the ellipsis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
     <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_ConsoleHelper_FlushInputBuffer_System_Boolean_.md&amp;value=---%0Auid%3A%20Towel.ConsoleHelper.FlushInputBuffer(System.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
   </span>
   <span class="small pull-right mobile-hide">
@@ -226,6 +272,56 @@
       <tr>
         <td><span class="parametername">T</span></td>
         <td><p>The generic type of console input to get from the user.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_ConsoleHelper_HiddenReadLine_System_Char_.md&amp;value=---%0Auid%3A%20Towel.ConsoleHelper.HiddenReadLine(System.Char)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/ConsoleHelper.cs/#L120">View Source</a>
+  </span>
+  <a id="Towel_ConsoleHelper_HiddenReadLine_" data-uid="Towel.ConsoleHelper.HiddenReadLine*"></a>
+  <h4 id="Towel_ConsoleHelper_HiddenReadLine_System_Char_" data-uid="Towel.ConsoleHelper.HiddenReadLine(System.Char)">HiddenReadLine(Char)</h4>
+  <div class="markdown level1 summary"><p>Similar to <span class="xref">System.Console.ReadLine</span> but with hidden input characters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string HiddenReadLine(char shownCharacter = '*')</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">shownCharacter</span></td>
+        <td><p>The display character to use for all input.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><p>The <span class="xref">System.String</span> input provided by the user.</p>
 </td>
       </tr>
     </tbody>
@@ -346,6 +442,82 @@
         <td><span class="xref">System.ConsoleKey</span></td>
         <td><span class="parametername">key</span></td>
         <td><p>The key to wait for the user to press before continuing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_ConsoleHelper_ProgressBar_System_Action_System_Action_System_Double___System_Int32_System_Char_System_Char_System_Char_System_Char_System_Char_System_Boolean_.md&amp;value=---%0Auid%3A%20Towel.ConsoleHelper.ProgressBar(System.Action%7BSystem.Action%7BSystem.Double%7D%7D%2CSystem.Int32%2CSystem.Char%2CSystem.Char%2CSystem.Char%2CSystem.Char%2CSystem.Char%2CSystem.Boolean)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/ConsoleHelper.cs/#L400">View Source</a>
+  </span>
+  <a id="Towel_ConsoleHelper_ProgressBar_" data-uid="Towel.ConsoleHelper.ProgressBar*"></a>
+  <h4 id="Towel_ConsoleHelper_ProgressBar_System_Action_System_Action_System_Double___System_Int32_System_Char_System_Char_System_Char_System_Char_System_Char_System_Boolean_" data-uid="Towel.ConsoleHelper.ProgressBar(System.Action{System.Action{System.Double}},System.Int32,System.Char,System.Char,System.Char,System.Char,System.Char,System.Boolean)">ProgressBar(Action&lt;Action&lt;Double&gt;&gt;, Int32, Char, Char, Char, Char, Char, Boolean)</h4>
+  <div class="markdown level1 summary"><p>Displays a progress bar in the console.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ProgressBar(Action&lt;Action&lt;double&gt;&gt; action, int length = 17, char header = '[', char footer = ']', char done = '=', char remaining = '-', char errorDigit = '?', bool postClear = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Action</span>&lt;<span class="xref">System.Action</span>&lt;<span class="xref">System.Double</span>&gt;&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to track the progress of.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><span class="parametername">length</span></td>
+        <td><p>The character length of the progress bar (must be &gt;= 6).</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">header</span></td>
+        <td><p>The header character of the progress bar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">footer</span></td>
+        <td><p>The footer character of the progress bar.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">done</span></td>
+        <td><p>The character for represening completed progress.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">remaining</span></td>
+        <td><p>The character representing ongoing processing.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Char</span></td>
+        <td><span class="parametername">errorDigit</span></td>
+        <td><p>The characters to display in the numerical display when an invalid percentage is recieved.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><span class="parametername">postClear</span></td>
+        <td><p>Whether or not to clear the progress bar from the view when complete.</p>
 </td>
       </tr>
     </tbody>
