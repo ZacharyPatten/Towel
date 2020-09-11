@@ -175,7 +175,7 @@
             <param name="shownCharacter">The display character to use for all input.</param>
             <returns>The <see cref="T:System.String"/> input provided by the user.</returns>
         </member>
-        <member name="M:Towel.ConsoleHelper.AnimatedElipsis(System.Func{System.Boolean},System.Action,System.Int32)">
+        <member name="M:Towel.ConsoleHelper.AnimatedEllipsis(System.Func{System.Boolean},System.Action,System.Int32)">
             <summary>Animates an elipsis in the console to indicate processing.</summary>
             <param name="condition">The condition of the loop.</param>
             <param name="delay">The delay function.</param>

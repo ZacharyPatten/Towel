@@ -50,7 +50,7 @@ namespace ConsoleHelpers
 				{
 					Thread thread = new Thread(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
 					thread.Start();
-					ConsoleHelper.AnimatedElipsis(
+					ConsoleHelper.AnimatedEllipsis(
 						condition: () => thread.IsAlive,
 						delay: () => Thread.Sleep(TimeSpan.FromMilliseconds(300)));
 				});

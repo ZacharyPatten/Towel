@@ -345,7 +345,7 @@ namespace Towel
 		/// <param name="condition">The condition of the loop.</param>
 		/// <param name="delay">The delay function.</param>
 		/// <param name="length">The length of the ellipsis.</param>
-		public static void AnimatedElipsis(
+		public static void AnimatedEllipsis(
 			Func<bool> condition,
 			Action delay,
 			int length = 3)
