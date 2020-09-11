@@ -475,7 +475,6 @@ public class ListArray&lt;T&gt; : IList&lt;T&gt;, IDataStructure&lt;T&gt;, IEnum
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void RemoveAll&lt;Predicate&gt;(Predicate predicate = default(Predicate))
-
     where Predicate : struct, IFunc&lt;T, bool&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -526,7 +525,6 @@ public class ListArray&lt;T&gt; : IList&lt;T&gt;, IDataStructure&lt;T&gt;, IEnum
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void RemoveAllWithoutShrink&lt;Predicate&gt;(Predicate predicate = default(Predicate))
-
     where Predicate : struct, IFunc&lt;T, bool&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -927,7 +925,6 @@ public class ListArray&lt;T&gt; : IList&lt;T&gt;, IDataStructure&lt;T&gt;, IEnum
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Stepper&lt;Step&gt;(Step step = default(Step))
-
     where Step : struct, IStep&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -979,7 +976,6 @@ public class ListArray&lt;T&gt; : IList&lt;T&gt;, IDataStructure&lt;T&gt;, IEnum
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public StepStatus StepperBreak&lt;Step&gt;(Step step = default(Step))
-
     where Step : struct, IStepBreak&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1047,7 +1043,6 @@ public class ListArray&lt;T&gt; : IList&lt;T&gt;, IDataStructure&lt;T&gt;, IEnum
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void StepperRef&lt;Step&gt;(Step step = default(Step))
-
     where Step : struct, IStepRef&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1099,7 +1094,6 @@ public class ListArray&lt;T&gt; : IList&lt;T&gt;, IDataStructure&lt;T&gt;, IEnum
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public StepStatus StepperRefBreak&lt;Step&gt;(Step step = default(Step))
-
     where Step : struct, IStepRefBreak&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1327,7 +1321,6 @@ public class ListArray&lt;T&gt; : IList&lt;T&gt;, IDataStructure&lt;T&gt;, IEnum
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public bool TryRemoveFirst&lt;Predicate&gt;(out Exception exception, Predicate predicate = default(Predicate))
-
     where Predicate : struct, IFunc&lt;T, bool&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>

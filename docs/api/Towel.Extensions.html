@@ -532,7 +532,6 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static Delegate CreateDelegate&lt;Delegate&gt;(this MethodInfo methodInfo)
-
     where Delegate : Delegate</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -1081,7 +1080,6 @@
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static bool IsDefined&lt;T&gt;(this T value)
-
     where T : Enum</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2694,7 +2692,6 @@ inclusive and <code data-dev-comment-type="paramref" class="paramref">maxValue</
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void NextUnique&lt;Step&gt;(this Random random, int count, int minValue, int maxValue, Step step = default(Step))
-
     where Step : struct, IAction&lt;int&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2773,7 +2770,6 @@ inclusive and <code data-dev-comment-type="paramref" class="paramref">maxValue</
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Obsolete(&quot;It is recommended you use NextUnique method instead.&quot;, false)]
 public static void NextUniquePoolTracking&lt;Step&gt;(this Random random, int count, int minValue, int maxValue, Step step = default(Step))
-
     where Step : struct, IAction&lt;int&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -2852,7 +2848,6 @@ inclusive and <code data-dev-comment-type="paramref" class="paramref">maxValue</
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">[Obsolete(&quot;It is recommended you use NextUnique method instead.&quot;, false)]
 public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int count, int minValue, int maxValue, Step step = default(Step))
-
     where Step : struct, IAction&lt;int&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3697,7 +3692,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteIterative&lt;T, Action&gt;(this T[] array, Action action = default(Action))
-
     where Action : struct, IAction</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3755,7 +3749,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteIterative&lt;T, Action&gt;(this ListArray&lt;T&gt; list, Action action = default(Action))
-
     where Action : struct, IAction</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3813,7 +3806,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteIterative&lt;T, Action, Status&gt;(this T[] array, Action action = default(Action), Status status = default(Status))
-
     where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -3880,7 +3872,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteIterative&lt;T, Action, Status&gt;(this ListArray&lt;T&gt; list, Action action = default(Action), Status status = default(Status))
-
     where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -4165,7 +4156,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteRecursive&lt;T, Action&gt;(this T[] array, Action action = default(Action))
-
     where Action : struct, IAction</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -4223,7 +4213,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteRecursive&lt;T, Action&gt;(this ListArray&lt;T&gt; list, Action action = default(Action))
-
     where Action : struct, IAction</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -4281,7 +4270,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteRecursive&lt;T, Action, Status&gt;(this T[] array, Action action = default(Action), Status status = default(Status))
-
     where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -4348,7 +4336,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void PermuteRecursive&lt;T, Action, Status&gt;(this ListArray&lt;T&gt; list, Action action = default(Action), Status status = default(Status))
-
     where Action : struct, IAction where Status : struct, IFunc&lt;StepStatus&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -4902,7 +4889,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void Shuffle&lt;T, Get, Set&gt;(this Random random, Get get, Set set, int start, int end)
-
     where Get : struct, IGetIndex&lt;T&gt; where Set : struct, ISetIndex&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -5596,7 +5582,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void Stepper&lt;T, Step&gt;(this T[] array, Step step = default(Step))
-
     where Step : struct, IStep&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -5659,7 +5644,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void Stepper&lt;T, Step&gt;(this T[] array, int start, int end, Step step = default(Step))
-
     where Step : struct, IStep&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -5734,7 +5718,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static StepStatus StepperBreak&lt;T, Step&gt;(this T[] array, Step step = default(Step))
-
     where Step : struct, IStepBreak&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -5813,7 +5796,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static StepStatus StepperBreak&lt;T, Step&gt;(this T[] array, int start, int end, Step step = default(Step))
-
     where Step : struct, IStepBreak&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -5904,7 +5886,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void StepperRef&lt;T, Step&gt;(this T[] array, Step step = default(Step))
-
     where Step : struct, IStepRef&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -5967,7 +5948,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static void StepperRef&lt;T, Step&gt;(this T[] array, int start, int end, Step step = default(Step))
-
     where Step : struct, IStepRef&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -6042,7 +6022,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static StepStatus StepperRefBreak&lt;T, Step&gt;(this T[] array, Step step = default(Step))
-
     where Step : struct, IStepRefBreak&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
@@ -6121,7 +6100,6 @@ public static void NextUniqueRollTracking&lt;Step&gt;(this Random random, int co
   <h5 class="decalaration">Declaration</h5>
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public static StepStatus StepperRefBreak&lt;T, Step&gt;(this T[] array, int start, int end, Step step = default(Step))
-
     where Step : struct, IStepRefBreak&lt;T&gt;</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
