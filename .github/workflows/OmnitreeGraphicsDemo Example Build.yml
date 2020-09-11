@@ -1,4 +1,4 @@
-name: Examples Measurements Build
+name: OmnitreeGraphicsDemo Example Build
 on:
   push:
     paths:

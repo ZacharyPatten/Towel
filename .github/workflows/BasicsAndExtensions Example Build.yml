@@ -1,4 +1,4 @@
-name: Examples BasicsAndExtensions Build
+name: BasicsAndExtensions Example Build
 on:
   push:
     paths:

@@ -1,4 +1,4 @@
-name: Examples DataStructures Build
+name: DataStructures Example Build
 on:
   push:
     paths:

@@ -1,4 +1,4 @@
-name: Examples Mathematics Build
+name: Mathematics Example Build
 on:
   push:
     paths:

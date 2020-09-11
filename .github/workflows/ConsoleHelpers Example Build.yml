@@ -1,4 +1,4 @@
-name: Examples ConsoleHelpers Build
+name: Example ConsoleHelpers Build
 on:
   push:
     paths:

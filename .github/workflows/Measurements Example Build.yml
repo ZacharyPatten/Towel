@@ -1,0 +1,12 @@
+name: Measurements Example Build
+on:
+  push:
+    paths:
+    - 'Examples/Measurements/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: dotnet build
+      run: dotnet build Examples/Measurements/Measurements.csproj --configuration 'Release'
