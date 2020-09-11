@@ -699,8 +699,5 @@ ConsoleHelper.FlushInputBuffer();
 
 ## Developer(s)
 
-Feel free to chat with the developer(s) via [Discord](https://discord.gg/4XbQbwF).
-
-#### [Zachary Patten](https://github.com/ZacharyPatten)
-
-Howdy! I'm Zachary Patten. I like making code frameworks and teaching people how to code. I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
+> [Zachary Patten](https://github.com/ZacharyPatten)</br>
+> Howdy! I'm Zachary Patten. I like making code frameworks and teaching people how to code. I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
