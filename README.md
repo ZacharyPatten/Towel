@@ -24,24 +24,12 @@
 
 > _**Note**: This project has a goal of keeping as up-to-date on modern coding practices rather than maintaining backwards compatibility._
 
-> - [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTING.md)</br>
-> - [Docfx Generated Code Documentation](https://zacharypatten.github.io/Towel/api/index.html)</br>
-> - [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md)</br>
-
-> - [Generic Mathematics & Logic](https://github.com/ZacharyPatten/Towel#generic-mathematics--logic)</br>
-> - [Symbolic Mathematics](https://github.com/ZacharyPatten/Towel#symbolic-mathematics)</br>
-> - [Measurement Mathematics](https://github.com/ZacharyPatten/Towel#measurement-mathematics)</br>
-> - [Data Structures](https://github.com/ZacharyPatten/Towel#data-structures)</br>
-> - [Algorithms](https://github.com/ZacharyPatten/Towel#algorithms)</br>
-> - [Extensions](https://github.com/ZacharyPatten/Towel#extensions)</br>
-> - [Console Helpers](https://github.com/ZacharyPatten/Towel#console-helpers)</br>
-> - [Developer(s)](https://github.com/ZacharyPatten/Towel#developers)</br>
-
 ## Generic Mathematics & Logic
 
 <details>
- <summary><strong>How It Works [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>How It Works <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 public static T Addition<T>(T a, T b)
@@ -64,7 +52,6 @@ internal static class AdditionImplementation<T>
 
 You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate.
 
-</p>
 </details>
 
 ```csharp
@@ -171,8 +158,9 @@ symExp1.Substitute("x", 5);
 ## Measurement Mathematics
 
 <details>
- <summary><strong>Supported Measurements [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>Supported Measurements <em>Click To Expand</em></strong>
+</summary>
 
 Here are the currently supported measurement types:
 
@@ -205,8 +193,7 @@ Here are the currently supported measurement types:
 ```
 
 The measurement types are generated in the *Towel/Measurements/MeasurementTypes.tt* T4 text template file. The unit (enum) definitions are in the *Towel/Measurements/MeasurementUnitDefinitions.cs* file. Both measurment types and unit definitions can be easily added. If you think a measurement type or unit type should be added, please [submit an enhancement issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).
- 
-</p>
+
 </details>
 
 ```csharp
@@ -273,8 +260,9 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 ## Data Structures
 
 <details>
- <summary><strong>Heap [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>Heap <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 // A heap is a binary tree that is sorted vertically using comparison methods. This is different
@@ -315,13 +303,13 @@ IHeap<T> heapArray = new HeapArray<T>();
 //         ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 //         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
- 
-</p>
+
 </details>
 
 <details>
- <summary><strong>AVL Tree [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>AVL Tree <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 // An AVL tree is a binary tree that is sorted using comparison methods and automatically balances
@@ -365,12 +353,12 @@ IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 //         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
 
-</p>
 </details>
 
 <details>
- <summary><strong>Red Black Tree [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>Red Black Tree <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 // A Red-Black treeis a binary tree that is sorted using comparison methods and automatically 
@@ -412,12 +400,12 @@ IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 //         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
 
-</p>
 </details>
 
 <details>
- <summary><strong>Omnitree [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>Omnitree <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 // An Omnitree is a Spacial Partitioning Tree (SPT) that works on an arbitrary number of dimensions.
@@ -548,23 +536,23 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 // Ω(ln(count)) runtime complexity when looking up values.
 ```
 
-</p>
 </details>
 
 <details>
- <summary><strong>Tree [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>Tree <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 Tree<T> treeMap = new TreeMap<T>(...);
 ```
 
-</p>
 </details>
 
 <details>
- <summary><strong>Graph [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>Graph <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 // A graph is a data structure that contains nodes and edges. They are useful
@@ -596,12 +584,12 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 };
 ```
 
-</p>
 </details>
 
 <details>
- <summary><strong>Trie [click to expand]</strong></summary>
-<p>
+<summary>
+:page_facing_up: <strong>Trie <em>Click To Expand</em></strong>
+</summary>
 
 ```csharp
 // A trie is a tree that stores values in a way that partial keys may be shared
@@ -622,7 +610,6 @@ ITrie<T> trie = new TrieLinkedHashLinked<T>();
 ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 ```
 
-</p>
 </details>
 
 ## Algorithms
