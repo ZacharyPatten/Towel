@@ -1,26 +1,41 @@
-# Towel
+<p align="center">
+	<a href="#"><img src="./Logo.svg" height="150"></a>
+</p>
 
-<img src="./Logo.svg" height="150">
+<h1 align="center">
+	Towel
+</h1>
+
+<p align="center">
+	A .NET library intended to add core functionality and make advanced topics as clean and simple as possible: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)
+</p>
 
 > "It's a tough galaxy. If you want to survive, you've gotta know... where your towel is." - Ford Prefect
 
-Towel is a C# .Net Core libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.
-
 <p align="center">
 	<a href="https://github.com/ZacharyPatten/Towel" alt="GitHub repo"><img alt="flat" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"></a>
-	<a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Build%22"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg" title="Go To Towel Build" alt="Towel Build"></a>
+	<a href="https://dotnet.microsoft.com/download" alt="Target"><img alt="flat" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj"></a>
+	<a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Build%22" alt="docfx documentation"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg" title="Go To Towel Build" alt="Towel Build"></a>
 	<a href="https://www.nuget.org/packages/Towel" alt="nuget package"><img src="https://img.shields.io/nuget/v/Towel.svg" /></a>
+	<a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://gist.githubusercontent.com/ZacharyPatten/ce53ded67eef6f9563376172dbc0382c/raw/8df6b22faa4255c3f84826639bb3b2d58ebee72a/docfx_badge.svg" title="Go To Towel docfx Documentation" alt="Towel docfx Documentation"></a>
 	<a href="https://discord.gg/4XbQbwF" alt="chat on Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord" /></a>
-	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="license"><img src="https://img.shields.io/badge/License-MIT-green.svg" /></a>
+	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="license"><img src="https://img.shields.io/badge/license-MIT-green.svg" /></a>
 </p>
 
-_Many features are coded and working, but Towel is still in heavy development. There will be actual NuGet package releases (not just pre-releases) of the code when ready, but note that the project has a goal of keeping as up-to-date as possible on modern C# practices rather than maintaining backwards compatibility._
+> _**Note**: This project has a goal of keeping as up-to-date on modern coding practices rather than maintaining backwards compatibility._
 
-## Pages
+> - [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTING.md)</br>
+> - [Docfx Generated Code Documentation](https://zacharypatten.github.io/Towel/api/index.html)</br>
+> - [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md)</br>
 
-- [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTING.md)
-- [Docfx Generated Code Documentation](https://zacharypatten.github.io/Towel/api/index.html)
-- [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md)
+> - [Generic Mathematics & Logic](https://github.com/ZacharyPatten/Towel#generic-mathematics--logic)</br>
+> - [Symbolic Mathematics](https://github.com/ZacharyPatten/Towel#symbolic-mathematics)</br>
+> - [Measurement Mathematics](https://github.com/ZacharyPatten/Towel#measurement-mathematics)</br>
+> - [Data Structures](https://github.com/ZacharyPatten/Towel#data-structures)</br>
+> - [Algorithms](https://github.com/ZacharyPatten/Towel#algorithms)</br>
+> - [Extensions](https://github.com/ZacharyPatten/Towel#extensions)</br>
+> - [Console Helpers](https://github.com/ZacharyPatten/Towel#console-helpers)</br>
+> - [Developer(s)](https://github.com/ZacharyPatten/Towel#developers)</br>
 
 ## Generic Mathematics & Logic
 
@@ -686,10 +701,10 @@ CommandLine.HandleArguments();
 
 // wait for keypress to continue an intercept input
 ConsoleHelper.PromptPressToContinue(...);
-// generic method for retirving validated console input
+// generic method for retrieving validated console input
 ConsoleHelper.GetInput<T>(...);
-// animated ellipsis character to so processing
-ConsoleHelper.AnimatedElipsis(...);
+// animated ellipsis character to show processing
+ConsoleHelper.AnimatedEllipsis(...);
 // render progress bar in console
 ConsoleHelper.ProgressBar(...);
 // Console.ReadLine() with hidden input characters
@@ -699,19 +714,6 @@ ConsoleHelper.IntMenu(...);
 // preventing console input
 ConsoleHelper.FlushInputBuffer();
 ```
-
-## Examples
-
-_Included In Repo_
-
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/BasicsAndExtensions/Program.cs" alt="Basics And Extensions Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/BasicsAndExtensions%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/CommandLine/Program.cs" alt="CommandLine Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/CommandLine%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/ConsoleHelpers/Program.cs" alt="Console Helpers Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/ConsoleHelpers%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/DataStructures/Program.cs" alt="Data Structures Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/DataStructures%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/GraphSearch/Program.cs" alt="Graph Search Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/GraphSearch%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/Mathematics/Program.cs" alt="Mathematics Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/Mathematics%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/Measurements/Program.cs" alt="Measurements Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/Measurements%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/OmnitreeGraphicsDemo/Program.cs" alt="Omnitree Graphics Demo Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/OmnitreeGraphicsDemo%20Example%20Build/badge.svg"></a>
 
 ## Developer(s)
 
