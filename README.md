@@ -24,14 +24,14 @@ _Many features are coded and working, but Towel is still in heavy development. T
 
 ## Examples
 
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/BasicsAndExtensions/Program.cs" alt="Basics And Extensions Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/BasicsAndExtensions%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/CommandLine/Program.cs" alt="CommandLine Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/CommandLine%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/ConsoleHelpers/Program.cs" alt="Console Helpers Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/ConsoleHelpers%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/DataStructures/Program.cs" alt="Data Structures Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/DataStructures%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/GraphSearch/Program.cs" alt="Graph Search Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/GraphSearch%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/Mathematics/Program.cs" alt="Mathematics Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/Mathematics%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/Measurements/Program.cs" alt="Measurements Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/Measurements%20Example%20Build/badge.svg"></a>
-- <a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/OmnitreeGraphicsDemo/Program.cs" alt="Omnitree Graphics Demo Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/OmnitreeGraphicsDemo%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/BasicsAndExtensions/Program.cs" alt="Basics And Extensions Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/BasicsAndExtensions%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/CommandLine/Program.cs" alt="CommandLine Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/CommandLine%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/ConsoleHelpers/Program.cs" alt="Console Helpers Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/ConsoleHelpers%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/DataStructures/Program.cs" alt="Data Structures Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/DataStructures%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/GraphSearch/Program.cs" alt="Graph Search Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/GraphSearch%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/Mathematics/Program.cs" alt="Mathematics Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/Mathematics%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/Measurements/Program.cs" alt="Measurements Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/Measurements%20Example%20Build/badge.svg"></a>
+<a href="https://github.com/ZacharyPatten/Towel/blob/master/Examples/OmnitreeGraphicsDemo/Program.cs" alt="Omnitree Graphics Demo Example"><img alt="flat" src="https://github.com/ZacharyPatten/Towel/workflows/OmnitreeGraphicsDemo%20Example%20Build/badge.svg"></a>
 
 ## Generic Mathematics & Logic
 
