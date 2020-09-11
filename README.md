@@ -6,15 +6,15 @@
 
 Towel is a C# .Net Core libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.
 
-| Topic | Info |
-| :---    | :--- |
-| GitHub  | https://github.com/ZacharyPatten/Towel |
-| Status  | <a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Build%22"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg" title="Go To Towel Build" alt="Towel Build"></a> |
-| NuGet   | [![nuget](https://img.shields.io/nuget/v/Towel.svg)](https://www.nuget.org/packages/Towel/) |
-| License | [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ZacharyPatten/Towel/blob/master/LICENSE) |
-| Discord | <a href="https://discord.gg/4XbQbwF"><img src="https://discordapp.com/assets/f8389ca1a741a115313bede9ac02e2c0.svg" width="40" height="40" title="Discord" alt="Discord"></a> |
+<p align="center">
+	<a href="https://github.com/ZacharyPatten/Towel" alt="GitHub repo"><img alt="flat" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"></a>
+	<a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Build%22"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg" title="Go To Towel Build" alt="Towel Build"></a>
+	<a href="https://www.nuget.org/packages/Towel" alt="nuget package"><img src="https://img.shields.io/nuget/v/Towel.svg" /></a>
+	<a href="https://discord.gg/4XbQbwF" alt="chat on Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord" /></a>
+	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="license"><img src="https://img.shields.io/badge/License-MIT-green.svg" /></a>
+</p>
 
-*Many features are coded and working, but Towel is still in heavy development. There will be actual NuGet package releases (not just pre-releases) of the code when ready, but note that the project has a goal of keeping as up-to-date as possible on modern C# practices rather than maintaining backwards compatibility.*
+_Many features are coded and working, but Towel is still in heavy development. There will be actual NuGet package releases (not just pre-releases) of the code when ready, but note that the project has a goal of keeping as up-to-date as possible on modern C# practices rather than maintaining backwards compatibility._
 
 ## Pages
 
@@ -610,7 +610,6 @@ ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 </p>
 </details>
 
-
 ## Algorithms
 
 ```csharp
@@ -675,6 +674,27 @@ string GetDocumentation(this ParameterInfo parameterInfo);
 // Iterating the permutations of an array
 void PermuteRecursive<T>(this T[] array, Step<T[]> step);
 void PermuteIterative<T>(this T[] array, Step<T[]> step);
+```
+
+## Console Helpers
+
+```cs
+// Just some helpe rmethods for console applications...
+
+// wait for keypress to continue an intercept input
+ConsoleHelper.PromptPressToContinue(...);
+// generic method for retirving validated console input
+ConsoleHelper.GetInput<T>(...);
+// animated ellipsis character to so processing
+ConsoleHelper.AnimatedElipsis(...);
+// render progress bar in console
+ConsoleHelper.ProgressBar(...);
+// Console.ReadLine() with hidden input characters
+ConsoleHelper.HiddenReadLine();
+// easily manage int-based console menus
+ConsoleHelper.IntMenu(...);
+// preventing console input
+ConsoleHelper.FlushInputBuffer();
 ```
 
 ## Developer(s)
