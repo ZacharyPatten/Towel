@@ -1,5 +1,5 @@
 <p align="center">
-	<a href="#"><img src="./Logo.svg" height="150"></a>
+	<a href="#"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/Logo.svg?raw=true" height="150"></a>
 </p>
 
 <h1 align="center">
