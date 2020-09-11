@@ -681,6 +681,9 @@ void PermuteIterative<T>(this T[] array, Step<T[]> step);
 ```cs
 // Just some helpe rmethods for console applications...
 
+// command line argument parser/handler
+CommandLine.HandleArguments();
+
 // wait for keypress to continue an intercept input
 ConsoleHelper.PromptPressToContinue(...);
 // generic method for retirving validated console input
