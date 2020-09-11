@@ -7,78 +7,59 @@
 		<PackageTags>library, framework, algorithms, data-structures, mathematics, extensions</PackageTags>
 		<PackageLicenseUrl></PackageLicenseUrl>
 		<Copyright>Copyright (c) 2020 Zachary Patten</Copyright>
-		<Description>Towel is a C# .Net Core libary intended to add core functionality that is missing in the language and to make advanced programming topics as clean and simple as possible.</Description>
+		<Description>A .NET library intended to add core functionality and make advanced topics as clean and simple as possible: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)</Description>
 		<PackageReleaseNotes>Towel is in an alpha (pre-release) state.</PackageReleaseNotes>
 		<Authors>Zachary Patten</Authors>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<Version>1.0.16-alpha</Version>
-		<LangVersion>8.0</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<AssemblyVersion>1.0.16.0</AssemblyVersion>
 		<FileVersion>1.0.16.0</FileVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<RepositoryType>git</RepositoryType>
 		<Company />
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
 		<DocumentationFile>Towel.xml</DocumentationFile>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-		<DocumentationFile>Towel.xml</DocumentationFile>
-		<NoWarn>1701;1702;IDE0034</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Remove="DataStructures\ve-1A2.tmp" />
 		<None Remove="Measurements\MeasurementGeneration.tt" />
 		<None Include="..\..\.github\Resources\icon.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
 		<None Include="Measurements\MeasurementTypes.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>MeasurementTypes.tt</DependentUpon>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
 		<None Update="DataStructures\Link.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>Link.cs</LastGenOutput>
 		</None>
-		<None Update="DataStructures\Omnitree.tt">
-			<Generator>TextTemplatingFileGenerator</Generator>
-			<LastGenOutput>Omnitree.cs</LastGenOutput>
-		</None>
-		<None Update="Measurements\MeasurementTypes.tt">
-			<Generator>TextTemplatingFileGenerator</Generator>
-			<LastGenOutput>MeasurementTypes.cs</LastGenOutput>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-	</ItemGroup>
-	<ItemGroup>
 		<Compile Update="DataStructures\Link.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Link.tt</DependentUpon>
 		</Compile>
+		<None Update="DataStructures\Omnitree.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>Omnitree.cs</LastGenOutput>
+		</None>
 		<Compile Update="DataStructures\Omnitree.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Omnitree.tt</DependentUpon>
 		</Compile>
+		<None Update="Measurements\MeasurementTypes.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>MeasurementTypes.cs</LastGenOutput>
+		</None>
 		<Compile Update="Measurements\MeasurementTypes.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>MeasurementTypes.tt</DependentUpon>
 		</Compile>
-	</ItemGroup>
-	<ItemGroup>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>Towel_Testing</_Parameter1>
 		</AssemblyAttribute>
