@@ -78,7 +78,7 @@ Open the :file_folder: **`root folder`** of the Towel repository in Visual Studi
 Towel has a nuget package:<br/>
 <a href="https://www.nuget.org/packages/Towel" alt="nuget package"><img src="https://img.shields.io/nuget/v/Towel.svg" /></a>
 
-Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project.](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET:<br/>
+Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET:<br/>
 <a href="https://dotnet.microsoft.com/download" alt="Target"><img alt="flat" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj"></a>
 
 You can install the Towel nuget package with the `dotnet add package Towel --version XXXXX` command, or you can
