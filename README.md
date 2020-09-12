@@ -16,7 +16,7 @@
 	<a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a>
 	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/" alt="Language C#"><img alt="Language C#" src="https://img.shields.io/badge/language-C%23-%23178600" title="Go To C# Documentation"></a>
 	<a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
-	<a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg" title="Go To Nuget Package" alt="Nuget Package"/></a>
+	<a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" alt="Nuget Package"/></a>
 	<a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://gist.githubusercontent.com/ZacharyPatten/ce53ded67eef6f9563376172dbc0382c/raw/8df6b22faa4255c3f84826639bb3b2d58ebee72a/docfx_badge.svg" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
 	<a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Build%22" alt="Workflow"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg" title="Go To Workflow" alt="Workflow"></a>
 	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord" title="Go To Discord Server" alt="Discord"/></a>
@@ -77,7 +77,7 @@ Open the :file_folder: **`root folder`** of the repository in Visual Studio Code
 <p>
 
 Towel has a nuget package:<br/>
-<a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg" title="Go To Nuget Package" alt="Nuget Package"/></a>
+<a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" alt="Nuget Package"/></a>
 
 Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET:<br/>
 <a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
