@@ -14,7 +14,7 @@
 
 <p align="center">
 	<a href="https://github.com/ZacharyPatten/Towel" alt="GitHub repo"><img alt="flat" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"></a>
-	<a href="https://dotnet.microsoft.com/download" alt="Target"><img alt="flat" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj"></a>
+	<a href="https://dotnet.microsoft.com/download" alt="Target"><img alt="flat" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net"></a>
 	<a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Build%22" alt="docfx documentation"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Build/badge.svg" title="Go To Towel Build" alt="Towel Build"></a>
 	<a href="https://www.nuget.org/packages/Towel" alt="nuget package"><img src="https://img.shields.io/nuget/v/Towel.svg" /></a>
 	<a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://gist.githubusercontent.com/ZacharyPatten/ce53ded67eef6f9563376172dbc0382c/raw/8df6b22faa4255c3f84826639bb3b2d58ebee72a/docfx_badge.svg" title="Go To Towel docfx Documentation" alt="Towel docfx Documentation"></a>
@@ -52,9 +52,9 @@ Install the [.NET Core SDK](https://dotnet.microsoft.com/download) if not alread
 
 Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already installed.
 
-Open the :file_folder: **`root folder`** of the Towel repository in Visual Studio Code.
+Open the :file_folder: **`root folder`** of the repository in Visual Studio Code.
 
-> _**Note** Towel includes the following:_
+> _**Note** The following files are included in the repository:_
 > - `.vscode/extensions.json`<sub>recommends Vistual Studio Code extension dependencies</sub>
 > - `.vscode/launch.json`<sub>includes the configurations for debugging the examples</sub>
 > - `.vscode/settings.json`<sub>automatically applies settings to the workspace</sub>
@@ -766,7 +766,7 @@ Search.Binary<T>(...);
 Search.Graph<Node, Numeric>(...);
 ```
 
-_Note: [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md) are included for the sorting algorithms._
+> _**Note** [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md) are included for the sorting algorithms._
 
 ## Extensions
 
