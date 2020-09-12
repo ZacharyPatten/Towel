@@ -57,7 +57,7 @@ Open the :file_folder: **`root folder`** of the Towel repository in Visual Studi
 > _**Note** Towel includes the following:_
 > - `.vscode/extensions.json`<sub>recommends Vistual Studio Code extension dependencies</sub>
 > - `.vscode/launch.json`<sub>includes the configurations for debugging the examples</sub>
-> - `.vscode/settings.json`<sub>automatically applies settings to the workspaces</sub>
+> - `.vscode/settings.json`<sub>automatically applies settings to the workspace</sub>
 > - `.vscode/tasks.json`<sub>includes the commands to build the projects</sub>
 
 > _**Note** Visual Studio Code Extensions (will be prompted to install these when you open the folder):_
