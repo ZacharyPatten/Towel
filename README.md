@@ -24,14 +24,115 @@
 
 > _**Note**: This project has a goal of keeping as up-to-date on modern coding practices rather than maintaining backwards compatibility._
 
+## Getting Started
+
+<details>
+<summary>
+:page_facing_up: <strong>Run The Included Examples <em>(Click To Expand)</em></strong>
+</summary>
+<br/>
+
+Towel has [Examples](https://github.com/ZacharyPatten/Towel/tree/master/Examples) included in this repository.
+
+[Download](https://github.com/ZacharyPatten/Towel/archive/master.zip) this repository and unzip the contents.
+
+There are no custom build processes. Towel should build with any standard .NET build process, but one of the following is recommended:
+
+### Visual Studio 2019
+
+Install [Visual Studio 2019](https://visualstudio.microsoft.com/) if not already installed.
+
+Open the :page_facing_up: **`Towel.sln`** file in Visual Studio.
+
+> _**Note** This is optional, but [here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
+
+### Visual Studio Code
+
+Install the [.NET Core SDK](https://dotnet.microsoft.com/download) if not already installed.
+
+Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already installed.
+
+Open the :file_folder: **`root folder`** of the Towel repository in Visual Studio Code.
+
+> _**Note** Towel includes the following:_
+> - `.vscode/extensions.json`<sub>recommends Vistual Studio Code extension dependencies</sub>
+> - `.vscode/launch.json`<sub>includes the configurations for debugging the examples</sub>
+> - `.vscode/settings.json`<sub>automatically applies settings to the workspaces</sub>
+> - `.vscode/tasks.json`<sub>includes the commands to build the projects</sub>
+
+> _**Note** Visual Studio Code Extensions (will be prompted to install these when you open the folder):_
+> - **ms-vscode.csharp** <sub>C# support</sub>
+> - **aisoftware.tt-processor** (optional) <sub>T4 Template support</sub>
+> - **zbecknell.t4-support** (optional) <sub>T4 Template syntax highlighting</sub>
+> - **formulahendry.dotnet-test-explorer** (optional) <sub>MSTest unit testing support</sub>
+
+</details>
+
+<details>
+<summary>
+:page_facing_up: <strong>Use Towel In Your .NET Projects <em>(Click To Expand)</em></strong>
+</summary>
+<br/>
+
+Towel has a nuget package:<br/>
+<a href="https://www.nuget.org/packages/Towel" alt="nuget package"><img src="https://img.shields.io/nuget/v/Towel.svg" /></a>
+
+You can install it with the `dotnet add package Towel --version XXXXX` command, or you can
+manually add a reference to it in your `.csproj` files `<PackageReference Include="Towel" Version="XXXXX" />`
+(where `XXXXX` is the version to install).
+
+</details>
+
+<details>
+<summary>
+:page_facing_up: <strong>View Documentation <em>(Click To Expand)</em></strong>
+</summary>
+<br/>
+
+Towel has an API documentation reference that is generated with [docfx](https://github.com/dotnet/docfx). You can view the documentation here:</br>
+https://zacharypatten.github.io/Towel/api/index.html</br>
+<a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://gist.githubusercontent.com/ZacharyPatten/ce53ded67eef6f9563376172dbc0382c/raw/8df6b22faa4255c3f84826639bb3b2d58ebee72a/docfx_badge.svg" title="Go To Towel docfx Documentation" alt="Towel docfx Documentation"></a>
+
+Here is Towel's benchmarking documentation:</br>
+https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md
+
+Here are some other documentation references:
+- [MSDN Accessing XML Documentation Via Reflection](https://docs.microsoft.com/en-us/archive/msdn-magazine/2019/october/csharp-accessing-xml-documentation-via-reflection)</br>
+- [Beginner's Guide To Console Input In C#](https://gist.github.com/ZacharyPatten/798ed612d692a560bdd529367b6a7dbd)</br>
+- [Generating Unique Random Data](https://gist.github.com/ZacharyPatten/c9b43a2c9e8a5a5523883e77410f742d)</br>
+- [Omnitree](https://gist.github.com/ZacharyPatten/f21fc5c6835faea9be8ae4baab4e294e)</br>
+- [C# Generic Math](https://gist.github.com/ZacharyPatten/8e1395a94928f2c7715cf939b0d0389c)</br>
+
+</details>
+
+<details>
+<summary>
+:page_facing_up: <strong>Get Involved <em>(Click To Expand)</em></strong>
+</summary>
+<br/>
+
+The easiest way to support Towel is to star the github repository.
+
+If you notice anything in Towel that may be improved, please [create a new issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).
+
+You can chat with the developer(s) on [discord](https://discord.gg/4XbQbwF).
+
+Share your work. If you use Towel in one of your projects we want to hear about it.
+
+If you want to contribute to Towel, you need to fork the github repsoitory, make your desired changes, and open a pull request.
+See [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTING.md) for more detailed information.
+
+</details>
+
 ## Generic Mathematics & Logic
 
 <details>
 <summary>
-:page_facing_up: <strong>How It Works <em>Click To Expand</em></strong>
+:page_facing_up: <strong>How It Works <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 public static T Addition<T>(T a, T b)
 {
 	return AdditionImplementation<T>.Function(a, b);
@@ -54,7 +155,7 @@ You can break type safe-ness using generic types and runtime compilation, and yo
 
 </details>
 
-```csharp
+```cs
 // Logic Fundamentals
 bool EqualTo<T>(T a , T b);
 bool LessThan<T>(T a, T b);
@@ -140,7 +241,7 @@ bool equal = M1 == M2;                  // Equal
 
 ## Symbolic Mathematics
 
-```csharp
+```cs
 // Parsing From Linq Expression
 Expression<Func<double, double>> exp1 = (x) => 2 * (x / 7);
 Symbolics.Expression symExp1 = Symbolics.Parse(exp1);
@@ -159,12 +260,13 @@ symExp1.Substitute("x", 5);
 
 <details>
 <summary>
-:page_facing_up: <strong>Supported Measurements <em>Click To Expand</em></strong>
+:page_facing_up: <strong>Supported Measurements <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
 Here are the currently supported measurement types:
 
-```csharp
+```cs
 //    Acceleration: Length/Time/Time
 //    AngularAcceleration: Angle/Time/Time
 //    Angle: Angle
@@ -196,7 +298,7 @@ The measurement types are generated in the *Towel/Measurements/MeasurementTypes.
 
 </details>
 
-```csharp
+```cs
 // Towel has measurement types to help write scientific code: Acceleration<T>, Angle<T>, Area<T>, 
 // Density<T>, Length<T>, Mass<T>, Speed<T>, Time<T>, Volume<T>, etc.
 
@@ -261,10 +363,11 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>Heap <em>Click To Expand</em></strong>
+:page_facing_up: <strong>Heap <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 // A heap is a binary tree that is sorted vertically using comparison methods. This is different
 // from AVL Trees or Red-Black Trees that keep their contents stored horizontally. The rule
 // of a heap is that no parent can be less than either of its children. A Heap using "sifting up"
@@ -308,10 +411,11 @@ IHeap<T> heapArray = new HeapArray<T>();
 
 <details>
 <summary>
-:page_facing_up: <strong>AVL Tree <em>Click To Expand</em></strong>
+:page_facing_up: <strong>AVL Tree <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 // An AVL tree is a binary tree that is sorted using comparison methods and automatically balances
 // itself by tracking the heights of nodes and performing one of four specific algorithms: rotate
 // right, rotate left, double rotate right, or double rotate left. Any parent in an AVL Tree must
@@ -357,10 +461,11 @@ IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 
 <details>
 <summary>
-:page_facing_up: <strong>Red Black Tree <em>Click To Expand</em></strong>
+:page_facing_up: <strong>Red Black Tree <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 // A Red-Black treeis a binary tree that is sorted using comparison methods and automatically 
 // balances itself. Any parent in an Red-Black Tree must be greater than its left child but less
 // than its right child (if the children exist). A Red-Black tree is sorted in the same manor as
@@ -404,10 +509,11 @@ IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 
 <details>
 <summary>
-:page_facing_up: <strong>Omnitree <em>Click To Expand</em></strong>
+:page_facing_up: <strong>Omnitree <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 // An Omnitree is a Spacial Partitioning Tree (SPT) that works on an arbitrary number of dimensions.
 // It stores items sorted along multiple dimensions by dividing spaces into sub-spaces. A 3D
 // version of an SPT is often called an "Octree" and a 2D version of an SPT is often called a
@@ -540,10 +646,11 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 
 <details>
 <summary>
-:page_facing_up: <strong>Tree <em>Click To Expand</em></strong>
+:page_facing_up: <strong>Tree <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 Tree<T> treeMap = new TreeMap<T>(...);
 ```
 
@@ -551,10 +658,11 @@ Tree<T> treeMap = new TreeMap<T>(...);
 
 <details>
 <summary>
-:page_facing_up: <strong>Graph <em>Click To Expand</em></strong>
+:page_facing_up: <strong>Graph <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 // A graph is a data structure that contains nodes and edges. They are useful
 // when you need to model real world scenarios. They also are generally used
 // for particular algorithms such as path finding. The GraphSetOmnitree is a
@@ -588,10 +696,11 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 
 <details>
 <summary>
-:page_facing_up: <strong>Trie <em>Click To Expand</em></strong>
+:page_facing_up: <strong>Trie <em>(Click To Expand)</em></strong>
 </summary>
+<br/>
 
-```csharp
+```cs
 // A trie is a tree that stores values in a way that partial keys may be shared
 // amongst values to reduce redundant memory usage. They are generally used with
 // large data sets such as storing all the words in the English language. For
@@ -614,7 +723,7 @@ ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 
 ## Algorithms
 
-```csharp
+```cs
 // Sorting
 Sort.Shuffle<T>(...);
 Sort.Bubble<T>(...);
@@ -642,7 +751,7 @@ _Note: [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/P
 
 ## Extensions
 
-```csharp
+```cs
 // System.Random extensions to generate more random types
 // Note: there are overloads to specify possible ranges
 string NextString(this Random random, int length);
