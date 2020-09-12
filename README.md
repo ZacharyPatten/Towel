@@ -30,7 +30,7 @@
 <summary>
 :page_facing_up: <strong>Run The Included Examples <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 Towel has [Examples](https://github.com/ZacharyPatten/Towel/tree/master/Examples) included in this repository.
 
@@ -66,28 +66,33 @@ Open the :file_folder: **`root folder`** of the Towel repository in Visual Studi
 > - **zbecknell.t4-support** (optional) <sub>T4 Template syntax highlighting</sub>
 > - **formulahendry.dotnet-test-explorer** (optional) <sub>MSTest unit testing support</sub>
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>Use Towel In Your .NET Projects <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 Towel has a nuget package:<br/>
 <a href="https://www.nuget.org/packages/Towel" alt="nuget package"><img src="https://img.shields.io/nuget/v/Towel.svg" /></a>
 
-You can install it with the `dotnet add package Towel --version XXXXX` command, or you can
+Your project must target the same or newer version of .NET as Towel. [See this documentation covers how you can check the current target of your project.](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET:<br/>
+<a href="https://dotnet.microsoft.com/download" alt="Target"><img alt="flat" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj"></a>
+
+You can install the Towel nuget package with the `dotnet add package Towel --version XXXXX` command, or you can
 manually add a reference to it in your `.csproj` files `<PackageReference Include="Towel" Version="XXXXX" />`
 (where `XXXXX` is the version to install).
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>View Documentation <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 Towel has an API documentation reference that is generated with [docfx](https://github.com/dotnet/docfx). You can view the documentation here:</br>
 https://zacharypatten.github.io/Towel/api/index.html</br>
@@ -103,25 +108,30 @@ Here are some other documentation references:
 - [Omnitree](https://gist.github.com/ZacharyPatten/f21fc5c6835faea9be8ae4baab4e294e)</br>
 - [C# Generic Math](https://gist.github.com/ZacharyPatten/8e1395a94928f2c7715cf939b0d0389c)</br>
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>Get Involved <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 The easiest way to support Towel is to star the github repository.
 
 If you notice anything in Towel that may be improved, please [create a new issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).
 
-You can chat with the developer(s) on [discord](https://discord.gg/4XbQbwF).
+You can chat with the developer(s) on discord:</br>
+<a href="https://discord.gg/4XbQbwF" alt="chat on Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord" /></a>
 
 Share your work. If you use Towel in one of your projects we want to hear about it.
 
-If you want to contribute to Towel, you need to fork the github repsoitory, make your desired changes, and open a pull request.
-See [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTING.md) for more detailed information.
+If you want to contribute to Towel:
+1. Fork this repository
+2. Make some changes
+3. Open a pull request
 
+</p>
 </details>
 
 ## Generic Mathematics & Logic
@@ -130,7 +140,7 @@ See [Contributing](https://github.com/ZacharyPatten/Towel/blob/master/CONTRIBUTI
 <summary>
 :page_facing_up: <strong>How It Works <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 public static T Addition<T>(T a, T b)
@@ -153,6 +163,7 @@ internal static class AdditionImplementation<T>
 
 You can break type safe-ness using generic types and runtime compilation, and you can store the runtime compilation in a delegate so the only overhead is the invocation of the delegate.
 
+</p>
 </details>
 
 ```cs
@@ -262,7 +273,7 @@ symExp1.Substitute("x", 5);
 <summary>
 :page_facing_up: <strong>Supported Measurements <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 Here are the currently supported measurement types:
 
@@ -296,6 +307,7 @@ Here are the currently supported measurement types:
 
 The measurement types are generated in the *Towel/Measurements/MeasurementTypes.tt* T4 text template file. The unit (enum) definitions are in the *Towel/Measurements/MeasurementUnitDefinitions.cs* file. Both measurment types and unit definitions can be easily added. If you think a measurement type or unit type should be added, please [submit an enhancement issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).
 
+</p>
 </details>
 
 ```cs
@@ -365,7 +377,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 <summary>
 :page_facing_up: <strong>Heap <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 // A heap is a binary tree that is sorted vertically using comparison methods. This is different
@@ -407,13 +419,14 @@ IHeap<T> heapArray = new HeapArray<T>();
 //         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>AVL Tree <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 // An AVL tree is a binary tree that is sorted using comparison methods and automatically balances
@@ -457,13 +470,14 @@ IAvlTree<int> avlTree = new AvlTreeLinked<int>();
 //         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>Red Black Tree <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 // A Red-Black treeis a binary tree that is sorted using comparison methods and automatically 
@@ -505,13 +519,14 @@ IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
 //         0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
 ```
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>Omnitree <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 // An Omnitree is a Spacial Partitioning Tree (SPT) that works on an arbitrary number of dimensions.
@@ -642,25 +657,27 @@ IOmnitreeBounds<T, A1, A2, A3...> omnitreeBounds =
 // Ω(ln(count)) runtime complexity when looking up values.
 ```
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>Tree <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 Tree<T> treeMap = new TreeMap<T>(...);
 ```
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>Graph <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 // A graph is a data structure that contains nodes and edges. They are useful
@@ -692,13 +709,14 @@ IGraph<int> graph = new GraphSetOmnitree<int>()
 };
 ```
 
+</p>
 </details>
 
 <details>
 <summary>
 :page_facing_up: <strong>Trie <em>(Click To Expand)</em></strong>
 </summary>
-<br/>
+<p>
 
 ```cs
 // A trie is a tree that stores values in a way that partial keys may be shared
@@ -719,6 +737,7 @@ ITrie<T> trie = new TrieLinkedHashLinked<T>();
 ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 ```
 
+</p>
 </details>
 
 ## Algorithms
