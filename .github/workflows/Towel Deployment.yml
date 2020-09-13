@@ -17,6 +17,6 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: Towel
-        path: Sources/Towel/Towel.csproj/bin/Release/Towel.${{ github.event.release.tag_name }}.nupkg
+        path: Sources/Towel/bin/Release/Towel.${{ github.event.release.tag_name }}.nupkg
     #- name: publish nuget
     #  run: dotnet nuget push **/*.nupkg --api-key ${{ secrets.nuget_api_key }} --source https://api.nuget.org/v3/index.json --no-symbols true
