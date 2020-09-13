@@ -1,11 +1,19 @@
 name: Towel Continuous Integration
-on: 
+on:
   push:
-    branches: 
+    branches:
       - master
+    paths-ignore:
+      - '.vscode/**'
+      - '.github/**'
+      - 'README.md'
   pull_request:
-    branches: 
+    branches:
       - master
+    paths-ignore:
+      - '.vscode/**'
+      - '.github/**'
+      - 'README.md'
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
