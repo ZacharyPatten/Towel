@@ -7,7 +7,7 @@ on:
     branches: 
       - master
 jobs:
-  build:
+  continuous-integration:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
