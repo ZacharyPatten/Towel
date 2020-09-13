@@ -1,26 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
-		<PackageProjectUrl></PackageProjectUrl>
-		<PackageIconUrl></PackageIconUrl>
-		<RepositoryUrl>https://github.com/ZacharyPatten/Towel</RepositoryUrl>
-		<PackageTags>library, framework, algorithms, data-structures, mathematics, extensions</PackageTags>
-		<PackageLicenseUrl></PackageLicenseUrl>
-		<Copyright>Copyright (c) 2020 Zachary Patten</Copyright>
-		<Description>A .NET library intended to add core functionality and make advanced topics as clean and simple as possible: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)</Description>
-		<PackageReleaseNotes>Towel is in an alpha (pre-release) state.</PackageReleaseNotes>
-		<Authors>Zachary Patten</Authors>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<Version>1.0.16-alpha</Version>
-		<LangVersion>latest</LangVersion>
-		<AssemblyVersion>1.0.16.0</AssemblyVersion>
-		<FileVersion>1.0.16.0</FileVersion>
-		<PackageIcon>icon.png</PackageIcon>
-		<RepositoryType>git</RepositoryType>
-		<Company />
-		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<AllowUnsafeBlocks>false</AllowUnsafeBlocks>
 		<DocumentationFile>Towel.xml</DocumentationFile>
+		<PackageId>Towel</PackageId>
+		<PackageIcon>icon.png</PackageIcon>
+		<Authors>Zachary Patten</Authors>
+		<Description>A .NET library intended to add core functionality and make advanced topics as clean and simple as possible: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageTags>Towel, library, framework, algorithms, data-structures, mathematics, extensions</PackageTags>
+		<PackageProjectUrl></PackageProjectUrl>
+		<Copyright>Copyright (c) 2020 Zachary Patten</Copyright>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/ZacharyPatten/Towel</RepositoryUrl>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Measurements\MeasurementGeneration.tt" />
