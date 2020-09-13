@@ -1,10 +1,9 @@
 ---
 name: Bug
-about: Report a bug to help us improve
+about: Report a flaw in the code.
 title: ''
 labels: Bug
-assignees: ''
-
+assigees: ''
 ---
 
 **Describe the bug**

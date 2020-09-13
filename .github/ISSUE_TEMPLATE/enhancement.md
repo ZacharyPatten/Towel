@@ -1,11 +1,19 @@
 ---
 name: Enhancement
-about: Discuss a change to help us improve
+about: Sugguest a change of any kind.
 title: ''
 labels: Enhancement
 assignees: ''
-
 ---
+
+**What is the topic of this enhancemnet**
+- [ ] change to Sources
+  - [ ] new feature sugguestion
+  - [ ] change to existing feature
+- [ ] change to Examples
+- [ ] change to Tools
+- [ ] documentation
+- [ ] other
 
 **Describe the enhancement**
 A clear and concise description of what the enhancement is.
@@ -13,5 +21,5 @@ A clear and concise description of what the enhancement is.
 **Purpose of enhancement**
 Describe how the enhancement would improve the project.
 
-**Alternative considerations**
-If applicable, describe alternatives to the enhancement that might be relavent to the discussion.
+**Related information**
+If applicable, add additional information such as potential alternatives.
