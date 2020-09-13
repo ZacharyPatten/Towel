@@ -1,0 +1,20 @@
+name: Towel Docfx
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'Sources/Towel/**'
+jobs:
+  docfx:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: nikeee/docfx-action@v1.0.0
+      name: docfx
+      with:
+        args: Tools/docfx_project/docfx.json
+    - uses: maxheld83/ghpages@master
+      name: gh-pages publish
+      env:
+        BUILD_DIR: _site
+        GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
