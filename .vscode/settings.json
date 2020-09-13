@@ -3,7 +3,6 @@
 	{
 		".github": true,
 		".vs": true,
-		"docs": true,
 		"packages": true,
 		"TestResults": true,
 		".gitignore": true,
