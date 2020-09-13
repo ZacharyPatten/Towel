@@ -1,0 +1,21 @@
+name: Towel Continuous Integration
+on: 
+  push:
+    branches: 
+      - master
+  pull_request:
+    branches: 
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: dotnet build
+      run: dotnet build Sources/Towel/Towel.csproj --configuration 'Release'
+    - name: dotnet test
+      run: dotnet test Tools/Towel_Testing/Towel_Testing.csproj --configuration 'Release'
