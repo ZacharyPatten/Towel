@@ -16,6 +16,6 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: dotnet build
-      run: dotnet build Sources/Towel/Towel.csproj --configuration 'Release'
+      run: dotnet build --configuration 'Release'
     - name: dotnet test
-      run: dotnet test Tools/Towel_Testing/Towel_Testing.csproj --configuration 'Release'
+      run: dotnet test --configuration 'Release'
