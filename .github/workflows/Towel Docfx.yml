@@ -18,5 +18,5 @@ jobs:
     - uses: maxheld83/ghpages@master
       name: gh-pages publish
       env:
-        BUILD_DIR: _site
+        BUILD_DIR: Tools/docfx_project/_site
         GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
