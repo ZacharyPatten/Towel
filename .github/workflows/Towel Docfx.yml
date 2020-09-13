@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'Sources/Towel/**'
+      - 'Tools/docfx_project/**'
 jobs:
   docfx:
     runs-on: ubuntu-latest
