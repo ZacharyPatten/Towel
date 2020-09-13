@@ -1,7 +1,6 @@
 {
 	"files.exclude":
 	{
-		".github": true,
 		".vs": true,
 		"packages": true,
 		"TestResults": true,
