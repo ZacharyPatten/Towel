@@ -10,6 +10,7 @@ jobs:
   docfx:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - uses: nikeee/docfx-action@v1.0.0
       name: docfx
       with:
