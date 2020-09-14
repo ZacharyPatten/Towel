@@ -72,14 +72,14 @@ namespace ConsoleHelpers
 							postClear: false,
 							length: 26,
 							action: action =>
-							{
-								int iterations = random.Next(5, 20);
-								for (int i = 0; i < iterations; i++)
 								{
-									Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(1000 / iterations, 15000 / iterations)));
-									action((i + 1) / (double)iterations * 100);
-								}
-							});
+									int iterations = random.Next(5, 20);
+									for (int i = 0; i < iterations; i++)
+									{
+										Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(1000 / iterations, 15000 / iterations)));
+										action((i + 1) / (double)iterations * 100);
+									}
+								});
 					});
 				Console.WriteLine();
 				Console.WriteLine();
