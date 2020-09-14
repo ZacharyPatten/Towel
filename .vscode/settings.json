@@ -4,10 +4,7 @@
 		".vs": true,
 		".gitignore": true,
 		"**/bin": true,
-		"**/obj": true,
-		"Sources/Towel.Graphics": true,
-		"Sources/Towel.Graphics.OpenGL": true,
-		"Sources/Towel.Physics": true
+		"**/obj": true
 	},
 	"workbench.colorTheme": "Default Dark+",
 	"csharp.semanticHighlighting.enabled": true,
