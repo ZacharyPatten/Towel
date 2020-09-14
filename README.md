@@ -766,7 +766,7 @@ Search.Binary<T>(...);
 Search.Graph<Node, Numeric>(...);
 ```
 
-> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html) are included for the sorting algorithms._
+> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html#sorting-algorithms) are included for the sorting algorithms._
 
 ## Extensions
 
