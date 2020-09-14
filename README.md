@@ -13,13 +13,13 @@
 > "It's a tough galaxy. If you want to survive, you've gotta know... where your towel is." - Ford Prefect
 
 <p align="center">
-	<a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a>
+	<a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-%2324292e?logo=github" title="Go To Github Repo" alt="Github Repository"></a>
 	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/" alt="Language C#"><img alt="Language C#" src="https://img.shields.io/badge/language-C%23-%23178600" title="Go To C# Documentation"></a>
 	<a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
 	<a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" alt="Nuget Package"/></a>
-	<a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://gist.githubusercontent.com/ZacharyPatten/ce53ded67eef6f9563376172dbc0382c/raw/8df6b22faa4255c3f84826639bb3b2d58ebee72a/docfx_badge.svg" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
+	<a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
 	<a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Continuous+Integration%22" alt="Towel Continuous Integration"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Continuous%20Integration/badge.svg" title="Go To Action" alt="Towel Continuous Integration"></a>
-	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord" title="Go To Discord Server" alt="Discord"/></a>
+	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" alt="Discord"/></a>
 	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="License"><img src="https://img.shields.io/badge/license-MIT-green.svg" title="Go To License" alt="License"/></a>
 </p>
 
@@ -97,7 +97,7 @@ manually add a reference to it in your `.csproj` files `<PackageReference Includ
 
 Towel has an API documentation reference that is generated with [docfx](https://github.com/dotnet/docfx). You can view the documentation here:</br>
 https://zacharypatten.github.io/Towel/api/index.html</br>
-<a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://gist.githubusercontent.com/ZacharyPatten/ce53ded67eef6f9563376172dbc0382c/raw/8df6b22faa4255c3f84826639bb3b2d58ebee72a/docfx_badge.svg" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
+<a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
 
 Here is Towel's benchmarking documentation:</br>
 https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md
