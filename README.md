@@ -123,7 +123,7 @@ The easiest way to support Towel is to star the github repository.
 If you notice anything in Towel that may be improved, please [create a new issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).
 
 You can chat with the developer(s) on discord:</br>
-<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord" title="Go To Discord Server" alt="Discord"/></a>
+<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" alt="Discord"/></a>
 
 Share your work. If you use Towel in one of your projects we want to hear about it.
 
