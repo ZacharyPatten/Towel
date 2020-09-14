@@ -129,6 +129,8 @@ Benchmarks with issues:
 
 ## Data Structures
 
+Source Code: https://github.com/ZacharyPatten/Towel/blob/master/Tools/Towel_Benchmarking/DataStructures.cs
+
 ``` ini
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
@@ -174,6 +176,8 @@ Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
 
 ## Permute
 
+Source Code: https://github.com/ZacharyPatten/Towel/blob/master/Tools/Towel_Benchmarking/Permute.cs
+
 ``` ini
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
@@ -214,6 +218,8 @@ InvocationCount=1  UnrollFactor=1
 
 ## Decimal To English Words
 
+Source Code: https://github.com/ZacharyPatten/Towel/blob/master/Tools/Towel_Benchmarking/ToEnglishWords.cs
+
 ``` ini
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
@@ -233,6 +239,8 @@ Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
 | **Decimal_ToEnglishWords** | **100000** | **67.59 ms** | **0.191 ms** | **0.170 ms** |
 
 ## Random
+
+Source Code: https://github.com/ZacharyPatten/Towel/blob/master/Tools/Towel_Benchmarking/Random.cs
 
 ``` ini
 
