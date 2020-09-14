@@ -363,6 +363,24 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region Levenshtein Distance
+			{
+				Console.WriteLine("  LevenshteinDistance----------------");
+				Console.WriteLine();
+				{
+					string a = "book";
+					string b = "barf";
+					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {LevenshteinDistance.Recursive(a, b)}");
+				}
+				{
+					string a = "hello";
+					string b = "help";
+					Console.WriteLine($@"    Iterative(""{a}"", ""{b}""): {LevenshteinDistance.Iterative(a, b)}");
+				}
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Switch
 			{
 				Console.WriteLine("  Switch syntax----------------------");

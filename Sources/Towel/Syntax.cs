@@ -1868,6 +1868,13 @@ namespace Towel
 		public static T Minimum<T>(Stepper<T> stepper) =>
 			OperationOnStepper(stepper, Minimum);
 
+		/// <summary>Computes the minimum of multiple numeric values.</summary>
+		/// <param name="a">The first operand of the minimum operation.</param>
+		/// <param name="b">The second operand of the minimum operation.</param>
+		/// <param name="c">The third operand of the minimum operation.</param>
+		/// <returns>The computed minimum of the provided values.</returns>
+		public static int Minimum(int a, int b, int c) => Math.Min(Math.Min(a, b), c);
+
 		#endregion
 
 		#region Clamp

@@ -43,7 +43,7 @@ namespace Towel
 	/// <typeparam name="T">The generic type of values to equate.</typeparam>
 	public interface IEquate<T> : IFunc<T, T, bool> { }
 
-	#region Compare - Built In Structs
+	#region Equate - Built In Structs
 
 	/// <summary>Built in Compare struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values to equate.</typeparam>
@@ -58,6 +58,16 @@ namespace Towel
 		/// <param name="equate">The runtime Equate delegate.</param>
 		public static implicit operator EquateRuntime<T>(Equate<T> equate) =>
 			new EquateRuntime<T>() { Equate = equate, };
+	}
+
+	/// <summary>Compares two char values for equality.</summary>
+	public struct EqualsChar : IEquate<char>
+	{
+		/// <summary>Compares two char values for equality.</summary>
+		/// <param name="a">The first operand of the equality check.</param>
+		/// <param name="b">The second operand of the equality check.</param>
+		/// <returns>True if equal; False if not.</returns>
+		public bool Do(char a, char b) => a == b;
 	}
 
 	#endregion

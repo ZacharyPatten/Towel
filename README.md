@@ -761,6 +761,13 @@ Sort.Slow<T>(...);
 
 Search.Binary<T>(...);
 
+int LevenshteinDistance.Recursive<...>(...);
+int LevenshteinDistance.Iterative<...>(...);
+
+// Permutations of sequences
+void Permute.Recursive<...>(...);
+void Permute.Iterative<...>(...);
+
 // Path Finding (Graph Search)
 // Note: overloads for A*, Dijkstra, and Breadth-First-Search algorithms
 Search.Graph<Node, Numeric>(...);
@@ -800,10 +807,6 @@ string GetDocumentation(this ConstructorInfo constructorInfo);
 string GetDocumentation(this MethodInfo methodInfo);
 string GetDocumentation(this MemberInfo memberInfo);
 string GetDocumentation(this ParameterInfo parameterInfo);
-
-// Iterating the permutations of an array
-void PermuteRecursive<T>(this T[] array, Step<T[]> step);
-void PermuteIterative<T>(this T[] array, Step<T[]> step);
 ```
 
 ## Console Helpers

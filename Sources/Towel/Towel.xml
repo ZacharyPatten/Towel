@@ -15238,6 +15238,15 @@
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="equate">The runtime Equate delegate.</param>
         </member>
+        <member name="T:Towel.EqualsChar">
+            <summary>Compares two char values for equality.</summary>
+        </member>
+        <member name="M:Towel.EqualsChar.Do(System.Char,System.Char)">
+            <summary>Compares two char values for equality.</summary>
+            <param name="a">The first operand of the equality check.</param>
+            <param name="b">The second operand of the equality check.</param>
+            <returns>True if equal; False if not.</returns>
+        </member>
         <member name="T:Towel.MathematicsException">
             <summary>Represents an exception in mathematical computation.</summary>
         </member>
@@ -16233,6 +16242,65 @@
         <member name="M:Towel.SetIndexListArray`1.op_Implicit(Towel.DataStructures.ListArray{`0})~Towel.SetIndexListArray{`0}">
             <summary>Implicitly gets the setter from a list.</summary>
             <param name="list">The list to get the setter of.</param>
+        </member>
+        <member name="T:Towel.LevenshteinDistance">
+            <summary>Contains algorithms for computing Levenshtein distances.</summary>
+        </member>
+        <member name="M:Towel.LevenshteinDistance.Recursive``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <typeparam name="GetA">The get index function for the first sequence.</typeparam>
+            <typeparam name="GetB">The get index function for the second sequence.</typeparam>
+            <typeparam name="Equals">The equality check function.</typeparam>
+            <param name="a_length">The length of the first sequence.</param>
+            <param name="b_length">The length of the second sequence.</param>
+            <param name="a">The get index function for the first sequence.</param>
+            <param name="b">The get index function for the second sequence.</param>
+            <param name="equals">The equality check function.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.LevenshteinDistance.Recursive(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+            <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+            <param name="a">The first sequence of the operation.</param>
+            <param name="b">The second sequence of the operation.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.LevenshteinDistance.Recursive``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+            <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <typeparam name="Equals">The equality check function.</typeparam>
+            <param name="a">The first sequence.</param>
+            <param name="b">The second sequence.</param>
+            <param name="equals">The equality check function.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.LevenshteinDistance.Iterative``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <typeparam name="GetA">The get index function for the first sequence.</typeparam>
+            <typeparam name="GetB">The get index function for the second sequence.</typeparam>
+            <typeparam name="Equals">The equality check function.</typeparam>
+            <param name="a_length">The length of the first sequence.</param>
+            <param name="b_length">The length of the second sequence.</param>
+            <param name="a">The get index function for the first sequence.</param>
+            <param name="b">The get index function for the second sequence.</param>
+            <param name="equals">The equality check function.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.LevenshteinDistance.Iterative(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+            <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
+            <param name="a">The first sequence of the operation.</param>
+            <param name="b">The second sequence of the operation.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.LevenshteinDistance.Iterative``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+            <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <typeparam name="Equals">The equality check function.</typeparam>
+            <param name="a">The first sequence.</param>
+            <param name="b">The second sequence.</param>
+            <param name="equals">The equality check function.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
         <member name="T:Towel.Mathematics.Fraction`1">
             <summary>Represents a rational value with a numerator and a denominator.</summary>
@@ -32070,6 +32138,13 @@
             <summary>Computes the minimum of multiple numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the minimum of.</param>
+            <returns>The computed minimum of the provided values.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Minimum(System.Int32,System.Int32,System.Int32)">
+            <summary>Computes the minimum of multiple numeric values.</summary>
+            <param name="a">The first operand of the minimum operation.</param>
+            <param name="b">The second operand of the minimum operation.</param>
+            <param name="c">The third operand of the minimum operation.</param>
             <returns>The computed minimum of the provided values.</returns>
         </member>
         <member name="M:Towel.Syntax.Clamp``1(``0,``0,``0)">
