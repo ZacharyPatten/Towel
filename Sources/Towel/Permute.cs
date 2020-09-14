@@ -24,6 +24,7 @@ namespace Towel
 		/// <param name="set">The set index operation of the collection.</param>
 		/// <param name="array">The array to iterate the permutations of.</param>
 		/// <param name="list">The list to iterate the permutations of.</param>
+		/// <param name="span">The span of the permutation.</param>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void XML() => throw new DocumentationMethodException();
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
@@ -70,6 +71,38 @@ namespace Towel
 				T temp = get.Do(a);
 				set.Do(a, get.Do(b));
 				set.Do(b, temp);
+			}
+		}
+
+		/// <inheritdoc cref="Recursive_XML"/>
+		public static void Recursive<T, Action, Status>(Span<T> span, Action action = default, Status status = default)
+			where Action : struct, IAction
+			where Status : struct, IFunc<StepStatus>
+		{
+			Permute(span, 0, span.Length - 1);
+			StepStatus Permute(Span<T> span, int a, int b)
+			{
+				if (a == b)
+				{
+					action.Do();
+					return status.Do();
+				}
+				for (int i = a; i <= b; i++)
+				{
+					Swap(span, a, i);
+					if (Permute(span, a + 1, b) is Break)
+					{
+						return Break;
+					}
+					Swap(span, a, i);
+				}
+				return Continue;
+			}
+			void Swap(Span<T> span, int a, int b)
+			{
+				T temp = span[a];
+				span[a]= span[b];
+				span[b] = temp;
 			}
 		}
 
@@ -149,6 +182,34 @@ namespace Towel
 				T temp = get.Do(a);
 				set.Do(a, get.Do(b));
 				set.Do(b, temp);
+			}
+		}
+
+		/// <inheritdoc cref="Iterative_XML"/>
+		public static void Iterative<T, Action, Status>(Span<T> span, Action action = default, Status status = default)
+			where Action : struct, IAction
+			where Status : struct, IFunc<StepStatus>
+		{
+			action.Do();
+			int[] indeces = new int[span.Length - 1 + 2];
+			for (int i = 0; i < indeces.Length; i++)
+			{
+				indeces[i] = i;
+			}
+			for (int i = 1; i < span.Length && status.Do() is Continue; action.Do())
+			{
+				indeces[i]--;
+				Swap(span, i, i % 2 == 1 ? indeces[i] : 0);
+				for (i = 1; indeces[i] == 0; i++)
+				{
+					indeces[i] = i;
+				}
+			}
+			static void Swap(Span<T> span, int a, int b)
+			{
+				T temp = span[a];
+				span[a] = span[b];
+				span[b] = temp;
 			}
 		}
 

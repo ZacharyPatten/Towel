@@ -25,6 +25,7 @@ namespace Towel
 		/// <param name="array">The array search.</param>
 		/// <param name="element">The element to search for.</param>
 		/// <param name="compare">The compare function.</param>
+		/// <param name="span">The span of the binary search.</param>
 		/// <returns>
 		/// (<see cref="bool"/> Success, <see cref="int"/> Index, <typeparamref name="T"/> Value)
 		/// <para>- <see cref="bool"/> Success: True if a match was found; False if not.</para>
@@ -105,6 +106,31 @@ namespace Towel
 					case Less:    low = median + 1; break;
 					case Greater: hi  = median - 1; break;
 					case Equal:   return (true, median, value);
+					default:
+						throw compareResult.IsDefined()
+						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+						: new ArgumentException($"Invalid {nameof(Sift)} function; an undefined {nameof(CompareResult)} was returned.", nameof(sift));
+				}
+			}
+			return (false, Math.Min(low, hi), default);
+		}
+
+		/// <inheritdoc cref="Binary_XML"/>
+		public static (bool Success, int Index, T Value) Binary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
+			where Sift : ISift<T>
+		{
+			int low = 0;
+			int hi = span.Length - 1;
+			while (low <= hi)
+			{
+				int median = low + (hi - low) / 2;
+				T value = span[median];
+				CompareResult compareResult = sift.Do(value);
+				switch (compareResult)
+				{
+					case Less: low = median + 1; break;
+					case Greater: hi = median - 1; break;
+					case Equal: return (true, median, value);
 					default:
 						throw compareResult.IsDefined()
 						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
