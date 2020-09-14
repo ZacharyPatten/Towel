@@ -77,7 +77,7 @@ namespace ConsoleHelpers
 								for (int i = 0; i < iterations; i++)
 								{
 									Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(1000 / iterations, 15000 / iterations)));
-									action(i / (double)iterations * 100);
+									action((i + 1) / (double)iterations * 100);
 								}
 							});
 					});
@@ -107,6 +107,11 @@ namespace ConsoleHelpers
 				Console.WriteLine("IntMenu allows easy console menus.");
 				Console.WriteLine();
 
+				ConsoleHelper.IntMenu(
+					("Option One", Option1),
+					("Option Two", Option2),
+					("Option Three", Option3));
+
 				static void Option1()
 				{
 					Console.WriteLine("You chose the first option.");
@@ -122,10 +127,6 @@ namespace ConsoleHelpers
 					Console.WriteLine("You chose the third option.");
 				}
 
-				ConsoleHelper.IntMenu(
-					("Option 1", Option1),
-					("Option 2", Option2),
-					("Option 3", Option3));
 				Console.WriteLine();
 			}
 			#endregion
