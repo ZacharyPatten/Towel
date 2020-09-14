@@ -100,7 +100,7 @@ https://zacharypatten.github.io/Towel/api/index.html</br>
 <a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
 
 Here is Towel's benchmarking documentation:</br>
-https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md
+https://zacharypatten.github.io/Towel/articles/benchmarks.html
 
 Here are some other documentation references:
 - [MSDN Accessing XML Documentation Via Reflection](https://docs.microsoft.com/en-us/archive/msdn-magazine/2019/october/csharp-accessing-xml-documentation-via-reflection)</br>
@@ -744,7 +744,6 @@ ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 ## Algorithms
 
 ```cs
-// Sorting
 Sort.Shuffle<T>(...);
 Sort.Bubble<T>(...);
 Sort.Selection<T>(...);
@@ -767,7 +766,7 @@ Search.Binary<T>(...);
 Search.Graph<Node, Numeric>(...);
 ```
 
-> _**Note** [Benchmarks](https://github.com/ZacharyPatten/Towel/blob/master/.github/Pages/Benchmarks.md) are included for the sorting algorithms._
+> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html) are included for the sorting algorithms._
 
 ## Extensions
 
@@ -810,7 +809,7 @@ void PermuteIterative<T>(this T[] array, Step<T[]> step);
 ## Console Helpers
 
 ```cs
-// Just some helpe rmethods for console applications...
+// Just some helper methods for console applications...
 
 // command line argument parser/handler
 CommandLine.HandleArguments();
