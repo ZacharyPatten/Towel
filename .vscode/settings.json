@@ -2,18 +2,12 @@
 	"files.exclude":
 	{
 		".vs": true,
-		"packages": true,
-		"TestResults": true,
 		".gitignore": true,
-		"CONTRIBUTING.md": true,
-		"License.md": true,
-		"Logo.svg": true,
-		"README.md": true,
 		"**/bin": true,
 		"**/obj": true,
 		"Sources/Towel.Graphics": true,
 		"Sources/Towel.Graphics.OpenGL": true,
-		"Sources/Towel.Physics": true,
+		"Sources/Towel.Physics": true
 	},
 	"workbench.colorTheme": "Default Dark+",
 	"csharp.semanticHighlighting.enabled": true,
