@@ -70,8 +70,8 @@ namespace Towel.DataStructures
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
 		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
-			_compare is CompareRuntime<T> compareRuntime
-			? compareRuntime.Compare
+			_compare is FuncRuntime<T, T, CompareResult> func
+			? func._func
 			: _compare.Do;
 
 		/// <summary>The maximum items the queue can hold.</summary>
@@ -280,7 +280,7 @@ namespace Towel.DataStructures
 
 	/// <summary>A heap with static priorities implemented as a array.</summary>
 	/// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-	public class HeapArray<T> : HeapArray<T, CompareRuntime<T>>
+	public class HeapArray<T> : HeapArray<T, FuncRuntime<T, T, CompareResult>>
 	{
 		#region Constructors
 
@@ -303,7 +303,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>Delegate determining the comparison technique used for sorting.</summary>
-		public Func<T, T, CompareResult> Compare => _compare.Compare;
+		public Func<T, T, CompareResult> Compare => _compare._func;
 
 		#endregion
 

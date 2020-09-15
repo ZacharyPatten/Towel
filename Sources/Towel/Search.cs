@@ -43,7 +43,7 @@ namespace Towel
 		public static (bool Success, int Index, T Value) Binary<T>(T[] array, T element, Func<T, T, CompareResult> compare = default)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, CompareRuntime<T>>>(0, array.Length, array, new SiftFromCompareAndValue<T, CompareRuntime<T>>(element, compare ?? Compare.Default));
+			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(0, array.Length, array, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare.Default));
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
@@ -58,7 +58,7 @@ namespace Towel
 		public static (bool Success, int Index, T Value) Binary<T>(T[] array, Func<T, CompareResult> sift)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return Binary<T, GetIndexArray<T>, SiftRuntime<T>>(0, array.Length, array, sift);
+			return Binary<T, GetIndexArray<T>, FuncRuntime<T, CompareResult>>(0, array.Length, array, sift);
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
@@ -74,7 +74,7 @@ namespace Towel
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
-			return Binary<T, GetIndexRuntime<T>, SiftRuntime<T>>(0, length, get, sift);
+			return Binary<T, GetIndexRuntime<T>, FuncRuntime<T, CompareResult>>(0, length, get, sift);
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>

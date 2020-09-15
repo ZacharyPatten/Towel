@@ -71,17 +71,6 @@
             <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
             <returns>The converted System.Comparison delegate.</returns>
         </member>
-        <member name="T:Towel.CompareRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
-        </member>
-        <member name="M:Towel.CompareRuntime`1.Do(`0,`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.CompareRuntime`1.op_Implicit(System.Func{`0,`0,Towel.CompareResult})~Towel.CompareRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="compare">The runtime Compare delegate.</param>
-        </member>
         <member name="T:Towel.CompareInt">
             <summary>Default int compare.</summary>
         </member>
@@ -90,17 +79,6 @@
             <param name="a">The left hand side of the compare.</param>
             <param name="b">The right ahnd side of the compare.</param>
             <returns>The result of the comparison.</returns>
-        </member>
-        <member name="T:Towel.SiftRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
-        </member>
-        <member name="M:Towel.SiftRuntime`1.Do(`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.SiftRuntime`1.op_Implicit(System.Func{`0,Towel.CompareResult})~Towel.SiftRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="sift">The runtime Compare delegate.</param>
         </member>
         <member name="T:Towel.SiftFromCompareAndValue`2">
             <summary>Built in Compare struct for runtime computations.</summary>
@@ -16059,6 +16037,16 @@
         </member>
         <member name="M:Towel.IFunc`2.Do(`0)">
             <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`2">
+            <summary>Built in struct for runtime computations.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`2.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`2.op_Implicit(System.Func{`0,`1})~Towel.FuncRuntime{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="func">The runtime delegate.</param>
         </member>
         <member name="T:Towel.IFunc`3">
             <summary>Interface for a compile time delegate.</summary>

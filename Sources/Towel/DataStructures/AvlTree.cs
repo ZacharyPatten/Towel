@@ -102,8 +102,8 @@ namespace Towel.DataStructures
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
 		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
-			_compare is CompareRuntime<T> compareRuntime
-			? compareRuntime.Compare
+			_compare is FuncRuntime<T, T, CompareResult> func
+			? func._func
 			: _compare.Do;
 
 		/// <summary>Gets the number of elements in the collection.</summary>
@@ -809,7 +809,7 @@ namespace Towel.DataStructures
 
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
-	public class AvlTreeLinked<T> : AvlTreeLinked<T, CompareRuntime<T>>
+	public class AvlTreeLinked<T> : AvlTreeLinked<T, FuncRuntime<T, T, CompareResult>>
 	{
 		#region Constructors
 
@@ -842,7 +842,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
-		public Func<T, T, CompareResult> Compare => _compare.Compare;
+		public Func<T, T, CompareResult> Compare => _compare._func;
 
 		#endregion
 

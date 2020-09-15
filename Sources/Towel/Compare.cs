@@ -66,21 +66,6 @@ namespace Towel
 			(a, b) => (int)compare(a, b);
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
-	public struct CompareRuntime<T> : IFunc<T, T, CompareResult>
-	{
-		internal Func<T, T, CompareResult> Compare;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public CompareResult Do(T a, T b) => Compare(a, b);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="compare">The runtime Compare delegate.</param>
-		public static implicit operator CompareRuntime<T>(Func<T, T, CompareResult> compare) =>
-			new CompareRuntime<T>() { Compare = compare, };
-	}
-
 	/// <summary>Default int compare.</summary>
 	public struct CompareInt : IFunc<int, int, CompareResult>
 	{
@@ -89,21 +74,6 @@ namespace Towel
 		/// <param name="b">The right ahnd side of the compare.</param>
 		/// <returns>The result of the comparison.</returns>
 		public CompareResult Do(int a, int b) => Compare.Wrap(a.CompareTo(b));
-	}
-
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
-	public struct SiftRuntime<T> : IFunc<T, CompareResult>
-	{
-		internal Func<T, CompareResult> Sift;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public CompareResult Do(T a) => Sift(a);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="sift">The runtime Compare delegate.</param>
-		public static implicit operator SiftRuntime<T>(Func<T, CompareResult> sift) =>
-			new SiftRuntime<T>() { Sift = sift, };
 	}
 
 	/// <summary>Built in Compare struct for runtime computations.</summary>

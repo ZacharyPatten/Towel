@@ -119,8 +119,8 @@ namespace Towel.DataStructures
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
 		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
-			_compare is CompareRuntime<T> compareRuntime
-			? compareRuntime.Compare
+			_compare is FuncRuntime<T, T, CompareResult> func
+			? func._func
 			: _compare.Do;
 
 		#endregion
@@ -965,7 +965,7 @@ namespace Towel.DataStructures
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	public class RedBlackTreeLinked<T> : RedBlackTreeLinked<T, CompareRuntime<T>>
+	public class RedBlackTreeLinked<T> : RedBlackTreeLinked<T, FuncRuntime<T, T, CompareResult>>
 	{
 		#region Constructors
 
@@ -1004,7 +1004,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>The sorting technique.</summary>
-		public Func<T, T, CompareResult> Compare => _compare.Compare;
+		public Func<T, T, CompareResult> Compare => _compare._func;
 
 		#endregion
 

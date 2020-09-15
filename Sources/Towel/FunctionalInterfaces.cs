@@ -9,8 +9,6 @@ namespace Towel
 		void Do();
 	}
 
-	#region IAction - Built In Structs
-
 	/// <summary>Built in struct for runtime computations.</summary>
 	public struct ActionRuntime : IAction
 	{
@@ -21,11 +19,8 @@ namespace Towel
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="action">The runtime delegate.</param>
-		public static implicit operator ActionRuntime(Action action) =>
-			new ActionRuntime() { Action = action, };
+		public static implicit operator ActionRuntime(Action action) => new ActionRuntime() { Action = action, };
 	}
-
-	#endregion
 
 	/// <summary>Interface for a compile time delegate.</summary>
 	public interface IAction<A>
@@ -55,8 +50,6 @@ namespace Towel
 		A Do();
 	}
 
-	#region IFunc<A> - Built In Structs
-
 	/// <summary>Built in struct for runtime computations.</summary>
 	public struct FuncRuntime<A> : IFunc<A>
 	{
@@ -67,17 +60,25 @@ namespace Towel
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="func">The runtime delegate.</param>
-		public static implicit operator FuncRuntime<A>(Func<A> func) =>
-			new FuncRuntime<A>() { Func = func, };
+		public static implicit operator FuncRuntime<A>(Func<A> func) => new FuncRuntime<A>() { Func = func, };
 	}
-
-	#endregion
 
 	/// <summary>Interface for a compile time delegate.</summary>
 	public interface IFunc<A, B>
 	{
 		/// <summary>The invocation of the compile time delegate.</summary>
 		B Do(A a);
+	}
+
+	/// <summary>Built in struct for runtime computations.</summary>
+	public struct FuncRuntime<A, B> : IFunc<A, B>
+	{
+		internal Func<A, B> _func;
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public B Do(A a) => _func(a);
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="func">The runtime delegate.</param>
+		public static implicit operator FuncRuntime<A, B>(Func<A, B> func) => new FuncRuntime<A, B>() { _func = func, };
 	}
 
 	/// <summary>Interface for a compile time delegate.</summary>
@@ -97,8 +98,7 @@ namespace Towel
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="func">The runtime delegate.</param>
-		public static implicit operator FuncRuntime<A, B, C>(Func<A, B, C> func) =>
-			new FuncRuntime<A, B, C>() { _func = func, };
+		public static implicit operator FuncRuntime<A, B, C>(Func<A, B, C> func) => new FuncRuntime<A, B, C>() { _func = func, };
 	}
 
 	/// <summary>Interface for a compile time delegate.</summary>
