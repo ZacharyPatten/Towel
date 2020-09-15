@@ -187,7 +187,7 @@ namespace Towel.DataStructures
 		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
 		/// <returns>True of contained, False if not.</returns>
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
-		public bool Contains(Sift<T> sift)
+		public bool Contains(Func<T, CompareResult> sift)
 		{
 			Node node = _root;
 			while (!(node is null))
@@ -219,7 +219,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the get succeeded or false if not.</returns>
 		/// <runtime>O(ln(Count)) Ω(1)</runtime>
-		public bool TryGet(Sift<T> sift, out T value, out Exception exception)
+		public bool TryGet(Func<T, CompareResult> sift, out T value, out Exception exception)
 		{
 			Node node = _root;
 			while (!(node is null))
@@ -260,7 +260,7 @@ namespace Towel.DataStructures
 		/// <param name="sift">The compare delegate.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Sift<T> sift, out Exception exception)
+		public bool TryRemove(Func<T, CompareResult> sift, out Exception exception)
 		{
 			Exception capturedException = null;
 			Node Remove(Node node)

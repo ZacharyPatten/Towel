@@ -55,7 +55,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index, T Value) Binary<T>(T[] array, Sift<T> sift)
+		public static (bool Success, int Index, T Value) Binary<T>(T[] array, Func<T, CompareResult> sift)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
 			return Binary<T, GetIndexArray<T>, SiftRuntime<T>>(0, array.Length, array, sift);
@@ -70,7 +70,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index, T Value) Binary<T>(int length, GetIndex<T> get, Sift<T> sift)
+		public static (bool Success, int Index, T Value) Binary<T>(int length, GetIndex<T> get, Func<T, CompareResult> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));

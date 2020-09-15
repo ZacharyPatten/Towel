@@ -15,12 +15,6 @@ namespace Towel
 		Greater = 1
 	};
 
-	/// <summary>Delegate for comparing a value to a known value.</summary>
-	/// <typeparam name="T">The generic types to compare.</typeparam>
-	/// <param name="b">The value to compare to the known value.</param>
-	/// <returns>The result of the comparison.</returns>
-	public delegate CompareResult Sift<T>(T b);
-
 	/// <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
 	public static class Compare
 	{
@@ -101,14 +95,14 @@ namespace Towel
 	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
 	public struct SiftRuntime<T> : IFunc<T, CompareResult>
 	{
-		internal Sift<T> Sift;
+		internal Func<T, CompareResult> Sift;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
 		public CompareResult Do(T a) => Sift(a);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="sift">The runtime Compare delegate.</param>
-		public static implicit operator SiftRuntime<T>(Sift<T> sift) =>
+		public static implicit operator SiftRuntime<T>(Func<T, CompareResult> sift) =>
 			new SiftRuntime<T>() { Sift = sift, };
 	}
 
