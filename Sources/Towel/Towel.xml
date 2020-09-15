@@ -32508,5 +32508,86 @@
             <param name="value">The parse value or default.</param>
             <returns>True if the parse succeeded or false if not.</returns>
         </member>
+        <member name="T:Towel.ValueAttribute">
+            <summary>A value-based attribute.</summary>
+        </member>
+        <member name="M:Towel.ValueAttribute.#ctor(System.Object,System.Object)">
+            <summary>Creates a new value-based attribute.</summary>
+            <param name="attribute">The attribute.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:Towel.ValueAttributeExtensions">
+            <summary>Extension methods for reflection types and <see cref="T:Towel.ValueAttribute"/>.</summary>
+        </member>
+        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Type,System.Object)">
+            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Type"/>.</summary>
+            <param name="type">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
+            <param name="attribute">The attribute to get the value of.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not.</para>
+            <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
+            </returns>
+        </member>
+        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.MethodInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.MethodInfo"/>.</summary>
+            <param name="methodInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
+            <param name="attribute">The attribute to get the value of.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not.</para>
+            <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
+            </returns>
+        </member>
+        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.PropertyInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.PropertyInfo"/>.</summary>
+            <param name="propertyInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
+            <param name="attribute">The attribute to get the value of.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not.</para>
+            <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
+            </returns>
+        </member>
+        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.FieldInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.FieldInfo"/>.</summary>
+            <param name="fieldInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
+            <param name="attribute">The attribute to get the value of.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not.</para>
+            <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
+            </returns>
+        </member>
+        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.ConstructorInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.ConstructorInfo"/>.</summary>
+            <param name="constructorInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
+            <param name="attribute">The attribute to get the value of.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not.</para>
+            <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
+            </returns>
+        </member>
+        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.EventInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.EventInfo"/>.</summary>
+            <param name="eventInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
+            <param name="attribute">The attribute to get the value of.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not.</para>
+            <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
+            </returns>
+        </member>
+        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.ParameterInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.ParameterInfo"/>.</summary>
+            <param name="parameterInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
+            <param name="attribute">The attribute to get the value of.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not.</para>
+            <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
+            </returns>
+        </member>
     </members>
 </doc>

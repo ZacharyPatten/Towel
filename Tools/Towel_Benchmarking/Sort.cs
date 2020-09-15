@@ -4,6 +4,7 @@ using Towel;
 
 namespace Towel_Benchmarking
 {
+	[Value(Program.Name, "Sorting Algorithms")]
 	public class Sort_Benchmarks
 	{
 		[Params(10, 1000, 10000)] public int N;

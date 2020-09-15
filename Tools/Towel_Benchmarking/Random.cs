@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace Towel_Benchmarking
 {
+	[Value(Program.Name, "Random")]
 	public class Random_Benchmarks
 	{
 		[Params(10, 100, 1000, 10000, 100000)]

@@ -69,6 +69,7 @@ namespace Towel_Benchmarking
 
 	#endregion
 
+	[Value(Program.Name, "Data Structures")]
 	public class DataStructures_Benchmarks
 	{
 		[ParamsSource(nameof(RandomData))]

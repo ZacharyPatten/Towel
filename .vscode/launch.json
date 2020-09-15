@@ -93,5 +93,16 @@
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
+		{
+			"name": "ValueAttributes Example [Debug]",
+			"type": "coreclr",
+			"request": "launch",
+			"preLaunchTask": "Build ValueAttributes Example [Debug]",
+			"program": "${workspaceFolder}/Examples/ValueAttributes/bin/Debug/netcoreapp3.1/ValueAttributes.dll",
+			"args": [],
+			"cwd": "${workspaceFolder}/Examples/ValueAttributes/bin/Debug/netcoreapp3.1",
+			"console": "externalTerminal",
+			"stopAtEntry": false
+		},
 	]
 }

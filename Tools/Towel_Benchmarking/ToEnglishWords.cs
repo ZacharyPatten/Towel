@@ -3,6 +3,7 @@ using Towel;
 
 namespace Towel_Benchmarking
 {
+	[Value(Program.Name, "[Numeric] To English Words")]
 	public class ToEnglishWords_Benchmarks
 	{
 		[Params(10, 100, 1000, 10000, 100000)]

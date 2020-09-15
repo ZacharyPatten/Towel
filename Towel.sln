@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmnitreeGraphicsDemo", "Exa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel_Generating", "Tools\Towel_Generating\Towel_Generating.csproj", "{F150D97E-33BB-43C8-8A1D-4FA279E0751C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleHelpers", "Examples\ConsoleHelpers\ConsoleHelpers.csproj", "{84268336-B88E-4DBA-8CE0-7BA24BFCCA58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleHelpers", "Examples\ConsoleHelpers\ConsoleHelpers.csproj", "{84268336-B88E-4DBA-8CE0-7BA24BFCCA58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueAttributes", "Examples\ValueAttributes\ValueAttributes.csproj", "{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{84268336-B88E-4DBA-8CE0-7BA24BFCCA58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84268336-B88E-4DBA-8CE0-7BA24BFCCA58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84268336-B88E-4DBA-8CE0-7BA24BFCCA58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,6 +117,7 @@ Global
 		{E7E2CDFE-EE20-4A15-95A3-B632A7ECD3F8} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{F150D97E-33BB-43C8-8A1D-4FA279E0751C} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
 		{84268336-B88E-4DBA-8CE0-7BA24BFCCA58} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
+		{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}
