@@ -113,8 +113,8 @@ namespace Towel.DataStructures
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
 		Func<T, T, bool> DataStructure.IEquating<T>.Equate =>
-			_equate is EquateRuntime<T> equateRuntime
-			? equateRuntime.Equate
+			_equate is FuncRuntime<T, T, bool> func
+			? func._func
 			: _equate.Do;
 
 		#endregion
@@ -421,7 +421,7 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
 	/// <typeparam name="T">The type of values to store in the set.</typeparam>
-	public class SetHashLinked<T> : SetHashLinked<T, EquateRuntime<T>, HashRuntime<T>>
+	public class SetHashLinked<T> : SetHashLinked<T, FuncRuntime<T, T, bool>, HashRuntime<T>>
 	{
 		#region Constructors
 
@@ -456,7 +456,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Func<T, T, bool> Equate => _equate.Equate;
+		public Func<T, T, bool> Equate => _equate._func;
 
 		#endregion
 

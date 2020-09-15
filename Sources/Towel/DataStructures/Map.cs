@@ -261,8 +261,8 @@ namespace Towel.DataStructures
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
 		Func<K, K, bool> DataStructure.IEquating<K>.Equate =>
-			_equate is EquateRuntime<K> equateRuntime
-			? equateRuntime.Equate
+			_equate is FuncRuntime<K, K, bool> equate
+			? equate._func
 			: _equate.Do;
 
 		/// <summary>Gets the value of a specified key.</summary>
@@ -807,7 +807,7 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	public class MapHashLinked<T, K> : MapHashLinked<T, K, EquateRuntime<K>, HashRuntime<K>>
+	public class MapHashLinked<T, K> : MapHashLinked<T, K, FuncRuntime<K, K, bool>, HashRuntime<K>>
 	{
 		#region Constructors
 
@@ -842,7 +842,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Func<K, K, bool> Equate => _equate.Equate;
+		public Func<K, K, bool> Equate => _equate._func;
 
 		#endregion
 

@@ -15181,17 +15181,6 @@
             <param name="compare">The compare delegate to convert to a equate.</param>
             <returns>The compare delegate converted into an equate.</returns>
         </member>
-        <member name="T:Towel.EquateRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to equate.</typeparam>
-        </member>
-        <member name="M:Towel.EquateRuntime`1.Do(`0,`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.EquateRuntime`1.op_Implicit(System.Func{`0,`0,System.Boolean})~Towel.EquateRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="equate">The runtime Equate delegate.</param>
-        </member>
         <member name="T:Towel.EqualsChar">
             <summary>Compares two char values for equality.</summary>
         </member>
@@ -16076,6 +16065,16 @@
         </member>
         <member name="M:Towel.IFunc`3.Do(`0,`1)">
             <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`3">
+            <summary>Built in struct for runtime computations.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`3.Do(`0,`1)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`3.op_Implicit(System.Func{`0,`1,`2})~Towel.FuncRuntime{`0,`1,`2}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="func">The runtime delegate.</param>
         </member>
         <member name="T:Towel.IFunc`4">
             <summary>Interface for a compile time delegate.</summary>

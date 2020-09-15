@@ -18,21 +18,6 @@ namespace Towel
 		#endregion
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to equate.</typeparam>
-	public struct EquateRuntime<T> : IFunc<T, T, bool>
-	{
-		internal Func<T, T, bool> Equate;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public bool Do(T a, T b) => Equate(a, b);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="equate">The runtime Equate delegate.</param>
-		public static implicit operator EquateRuntime<T>(Func<T, T, bool> equate) =>
-			new EquateRuntime<T>() { Equate = equate, };
-	}
-
 	/// <summary>Compares two char values for equality.</summary>
 	public struct EqualsChar : IFunc<char, char, bool>
 	{
