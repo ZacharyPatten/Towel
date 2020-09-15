@@ -749,6 +749,13 @@ namespace Towel
 
 		#region EqualTo
 
+		/// <summary>Static wrapper for the based "<see cref="object"/>.Equals" fuction.</summary>
+		/// <typeparam name="T">The generic type of this operation.</typeparam>
+		/// <param name="a">The first item of the equate function.</param>
+		/// <param name="b">The second item of the equate function.</param>
+		/// <returns>True if deemed equal; False if not.</returns>
+		public static bool DefaultEquals<T>(T a, T b) => a.Equals(b);
+
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>

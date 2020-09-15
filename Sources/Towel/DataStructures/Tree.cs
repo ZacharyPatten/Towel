@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.DataStructures
 {
@@ -72,7 +73,7 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		public TreeMap(T head) : this(head, Towel.Equate.Default, Towel.Hash.Default) { }
+		public TreeMap(T head) : this(head, DefaultEquals, Towel.Hash.Default) { }
 
 		public TreeMap(T head, Func<T, T, bool> equate, Hash<T> hash)
 		{

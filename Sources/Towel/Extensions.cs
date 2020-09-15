@@ -1171,7 +1171,7 @@ namespace Towel
 		/// <param name="a2">The second array of the deep equality check.</param>
 		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
 		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2) =>
-			a1.ValuesAreEqual(a2, Equate.Default);
+			a1.ValuesAreEqual(a2, DefaultEquals);
 
 		/// <summary>Performs a deep equality check of two arrays.</summary>
 		/// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>

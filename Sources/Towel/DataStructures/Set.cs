@@ -433,7 +433,7 @@ namespace Towel.DataStructures
 		public SetHashLinked(
 			Func<T, T, bool> equate = null,
 			Hash<T> hash = null,
-			int? expectedCount = null) : base(equate ?? Towel.Equate.Default, hash ?? Towel.Hash.Default, expectedCount) { }
+			int? expectedCount = null) : base(equate ?? DefaultEquals, hash ?? Towel.Hash.Default, expectedCount) { }
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="set">The set to clone.</param>
@@ -535,7 +535,7 @@ namespace Towel.DataStructures
 				_table = new Structure[2];
 			}
 			_factory = factory;
-			_equate = equate ?? Towel.Equate.Default;
+			_equate = equate ?? DefaultEquals;
 			_hash = hash ?? Towel.Hash.Default;
 			_count = 0;
 		}

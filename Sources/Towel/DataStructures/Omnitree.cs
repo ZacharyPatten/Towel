@@ -221,7 +221,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1>(this IOmnitreePoints<T, Axis1> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1>(this IOmnitreePoints<T, Axis1> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 		
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -244,7 +244,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1>(this IOmnitreeBounds<T, Axis1> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1>(this IOmnitreeBounds<T, Axis1> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -474,7 +474,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2>(this IOmnitreePoints<T, Axis1, Axis2> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2>(this IOmnitreePoints<T, Axis1, Axis2> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 		
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -502,7 +502,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis2">The geneic type of the 2D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2>(this IOmnitreeBounds<T, Axis1, Axis2> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2>(this IOmnitreeBounds<T, Axis1, Axis2> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -793,7 +793,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreePoints<T, Axis1, Axis2, Axis3> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreePoints<T, Axis1, Axis2, Axis3> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 		
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -826,7 +826,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis3">The geneic type of the 3D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -1178,7 +1178,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 		
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -1216,7 +1216,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis4">The geneic type of the 4D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -1629,7 +1629,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 		
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -1672,7 +1672,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis5">The geneic type of the 5D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -2146,7 +2146,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 		
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -2194,7 +2194,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis6">The geneic type of the 6D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -2729,7 +2729,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis7">The geneic type of the 7D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 		
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
@@ -2782,7 +2782,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="Axis7">The geneic type of the 7D axis.</typeparam>
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree, T removal) => Remove(omnitree, removal, Equate.Default);
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree, T removal) => Remove(omnitree, removal, DefaultEquals);
 
 		/// <summary>Removes all occurences of a value from the omnitree.</summary>
 		/// <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>

@@ -321,7 +321,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			Graph(start, neighbors, heuristic, cost, goal, Equate.Default, out totalCost);
+			Graph(start, neighbors, heuristic, cost, goal, DefaultEquals, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
@@ -329,7 +329,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			Graph(start, graph, heuristic, cost, goal, Equate.Default, out totalCost);
+			Graph(start, graph, heuristic, cost, goal, DefaultEquals, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
@@ -401,7 +401,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal) =>
-			Graph(start, neighbors, heuristic, goal, Equate.Default);
+			Graph(start, neighbors, heuristic, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
@@ -409,7 +409,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal) =>
-			Graph(start, graph, heuristic, goal, Equate.Default);
+			Graph(start, graph, heuristic, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
@@ -480,7 +480,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal) =>
-			Graph(start, neighbors, goal, Equate.Default);
+			Graph(start, neighbors, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
@@ -488,7 +488,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal) =>
-			Graph(start, graph, goal, Equate.Default);
+			Graph(start, graph, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>

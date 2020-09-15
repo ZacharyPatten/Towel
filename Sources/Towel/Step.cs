@@ -590,7 +590,7 @@ namespace Towel
 		/// <param name="stepper">The stepper function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper) =>
-			ContainsDuplicates(stepper, Equate.Default, Hash.Default);
+			ContainsDuplicates(stepper, DefaultEquals, Hash.Default);
 
 		/// <summary>Determines if the data contains any duplicates.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
@@ -598,7 +598,7 @@ namespace Towel
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
 		public static bool ContainsDuplicates<T>(this Stepper<T> stepper) =>
-			ContainsDuplicates(stepper, Equate.Default, Hash.Default);
+			ContainsDuplicates(stepper, DefaultEquals, Hash.Default);
 
 		/// <summary>Determines if the stepper contains any of the predicated values.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>

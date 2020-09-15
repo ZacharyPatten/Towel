@@ -3,25 +3,10 @@ using static Towel.Syntax;
 
 namespace Towel
 {
-	/// <summary>Delegate for equating two instances of different types.</summary>
-	/// <typeparam name="A">The type of the left instance to compare.</typeparam>
-	/// <typeparam name="B">The type of the right instance to compare.</typeparam>
-	/// <param name="a">The left operand of the equating.</param>
-	/// <param name="b">The right operand of the equating.</param>
-	/// <returns>Whether the equate is valid (true) or not (false).</returns>
-	public delegate bool Equate<A, B>(A a, B b);
-
 	/// <summary>Static wrapper for the based "object.Equals" function.</summary>
 	public static class Equate
 	{
 		#region Members
-
-		/// <summary>Static wrapper for the based "object.Equals" fuction.</summary>
-		/// <typeparam name="T">The generic type of this operation.</typeparam>
-		/// <param name="a">The first item of the equate function.</param>
-		/// <param name="b">The second item of the equate function.</param>
-		/// <returns>True if deemed equal; False if not.</returns>
-		public static bool Default<T>(T a, T b) => a.Equals(b);
 
 		/// <summary>Converts a Compare delegate into an Equate delegate.</summary>
 		/// <typeparam name="T">The generic parameter of the delegates.</typeparam>

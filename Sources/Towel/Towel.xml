@@ -15193,23 +15193,8 @@
             <summary>Gets the enumerator for the trie.</summary>
             <returns>The enumerator for the trie.</returns>
         </member>
-        <member name="T:Towel.Equate`2">
-            <summary>Delegate for equating two instances of different types.</summary>
-            <typeparam name="A">The type of the left instance to compare.</typeparam>
-            <typeparam name="B">The type of the right instance to compare.</typeparam>
-            <param name="a">The left operand of the equating.</param>
-            <param name="b">The right operand of the equating.</param>
-            <returns>Whether the equate is valid (true) or not (false).</returns>
-        </member>
         <member name="T:Towel.Equate">
             <summary>Static wrapper for the based "object.Equals" function.</summary>
-        </member>
-        <member name="M:Towel.Equate.Default``1(``0,``0)">
-            <summary>Static wrapper for the based "object.Equals" fuction.</summary>
-            <typeparam name="T">The generic type of this operation.</typeparam>
-            <param name="a">The first item of the equate function.</param>
-            <param name="b">The second item of the equate function.</param>
-            <returns>True if deemed equal; False if not.</returns>
         </member>
         <member name="M:Towel.Equate.FromCompare``1(Towel.Compare{``0})">
             <summary>Converts a Compare delegate into an Equate delegate.</summary>
@@ -31697,6 +31682,13 @@
         <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.DataStructures.StackArray{`0}">
             <summary>Converts a universal quantification to an <see cref="T:Towel.DataStructures.StackArray`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Syntax.DefaultEquals``1(``0,``0)">
+            <summary>Static wrapper for the based "<see cref="T:System.Object"/>.Equals" fuction.</summary>
+            <typeparam name="T">The generic type of this operation.</typeparam>
+            <param name="a">The first item of the equate function.</param>
+            <param name="b">The second item of the equate function.</param>
+            <returns>True if deemed equal; False if not.</returns>
         </member>
         <member name="M:Towel.Syntax.EqualTo``3(``0,``1)">
             <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>

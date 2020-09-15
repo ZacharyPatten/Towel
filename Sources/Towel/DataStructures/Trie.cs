@@ -133,7 +133,7 @@ namespace Towel.DataStructures
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
-				equate ?? Towel.Equate.Default,
+				equate ?? DefaultEquals,
 				hash ?? Towel.Hash.Default);
 		}
 
@@ -477,7 +477,7 @@ namespace Towel.DataStructures
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
-				equate ?? Towel.Equate.Default,
+				equate ?? DefaultEquals,
 				hash ?? Towel.Hash.Default);
 		}
 
