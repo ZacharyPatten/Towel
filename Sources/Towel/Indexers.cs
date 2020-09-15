@@ -63,6 +63,21 @@ namespace Towel
 			new GetIndexListArray<T>() { List = list, };
 	}
 
+	/// <summary>Built in GetIndex struct for lists.</summary>
+	/// <typeparam name="T">The generic type of the value to get.</typeparam>
+	public struct GetIndexString : IGetIndex<char>
+	{
+		internal string String;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public char Do(int index) => String[index];
+
+		/// <summary>Implicitly gets the getter from a list.</summary>
+		/// <param name="string">The string to get the indexer of.</param>
+		public static implicit operator GetIndexString(string @string) =>
+			new GetIndexString() { String = @string, };
+	}
+
 	#endregion
 
 	/// <summary>A compile time delegate for setting a value at an index.</summary>

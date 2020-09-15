@@ -778,7 +778,7 @@ ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 ## Algorithms
 
 ```cs
-// Note: supports System.Span<T> and any int-indexed type that is not a ref struct
+// Note: supports System.Span<T> and any (non ref struct) int-indexed type
 Sort.Shuffle<T>(...);
 Sort.Bubble<T>(...);
 Sort.Selection<T>(...);
@@ -794,15 +794,16 @@ Sort.Shell<T>(...);
 Sort.Bogo<T>(...);
 Sort.Slow<T>(...);
 
-// Note: supports System.ReadOnlySpan<T> and any int-indexed type is not a ref struct
+// Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
 Search.Binary<T>(...);
 
-// Note: supports System.ReadOnlySpan<T> and any int-indexed type is not a ref struct
+// Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
+int HammingDistance.Iterative<...>(...);
 int LevenshteinDistance.Recursive<...>(...);
 int LevenshteinDistance.Iterative<...>(...);
 
 // Permutations of sequences
-// Note: supports System.Span<T> and any int-indexed type is not a ref struct
+// Note: supports System.Span<T> and any (non ref struct) int-indexed type
 void Permute.Recursive<...>(...);
 void Permute.Iterative<...>(...);
 

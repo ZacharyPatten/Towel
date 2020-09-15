@@ -7,6 +7,13 @@ namespace Towel
 	public static class LevenshteinDistance
 	{
 		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+		/// <param name="a">The first sequence.</param>
+		/// <param name="b">The second sequence.</param>
+		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
+		public static int Recursive(string a, string b) =>
+			Recursive<char, GetIndexString, GetIndexString, EqualsChar>(a.Length, b.Length, a, b);
+
+		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
 		/// <typeparam name="GetA">The get index function for the first sequence.</typeparam>
 		/// <typeparam name="GetB">The get index function for the second sequence.</typeparam>
@@ -87,6 +94,13 @@ namespace Towel
 			}
 			return LDR(a, b, 0, 0);
 		}
+
+		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
+		/// <param name="a">The first sequence.</param>
+		/// <param name="b">The second sequence.</param>
+		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
+		public static int Iterative(string a, string b) =>
+			Iterative<char, GetIndexString, GetIndexString, EqualsChar>(a.Length, b.Length, a, b);
 
 		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>

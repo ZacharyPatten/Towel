@@ -16138,6 +16138,42 @@
         <member name="M:Towel.IFunc`4.Do(`0,`1,`2)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
+        <member name="T:Towel.HammingDistance">
+            <summary>Contains algorithms for computing Hamming distances.</summary>
+        </member>
+        <member name="M:Towel.HammingDistance.Iterative(System.String,System.String)">
+            <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
+            <param name="a">The first sequence.</param>
+            <param name="b">The second sequence.</param>
+            <returns>The computed Hamming distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.HammingDistance.Iterative``4(System.Int32,``1,``2,``3)">
+            <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <typeparam name="GetA">The get index function for the first sequence.</typeparam>
+            <typeparam name="GetB">The get index function for the second sequence.</typeparam>
+            <typeparam name="Equals">The equality check function.</typeparam>
+            <param name="length">The length of the sequences.</param>
+            <param name="a">The get index function for the first sequence.</param>
+            <param name="b">The get index function for the second sequence.</param>
+            <param name="equals">The equality check function.</param>
+            <returns>The computed Hamming distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.HammingDistance.Iterative(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+            <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+            <param name="a">The first sequence of the operation.</param>
+            <param name="b">The second sequence of the operation.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.HammingDistance.Iterative``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+            <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <typeparam name="Equals">The equality check function.</typeparam>
+            <param name="a">The first sequence.</param>
+            <param name="b">The second sequence.</param>
+            <param name="equals">The equality check function.</param>
+            <returns>The computed Hamming distance of the two sequences.</returns>
+        </member>
         <member name="T:Towel.Hash`1">
             <summary>Delegate for hash code computation.</summary>
             <typeparam name="T">The type of this hash function.</typeparam>
@@ -16215,6 +16251,17 @@
             <summary>Implicitly gets the getter from a list.</summary>
             <param name="list">The list to get the getter of.</param>
         </member>
+        <member name="T:Towel.GetIndexString">
+            <summary>Built in GetIndex struct for lists.</summary>
+            <typeparam name="T">The generic type of the value to get.</typeparam>
+        </member>
+        <member name="M:Towel.GetIndexString.Do(System.Int32)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.GetIndexString.op_Implicit(System.String)~Towel.GetIndexString">
+            <summary>Implicitly gets the getter from a list.</summary>
+            <param name="string">The string to get the indexer of.</param>
+        </member>
         <member name="T:Towel.ISetIndex`1">
             <summary>A compile time delegate for setting a value at an index.</summary>
             <typeparam name="T">The generic type of value to set.</typeparam>
@@ -16255,6 +16302,12 @@
         <member name="T:Towel.LevenshteinDistance">
             <summary>Contains algorithms for computing Levenshtein distances.</summary>
         </member>
+        <member name="M:Towel.LevenshteinDistance.Recursive(System.String,System.String)">
+            <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+            <param name="a">The first sequence.</param>
+            <param name="b">The second sequence.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
         <member name="M:Towel.LevenshteinDistance.Recursive``4(System.Int32,System.Int32,``1,``2,``3)">
             <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
             <typeparam name="T">The element type of the sequences.</typeparam>
@@ -16281,6 +16334,12 @@
             <param name="a">The first sequence.</param>
             <param name="b">The second sequence.</param>
             <param name="equals">The equality check function.</param>
+            <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.LevenshteinDistance.Iterative(System.String,System.String)">
+            <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
+            <param name="a">The first sequence.</param>
+            <param name="b">The second sequence.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
         <member name="M:Towel.LevenshteinDistance.Iterative``4(System.Int32,System.Int32,``1,``2,``3)">

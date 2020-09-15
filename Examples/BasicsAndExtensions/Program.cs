@@ -363,6 +363,19 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region Hamming Distance
+			{
+				Console.WriteLine("  HammingDistance----------------");
+				Console.WriteLine();
+				{
+					string a = "book";
+					string b = "barf";
+					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {HammingDistance.Iterative(a, b)}");
+				}
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Levenshtein Distance
 			{
 				Console.WriteLine("  LevenshteinDistance----------------");
