@@ -39,8 +39,6 @@ namespace Towel
 	/// <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
 	public static class Compare
 	{
-		#region Members
-
 		/// <summary>Converts an int into a comparison.</summary>
 		/// <param name="compareResult">The integer comparison result to convert into a Comparison.</param>
 		/// <returns>The converted Comparison value.</returns>
@@ -87,8 +85,6 @@ namespace Towel
 		/// <returns>The converted System.Comparison delegate.</returns>
 		public static Comparison<T> ToSystemComparison<T>(Compare<T> compare) =>
 			(a, b) => (int)compare(a, b);
-
-		#endregion
 	}
 
 	/// <summary>Built in Compare struct for runtime computations.</summary>
@@ -116,15 +112,9 @@ namespace Towel
 		public CompareResult Do(int a, int b) => Compare.Wrap(a.CompareTo(b));
 	}
 
-	/// <summary>A compile time delegate for comparing two values.</summary>
-	/// <typeparam name="T">The generic type of values to compare.</typeparam>
-	public interface ISift<T> : IFunc<T, CompareResult> { }
-
-	#region Sift - Built In Structs
-
 	/// <summary>Built in Compare struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
-	public struct SiftRuntime<T> : ISift<T>
+	public struct SiftRuntime<T> : IFunc<T, CompareResult>
 	{
 		internal Sift<T> Sift;
 
@@ -140,7 +130,7 @@ namespace Towel
 	/// <summary>Built in Compare struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
 	/// /// <typeparam name="Compare">The compare function.</typeparam>
-	public struct SiftFromCompareAndValue<T, Compare> : ISift<T>
+	public struct SiftFromCompareAndValue<T, Compare> : IFunc<T, CompareResult>
 		where Compare : IFunc<T, T, CompareResult>
 	{
 		internal Compare CompareFunction;
@@ -158,6 +148,4 @@ namespace Towel
 			CompareFunction = compare;
 		}
 	}
-
-	#endregion
 }

@@ -63,7 +63,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T, Sift>(T[] array, Sift sift = default)
-			where Sift : ISift<T>
+			where Sift : IFunc<T, CompareResult>
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
 			return Binary<T, GetIndexArray<T>, Sift>(0, array.Length, array, sift);
@@ -80,7 +80,7 @@ namespace Towel
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
 			where Get : IFunc<int, T>
-			where Sift : ISift<T>
+			where Sift : IFunc<T, CompareResult>
 		{
 			if (length <= 0)
 			{
@@ -117,7 +117,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
-			where Sift : ISift<T>
+			where Sift : IFunc<T, CompareResult>
 		{
 			int low = 0;
 			int hi = span.Length - 1;

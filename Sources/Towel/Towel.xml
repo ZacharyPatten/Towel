@@ -112,10 +112,6 @@
             <param name="b">The right ahnd side of the compare.</param>
             <returns>The result of the comparison.</returns>
         </member>
-        <member name="T:Towel.ISift`1">
-            <summary>A compile time delegate for comparing two values.</summary>
-            <typeparam name="T">The generic type of values to compare.</typeparam>
-        </member>
         <member name="T:Towel.SiftRuntime`1">
             <summary>Built in Compare struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the values to compare.</typeparam>
