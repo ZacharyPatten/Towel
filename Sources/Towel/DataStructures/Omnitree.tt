@@ -76,7 +76,7 @@ string chain_AxisX_axisX = "Axis1 axis1"; for (int j = 2; j <= i; j++) { chain_A
 string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j <= i; j++) { chain_AxisX_minX_AxisX_maxX += ", Axis" + j + " min" + j + ", Axis" + j + " max" + j; }
 string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
 string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
-string chain_Compare_AxisX_compareX = "Compare<Axis1> compare1"; for (int j = 2; j <= i; j++) { chain_Compare_AxisX_compareX += ", Compare<Axis" + j + "> compare" + j; }
+string chain_Compare_AxisX_compareX = "Func<Axis1, Axis1, CompareResult> compare1"; for (int j = 2; j <= i; j++) { chain_Compare_AxisX_compareX += ", Func<Axis" + j + ", Axis" + j + ", CompareResult> compare" + j; }
 string chain_Equate_AxisX_equateX = "Func<Axis1, Axis1, bool> equate1"; for (int j = 2; j <= i; j++) { chain_Equate_AxisX_equateX += ", Func<Axis" + j + ", Axis" + j + ", bool> equate" + j; }
 string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
 string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
@@ -571,7 +571,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			> _locate;
 <# for (int j = 1; j <= i; j++) { #>
 		internal bool _defaultCompare<#= j #>;
-		internal Compare<Axis<#= j #>> _compare<#= j #>;
+		internal Func<Axis<#= j #>, Axis<#= j #>, CompareResult> _compare<#= j #>;
 <# } #>
 <# for (int j = 1; j <= i; j++) { #>
 		internal Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> _subdivisionOverride<#= j #>;
@@ -772,7 +772,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			Omnitree.Location<T, <#= chain_AxisX #>> locate,
 <# for (int j = 1; j <= i; j++) { #>
 			bool defaultCompare<#= j #>,
-			Compare<Axis<#= j #>> compare<#= j #>,
+			Func<Axis<#= j #>, Axis<#= j #>, CompareResult> compare<#= j #>,
 <# } #>
 			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1
 <# for (int j = 2; j <= i; j++) { #>,
@@ -816,7 +816,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		public OmnitreePointsLinked(
 			Omnitree.Location<T, <#= chain_AxisX #>> locate,
 <# for (int j = 1; j <= i; j++) { #>
-			Compare<Axis<#= j #>> compare<#= j #> = null,
+			Func<Axis<#= j #>, Axis<#= j #>, CompareResult> compare<#= j #> = null,
 <# } #>
 			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null
 <# for (int j = 2; j <= i; j++) { #>,
@@ -855,7 +855,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The comparison function the Omnitree is using along the <#= j #>D axis.</summary>
-		public Compare<Axis<#= j #>> Compare<#= j #> { get { return this._compare<#= j #>; } }
+		public Func<Axis<#= j #>, Axis<#= j #>, CompareResult> Compare<#= j #> { get { return this._compare<#= j #>; } }
 <# } #>
 
 		/// <summary>The current number of items in the tree.</summary>
@@ -2490,7 +2490,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			> _getBounds;
 <# for (int j = 1; j <= i; j++) { #>
 		internal bool _defaultCompare<#= j #>;
-		internal Compare<Axis<#= j #>> _compare<#= j #>;
+		internal Func<Axis<#= j #>, Axis<#= j #>, CompareResult> _compare<#= j #>;
 <# } #>
 <# for (int j = 1; j <= i; j++) { #>
 		internal Omnitree.SubdivisionOverride<T, Axis<#= j #>, Omnitree.Bounds<<#= chain_AxisX #>>> _subdivisionOverride<#= j #>;
@@ -2666,7 +2666,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			Omnitree.GetBounds<T, <#= chain_AxisX #>> getBounds,
 <# for (int j = 1; j <= i; j++) { #>
 			bool defaultCompare<#= j #>,
-			Compare<Axis<#= j #>> compare<#= j #>,
+			Func<Axis<#= j #>, Axis<#= j #>, CompareResult> compare<#= j #>,
 <# } #>
 			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1
 <# for (int j = 2; j <= i; j++) { #>,
@@ -2709,7 +2709,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBounds<T, <#= chain_AxisX #>> getBounds,
 <# for (int j = 1; j <= i; j++) { #>
-			Compare<Axis<#= j #>> compare<#= j #> = null,
+			Func<Axis<#= j #>, Axis<#= j #>, CompareResult> compare<#= j #> = null,
 <# } #>
 			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null
 <# for (int j = 2; j <= i; j++) { #>,
@@ -2740,7 +2740,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		public OmnitreeBoundsLinked(
 			Omnitree.GetBoundings<T, <#= chain_AxisX #>> getBoundings,
 <# for (int j = 1; j <= i; j++) { #>
-			Compare<Axis<#= j #>> compare<#= j #> = null,
+			Func<Axis<#= j #>, Axis<#= j #>, CompareResult> compare<#= j #> = null,
 <# } #>
 			Omnitree.SubdivisionOverride<T, Axis1, Omnitree.Bounds<<#= chain_AxisX #>>> subdivisionOverride1 = null
 <# for (int j = 2; j <= i; j++) { #>
@@ -2776,7 +2776,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The comparison function the Omnitree is using along the <#= j #>D axis.</summary>
-		public Compare<Axis<#= j #>> Compare<#= j #> => _compare<#= j #>;
+		public Func<Axis<#= j #>, Axis<#= j #>, CompareResult> Compare<#= j #> => _compare<#= j #>;
 <# } #>
 
 		/// <summary>The current number of items in the tree.</summary>

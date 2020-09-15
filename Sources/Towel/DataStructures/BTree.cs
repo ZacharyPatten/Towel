@@ -149,7 +149,7 @@ namespace Towel.DataStructures
 
 #region Constructors
 
-		public BTreeLinkedArray(Compare<T> compare, int node_size)
+		public BTreeLinkedArray(Func<T, T, CompareResult> compare, int node_size)
 		{
 			if (node_size < 2)
 				throw new System.ArgumentOutOfRangeException("node_size");

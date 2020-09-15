@@ -40,7 +40,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index, T Value) Binary<T>(T[] array, T element, Compare<T> compare = default)
+		public static (bool Success, int Index, T Value) Binary<T>(T[] array, T element, Func<T, T, CompareResult> compare = default)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
 			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, CompareRuntime<T>>>(0, array.Length, array, new SiftFromCompareAndValue<T, CompareRuntime<T>>(element, compare ?? Compare.Default));

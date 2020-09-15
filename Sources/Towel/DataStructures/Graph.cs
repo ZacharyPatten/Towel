@@ -95,7 +95,7 @@ namespace Towel.DataStructures
 		/// <param name="hash">The hash delegate for the datastructure to use.</param>
 		public GraphSetOmnitree(
 			Func<T, T, bool> equate = null,
-			Compare<T> compare = null,
+			Func<T, T, CompareResult> compare = null,
 			Hash<T> hash = null)
 		{
 			equate ??= DefaultEquals;

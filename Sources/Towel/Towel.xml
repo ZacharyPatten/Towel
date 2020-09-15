@@ -32,21 +32,6 @@
         <member name="F:Towel.CompareResult.Greater">
             <summary>The left operand is greater than the right operand.</summary>
         </member>
-        <member name="T:Towel.Compare`1">
-            <summary>Delegate for comparing two instances of the same type.</summary>
-            <typeparam name="T">The type of the istances to compare.</typeparam>
-            <param name="a">The left operand of the comparison.</param>
-            <param name="b">The right operand of the comparison.</param>
-            <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-        </member>
-        <member name="T:Towel.Compare`2">
-            <summary>Delegate for comparing two instances of different types.</summary>
-            <typeparam name="A">The type of the left istance to compare.</typeparam>
-            <typeparam name="B">The type of the right instance to compare.</typeparam>
-            <param name="a">The left operand of the comparison.</param>
-            <param name="b">The right operand of the comparison.</param>
-            <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-        </member>
         <member name="T:Towel.Sift`1">
             <summary>Delegate for comparing a value to a known value.</summary>
             <typeparam name="T">The generic types to compare.</typeparam>
@@ -68,11 +53,11 @@
             <param name="b">Right operand of the comparison.</param>
             <returns>The result of the comparison.</returns>
         </member>
-        <member name="M:Towel.Compare.Invert``2(Towel.Compare{``0,``1})">
+        <member name="M:Towel.Compare.Invert``2(System.Func{``0,``1,Towel.CompareResult})">
             <summary>Inverts a comparison delegate.</summary>
             <returns>The invert of the compare delegate.</returns>
         </member>
-        <member name="M:Towel.Compare.Invert``1(Towel.Compare{``0})">
+        <member name="M:Towel.Compare.Invert``1(System.Func{``0,``0,Towel.CompareResult})">
             <summary>Inverts a comparison delegate.</summary>
             <returns>The invert of the compare delegate.</returns>
         </member>
@@ -86,7 +71,7 @@
             <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
             <returns>The converted Towel.Compare delegate.</returns>
         </member>
-        <member name="M:Towel.Compare.ToSystemComparison``1(Towel.Compare{``0})">
+        <member name="M:Towel.Compare.ToSystemComparison``1(System.Func{``0,``0,Towel.CompareResult})">
             <summary>Converts a Towel.Compare to a System.Comparison.</summary>
             <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
             <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
@@ -99,7 +84,7 @@
         <member name="M:Towel.CompareRuntime`1.Do(`0,`0)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
-        <member name="M:Towel.CompareRuntime`1.op_Implicit(Towel.Compare{`0})~Towel.CompareRuntime{`0}">
+        <member name="M:Towel.CompareRuntime`1.op_Implicit(System.Func{`0,`0,Towel.CompareResult})~Towel.CompareRuntime{`0}">
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="compare">The runtime Compare delegate.</param>
         </member>
@@ -714,7 +699,7 @@
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
             <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.#ctor(Towel.Compare{`0})">
+        <member name="M:Towel.DataStructures.AvlTreeLinked`1.#ctor(System.Func{`0,`0,Towel.CompareResult})">
             <summary>Constructs an AVL Tree.</summary>
             <param name="compare">The comparison function for sorting the items.</param>
             <runtime>θ(1)</runtime>
@@ -919,7 +904,7 @@
             <summary>This constructor is for cloning purposes.</summary>
             <param name="graph">The graph to construct a clone of.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Compare{`0},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,`0,Towel.CompareResult},Towel.Hash{`0})">
             <summary>Constructs a new GraphSetOmnitree.</summary>
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="compare">The compare delegate for the data structure to use.</param>
@@ -1220,7 +1205,7 @@
             <summary>A heap with static priorities implemented as a array.</summary>
             <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.#ctor(Towel.Compare{`0},System.Nullable{System.Int32})">
+        <member name="M:Towel.DataStructures.HeapArray`1.#ctor(System.Func{`0,`0,Towel.CompareResult},System.Nullable{System.Int32})">
             <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
             <param name="compare">Delegate determining the comparison technique used for sorting.</param>
             <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
@@ -1279,7 +1264,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`1.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.Link`1.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1356,7 +1341,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.LinkStruct`1.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1433,7 +1418,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`2.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.Link`2.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1516,7 +1501,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.LinkStruct`2.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1599,7 +1584,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`3.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.Link`3.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1688,7 +1673,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.LinkStruct`3.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1777,7 +1762,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`4.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.Link`4.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1872,7 +1857,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.LinkStruct`4.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -1967,7 +1952,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`5.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.Link`5.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2068,7 +2053,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.LinkStruct`5.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2169,7 +2154,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`6.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.Link`6.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2276,7 +2261,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.LinkStruct`6.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2383,7 +2368,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`7.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.Link`7.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -2496,7 +2481,7 @@
             <summary>Gets an array with all the types contained in this link in respective order.</summary>
             <returns>An array of all the types in this link in respective order.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.Contains(System.Object,Towel.Compare{System.Object})">
+        <member name="M:Towel.DataStructures.LinkStruct`7.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
             <summary>Checks to see if a given object is in this data structure.</summary>
             <param name="item">The item to check for.</param>
             <param name="compare">Delegate representing comparison technique.</param>
@@ -3261,15 +3246,15 @@
             <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
             <returns>The converted Omnitree.GetBounds delegate.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Bounds{``0},Towel.Compare{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Bounds{``0},System.Func{``0,``0,Towel.CompareResult})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Vector{``0},Towel.Compare{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Vector{``0},System.Func{``0,``0,Towel.CompareResult})">
             <summary>Checks if a space encapsulates a point.</summary>
             <returns>True if the space encapsulates the point; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Bounds{``0},Towel.Compare{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Bounds{``0},System.Func{``0,``0,Towel.CompareResult})">
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
@@ -3277,7 +3262,7 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Vector{``0},Towel.Compare{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``1(Towel.DataStructures.Omnitree.Bounds{``0},Towel.DataStructures.Omnitree.Vector{``0},System.Func{``0,``0,Towel.CompareResult})">
             <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
             <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
             <param name="bounds">The bounds to determine if it straddles the extended point.</param>
@@ -3396,15 +3381,15 @@
             <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
             <returns>The converted Omnitree.GetBounds delegate.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.Compare{``0},Towel.Compare{``1})">
+        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Bounds{``0,``1},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.Compare{``0},Towel.Compare{``1})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult})">
             <summary>Checks if a space encapsulates a point.</summary>
             <returns>True if the space encapsulates the point; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.Compare{``0},Towel.Compare{``1})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Bounds{``0,``1},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult})">
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
@@ -3412,7 +3397,7 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.Compare{``0},Towel.Compare{``1})">
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``2(Towel.DataStructures.Omnitree.Bounds{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult})">
             <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
             <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
             <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
@@ -3558,15 +3543,15 @@
             <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
             <returns>The converted Omnitree.GetBounds delegate.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2})">
+        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult})">
             <summary>Checks if a space encapsulates a point.</summary>
             <returns>True if the space encapsulates the point; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult})">
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
@@ -3574,7 +3559,7 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2})">
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``3(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult})">
             <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
             <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
             <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
@@ -3747,15 +3732,15 @@
             <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
             <returns>The converted Omnitree.GetBounds delegate.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3})">
+        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult})">
             <summary>Checks if a space encapsulates a point.</summary>
             <returns>True if the space encapsulates the point; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult})">
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
@@ -3763,7 +3748,7 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3})">
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``4(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult})">
             <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
             <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
             <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
@@ -3963,15 +3948,15 @@
             <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
             <returns>The converted Omnitree.GetBounds delegate.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4})">
+        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult})">
             <summary>Checks if a space encapsulates a point.</summary>
             <returns>True if the space encapsulates the point; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult})">
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
@@ -3979,7 +3964,7 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4})">
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``5(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult})">
             <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
             <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
             <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
@@ -4206,15 +4191,15 @@
             <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
             <returns>The converted Omnitree.GetBounds delegate.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5})">
+        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult})">
             <summary>Checks if a space encapsulates a point.</summary>
             <returns>True if the space encapsulates the point; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult})">
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
@@ -4222,7 +4207,7 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5})">
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``6(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult})">
             <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
             <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
             <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
@@ -4476,15 +4461,15 @@
             <param name="getBoundings">The Omnitree.GetBoundings to convert into a Omnitree.GetBounds.</param>
             <returns>The converted Omnitree.GetBounds delegate.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5},Towel.Compare{``6})">
+        <member name="M:Towel.DataStructures.Omnitree.InclusionCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult},System.Func{``6,``6,Towel.CompareResult})">
             <summary>Checks a node for inclusion (overlap) between two bounds.</summary>
             <returns>True if the spaces overlap; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5},Towel.Compare{``6})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult},System.Func{``6,``6,Towel.CompareResult})">
             <summary>Checks if a space encapsulates a point.</summary>
             <returns>True if the space encapsulates the point; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5},Towel.Compare{``6})">
+        <member name="M:Towel.DataStructures.Omnitree.EncapsulationCheck``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult},System.Func{``6,``6,Towel.CompareResult})">
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
@@ -4492,7 +4477,7 @@
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.Compare{``0},Towel.Compare{``1},Towel.Compare{``2},Towel.Compare{``3},Towel.Compare{``4},Towel.Compare{``5},Towel.Compare{``6})">
+        <member name="M:Towel.DataStructures.Omnitree.StraddlesLines``7(Towel.DataStructures.Omnitree.Bounds{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},System.Func{``0,``0,Towel.CompareResult},System.Func{``1,``1,Towel.CompareResult},System.Func{``2,``2,Towel.CompareResult},System.Func{``3,``3,Towel.CompareResult},System.Func{``4,``4,Towel.CompareResult},System.Func{``5,``5,Towel.CompareResult},System.Func{``6,``6,Towel.CompareResult})">
             <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>
             <typeparam name="Axis1">The generic type of the 1 dimension.</typeparam>
             <typeparam name="Axis2">The generic type of the 2 dimension.</typeparam>
@@ -4591,7 +4576,7 @@
             <summary>Implicitly converts the "None" keyword into a non-existant bound.</summary>
             <param name="keyword">The keyword to convert into a non-existant bound.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Bound`1.Compare(Towel.Compare{`0})">
+        <member name="M:Towel.DataStructures.Omnitree.Bound`1.Compare(System.Func{`0,`0,Towel.CompareResult})">
             <summary>Gets the bound compare delegate from a value compare delegate.</summary>
             <param name="compare">The value compare to wrap into a bounds compare.</param>
             <returns>The bounds compare.</returns>
@@ -4792,7 +4777,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1},System.Func{`1,`1,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
             <summary>Constructs a new 1D omnitree that stores points.</summary>
             <param name="locate">The delegate for locating items in 1D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -5167,7 +5152,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2},Towel.Compare{`1},Towel.Compare{`2},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
             <summary>Constructs a new 2D omnitree that stores points.</summary>
             <param name="locate">The delegate for locating items in 2D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -5599,7 +5584,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
             <summary>Constructs a new 3D omnitree that stores points.</summary>
             <param name="locate">The delegate for locating items in 3D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -6088,7 +6073,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
             <summary>Constructs a new 4D omnitree that stores points.</summary>
             <param name="locate">The delegate for locating items in 4D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -6634,7 +6619,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
             <summary>Constructs a new 5D omnitree that stores points.</summary>
             <param name="locate">The delegate for locating items in 5D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -7237,7 +7222,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5,`6},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5,`6},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},System.Func{`6,`6,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
             <summary>Constructs a new 6D omnitree that stores points.</summary>
             <param name="locate">The delegate for locating items in 6D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -7897,7 +7882,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.#ctor(Towel.DataStructures.OmnitreePointsLinked{`0,`1,`2,`3,`4,`5,`6,`7})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5,`6,`7},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.Compare{`7},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.#ctor(Towel.DataStructures.Omnitree.Location{`0,`1,`2,`3,`4,`5,`6,`7},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},System.Func{`6,`6,Towel.CompareResult},System.Func{`7,`7,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
             <summary>Constructs a new 7D omnitree that stores points.</summary>
             <param name="locate">The delegate for locating items in 7D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -8521,13 +8506,13 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1},System.Func{`1,`1,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
             <summary>Constructs a new 1D omnitree that stores bounds.</summary>
             <param name="getBounds">The delegate for getting object bounds in 1D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
             <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1},Towel.Compare{`1},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1},System.Func{`1,`1,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1}})">
             <summary>Constructs a new 1D omnitree that stores bounds.</summary>
             <param name="getBoundings">The delegate for getting object bounds in 1D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -9016,7 +9001,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2},Towel.Compare{`1},Towel.Compare{`2},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
             <summary>Constructs a new 2D omnitree that stores bounds.</summary>
             <param name="getBounds">The delegate for getting object bounds in 2D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -9024,7 +9009,7 @@
             <param name="subdivisionOverride1">The subdivision overide to be used when splitting the 1 dimension.</param>
             <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2},Towel.Compare{`1},Towel.Compare{`2},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2}})">
             <summary>Constructs a new 2D omnitree that stores bounds.</summary>
             <param name="getBoundings">The delegate for getting object bounds in 2D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -9609,7 +9594,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
             <summary>Constructs a new 3D omnitree that stores bounds.</summary>
             <param name="getBounds">The delegate for getting object bounds in 3D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -9619,7 +9604,7 @@
             <param name="subdivisionOverride2">The subdivision overide to be used when splitting the 2 dimension.</param>
             <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3}})">
             <summary>Constructs a new 3D omnitree that stores bounds.</summary>
             <param name="getBoundings">The delegate for getting object bounds in 3D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -10300,7 +10285,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
             <summary>Constructs a new 4D omnitree that stores bounds.</summary>
             <param name="getBounds">The delegate for getting object bounds in 4D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -10312,7 +10297,7 @@
             <param name="subdivisionOverride3">The subdivision overide to be used when splitting the 3 dimension.</param>
             <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4}})">
             <summary>Constructs a new 4D omnitree that stores bounds.</summary>
             <param name="getBoundings">The delegate for getting object bounds in 4D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -11089,7 +11074,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
             <summary>Constructs a new 5D omnitree that stores bounds.</summary>
             <param name="getBounds">The delegate for getting object bounds in 5D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -11103,7 +11088,7 @@
             <param name="subdivisionOverride4">The subdivision overide to be used when splitting the 4 dimension.</param>
             <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5}})">
             <summary>Constructs a new 5D omnitree that stores bounds.</summary>
             <param name="getBoundings">The delegate for getting object bounds in 5D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -11976,7 +11961,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5,`6},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5,`6},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},System.Func{`6,`6,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
             <summary>Constructs a new 6D omnitree that stores bounds.</summary>
             <param name="getBounds">The delegate for getting object bounds in 6D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -11992,7 +11977,7 @@
             <param name="subdivisionOverride5">The subdivision overide to be used when splitting the 5 dimension.</param>
             <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5,`6},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5,`6},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},System.Func{`6,`6,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6}})">
             <summary>Constructs a new 6D omnitree that stores bounds.</summary>
             <param name="getBoundings">The delegate for getting object bounds in 6D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -12961,7 +12946,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.OmnitreeBoundsLinked{`0,`1,`2,`3,`4,`5,`6,`7})">
             <summary>This constructor is for cloning purposes</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5,`6,`7},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.Compare{`7},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.Omnitree.GetBounds{`0,`1,`2,`3,`4,`5,`6,`7},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},System.Func{`6,`6,Towel.CompareResult},System.Func{`7,`7,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
             <summary>Constructs a new 7D omnitree that stores bounds.</summary>
             <param name="getBounds">The delegate for getting object bounds in 7D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -12979,7 +12964,7 @@
             <param name="subdivisionOverride6">The subdivision overide to be used when splitting the 6 dimension.</param>
             <param name="subdivisionOverride7">The subdivision overide to be used when splitting the 7 dimension.</param>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5,`6,`7},Towel.Compare{`1},Towel.Compare{`2},Towel.Compare{`3},Towel.Compare{`4},Towel.Compare{`5},Towel.Compare{`6},Towel.Compare{`7},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.#ctor(Towel.DataStructures.Omnitree.GetBoundings{`0,`1,`2,`3,`4,`5,`6,`7},System.Func{`1,`1,Towel.CompareResult},System.Func{`2,`2,Towel.CompareResult},System.Func{`3,`3,Towel.CompareResult},System.Func{`4,`4,Towel.CompareResult},System.Func{`5,`5,Towel.CompareResult},System.Func{`6,`6,Towel.CompareResult},System.Func{`7,`7,Towel.CompareResult},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`1,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`2,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`3,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`4,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`5,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`6,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}},Towel.DataStructures.Omnitree.SubdivisionOverride{`0,`7,Towel.DataStructures.Omnitree.Bounds{`1,`2,`3,`4,`5,`6,`7}})">
             <summary>Constructs a new 7D omnitree that stores bounds.</summary>
             <param name="getBoundings">The delegate for getting object bounds in 7D space.</param>
             <param name="compare1">The delegate for comparing values along the 1D axis.</param>
@@ -14182,7 +14167,7 @@
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor(Towel.Compare{`0})">
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor(System.Func{`0,`0,Towel.CompareResult})">
             <summary>Constructs a new Red Black Tree.</summary>
             <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
         </member>
@@ -15196,7 +15181,7 @@
         <member name="T:Towel.Equate">
             <summary>Static wrapper for the based "object.Equals" function.</summary>
         </member>
-        <member name="M:Towel.Equate.FromCompare``1(Towel.Compare{``0})">
+        <member name="M:Towel.Equate.FromCompare``1(System.Func{``0,``0,Towel.CompareResult})">
             <summary>Converts a Compare delegate into an Equate delegate.</summary>
             <typeparam name="T">The generic parameter of the delegates.</typeparam>
             <param name="compare">The compare delegate to convert to a equate.</param>
@@ -30215,7 +30200,7 @@
             <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
             </returns>
         </member>
-        <member name="M:Towel.Search.Binary``1(``0[],``0,Towel.Compare{``0})">
+        <member name="M:Towel.Search.Binary``1(``0[],``0,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Search.Binary_XML"/>
         </member>
         <member name="M:Towel.Search.Binary``2(``0[],``0,``1)">
@@ -30571,19 +30556,19 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bubble``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Bubble``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
         <member name="M:Towel.Sort.Bubble``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bubble``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Bubble``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
         <member name="M:Towel.Sort.Bubble``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
         <member name="M:Towel.Sort.Bubble``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30599,19 +30584,19 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Selection``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Selection``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
         <member name="M:Towel.Sort.Selection``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
-        <member name="M:Towel.Sort.Selection``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Selection``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
         <member name="M:Towel.Sort.Selection``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
-        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
         <member name="M:Towel.Sort.Selection``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30627,19 +30612,19 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Insertion``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Insertion``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
         <member name="M:Towel.Sort.Insertion``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
-        <member name="M:Towel.Sort.Insertion``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Insertion``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
         <member name="M:Towel.Sort.Insertion``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
-        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
         <member name="M:Towel.Sort.Insertion``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30655,19 +30640,19 @@
             <memory>ln(n)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Quick``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Quick``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
         <member name="M:Towel.Sort.Quick``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
-        <member name="M:Towel.Sort.Quick``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Quick``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
         <member name="M:Towel.Sort.Quick``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
-        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
         <member name="M:Towel.Sort.Quick``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30683,19 +30668,19 @@
             <memory>Θ(n)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Merge``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Merge``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
         <member name="M:Towel.Sort.Merge``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
-        <member name="M:Towel.Sort.Merge``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Merge``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
         <member name="M:Towel.Sort.Merge``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
-        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
         <member name="M:Towel.Sort.Merge``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30711,19 +30696,19 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Heap``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Heap``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
         <member name="M:Towel.Sort.Heap``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
-        <member name="M:Towel.Sort.Heap``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Heap``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
         <member name="M:Towel.Sort.Heap``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
-        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
         <member name="M:Towel.Sort.Heap``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30739,19 +30724,19 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.OddEven``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.OddEven``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
         <member name="M:Towel.Sort.OddEven``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
-        <member name="M:Towel.Sort.OddEven``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.OddEven``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
         <member name="M:Towel.Sort.OddEven``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
-        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
         <member name="M:Towel.Sort.OddEven``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30796,19 +30781,19 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bogo``1(``0[],Towel.Compare{``0},System.Random)">
+        <member name="M:Towel.Sort.Bogo``1(``0[],System.Func{``0,``0,Towel.CompareResult},System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
         <member name="M:Towel.Sort.Bogo``2(``0[],``1,System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bogo``1(``0[],System.Int32,System.Int32,Towel.Compare{``0},System.Random)">
+        <member name="M:Towel.Sort.Bogo``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult},System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
         <member name="M:Towel.Sort.Bogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0},System.Random)">
+        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
         <member name="M:Towel.Sort.Bogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
@@ -30821,19 +30806,19 @@
             <summary>Sorts values using the slow sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Slow``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Slow``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
         <member name="M:Towel.Sort.Slow``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
-        <member name="M:Towel.Sort.Slow``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Slow``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
         <member name="M:Towel.Sort.Slow``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
-        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
         <member name="M:Towel.Sort.Slow``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30846,19 +30831,19 @@
             <summary>Sorts values using the gnome sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Gnome``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Gnome``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
         <member name="M:Towel.Sort.Gnome``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
-        <member name="M:Towel.Sort.Gnome``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Gnome``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
         <member name="M:Towel.Sort.Gnome``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
-        <member name="M:Towel.Sort.Gnome``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Gnome``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
         <member name="M:Towel.Sort.Gnome``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30871,19 +30856,19 @@
             <summary>Sorts values using the comb sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Comb``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Comb``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
         <member name="M:Towel.Sort.Comb``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
-        <member name="M:Towel.Sort.Comb``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Comb``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
         <member name="M:Towel.Sort.Comb``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
-        <member name="M:Towel.Sort.Comb``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Comb``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
         <member name="M:Towel.Sort.Comb``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30896,19 +30881,19 @@
             <summary>Sorts values using the shell sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Shell``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Shell``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
         <member name="M:Towel.Sort.Shell``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
-        <member name="M:Towel.Sort.Shell``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Shell``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
         <member name="M:Towel.Sort.Shell``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
-        <member name="M:Towel.Sort.Shell``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Shell``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
         <member name="M:Towel.Sort.Shell``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30921,19 +30906,19 @@
             <summary>Sorts values using the shell sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
-        <member name="M:Towel.Sort.Cocktail``1(``0[],Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Cocktail``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
         <member name="M:Towel.Sort.Cocktail``2(``0[],``1)">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
-        <member name="M:Towel.Sort.Cocktail``1(``0[],System.Int32,System.Int32,Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Cocktail``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
         <member name="M:Towel.Sort.Cocktail``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
-        <member name="M:Towel.Sort.Cocktail``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},Towel.Compare{``0})">
+        <member name="M:Towel.Sort.Cocktail``1(System.Int32,System.Int32,Towel.GetIndex{``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
         <member name="M:Towel.Sort.Cocktail``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -32299,14 +32284,14 @@
             <param name="stepper">The set of data to compute the mean of.</param>
             <returns>The computed mean of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(Towel.Compare{``0},``0[])">
+        <member name="M:Towel.Syntax.Median``1(System.Func{``0,``0,Towel.CompareResult},``0[])">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="compare">The comparison algorithm to sort the data by.</param>
             <param name="values">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(Towel.Compare{``0},Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Median``1(System.Func{``0,``0,Towel.CompareResult},Towel.Stepper{``0})">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="compare">The comparison algorithm to sort the data by.</param>

@@ -118,7 +118,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
-		Compare<T> DataStructure.IComparing<T>.Compare =>
+		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
 			_compare is CompareRuntime<T> compareRuntime
 			? compareRuntime.Compare
 			: _compare.Do;
@@ -971,7 +971,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new Red Black Tree.</summary>
 		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-		public RedBlackTreeLinked(Compare<T> compare = null) : base(compare ?? Towel.Compare.Default) { }
+		public RedBlackTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Towel.Compare.Default) { }
 
 		/// <summary>Constructor for cloning purposes.</summary>
 		/// <param name="tree">The tree to be cloned.</param>
@@ -1004,7 +1004,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>The sorting technique.</summary>
-		public Compare<T> Compare => _compare.Compare;
+		public Func<T, T, CompareResult> Compare => _compare.Compare;
 
 		#endregion
 

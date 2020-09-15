@@ -69,7 +69,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
-		Compare<T> DataStructure.IComparing<T>.Compare =>
+		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
 			_compare is CompareRuntime<T> compareRuntime
 			? compareRuntime.Compare
 			: _compare.Do;
@@ -288,7 +288,7 @@ namespace Towel.DataStructures
 		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
 		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
 		/// <runtime>θ(1)</runtime>
-		public HeapArray(Compare<T> compare = null, int? minimumCapacity = null) : base(compare ?? Towel.Compare.Default, minimumCapacity) { }
+		public HeapArray(Func<T, T, CompareResult> compare = null, int? minimumCapacity = null) : base(compare ?? Towel.Compare.Default, minimumCapacity) { }
 
 		internal HeapArray(HeapArray<T> heap)
 		{
@@ -303,7 +303,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>Delegate determining the comparison technique used for sorting.</summary>
-		public Compare<T> Compare => _compare.Compare;
+		public Func<T, T, CompareResult> Compare => _compare.Compare;
 
 		#endregion
 

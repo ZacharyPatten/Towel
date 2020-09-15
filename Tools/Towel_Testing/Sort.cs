@@ -25,8 +25,8 @@ namespace Towel_Testing
 		public static int[] watchArray;
 
 		public static void TestAlgorithm(
-			Action<int[], Compare<int>> algorithm,
-			Action<int[], int, int, Compare<int>> algorithmPartial,
+			Action<int[], Func<int, int, CompareResult>> algorithm,
+			Action<int[], int, int, Func<int, int, CompareResult>> algorithmPartial,
 			int? sizeOverride = null)
 		{
 			void Test(int sizeAdjusted)

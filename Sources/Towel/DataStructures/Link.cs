@@ -4,6 +4,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
 using static Towel.Syntax;
 
 namespace Towel.DataStructures
@@ -130,7 +131,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 			{
@@ -311,7 +312,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
@@ -522,7 +523,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 			{
@@ -748,7 +749,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
@@ -1003,7 +1004,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 			{
@@ -1276,7 +1277,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
@@ -1575,7 +1576,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 			{
@@ -1897,7 +1898,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
@@ -2240,7 +2241,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 			{
@@ -2613,7 +2614,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
@@ -3000,7 +3001,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 			{
@@ -3426,7 +3427,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 				return true;
@@ -3857,7 +3858,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 			{
@@ -4338,7 +4339,7 @@ namespace Towel.DataStructures
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
 		/// <returns>true if the item is in this structure; false if not.</returns>
-		public	bool Contains(object item, Compare<object> compare)
+		public	bool Contains(object item, Func<object, object, CompareResult> compare)
 		{
 			if (compare(this._1, item) == CompareResult.Equal)
 				return true;

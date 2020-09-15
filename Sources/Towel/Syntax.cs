@@ -1979,13 +1979,13 @@ namespace Towel
 
 		internal static class CompareImplementation<A, B>
 		{
-			internal static Compare<A, B> Function = (a, b) =>
+			internal static Func<A, B, CompareResult> Function = (a, b) =>
 			{
 				if (typeof(A) == typeof(B) && a is IComparable<B> &&
 					!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
 				{
 					CompareImplementation<A, A>.Function =
-						new Compare<A, A>(
+						new Func<A, A, CompareResult>(
 							Compare.ToCompare(System.Collections.Generic.Comparer<A>.Default));
 				}
 				else
@@ -2026,7 +2026,7 @@ namespace Towel
 								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
 							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
 							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
-					Function = Expression.Lambda<Compare<A, B>>(BODY, A, B).Compile();
+					Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
 				}
 				return Function(a, b);
 			};
@@ -2461,7 +2461,7 @@ namespace Towel
 		/// <param name="compare">The comparison algorithm to sort the data by.</param>
 		/// <param name="values">The set of data to compute the median of.</param>
 		/// <returns>The computed median value of the set of data.</returns>
-		public static T Median<T>(Compare<T> compare, params T[] values)
+		public static T Median<T>(Func<T, T, CompareResult> compare, params T[] values)
 		{
 			_ = compare ?? throw new ArgumentNullException(nameof(compare));
 			_ = values ?? throw new ArgumentNullException(nameof(values));
@@ -2484,7 +2484,7 @@ namespace Towel
 		/// <param name="compare">The comparison algorithm to sort the data by.</param>
 		/// <param name="stepper">The set of data to compute the median of.</param>
 		/// <returns>The computed median value of the set of data.</returns>
-		public static T Median<T>(Compare<T> compare, Stepper<T> stepper)
+		public static T Median<T>(Func<T, T, CompareResult> compare, Stepper<T> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			return Median<T>(compare, stepper.ToArray());
@@ -2511,7 +2511,7 @@ namespace Towel
 
 		#region Possible Optimization (Still in Development)
 
-		//public static T Median<T>(Compare<T> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
+		//public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
 		//{
 		//    // this is an optimized median algorithm, but it only works on odd sets without duplicates
 		//    if (!(hash is null) && !(equate is null) && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
@@ -2526,13 +2526,13 @@ namespace Towel
 		//    }
 		//}
 
-		//public static T Median<T>(Compare<T> compare, Hash<T> hash, Func<T, T, bool> equate, Stepper<T> stepper)
+		//public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, Stepper<T> stepper)
 		//{
 		//    return Median(compare, hash, equate, stepper.ToArray());
 		//}
 
 		///// <summary>Fast algorithm for median computation, but only works on data with an odd number of values without duplicates.</summary>
-		//internal static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Compare<T> compare)
+		//internal static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Func<T, T, CompareResult> compare)
 		//{
 		//    int L = 0;
 		//    int R = n - 1;
@@ -2548,7 +2548,7 @@ namespace Towel
 		//    }
 		//}
 
-		//internal static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Compare<T> compare)
+		//internal static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Func<T, T, CompareResult> compare)
 		//{
 		//    do
 		//    {

@@ -9,7 +9,7 @@ namespace Towel_Testing.DataStructures
 	{
 		[TestMethod] public void Dequeue_Testing()
 		{
-			void Test<T>(T[] values, Compare<T> compare)
+			void Test<T>(T[] values, Func<T, T, CompareResult> compare)
 			{
 				T[] clonedValues = (T[])values.Clone();
 				Towel.Sort.Shuffle(clonedValues);

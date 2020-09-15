@@ -49,7 +49,7 @@ namespace Towel.DataStructures
 		public interface IComparing<T>
 		{
 			/// <summary>Gets the comparing function of the data structure.</summary>
-			Compare<T> Compare { get; }
+			Func<T, T, CompareResult> Compare { get; }
 		}
 
 		/// <summary>Property of a data structure (does it have a Add method).</summary>

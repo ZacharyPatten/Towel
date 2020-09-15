@@ -131,7 +131,7 @@ namespace Towel.DataStructures
 			/// <summary>Gets the bound compare delegate from a value compare delegate.</summary>
 			/// <param name="compare">The value compare to wrap into a bounds compare.</param>
 			/// <returns>The bounds compare.</returns>
-			public static Compare<Bound<T>> Compare(Compare<T> compare)
+			public static Func<Bound<T>, Bound<T>, CompareResult> Compare(Func<T, T, CompareResult> compare)
 			{
 				return (Bound<T> a, Bound<T> b) =>
 				{
@@ -160,7 +160,7 @@ namespace Towel.DataStructures
 		/// <returns></returns>
 		public delegate A SubdivisionOverride<T, A, BoundsType>(BoundsType bounds, Stepper<T> values);
 
-		internal static T SubDivide<T>(Bound<T>[] bounds, Compare<T> compare)
+		internal static T SubDivide<T>(Bound<T>[] bounds, Func<T, T, CompareResult> compare)
 		{
 			// make sure a bound exists (not all objects are infinitely bound)
 			bool exists = false;
@@ -196,7 +196,7 @@ namespace Towel.DataStructures
 			throw new Exception("There is a bug in the Towel Framwork [SubDivide]");
 		}
 
-		internal static T SubDivide<T>(ArrayJagged<Bound<T>> bounds, Compare<T> compare)
+		internal static T SubDivide<T>(ArrayJagged<Bound<T>> bounds, Func<T, T, CompareResult> compare)
 		{
 			// make sure a bound exists (not all objects are infinitely bound)
 			bool exists = false;

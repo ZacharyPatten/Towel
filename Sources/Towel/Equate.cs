@@ -12,7 +12,7 @@ namespace Towel
 		/// <typeparam name="T">The generic parameter of the delegates.</typeparam>
 		/// <param name="compare">The compare delegate to convert to a equate.</param>
 		/// <returns>The compare delegate converted into an equate.</returns>
-		public static Func<T, T, bool> FromCompare<T>(Compare<T> compare) =>
+		public static Func<T, T, bool> FromCompare<T>(Func<T, T, CompareResult> compare) =>
 			(a, b) => compare(a, b) is Equal;
 
 		#endregion

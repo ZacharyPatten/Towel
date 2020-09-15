@@ -35,7 +35,7 @@ namespace Towel.DataStructures
 	public class OrderListArray<T> : IOrder<T>
 	{
 		internal ListArray<T> _list;
-		internal Compare<T> _compare;
+		internal Func<T, T, CompareResult> _compare;
 
 		#region Constructor
 
@@ -48,7 +48,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a Order_ListArray.</summary>
 		/// <param name="compare">The soring technique used by this data structure.</param>
-		public OrderListArray(Compare<T> compare)
+		public OrderListArray(Func<T, T, CompareResult> compare)
 		{
 			this._compare = compare;
 			this._list = new ListArray<T>();
@@ -70,7 +70,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>The comparison function utilized by this data structure.</summary>
-		public Compare<T> Compare { get { return this._compare; } }
+		public Func<T, T, CompareResult> Compare { get { return this._compare; } }
 
 		/// <summary>Returns the number of items in the list.</summary>
 		public int Count { get { return this._list.Count; } }
@@ -179,13 +179,13 @@ namespace Towel.DataStructures
 	public class OrderListLinked<T> : IOrder<T>
 	{
 		internal ListLinked<T> _list;
-		internal Compare<T> _compare;
+		internal Func<T, T, CompareResult> _compare;
 
 		#region Constructors
 
 		/// <summary>Constructs a Order_ListArray.</summary>
 		/// <param name="compare">The soring technique used by this data structure.</param>
-		public OrderListLinked(Compare<T> compare)
+		public OrderListLinked(Func<T, T, CompareResult> compare)
 		{
 			this._compare = compare;
 			this._list = new ListLinked<T>();
@@ -196,7 +196,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>The comparison function utilized by this data structure.</summary>
-		public Compare<T> Compare { get { return this._compare; } }
+		public Func<T, T, CompareResult> Compare { get { return this._compare; } }
 		/// <summary>Returns the number of items in the list.</summary>
 		public int Count { get { return this._list.Count; } }
 

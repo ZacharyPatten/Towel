@@ -679,7 +679,7 @@ namespace Towel.DataStructures
 
 	public struct HyperRect<T>
 	{
-		internal Compare<T> _compareT;
+		internal Func<T, T, CompareResult> _compareT;
 		internal T[] _maxPoint;
 		internal T[] _minPoint;
 
@@ -709,7 +709,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		public static HyperRect<T> Infinite(int dimensions, T minValue, T maxValue, Compare<T> compare)//, ITypeMath<T> math = null)
+		public static HyperRect<T> Infinite(int dimensions, T minValue, T maxValue, Func<T, T, CompareResult> compare)//, ITypeMath<T> math = null)
 		{
 			var rect = new HyperRect<T>();
 			rect._compareT = compare;

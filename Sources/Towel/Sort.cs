@@ -41,7 +41,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Bubble_XML"/>
-		public static void Bubble<T>(T[] array, Compare<T> compare = null) =>
+		public static void Bubble<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Bubble(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Bubble_XML"/>
@@ -50,7 +50,7 @@ namespace Towel
 			Bubble(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Bubble_XML"/>
-		public static void Bubble<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Bubble<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Bubble<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Bubble_XML"/>
@@ -59,7 +59,7 @@ namespace Towel
 			Bubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Bubble_XML"/>
-		public static void Bubble<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Bubble<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Bubble<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Bubble_XML"/>
@@ -116,7 +116,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Selection_XML"/>
-		public static void Selection<T>(T[] array, Compare<T> compare = null) =>
+		public static void Selection<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Selection(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Selection_XML"/>
@@ -125,7 +125,7 @@ namespace Towel
 			Selection(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Selection_XML"/>
-		public static void Selection<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Selection<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Selection<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Selection_XML"/>
@@ -134,7 +134,7 @@ namespace Towel
 			Selection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Selection_XML"/>
-		public static void Selection<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Selection<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Selection<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Selection_XML"/>
@@ -195,7 +195,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Insertion_XML"/>
-		public static void Insertion<T>(T[] array, Compare<T> compare = null) =>
+		public static void Insertion<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Insertion(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Insertion_XML"/>
@@ -204,7 +204,7 @@ namespace Towel
 			Insertion(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Insertion_XML"/>
-		public static void Insertion<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Insertion<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Insertion<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Insertion_XML"/>
@@ -213,7 +213,7 @@ namespace Towel
 			Insertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Insertion_XML"/>
-		public static void Insertion<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Insertion<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Insertion<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Insertion_XML"/>
@@ -267,7 +267,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Quick_XML"/>
-		public static void Quick<T>(T[] array, Compare<T> compare = null) =>
+		public static void Quick<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Quick(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Quick_XML"/>
@@ -276,7 +276,7 @@ namespace Towel
 			Quick(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Quick_XML"/>
-		public static void Quick<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Quick<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Quick<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Quick_XML"/>
@@ -285,7 +285,7 @@ namespace Towel
 			Quick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Quick_XML"/>
-		public static void Quick<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Quick<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Quick<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Quick_XML"/>
@@ -383,7 +383,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Merge_XML"/>
-		public static void Merge<T>(T[] array, Compare<T> compare = null) =>
+		public static void Merge<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Merge(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Merge_XML"/>
@@ -392,7 +392,7 @@ namespace Towel
 			Merge(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Merge_XML"/>
-		public static void Merge<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Merge<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Merge<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Merge_XML"/>
@@ -401,7 +401,7 @@ namespace Towel
 			Merge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Merge_XML"/>
-		public static void Merge<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Merge<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Merge<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Merge_XML"/>
@@ -511,7 +511,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Heap_XML"/>
-		public static void Heap<T>(T[] array, Compare<T> compare = null) =>
+		public static void Heap<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Heap(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Heap_XML"/>
@@ -520,7 +520,7 @@ namespace Towel
 			Heap(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Heap_XML"/>
-		public static void Heap<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Heap<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Heap<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Heap_XML"/>
@@ -529,7 +529,7 @@ namespace Towel
 			Heap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Heap_XML"/>
-		public static void Heap<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Heap<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Heap<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Heap_XML"/>
@@ -633,7 +633,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="OddEven_XML"/>
-		public static void OddEven<T>(T[] array, Compare<T> compare = null) =>
+		public static void OddEven<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			OddEven(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="OddEven_XML"/>
@@ -642,7 +642,7 @@ namespace Towel
 			OddEven(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="OddEven_XML"/>
-		public static void OddEven<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void OddEven<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			OddEven<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="OddEven_XML"/>
@@ -651,7 +651,7 @@ namespace Towel
 			OddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="OddEven_XML"/>
-		public static void OddEven<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void OddEven<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			OddEven<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="OddEven_XML"/>
@@ -866,7 +866,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Bogo_XML"/>
-		public static void Bogo<T>(T[] array, Compare<T> compare = null, Random random = null) =>
+		public static void Bogo<T>(T[] array, Func<T, T, CompareResult> compare = null, Random random = null) =>
 			Bogo(array, 0, array.Length - 1, compare, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
@@ -875,7 +875,7 @@ namespace Towel
 			Bogo(array, 0, array.Length - 1, compare, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
-		public static void Bogo<T>(T[] array, int start, int end, Compare<T> compare = null, Random random = null) =>
+		public static void Bogo<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null, Random random = null) =>
 			Bogo<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
@@ -884,7 +884,7 @@ namespace Towel
 			Bogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
-		public static void Bogo<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null, Random random = null) =>
+		public static void Bogo<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null, Random random = null) =>
 			Bogo<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
@@ -947,7 +947,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Slow_XML"/>
-		public static void Slow<T>(T[] array, Compare<T> compare = null) =>
+		public static void Slow<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Slow(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Slow_XML"/>
@@ -956,7 +956,7 @@ namespace Towel
 			Slow(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Slow_XML"/>
-		public static void Slow<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Slow<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Slow<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Slow_XML"/>
@@ -965,7 +965,7 @@ namespace Towel
 			Slow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Slow_XML"/>
-		public static void Slow<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Slow<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Slow<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Slow_XML"/>
@@ -1031,7 +1031,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Gnome_XML"/>
-		public static void Gnome<T>(T[] array, Compare<T> compare = null) =>
+		public static void Gnome<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Gnome(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Gnome_XML"/>
@@ -1040,7 +1040,7 @@ namespace Towel
 			Gnome(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Gnome_XML"/>
-		public static void Gnome<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Gnome<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Gnome<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Gnome_XML"/>
@@ -1049,7 +1049,7 @@ namespace Towel
 			Gnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Gnome_XML"/>
-		public static void Gnome<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Gnome<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Gnome<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Gnome_XML"/>
@@ -1109,7 +1109,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Comb_XML"/>
-		public static void Comb<T>(T[] array, Compare<T> compare = null) =>
+		public static void Comb<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Comb(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Comb_XML"/>
@@ -1118,7 +1118,7 @@ namespace Towel
 			Comb(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Comb_XML"/>
-		public static void Comb<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Comb<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Comb<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Comb_XML"/>
@@ -1127,7 +1127,7 @@ namespace Towel
 			Comb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Comb_XML"/>
-		public static void Comb<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Comb<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Comb<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Comb_XML"/>
@@ -1200,7 +1200,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Shell_XML"/>
-		public static void Shell<T>(T[] array, Compare<T> compare = null) =>
+		public static void Shell<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Shell(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Shell_XML"/>
@@ -1209,7 +1209,7 @@ namespace Towel
 			Shell(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Shell_XML"/>
-		public static void Shell<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Shell<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Shell<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Shell_XML"/>
@@ -1218,7 +1218,7 @@ namespace Towel
 			Shell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Shell_XML"/>
-		public static void Shell<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Shell<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Shell<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Shell_XML"/>
@@ -1277,7 +1277,7 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Cocktail_XML"/>
-		public static void Cocktail<T>(T[] array, Compare<T> compare = null) =>
+		public static void Cocktail<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
 			Cocktail(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
@@ -1286,7 +1286,7 @@ namespace Towel
 			Cocktail(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
-		public static void Cocktail<T>(T[] array, int start, int end, Compare<T> compare = null) =>
+		public static void Cocktail<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
 			Cocktail<T, CompareRuntime<T>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare.Default, array, array);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
@@ -1295,7 +1295,7 @@ namespace Towel
 			Cocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
-		public static void Cocktail<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Compare<T> compare = null) =>
+		public static void Cocktail<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
 			Cocktail<T, CompareRuntime<T>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Compare.Default, get, set);
 
 		/// <inheritdoc cref="Cocktail_XML"/>

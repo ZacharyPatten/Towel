@@ -15,21 +15,6 @@ namespace Towel
 		Greater = 1
 	};
 
-	/// <summary>Delegate for comparing two instances of the same type.</summary>
-	/// <typeparam name="T">The type of the istances to compare.</typeparam>
-	/// <param name="a">The left operand of the comparison.</param>
-	/// <param name="b">The right operand of the comparison.</param>
-	/// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-	public delegate CompareResult Compare<T>(T a, T b);
-
-	/// <summary>Delegate for comparing two instances of different types.</summary>
-	/// <typeparam name="A">The type of the left istance to compare.</typeparam>
-	/// <typeparam name="B">The type of the right instance to compare.</typeparam>
-	/// <param name="a">The left operand of the comparison.</param>
-	/// <param name="b">The right operand of the comparison.</param>
-	/// <returns>The Comparison operator between the operands to form a true logic statement.</returns>
-	public delegate CompareResult Compare<A, B>(A a, B b);
-
 	/// <summary>Delegate for comparing a value to a known value.</summary>
 	/// <typeparam name="T">The generic types to compare.</typeparam>
 	/// <param name="b">The value to compare to the known value.</param>
@@ -59,12 +44,12 @@ namespace Towel
 
 		/// <summary>Inverts a comparison delegate.</summary>
 		/// <returns>The invert of the compare delegate.</returns>
-		public static Compare<A, B> Invert<A, B>(this Compare<A, B> compare) =>
+		public static Func<A, B, CompareResult> Invert<A, B>(this Func<A, B, CompareResult> compare) =>
 			(a, b) => Invert(compare(a, b));
 
 		/// <summary>Inverts a comparison delegate.</summary>
 		/// <returns>The invert of the compare delegate.</returns>
-		public static Compare<T> Invert<T>(this Compare<T> compare) =>
+		public static Func<T, T, CompareResult> Invert<T>(this Func<T, T, CompareResult> compare) =>
 			(a, b) => Invert(compare(a, b));
 
 		/// <summary>Inverts a comparison value.</summary>
@@ -76,14 +61,14 @@ namespace Towel
 		/// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
 		/// <param name="comparer">The system.Collections.Generic.Comparer to convert into a Towel.Compare delegate.</param>
 		/// <returns>The converted Towel.Compare delegate.</returns>
-		public static Compare<T> ToCompare<T>(System.Collections.Generic.Comparer<T> comparer) =>
+		public static Func<T, T, CompareResult> ToCompare<T>(System.Collections.Generic.Comparer<T> comparer) =>
 			(a, b) => Wrap(comparer.Compare(a, b));
 		
 		/// <summary>Converts a Towel.Compare to a System.Comparison.</summary>
 		/// <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
 		/// <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
 		/// <returns>The converted System.Comparison delegate.</returns>
-		public static Comparison<T> ToSystemComparison<T>(Compare<T> compare) =>
+		public static Comparison<T> ToSystemComparison<T>(Func<T, T, CompareResult> compare) =>
 			(a, b) => (int)compare(a, b);
 	}
 
@@ -91,14 +76,14 @@ namespace Towel
 	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
 	public struct CompareRuntime<T> : IFunc<T, T, CompareResult>
 	{
-		internal Compare<T> Compare;
+		internal Func<T, T, CompareResult> Compare;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
 		public CompareResult Do(T a, T b) => Compare(a, b);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="compare">The runtime Compare delegate.</param>
-		public static implicit operator CompareRuntime<T>(Compare<T> compare) =>
+		public static implicit operator CompareRuntime<T>(Func<T, T, CompareResult> compare) =>
 			new CompareRuntime<T>() { Compare = compare, };
 	}
 

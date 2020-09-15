@@ -101,7 +101,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
-		Compare<T> DataStructure.IComparing<T>.Compare =>
+		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
 			_compare is CompareRuntime<T> compareRuntime
 			? compareRuntime.Compare
 			: _compare.Do;
@@ -816,7 +816,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs an AVL Tree.</summary>
 		/// <param name="compare">The comparison function for sorting the items.</param>
 		/// <runtime>θ(1)</runtime>
-		public AvlTreeLinked(Compare<T> compare = null) : base(compare ?? Towel.Compare.Default) { }
+		public AvlTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Towel.Compare.Default) { }
 
 		/// <summary>This constructor if for cloning purposes.</summary>
 		/// <param name="tree">The tree to clone.</param>
@@ -842,7 +842,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
-		public Compare<T> Compare => _compare.Compare;
+		public Func<T, T, CompareResult> Compare => _compare.Compare;
 
 		#endregion
 
