@@ -28,7 +28,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements a First-In-Last-Out stack data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[Serializable]
 	public class StackLinked<T> : IStack<T>
 	{
 		internal Node _top;
@@ -36,7 +35,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal class Node
 		{
 			internal T Value;
@@ -279,7 +277,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[Serializable]
 	public class StackArray<T> : IStack<T>
 	{
 		const int DefaultMinimumCapacity = 1;

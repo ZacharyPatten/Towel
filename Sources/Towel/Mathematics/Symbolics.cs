@@ -13,7 +13,6 @@ namespace Towel.Mathematics
 	{
 		#region OperatorPriority Enum
 
-		[Serializable]
 		internal enum OperatorPriority
 		{
 			Addition = 1,
@@ -219,7 +218,6 @@ namespace Towel.Mathematics
 		#region Variable
 
 		/// <summary>A variable in a symbolic mathematics expression.</summary>
-		[Serializable]
 		public class Variable : Expression
 		{
 			/// <summary>The name of the variable.</summary>
@@ -278,7 +276,6 @@ namespace Towel.Mathematics
 		#region Constant
 
 		/// <summary>Represents a constant numerical value.</summary>
-		[Serializable]
 		public abstract class Constant : Expression
 		{
 			/// <summary>True if this is a known constant value.</summary>
@@ -332,7 +329,6 @@ namespace Towel.Mathematics
 		#region KnownConstantOfUknownType
 
 		/// <summary>Abstract base class for known constants of unknown types.</summary>
-		[Serializable]
 		public abstract class KnownConstantOfUnknownType : Constant
 		{
 			/// <summary>True if this numeric value is a known value.</summary>
@@ -346,7 +342,6 @@ namespace Towel.Mathematics
 		#region Pi
 
 		/// <summary>Represents the π (pi).</summary>
-		[Serializable]
 		[KnownConstant("π")]
 		public class Pi : KnownConstantOfUnknownType
 		{
@@ -393,7 +388,6 @@ namespace Towel.Mathematics
 		#region Zero
 
 		/// <summary>Represents zero (0).</summary>
-		[Serializable]
 		public class Zero : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new zero (0) value.</summary>
@@ -440,7 +434,6 @@ namespace Towel.Mathematics
 		#region One
 
 		/// <summary>Represents the value of one (1).</summary>
-		[Serializable]
 		public class One : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new one (1) constant.</summary>
@@ -487,7 +480,6 @@ namespace Towel.Mathematics
 		#region Two
 
 		/// <summary>Represents the value of two (2).</summary>
-		[Serializable]
 		public class Two : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new value of two (2).</summary>
@@ -534,7 +526,6 @@ namespace Towel.Mathematics
 		#region Three
 
 		/// <summary>Represents the value of three (3).</summary>
-		[Serializable]
 		public class Three : KnownConstantOfUnknownType
 		{
 			/// <summary>Constructs a new value of three (3).</summary>
@@ -586,7 +577,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a numeric constant.</summary>
 		/// <typeparam name="T">The generic type of the numeric value.</typeparam>
-		[Serializable]
 		public class Constant<T> : Constant
 		{
 			/// <summary>The value of this numeric constant.</summary>
@@ -648,7 +638,6 @@ namespace Towel.Mathematics
 		#region KnownConstantOfKnownType<T>
 
 		/// <summary>Abstract base class for known constants of unknown types.</summary>
-		[Serializable]
 		public abstract class KnownConstantOfKnownType<T> : Constant<T>
 		{
 			/// <summary>True if this numeric value is a known value.</summary>
@@ -665,7 +654,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of π (pi).</summary>
 		/// <typeparam name="T">The generic type of the numeric.</typeparam>
-		[Serializable]
 		public class Pi<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new value of π (pi).</summary>
@@ -708,7 +696,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of zero (0).</summary>
 		/// <typeparam name="T">The generic type of the numeric value.</typeparam>
-		[Serializable]
 		public class Zero<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new zero (0) value.</summary>
@@ -751,7 +738,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of one (1).</summary>
 		/// <typeparam name="T">The generic type of the numeric value.</typeparam>
-		[Serializable]
 		public class One<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new one (1) value.</summary>
@@ -794,7 +780,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of two (2).</summary>
 		/// <typeparam name="T">The generic type of the numeric value.</typeparam>
-		[Serializable]
 		public class Two<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new value of two (2).</summary>
@@ -837,7 +822,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents the value of three (3).</summary>
 		/// <typeparam name="T">The generic type of the numeric value.</typeparam>
-		[Serializable]
 		public class Three<T> : KnownConstantOfKnownType<T>
 		{
 			/// <summary>Constructs a new value of three.</summary>
@@ -879,7 +863,6 @@ namespace Towel.Mathematics
 		#region True
 
 		/// <summary>Represents the value of true.</summary>
-		[Serializable]
 		public class True : KnownConstantOfKnownType<bool>
 		{
 			/// <summary>Constructs a new value of true.</summary>
@@ -918,7 +901,6 @@ namespace Towel.Mathematics
 		#region False
 
 		/// <summary>Represents the value of false.</summary>
-		[Serializable]
 		public class False : KnownConstantOfKnownType<bool>
 		{
 			/// <summary>Constructs a new false value.</summary>
@@ -1021,7 +1003,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a mathematical simplification operation.</summary>
 		[Operation("Simplify")]
-		[Serializable]
 		public class Simplification : Unary
 		{
 			/// <summary>Constructs a new simplification operation.</summary>
@@ -1054,7 +1035,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a negation operation.</summary>
 		[LeftUnaryOperator("-", OperatorPriority.Negation)]
-		[Serializable]
 		public class Negate : Unary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new negation operation.</summary>
@@ -1113,7 +1093,6 @@ namespace Towel.Mathematics
 		#region NaturalLog
 
 		/// <summary>Represents a natural log operation.</summary>
-		[Serializable]
 		public class NaturalLog : Unary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new natural log operation.</summary>
@@ -1165,7 +1144,6 @@ namespace Towel.Mathematics
 		#region SquareRoot
 
 		/// <summary>Represents a square root operation </summary>
-		[Serializable]
 		public class SquareRoot : Unary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new square root operation.</summary>
@@ -1217,7 +1195,6 @@ namespace Towel.Mathematics
 		#region Exponential
 
 		/// <summary>Represents an exponential operation.</summary>
-		[Serializable]
 		public class Exponential : Unary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new exponential operation.</summary>
@@ -1270,7 +1247,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a factorial operation.</summary>
 		[RightUnaryOperator("!", OperatorPriority.Factorial)]
-		[Serializable]
 		public class Factorial : Unary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new factorial operation.</summary>
@@ -1342,7 +1318,6 @@ namespace Towel.Mathematics
 		#region Invert
 
 		/// <summary>Represents a reciprical/invert operation.</summary>
-		[Serializable]
 		public class Invert : Unary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new reciprical/invert operation.</summary>
@@ -1408,7 +1383,6 @@ namespace Towel.Mathematics
 		#region Sine
 
 		/// <summary>Represents the sine trigonometric function.</summary>
-		[Serializable]
 		public class Sine : Trigonometry, Operation.IMathematical
 		{
 			/// <summary>Constructs a new sine expression.</summary>
@@ -1454,7 +1428,6 @@ namespace Towel.Mathematics
 		#region Cosine
 
 		/// <summary>Represents the cosine trigonometric function.</summary>
-		[Serializable]
 		public class Cosine : Trigonometry, Operation.IMathematical
 		{
 			/// <summary>Constructs a new cosine expression.</summary>
@@ -1500,7 +1473,6 @@ namespace Towel.Mathematics
 		#region Tangent
 
 		/// <summary>Represents the tanget trigonometric function.</summary>
-		[Serializable]
 		public class Tangent : Trigonometry, Operation.IMathematical
 		{
 			/// <summary>Constructs a new tangent expression.</summary>
@@ -1546,7 +1518,6 @@ namespace Towel.Mathematics
 		#region Cosecant
 
 		/// <summary>Represents the cosecant trigonometric function.</summary>
-		[Serializable]
 		public class Cosecant : Trigonometry, Operation.IMathematical
 		{
 			/// <summary>Constructs a new cosecant expression.</summary>
@@ -1592,7 +1563,6 @@ namespace Towel.Mathematics
 		#region Secant
 
 		/// <summary>Represents the secant trigonometric function.</summary>
-		[Serializable]
 		public class Secant : Trigonometry, Operation.IMathematical
 		{
 			/// <summary>Constructs a new secant expression.</summary>
@@ -1638,7 +1608,6 @@ namespace Towel.Mathematics
 		#region Cotangent
 
 		/// <summary>Represents the cotangent trigonometric function.</summary>
-		[Serializable]
 		public class Cotangent : Trigonometry, Operation.IMathematical
 		{
 			/// <summary>Constructs a new cotangent expression.</summary>
@@ -1743,7 +1712,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents an addition operation.</summary>
 		[BinaryOperator("+", OperatorPriority.Addition)]
-		[Serializable]
 		public class Add : AddOrSubtract
 		{
 			/// <summary>Constructs a new addition operation.</summary>
@@ -1902,7 +1870,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a subtraction operation.</summary>
 		[BinaryOperator("-", OperatorPriority.Subtraction)]
-		[Serializable]
 		public class Subtract : AddOrSubtract
 		{
 			/// <summary>Constructs a new subtraction operation.</summary>
@@ -2068,7 +2035,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a multiplication operation.</summary>
 		[BinaryOperator("*", OperatorPriority.Multiplication)]
-		[Serializable]
 		public class Multiply : MultiplyOrDivide
 		{
 			/// <summary>Constructs a new multiplication operation.</summary>
@@ -2268,7 +2234,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a division operation.</summary>
 		[BinaryOperator("/", OperatorPriority.Division)]
-		[Serializable]
 		public class Divide : MultiplyOrDivide
 		{
 			/// <summary>Constructs a new division operation.</summary>
@@ -2450,7 +2415,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a power operation.</summary>
 		[BinaryOperator("^", OperatorPriority.Exponents)]
-		[Serializable]
 		public class Power : Binary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new power operation.</summary>
@@ -2554,7 +2518,6 @@ namespace Towel.Mathematics
 		#region Root
 
 		/// <summary>Represents a root operation.</summary>
-		[Serializable]
 		public class Root : Binary, Operation.IMathematical
 		{
 			/// <summary>Constructs a new root operation.</summary>
@@ -2610,7 +2573,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents an equality operation between two expressions.</summary>
 		[BinaryOperator("=", OperatorPriority.Logical)]
-		[Serializable]
 		public class Equal : Binary, Operation.ILogical
 		{
 			/// <summary>Constructs a new equality operation between two expressions.</summary>
@@ -2666,7 +2628,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents an equality operation between two expressions.</summary>
 		[BinaryOperator("≠", OperatorPriority.Logical)]
-		[Serializable]
 		public class NotEqual : Binary, Operation.ILogical
 		{
 			/// <summary>Constructs a new inequality operation between two expressions.</summary>
@@ -2722,7 +2683,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a less than operation.</summary>
 		[BinaryOperator("<", OperatorPriority.Logical)]
-		[Serializable]
 		public class LessThan : Binary, Operation.ILogical
 		{
 			/// <summary>Constructs a new less than operation.</summary>
@@ -2778,7 +2738,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a greater than operation.</summary>
 		[BinaryOperator(">", OperatorPriority.Logical)]
-		[Serializable]
 		public class GreaterThan : Binary, Operation.ILogical
 		{
 			/// <summary>Constructs a new greater than operation.</summary>
@@ -2834,7 +2793,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a less than or equal to operation.</summary>
 		[BinaryOperator("<=", OperatorPriority.Logical)]
-		[Serializable]
 		public class LessThanOrEqual : Binary, Operation.ILogical
 		{
 			/// <summary>Constructs a new less than or equal to operation.</summary>
@@ -2890,7 +2848,6 @@ namespace Towel.Mathematics
 
 		/// <summary>Represents a greater than or equal to operation.</summary>
 		[BinaryOperator(">=", OperatorPriority.Logical)]
-		[Serializable]
 		public class GreaterThanOrEqual : Binary, Operation.ILogical
 		{
 			/// <summary>Constructs a new greater than or equal to operation.</summary>

@@ -36,7 +36,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements First-In-First-Out queue data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[Serializable]
 	public class QueueLinked<T> : IQueue<T>
 	{
 		internal Node _head;
@@ -45,7 +44,6 @@ namespace Towel.DataStructures
 
 		#region Node
 
-		[Serializable]
 		internal class Node
 		{
 			internal T Value;
@@ -302,7 +300,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements First-In-First-Out queue data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[Serializable]
 	public class QueueArray<T> : IQueue<T>
 	{
 		internal T[] _queue;

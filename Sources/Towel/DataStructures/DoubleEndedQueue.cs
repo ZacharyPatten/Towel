@@ -22,7 +22,6 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	[Serializable]
 	public class DoubleEndedQueueLinked<T> : IDoubleEndedQueue<T>
 	{
 		internal Node _head;
@@ -32,7 +31,6 @@ namespace Towel.DataStructures
 		#region Node
 
 		/// <summary>This class just holds the data for each individual node of the list.</summary>
-		[Serializable]
 		internal class Node
 		{
 			internal T Value;

@@ -128,7 +128,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
 	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	[Serializable]
 	public class ListLinked<T> : IList<T>
 	{
 		internal int _count;
@@ -138,7 +137,6 @@ namespace Towel.DataStructures
 		#region Node
 
 		/// <summary>This class just holds the data for each individual node of the list.</summary>
-		[Serializable]
 		internal class Node
 		{
 			internal Node Next;
@@ -469,7 +467,6 @@ namespace Towel.DataStructures
 
 	/// <summary>A list implemented as a growing array.</summary>
 	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	[Serializable]
 	public class ListArray<T> : IList<T>
 	{
 		internal T[] _list;

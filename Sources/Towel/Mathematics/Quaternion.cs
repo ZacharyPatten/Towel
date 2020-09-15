@@ -9,7 +9,6 @@ namespace Towel.Mathematics
 	/// <summary>Standard 4-component quaternion [x, y, z, w]. W is the rotation ammount.</summary>
 	/// <typeparam name="T">The numeric type of this Quaternion.</typeparam>
 	[DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
-	[Serializable]
 	public class Quaternion<T>
 	{
 		internal T _x;

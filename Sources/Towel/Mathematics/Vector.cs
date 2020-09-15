@@ -9,7 +9,6 @@ namespace Towel.Mathematics
 	/// <summary>Represents a vector with an arbitrary number of components of a generic type.</summary>
 	/// <typeparam name="T">The numeric type of this Vector.</typeparam>
 	[DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
-	[Serializable]
 	public class Vector<T>
 	{
 		internal readonly T[] _vector;

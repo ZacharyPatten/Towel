@@ -6,7 +6,6 @@ using System.Text;
 namespace Towel
 {
 	/// <summary>Status of iteration.</summary>
-	[Serializable]
 	public enum StepStatus
 	{
 		#region Members

@@ -9,7 +9,6 @@ namespace Towel.Mathematics
 	/// <summary>A matrix of arbitrary dimensions implemented as a flattened array.</summary>
 	/// <typeparam name="T">The numeric type of this Matrix.</typeparam>
 	[DebuggerDisplay("{" + nameof(DebuggerString) + "}")]
-	[Serializable]
 	public class Matrix<T>
 	{
 		internal readonly T[] _matrix;

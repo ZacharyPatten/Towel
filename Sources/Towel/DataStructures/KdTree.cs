@@ -37,7 +37,6 @@ namespace Towel.DataStructures
 	/// <summary>A binary tree data structure for sorting items along multiple dimensions.</summary>
 	/// <typeparam name="T">The generic items to be stored in this data structure.</typeparam>
 	/// <typeparam name="K">The type of the axis dimensions to sort the "T" values upon.</typeparam>
-	[Serializable]
 	public class KdTree_Linked<T, K> : IKdTree<K, T>
 	{
 		internal Compare<K> _compareKey;

@@ -28,7 +28,6 @@ namespace Towel.DataStructures
 <# for (int j = 1; j <= i; j++) { #>
 	/// <typeparam name="T<#= j #>">The type of #<#= j #> element in the link.</typeparam>
 <# } #>
-	[System.Serializable]
 	public class Link<T1
 <# for (int j = 2; j <= i; j++) { #>
 		, T<#= j #>
@@ -303,7 +302,6 @@ namespace Towel.DataStructures
 <# for (int j = 1; j <= i; j++) { #>
 	/// <typeparam name="T<#= j #>">The type of #<#= j #> element in the link.</typeparam>
 <# } #>
-	[System.Serializable]
 	public struct LinkStruct<T1
 <# for (int j = 2; j <= i; j++) { #>
 		, T<#= j #>

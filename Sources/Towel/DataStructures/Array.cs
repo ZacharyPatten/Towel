@@ -30,7 +30,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Contiguous fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	[Serializable]
 	public class Array<T> : IArray<T>
 	{
 		internal T[] _array;

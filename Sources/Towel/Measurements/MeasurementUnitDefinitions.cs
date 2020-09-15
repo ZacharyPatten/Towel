@@ -16,7 +16,6 @@ namespace Towel.Measurements
 	{
 		/// <summary>Units for angle measurements.</summary>
 		[Measurement.ParseableUnit]
-		[Serializable]
 		public enum Units
 		{
 			// Enum values must be 0, 1, 2, 3... as they are used for array look ups.
@@ -55,7 +54,6 @@ namespace Towel.Measurements
 	{
 		/// <summary>Units for electric charge measurements.</summary>
 		[Measurement.ParseableUnit]
-		[Serializable]
 		public enum Units
 		{
 			// Enum values must be 0, 1, 2, 3... as they are used for array look ups.
@@ -137,7 +135,6 @@ namespace Towel.Measurements
 	{
 		/// <summary>Units for length measurements.</summary>
 		[Measurement.ParseableUnit]
-		[Serializable]
 		public enum Units
 		{
 			// Enum values must be 0, 1, 2, 3... as they are used for array look ups.
@@ -346,7 +343,6 @@ namespace Towel.Measurements
 	{
 		/// <summary>Units for Mass measurements.</summary>
 		[Measurement.ParseableUnit]
-		[Serializable]
 		public enum Units
 		{
 			// Note: It is critical that these enum values are in increasing order of size.
@@ -428,7 +424,6 @@ namespace Towel.Measurements
 	{
 		/// <summary>Units for Tempurature measurements.</summary>
 		[Measurement.ParseableUnit]
-		[Serializable]
 		public enum Units
 		{
 			// Enum values must be 0, 1, 2, 3... as they are used for array look ups.
@@ -476,7 +471,6 @@ namespace Towel.Measurements
 	{
 		/// <summary>Units for time measurements.</summary>
 		[Measurement.ParseableUnit]
-		[Serializable]
 		public enum Units
 		{
 			// Enum values must be 0, 1, 2, 3... as they are used for array look ups.

@@ -22,7 +22,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
-	[System.Serializable]
 	public class Link<T1
 		> : Link
 	{
@@ -201,7 +200,6 @@ namespace Towel.DataStructures
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
-	[System.Serializable]
 	public struct LinkStruct<T1
 		> : Link
 	{
@@ -387,7 +385,6 @@ namespace Towel.DataStructures
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
-	[System.Serializable]
 	public class Link<T1
 		, T2
 		> : Link
@@ -612,7 +609,6 @@ namespace Towel.DataStructures
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
-	[System.Serializable]
 	public struct LinkStruct<T1
 		, T2
 		> : Link
@@ -841,7 +837,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
-	[System.Serializable]
 	public class Link<T1
 		, T2
 		, T3
@@ -1114,7 +1109,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T1">The type of #1 element in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
-	[System.Serializable]
 	public struct LinkStruct<T1
 		, T2
 		, T3
@@ -1386,7 +1380,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
-	[System.Serializable]
 	public class Link<T1
 		, T2
 		, T3
@@ -1709,7 +1702,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T2">The type of #2 element in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
-	[System.Serializable]
 	public struct LinkStruct<T1
 		, T2
 		, T3
@@ -2024,7 +2016,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
-	[System.Serializable]
 	public class Link<T1
 		, T2
 		, T3
@@ -2399,7 +2390,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T3">The type of #3 element in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
-	[System.Serializable]
 	public struct LinkStruct<T1
 		, T2
 		, T3
@@ -2757,7 +2747,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
-	[System.Serializable]
 	public class Link<T1
 		, T2
 		, T3
@@ -3186,7 +3175,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T4">The type of #4 element in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
-	[System.Serializable]
 	public struct LinkStruct<T1
 		, T2
 		, T3
@@ -3587,7 +3575,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
 	/// <typeparam name="T7">The type of #7 element in the link.</typeparam>
-	[System.Serializable]
 	public class Link<T1
 		, T2
 		, T3
@@ -4072,7 +4059,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T5">The type of #5 element in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 element in the link.</typeparam>
 	/// <typeparam name="T7">The type of #7 element in the link.</typeparam>
-	[System.Serializable]
 	public struct LinkStruct<T1
 		, T2
 		, T3
