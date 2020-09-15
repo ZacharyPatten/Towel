@@ -540,7 +540,7 @@ namespace Towel
 		/// <param name="equate">An equality function for the data</param>
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
-		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Equate<T> equate, Hash<T> hash)
+		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Func<T, T, bool> equate, Hash<T> hash)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
@@ -567,7 +567,7 @@ namespace Towel
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-		public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Equate<T> equate, Hash<T> hash)
+		public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Func<T, T, bool> equate, Hash<T> hash)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);

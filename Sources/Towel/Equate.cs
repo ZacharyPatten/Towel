@@ -1,14 +1,8 @@
-﻿using static Towel.Syntax;
+﻿using System;
+using static Towel.Syntax;
 
 namespace Towel
 {
-	/// <summary>Delegate for equating two instances of the same type.</summary>
-	/// <typeparam name="T">The types of the instances to compare.</typeparam>
-	/// <param name="a">The left operand of the comparison.</param>
-	/// <param name="b">The right operand of the comparison.</param>
-	/// <returns>Whether the equate is valid (true) or not (false).</returns>
-	public delegate bool Equate<T>(T a, T b);
-
 	/// <summary>Delegate for equating two instances of different types.</summary>
 	/// <typeparam name="A">The type of the left instance to compare.</typeparam>
 	/// <typeparam name="B">The type of the right instance to compare.</typeparam>
@@ -33,7 +27,7 @@ namespace Towel
 		/// <typeparam name="T">The generic parameter of the delegates.</typeparam>
 		/// <param name="compare">The compare delegate to convert to a equate.</param>
 		/// <returns>The compare delegate converted into an equate.</returns>
-		public static Equate<T> FromCompare<T>(Compare<T> compare) =>
+		public static Func<T, T, bool> FromCompare<T>(Compare<T> compare) =>
 			(a, b) => compare(a, b) is Equal;
 
 		#endregion
@@ -43,14 +37,14 @@ namespace Towel
 	/// <typeparam name="T">The generic type of the values to equate.</typeparam>
 	public struct EquateRuntime<T> : IFunc<T, T, bool>
 	{
-		internal Equate<T> Equate;
+		internal Func<T, T, bool> Equate;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
 		public bool Do(T a, T b) => Equate(a, b);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="equate">The runtime Equate delegate.</param>
-		public static implicit operator EquateRuntime<T>(Equate<T> equate) =>
+		public static implicit operator EquateRuntime<T>(Func<T, T, bool> equate) =>
 			new EquateRuntime<T>() { Equate = equate, };
 	}
 

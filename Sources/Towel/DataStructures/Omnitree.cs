@@ -200,7 +200,7 @@ namespace Towel.DataStructures
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<Axis1>(Omnitree.Vector<Axis1> a, Omnitree.Vector<Axis1> b,
-			Equate<Axis1> equate1) =>
+			Func<Axis1, Axis1, bool> equate1) =>
 			!equate1(a.Axis1, b.Axis1) ? false :
 			true;
 
@@ -229,7 +229,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1>(this IOmnitreePoints<T, Axis1> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, Axis1>(this IOmnitreePoints<T, Axis1> omnitree, T removal, Func<T, T, bool> equate)
 		{
 			Axis1 axis1;
 			omnitree.Locate(removal, out axis1
@@ -252,7 +252,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1>(this IOmnitreeBounds<T, Axis1> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, Axis1>(this IOmnitreeBounds<T, Axis1> omnitree,T removal, Func<T, T, bool> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			omnitree.GetBounds(removal, out min1, out max1
@@ -447,7 +447,7 @@ namespace Towel.DataStructures
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<Axis1, Axis2>(Omnitree.Vector<Axis1, Axis2> a, Omnitree.Vector<Axis1, Axis2> b,
-			Equate<Axis1> equate1, Equate<Axis2> equate2) =>
+			Func<Axis1, Axis1, bool> equate1, Func<Axis2, Axis2, bool> equate2) =>
 			!equate1(a.Axis1, b.Axis1) ? false :
 			!equate2(a.Axis2, b.Axis2) ? false :
 			true;
@@ -483,7 +483,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2>(this IOmnitreePoints<T, Axis1, Axis2> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2>(this IOmnitreePoints<T, Axis1, Axis2> omnitree, T removal, Func<T, T, bool> equate)
 		{
 			Axis1 axis1;
 			Axis2 axis2;
@@ -511,7 +511,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2>(this IOmnitreeBounds<T, Axis1, Axis2> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2>(this IOmnitreeBounds<T, Axis1, Axis2> omnitree,T removal, Func<T, T, bool> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
@@ -760,7 +760,7 @@ namespace Towel.DataStructures
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<Axis1, Axis2, Axis3>(Omnitree.Vector<Axis1, Axis2, Axis3> a, Omnitree.Vector<Axis1, Axis2, Axis3> b,
-			Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3) =>
+			Func<Axis1, Axis1, bool> equate1, Func<Axis2, Axis2, bool> equate2, Func<Axis3, Axis3, bool> equate3) =>
 			!equate1(a.Axis1, b.Axis1) ? false :
 			!equate2(a.Axis2, b.Axis2) ? false :
 			!equate3(a.Axis3, b.Axis3) ? false :
@@ -803,7 +803,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreePoints<T, Axis1, Axis2, Axis3> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreePoints<T, Axis1, Axis2, Axis3> omnitree, T removal, Func<T, T, bool> equate)
 		{
 			Axis1 axis1;
 			Axis2 axis2;
@@ -836,7 +836,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3> omnitree,T removal, Func<T, T, bool> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
@@ -1139,7 +1139,7 @@ namespace Towel.DataStructures
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> b,
-			Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4) =>
+			Func<Axis1, Axis1, bool> equate1, Func<Axis2, Axis2, bool> equate2, Func<Axis3, Axis3, bool> equate3, Func<Axis4, Axis4, bool> equate4) =>
 			!equate1(a.Axis1, b.Axis1) ? false :
 			!equate2(a.Axis2, b.Axis2) ? false :
 			!equate3(a.Axis3, b.Axis3) ? false :
@@ -1189,7 +1189,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4> omnitree, T removal, Func<T, T, bool> equate)
 		{
 			Axis1 axis1;
 			Axis2 axis2;
@@ -1227,7 +1227,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4> omnitree,T removal, Func<T, T, bool> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
@@ -1584,7 +1584,7 @@ namespace Towel.DataStructures
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> b,
-			Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4, Equate<Axis5> equate5) =>
+			Func<Axis1, Axis1, bool> equate1, Func<Axis2, Axis2, bool> equate2, Func<Axis3, Axis3, bool> equate3, Func<Axis4, Axis4, bool> equate4, Func<Axis5, Axis5, bool> equate5) =>
 			!equate1(a.Axis1, b.Axis1) ? false :
 			!equate2(a.Axis2, b.Axis2) ? false :
 			!equate3(a.Axis3, b.Axis3) ? false :
@@ -1641,7 +1641,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree, T removal, Func<T, T, bool> equate)
 		{
 			Axis1 axis1;
 			Axis2 axis2;
@@ -1684,7 +1684,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5> omnitree,T removal, Func<T, T, bool> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
@@ -2095,7 +2095,7 @@ namespace Towel.DataStructures
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b,
-			Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4, Equate<Axis5> equate5, Equate<Axis6> equate6) =>
+			Func<Axis1, Axis1, bool> equate1, Func<Axis2, Axis2, bool> equate2, Func<Axis3, Axis3, bool> equate3, Func<Axis4, Axis4, bool> equate4, Func<Axis5, Axis5, bool> equate5, Func<Axis6, Axis6, bool> equate6) =>
 			!equate1(a.Axis1, b.Axis1) ? false :
 			!equate2(a.Axis2, b.Axis2) ? false :
 			!equate3(a.Axis3, b.Axis3) ? false :
@@ -2159,7 +2159,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree, T removal, Func<T, T, bool> equate)
 		{
 			Axis1 axis1;
 			Axis2 axis2;
@@ -2207,7 +2207,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> omnitree,T removal, Func<T, T, bool> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
@@ -2672,7 +2672,7 @@ namespace Towel.DataStructures
 		/// <summary>Checks for equality between two locations.</summary>
 		/// <returns>True if equal; False if not;</returns>
 		public static bool EqualsCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b,
-			Equate<Axis1> equate1, Equate<Axis2> equate2, Equate<Axis3> equate3, Equate<Axis4> equate4, Equate<Axis5> equate5, Equate<Axis6> equate6, Equate<Axis7> equate7) =>
+			Func<Axis1, Axis1, bool> equate1, Func<Axis2, Axis2, bool> equate2, Func<Axis3, Axis3, bool> equate3, Func<Axis4, Axis4, bool> equate4, Func<Axis5, Axis5, bool> equate5, Func<Axis6, Axis6, bool> equate6, Func<Axis7, Axis7, bool> equate7) =>
 			!equate1(a.Axis1, b.Axis1) ? false :
 			!equate2(a.Axis2, b.Axis2) ? false :
 			!equate3(a.Axis3, b.Axis3) ? false :
@@ -2743,7 +2743,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreePoints<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree, T removal, Func<T, T, bool> equate)
 		{
 			Axis1 axis1;
 			Axis2 axis2;
@@ -2796,7 +2796,7 @@ namespace Towel.DataStructures
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(this IOmnitreeBounds<T, Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> omnitree,T removal, Func<T, T, bool> equate)
 		{
 			Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
 			Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
@@ -4011,7 +4011,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -5633,7 +5633,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -7396,7 +7396,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -9302,7 +9302,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -11353,7 +11353,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -13551,7 +13551,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -15898,7 +15898,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -17622,7 +17622,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -19263,7 +19263,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -21078,7 +21078,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -23067,7 +23067,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -25230,7 +25230,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -27567,7 +27567,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
@@ -30078,7 +30078,7 @@ namespace Towel.DataStructures
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>

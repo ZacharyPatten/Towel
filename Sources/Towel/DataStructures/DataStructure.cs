@@ -93,7 +93,7 @@ namespace Towel.DataStructures
 		public interface IEquating<T>
 		{
 			/// <summary>Gets the equating function of the data structure.</summary>
-			Equate<T> Equate { get; }
+			Func<T, T, bool> Equate { get; }
 		}
 
 		/// <summary>Property of a data structure (does it have a Stepper ref method).</summary>

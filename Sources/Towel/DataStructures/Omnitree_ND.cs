@@ -335,7 +335,7 @@ namespace Towel.DataStructures
 		/// <summary>Removes all occurences of an item from the omnitree.</summary>
 		/// <param name="removal">The value to be removed.</param>
 		/// <param name="equate">The  delegate for determining equality.</param>
-		void Remove(T removal, Equate<T> equate);
+		void Remove(T removal, Func<T, T, bool> equate);
 	}
 
 	// TODO: this will be teh ND version of the omnitree. It will allow for any number of dimensions without a
@@ -412,7 +412,7 @@ namespace Towel.DataStructures
 	//    internal Omnitree.Location<T> _locate;
 
 	//    internal bool _defaultEquate;
-	//    internal Equate<T> _equate;
+	//    internal Func<T, T, bool> _equate;
 
 	//    internal bool[] _defaultEquates;
 	//    internal Equate<object>[] _equates;
@@ -646,7 +646,7 @@ namespace Towel.DataStructures
 	//    internal OmnitreePointsLinked(
 	//        Omnitree.Location<T> locate,
 	//        bool defaultEquate,
-	//        Equate<T> equate,
+	//        Func<T, T, bool> equate,
 	//        bool[] defaultEquates,
 	//        Equate<object>[] equates,
 	//        bool[] defaultCompares,
@@ -680,7 +680,7 @@ namespace Towel.DataStructures
 
 	//    //internal OmnitreePointsLinked(
 	//    //    Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
-	//    //    Equate<T> equate,
+	//    //    Func<T, T, bool> equate,
 	//    //    Equate<Axis1> equateAxis1,
 	//    //    Equate<Axis2> equateAxis2,
 	//    //    Equate<Axis3> equateAxis3,
@@ -713,7 +713,7 @@ namespace Towel.DataStructures
 
 	//    //public OmnitreePointsLinked(
 	//    //    Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
-	//    //    Equate<T> equate,
+	//    //    Func<T, T, bool> equate,
 	//    //    Equate<Axis1> equateAxis1,
 	//    //    Equate<Axis2> equateAxis2,
 	//    //    Equate<Axis3> equateAxis3,
@@ -745,7 +745,7 @@ namespace Towel.DataStructures
 
 	//    //public OmnitreePointsLinked(
 	//    //    Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
-	//    //    Equate<T> equate,
+	//    //    Func<T, T, bool> equate,
 	//    //    Compare<Axis1> compare1,
 	//    //    Compare<Axis2> compare2,
 	//    //    Compare<Axis3> compare3)
@@ -772,7 +772,7 @@ namespace Towel.DataStructures
 
 	//    //public OmnitreePointsLinked(
 	//    //    Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
-	//    //    Equate<T> equate,
+	//    //    Func<T, T, bool> equate,
 	//    //    Compare<Axis1> compare1,
 	//    //    Compare<Axis2> compare2,
 	//    //    Compare<Axis3> compare3,
@@ -857,7 +857,7 @@ namespace Towel.DataStructures
 
 	//    //public OmnitreePointsLinked(
 	//    //    Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
-	//    //    Equate<T> equate)
+	//    //    Func<T, T, bool> equate)
 	//    //    : this(
 	//    //        locate,
 	//    //        false,
@@ -881,7 +881,7 @@ namespace Towel.DataStructures
 
 	//    //public OmnitreePointsLinked(
 	//    //    Omnitree.Location<T, Axis1, Axis2, Axis3> locate,
-	//    //    Equate<T> equate,
+	//    //    Func<T, T, bool> equate,
 	//    //    Omnitree.MedianOverride<T, Axis1, Omnitree.Bounds<Axis1, Axis2, Axis3>> medianOverride1,
 	//    //    Omnitree.MedianOverride<T, Axis2, Omnitree.Bounds<Axis1, Axis2, Axis3>> medianOverride2,
 	//    //    Omnitree.MedianOverride<T, Axis3, Omnitree.Bounds<Axis1, Axis2, Axis3>> medianOverride3)
@@ -976,7 +976,7 @@ namespace Towel.DataStructures
 	//    public int Dimensions { get { return _dimensions; } }
 
 	//    /// <summary>The function for equating keys in this table.</summary>
-	//    public Equate<T> Equate { get { return this._equate; } }
+	//    public Func<T, T, bool> Equate { get { return this._equate; } }
 
 	//    /// <summary>The location function the Omnitree is using.</summary>
 	//    public Omnitree.Location<T> Locate { get { return this._locate; } }

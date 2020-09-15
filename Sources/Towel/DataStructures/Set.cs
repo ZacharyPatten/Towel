@@ -112,7 +112,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		Equate<T> DataStructure.IEquating<T>.Equate =>
+		Func<T, T, bool> DataStructure.IEquating<T>.Equate =>
 			_equate is EquateRuntime<T> equateRuntime
 			? equateRuntime.Equate
 			: _equate.Do;
@@ -431,7 +431,7 @@ namespace Towel.DataStructures
 		/// <param name="expectedCount">The expected count of the set.</param>
 		/// <runtime>O(1)</runtime>
 		public SetHashLinked(
-			Equate<T> equate = null,
+			Func<T, T, bool> equate = null,
 			Hash<T> hash = null,
 			int? expectedCount = null) : base(equate ?? Towel.Equate.Default, hash ?? Towel.Hash.Default, expectedCount) { }
 
@@ -456,7 +456,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Equate<T> Equate => _equate.Equate;
+		public Func<T, T, bool> Equate => _equate.Equate;
 
 		#endregion
 
@@ -487,7 +487,7 @@ namespace Towel.DataStructures
 		internal const float _minLoadFactor = .3f;
 
 		internal StructureFactory _factory;
-		internal Equate<T> _equate;
+		internal Func<T, T, bool> _equate;
 		internal Hash<T> _hash;
 		internal Structure[] _table;
 		internal int _count;
@@ -498,7 +498,7 @@ namespace Towel.DataStructures
 		/// <param name="equate">A delegate for equality checks.</param>
 		/// <param name="hash">A delegate for computing hash codes.</param>
 		/// <returns>The constructed structure.</returns>
-		public delegate Structure StructureFactory(Equate<T> equate, Hash<T> hash);
+		public delegate Structure StructureFactory(Func<T, T, bool> equate, Hash<T> hash);
 
 		/// <summary>Clones a structure.</summary>
 		/// <param name="structure">The structure to clone.</param>
@@ -517,7 +517,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public Set(
 			StructureFactory factory,
-			Equate<T> equate = null,
+			Func<T, T, bool> equate = null,
 			Hash<T> hash = null,
 			int? expectedCount = null)
 		{
@@ -578,7 +578,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Equate<T> Equate => _equate;
+		public Func<T, T, bool> Equate => _equate;
 
 		#endregion
 

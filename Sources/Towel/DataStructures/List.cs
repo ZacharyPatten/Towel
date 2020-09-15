@@ -82,7 +82,7 @@ namespace Towel.DataStructures
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="value">The value to remove the first occurence of.</param>
 		/// <param name="equate">The delegate for performing equality checks.</param>
-		public static void RemoveFirst<T>(this IList<T> iList, T value, Equate<T> equate)
+		public static void RemoveFirst<T>(this IList<T> iList, T value, Func<T, T, bool> equate)
 		{
 			iList.RemoveFirst(x => equate(x, value));
 		}
@@ -101,7 +101,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove the first occurence of.</param>
 		/// <param name="equate">The delegate for performing equality checks.</param>
 		/// <returns>True if the item was found and removed; False if not.</returns>
-		public static bool TryRemoveFirst<T>(this IList<T> iList, T value, Equate<T> equate)
+		public static bool TryRemoveFirst<T>(this IList<T> iList, T value, Func<T, T, bool> equate)
 		{
 			return iList.TryRemoveFirst(x => equate(x, value));
 		}
@@ -118,7 +118,7 @@ namespace Towel.DataStructures
 		/// <param name="iList">The list to remove the values from.</param>
 		/// <param name="value">The value to remove all occurences of.</param>
 		/// <param name="equate">The delegate for performing equality checks.</param>
-		public static void RemoveAll<T>(this IList<T> iList, T value, Equate<T> equate)
+		public static void RemoveAll<T>(this IList<T> iList, T value, Func<T, T, bool> equate)
 		{
 			iList.RemoveAll(x => equate(x, value));
 		}
@@ -724,7 +724,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove.</param>
 		/// <param name="equate">The delegate providing the equality check.</param>
 		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirstWithoutShrink(T value, Equate<T> equate)
+		public void RemoveFirstWithoutShrink(T value, Func<T, T, bool> equate)
 		{
 			RemoveFirstWithoutShrink(x => equate(x, value), out _);
 		}

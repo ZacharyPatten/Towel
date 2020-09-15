@@ -94,7 +94,7 @@ namespace Towel.DataStructures
 		/// <param name="compare">The compare delegate for the data structure to use.</param>
 		/// <param name="hash">The hash delegate for the datastructure to use.</param>
 		public GraphSetOmnitree(
-			Equate<T> equate = null,
+			Func<T, T, bool> equate = null,
 			Compare<T> compare = null,
 			Hash<T> hash = null)
 		{
@@ -293,7 +293,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new GraphMap.</summary>
 		/// <param name="equate">The equate delegate for the data structure to use.</param>
 		/// <param name="hash">The hash function for the data structure to use.</param>
-		public GraphMap(Equate<T> equate, Hash<T> hash)
+		public GraphMap(Func<T, T, bool> equate, Hash<T> hash)
 		{
 			_edges = 0;
 			_map = new MapHashLinked<SetHashLinked<T>, T>(equate, hash);

@@ -77,7 +77,7 @@ string chain_AxisX_minX_AxisX_maxX = "Axis1 min1, Axis1 max1"; for (int j = 2; j
 string chain_BoundAxisX_minX_BoundAxisX_maxX = "Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_minX_BoundAxisX_maxX += ", Omnitree.Bound<Axis" + j + "> min" + j + ", Omnitree.Bound<Axis" + j + "> max" + j; }
 string chain_BoundAxisX_axisX = "Omnitree.Bound<Axis1> axis1"; for (int j = 2; j <= i; j++) { chain_BoundAxisX_axisX += ", Omnitree.Bound<Axis" + j + "> axis" + j; }
 string chain_Compare_AxisX_compareX = "Compare<Axis1> compare1"; for (int j = 2; j <= i; j++) { chain_Compare_AxisX_compareX += ", Compare<Axis" + j + "> compare" + j; }
-string chain_Equate_AxisX_equateX = "Equate<Axis1> equate1"; for (int j = 2; j <= i; j++) { chain_Equate_AxisX_equateX += ", Equate<Axis" + j + "> equate" + j; }
+string chain_Equate_AxisX_equateX = "Func<Axis1, Axis1, bool> equate1"; for (int j = 2; j <= i; j++) { chain_Equate_AxisX_equateX += ", Func<Axis" + j + ", Axis" + j + ", bool> equate" + j; }
 string chain_minX_maxX = "min1, max1"; for (int j = 2; j <= i; j++) { chain_minX_maxX += ", min" + j + ", max" + j; }
 string chain_axisX_axisX = "axis1, axis1"; for (int j = 2; j <= i; j++) { chain_axisX_axisX += ", axis" + j + ", axis" + j; }
 //string child_index_type; if (i <= 30) { child_index_type = "int"; } else if (i <= 60) { child_index_type = "long"; } else { child_index_type = "BigInteger"; }
@@ -363,7 +363,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreePoints<T, <#= chain_AxisX #>> omnitree, T removal, Equate<T> equate)
+		public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreePoints<T, <#= chain_AxisX #>> omnitree, T removal, Func<T, T, bool> equate)
 		{
 <# for (int j = 1; j <= i; j++) { #>
 			Axis<#= j #> axis<#= j #>;
@@ -397,7 +397,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		/// <param name="omnitree">The omnitree to remove from.</param>
 		/// <param name="removal">The value to have all occurences removed.</param>
 		/// <param name="equate">The delegate for checking for equality.</param>
-		public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreeBounds<T, <#= chain_AxisX #>> omnitree,T removal, Equate<T> equate)
+		public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreeBounds<T, <#= chain_AxisX #>> omnitree,T removal, Func<T, T, bool> equate)
 		{
 <# for (int j = 1; j <= i; j++) { #>
 			Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
@@ -1911,7 +1911,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		<#= documentation_axisX #>
@@ -3880,7 +3880,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 		/// <summary>Removes all instances of a given value.</summary>
-		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 		/// <summary>Removes all the items in a given space.</summary>
 		<#= documentation_axisX #>

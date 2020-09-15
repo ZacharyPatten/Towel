@@ -49,7 +49,7 @@ namespace Towel.DataStructures
 		DataStructure.IHashing<T>,
 		DataStructure.IEquating<T>
 	{
-		internal Equate<T> _equate;
+		internal Func<T, T, bool> _equate;
 		internal Hash<T> _hash;
 		internal T _head;
 		internal MapHashLinked<Node, T> _tree;
@@ -74,7 +74,7 @@ namespace Towel.DataStructures
 
 		public TreeMap(T head) : this(head, Towel.Equate.Default, Towel.Hash.Default) { }
 
-		public TreeMap(T head, Equate<T> equate, Hash<T> hash)
+		public TreeMap(T head, Func<T, T, bool> equate, Hash<T> hash)
 		{
 			_equate = equate;
 			_hash = hash;
@@ -96,7 +96,7 @@ namespace Towel.DataStructures
 		public Hash<T> Hash { get { return _hash; } }
 
 		/// <summary>The equate function being used (was passed into the constructor).</summary>
-		public Equate<T> Equate { get { return _equate; } }
+		public Func<T, T, bool> Equate { get { return _equate; } }
 
 		/// <summary>The number of nodes in this tree.</summary>
 		public int Count { get { return _tree.Count; } }

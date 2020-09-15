@@ -682,7 +682,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			//		/// <param name="omnitree">The omnitree to remove from.</param>
 			//		/// <param name="removal">The value to have all occurences removed.</param>
 			//		/// <param name="equate">The delegate for checking for equality.</param>
-			//public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreePoints<T, <#= chain_AxisX #>> omnitree, T removal, Equate<T> equate)
+			//public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreePoints<T, <#= chain_AxisX #>> omnitree, T removal, Func<T, T, bool> equate)
 			//		{
 			//<# for (int j = 1; j <= i; j++) { #>
 			//			Axis<#= j #> axis<#= j #>;
@@ -716,7 +716,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			//		/// <param name="omnitree">The omnitree to remove from.</param>
 			//		/// <param name="removal">The value to have all occurences removed.</param>
 			//		/// <param name="equate">The delegate for checking for equality.</param>
-			//public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreeBounds<T, <#= chain_AxisX #>> omnitree,T removal, Equate<T> equate)
+			//public static void Remove<T, <#= chain_AxisX #>>(this IOmnitreeBounds<T, <#= chain_AxisX #>> omnitree,T removal, Func<T, T, bool> equate)
 			//		{
 			//<# for (int j = 1; j <= i; j++) { #>
 			//			Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
@@ -2237,7 +2237,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			//		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 			//		/// <summary>Removes all instances of a given value.</summary>
-			//		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+			//		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 			//		/// <summary>Removes all the items in a given space.</summary>
 			//		<#= documentation_axisX #>
@@ -4206,7 +4206,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			//		public void Remove(T removal) => Omnitree.Remove(this, removal);
 
 			//		/// <summary>Removes all instances of a given value.</summary>
-			//		public void Remove(T removal, Equate<T> equate) => Omnitree.Remove(this, removal, equate);
+			//		public void Remove(T removal, Func<T, T, bool> equate) => Omnitree.Remove(this, removal, equate);
 
 			//		/// <summary>Removes all the items in a given space.</summary>
 			//		<#= documentation_axisX #>

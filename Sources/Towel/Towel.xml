@@ -919,7 +919,7 @@
             <summary>This constructor is for cloning purposes.</summary>
             <param name="graph">The graph to construct a clone of.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(Towel.Equate{`0},Towel.Compare{`0},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Compare{`0},Towel.Hash{`0})">
             <summary>Constructs a new GraphSetOmnitree.</summary>
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="compare">The compare delegate for the data structure to use.</param>
@@ -1013,7 +1013,7 @@
         <member name="M:Towel.DataStructures.GraphMap`1.#ctor">
             <summary>Constructs a new GraphMap.</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(Towel.Equate{`0},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0})">
             <summary>Constructs a new GraphMap.</summary>
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="hash">The hash function for the data structure to use.</param>
@@ -2577,7 +2577,7 @@
             <param name="iList">The list to remove the value from.</param>
             <param name="value">The value to remove the first occurence of.</param>
         </member>
-        <member name="M:Towel.DataStructures.List.RemoveFirst``1(Towel.DataStructures.IList{``0},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.List.RemoveFirst``1(Towel.DataStructures.IList{``0},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes the first occurence of an item in the list.</summary>
             <param name="iList">The list to remove the value from.</param>
             <param name="value">The value to remove the first occurence of.</param>
@@ -2589,7 +2589,7 @@
             <param name="value">The value to remove the first occurence of.</param>
             <returns>True if the item was found and removed; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.List.TryRemoveFirst``1(Towel.DataStructures.IList{``0},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.List.TryRemoveFirst``1(Towel.DataStructures.IList{``0},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes the first occurence of an item in the list or returns false.</summary>
             <param name="iList">The list to remove the value from.</param>
             <param name="value">The value to remove the first occurence of.</param>
@@ -2601,7 +2601,7 @@
             <param name="iList">The list to remove the values from.</param>
             <param name="value">The value to remove all occurences of.</param>
         </member>
-        <member name="M:Towel.DataStructures.List.RemoveAll``1(Towel.DataStructures.IList{``0},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.List.RemoveAll``1(Towel.DataStructures.IList{``0},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of an item in the list.</summary>
             <param name="iList">The list to remove the values from.</param>
             <param name="value">The value to remove all occurences of.</param>
@@ -2802,7 +2802,7 @@
             <param name="value">The value to remove.</param>
             <runtime>O(n), Ω(1)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
             <param name="value">The value to remove.</param>
             <param name="equate">The delegate providing the equality check.</param>
@@ -3172,7 +3172,7 @@
             <typeparam name="T">The generic type of the structure.</typeparam>
             <typeparam name="K">The generic key type of this map.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.Equate{`1},Towel.Hash{`1},System.Nullable{System.Int32})">
+        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(System.Func{`1,`1,System.Boolean},Towel.Hash{`1},System.Nullable{System.Int32})">
             <summary>Constructs a hashed map.</summary>
             <param name="equate">The equate delegate.</param>
             <param name="hash">The hashing function.</param>
@@ -3273,7 +3273,7 @@
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``1(Towel.DataStructures.Omnitree.Vector{``0},Towel.DataStructures.Omnitree.Vector{``0},Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``1(Towel.DataStructures.Omnitree.Vector{``0},Towel.DataStructures.Omnitree.Vector{``0},System.Func{``0,``0,System.Boolean})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
@@ -3292,7 +3292,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreePoints{``0,``1},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreePoints{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3307,7 +3307,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreeBounds{``0,``1},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``2(Towel.DataStructures.IOmnitreeBounds{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3408,7 +3408,7 @@
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``2(Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.Equate{``0},Towel.Equate{``1})">
+        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``2(Towel.DataStructures.Omnitree.Vector{``0,``1},Towel.DataStructures.Omnitree.Vector{``0,``1},System.Func{``0,``0,System.Boolean},System.Func{``1,``1,System.Boolean})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
@@ -3430,7 +3430,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreePoints{``0,``1,``2},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreePoints{``0,``1,``2},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3447,7 +3447,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``3(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3570,7 +3570,7 @@
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``3(Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2})">
+        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``3(Towel.DataStructures.Omnitree.Vector{``0,``1,``2},Towel.DataStructures.Omnitree.Vector{``0,``1,``2},System.Func{``0,``0,System.Boolean},System.Func{``1,``1,System.Boolean},System.Func{``2,``2,System.Boolean})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
@@ -3595,7 +3595,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3614,7 +3614,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``4(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3759,7 +3759,7 @@
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``4(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3})">
+        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``4(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3},System.Func{``0,``0,System.Boolean},System.Func{``1,``1,System.Boolean},System.Func{``2,``2,System.Boolean},System.Func{``3,``3,System.Boolean})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
@@ -3787,7 +3787,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3808,7 +3808,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``5(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -3975,7 +3975,7 @@
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``5(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4})">
+        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``5(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4},System.Func{``0,``0,System.Boolean},System.Func{``1,``1,System.Boolean},System.Func{``2,``2,System.Boolean},System.Func{``3,``3,System.Boolean},System.Func{``4,``4,System.Boolean})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
@@ -4006,7 +4006,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -4029,7 +4029,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``6(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -4218,7 +4218,7 @@
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``6(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4},Towel.Equate{``5})">
+        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``6(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5},System.Func{``0,``0,System.Boolean},System.Func{``1,``1,System.Boolean},System.Func{``2,``2,System.Boolean},System.Func{``3,``3,System.Boolean},System.Func{``4,``4,System.Boolean},System.Func{``5,``5,System.Boolean})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
@@ -4252,7 +4252,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -4277,7 +4277,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``7(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -4488,7 +4488,7 @@
             <summary>Checks if a space (left) encapsulates another space (right).</summary>
             <returns>True if the left space encapsulates the right; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``7(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.Equate{``0},Towel.Equate{``1},Towel.Equate{``2},Towel.Equate{``3},Towel.Equate{``4},Towel.Equate{``5},Towel.Equate{``6})">
+        <member name="M:Towel.DataStructures.Omnitree.EqualsCheck``7(Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},Towel.DataStructures.Omnitree.Vector{``0,``1,``2,``3,``4,``5,``6},System.Func{``0,``0,System.Boolean},System.Func{``1,``1,System.Boolean},System.Func{``2,``2,System.Boolean},System.Func{``3,``3,System.Boolean},System.Func{``4,``4,System.Boolean},System.Func{``5,``5,System.Boolean},System.Func{``6,``6,System.Boolean})">
             <summary>Checks for equality between two locations.</summary>
             <returns>True if equal; False if not;</returns>
         </member>
@@ -4525,7 +4525,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6,``7},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreePoints{``0,``1,``2,``3,``4,``5,``6,``7},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -4552,7 +4552,7 @@
             <param name="omnitree">The omnitree to remove from.</param>
             <param name="removal">The value to have all occurences removed.</param>
         </member>
-        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6,``7},``0,Towel.Equate{``0})">
+        <member name="M:Towel.DataStructures.Omnitree.Remove``8(Towel.DataStructures.IOmnitreeBounds{``0,``1,``2,``3,``4,``5,``6,``7},``0,System.Func{``0,``0,System.Boolean})">
             <summary>Removes all occurences of a value from the omnitree.</summary>
             <typeparam name="T">The generic value type being stored in the omnitree.</typeparam>
             <typeparam name="Axis1">The geneic type of the 1D axis.</typeparam>
@@ -4947,7 +4947,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`2.Remove(`1)">
@@ -5348,7 +5348,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`3.Remove(`1,`2)">
@@ -5806,7 +5806,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`4.Remove(`1,`2,`3)">
@@ -6321,7 +6321,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`5.Remove(`1,`2,`3,`4)">
@@ -6893,7 +6893,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`6.Remove(`1,`2,`3,`4,`5)">
@@ -7522,7 +7522,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`7.Remove(`1,`2,`3,`4,`5,`6)">
@@ -8208,7 +8208,7 @@
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreePointsLinked`8.Remove(`1,`2,`3,`4,`5,`6,`7)">
@@ -8715,7 +8715,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`2.RemoveOverlapped(`1)">
@@ -9252,7 +9252,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`3.RemoveOverlapped(`1,`2)">
@@ -9887,7 +9887,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`4.RemoveOverlapped(`1,`2,`3)">
@@ -10620,7 +10620,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`5.RemoveOverlapped(`1,`2,`3,`4)">
@@ -11451,7 +11451,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`6.RemoveOverlapped(`1,`2,`3,`4,`5)">
@@ -12380,7 +12380,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`7.RemoveOverlapped(`1,`2,`3,`4,`5,`6)">
@@ -13407,7 +13407,7 @@
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Remove(`0)">
             <summary>Removes all instances of a given value.</summary>
         </member>
-        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all instances of a given value.</summary>
         </member>
         <member name="M:Towel.DataStructures.OmnitreeBoundsLinked`8.RemoveOverlapped(`1,`2,`3,`4,`5,`6,`7)">
@@ -13653,7 +13653,7 @@
             <summary>A Spacial Partitioning data structure.</summary>
             <typeparam name="T">The type of items to store in the omnitree.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.IOmnitree`1.Remove(`0,Towel.Equate{`0})">
+        <member name="M:Towel.DataStructures.IOmnitree`1.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all occurences of an item from the omnitree.</summary>
             <param name="removal">The value to be removed.</param>
             <param name="equate">The  delegate for determining equality.</param>
@@ -14301,7 +14301,7 @@
             <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
             <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(Towel.Equate{`0},Towel.Hash{`0},System.Nullable{System.Int32})">
+        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0},System.Nullable{System.Int32})">
             <summary>Constructs a hashed set.</summary>
             <param name="equate">The equate delegate.</param>
             <param name="hash">The hashing function.</param>
@@ -14342,7 +14342,7 @@
             <param name="structure">The structure to clone.</param>
             <returns>A clone of the structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1}.StructureFactory,Towel.Equate{`1},Towel.Hash{`1},System.Nullable{System.Int32})">
+        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1}.StructureFactory,System.Func{`1,`1,System.Boolean},Towel.Hash{`1},System.Nullable{System.Int32})">
             <summary>Constructs a hashed set.</summary>
             <param name="factory">The factory delegate.</param>
             <param name="equate">The equate delegate.</param>
@@ -15038,7 +15038,7 @@
             <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
             <typeparam name="T">The type of values in the trie.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.#ctor(Towel.Equate{`0},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0})">
             <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
             <param name="equate">The equality delegate for the keys.</param>
             <param name="hash">The hashing function for the keys.</param>
@@ -15129,7 +15129,7 @@
             <typeparam name="T">The type of values in the trie.</typeparam>
             <typeparam name="D">The additional data type to store with each leaf.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.#ctor(Towel.Equate{`0},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0})">
             <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
             <param name="equate">The equality delegate for the keys.</param>
             <param name="hash">The hashing function for the keys.</param>
@@ -15193,13 +15193,6 @@
             <summary>Gets the enumerator for the trie.</summary>
             <returns>The enumerator for the trie.</returns>
         </member>
-        <member name="T:Towel.Equate`1">
-            <summary>Delegate for equating two instances of the same type.</summary>
-            <typeparam name="T">The types of the instances to compare.</typeparam>
-            <param name="a">The left operand of the comparison.</param>
-            <param name="b">The right operand of the comparison.</param>
-            <returns>Whether the equate is valid (true) or not (false).</returns>
-        </member>
         <member name="T:Towel.Equate`2">
             <summary>Delegate for equating two instances of different types.</summary>
             <typeparam name="A">The type of the left instance to compare.</typeparam>
@@ -15231,7 +15224,7 @@
         <member name="M:Towel.EquateRuntime`1.Do(`0,`0)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
-        <member name="M:Towel.EquateRuntime`1.op_Implicit(Towel.Equate{`0})~Towel.EquateRuntime{`0}">
+        <member name="M:Towel.EquateRuntime`1.op_Implicit(System.Func{`0,`0,System.Boolean})~Towel.EquateRuntime{`0}">
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="equate">The runtime Equate delegate.</param>
         </member>
@@ -15897,7 +15890,7 @@
             <param name="a2">The second array of the deep equality check.</param>
             <returns>True if the array are determined to be deeply equal. False if not.</returns>
         </member>
-        <member name="M:Towel.Extensions.ValuesAreEqual``1(``0[],``0[],Towel.Equate{``0})">
+        <member name="M:Towel.Extensions.ValuesAreEqual``1(``0[],``0[],System.Func{``0,``0,System.Boolean})">
             <summary>Performs a deep equality check of two arrays.</summary>
             <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
             <param name="a1">The first array of the deep equality check.</param>
@@ -30351,13 +30344,13 @@
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
             <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
             <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
             <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,Towel.Equate{``0},``1@)">
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
             <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Check{``0},``1@)">
@@ -30373,13 +30366,13 @@
         <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0)">
             <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
+        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
             <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0)">
             <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0,Towel.Equate{``0})">
+        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
             <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Goal{``0})">
@@ -30398,13 +30391,13 @@
         <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0)">
             <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0,Towel.Equate{``0})">
+        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0,System.Func{``0,``0,System.Boolean})">
             <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
             <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0,Towel.Equate{``0})">
+        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0,System.Func{``0,``0,System.Boolean})">
             <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Goal{``0})">
@@ -31320,7 +31313,7 @@
             <param name="nth">Represents the values to reduce the stepper to; "5" means every 5th value.</param>
             <returns>The reduced stepper function.</returns>
         </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0},Towel.Equate{``0},Towel.Hash{``0})">
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
             <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
@@ -31328,7 +31321,7 @@
             <param name="hash">A hashing function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
         </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
             <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
@@ -32227,7 +32220,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(Towel.Equate{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,``0,System.Boolean},``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="equate">The equality delegate.</param>
@@ -32243,7 +32236,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(Towel.Equate{``0},Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,``0,System.Boolean},Towel.Hash{``0},``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="equate">The equality delegate.</param>
@@ -32252,7 +32245,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(Towel.Stepper{``0},Towel.Equate{``0},Towel.Hash{``0})">
+        <member name="M:Towel.Syntax.Occurences``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="stepper">The data to count the occurences of.</param>
@@ -32267,7 +32260,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},Towel.Equate{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},System.Func{``0,``0,System.Boolean},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
@@ -32283,7 +32276,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},Towel.Equate{``0},Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
@@ -32292,7 +32285,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(Towel.Stepper{``0},Towel.Step{``0},Towel.Equate{``0},Towel.Hash{``0})">
+        <member name="M:Towel.Syntax.Mode``1(Towel.Stepper{``0},Towel.Step{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The data set.</param>

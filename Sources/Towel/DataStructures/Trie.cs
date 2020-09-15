@@ -115,7 +115,7 @@ namespace Towel.DataStructures
 			internal bool IsLeaf = false;
 			internal int Count;
 
-			internal Node(Equate<T> equate, Hash<T> hash)
+			internal Node(Func<T, T, bool> equate, Hash<T> hash)
 			{
 				Count = 0;
 				Map = new MapHashLinked<Node, T>(equate, hash);
@@ -129,7 +129,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Equate<T> equate = null, Hash<T> hash = null)
+		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Hash<T> hash = null)
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
@@ -144,7 +144,7 @@ namespace Towel.DataStructures
 		/// <summary>The current count of the trie.</summary>
 		public int Count => _count;
 		/// <summary>The equality function of the keys.</summary>
-		public Equate<T> Equate => _map.Equate;
+		public Func<T, T, bool> Equate => _map.Equate;
 		/// <summary>The hash fucntion for the keys.</summary>
 		public Hash<T> Hash => _map.Hash;
 
@@ -459,7 +459,7 @@ namespace Towel.DataStructures
 			internal bool HasValue = false;
 			internal int Count;
 
-			internal Node(Equate<T> equate, Hash<T> hash)
+			internal Node(Func<T, T, bool> equate, Hash<T> hash)
 			{
 				Count = 0;
 				Map = new MapHashLinked<Node, T>(equate, hash);
@@ -473,7 +473,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Equate<T> equate = null, Hash<T> hash = null)
+		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Hash<T> hash = null)
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
@@ -488,7 +488,7 @@ namespace Towel.DataStructures
 		/// <summary>The current count of the trie.</summary>
 		public int Count => _count;
 		/// <summary>The equality function of the keys.</summary>
-		public Equate<T> Equate => _map.Equate;
+		public Func<T, T, bool> Equate => _map.Equate;
 		/// <summary>The hash fucntion for the keys.</summary>
 		public Hash<T> Hash => _map.Hash;
 

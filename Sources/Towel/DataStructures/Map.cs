@@ -260,7 +260,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		Equate<K> DataStructure.IEquating<K>.Equate =>
+		Func<K, K, bool> DataStructure.IEquating<K>.Equate =>
 			_equate is EquateRuntime<K> equateRuntime
 			? equateRuntime.Equate
 			: _equate.Do;
@@ -817,7 +817,7 @@ namespace Towel.DataStructures
 		/// <param name="expectedCount">The expected count of the map.</param>
 		/// <runtime>O(1)</runtime>
 		public MapHashLinked(
-			Equate<K> equate = null,
+			Func<K, K, bool> equate = null,
 			Hash<K> hash = null,
 			int? expectedCount = null) : base(equate ?? Towel.Equate.Default, hash ?? Towel.Hash.Default, expectedCount) { }
 
@@ -842,7 +842,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Equate<K> Equate => _equate.Equate;
+		public Func<K, K, bool> Equate => _equate.Equate;
 
 		#endregion
 

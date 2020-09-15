@@ -1179,7 +1179,7 @@ namespace Towel
 		/// <param name="a2">The second array of the deep equality check.</param>
 		/// /// <param name="equate">The delegate for checking two values for equality.</param>
 		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
-		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2, Equate<T> equate)
+		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2, Func<T, T, bool> equate)
 		{
 			if (ReferenceEquals(a1, a2))
 			{

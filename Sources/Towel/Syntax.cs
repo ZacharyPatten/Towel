@@ -2294,7 +2294,7 @@ namespace Towel
 		/// <param name="a">The first value in the data.</param>
 		/// <param name="b">The rest of the data.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Equate<T> equate, T a, params T[] b) =>
+		public static IMap<int, T> Occurences<T>(Func<T, T, bool> equate, T a, params T[] b) =>
 			Occurences<T>(step => { step(a); b.ToStepper()(step); }, equate, null);
 
 		/// <summary>Counts the number of occurences of each item.</summary>
@@ -2313,7 +2313,7 @@ namespace Towel
 		/// <param name="a">The first value in the data.</param>
 		/// <param name="b">The rest of the data.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Equate<T> equate, Hash<T> hash, T a, params T[] b) =>
+		public static IMap<int, T> Occurences<T>(Func<T, T, bool> equate, Hash<T> hash, T a, params T[] b) =>
 			Occurences<T>(step => { step(a); b.ToStepper()(step); }, equate, hash);
 
 		/// <summary>Counts the number of occurences of each item.</summary>
@@ -2322,7 +2322,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Stepper<T> stepper, Equate<T> equate = null, Hash<T> hash = null)
+		public static IMap<int, T> Occurences<T>(Stepper<T> stepper, Func<T, T, bool> equate = null, Hash<T> hash = null)
 		{
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
 			stepper(a =>
@@ -2357,7 +2357,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, Equate<T> equate, T a, params T[] b) =>
+		public static void Mode<T>(Step<T> step, Func<T, T, bool> equate, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, equate, null);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2376,7 +2376,7 @@ namespace Towel
 		/// <param name="hash">The hash code delegate</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, Equate<T> equate, Hash<T> hash, T a, params T[] b) =>
+		public static void Mode<T>(Step<T> step, Func<T, T, bool> equate, Hash<T> hash, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, equate, hash);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2386,7 +2386,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <returns>The modes of the data set.</returns>
-		public static void Mode<T>(Stepper<T> stepper, Step<T> step, Equate<T> equate = null, Hash<T> hash = null)
+		public static void Mode<T>(Stepper<T> stepper, Step<T> step, Func<T, T, bool> equate = null, Hash<T> hash = null)
 		{
 			int maxOccurences = -1;
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
@@ -2504,7 +2504,7 @@ namespace Towel
 
 		#region Possible Optimization (Still in Development)
 
-		//public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, params T[] values)
+		//public static T Median<T>(Compare<T> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
 		//{
 		//    // this is an optimized median algorithm, but it only works on odd sets without duplicates
 		//    if (!(hash is null) && !(equate is null) && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
@@ -2519,7 +2519,7 @@ namespace Towel
 		//    }
 		//}
 
-		//public static T Median<T>(Compare<T> compare, Hash<T> hash, Equate<T> equate, Stepper<T> stepper)
+		//public static T Median<T>(Compare<T> compare, Hash<T> hash, Func<T, T, bool> equate, Stepper<T> stepper)
 		//{
 		//    return Median(compare, hash, equate, stepper.ToArray());
 		//}
