@@ -23,7 +23,7 @@ namespace Towel.DataStructures
 	public class SetHashLinked<T, Equate, Hash> : ISet<T>,
 		// Structure Properties
 		DataStructure.IHashing<T>
-		where Equate : struct, IEquate<T>
+		where Equate : struct, IFunc<T, T, bool>
 		where Hash : struct, IHash<T>
 	{
 		internal const float _maxLoadFactor = .7f;

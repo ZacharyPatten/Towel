@@ -15,7 +15,7 @@ namespace Towel_Benchmarking
 		public DateTime DateOfBirth;
 	}
 
-	public struct EquatePerson : IEquate<Person>
+	public struct EquatePerson : IFunc<Person, Person, bool>
 	{
 		public bool Do(Person a, Person b) => a.Id == b.Id;
 	}

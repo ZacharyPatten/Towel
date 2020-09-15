@@ -15224,10 +15224,6 @@
             <param name="compare">The compare delegate to convert to a equate.</param>
             <returns>The compare delegate converted into an equate.</returns>
         </member>
-        <member name="T:Towel.IEquate`1">
-            <summary>A compile time delegate for equating two values.</summary>
-            <typeparam name="T">The generic type of values to equate.</typeparam>
-        </member>
         <member name="T:Towel.EquateRuntime`1">
             <summary>Built in Compare struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the values to equate.</typeparam>

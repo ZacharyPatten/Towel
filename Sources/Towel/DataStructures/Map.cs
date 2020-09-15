@@ -176,7 +176,7 @@ namespace Towel.DataStructures
 	public class MapHashLinked<T, K, Equate, Hash> : IMap<T, K>,
 		// Structure Properties
 		DataStructure.IHashing<K>
-		where Equate : struct, IEquate<K>
+		where Equate : struct, IFunc<K, K, bool>
 		where Hash : struct, IHash<K>
 	{
 		internal const float _maxLoadFactor = .7f;
