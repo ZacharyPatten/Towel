@@ -760,10 +760,10 @@ Sort.Shell<T>(...);
 Sort.Bogo<T>(...);
 Sort.Slow<T>(...);
 
-// Note: support System.Span<T> and any int-indexed type
+// Note: support System.ReadOnlySpan<T> and any int-indexed type
 Search.Binary<T>(...);
 
-// Note: support System.Span<T> and any int-indexed type
+// Note: support System.ReadOnlySpan<T> and any int-indexed type
 int LevenshteinDistance.Recursive<...>(...);
 int LevenshteinDistance.Iterative<...>(...);
 
