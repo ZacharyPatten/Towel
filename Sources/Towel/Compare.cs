@@ -112,6 +112,16 @@ namespace Towel
 			new CompareRuntime<T>() { Compare = compare, };
 	}
 
+	/// <summary>Default int compare.</summary>
+	public struct CompareInt : ICompare<int>
+	{
+		/// <summary>Default int compare.</summary>
+		/// <param name="a">The left hand side of the compare.</param>
+		/// <param name="b">The right ahnd side of the compare.</param>
+		/// <returns>The result of the comparison.</returns>
+		public CompareResult Do(int a, int b) => Compare.Wrap(a.CompareTo(b));
+	}
+
 	#endregion
 
 	/// <summary>A compile time delegate for comparing two values.</summary>

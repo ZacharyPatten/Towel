@@ -45,10 +45,10 @@ namespace Towel_Testing
 			if (sizeOverride is null) Test(1000); // Large(er) Data Set
 
 			{ // Partial Array Sort
-				int[] array = Ɐ(9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
+				int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 				watchArray = array;
 				algorithmPartial(array, 3, 7, Compare.Default);
-				int[] expected = Ɐ(9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0);
+				int[] expected = { 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0 };
 				for (int i = 0; i < size; i++)
 				{
 					Assert.IsTrue(array[i] == expected[i]);
@@ -93,5 +93,136 @@ namespace Towel_Testing
 			(array, compare) => Sort.Bogo(array, compare),
 			(array, start, end, compare) => Sort.Bogo(array, start, end, compare),
 			6);
+
+
+		[TestMethod] public void BubbleSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Bubble<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void InsertionSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Insertion<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void SelectionSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Insertion<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void MergeSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Merge<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void QuickSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Quick<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void HeapSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Heap<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void OddEvenSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.OddEven<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void SlowSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Slow<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void GnomeSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Gnome<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void CombSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Comb<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void ShellSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Shell<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void CocktailSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			Sort.Cocktail<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod] public void BogoSpan_Test()
+		{
+			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
+			Sort.Bogo<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
 	}
 }

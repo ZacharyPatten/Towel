@@ -107,6 +107,15 @@
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="compare">The runtime Compare delegate.</param>
         </member>
+        <member name="T:Towel.CompareInt">
+            <summary>Default int compare.</summary>
+        </member>
+        <member name="M:Towel.CompareInt.Do(System.Int32,System.Int32)">
+            <summary>Default int compare.</summary>
+            <param name="a">The left hand side of the compare.</param>
+            <param name="b">The right ahnd side of the compare.</param>
+            <returns>The result of the comparison.</returns>
+        </member>
         <member name="T:Towel.ISift`1">
             <summary>A compile time delegate for comparing two values.</summary>
             <typeparam name="T">The generic type of values to compare.</typeparam>
@@ -30083,6 +30092,7 @@
             <param name="set">The set index operation of the collection.</param>
             <param name="array">The array to iterate the permutations of.</param>
             <param name="list">The list to iterate the permutations of.</param>
+            <param name="span">The span of the permutation.</param>
         </member>
         <member name="M:Towel.Permute.Recursive_XML">
             <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
@@ -30093,6 +30103,9 @@
             <inheritdoc cref="M:Towel.Permute.XML"/>
         </member>
         <member name="M:Towel.Permute.Recursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
+        </member>
+        <member name="M:Towel.Permute.Recursive``3(System.Span{``0},``1,``2)">
             <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Permute.Recursive``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30123,6 +30136,9 @@
             <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
         </member>
         <member name="M:Towel.Permute.Iterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
+        </member>
+        <member name="M:Towel.Permute.Iterative``3(System.Span{``0},``1,``2)">
             <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="M:Towel.Permute.Iterative``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30179,6 +30195,7 @@
             <param name="array">The array search.</param>
             <param name="element">The element to search for.</param>
             <param name="compare">The compare function.</param>
+            <param name="span">The span of the binary search.</param>
             <returns>
             (<see cref="T:System.Boolean"/> Success, <see cref="T:System.Int32"/> Index, <typeparamref name="T"/> Value)
             <para>- <see cref="T:System.Boolean"/> Success: True if a match was found; False if not.</para>
@@ -30202,6 +30219,9 @@
             <inheritdoc cref="M:Towel.Search.Binary_XML"/>
         </member>
         <member name="M:Towel.Search.Binary``3(System.Int32,System.Int32,``1,``2)">
+            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
+        </member>
+        <member name="M:Towel.Search.Binary``2(System.ReadOnlySpan{``0},``1)">
             <inheritdoc cref="M:Towel.Search.Binary_XML"/>
         </member>
         <member name="T:Towel.Search.GraphSearchStatus">
@@ -30519,8 +30539,7 @@
         <member name="T:Towel.Sort">
             <summary>Contains static sorting algorithms.</summary>
         </member>
-        <member name="M:Towel.Sort.Bubble_XML">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
+        <member name="M:Towel.Sort.Sort_XML">
             <typeparam name="T">The type of values to sort.</typeparam>
             <typeparam name="Compare">The compare function.</typeparam>
             <typeparam name="Get">The get function.</typeparam>
@@ -30531,9 +30550,14 @@
             <param name="start">The starting index of the sort.</param>
             <param name="end">The ending index of the sort.</param>
             <param name="array">The array to be sorted.</param>
+            <param name="span">The span to be sorted.</param>
+        </member>
+        <member name="M:Towel.Sort.Bubble_XML">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Bubble``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
@@ -30553,21 +30577,15 @@
         <member name="M:Towel.Sort.Bubble``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
+        <member name="M:Towel.Sort.Bubble``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
+        </member>
         <member name="M:Towel.Sort.Selection_XML">
             <summary>Sorts values using the selection sort algoritm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare delegate.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare delegate.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
             <stability>False</stability>
             <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Selection``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
@@ -30587,21 +30605,15 @@
         <member name="M:Towel.Sort.Selection``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
+        <member name="M:Towel.Sort.Selection``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
+        </member>
         <member name="M:Towel.Sort.Insertion_XML">
             <summary>Sorts values using the insertion sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Insertion``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
@@ -30621,21 +30633,15 @@
         <member name="M:Towel.Sort.Insertion``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
+        <member name="M:Towel.Sort.Insertion``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
+        </member>
         <member name="M:Towel.Sort.Quick_XML">
             <summary>Sorts values using the quick sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
             <stability>False</stability>
             <memory>ln(n)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Quick``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
@@ -30655,21 +30661,15 @@
         <member name="M:Towel.Sort.Quick``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
+        <member name="M:Towel.Sort.Quick``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
+        </member>
         <member name="M:Towel.Sort.Merge_XML">
             <summary>Sorts values using the merge sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
             <stability>True</stability>
             <memory>Θ(n)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Merge``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
@@ -30689,21 +30689,15 @@
         <member name="M:Towel.Sort.Merge``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
+        <member name="M:Towel.Sort.Merge``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
+        </member>
         <member name="M:Towel.Sort.Heap_XML">
             <summary>Sorts values using the heap sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
             <stability>False</stability>
             <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Heap``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
@@ -30723,21 +30717,15 @@
         <member name="M:Towel.Sort.Heap``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
+        <member name="M:Towel.Sort.Heap``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
+        </member>
         <member name="M:Towel.Sort.OddEven_XML">
             <summary>Sorts values using the odd even sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.OddEven``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
@@ -30755,6 +30743,9 @@
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
         <member name="M:Towel.Sort.OddEven``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
+        </member>
+        <member name="M:Towel.Sort.OddEven``2(System.Span{``0},``1)">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
         <member name="M:Towel.Sort.Shuffle_XML">
@@ -30783,22 +30774,15 @@
         <member name="M:Towel.Sort.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
             <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
         </member>
+        <member name="M:Towel.Sort.Shuffle``1(System.Span{``0},System.Random)">
+            <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
+        </member>
         <member name="M:Towel.Sort.Bogo_XML">
             <summary>Sorts values using the bogo sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="random">The random to use while sorting.</param>
-            <param name="array">The array to be sorted.</param>
             <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
             <stability>False</stability>
             <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Bogo``1(``0[],Towel.Compare{``0},System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
@@ -30818,18 +30802,12 @@
         <member name="M:Towel.Sort.Bogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
+        <member name="M:Towel.Sort.Bogo``2(System.Span{``0},``1,System.Random)">
+            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
+        </member>
         <member name="M:Towel.Sort.Slow_XML">
             <summary>Sorts values using the slow sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Slow``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
@@ -30849,18 +30827,12 @@
         <member name="M:Towel.Sort.Slow``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
+        <member name="M:Towel.Sort.Slow``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
+        </member>
         <member name="M:Towel.Sort.Gnome_XML">
             <summary>Sorts values using the gnome sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Gnome``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
@@ -30880,18 +30852,12 @@
         <member name="M:Towel.Sort.Gnome``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
+        <member name="M:Towel.Sort.Gnome``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
+        </member>
         <member name="M:Towel.Sort.Comb_XML">
             <summary>Sorts values using the comb sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Comb``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
@@ -30911,18 +30877,12 @@
         <member name="M:Towel.Sort.Comb``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
+        <member name="M:Towel.Sort.Comb``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
+        </member>
         <member name="M:Towel.Sort.Shell_XML">
             <summary>Sorts values using the shell sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Shell``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
@@ -30942,18 +30902,12 @@
         <member name="M:Towel.Sort.Shell``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
+        <member name="M:Towel.Sort.Shell``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
+        </member>
         <member name="M:Towel.Sort.Cocktail_XML">
             <summary>Sorts values using the shell sort algorithm.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="array">The array to be sorted.</param>
+            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
         </member>
         <member name="M:Towel.Sort.Cocktail``1(``0[],Towel.Compare{``0})">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
@@ -30971,6 +30925,9 @@
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
         <member name="M:Towel.Sort.Cocktail``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
+        </member>
+        <member name="M:Towel.Sort.Cocktail``2(System.Span{``0},``1)">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
         <member name="T:Towel.StepStatus">
@@ -31394,6 +31351,12 @@
         </member>
         <member name="T:Towel.Syntax.D_subtract_A_multiply_B_divide_C`1">
             <summary>d - a * b / c</summary>
+        </member>
+        <member name="M:Towel.Syntax.Swap``1(``0@,``0@)">
+            <summary>Swaps two values.</summary>
+            <typeparam name="T">The type of values to swap.</typeparam>
+            <param name="a">The first value of the swap.</param>
+            <param name="b">The second value of the swap.</param>
         </member>
         <member name="M:Towel.Syntax.sourcefilepath(System.String)">
             <summary>Gets the file path of the current location in source code.</summary>

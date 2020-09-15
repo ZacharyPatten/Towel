@@ -744,6 +744,7 @@ ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 ## Algorithms
 
 ```cs
+// Note: support System.Span<T> and any int-indexed type
 Sort.Shuffle<T>(...);
 Sort.Bubble<T>(...);
 Sort.Selection<T>(...);
@@ -759,12 +760,15 @@ Sort.Shell<T>(...);
 Sort.Bogo<T>(...);
 Sort.Slow<T>(...);
 
+// Note: support System.Span<T> and any int-indexed type
 Search.Binary<T>(...);
 
+// Note: support System.Span<T> and any int-indexed type
 int LevenshteinDistance.Recursive<...>(...);
 int LevenshteinDistance.Iterative<...>(...);
 
 // Permutations of sequences
+// Note: support System.Span<T> and any int-indexed type
 void Permute.Recursive<...>(...);
 void Permute.Iterative<...>(...);
 

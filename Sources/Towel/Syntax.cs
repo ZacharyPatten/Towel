@@ -70,9 +70,24 @@ namespace Towel
 
 		#endregion
 
+		#region Swap
+
+		/// <summary>Swaps two values.</summary>
+		/// <typeparam name="T">The type of values to swap.</typeparam>
+		/// <param name="a">The first value of the swap.</param>
+		/// <param name="b">The second value of the swap.</param>
+		public static void Swap<T>(ref T a, ref T b)
+		{
+			T temp = a;
+			a = b;
+			b = temp;
+		}
+
+		#endregion
+
 		#region source...
 
-		#pragma warning disable IDE1006 // Naming Styles
+#pragma warning disable IDE1006 // Naming Styles
 
 		/// <summary>Gets the file path of the current location in source code.</summary>
 		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
