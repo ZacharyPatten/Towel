@@ -1110,6 +1110,87 @@ namespace Towel
 
 		#endregion
 
+		#region Comparison
+
+		/// <summary>Compares two values.</summary>
+		/// <typeparam name="A">The type of the left operand.</typeparam>
+		/// <typeparam name="B">The type of the right operand.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the comparison.</returns>
+		public static CompareResult Comparison<A, B>(A a, B b) =>
+			CompareImplementation<A, B>.Function(a, b);
+
+#if false
+		// This code is hidden currently because it collides with the
+		// System.Comparison<T> delegate type. I may or may not add it
+		// in the future.
+
+		/// <summary>Compares two values.</summary>
+		/// <typeparam name="T">The type of the operands.</typeparam>
+		/// <param name="a">The left operand.</param>
+		/// <param name="b">The right operand.</param>
+		/// <returns>The result of the comparison.</returns>
+		public static CompareResult Comparison<T>(T a, T b) =>
+			Comparison<T, T>(a, b);
+#endif
+
+		internal static class CompareImplementation<A, B>
+		{
+			internal static Func<A, B, CompareResult> Function = (a, b) =>
+			{
+				if (typeof(A) == typeof(B) && a is IComparable<B> &&
+					!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
+				{
+					CompareImplementation<A, A>.Function =
+							(a, b) => Compare.Wrap(System.Collections.Generic.Comparer<A>.Default.Compare(a, b));
+				}
+				else
+				{
+					ParameterExpression A = Expression.Parameter(typeof(A));
+					ParameterExpression B = Expression.Parameter(typeof(B));
+
+					Expression lessThanPredicate =
+						typeof(A).IsPrimitive && typeof(B).IsPrimitive
+						? Expression.LessThan(A, B)
+						: !(Meta.GetLessThanMethod<A, B, bool>() is null)
+							? Expression.LessThan(A, B)
+							: !(Meta.GetGreaterThanMethod<B, A, bool>() is null)
+								? Expression.GreaterThan(B, A)
+								: null;
+
+					Expression greaterThanPredicate =
+						typeof(A).IsPrimitive && typeof(B).IsPrimitive
+						? Expression.GreaterThan(A, B)
+						: !(Meta.GetGreaterThanMethod<A, B, bool>() is null)
+							? Expression.GreaterThan(A, B)
+							: !(Meta.GetLessThanMethod<B, A, bool>() is null)
+								? Expression.LessThan(B, A)
+								: null;
+
+					if (lessThanPredicate is null || greaterThanPredicate is null)
+					{
+						throw new NotSupportedException("You attempted a comparison operation with unsupported types.");
+					}
+
+					LabelTarget RETURN = Expression.Label(typeof(CompareResult));
+					Expression BODY = Expression.Block(
+						Expression.IfThen(
+								lessThanPredicate,
+								Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
+							Expression.IfThen(
+								greaterThanPredicate,
+								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
+							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
+							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
+					Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
+				}
+				return Function(a, b);
+			};
+		}
+
+		#endregion
+
 		#endregion
 
 		#region Mathematics
@@ -1952,88 +2033,6 @@ namespace Towel
 
 		#endregion
 
-		#region Comparison
-
-		/// <summary>Compares two values.</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <param name="a">The left operand.</param>
-		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the comparison.</returns>
-		public static CompareResult Comparison<A, B>(A a, B b) =>
-			CompareImplementation<A, B>.Function(a, b);
-
-#if false
-		// This code is hidden currently because it collides with the
-		// System.Comparison<T> delegate type. I may or may not add it
-		// in the future.
-
-		/// <summary>Compares two values.</summary>
-		/// <typeparam name="T">The type of the operands.</typeparam>
-		/// <param name="a">The left operand.</param>
-		/// <param name="b">The right operand.</param>
-		/// <returns>The result of the comparison.</returns>
-		public static CompareResult Comparison<T>(T a, T b) =>
-			Comparison<T, T>(a, b);
-#endif
-
-		internal static class CompareImplementation<A, B>
-		{
-			internal static Func<A, B, CompareResult> Function = (a, b) =>
-			{
-				if (typeof(A) == typeof(B) && a is IComparable<B> &&
-					!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
-				{
-					CompareImplementation<A, A>.Function =
-						new Func<A, A, CompareResult>(
-							Compare.ToCompare(System.Collections.Generic.Comparer<A>.Default));
-				}
-				else
-				{
-					ParameterExpression A = Expression.Parameter(typeof(A));
-					ParameterExpression B = Expression.Parameter(typeof(B));
-
-					Expression lessThanPredicate =
-						typeof(A).IsPrimitive && typeof(B).IsPrimitive
-						? Expression.LessThan(A, B)
-						: !(Meta.GetLessThanMethod<A, B, bool>() is null)
-							? Expression.LessThan(A, B)
-							: !(Meta.GetGreaterThanMethod<B, A, bool>() is null)
-								? Expression.GreaterThan(B, A)
-								: null;
-
-					Expression greaterThanPredicate =
-						typeof(A).IsPrimitive && typeof(B).IsPrimitive
-						? Expression.GreaterThan(A, B)
-						: !(Meta.GetGreaterThanMethod<A, B, bool>() is null)
-							? Expression.GreaterThan(A, B)
-							: !(Meta.GetLessThanMethod<B, A, bool>() is null)
-								? Expression.LessThan(B, A)
-								: null;
-
-					if (lessThanPredicate is null || greaterThanPredicate is null)
-					{
-						throw new NotSupportedException("You attempted a comparison operation with unsupported types.");
-					}
-
-					LabelTarget RETURN = Expression.Label(typeof(CompareResult));
-					Expression BODY = Expression.Block(
-						Expression.IfThen(
-								lessThanPredicate,
-								Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
-							Expression.IfThen(
-								greaterThanPredicate,
-								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
-							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
-							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
-					Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
-				}
-				return Function(a, b);
-			};
-		}
-
-		#endregion
-
 		#region GreatestCommonFactor
 
 		/// <summary>Computes the greatest common factor of a set of numbers.</summary>
@@ -2496,7 +2495,7 @@ namespace Towel
 		/// <returns>The computed median value of the set of data.</returns>
 		public static T Median<T>(params T[] values)
 		{
-			return Median(Towel.Compare.Default, values);
+			return Median(Comparison, values);
 		}
 
 		/// <summary>Computes the median of a set of data.</summary>
@@ -2506,7 +2505,7 @@ namespace Towel
 		public static T Median<T>(Stepper<T> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			return Median(Towel.Compare.Default, stepper.ToArray());
+			return Median(Comparison, stepper.ToArray());
 		}
 
 		#region Possible Optimization (Still in Development)

@@ -288,7 +288,7 @@ namespace Towel.DataStructures
 		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
 		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
 		/// <runtime>θ(1)</runtime>
-		public HeapArray(Func<T, T, CompareResult> compare = null, int? minimumCapacity = null) : base(compare ?? Towel.Compare.Default, minimumCapacity) { }
+		public HeapArray(Func<T, T, CompareResult> compare = null, int? minimumCapacity = null) : base(compare ?? Comparison, minimumCapacity) { }
 
 		internal HeapArray(HeapArray<T> heap)
 		{

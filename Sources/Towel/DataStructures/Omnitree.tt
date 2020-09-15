@@ -827,7 +827,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				locate,
 <# for (int j = 1; j <= i; j++) { #>
 				compare<#= j #> is null ? true : false,
-				compare<#= j #> ?? Compare.Default,
+				compare<#= j #> ?? Comparison,
 <# } #>
 				subdivisionOverride1
 <# for (int j = 2; j <= i; j++) { #>,
@@ -2720,7 +2720,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			getBounds,
 <# for (int j = 1; j <= i; j++) { #>
 			compare<#= j #> is null ? true : false,
-			compare<#= j #> ?? Compare.Default,
+			compare<#= j #> ?? Comparison,
 <# } #>
 			subdivisionOverride1
 <# for (int j = 2; j <= i; j++) { #>,
@@ -2751,7 +2751,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			Omnitree.ConvertToGetBounds(getBoundings),
 <# for (int j = 1; j <= i; j++) { #>
 			compare<#= j #> is null ? true : false,
-			compare<#= j #> ?? Compare.Default,
+			compare<#= j #> ?? Comparison,
 <# } #>
 			subdivisionOverride1
 <# for (int j = 2; j <= i; j++) { #>,
@@ -3255,9 +3255,9 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 					);
 				return new Omnitree.Vector<<#= chain_AxisX #>>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 <# for (int j = 2; j <= i; j++) { #>, 
-					Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare.Default : this._compare<#= j #>)
+					Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Comparison : this._compare<#= j #>)
 <# } #>
 					);
 			}
@@ -3284,9 +3284,9 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 				}
 				return new Omnitree.Vector<<#= chain_AxisX #>>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 <# for (int j = 2; j <= i; j++) { #>
-					, Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare.Default : this._compare<#= j #>)
+					, Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Comparison : this._compare<#= j #>)
 <# } #>
 				);
 			}

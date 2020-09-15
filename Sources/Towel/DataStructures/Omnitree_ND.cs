@@ -869,11 +869,11 @@ namespace Towel.DataStructures
 	//    //        true,
 	//    //        Towel.Equate.Default,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        null,
 	//    //        null,
 	//    //        null)
@@ -896,11 +896,11 @@ namespace Towel.DataStructures
 	//    //        true,
 	//    //        Towel.Equate.Default,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        medianOverride1,
 	//    //        medianOverride2,
 	//    //        medianOverride3)
@@ -919,11 +919,11 @@ namespace Towel.DataStructures
 	//    //        true,
 	//    //        Towel.Equate.Default,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        null,
 	//    //        null,
 	//    //        null)
@@ -945,11 +945,11 @@ namespace Towel.DataStructures
 	//    //        true,
 	//    //        Towel.Equate.Default,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        true,
-	//    //        Compare.Default,
+	//    //        Comparison,
 	//    //        medianOverride1,
 	//    //        medianOverride2,
 	//    //        medianOverride3)
@@ -1569,11 +1569,11 @@ namespace Towel.DataStructures
 	//                values3[i] = value3;
 	//            }
 	//            // sort the values
-	//            if (_defaultCompare1) Towel.Algorithms.Sort<Axis1>.Merge(Compare.Default, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
+	//            if (_defaultCompare1) Towel.Algorithms.Sort<Axis1>.Merge(Comparison, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
 	//            else Towel.Algorithms.Sort<Axis1>.Merge(_compare1, (int sorting_index) => { return values1[sorting_index]; }, (int sorting_index, Axis1 axis1) => { values1[sorting_index] = axis1; }, 0, (int)values1.Length);
-	//            if (_defaultCompare2) Towel.Algorithms.Sort<Axis2>.Merge(Compare.Default, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
+	//            if (_defaultCompare2) Towel.Algorithms.Sort<Axis2>.Merge(Comparison, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
 	//            else Towel.Algorithms.Sort<Axis2>.Merge(_compare2, (int sorting_index) => { return values2[sorting_index]; }, (int sorting_index, Axis2 axis2) => { values2[sorting_index] = axis2; }, 0, (int)values1.Length);
-	//            if (_defaultCompare3) Towel.Algorithms.Sort<Axis3>.Merge(Compare.Default, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
+	//            if (_defaultCompare3) Towel.Algorithms.Sort<Axis3>.Merge(Comparison, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
 	//            else Towel.Algorithms.Sort<Axis3>.Merge(_compare3, (int sorting_index) => { return values3[sorting_index]; }, (int sorting_index, Axis3 axis3) => { values3[sorting_index] = axis3; }, 0, (int)values1.Length);
 	//            // pull out the lazy medians (if even # of items... just take the left)
 	//            int index = (leaf.Count - 1) / 2;

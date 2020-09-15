@@ -440,9 +440,9 @@ namespace Towel.Mathematics
 					return !LessThan(c, d);
 			}
 
-			public static bool operator ==(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
-				=> Compare.Default(a.Numerator, b.Numerator) == CompareResult.Equal &&
-				   Compare.Default(a.Denominator, b.Denominator) == CompareResult.Equal;
+			public static bool operator ==(MatrixElementFraction<T> a, MatrixElementFraction<T> b) =>
+				EqualTo(a.Numerator, b.Numerator) &&
+				EqualTo(a.Denominator, b.Denominator);
 			public static bool operator !=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
 				=> !(a == b);
 
@@ -461,7 +461,7 @@ namespace Towel.Mathematics
 			public MatrixElementFraction<T> Abs()
 				=> new MatrixElementFraction<T>(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
 
-			public bool IsDividedByZero => Compare.Default(Denominator, Constant<T>.Zero) == CompareResult.Equal;
+			public bool IsDividedByZero => EqualTo(Denominator, Constant<T>.Zero);
 		}
 #endregion
 

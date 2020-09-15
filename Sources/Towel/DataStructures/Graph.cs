@@ -99,7 +99,7 @@ namespace Towel.DataStructures
 			Hash<T> hash = null)
 		{
 			equate ??= DefaultEquals;
-			compare ??= Compare.Default;
+			compare ??= Comparison;
 			hash ??= Hash.Default;
 
 			_nodes = new SetHashLinked<T>(equate, hash);

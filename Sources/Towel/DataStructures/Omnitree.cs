@@ -3239,7 +3239,7 @@ namespace Towel.DataStructures
 			: this(
 				locate,
 				compare1 is null ? true : false,
-				compare1 ?? Compare.Default,
+				compare1 ?? Comparison,
 				subdivisionOverride1
 				) { }
 
@@ -4791,9 +4791,9 @@ namespace Towel.DataStructures
 			: this(
 				locate,
 				compare1 is null ? true : false,
-				compare1 ?? Compare.Default,
+				compare1 ?? Comparison,
 				compare2 is null ? true : false,
-				compare2 ?? Compare.Default,
+				compare2 ?? Comparison,
 				subdivisionOverride1
 ,
 				subdivisionOverride2
@@ -6482,11 +6482,11 @@ namespace Towel.DataStructures
 			: this(
 				locate,
 				compare1 is null ? true : false,
-				compare1 ?? Compare.Default,
+				compare1 ?? Comparison,
 				compare2 is null ? true : false,
-				compare2 ?? Compare.Default,
+				compare2 ?? Comparison,
 				compare3 is null ? true : false,
-				compare3 ?? Compare.Default,
+				compare3 ?? Comparison,
 				subdivisionOverride1
 ,
 				subdivisionOverride2
@@ -8314,13 +8314,13 @@ namespace Towel.DataStructures
 			: this(
 				locate,
 				compare1 is null ? true : false,
-				compare1 ?? Compare.Default,
+				compare1 ?? Comparison,
 				compare2 is null ? true : false,
-				compare2 ?? Compare.Default,
+				compare2 ?? Comparison,
 				compare3 is null ? true : false,
-				compare3 ?? Compare.Default,
+				compare3 ?? Comparison,
 				compare4 is null ? true : false,
-				compare4 ?? Compare.Default,
+				compare4 ?? Comparison,
 				subdivisionOverride1
 ,
 				subdivisionOverride2
@@ -10289,15 +10289,15 @@ namespace Towel.DataStructures
 			: this(
 				locate,
 				compare1 is null ? true : false,
-				compare1 ?? Compare.Default,
+				compare1 ?? Comparison,
 				compare2 is null ? true : false,
-				compare2 ?? Compare.Default,
+				compare2 ?? Comparison,
 				compare3 is null ? true : false,
-				compare3 ?? Compare.Default,
+				compare3 ?? Comparison,
 				compare4 is null ? true : false,
-				compare4 ?? Compare.Default,
+				compare4 ?? Comparison,
 				compare5 is null ? true : false,
-				compare5 ?? Compare.Default,
+				compare5 ?? Comparison,
 				subdivisionOverride1
 ,
 				subdivisionOverride2
@@ -12409,17 +12409,17 @@ namespace Towel.DataStructures
 			: this(
 				locate,
 				compare1 is null ? true : false,
-				compare1 ?? Compare.Default,
+				compare1 ?? Comparison,
 				compare2 is null ? true : false,
-				compare2 ?? Compare.Default,
+				compare2 ?? Comparison,
 				compare3 is null ? true : false,
-				compare3 ?? Compare.Default,
+				compare3 ?? Comparison,
 				compare4 is null ? true : false,
-				compare4 ?? Compare.Default,
+				compare4 ?? Comparison,
 				compare5 is null ? true : false,
-				compare5 ?? Compare.Default,
+				compare5 ?? Comparison,
 				compare6 is null ? true : false,
-				compare6 ?? Compare.Default,
+				compare6 ?? Comparison,
 				subdivisionOverride1
 ,
 				subdivisionOverride2
@@ -14676,19 +14676,19 @@ namespace Towel.DataStructures
 			: this(
 				locate,
 				compare1 is null ? true : false,
-				compare1 ?? Compare.Default,
+				compare1 ?? Comparison,
 				compare2 is null ? true : false,
-				compare2 ?? Compare.Default,
+				compare2 ?? Comparison,
 				compare3 is null ? true : false,
-				compare3 ?? Compare.Default,
+				compare3 ?? Comparison,
 				compare4 is null ? true : false,
-				compare4 ?? Compare.Default,
+				compare4 ?? Comparison,
 				compare5 is null ? true : false,
-				compare5 ?? Compare.Default,
+				compare5 ?? Comparison,
 				compare6 is null ? true : false,
-				compare6 ?? Compare.Default,
+				compare6 ?? Comparison,
 				compare7 is null ? true : false,
-				compare7 ?? Compare.Default,
+				compare7 ?? Comparison,
 				subdivisionOverride1
 ,
 				subdivisionOverride2
@@ -16788,7 +16788,7 @@ namespace Towel.DataStructures
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			subdivisionOverride1
 			) { }
 
@@ -16805,7 +16805,7 @@ namespace Towel.DataStructures
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			subdivisionOverride1
 			) { }
 
@@ -17000,7 +17000,7 @@ namespace Towel.DataStructures
 					out values1[i * 2], out values1[i * 2 + 1]
 					);
 				return new Omnitree.Vector<Axis1>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 					);
 			}
 			catch
@@ -17017,7 +17017,7 @@ namespace Towel.DataStructures
 					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
 				}
 				return new Omnitree.Vector<Axis1>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 				);
 			}
 		}
@@ -18354,9 +18354,9 @@ namespace Towel.DataStructures
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -18380,9 +18380,9 @@ namespace Towel.DataStructures
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -18585,9 +18585,9 @@ namespace Towel.DataStructures
 					out values2[i * 2], out values2[i * 2 + 1]
 					);
 				return new Omnitree.Vector<Axis1, Axis2>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 , 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
 					);
 			}
 			catch
@@ -18609,8 +18609,8 @@ namespace Towel.DataStructures
 					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
 				}
 				return new Omnitree.Vector<Axis1, Axis2>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
 				);
 			}
 		}
@@ -20094,11 +20094,11 @@ namespace Towel.DataStructures
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -20129,11 +20129,11 @@ namespace Towel.DataStructures
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -20344,11 +20344,11 @@ namespace Towel.DataStructures
 					out values3[i * 2], out values3[i * 2 + 1]
 					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 , 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
 , 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
 					);
 			}
 			catch
@@ -20375,9 +20375,9 @@ namespace Towel.DataStructures
 					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
 				);
 			}
 		}
@@ -22008,13 +22008,13 @@ namespace Towel.DataStructures
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -22052,13 +22052,13 @@ namespace Towel.DataStructures
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -22277,13 +22277,13 @@ namespace Towel.DataStructures
 					out values4[i * 2], out values4[i * 2 + 1]
 					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 , 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
 , 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
 , 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
 					);
 			}
 			catch
@@ -22315,10 +22315,10 @@ namespace Towel.DataStructures
 					values4[i * 2] = min4; values4[i * 2 + 1] = max4;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
 				);
 			}
 		}
@@ -24096,15 +24096,15 @@ namespace Towel.DataStructures
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			compare5 is null ? true : false,
-			compare5 ?? Compare.Default,
+			compare5 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -24149,15 +24149,15 @@ namespace Towel.DataStructures
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			compare5 is null ? true : false,
-			compare5 ?? Compare.Default,
+			compare5 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -24384,15 +24384,15 @@ namespace Towel.DataStructures
 					out values5[i * 2], out values5[i * 2 + 1]
 					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 , 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
 , 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
 , 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
 , 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+					Omnitree.SubDivide(values5, this._defaultCompare5 ? Comparison : this._compare5)
 					);
 			}
 			catch
@@ -24429,11 +24429,11 @@ namespace Towel.DataStructures
 					values5[i * 2] = min5; values5[i * 2 + 1] = max5;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
-					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
+					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Comparison : this._compare5)
 				);
 			}
 		}
@@ -26358,17 +26358,17 @@ namespace Towel.DataStructures
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			compare5 is null ? true : false,
-			compare5 ?? Compare.Default,
+			compare5 ?? Comparison,
 			compare6 is null ? true : false,
-			compare6 ?? Compare.Default,
+			compare6 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -26420,17 +26420,17 @@ namespace Towel.DataStructures
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			compare5 is null ? true : false,
-			compare5 ?? Compare.Default,
+			compare5 ?? Comparison,
 			compare6 is null ? true : false,
-			compare6 ?? Compare.Default,
+			compare6 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -26665,17 +26665,17 @@ namespace Towel.DataStructures
 					out values6[i * 2], out values6[i * 2 + 1]
 					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 , 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
 , 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
 , 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
 , 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+					Omnitree.SubDivide(values5, this._defaultCompare5 ? Comparison : this._compare5)
 , 
-					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
+					Omnitree.SubDivide(values6, this._defaultCompare6 ? Comparison : this._compare6)
 					);
 			}
 			catch
@@ -26717,12 +26717,12 @@ namespace Towel.DataStructures
 					values6[i * 2] = min6; values6[i * 2 + 1] = max6;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
-					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
-					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
+					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Comparison : this._compare5)
+					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Comparison : this._compare6)
 				);
 			}
 		}
@@ -28794,19 +28794,19 @@ namespace Towel.DataStructures
 			: this(
 			getBounds,
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			compare5 is null ? true : false,
-			compare5 ?? Compare.Default,
+			compare5 ?? Comparison,
 			compare6 is null ? true : false,
-			compare6 ?? Compare.Default,
+			compare6 ?? Comparison,
 			compare7 is null ? true : false,
-			compare7 ?? Compare.Default,
+			compare7 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -28865,19 +28865,19 @@ namespace Towel.DataStructures
 			: this(
 			Omnitree.ConvertToGetBounds(getBoundings),
 			compare1 is null ? true : false,
-			compare1 ?? Compare.Default,
+			compare1 ?? Comparison,
 			compare2 is null ? true : false,
-			compare2 ?? Compare.Default,
+			compare2 ?? Comparison,
 			compare3 is null ? true : false,
-			compare3 ?? Compare.Default,
+			compare3 ?? Comparison,
 			compare4 is null ? true : false,
-			compare4 ?? Compare.Default,
+			compare4 ?? Comparison,
 			compare5 is null ? true : false,
-			compare5 ?? Compare.Default,
+			compare5 ?? Comparison,
 			compare6 is null ? true : false,
-			compare6 ?? Compare.Default,
+			compare6 ?? Comparison,
 			compare7 is null ? true : false,
-			compare7 ?? Compare.Default,
+			compare7 ?? Comparison,
 			subdivisionOverride1
 ,
 			subdivisionOverride2
@@ -29120,19 +29120,19 @@ namespace Towel.DataStructures
 					out values7[i * 2], out values7[i * 2 + 1]
 					);
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
 , 
-					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
+					Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
 , 
-					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
+					Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
 , 
-					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
+					Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
 , 
-					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
+					Omnitree.SubDivide(values5, this._defaultCompare5 ? Comparison : this._compare5)
 , 
-					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
+					Omnitree.SubDivide(values6, this._defaultCompare6 ? Comparison : this._compare6)
 , 
-					Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare.Default : this._compare7)
+					Omnitree.SubDivide(values7, this._defaultCompare7 ? Comparison : this._compare7)
 					);
 			}
 			catch
@@ -29179,13 +29179,13 @@ namespace Towel.DataStructures
 					values7[i * 2] = min7; values7[i * 2 + 1] = max7;
 				}
 				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare.Default : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare.Default : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare.Default : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare.Default : this._compare4)
-					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare.Default : this._compare5)
-					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare.Default : this._compare6)
-					, Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare.Default : this._compare7)
+					Omnitree.SubDivide(values1, this._defaultCompare1 ? Comparison : this._compare1)
+					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Comparison : this._compare2)
+					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Comparison : this._compare3)
+					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Comparison : this._compare4)
+					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Comparison : this._compare5)
+					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Comparison : this._compare6)
+					, Omnitree.SubDivide(values7, this._defaultCompare7 ? Comparison : this._compare7)
 				);
 			}
 		}

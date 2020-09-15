@@ -36,7 +36,7 @@ namespace Towel_Testing
 				Stepper.Iterate(sizeAdjusted, i => array[i] = i);
 				Sort.Shuffle(array, random);
 				Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
-				algorithm(array, Compare.Default);
+				algorithm(array, Comparison);
 				Assert.IsTrue(IsLeastToGreatest(array), "Sorting algorithm failed.");
 			}
 
@@ -47,7 +47,7 @@ namespace Towel_Testing
 			{ // Partial Array Sort
 				int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 				watchArray = array;
-				algorithmPartial(array, 3, 7, Compare.Default);
+				algorithmPartial(array, 3, 7, Comparison);
 				int[] expected = { 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0 };
 				for (int i = 0; i < size; i++)
 				{

@@ -42,7 +42,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a Order_ListArray.</summary>
 		public OrderListArray()
 		{
-			this._compare = Towel.Compare.Default;
+			this._compare = Comparison;
 			this._list = new ListArray<T>();
 		}
 

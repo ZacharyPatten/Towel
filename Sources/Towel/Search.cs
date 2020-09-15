@@ -43,7 +43,7 @@ namespace Towel
 		public static (bool Success, int Index, T Value) Binary<T>(T[] array, T element, Func<T, T, CompareResult> compare = default)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(0, array.Length, array, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare.Default));
+			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(0, array.Length, array, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Comparison));
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
