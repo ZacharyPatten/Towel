@@ -358,7 +358,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
 		public void Stepper<Step>(Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -387,7 +387,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
 		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -783,7 +783,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
 		public void Stepper<Step>(Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -812,7 +812,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
 		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>

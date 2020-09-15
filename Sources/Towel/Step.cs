@@ -19,8 +19,6 @@ namespace Towel
 		#endregion
 	};
 
-	#region StepStatus - Built In Structs
-
 	/// <summary>Compile time resulution to the <see cref="StepStatus.Continue"/> value.</summary>
 	public struct StepContinue : IFunc<StepStatus>
 	{
@@ -28,8 +26,6 @@ namespace Towel
 		/// <returns><see cref="StepStatus.Continue"/></returns>
 		public StepStatus Do() => Continue;
 	}
-
-	#endregion
 
 	#region 1 Dimensional
 
@@ -75,15 +71,9 @@ namespace Towel
 	/// <param name="step">The foreach function to perform on each iteration.</param>
 	public delegate StepStatus StepperRefBreak<T>(StepRefBreak<T> step);
 
-	/// <summary>A compile time delegate for stepping values of iteration.</summary>
-	/// <typeparam name="T">The generic type of values to step.</typeparam>
-	public interface IStep<T> : IAction<T> { }
-
-	#region IStep - Built In Structs
-
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
-	public struct StepRuntime<T> : IStep<T>
+	public struct StepRuntime<T> : IAction<T>
 	{
 		internal Step<T> Step;
 
@@ -99,7 +89,7 @@ namespace Towel
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="StepRef">The Step function.</typeparam>
-	public struct StepFromStepRef<T, StepRef> : IStep<T>
+	public struct StepFromStepRef<T, StepRef> : IAction<T>
 		where StepRef : struct, IStepRef<T>
 	{
 		internal StepRef StepRefFunction;
@@ -113,8 +103,6 @@ namespace Towel
 			new StepFromStepRef<T, StepRef>() { StepRefFunction = stepRef, };
 	}
 
-	#endregion
-
 	/// <summary>A compile time delegate for stepping values of iteration.</summary>
 	/// <typeparam name="T">The generic type of values to step.</typeparam>
 	public interface IStepRef<T>
@@ -122,8 +110,6 @@ namespace Towel
 		/// <summary>The invocation of the compile time delegate.</summary>
 		void Do(ref T a);
 	}
-
-	#region IStepRef - Built In Structs
 
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
@@ -144,7 +130,7 @@ namespace Towel
 	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
 	public struct StepToStepRef<T, Step> : IStepRef<T>
-		where Step : struct, IStep<T>
+		where Step : struct, IAction<T>
 	{
 		internal Step StepFunction;
 
@@ -157,17 +143,9 @@ namespace Towel
 			new StepToStepRef<T, Step>() { StepFunction = step, };
 	}
 
-	#endregion
-
-	/// <summary>A compile time delegate for stepping values of iteration.</summary>
-	/// <typeparam name="T">The generic type of values to step.</typeparam>
-	public interface IStepBreak<T> : IFunc<T, StepStatus> { }
-
-	#region IStepBreak - Built In Structs
-
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
-	public struct StepBreakRuntime<T> : IStepBreak<T>
+	public struct StepBreakRuntime<T> : IFunc<T, StepStatus>
 	{
 		internal StepBreak<T> StepBreak;
 
@@ -183,8 +161,8 @@ namespace Towel
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
-	public struct StepBreakFromStep<T, Step> : IStepBreak<T>
-		where Step : struct, IStep<T>
+	public struct StepBreakFromStep<T, Step> : IFunc<T, StepStatus>
+		where Step : struct, IAction<T>
 	{
 		internal Step StepFunction;
 
@@ -196,8 +174,6 @@ namespace Towel
 		public static implicit operator StepBreakFromStep<T, Step>(Step step) =>
 			new StepBreakFromStep<T, Step>() { StepFunction = step, };
 	}
-
-	#endregion
 
 	/// <summary>A compile time delegate for stepping values of iteration.</summary>
 	/// <typeparam name="T">The generic type of values to step.</typeparam>
@@ -228,7 +204,7 @@ namespace Towel
 	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
 	public struct StepRefBreakFromStepBreak<T, Step> : IStepRefBreak<T>
-		where Step : struct, IStepBreak<T>
+		where Step : struct, IFunc<T, StepStatus>
 	{
 		internal Step StepFunction;
 

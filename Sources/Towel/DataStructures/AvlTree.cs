@@ -321,7 +321,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
 		public void Stepper<Step>(Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -350,7 +350,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
 		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -398,7 +398,7 @@ namespace Towel.DataStructures
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual void Stepper<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperBreak<StepBreakFromStep<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -432,7 +432,7 @@ namespace Towel.DataStructures
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual StepStatus StepperBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -497,7 +497,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
 		public void StepperReverse<Step>(Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperReverseBreak<StepBreakFromStep<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -524,7 +524,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
 		public StepStatus StepperReverseBreak<Step>(Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -573,7 +573,7 @@ namespace Towel.DataStructures
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual void StepperReverse<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperReverseBreak<StepBreakFromStep<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -607,7 +607,7 @@ namespace Towel.DataStructures
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual StepStatus StepperReverseBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>

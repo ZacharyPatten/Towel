@@ -31022,10 +31022,6 @@
             <typeparam name="T">The type of instances the will be traversed.</typeparam>
             <param name="step">The foreach function to perform on each iteration.</param>
         </member>
-        <member name="T:Towel.IStep`1">
-            <summary>A compile time delegate for stepping values of iteration.</summary>
-            <typeparam name="T">The generic type of values to step.</typeparam>
-        </member>
         <member name="T:Towel.StepRuntime`1">
             <summary>Built in struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the values.</typeparam>
@@ -31078,10 +31074,6 @@
         <member name="M:Towel.StepToStepRef`2.op_Implicit(`1)~Towel.StepToStepRef{`0,`1}">
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="step">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.IStepBreak`1">
-            <summary>A compile time delegate for stepping values of iteration.</summary>
-            <typeparam name="T">The generic type of values to step.</typeparam>
         </member>
         <member name="T:Towel.StepBreakRuntime`1">
             <summary>Built in struct for runtime computations.</summary>

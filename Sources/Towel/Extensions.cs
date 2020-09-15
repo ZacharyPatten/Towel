@@ -972,7 +972,7 @@ namespace Towel
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T, Step>(this T[] array, Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperRef<T, StepToStepRef<T, Step>>(array, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -1008,7 +1008,7 @@ namespace Towel
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
 		public static StepStatus StepperBreak<T, Step>(this T[] array, Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(array, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -1046,7 +1046,7 @@ namespace Towel
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T, Step>(this T[] array, int start, int end, Step step = default)
-			where Step : struct, IStep<T> =>
+			where Step : struct, IAction<T> =>
 			StepperRef<T, StepToStepRef<T, Step>>(array, start, end, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -1090,7 +1090,7 @@ namespace Towel
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
 		public static StepStatus StepperBreak<T, Step>(this T[] array, int start, int end, Step step = default)
-			where Step : struct, IStepBreak<T> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(array, start, end, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
