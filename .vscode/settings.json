@@ -3,6 +3,7 @@
 	{
 		".vs": true,
 		".gitignore": true,
+		"TestResults/**": true,
 		"**/bin": true,
 		"**/obj": true
 	},

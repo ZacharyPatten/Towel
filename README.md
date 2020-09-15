@@ -135,6 +135,40 @@ If you want to contribute to Towel:
 </p>
 </details>
 
+<details>
+<summary>
+:page_facing_up: <strong>Repository Structure <em>(Click To Expand)</em></strong>
+</summary>
+<p>
+
+Here is a map of this repository's file structure:
+
+> - :file_folder: `.github` <sub>content regarding the GitHub repoistory.</sub>
+>   - :file_folder: `ISSUE_TEMPLATE` <sub>templates for issue submissions to the GitHub repository</sub>
+>   - :file_folder: `Resources` <sub>resources such as image files</sub>
+>   - :file_folder: `workflows` <sub>[GitHub Actions](https://github.com/ZacharyPatten/Towel/actions) workflows</sub>
+>     - :page_facing_up: `Towel Continuous Integration.yml` <sub>workflow for checking that code compiles and unit tests pass</sub>
+>     - :page_facing_up: `Towel Deployment.yml` <sub>workflow to manage releases and deploy nuget packages</sub>
+>     - :page_facing_up: `Towel Docfx.yml` <sub>workflow that runs [docfx](https://github.com/dotnet/docfx) to generate the GitHub pages in the `gh-pages` branch</sub>
+>   -  `pull_request_template.md` <sub>template for when pull requests are created</sub>
+> - :file_folder: `.vscode` <sub>confirguration files for if the code is opened in [Visual Studio Code](https://visualstudio.microsoft.com/)</sub>
+> - :file_folder: `Examples` <sub>root folder for all the example projects</sub>
+> - :file_folder: `Sources` <sub>root folder for the source code of released nuget packages</sub>
+>   - :file_folder: **`Towel` <sub>the root folder for all source code in the Towel nuget package</sub>**
+> - :file_folder: `Tools` <sub>root folder for all support projects</sub>
+>   - :file_folder: `docfx_project` <sub>root folder for [docfx](https://github.com/dotnet/docfx) project (used in the `Towel Docfx.yml` workflow)</sub>
+>     - :file_folder: `articles` <sub>root folder for all articless of the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
+>     - :page_facing_up: `docfx.json` <sub>configuration file that controls [docfx](https://github.com/dotnet/docfx)</sub>
+>     - :page_facing_up: `index.md` <sub>home page of the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
+>     - :page_facing_up: `toc.yml` <sub>primary navigation for the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
+>   - :file_folder: `Towel_Benchmarking` <sub>project with all the benchmarking for the Towel project</sub>
+>   - :file_folder: _`Towel_Documenting` <sub>not currently used; custom documentation generation for the Towel Project</sub>_
+>   - :file_folder: _`Towel_Generating` <sub>not currently used; custom source code generation for the Towel Project</sub>_
+>   - :file_folder: `Towel_Testing` <sub>project with all unit tests for the Towel project (runs in the `Towel Continuous Integration.yml` workflow)</sub>
+
+</p>
+</details>
+
 ## Generic Mathematics & Logic
 
 <details>
@@ -744,7 +778,7 @@ ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 ## Algorithms
 
 ```cs
-// Note: support System.Span<T> and any int-indexed type
+// Note: supports System.Span<T> and any int-indexed type that is not a ref struct
 Sort.Shuffle<T>(...);
 Sort.Bubble<T>(...);
 Sort.Selection<T>(...);
@@ -760,15 +794,15 @@ Sort.Shell<T>(...);
 Sort.Bogo<T>(...);
 Sort.Slow<T>(...);
 
-// Note: support System.ReadOnlySpan<T> and any int-indexed type
+// Note: supports System.ReadOnlySpan<T> and any int-indexed type is not a ref struct
 Search.Binary<T>(...);
 
-// Note: support System.ReadOnlySpan<T> and any int-indexed type
+// Note: supports System.ReadOnlySpan<T> and any int-indexed type is not a ref struct
 int LevenshteinDistance.Recursive<...>(...);
 int LevenshteinDistance.Iterative<...>(...);
 
 // Permutations of sequences
-// Note: support System.Span<T> and any int-indexed type
+// Note: supports System.Span<T> and any int-indexed type is not a ref struct
 void Permute.Recursive<...>(...);
 void Permute.Iterative<...>(...);
 
