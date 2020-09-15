@@ -65,8 +65,8 @@ namespace Towel
 		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			for (int i = start; i <= end; i++)
 			{
@@ -140,8 +140,8 @@ namespace Towel
 		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			for (int i = start; i <= end; i++)
 			{
@@ -219,8 +219,8 @@ namespace Towel
 		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			for (int i = start + 1; i <= end; i++)
 			{
@@ -291,8 +291,8 @@ namespace Towel
 		/// <inheritdoc cref="Quick_XML"/>
 		public static void Quick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			Quick_Recursive(start, end - start + 1);
 
@@ -407,8 +407,8 @@ namespace Towel
 		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			Merge_Recursive(start, end - start + 1);
 
@@ -535,8 +535,8 @@ namespace Towel
 		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			int heapSize = end - start + 1;
 			for (int i = heapSize / 2; i >= 0; i--)
@@ -657,8 +657,8 @@ namespace Towel
 		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			bool sorted = false;
 			while (!sorted)
@@ -824,8 +824,8 @@ namespace Towel
 
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random random = null)
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			random ??= new Random();
 			for (int i = start; i <= end; i++)
@@ -890,8 +890,8 @@ namespace Towel
 		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			random ??= new Random();
 			while (!BogoCheck(start, end))
@@ -971,8 +971,8 @@ namespace Towel
 		/// <inheritdoc cref="Slow_XML"/>
 		public static void Slow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			SlowRecursive(start, end);
 			void SlowRecursive(int i, int j)
@@ -1055,8 +1055,8 @@ namespace Towel
 		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			int i = start;
 			while (i <= end)
@@ -1133,8 +1133,8 @@ namespace Towel
 		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			const double shrink = 1.3;
 			int gap = end - start + 1;
@@ -1224,8 +1224,8 @@ namespace Towel
 		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			int[] gaps = { 701, 301, 132, 57, 23, 10, 4, 1 };
 			foreach (int gap in gaps)
@@ -1301,8 +1301,8 @@ namespace Towel
 		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
 			where Compare : struct, ICompare<T>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			while (true)
 			{

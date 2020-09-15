@@ -44,8 +44,8 @@ namespace Towel
 		public static void Recursive<T, Action, Status, Get, Set>(int start, int end, Action action = default, Status status = default, Get get = default, Set set = default)
 			where Action : struct, IAction
 			where Status : struct, IFunc<StepStatus>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			Permute(start, end);
 			StepStatus Permute(int a, int b)
@@ -111,8 +111,8 @@ namespace Towel
 		/// <inheritdoc cref="Recursive_XML"/>
 		public static void Recursive<T, Action, Get, Set>(int start, int end, Action action = default, Get get = default, Set set = default)
 			where Action : struct, IAction
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T> =>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T> =>
 			Recursive<T, Action, StepContinue, Get, Set>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="Recursive_XML"/>
@@ -159,8 +159,8 @@ namespace Towel
 		public static void Iterative<T, Action, Status, Get, Set>(int start, int end, Action action = default, Status status = default, Get get = default, Set set = default)
 			where Action : struct, IAction
 			where Status : struct, IFunc<StepStatus>
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
 		{
 			action.Do();
 			int[] indeces = new int[end + 2 - start];
@@ -218,8 +218,8 @@ namespace Towel
 		/// <inheritdoc cref="Iterative_XML"/>
 		public static void Iterative<T, Action, Get, Set>(int start, int end, Action action = default, Get get = default, Set set = default)
 			where Action : struct, IAction
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T> =>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T> =>
 			Iterative<T, Action, StepContinue, Get, Set>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="Iterative_XML"/>

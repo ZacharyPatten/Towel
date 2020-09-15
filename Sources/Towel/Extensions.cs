@@ -834,8 +834,8 @@ namespace Towel
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
 		public static void Shuffle<T, Get, Set>(this Random random, Get get, Set set, int start, int end)
-			where Get : struct, IGetIndex<T>
-			where Set : struct, ISetIndex<T> =>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T> =>
 			Sort.Shuffle<T, Get, Set>(start, end, get, set, random);
 
 		#endregion

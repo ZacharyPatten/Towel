@@ -12,15 +12,9 @@ namespace Towel
 	/// <param name="value">The value to set at the given index.</param>
 	public delegate void SetIndex<T>(int index, T value);
 
-	/// <summary>A compile time delegate for getting a value at an index.</summary>
-	/// <typeparam name="T">The generic type of value to get.</typeparam>
-	public interface IGetIndex<T> : IFunc<int, T> { }
-
-	#region GetIndex - Built In Structs
-
 	/// <summary>Built in GetIndex struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the value to get.</typeparam>
-	public struct GetIndexRuntime<T> : IGetIndex<T>
+	public struct GetIndexRuntime<T> : IFunc<int, T>
 	{
 		internal GetIndex<T> GetIndex;
 
@@ -35,7 +29,7 @@ namespace Towel
 
 	/// <summary>Built in GetIndex struct for arrays.</summary>
 	/// <typeparam name="T">The generic type of the value to get.</typeparam>
-	public struct GetIndexArray<T> : IGetIndex<T>
+	public struct GetIndexArray<T> : IFunc<int, T>
 	{
 		internal T[] Array;
 
@@ -50,7 +44,7 @@ namespace Towel
 
 	/// <summary>Built in GetIndex struct for lists.</summary>
 	/// <typeparam name="T">The generic type of the value to get.</typeparam>
-	public struct GetIndexListArray<T> : IGetIndex<T>
+	public struct GetIndexListArray<T> : IFunc<int, T>
 	{
 		internal ListArray<T> List;
 
@@ -64,8 +58,7 @@ namespace Towel
 	}
 
 	/// <summary>Built in GetIndex struct for lists.</summary>
-	/// <typeparam name="T">The generic type of the value to get.</typeparam>
-	public struct GetIndexString : IGetIndex<char>
+	public struct GetIndexString : IFunc<int, char>
 	{
 		internal string String;
 
@@ -78,17 +71,9 @@ namespace Towel
 			new GetIndexString() { String = @string, };
 	}
 
-	#endregion
-
-	/// <summary>A compile time delegate for setting a value at an index.</summary>
-	/// <typeparam name="T">The generic type of value to set.</typeparam>
-	public interface ISetIndex<T> : IAction<int, T> { }
-
-	#region SetIndex - Built In Structs
-
 	/// <summary>Built in SetIndex struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the value to set.</typeparam>
-	public struct SetIndexRuntime<T> : ISetIndex<T>
+	public struct SetIndexRuntime<T> : IAction<int, T>
 	{
 		internal SetIndex<T> SetIndex;
 
@@ -103,7 +88,7 @@ namespace Towel
 
 	/// <summary>Built in SetIndex struct for arrays.</summary>
 	/// <typeparam name="T">The generic type of the value to set.</typeparam>
-	public struct SetIndexArray<T> : ISetIndex<T>
+	public struct SetIndexArray<T> : IAction<int, T>
 	{
 		internal T[] Array;
 
@@ -118,7 +103,7 @@ namespace Towel
 
 	/// <summary>Built in SetIndex struct for lists.</summary>
 	/// <typeparam name="T">The generic type of the value to set.</typeparam>
-	public struct SetIndexListArray<T> : ISetIndex<T>
+	public struct SetIndexListArray<T> : IAction<int, T>
 	{
 		internal ListArray<T> List;
 
@@ -130,6 +115,4 @@ namespace Towel
 		public static implicit operator SetIndexListArray<T>(ListArray<T> list) =>
 			new SetIndexListArray<T>() { List = list, };
 	}
-
-	#endregion
 }

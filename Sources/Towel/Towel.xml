@@ -16214,10 +16214,6 @@
             <param name="index">The index to set the value of.</param>
             <param name="value">The value to set at the given index.</param>
         </member>
-        <member name="T:Towel.IGetIndex`1">
-            <summary>A compile time delegate for getting a value at an index.</summary>
-            <typeparam name="T">The generic type of value to get.</typeparam>
-        </member>
         <member name="T:Towel.GetIndexRuntime`1">
             <summary>Built in GetIndex struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the value to get.</typeparam>
@@ -16253,7 +16249,6 @@
         </member>
         <member name="T:Towel.GetIndexString">
             <summary>Built in GetIndex struct for lists.</summary>
-            <typeparam name="T">The generic type of the value to get.</typeparam>
         </member>
         <member name="M:Towel.GetIndexString.Do(System.Int32)">
             <summary>The invocation of the compile time delegate.</summary>
@@ -16261,10 +16256,6 @@
         <member name="M:Towel.GetIndexString.op_Implicit(System.String)~Towel.GetIndexString">
             <summary>Implicitly gets the getter from a list.</summary>
             <param name="string">The string to get the indexer of.</param>
-        </member>
-        <member name="T:Towel.ISetIndex`1">
-            <summary>A compile time delegate for setting a value at an index.</summary>
-            <typeparam name="T">The generic type of value to set.</typeparam>
         </member>
         <member name="T:Towel.SetIndexRuntime`1">
             <summary>Built in SetIndex struct for runtime computations.</summary>

@@ -79,7 +79,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
-			where Get : IGetIndex<T>
+			where Get : IFunc<int, T>
 			where Sift : ISift<T>
 		{
 			if (length <= 0)
