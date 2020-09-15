@@ -15,7 +15,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
 	/// <typeparam name="Compare">The Compare delegate.</typeparam>
 	public class AvlTreeLinked<T, Compare> : IAvlTree<T>
-		where Compare : struct, ICompare<T>
+		where Compare : struct, IFunc<T, T, CompareResult>
 	{
 		internal Node _root;
 		internal int _count;

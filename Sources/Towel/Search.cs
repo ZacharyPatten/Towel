@@ -48,7 +48,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Binary_XML"/>
 		public static (bool Success, int Index, T Value) Binary<T, Compare>(T[] array, T element, Compare compare = default)
-			where Compare : ICompare<T>
+			where Compare : IFunc<T, T, CompareResult>
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
 			return Binary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, Compare>>(0, array.Length, array, new SiftFromCompareAndValue<T, Compare>(element, compare));
@@ -266,14 +266,14 @@ namespace Towel
 			};
 		}
 
-		internal struct AStarPriorityCompare<Node, Numeric> : ICompare<AstarNode<Node, Numeric>>
+		internal struct AStarPriorityCompare<Node, Numeric> : IFunc<AstarNode<Node, Numeric>, AstarNode<Node, Numeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
 			public CompareResult Do(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
 				Comparison(b.Priority, a.Priority);
 		}
 
-		internal struct DijkstraPriorityCompare<Node, Numeric> : ICompare<DijkstraNode<Node, Numeric>>
+		internal struct DijkstraPriorityCompare<Node, Numeric> : IFunc<DijkstraNode<Node, Numeric>, DijkstraNode<Node, Numeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
 			public CompareResult Do(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>

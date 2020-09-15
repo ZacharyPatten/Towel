@@ -130,7 +130,7 @@ namespace Towel_Benchmarking
 			Sort.Bogo<int, CompareInt>(Values);
 		}
 
-		public struct CompareInt : ICompare<int>
+		public struct CompareInt : IFunc<int, int, CompareResult>
 		{
 			public CompareResult Do(int a, int b) => Compare.Wrap(a.CompareTo(b));
 		}

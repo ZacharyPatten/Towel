@@ -15,7 +15,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="Compare">The compare delegate.</typeparam>
 	public class RedBlackTreeLinked<T, Compare> : IRedBlackTree<T>
-		where Compare : struct, ICompare<T>
+		where Compare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const bool Red = true;
 		internal const bool Black = false;

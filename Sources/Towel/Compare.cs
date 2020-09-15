@@ -91,15 +91,9 @@ namespace Towel
 		#endregion
 	}
 
-	/// <summary>A compile time delegate for comparing two values.</summary>
-	/// <typeparam name="T">The generic type of values to compare.</typeparam>
-	public interface ICompare<T> : IFunc<T, T, CompareResult> { }
-
-	#region Compare - Built In Structs
-
 	/// <summary>Built in Compare struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
-	public struct CompareRuntime<T> : ICompare<T>
+	public struct CompareRuntime<T> : IFunc<T, T, CompareResult>
 	{
 		internal Compare<T> Compare;
 
@@ -113,7 +107,7 @@ namespace Towel
 	}
 
 	/// <summary>Default int compare.</summary>
-	public struct CompareInt : ICompare<int>
+	public struct CompareInt : IFunc<int, int, CompareResult>
 	{
 		/// <summary>Default int compare.</summary>
 		/// <param name="a">The left hand side of the compare.</param>
@@ -121,8 +115,6 @@ namespace Towel
 		/// <returns>The result of the comparison.</returns>
 		public CompareResult Do(int a, int b) => Compare.Wrap(a.CompareTo(b));
 	}
-
-	#endregion
 
 	/// <summary>A compile time delegate for comparing two values.</summary>
 	/// <typeparam name="T">The generic type of values to compare.</typeparam>
@@ -149,7 +141,7 @@ namespace Towel
 	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
 	/// /// <typeparam name="Compare">The compare function.</typeparam>
 	public struct SiftFromCompareAndValue<T, Compare> : ISift<T>
-		where Compare : ICompare<T>
+		where Compare : IFunc<T, T, CompareResult>
 	{
 		internal Compare CompareFunction;
 		internal T Value;

@@ -46,7 +46,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Bubble(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Bubble_XML"/>
@@ -55,7 +55,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Bubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Bubble_XML"/>
@@ -64,7 +64,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -85,7 +85,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			for (int i = 0; i <= span.Length - 1; i++)
 			{
@@ -121,7 +121,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Selection(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Selection_XML"/>
@@ -130,7 +130,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Selection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Selection_XML"/>
@@ -139,7 +139,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -162,7 +162,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			for (int i = 0; i <= span.Length - 1; i++)
 			{
@@ -200,7 +200,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Insertion(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Insertion_XML"/>
@@ -209,7 +209,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Insertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Insertion_XML"/>
@@ -218,7 +218,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -236,7 +236,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			for (int i = 1; i <= span.Length - 1; i++)
 			{
@@ -272,7 +272,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Quick_XML"/>
 		public static void Quick<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Quick(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Quick_XML"/>
@@ -281,7 +281,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Quick_XML"/>
 		public static void Quick<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Quick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Quick_XML"/>
@@ -290,7 +290,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Quick_XML"/>
 		public static void Quick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -333,7 +333,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Quick_XML"/>
 		public static void Quick<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			Quick_Recursive(span, 0, span.Length);
 
@@ -388,7 +388,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Merge(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Merge_XML"/>
@@ -397,7 +397,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Merge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Merge_XML"/>
@@ -406,7 +406,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -452,7 +452,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			Merge_Recursive(span);
 
@@ -516,7 +516,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Heap(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Heap_XML"/>
@@ -525,7 +525,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Heap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Heap_XML"/>
@@ -534,7 +534,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -579,7 +579,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			int start = 0;
 			int end = span.Length - 1;
@@ -638,7 +638,7 @@ namespace Towel
 
 		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			OddEven(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="OddEven_XML"/>
@@ -647,7 +647,7 @@ namespace Towel
 
 		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			OddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="OddEven_XML"/>
@@ -656,7 +656,7 @@ namespace Towel
 
 		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -691,7 +691,7 @@ namespace Towel
 
 		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			bool sorted = false;
 			while (!sorted)
@@ -871,7 +871,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T, Compare>(T[] array, Compare compare = default, Random random = null)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Bogo(array, 0, array.Length - 1, compare, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
@@ -880,7 +880,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T, Compare>(T[] array, int start, int end, Compare compare = default, Random random = null)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Bogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
@@ -889,7 +889,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -913,7 +913,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T, Compare>(Span<T> span, Compare compare = default, Random random = null)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			random ??= new Random();
 			while (!BogoCheck(span))
@@ -952,7 +952,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Slow_XML"/>
 		public static void Slow<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Slow(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Slow_XML"/>
@@ -961,7 +961,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Slow_XML"/>
 		public static void Slow<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Slow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Slow_XML"/>
@@ -970,7 +970,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Slow_XML"/>
 		public static void Slow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -997,7 +997,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Slow_XML"/>
 		public static void Slow<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			SlowRecursive(span, 0, span.Length - 1);
 			void SlowRecursive(Span<T> span, int i, int j)
@@ -1036,7 +1036,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Gnome(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Gnome_XML"/>
@@ -1045,7 +1045,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Gnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Gnome_XML"/>
@@ -1054,7 +1054,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -1078,7 +1078,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			int i = 0;
 			while (i < span.Length)
@@ -1114,7 +1114,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Comb(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Comb_XML"/>
@@ -1123,7 +1123,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Comb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Comb_XML"/>
@@ -1132,7 +1132,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -1162,7 +1162,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			const double shrink = 1.3;
 			int gap = span.Length;
@@ -1205,7 +1205,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Shell(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Shell_XML"/>
@@ -1214,7 +1214,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Shell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Shell_XML"/>
@@ -1223,7 +1223,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -1245,7 +1245,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			int[] gaps = { 701, 301, 132, 57, 23, 10, 4, 1 };
 			foreach (int gap in gaps)
@@ -1282,7 +1282,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Cocktail(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
@@ -1291,7 +1291,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, ICompare<T> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			Cocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
@@ -1300,7 +1300,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
@@ -1341,7 +1341,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T, Compare>(Span<T> span, Compare compare = default)
-			where Compare : struct, ICompare<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			while (true)
 			{

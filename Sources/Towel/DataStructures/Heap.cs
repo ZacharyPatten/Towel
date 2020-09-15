@@ -31,7 +31,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
 	/// <typeparam name="Compare">The Compare delegate.</typeparam>
 	public class HeapArray<T, Compare> : IHeap<T>
-		where Compare : struct, ICompare<T>
+		where Compare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const int _root = 1; // The root index of the heap.
 

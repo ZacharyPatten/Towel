@@ -25,7 +25,7 @@ namespace Towel_Benchmarking
 		public int Do(Person a) => a.Id.GetHashCode();
 	}
 
-	public struct ComparePersonFirstName : ICompare<Person>
+	public struct ComparePersonFirstName : IFunc<Person, Person, CompareResult>
 	{
 		public CompareResult Do(Person a, Person b) => Compare.Wrap(a.FirstName.CompareTo(b.FirstName));
 	}

@@ -92,10 +92,6 @@
             <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
             <returns>The converted System.Comparison delegate.</returns>
         </member>
-        <member name="T:Towel.ICompare`1">
-            <summary>A compile time delegate for comparing two values.</summary>
-            <typeparam name="T">The generic type of values to compare.</typeparam>
-        </member>
         <member name="T:Towel.CompareRuntime`1">
             <summary>Built in Compare struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the values to compare.</typeparam>
