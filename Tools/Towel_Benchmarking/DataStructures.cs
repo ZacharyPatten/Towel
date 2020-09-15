@@ -2,6 +2,7 @@
 using System;
 using Towel;
 using Towel.DataStructures;
+using static Towel.Syntax;
 
 namespace Towel_Benchmarking
 {
@@ -27,7 +28,7 @@ namespace Towel_Benchmarking
 
 	public struct ComparePersonFirstName : IFunc<Person, Person, CompareResult>
 	{
-		public CompareResult Do(Person a, Person b) => Compare.Wrap(a.FirstName.CompareTo(b.FirstName));
+		public CompareResult Do(Person a, Person b) => Comparison(a.FirstName, b.FirstName);
 	}
 
 	public static partial class RandomData
@@ -175,7 +176,7 @@ namespace Towel_Benchmarking
 		[Benchmark] public void AvlTreeLinked_AddRunTime()
 		{
 			IAvlTree<Person> tree = new AvlTreeLinked<Person>(
-				(a, b) => Compare.Wrap(a.FirstName.CompareTo(b.FirstName)));
+				(a, b) => Comparison(a.FirstName, b.FirstName));
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);
@@ -196,7 +197,7 @@ namespace Towel_Benchmarking
 		[Benchmark] public void RedBlackTree_AddRunTime()
 		{
 			IRedBlackTree<Person> tree = new RedBlackTreeLinked<Person>(
-				(a, b) => Compare.Wrap(a.FirstName.CompareTo(b.FirstName)));
+				(a, b) => Comparison(a.FirstName, b.FirstName));
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);

@@ -355,7 +355,7 @@ namespace BasicsAndExtensions
 				int valueToSearchFor = values[^2];
 				Console.WriteLine($"    Let's search for value {valueToSearchFor}...");
 
-				var result = Search.Binary(values, a => Compare.Wrap(a.CompareTo(valueToSearchFor)));
+				var result = Search.Binary(values, valueToSearchFor);
 				Console.WriteLine($"      Success: {result.Success}");
 				Console.WriteLine($"      Index: {result.Index}");
 				Console.WriteLine($"      Value: {result.Value}");

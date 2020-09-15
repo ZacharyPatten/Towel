@@ -178,7 +178,7 @@ namespace Towel.DataStructures
 			if (!exists)
 				return default;
 
-			Array.Sort(bounds, Compare.ToSystemComparison(Bound<T>.Compare(compare)));
+			Sort.Quick(bounds, Bound<T>.Compare(compare));
 
 			// after sorting, we need to find the middle-most value that exists
 			int medianIndex = bounds.Length / 2;

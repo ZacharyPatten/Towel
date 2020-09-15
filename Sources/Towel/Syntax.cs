@@ -1143,7 +1143,7 @@ namespace Towel
 					!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
 				{
 					CompareImplementation<A, A>.Function =
-							(a, b) => Compare.Wrap(System.Collections.Generic.Comparer<A>.Default.Compare(a, b));
+						(a, b) => System.Collections.Generic.Comparer<A>.Default.Compare(a, b).ToCompareResult();
 				}
 				else
 				{

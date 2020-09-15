@@ -59,6 +59,17 @@ namespace ConsoleHelpers
 			}
 			#endregion
 
+			#region Flush Input Buffer Example
+			{
+				Console.WriteLine("---------------------");
+				Console.WriteLine("If you want to prevent console input, you can");
+				Console.WriteLine("use FlushInputBuffer and all input prior to");
+				Console.WriteLine("calling it will be ignored.");
+				ConsoleHelper.FlushInputBuffer();
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Progress Bar Example
 			{
 				Console.WriteLine("---------------------");
@@ -83,6 +94,7 @@ namespace ConsoleHelpers
 					});
 				Console.WriteLine();
 				Console.WriteLine();
+				ConsoleHelper.FlushInputBuffer();
 			}
 			#endregion
 
@@ -127,17 +139,6 @@ namespace ConsoleHelpers
 					Console.WriteLine("You chose the third option.");
 				}
 
-				Console.WriteLine();
-			}
-			#endregion
-
-			#region Flush Input Buffer Example
-			{
-				Console.WriteLine("---------------------");
-				Console.WriteLine("If you want to prevent console input, you can");
-				Console.WriteLine("use FlushInputBuffer and all input prior to");
-				Console.WriteLine("calling it will be ignored.");
-				ConsoleHelper.FlushInputBuffer();
 				Console.WriteLine();
 			}
 			#endregion

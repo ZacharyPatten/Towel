@@ -263,7 +263,7 @@ namespace DataStructures
 				{
 					int _a = AbsoluteValue(a - 5);
 					int _b = AbsoluteValue(b - 5);
-					CompareResult comparison = Towel.Compare.Wrap(_b.CompareTo(_a));
+					CompareResult comparison = Comparison(_b, _a);
 					return comparison;
 				}
 				Console.WriteLine();
@@ -777,7 +777,7 @@ namespace DataStructures
 				for (int i = 0; i < test; i++)
 				{
 					// lets use a heap to randomize the edges using random priorities
-					IHeap<(int, int)> heap = new HeapArray<(int, int)>((x, y) => Towel.Compare.Wrap(x.Item2.CompareTo(y.Item2)));
+					IHeap<(int, int)> heap = new HeapArray<(int, int)>();
 					for (int j = 0; j < test; j++)
 					{
 						if (j != i)

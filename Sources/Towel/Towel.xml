@@ -32,20 +32,6 @@
         <member name="F:Towel.CompareResult.Greater">
             <summary>The left operand is greater than the right operand.</summary>
         </member>
-        <member name="T:Towel.Compare">
-            <summary>Static wrapper for "CompareTo" methods on IComparables.</summary>
-        </member>
-        <member name="M:Towel.Compare.Wrap(System.Int32)">
-            <summary>Converts an int into a comparison.</summary>
-            <param name="compareResult">The integer comparison result to convert into a Comparison.</param>
-            <returns>The converted Comparison value.</returns>
-        </member>
-        <member name="M:Towel.Compare.ToSystemComparison``1(System.Func{``0,``0,Towel.CompareResult})">
-            <summary>Converts a Towel.Compare to a System.Comparison.</summary>
-            <typeparam name="T">The generic type that the comparing methods operate on.</typeparam>
-            <param name="compare">The Towel.Compare to convert to a System.Comparison delegate.</param>
-            <returns>The converted System.Comparison delegate.</returns>
-        </member>
         <member name="T:Towel.CompareInt">
             <summary>Default int compare.</summary>
         </member>

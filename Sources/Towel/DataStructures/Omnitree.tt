@@ -1384,7 +1384,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 					);
 				if (_defaultCompare<#= j #>) Array.Sort(values);
-				else Array.Sort(values, Compare.ToSystemComparison(this._compare<#= j #>));
+				else Sort.Quick(values, this._compare<#= j #>);
 				int index = (leaf.Count - 1) / 2;
 				division<#= j #> = values[index];
 			}

@@ -2,6 +2,7 @@
 using System;
 using Towel;
 using Towel.DataStructures;
+using static Towel.Syntax;
 
 namespace Towel_Testing.DataStructures
 {
@@ -12,7 +13,7 @@ namespace Towel_Testing.DataStructures
 			void Test<T>(T[] values, Func<T, T, CompareResult> compare)
 			{
 				T[] clonedValues = (T[])values.Clone();
-				Towel.Sort.Shuffle(clonedValues);
+				Sort.Shuffle(clonedValues);
 				IHeap<T> heap = new HeapArray<T>(compare);
 				clonedValues.Stepper(x => heap.Enqueue(x));
 				foreach (T value in values)
@@ -27,28 +28,28 @@ namespace Towel_Testing.DataStructures
 				int[] values = new int[count];
 				Stepper.Iterate(count, i => values[i] = i);
 				Array.Sort(values, (a, b) => -a.CompareTo(b));
-				Test(values, (a, b) => Compare.Wrap(a.CompareTo(b)));
+				Test(values, Comparison);
 			}
 			{ // string compare
 				const int count = 100;
 				string[] values = new string[count];
 				Stepper.Iterate(count, i => values[i] = i.ToString());
 				Array.Sort(values, (a, b) => -a.CompareTo(b));
-				Test(values, (a, b) => Compare.Wrap(a.CompareTo(b)));
+				Test(values, Comparison);
 			}
 			{ // int reverse compare
 				const int count = 100;
 				int[] values = new int[count];
 				Stepper.Iterate(count, i => values[i] = i);
 				Array.Sort(values);
-				Test(values, (a, b) => Compare.Wrap(-a.CompareTo(b)));
+				Test(values, (a, b) => Comparison(b, a));
 			}
 			{ // string reverse compare
 				const int count = 100;
 				string[] values = new string[count];
 				Stepper.Iterate(count, i => values[i] = i.ToString());
 				Array.Sort(values);
-				Test(values, (a, b) => Compare.Wrap(-a.CompareTo(b)));
+				Test(values, (a, b) => Comparison(b, a));
 			}
 		}
 	}

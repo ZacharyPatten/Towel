@@ -372,6 +372,17 @@ namespace Towel
 
 		#region System.Random
 
+		#region int
+
+		internal static CompareResult ToCompareResult(this int result) =>
+			result < 0
+				? Less
+				: result > 0
+					? Greater
+					: Equal;
+
+		#endregion
+
 		#region bool
 
 		/// <summary>Generates a random <see cref="bool"/> value.</summary>
