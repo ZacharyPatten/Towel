@@ -32,28 +32,6 @@
         <member name="F:Towel.CompareResult.Greater">
             <summary>The left operand is greater than the right operand.</summary>
         </member>
-        <member name="T:Towel.CompareInt">
-            <summary>Default int compare.</summary>
-        </member>
-        <member name="M:Towel.CompareInt.Do(System.Int32,System.Int32)">
-            <summary>Default int compare.</summary>
-            <param name="a">The left hand side of the compare.</param>
-            <param name="b">The right ahnd side of the compare.</param>
-            <returns>The result of the comparison.</returns>
-        </member>
-        <member name="T:Towel.SiftFromCompareAndValue`2">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-        </member>
-        <member name="M:Towel.SiftFromCompareAndValue`2.Do(`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.SiftFromCompareAndValue`2.#ctor(`0,`1)">
-            <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
-            <param name="value">The value for future values to be compared against.</param>
-            <param name="compare">The compare function.</param>
-        </member>
         <member name="T:Towel.ConsoleHelper">
             <summary>Contains static helper methods for <see cref="T:System.Console"/>.</summary>
         </member>
@@ -16030,6 +16008,28 @@
         </member>
         <member name="M:Towel.IFunc`4.Do(`0,`1,`2)">
             <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.CompareInt">
+            <summary>Default int compare.</summary>
+        </member>
+        <member name="M:Towel.CompareInt.Do(System.Int32,System.Int32)">
+            <summary>Default int compare.</summary>
+            <param name="a">The left hand side of the compare.</param>
+            <param name="b">The right ahnd side of the compare.</param>
+            <returns>The result of the comparison.</returns>
+        </member>
+        <member name="T:Towel.SiftFromCompareAndValue`2">
+            <summary>Built in Compare struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values to compare.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+        </member>
+        <member name="M:Towel.SiftFromCompareAndValue`2.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.SiftFromCompareAndValue`2.#ctor(`0,`1)">
+            <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
+            <param name="value">The value for future values to be compared against.</param>
+            <param name="compare">The compare function.</param>
         </member>
         <member name="T:Towel.HammingDistance">
             <summary>Contains algorithms for computing Hamming distances.</summary>
