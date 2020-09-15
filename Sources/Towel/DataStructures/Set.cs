@@ -24,7 +24,7 @@ namespace Towel.DataStructures
 		// Structure Properties
 		DataStructure.IHashing<T>
 		where Equate : struct, IFunc<T, T, bool>
-		where Hash : struct, IHash<T>
+		where Hash : struct, IFunc<T, int>
 	{
 		internal const float _maxLoadFactor = .7f;
 		internal const float _minLoadFactor = .3f;

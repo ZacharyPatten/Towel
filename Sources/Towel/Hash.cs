@@ -6,15 +6,9 @@
 	/// <returns>The computed hash of the given item.</returns>
 	public delegate int Hash<T>(T value);
 
-	/// <summary>A compile time delegate for computing hash codes.</summary>
-	/// <typeparam name="T">The generic type of value to compute the hash codes of.</typeparam>
-	public interface IHash<T> : IFunc<T, int> { }
-
-	#region Hash - Built In Structs
-
 	/// <summary>Built in Compare struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the value compute the hash code of.</typeparam>
-	public struct HashRuntime<T> : IHash<T>
+	public struct HashRuntime<T> : IFunc<T, int>
 	{
 		internal Hash<T> Hash;
 
@@ -26,8 +20,6 @@
 		public static implicit operator HashRuntime<T>(Hash<T> hash) =>
 			new HashRuntime<T>() { Hash = hash, };
 	}
-
-	#endregion
 
 	/// <summary>Static wrapper for the based "object.GetHashCode" function.</summary>
 	public static class Hash

@@ -20,7 +20,7 @@ namespace Towel_Benchmarking
 		public bool Do(Person a, Person b) => a.Id == b.Id;
 	}
 
-	public struct HashPerson : IHash<Person>
+	public struct HashPerson : IFunc<Person, int>
 	{
 		public int Do(Person a) => a.Id.GetHashCode();
 	}
