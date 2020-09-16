@@ -323,10 +323,10 @@ namespace Towel.DataStructures
 			}
 		}
 		#endregion
-		#region public void Stepper(Step<T> function)
+		#region public void Stepper(Action<T> function)
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> function)
+		public void Stepper(Action<T> function)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -339,11 +339,11 @@ namespace Towel.DataStructures
 			throw new System.NotImplementedException();
 		}
 		#endregion
-		#region public StepStatus Stepper(StepBreak<T> function)
+		#region public StepStatus Stepper(Func<T, StepStatus> function)
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> function)
+		public StepStatus Stepper(Func<T, StepStatus> function)
 		{
 			throw new System.NotImplementedException();
 		}

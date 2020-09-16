@@ -8,14 +8,10 @@ namespace Towel
 	/// <summary>Status of iteration.</summary>
 	public enum StepStatus
 	{
-		#region Members
-
 		/// <summary>Stepper was not broken.</summary>
 		Continue = 0,
 		/// <summary>Stepper was broken.</summary>
 		Break = 1,
-
-		#endregion
 	};
 
 	/// <summary>Compile time resulution to the <see cref="StepStatus.Continue"/> value.</summary>
@@ -31,18 +27,7 @@ namespace Towel
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
-	public delegate void Step<T>(T current);
-
-	/// <summary>Delegate for data structure iteration.</summary>
-	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-	/// <param name="current">The current instance of iteration through the data structure.</param>
 	public delegate void StepRef<T>(ref T current);
-
-	/// <summary>Delegate for data structure iteration.</summary>
-	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-	/// <param name="current">The current instance of iteration through the data structure.</param>
-	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	public delegate StepStatus StepBreak<T>(T current);
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
@@ -53,7 +38,7 @@ namespace Towel
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
-	public delegate void Stepper<T>(Step<T> step);
+	public delegate void Stepper<T>(Action<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
@@ -63,27 +48,12 @@ namespace Towel
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
-	public delegate StepStatus StepperBreak<T>(StepBreak<T> step);
+	public delegate StepStatus StepperBreak<T>(Func<T, StepStatus> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
 	public delegate StepStatus StepperRefBreak<T>(StepRefBreak<T> step);
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	public struct StepRuntime<T> : IAction<T>
-	{
-		internal Step<T> Step;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(T value) => Step(value);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="step">The runtime Step delegate.</param>
-		public static implicit operator StepRuntime<T>(Step<T> step) =>
-			new StepRuntime<T>() { Step = step, };
-	}
 
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
@@ -146,21 +116,21 @@ namespace Towel
 	/// <typeparam name="T">The generic type of the values.</typeparam>
 	public struct StepBreakRuntime<T> : IFunc<T, StepStatus>
 	{
-		internal StepBreak<T> StepBreak;
+		internal Func<T, StepStatus> StepBreak;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
 		public StepStatus Do(T value) => StepBreak(value);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="stepBreak">The runtime Step delegate.</param>
-		public static implicit operator StepBreakRuntime<T>(StepBreak<T> stepBreak) =>
+		public static implicit operator StepBreakRuntime<T>(Func<T, StepStatus> stepBreak) =>
 			new StepBreakRuntime<T>() { StepBreak = stepBreak, };
 	}
 
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
 	/// <typeparam name="Step">The Step function.</typeparam>
-	public struct StepBreakFromStep<T, Step> : IFunc<T, StepStatus>
+	public struct StepBreakFromAction<T, Step> : IFunc<T, StepStatus>
 		where Step : struct, IAction<T>
 	{
 		internal Step StepFunction;
@@ -170,8 +140,8 @@ namespace Towel
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>
-		public static implicit operator StepBreakFromStep<T, Step>(Step step) =>
-			new StepBreakFromStep<T, Step>() { StepFunction = step, };
+		public static implicit operator StepBreakFromAction<T, Step>(Step step) =>
+			new StepBreakFromAction<T, Step>() { StepFunction = step, };
 	}
 
 	/// <summary>A compile time delegate for stepping values of iteration.</summary>
@@ -244,13 +214,6 @@ namespace Towel
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="a">The first component of the step.</param>
 	/// <param name="b">The second component of the step.</param>
-	public delegate void Step<T1, T2>(T1 a, T2 b);
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
 	public delegate void StepRef<T1, T2>(ref T1 a, ref T2 b);
 
 	/// <summary>Delegate for an action to perform while stepping.</summary>
@@ -303,7 +266,7 @@ namespace Towel
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
 	/// <typeparam name="T2">The type of the object to step on.</typeparam>
 	/// <param name="step">The action to perform on every step.</param>
-	public delegate void Stepper<T1, T2>(Step<T1, T2> step);
+	public delegate void Stepper<T1, T2>(Action<T1, T2> step);
 
 	/// <summary>Delegate for stepping through a collection.</summary>
 	/// <typeparam name="T1">The type of the object to step on.</typeparam>
@@ -335,7 +298,7 @@ namespace Towel
 		/// <param name="step">The step to add a gap step to.</param>
 		/// <param name="gapStep">The step to perform in the gaps.</param>
 		/// <returns>The combined step + gapStep function.</returns>
-		public static Step<T> Gaps<T>(this Step<T> step, Step<T> gapStep)
+		public static Action<T> Gaps<T>(this Action<T> step, Action<T> gapStep)
 		{
 			bool first = true;
 			return
@@ -414,7 +377,7 @@ namespace Towel
 		/// <summary>Steps through a set number of integers.</summary>
 		/// <param name="iterations">The number of times to iterate.</param>
 		/// <param name="step">The step function.</param>
-		public static void Iterate(int iterations, Step<int> step)
+		public static void Iterate(int iterations, Action<int> step)
 		{
 			for (int i = 0; i < iterations; i++)
 			{

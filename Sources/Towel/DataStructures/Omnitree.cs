@@ -2978,20 +2978,20 @@ namespace Towel.DataStructures
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
+		void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
+		StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
-		void Stepper(Step<T> step, Axis1 axis1);
+		void Stepper(Action<T> step, Axis1 axis1);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Axis1 axis1);
+		StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1);
 
 		#endregion
 	}
@@ -4120,10 +4120,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			if (node is Leaf)
 			{
@@ -4143,10 +4143,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -4168,17 +4168,17 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public void Stepper(Step<T> step, Axis1 min1, Axis1 max1) =>
+		public void Stepper(Action<T> step, Axis1 min1, Axis1 max1) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
+		public void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<Axis1> bounds)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Bounds<Axis1> bounds)
 		{
 			if (node is Leaf)
 			{
@@ -4201,17 +4201,17 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 min1, Axis1 max1) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 min1, Axis1 max1) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1> bounds)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -4238,10 +4238,10 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
-		public void Stepper(Step<T> step, Axis1 axis1) =>
+		public void Stepper(Action<T> step, Axis1 axis1) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1>(axis1));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<Axis1> vector)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -4265,10 +4265,10 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 axis1) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1>(axis1));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<Axis1> vector)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -4499,24 +4499,24 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
+		void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
+		StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
-		void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2);
+		void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2);
+		StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2);
 
 		#endregion
 	}
@@ -5746,10 +5746,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			if (node is Leaf)
 			{
@@ -5769,10 +5769,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -5796,7 +5796,7 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public void Stepper(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
+		public void Stepper(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -5805,10 +5805,10 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
+		public void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds)
 		{
 			if (node is Leaf)
 			{
@@ -5833,7 +5833,7 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -5842,10 +5842,10 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -5873,10 +5873,10 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
-		public void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2) =>
+		public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2>(axis1, axis2));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<Axis1, Axis2> vector)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -5901,10 +5901,10 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2>(axis1, axis2));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<Axis1, Axis2> vector)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -6159,7 +6159,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
+		void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -6168,19 +6168,19 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
+		StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
-		void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
+		void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
+		StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
 
 		#endregion
 	}
@@ -7513,10 +7513,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			if (node is Leaf)
 			{
@@ -7536,10 +7536,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -7565,7 +7565,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public void Stepper(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
+		public void Stepper(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -7576,10 +7576,10 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
+		public void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
 		{
 			if (node is Leaf)
 			{
@@ -7606,7 +7606,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -7617,10 +7617,10 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -7649,10 +7649,10 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
-		public void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+		public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -7678,10 +7678,10 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -7960,7 +7960,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
+		void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -7971,21 +7971,21 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
+		StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
-		void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
+		void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
+		StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
 
 		#endregion
 	}
@@ -9423,10 +9423,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			if (node is Leaf)
 			{
@@ -9446,10 +9446,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -9477,7 +9477,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public void Stepper(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
+		public void Stepper(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -9490,10 +9490,10 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
+		public void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds)
 		{
 			if (node is Leaf)
 			{
@@ -9522,7 +9522,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -9535,10 +9535,10 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -9568,10 +9568,10 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
-		public void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
+		public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(axis1, axis2, axis3, axis4));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -9598,10 +9598,10 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(axis1, axis2, axis3, axis4));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -9904,7 +9904,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
+		void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -9917,7 +9917,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
+		StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -9925,7 +9925,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
-		void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
+		void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -9933,7 +9933,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
+		StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
 
 		#endregion
 	}
@@ -11478,10 +11478,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			if (node is Leaf)
 			{
@@ -11501,10 +11501,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -11534,7 +11534,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public void Stepper(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
+		public void Stepper(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -11549,10 +11549,10 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
+		public void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds)
 		{
 			if (node is Leaf)
 			{
@@ -11583,7 +11583,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -11598,10 +11598,10 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -11632,10 +11632,10 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
-		public void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
+		public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis2, axis3, axis4, axis5));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -11663,10 +11663,10 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis2, axis3, axis4, axis5));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -11993,7 +11993,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
+		void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -12008,7 +12008,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
+		StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -12017,7 +12017,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
-		void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
+		void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -12026,7 +12026,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
+		StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
 
 		#endregion
 	}
@@ -13680,10 +13680,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			if (node is Leaf)
 			{
@@ -13703,10 +13703,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -13738,7 +13738,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public void Stepper(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
+		public void Stepper(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -13755,10 +13755,10 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
+		public void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds)
 		{
 			if (node is Leaf)
 			{
@@ -13791,7 +13791,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -13808,10 +13808,10 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -13843,10 +13843,10 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
-		public void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
+		public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis2, axis3, axis4, axis5, axis6));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -13875,10 +13875,10 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis2, axis3, axis4, axis5, axis6));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -14229,7 +14229,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
+		void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -14246,7 +14246,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
+		StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -14256,7 +14256,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
 		/// <param name="axis7">The coordinate along the 7D axis.</param>
-		void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
+		void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -14266,7 +14266,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
 		/// <param name="axis7">The coordinate along the 7D axis.</param>
-		StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
+		StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
 
 		#endregion
 	}
@@ -16031,10 +16031,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			if (node is Leaf)
 			{
@@ -16054,10 +16054,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -16091,7 +16091,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public void Stepper(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
+		public void Stepper(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -16110,10 +16110,10 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public void Stepper(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
+		public void Stepper(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds)
 		{
 			if (node is Leaf)
 			{
@@ -16148,7 +16148,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -16167,10 +16167,10 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
 			Stepper(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds)
 		{
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
@@ -16203,10 +16203,10 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
-		public void Stepper(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
+		public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis2, axis3, axis4, axis5, axis6, axis7));
 
-		internal void Stepper(Step<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
+		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -16236,10 +16236,10 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
-		public StepStatus Stepper(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
+		public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
 			Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis2, axis3, axis4, axis5, axis6, axis7));
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
 			Node current = node;
 			while (!(current is null))
@@ -16541,32 +16541,32 @@ namespace Towel.DataStructures
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
+		void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
+		StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
 		
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
+		void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
-		void StepperOverlapped(Step<T> step, Axis1 axis1);
+		void StepperOverlapped(Action<T> step, Axis1 axis1);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1);
 
 		#endregion
 	}
@@ -17651,10 +17651,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
 			while (!(list is null))
@@ -17669,10 +17669,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			
@@ -17692,38 +17692,38 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Axis1 min1, Axis1 max1) =>
+		public void StepperEncapsulated(Action<T> step, Axis1 min1, Axis1 max1) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
+		public void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
+		internal void StepperEncapsulated(Action<T> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 min1, Axis1 max1) =>
+		public void StepperOverlapped(Action<T> step, Axis1 min1, Axis1 max1) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
+		public void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
+		internal void StepperOverlapped(Action<T> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal void StepperBase(
-			Step<T> step,
+			Action<T> step,
 			Node node,
 			Omnitree.Bounds<Axis1> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1>, Omnitree.Bounds<Axis1>> spatialCheck)
@@ -17747,38 +17747,38 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Axis1 min1, Axis1 max1) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Axis1 min1, Axis1 max1) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
+		internal StepStatus StepperEncapsulated(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 min1, Axis1 max1) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 min1, Axis1 max1) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1>(min1, max1));
 
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
+		internal StepStatus StepperOverlapped(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
-			StepBreak<T> step,
+			Func<T, StepStatus> step,
 			Node node,
 			Omnitree.Bounds<Axis1> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1>, Omnitree.Bounds<Axis1>> spatialCheck)
@@ -17808,14 +17808,14 @@ namespace Towel.DataStructures
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 axis1) =>
+		public void StepperOverlapped(Action<T> step, Axis1 axis1) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1>(axis1, axis1
 			));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1>(axis1, axis1
 				));
 
@@ -18073,14 +18073,14 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
+		void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
+		StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
 		
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -18088,25 +18088,25 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
+		void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
-		void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2);
+		void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2);
 
 		#endregion
 	}
@@ -19297,10 +19297,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
 			while (!(list is null))
@@ -19315,10 +19315,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			
@@ -19340,7 +19340,7 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
+		public void StepperEncapsulated(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -19349,10 +19349,10 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
+		public void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
+		internal void StepperEncapsulated(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -19361,7 +19361,7 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
+		public void StepperOverlapped(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -19370,14 +19370,14 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
+		public void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
+		internal void StepperOverlapped(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal void StepperBase(
-			Step<T> step,
+			Action<T> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2>, Omnitree.Bounds<Axis1, Axis2>> spatialCheck)
@@ -19403,7 +19403,7 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -19412,10 +19412,10 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
+		internal StepStatus StepperEncapsulated(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -19424,7 +19424,7 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -19433,14 +19433,14 @@ namespace Towel.DataStructures
 		/// <param name="max1">The maximum coordinate of the space along the 1 axis.</param>
 		/// <param name="min2">The minimum coordinate of the space along the 2 axis.</param>
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2>(min1, max1, min2, max2));
 
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
+		internal StepStatus StepperOverlapped(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
-			StepBreak<T> step,
+			Func<T, StepStatus> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2>, Omnitree.Bounds<Axis1, Axis2>> spatialCheck)
@@ -19471,7 +19471,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2) =>
+		public void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2>(axis1, axis1
 				, axis2, axis2
 			));
@@ -19480,7 +19480,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2>(axis1, axis1
 				, axis2, axis2
 				));
@@ -19779,7 +19779,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
+		void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -19788,7 +19788,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
+		StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
 		
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -19798,7 +19798,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
+		void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -19807,20 +19807,20 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
-		void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
+		void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3);
 
 		#endregion
 	}
@@ -21117,10 +21117,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
 			while (!(list is null))
@@ -21135,10 +21135,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			
@@ -21162,7 +21162,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
+		public void StepperEncapsulated(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -21173,10 +21173,10 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
+		public void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
+		internal void StepperEncapsulated(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -21187,7 +21187,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
+		public void StepperOverlapped(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -21198,14 +21198,14 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
+		public void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
+		internal void StepperOverlapped(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal void StepperBase(
-			Step<T> step,
+			Action<T> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3>, Omnitree.Bounds<Axis1, Axis2, Axis3>> spatialCheck)
@@ -21233,7 +21233,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -21244,10 +21244,10 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
+		internal StepStatus StepperEncapsulated(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -21258,7 +21258,7 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -21269,14 +21269,14 @@ namespace Towel.DataStructures
 		/// <param name="max2">The maximum coordinate of the space along the 2 axis.</param>
 		/// <param name="min3">The minimum coordinate of the space along the 3 axis.</param>
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(min1, max1, min2, max2, min3, max3));
 
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
+		internal StepStatus StepperOverlapped(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
-			StepBreak<T> step,
+			Func<T, StepStatus> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3>, Omnitree.Bounds<Axis1, Axis2, Axis3>> spatialCheck)
@@ -21308,7 +21308,7 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+		public void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -21319,7 +21319,7 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The axis of the removal along the  1D axis.</param>
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -21659,7 +21659,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
+		void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -21670,7 +21670,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
+		StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
 		
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -21682,7 +21682,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
+		void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -21693,7 +21693,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -21701,14 +21701,14 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
-		void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
+		void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4);
 
 		#endregion
 	}
@@ -23111,10 +23111,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
 			while (!(list is null))
@@ -23129,10 +23129,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			
@@ -23158,7 +23158,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
+		public void StepperEncapsulated(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -23171,10 +23171,10 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
+		public void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
+		internal void StepperEncapsulated(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -23187,7 +23187,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
+		public void StepperOverlapped(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -23200,14 +23200,14 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
+		public void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
+		internal void StepperOverlapped(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal void StepperBase(
-			Step<T> step,
+			Action<T> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> spatialCheck)
@@ -23237,7 +23237,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -23250,10 +23250,10 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
+		internal StepStatus StepperEncapsulated(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -23266,7 +23266,7 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -23279,14 +23279,14 @@ namespace Towel.DataStructures
 		/// <param name="max3">The maximum coordinate of the space along the 3 axis.</param>
 		/// <param name="min4">The minimum coordinate of the space along the 4 axis.</param>
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(min1, max1, min2, max2, min3, max3, min4, max4));
 
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
+		internal StepStatus StepperOverlapped(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
-			StepBreak<T> step,
+			Func<T, StepStatus> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> spatialCheck)
@@ -23319,7 +23319,7 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
+		public void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -23332,7 +23332,7 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The axis of the removal along the  2D axis.</param>
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -23713,7 +23713,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
+		void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -23726,7 +23726,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
+		StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
 		
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -23740,7 +23740,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
+		void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -23753,7 +23753,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -23762,7 +23762,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
-		void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
+		void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -23770,7 +23770,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5);
 
 		#endregion
 	}
@@ -25279,10 +25279,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
 			while (!(list is null))
@@ -25297,10 +25297,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			
@@ -25328,7 +25328,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
+		public void StepperEncapsulated(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -25343,10 +25343,10 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
+		public void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
+		internal void StepperEncapsulated(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -25361,7 +25361,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
+		public void StepperOverlapped(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -25376,14 +25376,14 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
+		public void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
+		internal void StepperOverlapped(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal void StepperBase(
-			Step<T> step,
+			Action<T> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> spatialCheck)
@@ -25415,7 +25415,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -25430,10 +25430,10 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
+		internal StepStatus StepperEncapsulated(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -25448,7 +25448,7 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -25463,14 +25463,14 @@ namespace Towel.DataStructures
 		/// <param name="max4">The maximum coordinate of the space along the 4 axis.</param>
 		/// <param name="min5">The minimum coordinate of the space along the 5 axis.</param>
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5));
 
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
+		internal StepStatus StepperOverlapped(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
-			StepBreak<T> step,
+			Func<T, StepStatus> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> spatialCheck)
@@ -25504,7 +25504,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
+		public void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -25519,7 +25519,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The axis of the removal along the  3D axis.</param>
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -25941,7 +25941,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
+		void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -25956,7 +25956,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
+		StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
 		
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -25972,7 +25972,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
+		void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -25987,7 +25987,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -25997,7 +25997,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
-		void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
+		void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -26006,7 +26006,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6);
 
 		#endregion
 	}
@@ -27621,10 +27621,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
 			while (!(list is null))
@@ -27639,10 +27639,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			
@@ -27672,7 +27672,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
+		public void StepperEncapsulated(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -27689,10 +27689,10 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
+		public void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
+		internal void StepperEncapsulated(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -27709,7 +27709,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
+		public void StepperOverlapped(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -27726,14 +27726,14 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
+		public void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
+		internal void StepperOverlapped(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal void StepperBase(
-			Step<T> step,
+			Action<T> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> spatialCheck)
@@ -27767,7 +27767,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -27784,10 +27784,10 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
+		internal StepStatus StepperEncapsulated(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -27804,7 +27804,7 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -27821,14 +27821,14 @@ namespace Towel.DataStructures
 		/// <param name="max5">The maximum coordinate of the space along the 5 axis.</param>
 		/// <param name="min6">The minimum coordinate of the space along the 6 axis.</param>
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6));
 
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
+		internal StepStatus StepperOverlapped(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
-			StepBreak<T> step,
+			Func<T, StepStatus> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> spatialCheck)
@@ -27863,7 +27863,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
+		public void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -27880,7 +27880,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The axis of the removal along the  4D axis.</param>
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -28343,7 +28343,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
+		void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -28360,7 +28360,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
+		StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
 		
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -28378,7 +28378,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
+		void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="min1">The minimum coordinate of the space along the 1 axis.</param>
@@ -28395,7 +28395,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7);
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
@@ -28406,7 +28406,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
 		/// <param name="axis7">The coordinate along the 7D axis.</param>
-		void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
+		void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
 		/// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
@@ -28416,7 +28416,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
 		/// <param name="axis7">The coordinate along the 7D axis.</param>
-		StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
+		StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7);
 
 		#endregion
 	}
@@ -30137,10 +30137,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			this.Stepper(step, this._top);
 
-		internal void Stepper(Step<T> step, Node node)
+		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
 			while (!(list is null))
@@ -30155,10 +30155,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			Stepper(step, _top);
 
-		internal StepStatus Stepper(StepBreak<T> step, Node node)
+		internal StepStatus Stepper(Func<T, StepStatus> step, Node node)
 		{
 			StepStatus status = StepStatus.Continue;
 			
@@ -30190,7 +30190,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
+		public void StepperEncapsulated(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -30209,10 +30209,10 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public void StepperEncapsulated(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
+		public void StepperEncapsulated(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
-		internal void StepperEncapsulated(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
+		internal void StepperEncapsulated(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -30231,7 +30231,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
+		public void StepperOverlapped(Action<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -30250,14 +30250,14 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public void StepperOverlapped(Step<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
+		public void StepperOverlapped(Action<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
-		internal void StepperOverlapped(Step<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
+		internal void StepperOverlapped(Action<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal void StepperBase(
-			Step<T> step,
+			Action<T> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> spatialCheck)
@@ -30293,7 +30293,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -30312,10 +30312,10 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public StepStatus StepperEncapsulated(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
+		public StepStatus StepperEncapsulated(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
 			StepperEncapsulated(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
-		internal StepStatus StepperEncapsulated(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
+		internal StepStatus StepperEncapsulated(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.EncapsulationCheck(a, b));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -30334,7 +30334,7 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 min1, Axis1 max1, Axis2 min2, Axis2 max2, Axis3 min3, Axis3 max3, Axis4 min4, Axis4 max4, Axis5 min5, Axis5 max5, Axis6 min6, Axis6 max6, Axis7 min7, Axis7 max7) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
 		/// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
@@ -30353,14 +30353,14 @@ namespace Towel.DataStructures
 		/// <param name="max6">The maximum coordinate of the space along the 6 axis.</param>
 		/// <param name="min7">The minimum coordinate of the space along the 7 axis.</param>
 		/// <param name="max7">The maximum coordinate of the space along the 7 axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Omnitree.Bound<Axis1> min1, Omnitree.Bound<Axis1> max1, Omnitree.Bound<Axis2> min2, Omnitree.Bound<Axis2> max2, Omnitree.Bound<Axis3> min3, Omnitree.Bound<Axis3> max3, Omnitree.Bound<Axis4> min4, Omnitree.Bound<Axis4> max4, Omnitree.Bound<Axis5> min5, Omnitree.Bound<Axis5> max5, Omnitree.Bound<Axis6> min6, Omnitree.Bound<Axis6> max6, Omnitree.Bound<Axis7> min7, Omnitree.Bound<Axis7> max7) =>
 			StepperOverlapped(step, _top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(min1, max1, min2, max2, min3, max3, min4, max4, min5, max5, min6, max6, min7, max7));
 
-		internal StepStatus StepperOverlapped(StepBreak<T> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
+		internal StepStatus StepperOverlapped(Func<T, StepStatus> step, Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds) =>
 			StepperBase(step, node, bounds, (a, b) => this.InclusionCheck(a, b));
 
 		internal StepStatus StepperBase(
-			StepBreak<T> step,
+			Func<T, StepStatus> step,
 			Node node,
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> spatialCheck)
@@ -30396,7 +30396,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
-		public void StepperOverlapped(Step<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
+		public void StepperOverlapped(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3
@@ -30415,7 +30415,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The axis of the removal along the  5D axis.</param>
 		/// <param name="axis6">The axis of the removal along the  6D axis.</param>
 		/// <param name="axis7">The axis of the removal along the  7D axis.</param>
-		public StepStatus StepperOverlapped(StepBreak<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
+		public StepStatus StepperOverlapped(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7) =>
 			StepperOverlapped(step, this._top, new Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(axis1, axis1
 				, axis2, axis2
 				, axis3, axis3

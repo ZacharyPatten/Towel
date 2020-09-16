@@ -30,7 +30,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets all the nodes adjacent to a and performs the provided delegate on each.</summary>
 		/// <param name="a">The node to find all the adjacent node to.</param>
 		/// <param name="function">The delegate to perform on each adjacent node to a.</param>
-		void Neighbors(T a, Step<T> function);
+		void Neighbors(T a, Action<T> function);
 		/// <summary>Adds an edge to the graph starting at a and ending at b.</summary>
 		/// <param name="start">The stating point of the edge to add.</param>
 		/// <param name="end">The ending point of the edge to add.</param>
@@ -41,7 +41,7 @@ namespace Towel.DataStructures
 		void Remove(T start, T end);
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void Stepper(Step<T, T> step);
+		void Stepper(Action<T, T> step);
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
@@ -207,7 +207,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets the neighbors of a node.</summary>
 		/// <param name="node">The node to get the neighbors of.</param>
 		/// <param name="step">The step to perform on all the neighbors.</param>
-		public void Neighbors(T node, Step<T> step)
+		public void Neighbors(T node, Action<T> step)
 		{
 			if (!_nodes.Contains(node))
 			{
@@ -231,16 +231,16 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the nodes in the graph.</summary>
 		/// <param name="step">The action to perform on all the nodes in the graph.</param>
-		public void Stepper(Step<T> step) => _nodes.Stepper(step);
+		public void Stepper(Action<T> step) => _nodes.Stepper(step);
 
 		/// <summary>Steps through all the nodes in the graph.</summary>
 		/// <param name="step">The action to perform on all the nodes in the graph.</param>
 		/// <returns>The status of the stepper operation.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _nodes.Stepper(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => _nodes.Stepper(step);
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
-		public void Stepper(Step<T, T> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
+		public void Stepper(Action<T, T> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
@@ -386,7 +386,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the neighbors of a node.</summary>
 		/// <param name="a">The node to step through the children of.</param>
 		/// <param name="step">The action to perform on all the neighbors of the provided node.</param>
-		public void Neighbors(T a, Step<T> step)
+		public void Neighbors(T a, Action<T> step)
 		{
 			if (_map.TryGet(a, out SetHashLinked<T> map))
 			{
@@ -396,18 +396,18 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the nodes in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every node in the graph.</param>
-		public void Stepper(Step<T> step) =>
+		public void Stepper(Action<T> step) =>
 			_map.Keys(step);
 
 		/// <summary>Steps through all the nodes in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every node in the graph.</param>
 		/// <returns>The status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) =>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
 			_map.Keys(step);
 
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
-		public void Stepper(Step<T, T> step) =>
+		public void Stepper(Action<T, T> step) =>
 			_map.Stepper((edges, a) =>
 				edges.Stepper(b => step(a, b)));
 

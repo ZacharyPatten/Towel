@@ -28,7 +28,7 @@ namespace Towel.DataStructures
 		/// <summary>Stepper function for the children of a given node.</summary>
 		/// <param name="parent">The node to step through the children of.</param>
 		/// <param name="step">The step function.</param>
-		void Children(T parent, Step<T> step);
+		void Children(T parent, Action<T> step);
 
 		/// <summary>Adds a node to the tree.</summary>
 		/// <param name="addition">The node to be added.</param>
@@ -140,7 +140,7 @@ namespace Towel.DataStructures
 		/// <summary>Stepper function for the children of a given node.</summary>
 		/// <param name="parent">The node to step through the children of.</param>
 		/// <param name="step">The step function.</param>
-		public void Children(T parent, Step<T> step)
+		public void Children(T parent, Action<T> step)
 		{
 			if (_tree.TryGet(parent, out Node nodeData))
 			{
@@ -190,7 +190,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
+		public void Stepper(Action<T> step)
 		{
 			_tree.Keys(step);
 		}
@@ -198,7 +198,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
+		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			return _tree.Keys(step);
 		}

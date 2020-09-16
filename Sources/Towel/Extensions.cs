@@ -784,11 +784,11 @@ namespace Towel
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		public static void NextUnique(this Random random, int count, int minValue, int maxValue, Step<int> step)
+		public static void NextUnique(this Random random, int count, int minValue, int maxValue, Action<int> step)
 		{
 			if (step is null)
 				throw new ArgumentNullException(nameof(step));
-			NextUnique<StepRuntime<int>>(random, count, minValue, maxValue, step);
+			NextUnique<ActionRuntime<int>>(random, count, minValue, maxValue, step);
 		}
 
 		/// <summary>
@@ -991,8 +991,8 @@ namespace Towel
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, Step<T> step) =>
-			Stepper<T, StepRuntime<T>>(array, step);
+		public static void Stepper<T>(this T[] array, Action<T> step) =>
+			Stepper<T, ActionRuntime<T>>(array, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
@@ -1027,7 +1027,7 @@ namespace Towel
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, StepBreak<T> step) =>
+		public static StepStatus Stepper<T>(this T[] array, Func<T, StepStatus> step) =>
 			StepperBreak<T, StepBreakRuntime<T>>(array, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -1067,8 +1067,8 @@ namespace Towel
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, int start, int end, Step<T> step) =>
-			Stepper<T, StepRuntime<T>>(array, start, end, step);
+		public static void Stepper<T>(this T[] array, int start, int end, Action<T> step) =>
+			Stepper<T, ActionRuntime<T>>(array, start, end, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
@@ -1111,7 +1111,7 @@ namespace Towel
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, int start, int end, StepBreak<T> step) =>
+		public static StepStatus Stepper<T>(this T[] array, int start, int end, Func<T, StepStatus> step) =>
 			StepperBreak<T, StepBreakRuntime<T>>(array, start, end, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>

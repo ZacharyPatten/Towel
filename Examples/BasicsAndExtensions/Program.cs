@@ -135,7 +135,7 @@ namespace BasicsAndExtensions
 
 				/// Here is an example of creating a stepper from only functions (no backing
 				/// data structure).
-				static void stepperFunctional(Step<int> s) { s(1); s(2); s(3); }
+				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
 				Console.Write("    stepperFunctional values:");
 				stepperFunctional(value => Console.Write(" " + value));
 

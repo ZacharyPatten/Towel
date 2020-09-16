@@ -221,8 +221,8 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void Stepper(Step<T> step) =>
-			Stepper<StepRuntime<T>>(step);
+		public void Stepper(Action<T> step) =>
+			Stepper<ActionRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
@@ -251,7 +251,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
@@ -543,8 +543,8 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void Stepper(Step<T> step) =>
-			Stepper<StepRuntime<T>>(step);
+		public void Stepper(Action<T> step) =>
+			Stepper<ActionRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
@@ -573,7 +573,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>

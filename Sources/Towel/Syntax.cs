@@ -591,10 +591,10 @@ namespace Towel
 			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
 			/// <param name="step">The action to perform on every step of the iteration.</param>
 			[Obsolete(TowelConstants.NotIntended, true)]
-			public void Stepper(Step<T> step) => Value.Stepper(step);
+			public void Stepper(Action<T> step) => Value.Stepper(step);
 			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
-			public StepStatus Stepper(StepBreak<T> step) => Value.Stepper(step);
+			public StepStatus Stepper(Func<T, StepStatus> step) => Value.Stepper(step);
 			#endregion
 
 			#region System.Collections.Generic.IList<T>
@@ -791,7 +791,7 @@ namespace Towel
 
 		#region Alternative
 
-		//Equal((StepBreak<T> x) => x(a) is Break
+		//Equal((Func<T, StepStatus> x) => x(a) is Break
 		//	? Break
 		//	: x(b) is Break
 		//		? Break
@@ -923,7 +923,7 @@ namespace Towel
 
 		#region Alternative
 
-		//NotEqual((StepBreak<T> x) =>
+		//NotEqual((Func<T, StepStatus> x) =>
 		//	x(a) is Break
 		//		? Break
 		//		: x(b) is Break
@@ -2354,7 +2354,7 @@ namespace Towel
 		/// <param name="step">The action to perform on every mode value found.</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, T a, params T[] b) =>
+		public static void Mode<T>(Action<T> step, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2363,7 +2363,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, Func<T, T, bool> equate, T a, params T[] b) =>
+		public static void Mode<T>(Action<T> step, Func<T, T, bool> equate, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, equate, null);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2372,7 +2372,7 @@ namespace Towel
 		/// <param name="hash">The hash code delegate</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, Func<T, int> hash, T a, params T[] b) =>
+		public static void Mode<T>(Action<T> step, Func<T, int> hash, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, null, hash);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2382,7 +2382,7 @@ namespace Towel
 		/// <param name="hash">The hash code delegate</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, Func<T, T, bool> equate, Func<T, int> hash, T a, params T[] b) =>
+		public static void Mode<T>(Action<T> step, Func<T, T, bool> equate, Func<T, int> hash, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, equate, hash);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2392,7 +2392,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <returns>The modes of the data set.</returns>
-		public static void Mode<T>(Stepper<T> stepper, Step<T> step, Func<T, T, bool> equate = null, Func<T, int> hash = null)
+		public static void Mode<T>(Stepper<T> stepper, Action<T> step, Func<T, T, bool> equate = null, Func<T, int> hash = null)
 		{
 			int maxOccurences = -1;
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
@@ -3382,12 +3382,12 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The value to factor the prime numbers of.</param>
 		/// <param name="step">The action to perform on all found prime factors.</param>
-		public static void FactorPrimes<T>(T a, Step<T> step) =>
+		public static void FactorPrimes<T>(T a, Action<T> step) =>
 			FactorPrimesImplementation<T>.Function(a, step);
 
 		internal static class FactorPrimesImplementation<T>
 		{
-			internal static Action<T, Step<T>> Function = (a, x) =>
+			internal static Action<T, Action<T>> Function = (a, x) =>
 			{
 				Function = (A, step) =>
 				{

@@ -1346,7 +1346,7 @@ namespace Towel.Mathematics
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
 			}
-			T trace = Addition((Step<T> step) =>
+			T trace = Addition((Action<T> step) =>
 			{
 				T[] A = a._matrix;
 				int rows = a.Rows;
@@ -2587,7 +2587,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _matrix.Stepper(step);
+		public void Stepper(Action<T> step) => _matrix.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -2596,7 +2596,7 @@ namespace Towel.Mathematics
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _matrix.Stepper(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => _matrix.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>

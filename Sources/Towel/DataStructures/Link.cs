@@ -141,7 +141,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 		}
@@ -149,7 +149,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(StepBreak<object> function)
+		public	StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -319,7 +319,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 		}
@@ -327,7 +327,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<object> function)
+		public StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -535,7 +535,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -544,7 +544,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(StepBreak<object> function)
+		public	StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -756,7 +756,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -765,7 +765,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<object> function)
+		public StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -1018,7 +1018,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -1028,7 +1028,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(StepBreak<object> function)
+		public	StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -1284,7 +1284,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -1294,7 +1294,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<object> function)
+		public StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -1592,7 +1592,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -1603,7 +1603,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(StepBreak<object> function)
+		public	StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -1905,7 +1905,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -1916,7 +1916,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<object> function)
+		public StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -2259,7 +2259,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -2271,7 +2271,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(StepBreak<object> function)
+		public	StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -2621,7 +2621,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -2633,7 +2633,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<object> function)
+		public StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -3021,7 +3021,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -3034,7 +3034,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(StepBreak<object> function)
+		public	StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -3434,7 +3434,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -3447,7 +3447,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<object> function)
+		public StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -3880,7 +3880,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -3894,7 +3894,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(StepBreak<object> function)
+		public	StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{
@@ -4346,7 +4346,7 @@ namespace Towel.DataStructures
 		
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<object> function)
+		public void Stepper(Action<object> function)
 		{
 			function(this._1);
 			function(this._2);
@@ -4360,7 +4360,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="function">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<object> function)
+		public StepStatus Stepper(Func<object, StepStatus> function)
 		{
 			if (function(this._1) is Break)
 			{

@@ -110,7 +110,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step) => _array.Stepper(step);
+		public void Stepper(Action<T> step) => _array.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -119,7 +119,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step) => _array.Stepper(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => _array.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -265,7 +265,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Step<T> step)
+		public void Stepper(Action<T> step)
 		{
 			for (int i = 0; i < _elements.Length; i++)
 			{
@@ -296,7 +296,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T> step)
+		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			for (int i = 0; i < _elements.Length; i++)
 			{

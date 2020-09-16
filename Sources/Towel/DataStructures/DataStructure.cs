@@ -7,18 +7,14 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of the instances to store in this data structure.</typeparam>
 	public interface IDataStructure<T> : IEnumerable<T>
 	{
-		#region Members
-
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void Stepper(Step<T> step);
+		void Stepper(Action<T> step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus Stepper(StepBreak<T> step);
-
-		#endregion
+		StepStatus Stepper(Func<T, StepStatus> step);
 	}
 
 	/// <summary>Contains extension methods for the Structure interface.</summary>

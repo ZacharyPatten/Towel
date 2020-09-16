@@ -55,14 +55,14 @@ namespace Towel.DataStructures
 		StepStatus Stepper(StepRefBreak<T> step);
 		/// <summary>Steps through all the keys.</summary>
 		/// <param name="step">The action to perform on all the keys.</param>
-		void Keys(Step<K> step);
+		void Keys(Action<K> step);
 		/// <summary>Steps through all the keys.</summary>
 		/// <param name="step">The action to perform on all the keys.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Keys(StepBreak<K> step);
+		StepStatus Keys(Func<K, StepStatus> step);
 		/// <summary>Steps through all the keys and values.</summary>
 		/// <param name="step">The action to perform on all the keys and values.</param>
-		void Stepper(Step<T, K> step);
+		void Stepper(Action<T, K> step);
 		/// <summary>Steps through all the keys and values.</summary>
 		/// <param name="step">The action to perform on all the keys and values.</param>
 		/// <returns>The status of the stepper.</returns>
@@ -600,7 +600,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the values of the map.</summary>
 		/// <param name="step">The action to perform on every value in the map.</param>
 		/// <runtime>Θ(n * step)</runtime>
-		public void Stepper(Step<T> step)
+		public void Stepper(Action<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -629,7 +629,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on every value in the map.</param>
 		/// <returns>The status of the stepper.</returns>
 		/// <runtime>Θ(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T> step)
+		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -666,7 +666,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the keys of the map.</summary>
 		/// <param name="step">The action to perform on every value in the map.</param>
 		/// <runtime>Θ(n * step)</runtime>
-		public void Keys(Step<K> step)
+		public void Keys(Action<K> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -681,7 +681,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on every value in the map.</param>
 		/// <returns>The status of the stepper.</returns>
 		/// <runtime>Θ(n * step)</runtime>
-		public StepStatus Keys(StepBreak<K> step)
+		public StepStatus Keys(Func<K, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -699,7 +699,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the keys and values of the map.</summary>
 		/// <param name="step">The action to perform on every key and value in the map.</param>
 		/// <runtime>Θ(n * step)</runtime>
-		public void Stepper(Step<T, K> step)
+		public void Stepper(Action<T, K> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{

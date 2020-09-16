@@ -96,7 +96,7 @@ namespace GraphSearch
 
 				/// You don't have to use the graph data structure. Instead, you can use
 				/// a function to get the neighbors of a node.
-				static void Neighbors(int node, Step<int> step)
+				static void Neighbors(int node, Action<int> step)
 				{
 					switch (node)
 					{
@@ -171,7 +171,7 @@ namespace GraphSearch
 				}
 
 				// Now we need the neighbor function (getting the neighbors of the current location).
-				void neighborFunction(Vector<float> currentLocation, Step<Vector<float>> neighbors)
+				void neighborFunction(Vector<float> currentLocation, Action<Vector<float>> neighbors)
 				{
 					// NOTES:
 					// - This neighbor function has a 90 degree per-node resolution (360 / 4 [north/south/east/west] = 90).

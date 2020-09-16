@@ -30,6 +30,19 @@ namespace Towel
 		void Do(A a);
 	}
 
+	/// <summary>Built in struct for runtime computations.</summary>
+	public struct ActionRuntime<A> : IAction<A>
+	{
+		internal Action<A> _action;
+
+		/// <summary>The invocation of the compile time delegate.</summary>
+		public void Do(A a) => _action(a);
+
+		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+		/// <param name="action">The runtime delegate.</param>
+		public static implicit operator ActionRuntime<A>(Action<A> action) => new ActionRuntime<A>() { _action = action, };
+	}
+
 	/// <summary>Interface for a compile time delegate.</summary>
 	public interface IAction<A, B>
 	{

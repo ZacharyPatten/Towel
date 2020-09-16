@@ -347,7 +347,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the values of the set.</summary>
 		/// <param name="step">The action to perform on every value in the set.</param>
 		/// <runtime>Θ(n * step)</runtime>
-		public void Stepper(Step<T> step)
+		public void Stepper(Action<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -362,7 +362,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on every value in the set.</param>
 		/// <returns>The status of the stepper.</returns>
 		/// <runtime>Θ(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T> step)
+		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -782,7 +782,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the values of the set.</summary>
 		/// <param name="step">The action to perform on every value in the set.</param>
 		/// <runtime>Θ(n * step)</runtime>
-		public void Stepper(Step<T> step)
+		public void Stepper(Action<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -797,7 +797,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on every value in the set.</param>
 		/// <returns>The status of the stepper.</returns>
 		/// <runtime>Θ(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T> step)
+		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{

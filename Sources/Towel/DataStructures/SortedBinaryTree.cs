@@ -46,14 +46,14 @@ namespace Towel.DataStructures
 		StepStatus Stepper(StepRefBreak<T> step);
 		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void StepperReverse(Step<T> step);
+		void StepperReverse(Action<T> step);
 		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		void StepperReverse(StepRef<T> step);
 		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus StepperReverse(StepBreak<T> step);
+		StepStatus StepperReverse(Func<T, StepStatus> step);
 		/// <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
@@ -62,7 +62,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
-		void Stepper(T minimum, T maximum, Step<T> step);
+		void Stepper(T minimum, T maximum, Action<T> step);
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>
@@ -73,7 +73,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The result status of the stepper function.</returns>
-		StepStatus Stepper(T minimum, T maximum, StepBreak<T> step);
+		StepStatus Stepper(T minimum, T maximum, Func<T, StepStatus> step);
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>
@@ -84,7 +84,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
-		void StepperReverse(T minimum, T maximum, Step<T> step);
+		void StepperReverse(T minimum, T maximum, Action<T> step);
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>
@@ -95,7 +95,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The result status of the stepper function.</returns>
-		StepStatus StepperReverse(T minimum, T maximum, StepBreak<T> step);
+		StepStatus StepperReverse(T minimum, T maximum, Func<T, StepStatus> step);
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>

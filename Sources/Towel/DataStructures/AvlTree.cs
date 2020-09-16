@@ -327,8 +327,8 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void Stepper(Step<T> step) =>
-			Stepper<StepRuntime<T>>(step);
+		public void Stepper(Action<T> step) =>
+			Stepper<ActionRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
@@ -357,7 +357,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
@@ -399,15 +399,15 @@ namespace Towel.DataStructures
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual void Stepper<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IAction<T> =>
-			StepperBreak<StepBreakFromStep<T, Step>>(minimum, maximum, step);
+			StepperBreak<StepBreakFromAction<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual void Stepper(T minimum, T maximum, Step<T> step) =>
-			Stepper<StepRuntime<T>>(minimum, maximum, step);
+		public virtual void Stepper(T minimum, T maximum, Action<T> step) =>
+			Stepper<ActionRuntime<T>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -440,7 +440,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus Stepper(T minimum, T maximum, StepBreak<T> step) =>
+		public virtual StepStatus Stepper(T minimum, T maximum, Func<T, StepStatus> step) =>
 			StepperBreak<StepBreakRuntime<T>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -498,13 +498,13 @@ namespace Towel.DataStructures
 		/// <runtime>O(n * step)</runtime>
 		public void StepperReverse<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
-			StepperReverseBreak<StepBreakFromStep<T, Step>>(step);
+			StepperReverseBreak<StepBreakFromAction<T, Step>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <runtime>O(n * step)</runtime>
-		public void StepperReverse(Step<T> step) =>
-			StepperReverse<StepRuntime<T>>(step);
+		public void StepperReverse(Action<T> step) =>
+			StepperReverse<ActionRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -531,7 +531,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
 		/// <runtime>O(n * step)</runtime>
-		public StepStatus StepperReverse(StepBreak<T> step) =>
+		public StepStatus StepperReverse(Func<T, StepStatus> step) =>
 			StepperReverseBreak<StepBreakRuntime<T>>(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -574,15 +574,15 @@ namespace Towel.DataStructures
 		/// <runtime>O(n * step), Ω(1)</runtime>
 		public virtual void StepperReverse<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IAction<T> =>
-			StepperReverseBreak<StepBreakFromStep<T, Step>>(minimum, maximum, step);
+			StepperReverseBreak<StepBreakFromAction<T, Step>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual void StepperReverse(T minimum, T maximum, Step<T> step) =>
-			StepperReverse<StepRuntime<T>>(minimum, maximum, step);
+		public virtual void StepperReverse(T minimum, T maximum, Action<T> step) =>
+			StepperReverse<ActionRuntime<T>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -615,7 +615,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
 		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
 		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus StepperReverse(T minimum, T maximum, StepBreak<T> step) =>
+		public virtual StepStatus StepperReverse(T minimum, T maximum, Func<T, StepStatus> step) =>
 			StepperReverseBreak<StepBreakRuntime<T>>(minimum, maximum, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>

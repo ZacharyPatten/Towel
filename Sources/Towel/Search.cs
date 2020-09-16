@@ -187,7 +187,7 @@ namespace Towel
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <param name="current">The node to step through all the neighbors of.</param>
 		/// <param name="neighbors">Step function to perform on all neighbors.</param>
-		public delegate void Neighbors<Node>(Node current, Step<Node> neighbors);
+		public delegate void Neighbors<Node>(Node current, Action<Node> neighbors);
 		/// <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
