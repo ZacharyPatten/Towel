@@ -15788,54 +15788,6 @@
             <param name="ushort">The <see cref="T:System.UInt16"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt16"/> value.</returns>
         </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
         <member name="M:Towel.Extensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>
             <param name="action">The action to time.</param>
@@ -30116,299 +30068,6 @@
         <member name="T:Towel.MethodSignatures">
             <summary>Contains internal static method signatures for reflection look ups.</summary>
         </member>
-        <member name="T:Towel.Permute">
-            <summary>Static methods for iterating permutations of data.</summary>
-        </member>
-        <member name="M:Towel.Permute.XML">
-            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-            <typeparam name="Action">The action to perform on each permutation.</typeparam>
-            <typeparam name="Status">The status checker for cancellation.</typeparam>
-            <typeparam name="Get">The get index operation of the collection.</typeparam>
-            <typeparam name="Set">The set index operation of the collection.</typeparam>
-            <param name="start">The starting index of the values to permute.</param>
-            <param name="end">The ending index of the values to permute.</param>
-            <param name="action">The action to perform on each permutation.</param>
-            <param name="status">The status checker for cancellation.</param>
-            <param name="get">The get index operation of the collection.</param>
-            <param name="set">The set index operation of the collection.</param>
-            <param name="array">The array to iterate the permutations of.</param>
-            <param name="list">The list to iterate the permutations of.</param>
-            <param name="span">The span of the permutation.</param>
-        </member>
-        <member name="M:Towel.Permute.Recursive_XML">
-            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <inheritdoc cref="M:Towel.Permute.XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative_XML">
-            <summary>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</summary>
-            <inheritdoc cref="M:Towel.Permute.XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``3(System.Span{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Recursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Recursive_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``3(System.Span{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="M:Towel.Permute.Iterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
-        </member>
-        <member name="T:Towel.Search">
-            <summary>Static class that constains algorithms for searching.</summary>
-        </member>
-        <member name="M:Towel.Search.Binary_XML">
-            <summary>Performs a binary search on sorted indexed data.</summary>
-            <typeparam name="T">The type of elements to search through.</typeparam>
-            <typeparam name="Get">The function for getting an element at an index.</typeparam>
-            <typeparam name="Sift">The function for sifting through the elements.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <param name="index">The starting index of the binary search.</param>
-            <param name="length">The number of elements to be searched after the starting <paramref name="index"/>.</param>
-            <param name="get">The function for getting an element at an index.</param>
-            <param name="sift">The function for comparing the the elements to th desired target.</param>
-            <param name="array">The array search.</param>
-            <param name="element">The element to search for.</param>
-            <param name="compare">The compare function.</param>
-            <param name="span">The span of the binary search.</param>
-            <returns>
-            (<see cref="T:System.Boolean"/> Success, <see cref="T:System.Int32"/> Index, <typeparamref name="T"/> Value)
-            <para>- <see cref="T:System.Boolean"/> Success: True if a match was found; False if not.</para>
-            <para>- <see cref="T:System.Int32"/> Index: The resulting index of the search that will always be &lt;= the desired match.</para>
-            <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
-            </returns>
-        </member>
-        <member name="M:Towel.Search.Binary``1(``0[],``0,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
-        </member>
-        <member name="M:Towel.Search.Binary``2(``0[],``0,``1)">
-            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
-        </member>
-        <member name="M:Towel.Search.Binary``1(``0[],System.Func{``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
-        </member>
-        <member name="M:Towel.Search.Binary``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
-        </member>
-        <member name="M:Towel.Search.Binary``1(System.Int32,System.Func{System.Int32,``0},System.Func{``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
-        </member>
-        <member name="M:Towel.Search.Binary``3(System.Int32,System.Int32,``1,``2)">
-            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
-        </member>
-        <member name="M:Towel.Search.Binary``2(System.ReadOnlySpan{``0},``1)">
-            <inheritdoc cref="M:Towel.Search.Binary_XML"/>
-        </member>
-        <member name="T:Towel.Search.GraphSearchStatus">
-            <summary>The status of a graph search algorithm.</summary>
-        </member>
-        <member name="F:Towel.Search.GraphSearchStatus.Continue">
-            <summary>Graph search was not broken.</summary>
-        </member>
-        <member name="F:Towel.Search.GraphSearchStatus.Break">
-            <summary>Graph search was broken.</summary>
-        </member>
-        <member name="F:Towel.Search.GraphSearchStatus.Goal">
-            <summary>Graph search found the goal.</summary>
-        </member>
-        <member name="T:Towel.Search.Syntax">
-            <summary>Syntax sugar hacks.</summary>
-        </member>
-        <member name="T:Towel.Search.Syntax.GraphSearchStatus">
-            <summary>This is a syntax sugar hack to allow implicit conversions from StepStatus to GraphSearchStatus.</summary>
-        </member>
-        <member name="M:Towel.Search.Syntax.GraphSearchStatus.#ctor(Towel.Search.GraphSearchStatus)">
-            <summary>Constructs a new graph search status.</summary>
-            <param name="value">The status of the graph search.</param>
-        </member>
-        <member name="M:Towel.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.Search.GraphSearchStatus)~Towel.Search.Syntax.GraphSearchStatus">
-            <summary>Converts a <see cref="T:Towel.Search.GraphSearchStatus"/> into a <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/>.</summary>
-            <param name="value">The <see cref="T:Towel.Search.GraphSearchStatus"/> to convert.</param>
-        </member>
-        <member name="M:Towel.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.StepStatus)~Towel.Search.Syntax.GraphSearchStatus">
-            <summary>Converts a <see cref="T:Towel.StepStatus"/> into a <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/>.</summary>
-            <param name="value">The <see cref="T:Towel.StepStatus"/> to convert.</param>
-        </member>
-        <member name="M:Towel.Search.Syntax.GraphSearchStatus.op_Implicit(Towel.Search.Syntax.GraphSearchStatus)~Towel.Search.GraphSearchStatus">
-            <summary>Converts a <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/> into a <see cref="T:Towel.Search.GraphSearchStatus"/>.</summary>
-            <param name="value">The <see cref="T:Towel.Search.Syntax.GraphSearchStatus"/> to convert.</param>
-        </member>
-        <member name="T:Towel.Search.Neighbors`1">
-            <summary>Step function for all neigbors of a given node.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="current">The node to step through all the neighbors of.</param>
-            <param name="neighbors">Step function to perform on all neighbors.</param>
-        </member>
-        <member name="T:Towel.Search.Heuristic`2">
-            <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="node">The node to compute the heuristic value of.</param>
-            <returns>The computed heuristic value for this node.</returns>
-        </member>
-        <member name="T:Towel.Search.Cost`2">
-            <summary>Computes the cost of moving from the current node to a specific neighbor.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="current">The current (starting) node.</param>
-            <param name="neighbor">The node to compute the cost of movign to.</param>
-            <returns>The computed cost value of movign from current to neighbor.</returns>
-        </member>
-        <member name="T:Towel.Search.Goal`1">
-            <summary>Predicate for determining if we have reached the goal node.</summary>
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <param name="current">The current node.</param>
-            <returns>True if the current node is a/the goal node; False if not.</returns>
-        </member>
-        <member name="T:Towel.Search.Check`1">
-            <summary>Checks the status of a graph search.</summary>
-            <typeparam name="Node">The node type of the search.</typeparam>
-            <param name="current">The current node of the search.</param>
-            <returns>The status of the search.</returns>
-        </member>
-        <member name="M:Towel.Search.Graph_XML">
-            <typeparam name="Node">The node type of the graph being searched.</typeparam>
-            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
-            <param name="start">The node to start at.</param>
-            <param name="neighbors">Step function for all neigbors of a given node.</param>
-            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
-            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
-            <param name="check">Checks the status of the search.</param>
-            <param name="totalCost">The total cost of the path if a path was found.</param>
-            <param name="goal">The goal of the search.</param>
-            <param name="graph">The graph to perform the search on.</param>
-            <returns>Stepper of the shortest path or null if no path exists.</returns>
-        </member>
-        <member name="M:Towel.Search.Graph_Astar_XML">
-            <summary>Runs the A* search algorithm on a graph.</summary>
-            <inheritdoc cref="M:Towel.Search.Graph_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Goal{``0},``1@)">
-            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Goal{``0},``1@)">
-            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
-            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
-            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,``1@)">
-            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
-            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Cost{``0,``1},Towel.Search.Check{``0},``1@)">
-            <inheritdoc cref="M:Towel.Search.Graph_Astar_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph_Dijkstra_XML">
-            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <inheritdoc cref="M:Towel.Search.Graph_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Goal{``0})">
-            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0)">
-            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0)">
-            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Goal{``0})">
-            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``2(``0,Towel.Search.Neighbors{``0},Towel.Search.Heuristic{``0,``1},Towel.Search.Check{``0})">
-            <inheritdoc cref="M:Towel.Search.Graph_Dijkstra_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph_BreadthFirstSearch_XML">
-            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-            <inheritdoc cref="M:Towel.Search.Graph_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},Towel.Search.Goal{``0})">
-            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0)">
-            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
-            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Search.Goal{``0})">
-            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
-        </member>
-        <member name="M:Towel.Search.Graph``1(``0,Towel.Search.Neighbors{``0},Towel.Search.Check{``0})">
-            <inheritdoc cref="M:Towel.Search.Graph_BreadthFirstSearch_XML"/>
-        </member>
         <member name="T:Towel.Serialization">
             <summary>Static class containing serialization code.</summary>
         </member>
@@ -32220,6 +31879,293 @@
             <param name="b">The second sequence.</param>
             <param name="equals">The equality check function.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
+        </member>
+        <member name="M:Towel.Syntax.PermuteXML">
+            <typeparam name="T">The generic element type of the indexed collection.</typeparam>
+            <typeparam name="Action">The action to perform on each permutation.</typeparam>
+            <typeparam name="Status">The status checker for cancellation.</typeparam>
+            <typeparam name="Get">The get index operation of the collection.</typeparam>
+            <typeparam name="Set">The set index operation of the collection.</typeparam>
+            <param name="start">The starting index of the values to permute.</param>
+            <param name="end">The ending index of the values to permute.</param>
+            <param name="action">The action to perform on each permutation.</param>
+            <param name="status">The status checker for cancellation.</param>
+            <param name="get">The get index operation of the collection.</param>
+            <param name="set">The set index operation of the collection.</param>
+            <param name="array">The array to iterate the permutations of.</param>
+            <param name="list">The list to iterate the permutations of.</param>
+            <param name="span">The span of the permutation.</param>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive_XML">
+            <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
+            <inheritdoc cref="M:Towel.Syntax.PermuteXML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative_XML">
+            <summary>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</summary>
+            <inheritdoc cref="M:Towel.Syntax.PermuteXML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``3(System.Span{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``1(``0[],System.Action)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``3(``0[],``1,``2)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``3(System.Span{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``1(``0[],System.Action)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``3(``0[],``1,``2)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary_XML">
+            <summary>Performs a binary search on sorted indexed data.</summary>
+            <typeparam name="T">The type of elements to search through.</typeparam>
+            <typeparam name="Get">The function for getting an element at an index.</typeparam>
+            <typeparam name="Sift">The function for sifting through the elements.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <param name="index">The starting index of the binary search.</param>
+            <param name="length">The number of elements to be searched after the starting <paramref name="index"/>.</param>
+            <param name="get">The function for getting an element at an index.</param>
+            <param name="sift">The function for comparing the the elements to th desired target.</param>
+            <param name="array">The array search.</param>
+            <param name="element">The element to search for.</param>
+            <param name="compare">The compare function.</param>
+            <param name="span">The span of the binary search.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Success, <see cref="T:System.Int32"/> Index, <typeparamref name="T"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Success: True if a match was found; False if not.</para>
+            <para>- <see cref="T:System.Int32"/> Index: The resulting index of the search that will always be &lt;= the desired match.</para>
+            <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
+            </returns>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary``1(``0[],``0,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary``2(``0[],``0,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary``1(``0[],System.Func{``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary``1(System.Int32,System.Func{System.Int32,``0},System.Func{``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary``3(System.Int32,System.Int32,``1,``2)">
+            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchBinary``2(System.ReadOnlySpan{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        </member>
+        <member name="T:Towel.Syntax.GraphSearchStatus">
+            <summary>The status of a graph search algorithm.</summary>
+        </member>
+        <member name="F:Towel.Syntax.GraphSearchStatus.Continue">
+            <summary>Graph search was not broken.</summary>
+        </member>
+        <member name="F:Towel.Syntax.GraphSearchStatus.Break">
+            <summary>Graph search was broken.</summary>
+        </member>
+        <member name="F:Towel.Syntax.GraphSearchStatus.Goal">
+            <summary>Graph search found the goal.</summary>
+        </member>
+        <member name="T:Towel.Syntax.GraphSyntax">
+            <summary>Syntax sugar hacks.</summary>
+        </member>
+        <member name="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct">
+            <summary>This is a syntax sugar hack to allow implicit conversions from StepStatus to GraphSearchStatus.</summary>
+        </member>
+        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.#ctor(Towel.Syntax.GraphSearchStatus)">
+            <summary>Constructs a new graph search status.</summary>
+            <param name="value">The status of the graph search.</param>
+        </member>
+        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.Syntax.GraphSearchStatus)~Towel.Syntax.GraphSyntax.GraphSearchStatusStruct">
+            <summary>Converts a <see cref="T:Towel.Syntax.GraphSearchStatus"/> into a <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/>.</summary>
+            <param name="value">The <see cref="T:Towel.Syntax.GraphSearchStatus"/> to convert.</param>
+        </member>
+        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.StepStatus)~Towel.Syntax.GraphSyntax.GraphSearchStatusStruct">
+            <summary>Converts a <see cref="T:Towel.StepStatus"/> into a <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/>.</summary>
+            <param name="value">The <see cref="T:Towel.StepStatus"/> to convert.</param>
+        </member>
+        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.Syntax.GraphSyntax.GraphSearchStatusStruct)~Towel.Syntax.GraphSearchStatus">
+            <summary>Converts a <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/> into a <see cref="T:Towel.Syntax.GraphSearchStatus"/>.</summary>
+            <param name="value">The <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/> to convert.</param>
+        </member>
+        <member name="T:Towel.Syntax.SearchNeighbors`1">
+            <summary>Step function for all neigbors of a given node.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="current">The node to step through all the neighbors of.</param>
+            <param name="neighbors">Step function to perform on all neighbors.</param>
+        </member>
+        <member name="T:Towel.Syntax.SearchHeuristic`2">
+            <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="node">The node to compute the heuristic value of.</param>
+            <returns>The computed heuristic value for this node.</returns>
+        </member>
+        <member name="T:Towel.Syntax.SearchCost`2">
+            <summary>Computes the cost of moving from the current node to a specific neighbor.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="current">The current (starting) node.</param>
+            <param name="neighbor">The node to compute the cost of movign to.</param>
+            <returns>The computed cost value of movign from current to neighbor.</returns>
+        </member>
+        <member name="T:Towel.Syntax.SearchGoal`1">
+            <summary>Predicate for determining if we have reached the goal node.</summary>
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <param name="current">The current node.</param>
+            <returns>True if the current node is a/the goal node; False if not.</returns>
+        </member>
+        <member name="T:Towel.Syntax.SearchCheck`1">
+            <summary>Checks the status of a graph search.</summary>
+            <typeparam name="Node">The node type of the search.</typeparam>
+            <param name="current">The current node of the search.</param>
+            <returns>The status of the search.</returns>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph_XML">
+            <typeparam name="Node">The node type of the graph being searched.</typeparam>
+            <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+            <param name="start">The node to start at.</param>
+            <param name="neighbors">Step function for all neigbors of a given node.</param>
+            <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>
+            <param name="cost">Computes the cost of moving from the current node to a specific neighbor.</param>
+            <param name="check">Checks the status of the search.</param>
+            <param name="totalCost">The total cost of the path if a path was found.</param>
+            <param name="goal">The goal of the search.</param>
+            <param name="graph">The graph to perform the search on.</param>
+            <returns>Stepper of the shortest path or null if no path exists.</returns>
+        </member>
+        <member name="M:Towel.Syntax.Graph_Astar_XML">
+            <summary>Runs the A* search algorithm on a graph.</summary>
+            <inheritdoc cref="M:Towel.Syntax.SearchGraph_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},Towel.Syntax.SearchGoal{``0},``1@)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},Towel.Syntax.SearchGoal{``0},``1@)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,``1@)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,``1@)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},Towel.Syntax.SearchCheck{``0},``1@)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Graph_Dijkstra_XML">
+            <summary>Runs the Dijkstra search algorithm on a graph.</summary>
+            <inheritdoc cref="M:Towel.Syntax.SearchGraph_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCheck{``0})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Graph_BreadthFirstSearch_XML">
+            <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
+            <inheritdoc cref="M:Towel.Syntax.SearchGraph_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},``0)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
+            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchCheck{``0})">
+            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
         </member>
         <member name="T:Towel.ValueAttribute">
             <summary>A value-based attribute.</summary>

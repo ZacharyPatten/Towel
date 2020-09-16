@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Towel;
+using static Towel.Syntax;
 
 namespace Towel_Testing
 {
@@ -12,7 +13,7 @@ namespace Towel_Testing
 				int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
 				for (int i = 0; i < values.Length; i++)
 				{
-					var result = Search.Binary(values, i);
+					var result = SearchBinary(values, i);
 					Assert.IsTrue(result.Success);
 					Assert.IsTrue(result.Index == i);
 					Assert.IsTrue(result.Value == i);
@@ -22,7 +23,7 @@ namespace Towel_Testing
 				int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8, };
 				for (int i = 0; i < values.Length; i++)
 				{
-					var result = Search.Binary(values, i);
+					var result = SearchBinary(values, i);
 					Assert.IsTrue(result.Success);
 					Assert.IsTrue(result.Index == i);
 					Assert.IsTrue(result.Value == i);
@@ -32,7 +33,7 @@ namespace Towel_Testing
 				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, 9, };
 				for (int i = 0, j = -10; j <= 10; i++, j += 2)
 				{
-					var result = Search.Binary(values, j);
+					var result = SearchBinary(values, j);
 					Assert.IsTrue(!result.Success);
 					Assert.IsTrue(result.Index == i - 1);
 					Assert.IsTrue(result.Value == default);
@@ -42,7 +43,7 @@ namespace Towel_Testing
 				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, };
 				for (int i = 0, j = -10; j <= 8; i++, j += 2)
 				{
-					var result = Search.Binary(values, j);
+					var result = SearchBinary(values, j);
 					Assert.IsTrue(!result.Success);
 					Assert.IsTrue(result.Index == i - 1);
 					Assert.IsTrue(result.Value == default);
@@ -50,11 +51,11 @@ namespace Towel_Testing
 			}
 			{ // exception: invalid compare function
 				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, };
-				Assert.ThrowsException<ArgumentException>(() => Search.Binary(values, a => (CompareResult)int.MinValue));
+				Assert.ThrowsException<ArgumentException>(() => SearchBinary(values, a => (CompareResult)int.MinValue));
 			}
 			{ // exception: null argument
 				int[] values = null;
-				Assert.ThrowsException<ArgumentNullException>(() => Search.Binary(values, 7));
+				Assert.ThrowsException<ArgumentNullException>(() => SearchBinary(values, 7));
 			}
 		}
 	}

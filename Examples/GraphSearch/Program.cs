@@ -70,9 +70,9 @@ namespace GraphSearch
 				static bool Goal(int node) => node == 3;
 
 				// run the A* algorithm
-				Action<Action<int>> graphAStarPath = Search.Graph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost);
+				Action<Action<int>> graphAStarPath = SearchGraph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost);
 				// run the Dijkstra algorithm
-				Action<Action<int>> graphDijkstraPath = Search.Graph(0, graph, Heuristic, Goal);
+				Action<Action<int>> graphDijkstraPath = SearchGraph(0, graph, Heuristic, Goal);
 
 				// print the paths to the console
 				static void PrintPathToConsole(Action<Action<int>> path)
@@ -107,9 +107,9 @@ namespace GraphSearch
 				}
 
 				// run the A* algorithm
-				Action<Action<int>> functionAStarPath = Search.Graph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost);
+				Action<Action<int>> functionAStarPath = SearchGraph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost);
 				// run the Dijkstra algorithm
-				Action<Action<int>> functionDdijkstraPath = Search.Graph(0, Neighbors, Heuristic, Goal);
+				Action<Action<int>> functionDdijkstraPath = SearchGraph(0, Neighbors, Heuristic, Goal);
 
 				Console.WriteLine("    Using Neighbors Function...");
 				Console.Write("    A* Path:       ");
@@ -246,7 +246,7 @@ namespace GraphSearch
 
 				// We have all the necessary parameters. Run the pathfinding algorithms!
 				Action<Action<Vector<float>>> aStarPath =
-					Search.Graph(
+					SearchGraph(
 						enemyLocation,
 						neighborFunction,
 						heuristicFunction,
@@ -262,7 +262,7 @@ namespace GraphSearch
 				alreadyUsed.Clear();
 
 				Action<Action<Vector<float>>> dijkstraPath =
-					Search.Graph(
+					SearchGraph(
 						enemyLocation,
 						neighborFunction,
 						heuristicFunction,
@@ -276,7 +276,7 @@ namespace GraphSearch
 				DateTime startTime = DateTime.Now;
 				TimeSpan timeSpan = TimeSpan.FromSeconds(2);
 				Action<Action<Vector<float>>> breadthFirstSearch =
-					Search.Graph(
+					SearchGraph(
 						enemyLocation,
 						neighborFunction,
 						node =>
