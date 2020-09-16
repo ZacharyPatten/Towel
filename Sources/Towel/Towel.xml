@@ -15788,54 +15788,6 @@
             <param name="ushort">The <see cref="T:System.UInt16"/> value to convert to English words <see cref="T:System.String"/> representation.</param>
             <returns>The English words <see cref="T:System.String"/> representation of the <see cref="T:System.UInt16"/> value.</returns>
         </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Extensions.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
-        </member>
         <member name="M:Towel.Extensions.Time_DateTime(System.Action)">
             <summary>Times an action using System.DateTime.</summary>
             <param name="action">The action to time.</param>

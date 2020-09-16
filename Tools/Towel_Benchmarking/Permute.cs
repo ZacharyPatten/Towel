@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Towel;
+using static Towel.Syntax;
 
 namespace Towel_Benchmarking
 {
@@ -18,7 +19,7 @@ namespace Towel_Benchmarking
 				array[i] = i;
 		}
 
-		[Benchmark] public void Recursive() => array.PermuteRecursive(() => { });
-		[Benchmark] public void Iterative() => array.PermuteIterative(() => { });
+		[Benchmark] public void Recursive() => PermuteRecursive(array, () => { });
+		[Benchmark] public void Iterative() => PermuteIterative(array, () => { });
 	}
 }

@@ -458,11 +458,11 @@ namespace BasicsAndExtensions
 				void WriteArray() => Console.Write(string.Concat(array) + " ");
 
 				Console.Write("    Recursive (array): ");
-				array.PermuteRecursive(WriteArray);
+				PermuteRecursive(array, WriteArray);
 				Console.WriteLine();
 
 				Console.Write("    Iterative (array): ");
-				array.PermuteIterative(WriteArray);
+				PermuteIterative(array, WriteArray);
 				Console.WriteLine();
 
 				Console.WriteLine();
@@ -477,12 +477,12 @@ namespace BasicsAndExtensions
 
 				i = 0;
 				Console.Write("    Recursive (list):  ");
-				list.PermuteRecursive(WriteList, () => (++i  >= 3 ? Break : Continue));
+				PermuteRecursive(list, WriteList, () => (++i  >= 3 ? Break : Continue));
 				Console.WriteLine();
 
 				i = 0;
 				Console.Write("    Iterative (list):  ");
-				list.PermuteIterative(WriteList, () => (++i >= 3 ? Break : Continue));
+				PermuteIterative(list, WriteList, () => (++i >= 3 ? Break : Continue));
 				Console.WriteLine();
 				Console.WriteLine();
 			}
