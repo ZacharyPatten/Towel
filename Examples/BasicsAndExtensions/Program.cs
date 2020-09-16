@@ -370,7 +370,7 @@ namespace BasicsAndExtensions
 				{
 					string a = "book";
 					string b = "barf";
-					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {HammingDistance.Iterative(a, b)}");
+					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {HammingDistance(a, b)}");
 				}
 				Console.WriteLine();
 			}
@@ -383,12 +383,12 @@ namespace BasicsAndExtensions
 				{
 					string a = "book";
 					string b = "barf";
-					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {LevenshteinDistance.Recursive(a, b)}");
+					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {LevenshteinDistanceRecursive(a, b)}");
 				}
 				{
 					string a = "hello";
 					string b = "help";
-					Console.WriteLine($@"    Iterative(""{a}"", ""{b}""): {LevenshteinDistance.Iterative(a, b)}");
+					Console.WriteLine($@"    Iterative(""{a}"", ""{b}""): {LevenshteinDistanceIterative(a, b)}");
 				}
 				Console.WriteLine();
 			}
