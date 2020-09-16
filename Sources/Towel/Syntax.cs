@@ -3817,12 +3817,12 @@ namespace Towel
 			PermuteRecursive<T, Action, StepStatusContinue, Get, Set>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Action>(this T[] array, Action action = default)
+		public static void PermuteRecursive<T, Action>(T[] array, Action action = default)
 			where Action : struct, IAction =>
 			PermuteRecursive<T, Action, GetIndexArray<T>, SetIndexArray<T>>(0, array.Length - 1, action, array, array);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T>(this T[] array, Action action) =>
+		public static void PermuteRecursive<T>(T[] array, Action action) =>
 			PermuteRecursive<T, ActionRuntime>(array, action);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
@@ -3831,27 +3831,27 @@ namespace Towel
 			PermuteRecursive<T, Action, GetIndexListArray<T>, SetIndexListArray<T>>(0, list.Count - 1, action, list, list);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T>(this ListArray<T> list, Action action) =>
+		public static void PermuteRecursive<T>(ListArray<T> list, Action action) =>
 			PermuteRecursive<T, ActionRuntime>(list, action);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+		public static void PermuteRecursive<T, Action, Status>(T[] array, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
 			PermuteRecursive<T, Action, Status, GetIndexArray<T>, SetIndexArray<T>>(0, array.Length - 1, action, status, array, array);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T>(this T[] array, Action action, Func<StepStatus> status) =>
+		public static void PermuteRecursive<T>(T[] array, Action action, Func<StepStatus> status) =>
 			PermuteRecursive<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+		public static void PermuteRecursive<T, Action, Status>(ListArray<T> list, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
 			PermuteRecursive<T, Action, Status, GetIndexListArray<T>, SetIndexListArray<T>>(0, list.Count - 1, action, status, list, list);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+		public static void PermuteRecursive<T>(ListArray<T> list, Action action, Func<StepStatus> status) =>
 			PermuteRecursive<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
 
 		#endregion
@@ -3924,41 +3924,41 @@ namespace Towel
 			PermuteIterative<T, Action, StepStatusContinue, Get, Set>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Action>(this T[] array, Action action = default)
+		public static void PermuteIterative<T, Action>(T[] array, Action action = default)
 			where Action : struct, IAction =>
 			PermuteIterative<T, Action, GetIndexArray<T>, SetIndexArray<T>>(0, array.Length - 1, action, array, array);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T>(this T[] array, Action action) =>
+		public static void PermuteIterative<T>(T[] array, Action action) =>
 			PermuteIterative<T, ActionRuntime>(array, action);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Action>(this ListArray<T> list, Action action = default)
+		public static void PermuteIterative<T, Action>(ListArray<T> list, Action action = default)
 			where Action : struct, IAction =>
 			PermuteIterative<T, Action, GetIndexListArray<T>, SetIndexListArray<T>>(0, list.Count - 1, action, list, list);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T>(this ListArray<T> list, Action action) =>
+		public static void PermuteIterative<T>(ListArray<T> list, Action action) =>
 			PermuteIterative<T, ActionRuntime>(list, action);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+		public static void PermuteIterative<T, Action, Status>(T[] array, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
 			PermuteIterative<T, Action, Status, GetIndexArray<T>, SetIndexArray<T>>(0, array.Length - 1, action, status, array, array);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T>(this T[] array, Action action, Func<StepStatus> status) =>
+		public static void PermuteIterative<T>(T[] array, Action action, Func<StepStatus> status) =>
 			PermuteIterative<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+		public static void PermuteIterative<T, Action, Status>(ListArray<T> list, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus>
 			where Action : struct, IAction =>
 			PermuteIterative<T, Action, Status, GetIndexListArray<T>, SetIndexListArray<T>>(0, list.Count - 1, action, status, list, list);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+		public static void PermuteIterative<T>(ListArray<T> list, Action action, Func<StepStatus> status) =>
 			PermuteIterative<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
 
 		#endregion

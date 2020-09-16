@@ -1517,6 +1517,94 @@ namespace Towel
 
 		#endregion
 
+		#region Permute
+
+		#region Recursive
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T, Action>(this T[] array, Action action = default)
+			where Action : struct, IAction =>
+			Syntax.PermuteRecursive(array, action);
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T>(this T[] array, Action action) =>
+			Syntax.PermuteRecursive<T, ActionRuntime>(array, action);
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T, Action>(this ListArray<T> list, Action action = default)
+			where Action : struct, IAction =>
+			Syntax.PermuteRecursive(list, action);
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T>(this ListArray<T> list, Action action) =>
+			Syntax.PermuteRecursive<T, ActionRuntime>(list, action);
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Syntax.PermuteRecursive(array, action, status);
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T>(this T[] array, Action action, Func<StepStatus> status) =>
+			Syntax.PermuteRecursive<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Syntax.PermuteRecursive(list, action, status);
+
+		/// <inheritdoc cref="PermuteRecursive_XML"/>
+		public static void PermuteRecursive<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+			Syntax.PermuteRecursive<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
+
+		#endregion
+
+		#region Iterative
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T, Action>(this T[] array, Action action = default)
+			where Action : struct, IAction =>
+			Syntax.PermuteIterative(array, action);
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T>(this T[] array, Action action) =>
+			Syntax.PermuteIterative<T, ActionRuntime>(array, action);
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T, Action>(this ListArray<T> list, Action action = default)
+			where Action : struct, IAction =>
+			Syntax.PermuteIterative(list, action);
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T>(this ListArray<T> list, Action action) =>
+			Syntax.PermuteIterative<T, ActionRuntime>(list, action);
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T, Action, Status>(this T[] array, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Syntax.PermuteIterative(array, action, status);
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T>(this T[] array, Action action, Func<StepStatus> status) =>
+			Syntax.PermuteIterative<T, ActionRuntime, FuncRuntime<StepStatus>>(array, action, status);
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T, Action, Status>(this ListArray<T> list, Action action = default, Status status = default)
+			where Status : struct, IFunc<StepStatus>
+			where Action : struct, IAction =>
+			Syntax.PermuteIterative(list, action, status);
+
+		/// <inheritdoc cref="PermuteIterative_XML"/>
+		public static void PermuteIterative<T>(this ListArray<T> list, Action action, Func<StepStatus> status) =>
+			Syntax.PermuteIterative<T, ActionRuntime, FuncRuntime<StepStatus>>(list, action, status);
+
+		#endregion
+
+		#endregion
+
 		#region System.Action
 
 		/// <summary>Times an action using System.DateTime.</summary>
