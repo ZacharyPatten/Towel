@@ -3299,7 +3299,7 @@ namespace Towel.Mathematics
 		/// <param name="string">The string to be parse.</param>
 		/// <param name="tryParse">A function for parsing numerical values into the provided generic type.</param>
 		/// <returns>The parsed expression simplified down to a constant value.</returns>
-		public static T ParseAndSimplifyToConstant<T>(string @string, TryParse<T> tryParse = null)
+		public static T ParseAndSimplifyToConstant<T>(string @string, FuncO1<string, T, bool> tryParse = null)
 		{
 			return (Parse(@string, tryParse).Simplify() as Constant<T>).Value;
 		}
@@ -3309,7 +3309,7 @@ namespace Towel.Mathematics
 		/// <param name="string">The expression string to parse.</param>
 		/// <param name="tryParse">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
 		/// <returns>The parsed Towel.Mathematics.Symbolics expression tree.</returns>
-		public static Expression Parse<T>(string @string, TryParse<T> tryParse = null)
+		public static Expression Parse<T>(string @string, FuncO1<string, T, bool> tryParse = null)
 		{
 			// Build The Parsing Library
 			if (!ParseableLibraryBuilt)
@@ -3357,7 +3357,7 @@ namespace Towel.Mathematics
 			throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
 		}
 
-		internal static bool TryParseNonNestedOperatorExpression<T>(string @string, TryParse<T> tryParse, out Expression expression)
+		internal static bool TryParseNonNestedOperatorExpression<T>(string @string, FuncO1<string, T, bool> tryParse, out Expression expression)
 		{
 			// Try to match the operators pattern built at runtime based on the symbolic tree hierarchy
 			MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern, RegexOptions.RightToLeft);
@@ -3572,7 +3572,7 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseParenthesisExpression<T>(string @string, TryParse<T> tryParse, out Expression expression)
+		internal static bool TryParseParenthesisExpression<T>(string @string, FuncO1<string, T, bool> tryParse, out Expression expression)
 		{
 			// Try to match a parenthesis pattern.
 			Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
@@ -3615,7 +3615,7 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseOperationExpression<T>(string @string, TryParse<T> tryParse, out Expression expression)
+		internal static bool TryParseOperationExpression<T>(string @string, FuncO1<string, T, bool> tryParse, out Expression expression)
 		{
 			expression = null;
 			Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern);
@@ -3707,7 +3707,7 @@ namespace Towel.Mathematics
 			return operands;
 		}
 
-		internal static bool TryParseVariablesExpression<T>(string @string, TryParse<T> tryParse, out Expression parsedExpression)
+		internal static bool TryParseVariablesExpression<T>(string @string, FuncO1<string, T, bool> tryParse, out Expression parsedExpression)
 		{
 			string variablePattern = @"\[.*\]";
 
@@ -3753,7 +3753,7 @@ namespace Towel.Mathematics
 			return true;
 		}
 
-		internal static bool TryParseKnownConstantExpression<T>(string @string, TryParse<T> tryParse, out Expression parsedExpression)
+		internal static bool TryParseKnownConstantExpression<T>(string @string, FuncO1<string, T, bool> tryParse, out Expression parsedExpression)
 		{
 			Match knownConstantMatch = Regex.Match(@string, ParsableKnownConstantsRegexPattern);
 
@@ -3779,7 +3779,7 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseConstantExpression<T>(string @string, TryParse<T> tryParse, out Expression parsedExpression)
+		internal static bool TryParseConstantExpression<T>(string @string, FuncO1<string, T, bool> tryParse, out Expression parsedExpression)
 		{
 			if (!(tryParse is null) && tryParse(@string, out T explicitParsedValue))
 			{

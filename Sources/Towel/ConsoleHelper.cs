@@ -93,7 +93,7 @@ namespace Towel
 		public static T GetInput<T>(
 			string prompt = null,
 			string invalidMessage = null,
-			TryParse<T> tryParse = null,
+			FuncO1<string, T, bool> tryParse = null,
 			Predicate<T> validation = null)
 		{
 			if (tryParse is null && (typeof(T) != typeof(string) && !typeof(T).IsEnum && Meta.GetTryParseMethod<T>() is null))
@@ -102,7 +102,7 @@ namespace Towel
 			}
 			tryParse ??= typeof(T) == typeof(string)
 				? (string s, out T v) => { v = (T)(object)s; return true; }
-			: (TryParse<T>)Syntax.TryParse;
+				: (FuncO1<string, T, bool>)Syntax.TryParse;
 			validation ??= v => true;
 			GetInput:
 			Console.Write(prompt ?? $"Input a {typeof(T).Name} value: ");

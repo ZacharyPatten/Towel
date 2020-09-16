@@ -151,7 +151,7 @@ namespace Towel
 
 		internal static class TryParseImplementation<A>
 		{
-			internal static TryParse<A> Function = (string @string, out A value) =>
+			internal static FuncO1<string, A, bool> Function = (string @string, out A value) =>
 			{
 				static bool Fail(string @string, out A value)
 				{
@@ -165,7 +165,7 @@ namespace Towel
 					{
 						throw new TowelBugException("The System.Enum.TryParse method was not found via reflection.");
 					}
-					Function = methodInfo.CreateDelegate<TryParse<A>>();
+					Function = methodInfo.CreateDelegate<FuncO1<string, A, bool>>();
 					return Function(@string, out value);
 
 					#region Old Version
@@ -200,7 +200,7 @@ namespace Towel
 					MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
 					Function = methodInfo is null
 						? Fail
-						: methodInfo.CreateDelegate<TryParse<A>>();
+						: methodInfo.CreateDelegate<FuncO1<string, A, bool>>();
 					return Function(@string, out value);
 				}
 			};

@@ -438,7 +438,7 @@ namespace Towel.Mathematics
 		/// <param name="fraction">The parsed value if succeeded.</param>
 		/// <param name="exception">The exception that occurred if failed.</param>
 		/// <returns>True if the parse succeeded or false if not.</returns>
-		public bool TryParse(string @string, TryParse<T> tryParse, out Fraction<T> fraction, out Exception exception)
+		public bool TryParse(string @string, FuncO1<string, T, bool> tryParse, out Fraction<T> fraction, out Exception exception)
 		{
 			if (!(tryParse is null) && tryParse(@string, out T value))
 			{
@@ -479,7 +479,7 @@ namespace Towel.Mathematics
 		/// <param name="tryParse">The function to parse the numerator and denominator.</param>
 		/// <param name="fraction">The parsed value if succeeded.</param>
 		/// <returns>True if the parse succeeded or false if not.</returns>
-		public bool TryParse(string @string, TryParse<T> tryParse, out Fraction<T> fraction)
+		public bool TryParse(string @string, FuncO1<string, T, bool> tryParse, out Fraction<T> fraction)
 		{
 			return TryParse(@string, tryParse, out fraction, out _);
 		}
@@ -488,7 +488,7 @@ namespace Towel.Mathematics
 		/// <param name="string">The string to parse.</param>
 		/// <param name="tryParse">The function to parse the numerator and denominator.</param>
 		/// <returns>The parsed value from the string.</returns>
-		public Fraction<T> Parse(string @string, TryParse<T> tryParse)
+		public Fraction<T> Parse(string @string, FuncO1<string, T, bool> tryParse)
 		{
 			TryParse(@string, tryParse, out Fraction<T> fraction);
 			return fraction;
