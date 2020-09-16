@@ -16473,7 +16473,7 @@
             <param name="string">The string to parse.</param>
             <returns>The parsed value from the string.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction`1.ToString(Towel.Mathematics.Fraction{`0},Towel.ToString{`0})">
+        <member name="M:Towel.Mathematics.Fraction`1.ToString(Towel.Mathematics.Fraction{`0},System.Func{`0,System.String})">
             <summary>Default conversion to string for fractions.</summary>
             <param name="fraction">The value to convert.</param>
             <param name="toString">The string conversion function for the numerator and denominator.</param>
@@ -32369,21 +32369,6 @@
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to factor the prime numbers of.</param>
             <param name="step">The action to perform on all found prime factors.</param>
-        </member>
-        <member name="T:Towel.ToString`1">
-            <summary>Converts a value to a string representation.</summary>
-            <typeparam name="T">The type of value to convert.</typeparam>
-            <param name="value">The value to convert.</param>
-            <returns>The value in string representation.</returns>
-        </member>
-        <member name="T:Towel.ToString">
-            <summary>Static wrapper for the based "object.ToString" function.</summary>
-        </member>
-        <member name="M:Towel.ToString.Default``1(``0)">
-            <summary>Static wrapper for the based "object.ToString" fuction.</summary>
-            <typeparam name="T">The type of value to convert.</typeparam>
-            <param name="value">The value to convert.</param>
-            <returns>The value in string representation.</returns>
         </member>
         <member name="T:Towel.TryParse`1">
             <summary>Tries to parse a value from a string.</summary>

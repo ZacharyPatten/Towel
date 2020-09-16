@@ -530,9 +530,9 @@ namespace Towel.Mathematics
 		/// <param name="fraction">The value to convert.</param>
 		/// <param name="toString">The string conversion function for the numerator and denominator.</param>
 		/// <returns>The value represented as a string.</returns>
-		public static string ToString(Fraction<T> fraction, ToString<T> toString)
+		public static string ToString(Fraction<T> fraction, Func<T, string> toString)
 		{
-			if (Syntax.EqualTo(fraction._denominator, Constant<T>.One))
+			if (EqualTo(fraction._denominator, Constant<T>.One))
 			{
 				return toString(fraction._numerator);
 			}
@@ -542,7 +542,7 @@ namespace Towel.Mathematics
 		/// <summary>Default conversion to string for fractions.</summary>
 		/// <returns>The value represented as a string.</returns>
 		public override string ToString() =>
-			Fraction<T>.ToString(this, Towel.ToString.Default);
+			ToString(this, value => value.ToString());
 
 		#endregion
 	}
