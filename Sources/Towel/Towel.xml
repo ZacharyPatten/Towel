@@ -15089,24 +15089,6 @@
             <summary>Gets the enumerator for the trie.</summary>
             <returns>The enumerator for the trie.</returns>
         </member>
-        <member name="T:Towel.Equate">
-            <summary>Static wrapper for the based "object.Equals" function.</summary>
-        </member>
-        <member name="M:Towel.Equate.FromCompare``1(System.Func{``0,``0,Towel.CompareResult})">
-            <summary>Converts a Compare delegate into an Equate delegate.</summary>
-            <typeparam name="T">The generic parameter of the delegates.</typeparam>
-            <param name="compare">The compare delegate to convert to a equate.</param>
-            <returns>The compare delegate converted into an equate.</returns>
-        </member>
-        <member name="T:Towel.EqualsChar">
-            <summary>Compares two char values for equality.</summary>
-        </member>
-        <member name="M:Towel.EqualsChar.Do(System.Char,System.Char)">
-            <summary>Compares two char values for equality.</summary>
-            <param name="a">The first operand of the equality check.</param>
-            <param name="b">The second operand of the equality check.</param>
-            <returns>True if equal; False if not.</returns>
-        </member>
         <member name="T:Towel.MathematicsException">
             <summary>Represents an exception in mathematical computation.</summary>
         </member>
@@ -16030,6 +16012,15 @@
             <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
             <param name="value">The value for future values to be compared against.</param>
             <param name="compare">The compare function.</param>
+        </member>
+        <member name="T:Towel.EqualsChar">
+            <summary>Compares two char values for equality.</summary>
+        </member>
+        <member name="M:Towel.EqualsChar.Do(System.Char,System.Char)">
+            <summary>Compares two char values for equality.</summary>
+            <param name="a">The first operand of the equality check.</param>
+            <param name="b">The second operand of the equality check.</param>
+            <returns>True if equal; False if not.</returns>
         </member>
         <member name="T:Towel.HammingDistance">
             <summary>Contains algorithms for computing Hamming distances.</summary>

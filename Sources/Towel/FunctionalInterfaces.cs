@@ -139,4 +139,14 @@ namespace Towel
 			CompareFunction = compare;
 		}
 	}
+
+	/// <summary>Compares two char values for equality.</summary>
+	public struct EqualsChar : IFunc<char, char, bool>
+	{
+		/// <summary>Compares two char values for equality.</summary>
+		/// <param name="a">The first operand of the equality check.</param>
+		/// <param name="b">The second operand of the equality check.</param>
+		/// <returns>True if equal; False if not.</returns>
+		public bool Do(char a, char b) => a == b;
+	}
 }

@@ -2306,7 +2306,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		internal bool EqualsCheck(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b) =>
 			Omnitree.EqualsCheck(a, b
 <# for (int j = 1; j <= i; j++) { #>
-			, Equate.FromCompare(_compare<#= j #>)
+			, (a, b) => _compare<#= j #>(a, b) is Equal
 <# } #>
 			);
 
@@ -4199,7 +4199,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		internal bool EqualsCheck(Omnitree.Vector<<#= chain_AxisX #>> a, Omnitree.Vector<<#= chain_AxisX #>> b) =>
 			Omnitree.EqualsCheck(a, b
 <# for (int j = 1; j <= i; j++) { #>
-			, Equate.FromCompare(_compare<#= j #>)
+			, (a, b) => _compare<#= j #>(a, b) is Equal
 <# } #>
 			);
 

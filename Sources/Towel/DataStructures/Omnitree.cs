@@ -4393,7 +4393,7 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1> a, Omnitree.Vector<Axis1> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
+			, (a, b) => _compare1(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -6035,8 +6035,8 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2> a, Omnitree.Vector<Axis1, Axis2> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -7818,9 +7818,9 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3> a, Omnitree.Vector<Axis1, Axis2, Axis3> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -9744,10 +9744,10 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -11815,11 +11815,11 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
+			, (a, b) => _compare5(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -14033,12 +14033,12 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5)
-			, Equate.FromCompare(_compare6)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
+			, (a, b) => _compare5(a, b) is Equal
+			, (a, b) => _compare6(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -16400,13 +16400,13 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5)
-			, Equate.FromCompare(_compare6)
-			, Equate.FromCompare(_compare7)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
+			, (a, b) => _compare5(a, b) is Equal
+			, (a, b) => _compare6(a, b) is Equal
+			, (a, b) => _compare7(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -17923,7 +17923,7 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1> a, Omnitree.Vector<Axis1> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
+			, (a, b) => _compare1(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -19595,8 +19595,8 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2> a, Omnitree.Vector<Axis1, Axis2> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -21441,9 +21441,9 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3> a, Omnitree.Vector<Axis1, Axis2, Axis3> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -23461,10 +23461,10 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -25655,11 +25655,11 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
+			, (a, b) => _compare5(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -28023,12 +28023,12 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5)
-			, Equate.FromCompare(_compare6)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
+			, (a, b) => _compare5(a, b) is Equal
+			, (a, b) => _compare6(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
@@ -30565,13 +30565,13 @@ namespace Towel.DataStructures
 		/// <returns>True if equal; False if not;</returns>
 		internal bool EqualsCheck(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b) =>
 			Omnitree.EqualsCheck(a, b
-			, Equate.FromCompare(_compare1)
-			, Equate.FromCompare(_compare2)
-			, Equate.FromCompare(_compare3)
-			, Equate.FromCompare(_compare4)
-			, Equate.FromCompare(_compare5)
-			, Equate.FromCompare(_compare6)
-			, Equate.FromCompare(_compare7)
+			, (a, b) => _compare1(a, b) is Equal
+			, (a, b) => _compare2(a, b) is Equal
+			, (a, b) => _compare3(a, b) is Equal
+			, (a, b) => _compare4(a, b) is Equal
+			, (a, b) => _compare5(a, b) is Equal
+			, (a, b) => _compare6(a, b) is Equal
+			, (a, b) => _compare7(a, b) is Equal
 			);
 
 		/// <summary>Gets the nearest parent that encapsulates a location.</summary>
