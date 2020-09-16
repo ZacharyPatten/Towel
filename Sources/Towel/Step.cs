@@ -539,7 +539,7 @@ namespace Towel
 		/// <param name="equate">An equality function for the data</param>
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
-		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Func<T, T, bool> equate, Hash<T> hash)
+		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Func<T, T, bool> equate, Func<T, int> hash)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
@@ -566,7 +566,7 @@ namespace Towel
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-		public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Func<T, T, bool> equate, Hash<T> hash)
+		public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Func<T, T, bool> equate, Func<T, int> hash)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
@@ -589,7 +589,7 @@ namespace Towel
 		/// <param name="stepper">The stepper function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper) =>
-			ContainsDuplicates(stepper, DefaultEquals, Hash.Default);
+			ContainsDuplicates(stepper, DefaultEquals, DefaultHash);
 
 		/// <summary>Determines if the data contains any duplicates.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
@@ -597,7 +597,7 @@ namespace Towel
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
 		public static bool ContainsDuplicates<T>(this Stepper<T> stepper) =>
-			ContainsDuplicates(stepper, DefaultEquals, Hash.Default);
+			ContainsDuplicates(stepper, DefaultEquals, DefaultHash);
 
 		/// <summary>Determines if the stepper contains any of the predicated values.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>

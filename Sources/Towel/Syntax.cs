@@ -208,6 +208,16 @@ namespace Towel
 
 		#endregion
 
+		#region Hash
+
+		/// <summary>Static wrapper for the instance based "object.GetHashCode" function.</summary>
+		/// <typeparam name="T">The generic type of the hash operation.</typeparam>
+		/// <param name="value">The item to get the hash code of.</param>
+		/// <returns>The computed hash code using the base GetHashCode instance method.</returns>
+		public static int DefaultHash<T>(T value) => value.GetHashCode();
+
+		#endregion
+
 		#region Convert
 
 		/// <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
@@ -242,8 +252,6 @@ namespace Towel
 			string.Join(seperator, range.ToIEnumerable().Select(func));
 
 		#endregion
-
-		#region Syntax Sugar
 
 		#region Keywords
 
@@ -743,10 +751,6 @@ namespace Towel
 
 		#endregion
 
-		#endregion
-
-		#region Logic
-
 		#region EqualTo
 
 		/// <summary>Static wrapper for the based "<see cref="object"/>.Equals" fuction.</summary>
@@ -1190,10 +1194,6 @@ namespace Towel
 		}
 
 		#endregion
-
-		#endregion
-
-		#region Mathematics
 
 		#region Negation
 
@@ -2309,7 +2309,7 @@ namespace Towel
 		/// <param name="a">The first value in the data.</param>
 		/// <param name="b">The rest of the data.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Hash<T> hash, T a, params T[] b) =>
+		public static IMap<int, T> Occurences<T>(Func<T, int> hash, T a, params T[] b) =>
 			Occurences<T>(step => { step(a); b.ToStepper()(step); }, null, hash);
 
 		/// <summary>Counts the number of occurences of each item.</summary>
@@ -2319,7 +2319,7 @@ namespace Towel
 		/// <param name="a">The first value in the data.</param>
 		/// <param name="b">The rest of the data.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Func<T, T, bool> equate, Hash<T> hash, T a, params T[] b) =>
+		public static IMap<int, T> Occurences<T>(Func<T, T, bool> equate, Func<T, int> hash, T a, params T[] b) =>
 			Occurences<T>(step => { step(a); b.ToStepper()(step); }, equate, hash);
 
 		/// <summary>Counts the number of occurences of each item.</summary>
@@ -2328,7 +2328,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Stepper<T> stepper, Func<T, T, bool> equate = null, Hash<T> hash = null)
+		public static IMap<int, T> Occurences<T>(Stepper<T> stepper, Func<T, T, bool> equate = null, Func<T, int> hash = null)
 		{
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
 			stepper(a =>
@@ -2372,7 +2372,7 @@ namespace Towel
 		/// <param name="hash">The hash code delegate</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, Hash<T> hash, T a, params T[] b) =>
+		public static void Mode<T>(Step<T> step, Func<T, int> hash, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, null, hash);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2382,7 +2382,7 @@ namespace Towel
 		/// <param name="hash">The hash code delegate</param>
 		/// <param name="a">The first value of the data set.</param>
 		/// <param name="b">The rest of the data set.</param>
-		public static void Mode<T>(Step<T> step, Func<T, T, bool> equate, Hash<T> hash, T a, params T[] b) =>
+		public static void Mode<T>(Step<T> step, Func<T, T, bool> equate, Func<T, int> hash, T a, params T[] b) =>
 			Mode<T>(x => { x(a); b.ToStepper()(x); }, step, equate, hash);
 
 		/// <summary>Gets the mode(s) of a data set.</summary>
@@ -2392,7 +2392,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <returns>The modes of the data set.</returns>
-		public static void Mode<T>(Stepper<T> stepper, Step<T> step, Func<T, T, bool> equate = null, Hash<T> hash = null)
+		public static void Mode<T>(Stepper<T> stepper, Step<T> step, Func<T, T, bool> equate = null, Func<T, int> hash = null)
 		{
 			int maxOccurences = -1;
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
@@ -3421,8 +3421,6 @@ namespace Towel
 				Function(a, x);
 			};
 		}
-
-		#endregion
 
 		#endregion
 	}

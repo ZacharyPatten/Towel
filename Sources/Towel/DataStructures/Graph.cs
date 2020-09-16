@@ -96,11 +96,11 @@ namespace Towel.DataStructures
 		public GraphSetOmnitree(
 			Func<T, T, bool> equate = null,
 			Func<T, T, CompareResult> compare = null,
-			Hash<T> hash = null)
+			Func<T, int> hash = null)
 		{
 			equate ??= DefaultEquals;
 			compare ??= Comparison;
-			hash ??= Hash.Default;
+			hash ??= DefaultHash;
 
 			_nodes = new SetHashLinked<T>(equate, hash);
 			_edges = new OmnitreePointsLinked<Edge, T, T>(
@@ -288,12 +288,12 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Constructs a new GraphMap.</summary>
-		public GraphMap() : this(DefaultEquals, Hash.Default) { }
+		public GraphMap() : this(DefaultEquals, DefaultHash) { }
 
 		/// <summary>Constructs a new GraphMap.</summary>
 		/// <param name="equate">The equate delegate for the data structure to use.</param>
 		/// <param name="hash">The hash function for the data structure to use.</param>
-		public GraphMap(Func<T, T, bool> equate, Hash<T> hash)
+		public GraphMap(Func<T, T, bool> equate, Func<T, int> hash)
 		{
 			_edges = 0;
 			_map = new MapHashLinked<SetHashLinked<T>, T>(equate, hash);

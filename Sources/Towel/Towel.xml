@@ -815,7 +815,7 @@
             <summary>This constructor is for cloning purposes.</summary>
             <param name="graph">The graph to construct a clone of.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,`0,Towel.CompareResult},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,`0,Towel.CompareResult},System.Func{`0,System.Int32})">
             <summary>Constructs a new GraphSetOmnitree.</summary>
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="compare">The compare delegate for the data structure to use.</param>
@@ -909,7 +909,7 @@
         <member name="M:Towel.DataStructures.GraphMap`1.#ctor">
             <summary>Constructs a new GraphMap.</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
             <summary>Constructs a new GraphMap.</summary>
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="hash">The hash function for the data structure to use.</param>
@@ -3068,7 +3068,7 @@
             <typeparam name="T">The generic type of the structure.</typeparam>
             <typeparam name="K">The generic key type of this map.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(System.Func{`1,`1,System.Boolean},Towel.Hash{`1},System.Nullable{System.Int32})">
+        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(System.Func{`1,`1,System.Boolean},System.Func{`1,System.Int32},System.Nullable{System.Int32})">
             <summary>Constructs a hashed map.</summary>
             <param name="equate">The equate delegate.</param>
             <param name="hash">The hashing function.</param>
@@ -14197,7 +14197,7 @@
             <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
             <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0},System.Nullable{System.Int32})">
+        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32},System.Nullable{System.Int32})">
             <summary>Constructs a hashed set.</summary>
             <param name="equate">The equate delegate.</param>
             <param name="hash">The hashing function.</param>
@@ -14238,7 +14238,7 @@
             <param name="structure">The structure to clone.</param>
             <returns>A clone of the structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1}.StructureFactory,System.Func{`1,`1,System.Boolean},Towel.Hash{`1},System.Nullable{System.Int32})">
+        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1}.StructureFactory,System.Func{`1,`1,System.Boolean},System.Func{`1,System.Int32},System.Nullable{System.Int32})">
             <summary>Constructs a hashed set.</summary>
             <param name="factory">The factory delegate.</param>
             <param name="equate">The equate delegate.</param>
@@ -14934,7 +14934,7 @@
             <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
             <typeparam name="T">The type of values in the trie.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
             <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
             <param name="equate">The equality delegate for the keys.</param>
             <param name="hash">The hashing function for the keys.</param>
@@ -15025,7 +15025,7 @@
             <typeparam name="T">The type of values in the trie.</typeparam>
             <typeparam name="D">The additional data type to store with each leaf.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.#ctor(System.Func{`0,`0,System.Boolean},Towel.Hash{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
             <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
             <param name="equate">The equality delegate for the keys.</param>
             <param name="hash">The hashing function for the keys.</param>
@@ -16118,32 +16118,6 @@
             <param name="b">The second sequence.</param>
             <param name="equals">The equality check function.</param>
             <returns>The computed Hamming distance of the two sequences.</returns>
-        </member>
-        <member name="T:Towel.Hash`1">
-            <summary>Delegate for hash code computation.</summary>
-            <typeparam name="T">The type of this hash function.</typeparam>
-            <param name="value">The instance to compute the hash of.</param>
-            <returns>The computed hash of the given item.</returns>
-        </member>
-        <member name="T:Towel.HashRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the value compute the hash code of.</typeparam>
-        </member>
-        <member name="M:Towel.HashRuntime`1.Do(`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.HashRuntime`1.op_Implicit(Towel.Hash{`0})~Towel.HashRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="hash">The runtime Hash delegate.</param>
-        </member>
-        <member name="T:Towel.Hash">
-            <summary>Static wrapper for the based "object.GetHashCode" function.</summary>
-        </member>
-        <member name="M:Towel.Hash.Default``1(``0)">
-            <summary>Static wrapper for the instance based "object.GetHashCode" function.</summary>
-            <typeparam name="T">The generic type of the hash operation.</typeparam>
-            <param name="value">The item to get the hash code of.</param>
-            <returns>The computed hash code using the base GetHashCode instance method.</returns>
         </member>
         <member name="T:Towel.LevenshteinDistance">
             <summary>Contains algorithms for computing Levenshtein distances.</summary>
@@ -30074,7 +30048,7 @@
             <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
         <member name="T:Towel.Search">
-            <summary>Static class taht constains algorithms for searching.</summary>
+            <summary>Static class that constains algorithms for searching.</summary>
         </member>
         <member name="M:Towel.Search.Binary_XML">
             <summary>Performs a binary search on sorted indexed data.</summary>
@@ -31180,7 +31154,7 @@
             <param name="nth">Represents the values to reduce the stepper to; "5" means every 5th value.</param>
             <returns>The reduced stepper function.</returns>
         </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
@@ -31188,7 +31162,7 @@
             <param name="hash">A hashing function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
         </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
+        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
@@ -31272,6 +31246,12 @@
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value if successful or default if not.</param>
             <returns>True if successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.Syntax.DefaultHash``1(``0)">
+            <summary>Static wrapper for the instance based "object.GetHashCode" function.</summary>
+            <typeparam name="T">The generic type of the hash operation.</typeparam>
+            <param name="value">The item to get the hash code of.</param>
+            <returns>The computed hash code using the base GetHashCode instance method.</returns>
         </member>
         <member name="M:Towel.Syntax.Convert``2(``0)">
             <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
@@ -32102,7 +32082,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,System.Int32},``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="hash">The hash code delegate.</param>
@@ -32110,7 +32090,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,``0,System.Boolean},Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32},``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="equate">The equality delegate.</param>
@@ -32119,7 +32099,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
+        <member name="M:Towel.Syntax.Occurences``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="stepper">The data to count the occurences of.</param>
@@ -32142,7 +32122,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},System.Func{``0,System.Int32},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
@@ -32150,7 +32130,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0},``0,``0[])">
+        <member name="M:Towel.Syntax.Mode``1(Towel.Step{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
@@ -32159,7 +32139,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(Towel.Stepper{``0},Towel.Step{``0},System.Func{``0,``0,System.Boolean},Towel.Hash{``0})">
+        <member name="M:Towel.Syntax.Mode``1(Towel.Stepper{``0},Towel.Step{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The data set.</param>

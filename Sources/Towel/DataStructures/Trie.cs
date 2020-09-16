@@ -115,7 +115,7 @@ namespace Towel.DataStructures
 			internal bool IsLeaf = false;
 			internal int Count;
 
-			internal Node(Func<T, T, bool> equate, Hash<T> hash)
+			internal Node(Func<T, T, bool> equate, Func<T, int> hash)
 			{
 				Count = 0;
 				Map = new MapHashLinked<Node, T>(equate, hash);
@@ -129,12 +129,12 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Hash<T> hash = null)
+		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Func<T, int> hash = null)
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
 				equate ?? DefaultEquals,
-				hash ?? Towel.Hash.Default);
+				hash ?? DefaultHash);
 		}
 
 		#endregion
@@ -146,7 +146,7 @@ namespace Towel.DataStructures
 		/// <summary>The equality function of the keys.</summary>
 		public Func<T, T, bool> Equate => _map.Equate;
 		/// <summary>The hash fucntion for the keys.</summary>
-		public Hash<T> Hash => _map.Hash;
+		public Func<T, int> Hash => _map.Hash;
 
 		#endregion
 
@@ -459,7 +459,7 @@ namespace Towel.DataStructures
 			internal bool HasValue = false;
 			internal int Count;
 
-			internal Node(Func<T, T, bool> equate, Hash<T> hash)
+			internal Node(Func<T, T, bool> equate, Func<T, int> hash)
 			{
 				Count = 0;
 				Map = new MapHashLinked<Node, T>(equate, hash);
@@ -473,12 +473,12 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Hash<T> hash = null)
+		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Func<T, int> hash = null)
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
 				equate ?? DefaultEquals,
-				hash ?? Towel.Hash.Default);
+				hash ?? DefaultHash);
 		}
 
 		#endregion
@@ -490,7 +490,7 @@ namespace Towel.DataStructures
 		/// <summary>The equality function of the keys.</summary>
 		public Func<T, T, bool> Equate => _map.Equate;
 		/// <summary>The hash fucntion for the keys.</summary>
-		public Hash<T> Hash => _map.Hash;
+		public Func<T, int> Hash => _map.Hash;
 
 		#endregion
 

@@ -253,10 +253,10 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		Hash<K> DataStructure.IHashing<K>.Hash =>
-			_hash is HashRuntime<K> hashRuntime
-			? hashRuntime.Hash
-			: _hash.Do;
+		Func<K, int> DataStructure.IHashing<K>.Hash =>
+			_hash is FuncRuntime<K, int> hash
+				? hash._func
+				: _hash.Do;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
@@ -807,7 +807,7 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	public class MapHashLinked<T, K> : MapHashLinked<T, K, FuncRuntime<K, K, bool>, HashRuntime<K>>
+	public class MapHashLinked<T, K> : MapHashLinked<T, K, FuncRuntime<K, K, bool>, FuncRuntime<K, int>>
 	{
 		#region Constructors
 
@@ -818,8 +818,8 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public MapHashLinked(
 			Func<K, K, bool> equate = null,
-			Hash<K> hash = null,
-			int? expectedCount = null) : base(equate ?? DefaultEquals, hash ?? Towel.Hash.Default, expectedCount) { }
+			Func<K, int> hash = null,
+			int? expectedCount = null) : base(equate ?? DefaultEquals, hash ?? DefaultHash, expectedCount) { }
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="map">The map to clone.</param>
@@ -838,7 +838,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		public Hash<K> Hash => _hash.Hash;
+		public Func<K, int> Hash => _hash._func;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>

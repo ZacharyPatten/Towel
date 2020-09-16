@@ -105,10 +105,10 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		Hash<T> DataStructure.IHashing<T>.Hash =>
-			_hash is HashRuntime<T> hashRuntime
-			? hashRuntime.Hash
-			: _hash.Do;
+		Func<T, int> DataStructure.IHashing<T>.Hash =>
+			_hash is FuncRuntime<T, int> hash
+				? hash._func
+				: _hash.Do;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
@@ -421,7 +421,7 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
 	/// <typeparam name="T">The type of values to store in the set.</typeparam>
-	public class SetHashLinked<T> : SetHashLinked<T, FuncRuntime<T, T, bool>, HashRuntime<T>>
+	public class SetHashLinked<T> : SetHashLinked<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>>
 	{
 		#region Constructors
 
@@ -432,8 +432,8 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		public SetHashLinked(
 			Func<T, T, bool> equate = null,
-			Hash<T> hash = null,
-			int? expectedCount = null) : base(equate ?? DefaultEquals, hash ?? Towel.Hash.Default, expectedCount) { }
+			Func<T, int> hash = null,
+			int? expectedCount = null) : base(equate ?? DefaultEquals, hash ?? DefaultHash, expectedCount) { }
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="set">The set to clone.</param>
@@ -452,7 +452,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		public Hash<T> Hash => _hash.Hash;
+		public Func<T, int> Hash => _hash._func;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
@@ -488,7 +488,7 @@ namespace Towel.DataStructures
 
 		internal StructureFactory _factory;
 		internal Func<T, T, bool> _equate;
-		internal Hash<T> _hash;
+		internal Func<T, int> _hash;
 		internal Structure[] _table;
 		internal int _count;
 
@@ -498,7 +498,7 @@ namespace Towel.DataStructures
 		/// <param name="equate">A delegate for equality checks.</param>
 		/// <param name="hash">A delegate for computing hash codes.</param>
 		/// <returns>The constructed structure.</returns>
-		public delegate Structure StructureFactory(Func<T, T, bool> equate, Hash<T> hash);
+		public delegate Structure StructureFactory(Func<T, T, bool> equate, Func<T, int> hash);
 
 		/// <summary>Clones a structure.</summary>
 		/// <param name="structure">The structure to clone.</param>
@@ -518,7 +518,7 @@ namespace Towel.DataStructures
 		public Set(
 			StructureFactory factory,
 			Func<T, T, bool> equate = null,
-			Hash<T> hash = null,
+			Func<T, int> hash = null,
 			int? expectedCount = null)
 		{
 			if (expectedCount.HasValue && expectedCount.Value > 0)
@@ -536,7 +536,7 @@ namespace Towel.DataStructures
 			}
 			_factory = factory;
 			_equate = equate ?? DefaultEquals;
-			_hash = hash ?? Towel.Hash.Default;
+			_hash = hash ?? DefaultHash;
 			_count = 0;
 		}
 
@@ -574,7 +574,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		public Hash<T> Hash => _hash;
+		public Func<T, int> Hash => _hash;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>

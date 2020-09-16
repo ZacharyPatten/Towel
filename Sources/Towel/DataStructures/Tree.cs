@@ -51,7 +51,7 @@ namespace Towel.DataStructures
 		DataStructure.IEquating<T>
 	{
 		internal Func<T, T, bool> _equate;
-		internal Hash<T> _hash;
+		internal Func<T, int> _hash;
 		internal T _head;
 		internal MapHashLinked<Node, T> _tree;
 
@@ -73,9 +73,9 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		public TreeMap(T head) : this(head, DefaultEquals, Towel.Hash.Default) { }
+		public TreeMap(T head) : this(head, DefaultEquals, DefaultHash) { }
 
-		public TreeMap(T head, Func<T, T, bool> equate, Hash<T> hash)
+		public TreeMap(T head, Func<T, T, bool> equate, Func<T, int> hash)
 		{
 			_equate = equate;
 			_hash = hash;
@@ -94,7 +94,7 @@ namespace Towel.DataStructures
 		public T Head { get { return _head; } }
 
 		/// <summary>The hash function being used (was passed into the constructor).</summary>
-		public Hash<T> Hash { get { return _hash; } }
+		public Func<T, int> Hash { get { return _hash; } }
 
 		/// <summary>The equate function being used (was passed into the constructor).</summary>
 		public Func<T, T, bool> Equate { get { return _equate; } }

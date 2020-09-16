@@ -4,7 +4,7 @@ using static Towel.Syntax;
 
 namespace Towel
 {
-	/// <summary>Static class taht constains algorithms for searching.</summary>
+	/// <summary>Static class that constains algorithms for searching.</summary>
 	public static class Search
 	{
 		#region Binary

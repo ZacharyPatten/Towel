@@ -41,7 +41,7 @@ namespace Towel.DataStructures
 		public interface IHashing<T>
 		{
 			/// <summary>Gets the hashing function being used by the data structure.</summary>
-			Hash<T> Hash { get; }
+			Func<T, int> Hash { get; }
 		}
 
 		/// <summary>Property of a data structure (does it have a Compare property).</summary>
