@@ -30225,400 +30225,6 @@
             <param name="string">The string of JSON content to deserialize.</param>
             <returns>The deserialized delegate.</returns>
         </member>
-        <member name="T:Towel.Sort">
-            <summary>Contains static sorting algorithms.</summary>
-        </member>
-        <member name="M:Towel.Sort.Sort_XML">
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Compare">The compare function.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="compare">The compare function.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the sort.</param>
-            <param name="end">The ending index of the sort.</param>
-            <param name="array">The array to be sorted.</param>
-            <param name="span">The span to be sorted.</param>
-        </member>
-        <member name="M:Towel.Sort.Bubble_XML">
-            <summary>Sorts values using the bubble sort algorithm.</summary>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bubble``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bubble``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bubble``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bubble``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bubble``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bubble``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection_XML">
-            <summary>Sorts values using the selection sort algoritm.</summary>
-            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Selection``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion_XML">
-            <summary>Sorts values using the insertion sort algorithm.</summary>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Insertion``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick_XML">
-            <summary>Sorts values using the quick sort algorithm.</summary>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>ln(n)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Quick``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge_XML">
-            <summary>Sorts values using the merge sort algorithm.</summary>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-            <stability>True</stability>
-            <memory>Θ(n)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Merge``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap_XML">
-            <summary>Sorts values using the heap sort algorithm.</summary>
-            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Heap``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven_XML">
-            <summary>Sorts values using the odd even sort algorithm.</summary>
-            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-            <stability>True</stability>
-            <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
-        </member>
-        <member name="M:Towel.Sort.OddEven``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shuffle_XML">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Get">The get function.</typeparam>
-            <typeparam name="Set">The set function.</typeparam>
-            <param name="start">The starting index of the shuffle.</param>
-            <param name="end">The ending index of the shuffle.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="random">The random to shuffle with.</param>
-            <param name="array">The array to shuffle.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Sort.Shuffle``1(``0[],System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shuffle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shuffle``1(System.Span{``0},System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo_XML">
-            <summary>Sorts values using the bogo sort algorithm.</summary>
-            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-            <stability>False</stability>
-            <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo``1(``0[],System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo``2(``0[],``1,System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Bogo``2(System.Span{``0},``1,System.Random)">
-            <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow_XML">
-            <summary>Sorts values using the slow sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Slow``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome_XML">
-            <summary>Sorts values using the gnome sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Gnome``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb_XML">
-            <summary>Sorts values using the comb sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Comb``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell_XML">
-            <summary>Sorts values using the shell sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Shell``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail_XML">
-            <summary>Sorts values using the shell sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Sort.Sort_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
-        </member>
-        <member name="M:Towel.Sort.Cocktail``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
-        </member>
         <member name="T:Towel.StepStatus">
             <summary>Status of iteration.</summary>
         </member>
@@ -32166,6 +31772,397 @@
         </member>
         <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchCheck{``0})">
             <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Sort_XML">
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="array">The array to be sorted.</param>
+            <param name="span">The span to be sorted.</param>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble_XML">
+            <summary>Sorts values using the bubble sort algorithm.</summary>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBubble``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection_XML">
+            <summary>Sorts values using the selection sort algoritm.</summary>
+            <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSelection``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion_XML">
+            <summary>Sorts values using the insertion sort algorithm.</summary>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortInsertion``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick_XML">
+            <summary>Sorts values using the quick sort algorithm.</summary>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>ln(n)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortQuick``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge_XML">
+            <summary>Sorts values using the merge sort algorithm.</summary>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+            <stability>True</stability>
+            <memory>Θ(n)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortMerge``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap_XML">
+            <summary>Sorts values using the heap sort algorithm.</summary>
+            <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortHeap``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven_XML">
+            <summary>Sorts values using the odd even sort algorithm.</summary>
+            <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+            <stability>True</stability>
+            <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortOddEven``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Shuffle_XML">
+            <summary>Sorts values into a randomized order.</summary>
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <typeparam name="Set">The set function.</typeparam>
+            <param name="start">The starting index of the shuffle.</param>
+            <param name="end">The ending index of the shuffle.</param>
+            <param name="get">The get function.</param>
+            <param name="set">The set function.</param>
+            <param name="random">The random to shuffle with.</param>
+            <param name="array">The array to shuffle.</param>
+            <runtime>O(n)</runtime>
+            <memory>O(1)</memory>
+        </member>
+        <member name="M:Towel.Syntax.Shuffle``1(``0[],System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Shuffle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.Shuffle``1(System.Span{``0},System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo_XML">
+            <summary>Sorts values using the bogo sort algorithm.</summary>
+            <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+            <stability>False</stability>
+            <memory>O(1)</memory>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo``1(``0[],System.Func{``0,``0,Towel.CompareResult},System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo``2(``0[],``1,System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult},System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortBogo``2(System.Span{``0},``1,System.Random)">
+            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow_XML">
+            <summary>Sorts values using the slow sort algorithm.</summary>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortSlow``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome_XML">
+            <summary>Sorts values using the gnome sort algorithm.</summary>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortGnome``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb_XML">
+            <summary>Sorts values using the comb sort algorithm.</summary>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortComb``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell_XML">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortShell``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail_XML">
+            <summary>Sorts values using the shell sort algorithm.</summary>
+            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Syntax.SortCocktail``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
         </member>
         <member name="T:Towel.ValueAttribute">
             <summary>A value-based attribute.</summary>

@@ -3486,7 +3486,7 @@ namespace Towel.DataStructures
 					, out values[i]
 					);
 				if (_defaultCompare1) Array.Sort(values);
-				else Sort.Quick(values, this._compare1);
+				else SortQuick(values, this._compare1);
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
@@ -5046,7 +5046,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare1) Array.Sort(values);
-				else Sort.Quick(values, this._compare1);
+				else SortQuick(values, this._compare1);
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
@@ -5072,7 +5072,7 @@ namespace Towel.DataStructures
 					, out values[i]
 					);
 				if (_defaultCompare2) Array.Sort(values);
-				else Sort.Quick(values, this._compare2);
+				else SortQuick(values, this._compare2);
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
@@ -6745,7 +6745,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare1) Array.Sort(values);
-				else Sort.Quick(values, this._compare1);
+				else SortQuick(values, this._compare1);
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
@@ -6772,7 +6772,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare2) Array.Sort(values);
-				else Sort.Quick(values, this._compare2);
+				else SortQuick(values, this._compare2);
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
@@ -6799,7 +6799,7 @@ namespace Towel.DataStructures
 					, out values[i]
 					);
 				if (_defaultCompare3) Array.Sort(values);
-				else Sort.Quick(values, this._compare3);
+				else SortQuick(values, this._compare3);
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
@@ -8585,7 +8585,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare1) Array.Sort(values);
-				else Sort.Quick(values, this._compare1);
+				else SortQuick(values, this._compare1);
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
@@ -8613,7 +8613,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare2) Array.Sort(values);
-				else Sort.Quick(values, this._compare2);
+				else SortQuick(values, this._compare2);
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
@@ -8641,7 +8641,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare3) Array.Sort(values);
-				else Sort.Quick(values, this._compare3);
+				else SortQuick(values, this._compare3);
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
@@ -8669,7 +8669,7 @@ namespace Towel.DataStructures
 					, out values[i]
 					);
 				if (_defaultCompare4) Array.Sort(values);
-				else Sort.Quick(values, this._compare4);
+				else SortQuick(values, this._compare4);
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
@@ -10568,7 +10568,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare1) Array.Sort(values);
-				else Sort.Quick(values, this._compare1);
+				else SortQuick(values, this._compare1);
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
@@ -10597,7 +10597,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare2) Array.Sort(values);
-				else Sort.Quick(values, this._compare2);
+				else SortQuick(values, this._compare2);
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
@@ -10626,7 +10626,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare3) Array.Sort(values);
-				else Sort.Quick(values, this._compare3);
+				else SortQuick(values, this._compare3);
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
@@ -10655,7 +10655,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare4) Array.Sort(values);
-				else Sort.Quick(values, this._compare4);
+				else SortQuick(values, this._compare4);
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
@@ -10684,7 +10684,7 @@ namespace Towel.DataStructures
 					, out values[i]
 					);
 				if (_defaultCompare5) Array.Sort(values);
-				else Sort.Quick(values, this._compare5);
+				else SortQuick(values, this._compare5);
 				int index = (leaf.Count - 1) / 2;
 				division5 = values[index];
 			}
@@ -12696,7 +12696,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare1) Array.Sort(values);
-				else Sort.Quick(values, this._compare1);
+				else SortQuick(values, this._compare1);
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
@@ -12726,7 +12726,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare2) Array.Sort(values);
-				else Sort.Quick(values, this._compare2);
+				else SortQuick(values, this._compare2);
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
@@ -12756,7 +12756,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare3) Array.Sort(values);
-				else Sort.Quick(values, this._compare3);
+				else SortQuick(values, this._compare3);
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
@@ -12786,7 +12786,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare4) Array.Sort(values);
-				else Sort.Quick(values, this._compare4);
+				else SortQuick(values, this._compare4);
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
@@ -12816,7 +12816,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare5) Array.Sort(values);
-				else Sort.Quick(values, this._compare5);
+				else SortQuick(values, this._compare5);
 				int index = (leaf.Count - 1) / 2;
 				division5 = values[index];
 			}
@@ -12846,7 +12846,7 @@ namespace Towel.DataStructures
 					, out values[i]
 					);
 				if (_defaultCompare6) Array.Sort(values);
-				else Sort.Quick(values, this._compare6);
+				else SortQuick(values, this._compare6);
 				int index = (leaf.Count - 1) / 2;
 				division6 = values[index];
 			}
@@ -14971,7 +14971,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare1) Array.Sort(values);
-				else Sort.Quick(values, this._compare1);
+				else SortQuick(values, this._compare1);
 				int index = (leaf.Count - 1) / 2;
 				division1 = values[index];
 			}
@@ -15002,7 +15002,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare2) Array.Sort(values);
-				else Sort.Quick(values, this._compare2);
+				else SortQuick(values, this._compare2);
 				int index = (leaf.Count - 1) / 2;
 				division2 = values[index];
 			}
@@ -15033,7 +15033,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare3) Array.Sort(values);
-				else Sort.Quick(values, this._compare3);
+				else SortQuick(values, this._compare3);
 				int index = (leaf.Count - 1) / 2;
 				division3 = values[index];
 			}
@@ -15064,7 +15064,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare4) Array.Sort(values);
-				else Sort.Quick(values, this._compare4);
+				else SortQuick(values, this._compare4);
 				int index = (leaf.Count - 1) / 2;
 				division4 = values[index];
 			}
@@ -15095,7 +15095,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare5) Array.Sort(values);
-				else Sort.Quick(values, this._compare5);
+				else SortQuick(values, this._compare5);
 				int index = (leaf.Count - 1) / 2;
 				division5 = values[index];
 			}
@@ -15126,7 +15126,7 @@ namespace Towel.DataStructures
 					, out _
 					);
 				if (_defaultCompare6) Array.Sort(values);
-				else Sort.Quick(values, this._compare6);
+				else SortQuick(values, this._compare6);
 				int index = (leaf.Count - 1) / 2;
 				division6 = values[index];
 			}
@@ -15157,7 +15157,7 @@ namespace Towel.DataStructures
 					, out values[i]
 					);
 				if (_defaultCompare7) Array.Sort(values);
-				else Sort.Quick(values, this._compare7);
+				else SortQuick(values, this._compare7);
 				int index = (leaf.Count - 1) / 2;
 				division7 = values[index];
 			}

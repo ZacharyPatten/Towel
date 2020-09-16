@@ -2460,7 +2460,7 @@ namespace Towel
 			_ = compare ?? throw new ArgumentNullException(nameof(compare));
 			_ = values ?? throw new ArgumentNullException(nameof(values));
 			// standard algorithm (sort and grab middle value)
-			Sort.Merge(values, compare);
+			SortMerge(values, compare);
 			if (values.Length % 2 == 1) // odd... just grab middle value
 			{
 				return values[values.Length / 2];
@@ -2699,7 +2699,7 @@ namespace Towel
 			T[] ordered = new T[count];
 			int a = 0;
 			stepper(i => { ordered[a++] = i; });
-			Sort.Quick(ordered, Comparison);
+			SortQuick(ordered, Comparison);
 			T[] resultingQuantiles = new T[quantiles + 1];
 			resultingQuantiles[0] = ordered[0];
 			resultingQuantiles[^1] = ordered[^1];
@@ -4493,6 +4493,1328 @@ namespace Towel
 				}
 			}
 			return null; // goal node was not reached (no path exists)
+		}
+
+		#endregion
+
+		#endregion
+
+		#region Sort
+
+		#region XML
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="Set">The set function.</typeparam>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="array">The array to be sorted.</param>
+		/// <param name="span">The span to be sorted.</param>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void Sort_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		#endregion
+
+		#region SortBubble
+
+		/// <summary>Sorts values using the bubble sort algorithm.</summary>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortBubble_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortBubble(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortBubble(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortBubble<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortBubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortBubble<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			for (int i = start; i <= end; i++)
+			{
+				for (int j = start; j <= end - 1; j++)
+				{
+					if (compare.Do(get.Do(j), get.Do(j + 1)) is Greater)
+					{
+						// Swap
+						T temp = get.Do(j + 1);
+						set.Do(j + 1, get.Do(j));
+						set.Do(j, temp);
+					}
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			for (int i = 0; i <= span.Length - 1; i++)
+			{
+				for (int j = 0; j <= span.Length - 2; j++)
+				{
+					if (compare.Do(span[j], span[j + 1]) is Greater)
+					{
+						Swap(ref span[j], ref span[j + 1]);
+					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortSelection
+
+		/// <summary>Sorts values using the selection sort algoritm.</summary>
+		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortSelection_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortSelection(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortSelection(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortSelection<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortSelection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortSelection<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			for (int i = start; i <= end; i++)
+			{
+				int min = i;
+				for (int j = i + 1; j <= end; j++)
+				{
+					if (compare.Do(get.Do(j), get.Do(min)) is Less)
+					{
+						min = j;
+					}
+				}
+				// Swap
+				T temp = get.Do(min);
+				set.Do(min, get.Do(i));
+				set.Do(i, temp);
+			}
+		}
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			for (int i = 0; i <= span.Length - 1; i++)
+			{
+				int min = i;
+				for (int j = i + 1; j <= span.Length - 2; j++)
+				{
+					if (compare.Do(span[j], span[min]) is Less)
+					{
+						min = j;
+					}
+				}
+				Swap(ref span[min], ref span[i]);
+			}
+		}
+
+		#endregion
+
+		#region SortInsertion
+
+		/// <summary>Sorts values using the insertion sort algorithm.</summary>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortInsertion_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortInsertion(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortInsertion(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortInsertion<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortInsertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortInsertion<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			for (int i = start + 1; i <= end; i++)
+			{
+				T temp = get.Do(i);
+				int j = i;
+				for (; j > start && compare.Do(get.Do(j - 1), temp) is Greater; j--)
+				{
+					set.Do(j, get.Do(j - 1));
+				}
+				set.Do(j, temp);
+			}
+		}
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			for (int i = 1; i <= span.Length - 1; i++)
+			{
+				T temp = span[i];
+				int j;
+				for (j = i; j > 0 && compare.Do(span[j - 1], temp) is Greater; j--)
+				{
+					span[j] = span[j - 1];
+				}
+				span[j] = temp;
+			}
+		}
+
+		#endregion
+
+		#region SortQuick
+
+		/// <summary>Sorts values using the quick sort algorithm.</summary>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>ln(n)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortQuick_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortQuick(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortQuick(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortQuick<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortQuick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortQuick<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			SortQuick_Recursive(start, end - start + 1);
+
+			void SortQuick_Recursive(int start, int length)
+			{
+				if (length > 1)
+				{
+					T pivot = get.Do(start);
+					int i = start;
+					int j = start + length - 1;
+					int k = j;
+					while (i <= j)
+					{
+						if (compare.Do(get.Do(j), pivot) is Less)
+						{
+							Swap(i++, j);
+						}
+						else if (compare.Do(get.Do(j), pivot) is Equal)
+						{
+							j--;
+						}
+						else
+						{
+							Swap(k--, j--);
+						}
+					}
+					SortQuick_Recursive(start, i - start);
+					SortQuick_Recursive(k + 1, start + length - (k + 1));
+				}
+			}
+			void Swap(int a, int b)
+			{
+				T temp = get.Do(a);
+				set.Do(a, get.Do(b));
+				set.Do(b, temp);
+			}
+		}
+
+		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			SortQuick_Recursive(span, 0, span.Length);
+
+			void SortQuick_Recursive(Span<T> span, int startIndex, int len)
+			{
+				if (len > 1)
+				{
+					T pivot = span[startIndex];
+					int i = startIndex;
+					int j = startIndex + len - 1;
+					int k = j;
+					while (i <= j)
+					{
+						if (compare.Do(span[j], pivot) is Less)
+						{
+							Swap(ref span[i++], ref span[j]);
+						}
+						else if (compare.Do(span[j], pivot) is Equal)
+						{
+							j--;
+						}
+						else
+						{
+							Swap(ref span[k--], ref span[j--]);
+						}
+					}
+					SortQuick_Recursive(span, startIndex, i - startIndex);
+					SortQuick_Recursive(span, k + 1, startIndex + len - (k + 1));
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortMerge
+
+		/// <summary>Sorts values using the merge sort algorithm.</summary>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
+		/// <stability>True</stability>
+		/// <memory>Θ(n)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortMerge_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortMerge(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortMerge(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortMerge<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortMerge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortMerge<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			SortMerge_Recursive(start, end - start + 1);
+
+			void SortMerge_Recursive(int start, int length)
+			{
+				if (length > 1)
+				{
+					int half = length / 2;
+					SortMerge_Recursive(start, half);
+					SortMerge_Recursive(start + half, length - half);
+					T[] sorted = new T[length];
+					int i = start;
+					int j = start + half;
+					int k = 0;
+					while (i < start + half && j < start + length)
+					{
+						if (compare.Do(get.Do(i), get.Do(j)) is Greater)
+						{
+							sorted[k++] = get.Do(j++);
+						}
+						else
+						{
+							sorted[k++] = get.Do(i++);
+						}
+					}
+					for (int h = 0; h < start + half - i; h++)
+					{
+						sorted[k + h] = get.Do(i + h);
+					}
+					for (int h = 0; h < start + length - j; h++)
+					{
+						sorted[k + h] = get.Do(j + h);
+					}
+					for (int h = 0; h < length; h++)
+					{
+						set.Do(start + h, sorted[0 + h]);
+					}
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			SortMerge_Recursive(span);
+
+			void SortMerge_Recursive(Span<T> span)
+			{
+				if (span.Length > 1)
+				{
+					int half = span.Length / 2;
+					SortMerge_Recursive(span[..half]);
+					SortMerge_Recursive(span[half..]);
+					T[] sorted = new T[span.Length];
+					int i = 0;
+					int j = half;
+					int k = 0;
+					while (i < half && j < span.Length)
+					{
+						if (compare.Do(span[i], span[j]) is Greater)
+						{
+							sorted[k++] = span[j++];
+						}
+						else
+						{
+							sorted[k++] = span[i++];
+						}
+					}
+					for (int h = 0; h < half - i; h++)
+					{
+						sorted[k + h] = span[i + h];
+					}
+					for (int h = 0; h < span.Length - j; h++)
+					{
+						sorted[k + h] = span[j + h];
+					}
+					for (int h = 0; h < span.Length; h++)
+					{
+						span[h] = sorted[0 + h];
+					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortHeap
+
+		/// <summary>Sorts values using the heap sort algorithm.</summary>
+		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortHeap_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortHeap(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortHeap(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortHeap<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortHeap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortHeap<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			int heapSize = end - start + 1;
+			for (int i = heapSize / 2; i >= 0; i--)
+			{
+				MaxSortHeapify(heapSize + start, i, start);
+			}
+			for (int i = end; i >= start; i--)
+			{
+				Swap(start, i);
+				heapSize--;
+				MaxSortHeapify(heapSize + start, 0, start);
+			}
+			void MaxSortHeapify(int heapSize, int index, int offset)
+			{
+				int left = ((index + 1) * 2 - 1) + offset;
+				int right = ((index + 1) * 2) + offset;
+				index += offset;
+				int largest = index;
+				if (left < heapSize && compare.Do(get.Do(left), get.Do(largest)) is Greater)
+				{
+					largest = left;
+				}
+				if (right < heapSize && compare.Do(get.Do(right), get.Do(largest)) is Greater)
+				{
+					largest = right;
+				}
+				if (largest != index)
+				{
+					Swap(index, largest);
+					MaxSortHeapify(heapSize, largest - offset, offset);
+				}
+			}
+			void Swap(int a, int b)
+			{
+				T temp = get.Do(a);
+				set.Do(a, get.Do(b));
+				set.Do(b, temp);
+			}
+		}
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			int start = 0;
+			int end = span.Length - 1;
+			int heapSize = end - start + 1;
+			for (int i = heapSize / 2; i >= 0; i--)
+			{
+				MaxSortHeapify(span, heapSize + start, i, start);
+			}
+			for (int i = end; i >= start; i--)
+			{
+				Swap(ref span[start], ref span[i]);
+				heapSize--;
+				MaxSortHeapify(span, heapSize + start, 0, start);
+			}
+			void MaxSortHeapify(Span<T> span, int heapSize, int index, int offset)
+			{
+				int left = ((index + 1) * 2 - 1) + offset;
+				int right = ((index + 1) * 2) + offset;
+				index += offset;
+				int largest = index;
+				if (left < heapSize && compare.Do(span[left], span[largest]) is Greater)
+				{
+					largest = left;
+				}
+				if (right < heapSize && compare.Do(span[right], span[largest]) is Greater)
+				{
+					largest = right;
+				}
+				if (largest != index)
+				{
+					Swap(ref span[index], ref span[largest]);
+					MaxSortHeapify(span, heapSize, largest - offset, offset);
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortOddEven
+
+		/// <summary>Sorts values using the odd even sort algorithm.</summary>
+		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
+		/// <stability>True</stability>
+		/// <memory>O(1)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortOddEven_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortOddEven(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortOddEven(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortOddEven<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortOddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortOddEven<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			bool sorted = false;
+			while (!sorted)
+			{
+				sorted = true;
+				for (int i = start; i < end; i += 2)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					{
+						Swap(i, i + 1);
+						sorted = false;
+					}
+				}
+				for (int i = start + 1; i < end; i += 2)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					{
+						Swap(i, i + 1);
+						sorted = false;
+					}
+				}
+				void Swap(int a, int b)
+				{
+					T temp = get.Do(a);
+					set.Do(a, get.Do(b));
+					set.Do(b, temp);
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			bool sorted = false;
+			while (!sorted)
+			{
+				sorted = true;
+				for (int i = 0; i < span.Length - 1; i += 2)
+				{
+					if (compare.Do(span[i], span[i + 1]) is Greater)
+					{
+						Swap(ref span[i], ref span[i + 1]);
+						sorted = false;
+					}
+				}
+				for (int i = 1; i < span.Length - 1; i += 2)
+				{
+					if (compare.Do(span[i], span[i + 1]) is Greater)
+					{
+						Swap(ref span[i], ref span[i + 1]);
+						sorted = false;
+					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortCounting
+
+#if false
+
+		///// <summary>Method specifically for computing object keys in the SortCounting Sort algorithm.</summary>
+		///// <typeparam name="T">The type of instances in the array to be sorted.</typeparam>
+		///// <param name="instance">The instance to compute a counting key for.</param>
+		///// <returns>The counting key computed from the provided instance.</returns>
+		//public delegate int ComputeSortCountingKey(T instance);
+
+		///// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
+		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
+		///// <param name="array">The array to be sorted</param>
+		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
+		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, T[] array)
+		//{
+		//	throw new System.NotImplementedException();
+
+		//	// This code needs revision and conversion
+		//	int[] count = new int[array.Length];
+		//	int maxKey = 0;
+		//	for (int i = 0; i < array.Length; i++)
+		//	{
+		//		int key = computeSortCountingKey(array[i]) / array.Length;
+		//		count[key] += 1;
+		//		if (key > maxKey)
+		//			maxKey = key;
+		//	}
+
+		//	int total = 0;
+		//	for (int i = 0; i < maxKey; i++)
+		//	{
+		//		int oldCount = count[i];
+		//		count[i] = total;
+		//		total += oldCount;
+		//	}
+
+		//	T[] output = new T[maxKey];
+		//	for (int i = 0; i < array.Length; i++)
+		//	{
+		//		int key = computeSortCountingKey(array[i]);
+		//		output[count[key]] = array[i];
+		//		count[computeSortCountingKey(array[i])] += 1;
+		//	}
+		//}
+
+		///// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
+		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
+		///// <param name="array">The array to be sorted</param>
+		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
+		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, T[] array, int start, int end)
+		//{
+		//	throw new System.NotImplementedException();
+		//}
+
+		///// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
+		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
+		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
+		///// <param name="array">The array to be sorted</param>
+		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
+		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, Get<T> get, Assign<T> set, int start, int end)
+		//{
+		//	throw new System.NotImplementedException();
+		//}
+
+#endif
+
+		#endregion
+
+		#region Shuffle
+
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+		/// <summary>Sorts values into a randomized order.</summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="Set">The set function.</typeparam>
+		/// <param name="start">The starting index of the shuffle.</param>
+		/// <param name="end">The ending index of the shuffle.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		/// <param name="random">The random to shuffle with.</param>
+		/// <param name="array">The array to shuffle.</param>
+		/// <runtime>O(n)</runtime>
+		/// <memory>O(1)</memory>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void Shuffle_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T>(T[] array, Random random = null) =>
+			Shuffle(array, 0, array.Length - 1, random);
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T>(T[] array, int start, int end, Random random = null) =>
+			Shuffle<T, GetIndexArray<T>, SetIndexArray<T>>(start, end, array, array, random);
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Random random = null) =>
+			Shuffle<T, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, get, set, random);
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random random = null)
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			random ??= new Random();
+			for (int i = start; i <= end; i++)
+			{
+				int randomIndex = random.Next(start, end);
+				// Swap
+				T temp = get.Do(i);
+				set.Do(i, get.Do(randomIndex));
+				set.Do(randomIndex, temp);
+			}
+		}
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T>(Span<T> span, Random random = null)
+		{
+			random ??= new Random();
+			for (int i = 0; i < span.Length; i++)
+			{
+				int index = random.Next(span.Length);
+				Swap(ref span[i], ref span[index]);
+			}
+		}
+
+		#endregion
+
+		#region SortBogo
+
+		/// <summary>Sorts values using the bogo sort algorithm.</summary>
+		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
+		/// <stability>False</stability>
+		/// <memory>O(1)</memory>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortBogo_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T>(T[] array, Func<T, T, CompareResult> compare = null, Random random = null) =>
+			SortBogo(array, 0, array.Length - 1, compare, random);
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T, Compare>(T[] array, Compare compare = default, Random random = null)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortBogo(array, 0, array.Length - 1, compare, random);
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null, Random random = null) =>
+			SortBogo<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array, random);
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T, Compare>(T[] array, int start, int end, Compare compare = default, Random random = null)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortBogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null, Random random = null) =>
+			SortBogo<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set, random);
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			random ??= new Random();
+			while (!SortBogoCheck(start, end))
+			{
+				Shuffle<T, Get, Set>(start, end, get, set, random);
+			}
+			bool SortBogoCheck(int start, int end)
+			{
+				for (int i = start; i <= end - 1; i++)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T, Compare>(Span<T> span, Compare compare = default, Random random = null)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			random ??= new Random();
+			while (!SortBogoCheck(span))
+			{
+				Shuffle<T>(span, random);
+			}
+			bool SortBogoCheck(Span<T> span)
+			{
+				for (int i = 1; i < span.Length; i++)
+				{
+					if (compare.Do(span[i - 1], span[i]) is Greater)
+					{
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+
+		#endregion
+
+		#region SortSlow
+
+		/// <summary>Sorts values using the slow sort algorithm.</summary>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortSlow_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortSlow(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortSlow(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortSlow<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortSlow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortSlow<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			SortSlowRecursive(start, end);
+			void SortSlowRecursive(int i, int j)
+			{
+				if (i >= j)
+				{
+					return;
+				}
+				int mid = (i + j) / 2;
+				SortSlowRecursive(i, mid);
+				SortSlowRecursive(mid + 1, j);
+				if (compare.Do(get.Do(j), get.Do(mid)) is Less)
+				{
+					// Swap
+					T temp = get.Do(j);
+					set.Do(j, get.Do(mid));
+					set.Do(mid, temp);
+				}
+				SortSlowRecursive(i, j - 1);
+			}
+		}
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			SortSlowRecursive(span, 0, span.Length - 1);
+			void SortSlowRecursive(Span<T> span, int i, int j)
+			{
+				if (i >= j)
+				{
+					return;
+				}
+				int mid = (i + j) / 2;
+				SortSlowRecursive(span, i, mid);
+				SortSlowRecursive(span, mid + 1, j);
+				if (compare.Do(span[j], span[mid]) is Less)
+				{
+					Swap(ref span[j], ref span[mid]);
+				}
+				SortSlowRecursive(span, i, j - 1);
+			}
+		}
+
+		#endregion
+
+		#region SortGnome
+
+		/// <summary>Sorts values using the gnome sort algorithm.</summary>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortGnome_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortGnome(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortGnome(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortGnome<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortGnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortGnome<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			int i = start;
+			while (i <= end)
+			{
+				if (i == start || compare.Do(get.Do(i), get.Do(i - 1)) != Less)
+				{
+					i++;
+				}
+				else
+				{
+					// Swap
+					T temp = get.Do(i);
+					set.Do(i, get.Do(i - 1));
+					set.Do(i - 1, temp);
+					i--;
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			int i = 0;
+			while (i < span.Length)
+			{
+				if (i == 0 || compare.Do(span[i], span[i - 1]) != Less)
+				{
+					i++;
+				}
+				else
+				{
+					Swap(ref span[i], ref span[i - 1]);
+					i--;
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortComb
+
+		/// <summary>Sorts values using the comb sort algorithm.</summary>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortComb_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortComb(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortComb(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortComb<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortComb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortComb<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			const double shrink = 1.3;
+			int gap = end - start + 1;
+			bool sorted = false;
+			while (!sorted)
+			{
+				gap = (int)(gap / shrink);
+				if (gap <= 1)
+				{
+					gap = 1;
+					sorted = true;
+				}
+				for (int i = start; i + gap <= end; i++)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + gap)) is Greater)
+					{
+						T temp = get.Do(i);
+						set.Do(i, get.Do(i + gap));
+						set.Do(i + gap, temp);
+						sorted = false;
+					}
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			const double shrink = 1.3;
+			int gap = span.Length;
+			bool sorted = false;
+			while (!sorted)
+			{
+				gap = (int)(gap / shrink);
+				if (gap <= 1)
+				{
+					gap = 1;
+					sorted = true;
+				}
+				for (int i = 0; i + gap < span.Length; i++)
+				{
+					if (compare.Do(span[i], span[i + gap]) is Greater)
+					{
+						Swap(ref span[i], ref span[i + gap]);
+						sorted = false;
+					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortShell
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortShell_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortShell(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortShell(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortShell<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortShell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortShell<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			int[] gaps = { 701, 301, 132, 57, 23, 10, 4, 1 };
+			foreach (int gap in gaps)
+			{
+				for (int i = gap + start; i <= end; i++)
+				{
+					T temp = get.Do(i);
+					int j = i;
+					for (; j >= gap && compare.Do(get.Do(j - gap), temp) is Greater; j -= gap)
+					{
+						set.Do(j, get.Do(j - gap));
+					}
+					set.Do(j, temp);
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			int[] gaps = { 701, 301, 132, 57, 23, 10, 4, 1 };
+			foreach (int gap in gaps)
+			{
+				for (int i = gap; i < span.Length; i++)
+				{
+					T temp = span[i];
+					int j = i;
+					for (; j >= gap && compare.Do(span[j - gap], temp) is Greater; j -= gap)
+					{
+						span[j] = span[j - gap];
+					}
+					span[j] = temp;
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortCocktail
+
+		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortCocktail_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+			SortCocktail(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T, Compare>(T[] array, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortCocktail(array, 0, array.Length - 1, compare);
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+			SortCocktail<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T, Compare>(T[] array, int start, int end, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortCocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+			SortCocktail<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			while (true)
+			{
+				bool swapped = false;
+				for (int i = start; i <= end - 1; i++)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					{
+						T temp = get.Do(i);
+						set.Do(i, get.Do(i + 1));
+						set.Do(i + 1, temp);
+						swapped = true;
+					}
+				}
+				if (!swapped)
+				{
+					break;
+				}
+				swapped = false;
+				for (int i = end - 1; i >= start; i--)
+				{
+					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					{
+						T temp = get.Do(i);
+						set.Do(i, get.Do(i + 1));
+						set.Do(i + 1, temp);
+						swapped = true;
+					}
+				}
+				if (!swapped)
+				{
+					break;
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			while (true)
+			{
+				bool swapped = false;
+				for (int i = 0; i < span.Length - 1; i++)
+				{
+					if (compare.Do(span[i], span[i + 1]) is Greater)
+					{
+						Swap(ref span[i], ref span[i + 1]);
+						swapped = true;
+					}
+				}
+				if (!swapped)
+				{
+					break;
+				}
+				swapped = false;
+				for (int i = span.Length - 2; i >= 0; i--)
+				{
+					if (compare.Do(span[i], span[i + 1]) is Greater)
+					{
+						Swap(ref span[i], ref span[i + 1]);
+						swapped = true;
+					}
+				}
+				if (!swapped)
+				{
+					break;
+				}
+			}
 		}
 
 		#endregion

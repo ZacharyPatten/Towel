@@ -34,7 +34,7 @@ namespace Towel_Testing
 				Random random = new Random(randomSeed);
 				int[] array = new int[sizeAdjusted];
 				Extensions.Iterate(sizeAdjusted, i => array[i] = i);
-				Sort.Shuffle(array, random);
+				Shuffle(array, random);
 				Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
 				algorithm(array, Comparison);
 				Assert.IsTrue(IsLeastToGreatest(array), "Sorting algorithm failed.");
@@ -61,44 +61,44 @@ namespace Towel_Testing
 			Random random = new Random(randomSeed);
 			int[] array = new int[size];
 			Extensions.Iterate(size, i => array[i] = i);
-			Sort.Shuffle(array, random);
+			Shuffle(array, random);
 			Assert.IsFalse(IsLeastToGreatest(array));
 		}
 
-		[TestMethod] public void Bubble_Testing() => TestAlgorithm(Sort.Bubble, Sort.Bubble);
+		[TestMethod] public void Bubble_Testing() => TestAlgorithm(SortBubble, SortBubble);
 
-		[TestMethod] public void Insertion_Testing() => TestAlgorithm(Sort.Insertion, Sort.Insertion);
+		[TestMethod] public void Insertion_Testing() => TestAlgorithm(SortInsertion, SortInsertion);
 
-		[TestMethod] public void Selection_Testing() => TestAlgorithm(Sort.Selection, Sort.Selection);
+		[TestMethod] public void Selection_Testing() => TestAlgorithm(SortSelection, SortSelection);
 
-		[TestMethod] public void Merge_Testing() => TestAlgorithm(Sort.Merge, Sort.Merge);
+		[TestMethod] public void Merge_Testing() => TestAlgorithm(SortMerge, SortMerge);
 
-		[TestMethod] public void Quick_Testing() => TestAlgorithm(Sort.Quick, Sort.Quick);
+		[TestMethod] public void Quick_Testing() => TestAlgorithm(SortQuick, SortQuick);
 
-		[TestMethod] public void Heap_Testing() => TestAlgorithm(Sort.Heap, Sort.Heap);
+		[TestMethod] public void Heap_Testing() => TestAlgorithm(SortHeap, SortHeap);
 
-		[TestMethod] public void OddEven_Testing() => TestAlgorithm(Sort.OddEven, Sort.OddEven);
+		[TestMethod] public void OddEven_Testing() => TestAlgorithm(SortOddEven, SortOddEven);
 
-		[TestMethod] public void Slow_Testing() => TestAlgorithm(Sort.Slow, Sort.Slow, 10);
+		[TestMethod] public void Slow_Testing() => TestAlgorithm(SortSlow, SortSlow, 10);
 
-		[TestMethod] public void Gnome_Testing() => TestAlgorithm(Sort.Gnome, Sort.Gnome);
+		[TestMethod] public void Gnome_Testing() => TestAlgorithm(SortGnome, SortGnome);
 
-		[TestMethod] public void Comb_Testing() => TestAlgorithm(Sort.Comb, Sort.Comb);
+		[TestMethod] public void Comb_Testing() => TestAlgorithm(SortComb, SortComb);
 
-		[TestMethod] public void Shell_Testing() => TestAlgorithm(Sort.Shell, Sort.Shell);
+		[TestMethod] public void Shell_Testing() => TestAlgorithm(SortShell, SortShell);
 
-		[TestMethod] public void Cocktail_Testing() => TestAlgorithm(Sort.Cocktail, Sort.Cocktail);
+		[TestMethod] public void Cocktail_Testing() => TestAlgorithm(SortCocktail, SortCocktail);
 
 		[TestMethod] public void Bogo_Testing() => TestAlgorithm(
-			(array, compare) => Sort.Bogo(array, compare),
-			(array, start, end, compare) => Sort.Bogo(array, start, end, compare),
+			(array, compare) => SortBogo(array, compare),
+			(array, start, end, compare) => SortBogo(array, start, end, compare),
 			6);
 
 
 		[TestMethod] public void BubbleSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Bubble<int, CompareInt>(span);
+			SortBubble<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -108,7 +108,7 @@ namespace Towel_Testing
 		[TestMethod] public void InsertionSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Insertion<int, CompareInt>(span);
+			SortInsertion<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -118,7 +118,7 @@ namespace Towel_Testing
 		[TestMethod] public void SelectionSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Insertion<int, CompareInt>(span);
+			SortInsertion<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -128,7 +128,7 @@ namespace Towel_Testing
 		[TestMethod] public void MergeSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Merge<int, CompareInt>(span);
+			SortMerge<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -138,7 +138,7 @@ namespace Towel_Testing
 		[TestMethod] public void QuickSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Quick<int, CompareInt>(span);
+			SortQuick<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -148,7 +148,7 @@ namespace Towel_Testing
 		[TestMethod] public void HeapSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Heap<int, CompareInt>(span);
+			SortHeap<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -158,7 +158,7 @@ namespace Towel_Testing
 		[TestMethod] public void OddEvenSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.OddEven<int, CompareInt>(span);
+			SortOddEven<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -168,7 +168,7 @@ namespace Towel_Testing
 		[TestMethod] public void SlowSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Slow<int, CompareInt>(span);
+			SortSlow<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -178,7 +178,7 @@ namespace Towel_Testing
 		[TestMethod] public void GnomeSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Gnome<int, CompareInt>(span);
+			SortGnome<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -188,7 +188,7 @@ namespace Towel_Testing
 		[TestMethod] public void CombSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Comb<int, CompareInt>(span);
+			SortComb<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -198,7 +198,7 @@ namespace Towel_Testing
 		[TestMethod] public void ShellSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Shell<int, CompareInt>(span);
+			SortShell<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -208,7 +208,7 @@ namespace Towel_Testing
 		[TestMethod] public void CocktailSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			Sort.Cocktail<int, CompareInt>(span);
+			SortCocktail<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -218,7 +218,7 @@ namespace Towel_Testing
 		[TestMethod] public void BogoSpan_Test()
 		{
 			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
-			Sort.Bogo<int, CompareInt>(span);
+			SortBogo<int, CompareInt>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);

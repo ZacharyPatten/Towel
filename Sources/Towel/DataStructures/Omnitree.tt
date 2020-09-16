@@ -994,7 +994,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 //						for (ulong i = 0; i < additions.Length; i++)
 //							values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
-//						Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+//						Towel.Algorithms.SortQuick(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
 //					};
 //
 //					if (allowMultithreading)
@@ -1061,7 +1061,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
 //							values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
-//						Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+//						Towel.Algorithms.SortQuick(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
 //					};
 //
 //					if (allowMultithreading)
@@ -1384,7 +1384,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# } #>
 					);
 				if (_defaultCompare<#= j #>) Array.Sort(values);
-				else Sort.Quick(values, this._compare<#= j #>);
+				else SortQuick(values, this._compare<#= j #>);
 				int index = (leaf.Count - 1) / 2;
 				division<#= j #> = values[index];
 			}
@@ -2873,7 +2873,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //							values<#= j #>[i * 2 + 1] = bounds.Max1;
 //						}
 //
-//						Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+//						Towel.Algorithms.SortQuick(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
 //					};
 //
 //					if (allowMultithreading)
@@ -2934,7 +2934,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //						values<#= j #> = new ArrayJagged<Axis<#= j #>>(additions.Length);
 //						for (int i = 0; i < additions.Length; i++)
 //							values<#= j #>[i] = LocateVector(additions[i]).Axis<#= j #>;
-//						Towel.Algorithms.Sort.Merge(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
+//						Towel.Algorithms.SortQuick(this._compare<#= j #>, (int i) => { return values<#= j #>[(ulong)i]; }, (int i, Axis<#= j #> value) => { values<#= j #>[(ulong)i] = value; }, 0, (int)(additions.Length - 1));
 //					};
 //
 //					if (allowMultithreading)

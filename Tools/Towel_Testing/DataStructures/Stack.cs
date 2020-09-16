@@ -2,6 +2,7 @@
 using System;
 using Towel;
 using Towel.DataStructures;
+using static Towel.Syntax;
 
 namespace Towel_Testing.DataStructures
 {
@@ -11,7 +12,7 @@ namespace Towel_Testing.DataStructures
 			where Stack : IStack<T>, new()
 		{
 			{ // push && pop
-				Sort.Shuffle(values);
+				Shuffle(values);
 				IStack<T> stack = new Stack();
 				values.Stepper(x => stack.Push(x));
 				Assert.IsTrue(stack.Count == values.Length);

@@ -2,6 +2,7 @@
 using System;
 using Towel;
 using Towel.DataStructures;
+using static Towel.Syntax;
 
 namespace Towel_Testing.DataStructures
 {
@@ -11,7 +12,7 @@ namespace Towel_Testing.DataStructures
 			where Queue : IQueue<T>, new()
 		{
 			{ // enqueue && dequeue
-				Sort.Shuffle(values);
+				Shuffle(values);
 				IQueue<T> queue = new Queue();
 				values.Stepper(x => queue.Enqueue(x));
 				Assert.IsTrue(queue.Count == values.Length);

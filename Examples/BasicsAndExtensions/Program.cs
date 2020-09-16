@@ -246,14 +246,14 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				// Shuffling (Randomizing)
-				Sort.Shuffle(dataSet);
+				Shuffle(dataSet);
 				Console.Write($"    Shuffle (Randomizing): {string.Join(", ", dataSet.Select(x => x.ToString()))}");
 				Console.WriteLine();
 
 				void ShuffleDataSet()
 				{
 					Console.WriteLine("    shuffling dataSet...");
-					Sort.Shuffle(dataSet);
+					Shuffle(dataSet);
 				}
 
 				string DataSetToString() => string.Join(", ", dataSet.Select(x => x.ToString()));
@@ -261,74 +261,73 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				// Bubble
-				Sort.Bubble(dataSet);
+				SortBubble(dataSet);
 				Console.Write($"    Bubble:    {DataSetToString()}");
 				Console.WriteLine();
 
 				// Selection
 				ShuffleDataSet();
-				Sort.Selection(dataSet);
+				SortSelection(dataSet);
 				Console.Write($"    Selection: {DataSetToString()}");
 				Console.WriteLine();
 
 				// Insertion
 				ShuffleDataSet();
-				Sort.Insertion(dataSet);
+				SortInsertion(dataSet);
 				Console.Write($"    Insertion: {DataSetToString()}");
 				Console.WriteLine();
 
 				// Quick
 				ShuffleDataSet();
-				Sort.Quick(dataSet);
+				SortQuick(dataSet);
 				Console.Write($"    Quick:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Merge
-				Console.WriteLine("    shuffling dataSet...");
-				Sort.Shuffle(dataSet);
-				Sort.Merge(dataSet);
+				ShuffleDataSet();
+				SortMerge(dataSet);
 				Console.Write($"    Merge:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Heap
 				ShuffleDataSet();
-				Sort.Heap(dataSet);
+				SortHeap(dataSet);
 				Console.Write($"    Heap:      {DataSetToString()}");
 				Console.WriteLine();
 
 				// OddEven
 				ShuffleDataSet();
-				Sort.OddEven(dataSet);
+				SortOddEven(dataSet);
 				Console.Write($"    OddEven:   {DataSetToString()}");
 				Console.WriteLine();
 
 				// Slow
 				ShuffleDataSet();
-				Sort.Slow(dataSet);
+				SortSlow(dataSet);
 				Console.Write($"    Slow:      {DataSetToString()}");
 				Console.WriteLine();
 
 				// Cocktail
 				ShuffleDataSet();
-				Sort.Cocktail(dataSet);
+				SortCocktail(dataSet);
 				Console.Write($"    Cocktail:  {DataSetToString()}");
 				Console.WriteLine();
 
 				// Shell
 				ShuffleDataSet();
-				Sort.Shell(dataSet);
+				SortShell(dataSet);
 				Console.Write($"    Shell:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Gnome
 				ShuffleDataSet();
-				Sort.Gnome(dataSet);
+				SortGnome(dataSet);
 				Console.Write($"    Gnome:     {DataSetToString()}");
 				Console.WriteLine();
 
 				// Comb
 				ShuffleDataSet();
-				Sort.Comb(dataSet);
+				SortComb(dataSet);
 				Console.Write($"    Comb:      {DataSetToString()}");
 				Console.WriteLine();
 
