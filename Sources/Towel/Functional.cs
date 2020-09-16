@@ -261,17 +261,15 @@ namespace Towel
 			new SetIndexListArray<T>() { List = list, };
 	}
 
-	#region Need To be Translated
-
 	/// <summary>Compile time resulution to the <see cref="StepStatus.Continue"/> value.</summary>
-	public struct StepContinue : IFunc<StepStatus>
+	public struct StepStatusContinue : IFunc<StepStatus>
 	{
 		/// <summary>Returns <see cref="StepStatus.Continue"/>.</summary>
 		/// <returns><see cref="StepStatus.Continue"/></returns>
 		public StepStatus Do() => Continue;
 	}
 
-	#region 1 Dimensional
+	#region Need To be Translated
 
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
@@ -396,8 +394,6 @@ namespace Towel
 		StepStatus Do(ref T a);
 	}
 
-	#region IStepRefBreak - Built In Structs
-
 	/// <summary>Built in struct for runtime computations.</summary>
 	/// <typeparam name="T">The generic type of the values.</typeparam>
 	public struct StepRefBreakRuntime<T> : IStepRefBreak<T>
@@ -446,91 +442,6 @@ namespace Towel
 		public static implicit operator StepRefBreakFromStepRef<T, Step>(Step step) =>
 			new StepRefBreakFromStepRef<T, Step>() { StepFunction = step, };
 	}
-
-	#endregion
-
-	#endregion
-
-	#region 2 Dimensional
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
-	public delegate void StepRef<T1, T2>(ref T1 a, ref T2 b);
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
-	public delegate void StepRef1<T1, T2>(ref T1 a, T2 b);
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
-	public delegate void StepRef2<T1, T2>(T1 a, ref T2 b);
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
-	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	public delegate StepStatus StepBreak<T1, T2>(T1 a, T2 b);
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
-	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	public delegate StepStatus StepRefBreak<T1, T2>(ref T1 a, ref T2 b);
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
-	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	public delegate StepStatus StepRefBreak1<T1, T2>(ref T1 a, T2 b);
-
-	/// <summary>Delegate for an action to perform while stepping.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="a">The first component of the step.</param>
-	/// <param name="b">The second component of the step.</param>
-	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	public delegate StepStatus StepRefBreak2<T1, T2>(T1 a, ref T2 b);
-
-	/// <summary>Delegate for stepping through a collection.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="step">The action to perform on every step.</param>
-	public delegate void Stepper<T1, T2>(Action<T1, T2> step);
-
-	/// <summary>Delegate for stepping through a collection.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="step">The action to perform on every step.</param>
-	public delegate void StepperRef<T1, T2>(StepRef<T1, T2> step);
-
-	/// <summary>Delegate for stepping through a collection.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="step">The action to perform on every step.</param>
-	public delegate void StepperBreak<T1, T2>(StepBreak<T1, T2> step);
-
-	/// <summary>Delegate for stepping through a collection.</summary>
-	/// <typeparam name="T1">The type of the object to step on.</typeparam>
-	/// <typeparam name="T2">The type of the object to step on.</typeparam>
-	/// <param name="step">The action to perform on every step.</param>
-	public delegate void StepperRefBreak<T1, T2>(StepRefBreak<T1, T2> step);
-
-	#endregion
 
 	#endregion
 }

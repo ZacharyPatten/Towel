@@ -227,23 +227,23 @@ T AbsoluteValue<T>(T a);
 bool EqualityLeniency<T>(T a, T b, T leniency);
 
 // More Numerics
-void FactorPrimes<T>(T a, Step<T> step);
+void FactorPrimes<T>(T a, ...);
 T Factorial<T>(T a);
 T LinearInterpolation<T>(T x, T x0, T x1, T y0, T y1);
 T LeastCommonMultiple<T>(T a, T b, params T[] c);
 T GreatestCommonFactor<T>(T a, T b, params T[] c);
-LinearRegression2D<T>(Stepper<T, T> points, out T slope, out T y_intercept);
+LinearRegression2D<T>(..., out T slope, out T y_intercept);
 
 // Statistics
 T Mean<T>(T a, params T[] b);
 T Median<T>(params T[] values);
 Heap<Link<T, int>> Mode<T>(T a, params T[] b);
-void Range<T>(out T minimum, out T maximum, Stepper<T> stepper);
-T[] Quantiles<T>(int quantiles, Stepper<T> stepper);
-T GeometricMean<T>(Stepper<T> stepper);
-T Variance<T>(Stepper<T> stepper);
-T StandardDeviation<T>(Stepper<T> stepper);
-T MeanDeviation<T>(Stepper<T> stepper);
+void Range<T>(out T minimum, out T maximum, ...);
+T[] Quantiles<T>(int quantiles, ...);
+T GeometricMean<T>(...);
+T Variance<T>(...);
+T StandardDeviation<T>(...);
+T MeanDeviation<T>(...);
 
 // Vectors
 Vector<T> V1 = new Vector<T>(params T[] vector);

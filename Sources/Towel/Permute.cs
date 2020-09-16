@@ -113,7 +113,7 @@ namespace Towel
 			where Action : struct, IAction
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T> =>
-			Recursive<T, Action, StepContinue, Get, Set>(start, end, action, default, get, set);
+			Recursive<T, Action, StepStatusContinue, Get, Set>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="Recursive_XML"/>
 		public static void Recursive<T, Action>(T[] array, Action action = default)
@@ -220,7 +220,7 @@ namespace Towel
 			where Action : struct, IAction
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T> =>
-			Iterative<T, Action, StepContinue, Get, Set>(start, end, action, default, get, set);
+			Iterative<T, Action, StepStatusContinue, Get, Set>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="Iterative_XML"/>
 		public static void Iterative<T, Action>(T[] array, Action action = default)

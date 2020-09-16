@@ -788,7 +788,7 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.IGraph`1.Stepper(Towel.StepBreak{`0,`0})">
+        <member name="M:Towel.DataStructures.IGraph`1.Stepper(System.Func{`0,`0,Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -879,7 +879,7 @@
             <summary>Steps through all the edges in the graph.</summary>
             <param name="step">The action to perform on all the edges in the graph.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(Towel.StepBreak{`0,`0})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(System.Func{`0,`0,Towel.StepStatus})">
             <summary>Steps through all the edges in the graph.</summary>
             <param name="step">The action to perform on all the edges in the graph.</param>
             <returns>The status of the stepper operation.</returns>
@@ -969,7 +969,7 @@
             <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
             <param name="step">The action to perform on every edge in the graph.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(Towel.StepBreak{`0,`0})">
+        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(System.Func{`0,`0,Towel.StepStatus})">
             <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
             <param name="step">The action to perform on every edge in the graph.</param>
             <returns>The status of the iteration.</returns>
@@ -2833,16 +2833,7 @@
             <summary>Steps through all the keys and values.</summary>
             <param name="step">The action to perform on all the keys and values.</param>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepBreak{`0,`1})">
-            <summary>Steps through all the keys and values.</summary>
-            <param name="step">The action to perform on all the keys and values.</param>
-            <returns>The status of the stepper.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepRef1{`0,`1})">
-            <summary>Steps through all the keys and values.</summary>
-            <param name="step">The action to perform on all the keys and values.</param>
-        </member>
-        <member name="M:Towel.DataStructures.IMap`2.Stepper(Towel.StepRefBreak1{`0,`1})">
+        <member name="M:Towel.DataStructures.IMap`2.Stepper(System.Func{`0,`1,Towel.StepStatus})">
             <summary>Steps through all the keys and values.</summary>
             <param name="step">The action to perform on all the keys and values.</param>
             <returns>The status of the stepper.</returns>
@@ -3036,18 +3027,7 @@
             <param name="step">The action to perform on every key and value in the map.</param>
             <runtime>Θ(n * step)</runtime>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepBreak{`0,`1})">
-            <summary>Steps through all the keys and values of the map.</summary>
-            <param name="step">The action to perform on every key and value in the map.</param>
-            <returns>The status of the stepper.</returns>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRef1{`0,`1})">
-            <summary>Steps through all the keys and values of the map.</summary>
-            <param name="step">The action to perform on every key and value in the map.</param>
-            <runtime>Θ(n * step)</runtime>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRefBreak1{`0,`1})">
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(System.Func{`0,`1,Towel.StepStatus})">
             <summary>Steps through all the keys and values of the map.</summary>
             <param name="step">The action to perform on every key and value in the map.</param>
             <returns>The status of the stepper.</returns>
@@ -14990,7 +14970,7 @@
             <summary>Steps through all the additional data in the trie.</summary>
             <param name="step">The step function of the iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.StepBreak{System.Action{System.Action{`0}},`1})">
+        <member name="M:Towel.DataStructures.ITrie`2.Stepper(System.Func{System.Action{System.Action{`0}},`1,Towel.StepStatus})">
             <summary>Steps through all the additional data in the trie.</summary>
             <param name="step">The step function of the iteration.</param>
             <returns>The status of the stepper.</returns>
@@ -15071,7 +15051,7 @@
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{System.Action{System.Action{`0}},`1})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Func{System.Action{System.Action{`0}},`1,Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -16232,10 +16212,10 @@
             <summary>Implicitly gets the setter from a list.</summary>
             <param name="list">The list to get the setter of.</param>
         </member>
-        <member name="T:Towel.StepContinue">
+        <member name="T:Towel.StepStatusContinue">
             <summary>Compile time resulution to the <see cref="F:Towel.StepStatus.Continue"/> value.</summary>
         </member>
-        <member name="M:Towel.StepContinue.Do">
+        <member name="M:Towel.StepStatusContinue.Do">
             <summary>Returns <see cref="F:Towel.StepStatus.Continue"/>.</summary>
             <returns><see cref="F:Towel.StepStatus.Continue"/></returns>
         </member>
@@ -16371,83 +16351,6 @@
         <member name="M:Towel.StepRefBreakFromStepRef`2.op_Implicit(`1)~Towel.StepRefBreakFromStepRef{`0,`1}">
             <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
             <param name="step">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.StepRef`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-        </member>
-        <member name="T:Towel.StepRef1`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-        </member>
-        <member name="T:Towel.StepRef2`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-        </member>
-        <member name="T:Towel.StepBreak`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.StepRefBreak`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.StepRefBreak1`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.StepRefBreak2`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.Stepper`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
-        </member>
-        <member name="T:Towel.StepperRef`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
-        </member>
-        <member name="T:Towel.StepperBreak`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
-        </member>
-        <member name="T:Towel.StepperRefBreak`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
         </member>
         <member name="T:Towel.HammingDistance">
             <summary>Contains algorithms for computing Hamming distances.</summary>
@@ -32316,7 +32219,7 @@
             <param name="a">The angle to compute the quadratic estimated cotangent ratio of.</param>
             <returns>The quadratic estimation of the cotangent ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.LinearRegression2D``1(Towel.Stepper{``0,``0},``0@,``0@)">
+        <member name="M:Towel.Syntax.LinearRegression2D``1(System.Action{System.Action{``0,``0}},``0@,``0@)">
             <summary>Computes the best fit line from a set of points in 2D space [y = slope * x + y_intercept].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="points">The points to compute the best fit line of.</param>

@@ -407,7 +407,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the additional data in the trie.</summary>
 		/// <param name="step">The step function of the iteration.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(StepBreak<Action<Action<T>>, D> step);
+		StepStatus Stepper(Func<Action<Action<T>>, D, StepStatus> step);
 
 		/// <summary>Tries to add a value to the trie.</summary>
 		/// <param name="value">The value to add.</param>
@@ -753,7 +753,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<Action<Action<T>>, D> step)
+		public StepStatus Stepper(Func<Action<Action<T>>, D, StepStatus> step)
 		{
 			StepStatus Stepper(Node node, Action<Action<T>> stepper)
 			{

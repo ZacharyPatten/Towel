@@ -66,14 +66,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the keys and values.</summary>
 		/// <param name="step">The action to perform on all the keys and values.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(StepBreak<T, K> step);
-		/// <summary>Steps through all the keys and values.</summary>
-		/// <param name="step">The action to perform on all the keys and values.</param>
-		void Stepper(StepRef1<T, K> step);
-		/// <summary>Steps through all the keys and values.</summary>
-		/// <param name="step">The action to perform on all the keys and values.</param>
-		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(StepRefBreak1<T, K> step);
+		StepStatus Stepper(Func<T, K, StepStatus> step);
 
 		#endregion
 	}
@@ -714,46 +707,13 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on every key and value in the map.</param>
 		/// <returns>The status of the stepper.</returns>
 		/// <runtime>Θ(n * step)</runtime>
-		public StepStatus Stepper(StepBreak<T, K> step)
+		public StepStatus Stepper(Func<T, K, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node node = _table[i]; !(node is null); node = node.Next)
 				{
 					if (step(node.Value, node.Key) is Break)
-					{
-						return Break;
-					}
-				}
-			}
-			return Continue;
-		}
-
-		/// <summary>Steps through all the keys and values of the map.</summary>
-		/// <param name="step">The action to perform on every key and value in the map.</param>
-		/// <runtime>Θ(n * step)</runtime>
-		public void Stepper(StepRef1<T, K> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
-				{
-					step(ref node.Value, node.Key);
-				}
-			}
-		}
-
-		/// <summary>Steps through all the keys and values of the map.</summary>
-		/// <param name="step">The action to perform on every key and value in the map.</param>
-		/// <returns>The status of the stepper.</returns>
-		/// <runtime>Θ(n * step)</runtime>
-		public StepStatus Stepper(StepRefBreak1<T, K> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
-				{
-					if (step(ref node.Value, node.Key) is Break)
 					{
 						return Break;
 					}

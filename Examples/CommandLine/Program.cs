@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Towel;
 using static Towel.Syntax;
 using static Towel.CommandLine;
 
@@ -23,6 +24,14 @@ namespace CommandLine
 				@"Help C",
 			};
 
+			Console.WriteLine("You are runnning the CommandLine example.");
+			Console.WriteLine("============================================");
+			Console.WriteLine();
+			Console.WriteLine("  Towel can parse the command line arguments for you.");
+			Console.WriteLine("  Just put the [Command] attribute on your static methods");
+			Console.WriteLine("  and call HandleArguments(args) and you are good to go.");
+			Console.WriteLine();
+
 			foreach (string example in example_args)
 			{
 				Console.WriteLine("Example args: " + example);
@@ -35,8 +44,11 @@ namespace CommandLine
 				Console.WriteLine();
 			}
 
-			Console.WriteLine("Press [Enter] To Continue...");
-			Console.ReadLine();
+			Console.WriteLine();
+			Console.WriteLine("============================================");
+			Console.WriteLine("Example Complete...");
+			Console.WriteLine();
+			ConsoleHelper.PromptPressToContinue();
 		}
 
 		/// <summary>This is a test method A.</summary>

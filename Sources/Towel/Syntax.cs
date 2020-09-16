@@ -3343,13 +3343,13 @@ namespace Towel
 		/// <param name="points">The points to compute the best fit line of.</param>
 		/// <param name="slope">The slope of the computed best fit line [y = slope * x + y_intercept].</param>
 		/// <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
-		public static void LinearRegression2D<T>(Stepper<T, T> points, out T slope, out T y_intercept)
+		public static void LinearRegression2D<T>(Action<Action<T, T>> points, out T slope, out T y_intercept)
 		{
 			_ = points ?? throw new ArgumentNullException(nameof(points));
 			int count = 0;
 			T sumx = Constant<T>.Zero;
 			T sumy = Constant<T>.Zero;
-			points((x, y) =>
+			points((T x, T y) =>
 			{
 				sumx = Addition(sumx, x);
 				sumy = Addition(sumy, y);
@@ -3357,14 +3357,14 @@ namespace Towel
 			});
 			if (count < 2)
 			{
-				throw new MathematicsException("Argument Invalid !(" + nameof(points) + ".Count() >= 2)");
+				throw new MathematicsException("At least 3 points must be provided for linear regressions");
 			}
 			T tcount = Convert<int, T>(count);
 			T meanx = Division(sumx, tcount);
 			T meany = Division(sumy, tcount);
 			T variancex = Constant<T>.Zero;
 			T variancey = Constant<T>.Zero;
-			points((x, y) =>
+			points((T x, T y) =>
 			{
 				T offset = Subtraction(x, meanx);
 				variancey = Addition(variancey, Multiplication(offset, Subtraction(y, meany)));

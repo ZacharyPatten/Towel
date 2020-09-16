@@ -45,7 +45,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus Stepper(StepBreak<T, T> step);
+		StepStatus Stepper(Func<T, T, StepStatus> step);
 
 		#endregion
 	}
@@ -245,7 +245,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
 		/// <returns>The status of the stepper operation.</returns>
-		public StepStatus Stepper(StepBreak<T, T> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
+		public StepStatus Stepper(Func<T, T, StepStatus> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -414,7 +414,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
 		/// <returns>The status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<T, T> step) =>
+		public StepStatus Stepper(Func<T, T, StepStatus> step) =>
 			_map.Stepper((edges, a) =>
 				edges.Stepper(b => step(a, b)));
 
