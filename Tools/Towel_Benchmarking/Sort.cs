@@ -17,7 +17,7 @@ namespace Towel_Benchmarking
 			Values = new int[N];
 			Extensions.Iterate(N, i => Values[i] = i);
 			Random random = new Random(7);
-			random.Shuffle(Values);
+			Shuffle(Values, random);
 		}
 
 		[Benchmark] public void SystemArraySort() =>

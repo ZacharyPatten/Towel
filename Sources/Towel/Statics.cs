@@ -5292,12 +5292,18 @@ namespace Towel
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random random = null)
 			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T> =>
+			Shuffle<T, Get, Set, RandomIntNextMinMax>(start, end, get, set, random ?? new Random());
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T, Get, Set, Random>(int start, int end, Get get = default, Set set = default, Random random = default)
+			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
+			where Random : struct, IFunc<int, int, int>
 		{
-			random ??= new Random();
 			for (int i = start; i <= end; i++)
 			{
-				int randomIndex = random.Next(start, end);
+				int randomIndex = random.Do(start, end);
 				// Swap
 				T temp = get.Do(i);
 				set.Do(i, get.Do(randomIndex));
@@ -5306,12 +5312,16 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="Shuffle_XML"/>
-		public static void Shuffle<T>(Span<T> span, Random random = null)
+		public static void Shuffle<T>(Span<T> span, Random random = null) =>
+			Shuffle<T, RandomIntNextMinMax>(span, random ?? new Random());
+
+		/// <inheritdoc cref="Shuffle_XML"/>
+		public static void Shuffle<T, Random>(Span<T> span, Random random = default)
+			where Random : struct, IFunc<int, int, int>
 		{
-			random ??= new Random();
 			for (int i = 0; i < span.Length; i++)
 			{
-				int index = random.Next(span.Length);
+				int index = random.Do(0, span.Length);
 				Swap(ref span[i], ref span[index]);
 			}
 		}
@@ -5354,12 +5364,19 @@ namespace Towel
 		public static void SortBogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
 			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T> =>
+			SortBogo<T, Compare, Get, Set, RandomIntNextMinMax>(start, end, compare, get, set, random ?? new Random());
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T, Compare, Get, Set, Random>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
+			where Random : struct, IFunc<int, int, int>
 		{
-			random ??= new Random();
 			while (!SortBogoCheck(start, end))
 			{
-				Shuffle<T, Get, Set>(start, end, get, set, random);
+				Shuffle<T, Get, Set, Random>(start, end, get, set, random);
 			}
 			bool SortBogoCheck(int start, int end)
 			{
@@ -5376,12 +5393,17 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare>(Span<T> span, Compare compare = default, Random random = null)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			SortBogo<T, Compare, RandomIntNextMinMax>(span, compare, random ?? new Random());
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T, Compare, Random>(Span<T> span, Compare compare = default, Random random = default)
 			where Compare : struct, IFunc<T, T, CompareResult>
+			where Random : struct, IFunc<int, int, int>
 		{
-			random ??= new Random();
 			while (!SortBogoCheck(span))
 			{
-				Shuffle<T>(span, random);
+				Shuffle<T, Random>(span, random);
 			}
 			bool SortBogoCheck(Span<T> span)
 			{

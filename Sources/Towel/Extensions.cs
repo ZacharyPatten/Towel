@@ -810,47 +810,6 @@ namespace Towel
 
 		#endregion
 
-		#region Shuffle
-
-		/// <summary>Sorts values into a randomized order.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="random">The random to shuffle with.</param>
-		/// <param name="array">The array to shuffle.</param>
-		/// <runtime>O(n)</runtime>
-		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(this Random random, T[] array) =>
-			Statics.Shuffle(array, random);
-
-		/// <summary>Sorts values into a randomized order.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <param name="random">The random to shuffle with.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the shuffle.</param>
-		/// <param name="end">The ending index of the shuffle.</param>
-		/// <runtime>O(n)</runtime>
-		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(this Random random, Func<int, T> get, Action<int, T> set, int start, int end) =>
-			Statics.Shuffle(start, end, get, set, random);
-
-		/// <summary>Sorts values into a randomized order.</summary>
-		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Get"></typeparam>
-		/// <typeparam name="Set"></typeparam>
-		/// <param name="random">The random to shuffle with.</param>
-		/// <param name="get">The get function.</param>
-		/// <param name="set">The set function.</param>
-		/// <param name="start">The starting index of the shuffle.</param>
-		/// <param name="end">The ending index of the shuffle.</param>
-		/// <runtime>O(n)</runtime>
-		/// <memory>O(1)</memory>
-		public static void Shuffle<T, Get, Set>(this Random random, Get get, Set set, int start, int end)
-			where Get : struct, IFunc<int, T>
-			where Set : struct, IAction<int, T> =>
-			Statics.Shuffle<T, Get, Set>(start, end, get, set, random);
-
-		#endregion
-
 		#region Choose
 
 		/// <summary>Chooses an item at random (all equally weighted).</summary>

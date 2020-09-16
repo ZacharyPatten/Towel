@@ -15498,38 +15498,6 @@
             <param name="minValue">Inclusive endpoint of the random generation range.</param>
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
         </member>
-        <member name="M:Towel.Extensions.Shuffle``1(System.Random,``0[])">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="random">The random to shuffle with.</param>
-            <param name="array">The array to shuffle.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Extensions.Shuffle``1(System.Random,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Int32,System.Int32)">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <param name="random">The random to shuffle with.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the shuffle.</param>
-            <param name="end">The ending index of the shuffle.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Extensions.Shuffle``3(System.Random,``1,``2,System.Int32,System.Int32)">
-            <summary>Sorts values into a randomized order.</summary>
-            <typeparam name="T">The type of values to sort.</typeparam>
-            <typeparam name="Get"></typeparam>
-            <typeparam name="Set"></typeparam>
-            <param name="random">The random to shuffle with.</param>
-            <param name="get">The get function.</param>
-            <param name="set">The set function.</param>
-            <param name="start">The starting index of the shuffle.</param>
-            <param name="end">The ending index of the shuffle.</param>
-            <runtime>O(n)</runtime>
-            <memory>O(1)</memory>
-        </member>
         <member name="M:Towel.Extensions.Choose``1(System.Random,``0[])">
             <summary>Chooses an item at random (all equally weighted).</summary>
             <typeparam name="T">The generic type of the items to choose from.</typeparam>
@@ -31999,7 +31967,13 @@
         <member name="M:Towel.Statics.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
             <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
+        <member name="M:Towel.Statics.Shuffle``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
+        </member>
         <member name="M:Towel.Statics.Shuffle``1(System.Span{``0},System.Random)">
+            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
+        </member>
+        <member name="M:Towel.Statics.Shuffle``2(System.Span{``0},``1)">
             <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
         <member name="M:Towel.Statics.SortBogo_XML">
@@ -32027,7 +32001,13 @@
         <member name="M:Towel.Statics.SortBogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
             <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
+        <member name="M:Towel.Statics.SortBogo``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
+        </member>
         <member name="M:Towel.Statics.SortBogo``2(System.Span{``0},``1,System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortBogo``3(System.Span{``0},``1,``2)">
             <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
         <member name="M:Towel.Statics.SortSlow_XML">

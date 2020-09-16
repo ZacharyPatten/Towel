@@ -2,6 +2,7 @@
 using System;
 using Towel;
 using Towel.DataStructures;
+using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {
@@ -136,7 +137,7 @@ namespace Towel_Testing.DataStructures
 					values[i] = i;
 				}
 				Random random = new Random(7);
-				random.Shuffle(values);
+				Shuffle(values, random);
 				for (int i = 0; i < count; i++)
 				{
 					Assert.IsTrue(tree.Count == count - i);

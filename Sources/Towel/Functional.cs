@@ -447,5 +447,14 @@ namespace Towel
 			new StepRefBreakFromStepRef<T, Step>() { StepFunction = step, };
 	}
 
+	public struct RandomIntNextMinMax : IFunc<int, int, int>
+	{
+		internal Random _random;
+		public int Do(int a, int b) => _random.Next(a, b);
+
+		public static implicit operator RandomIntNextMinMax(Random random) =>
+			new RandomIntNextMinMax() { _random = random, };
+	}
+
 	#endregion
 }
