@@ -15526,7 +15526,7 @@
             <runtime>O(n)</runtime>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Extensions.Shuffle``1(System.Random,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Int32,System.Int32)">
+        <member name="M:Towel.Extensions.Shuffle``1(System.Random,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Int32,System.Int32)">
             <summary>Sorts values into a randomized order.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <param name="random">The random to shuffle with.</param>
@@ -15715,18 +15715,6 @@
             <param name="end">The non-inclusive ending index.</param>
             <param name="step">The operation to perform on each value of th traversal.</param>
             <returns>The status of the traversal.</returns>
-        </member>
-        <member name="M:Towel.Extensions.WrapGetIndex``1(``0[])">
-            <summary>Converts the get indexer of an IList to a delegate.</summary>
-            <typeparam name="T">The generic type of the IList.</typeparam>
-            <param name="array">The array to retrieve the get delegate of.</param>
-            <returns>A delegate for getting an indexed value in the IList.</returns>
-        </member>
-        <member name="M:Towel.Extensions.WrapSetIndex``1(``0[])">
-            <summary>Converts the set indexer of an IList to a delegate.</summary>
-            <typeparam name="T">The generic type of the IList.</typeparam>
-            <param name="array">The array to retrieve the set delegate of.</param>
-            <returns>A delegate for setting an indexed value in the IList.</returns>
         </member>
         <member name="M:Towel.Extensions.BuildArray``1(System.Int32,System.Func{System.Int32,``0})">
             <summary>Builds an array from a size and initialization delegate.</summary>
@@ -15931,6 +15919,16 @@
         <member name="M:Towel.IAction`2.Do(`0,`1)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
+        <member name="T:Towel.ActionRuntime`2">
+            <summary>Built in struct for runtime computations.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`2.Do(`0,`1)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`2.op_Implicit(System.Action{`0,`1})~Towel.ActionRuntime{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="action">The runtime delegate.</param>
+        </member>
         <member name="T:Towel.IAction`3">
             <summary>Interface for a compile time delegate.</summary>
         </member>
@@ -16022,6 +16020,60 @@
             <param name="b">The second operand of the equality check.</param>
             <returns>True if equal; False if not.</returns>
         </member>
+        <member name="T:Towel.GetIndexArray`1">
+            <summary>Built in GetIndex struct for arrays.</summary>
+            <typeparam name="T">The generic type of the value to get.</typeparam>
+        </member>
+        <member name="M:Towel.GetIndexArray`1.Do(System.Int32)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.GetIndexArray`1.op_Implicit(`0[])~Towel.GetIndexArray{`0}">
+            <summary>Implicitly gets the getter from an array.</summary>
+            <param name="array">The array to get the getter of.</param>
+        </member>
+        <member name="T:Towel.GetIndexListArray`1">
+            <summary>Built in GetIndex struct for lists.</summary>
+            <typeparam name="T">The generic type of the value to get.</typeparam>
+        </member>
+        <member name="M:Towel.GetIndexListArray`1.Do(System.Int32)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.GetIndexListArray`1.op_Implicit(Towel.DataStructures.ListArray{`0})~Towel.GetIndexListArray{`0}">
+            <summary>Implicitly gets the getter from a list.</summary>
+            <param name="list">The list to get the getter of.</param>
+        </member>
+        <member name="T:Towel.GetIndexString">
+            <summary>Built in GetIndex struct for lists.</summary>
+        </member>
+        <member name="M:Towel.GetIndexString.Do(System.Int32)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.GetIndexString.op_Implicit(System.String)~Towel.GetIndexString">
+            <summary>Implicitly gets the getter from a list.</summary>
+            <param name="string">The string to get the indexer of.</param>
+        </member>
+        <member name="T:Towel.SetIndexArray`1">
+            <summary>Built in SetIndex struct for arrays.</summary>
+            <typeparam name="T">The generic type of the value to set.</typeparam>
+        </member>
+        <member name="M:Towel.SetIndexArray`1.Do(System.Int32,`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.SetIndexArray`1.op_Implicit(`0[])~Towel.SetIndexArray{`0}">
+            <summary>Implicitly gets the setter from an array.</summary>
+            <param name="array">The array to get the setter of.</param>
+        </member>
+        <member name="T:Towel.SetIndexListArray`1">
+            <summary>Built in SetIndex struct for lists.</summary>
+            <typeparam name="T">The generic type of the value to set.</typeparam>
+        </member>
+        <member name="M:Towel.SetIndexListArray`1.Do(System.Int32,`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.SetIndexListArray`1.op_Implicit(Towel.DataStructures.ListArray{`0})~Towel.SetIndexListArray{`0}">
+            <summary>Implicitly gets the setter from a list.</summary>
+            <param name="list">The list to get the setter of.</param>
+        </member>
         <member name="T:Towel.HammingDistance">
             <summary>Contains algorithms for computing Hamming distances.</summary>
         </member>
@@ -16083,76 +16135,6 @@
             <typeparam name="T">The generic type of the hash operation.</typeparam>
             <param name="value">The item to get the hash code of.</param>
             <returns>The computed hash code using the base GetHashCode instance method.</returns>
-        </member>
-        <member name="T:Towel.SetIndex`1">
-            <summary>Delegate for setting a value at a specified index.</summary>
-            <param name="index">The index to set the value of.</param>
-            <param name="value">The value to set at the given index.</param>
-        </member>
-        <member name="T:Towel.GetIndexArray`1">
-            <summary>Built in GetIndex struct for arrays.</summary>
-            <typeparam name="T">The generic type of the value to get.</typeparam>
-        </member>
-        <member name="M:Towel.GetIndexArray`1.Do(System.Int32)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.GetIndexArray`1.op_Implicit(`0[])~Towel.GetIndexArray{`0}">
-            <summary>Implicitly gets the getter from an array.</summary>
-            <param name="array">The array to get the getter of.</param>
-        </member>
-        <member name="T:Towel.GetIndexListArray`1">
-            <summary>Built in GetIndex struct for lists.</summary>
-            <typeparam name="T">The generic type of the value to get.</typeparam>
-        </member>
-        <member name="M:Towel.GetIndexListArray`1.Do(System.Int32)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.GetIndexListArray`1.op_Implicit(Towel.DataStructures.ListArray{`0})~Towel.GetIndexListArray{`0}">
-            <summary>Implicitly gets the getter from a list.</summary>
-            <param name="list">The list to get the getter of.</param>
-        </member>
-        <member name="T:Towel.GetIndexString">
-            <summary>Built in GetIndex struct for lists.</summary>
-        </member>
-        <member name="M:Towel.GetIndexString.Do(System.Int32)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.GetIndexString.op_Implicit(System.String)~Towel.GetIndexString">
-            <summary>Implicitly gets the getter from a list.</summary>
-            <param name="string">The string to get the indexer of.</param>
-        </member>
-        <member name="T:Towel.SetIndexRuntime`1">
-            <summary>Built in SetIndex struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the value to set.</typeparam>
-        </member>
-        <member name="M:Towel.SetIndexRuntime`1.Do(System.Int32,`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.SetIndexRuntime`1.op_Implicit(Towel.SetIndex{`0})~Towel.SetIndexRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="setIndex">The runtime SetIndex delegate.</param>
-        </member>
-        <member name="T:Towel.SetIndexArray`1">
-            <summary>Built in SetIndex struct for arrays.</summary>
-            <typeparam name="T">The generic type of the value to set.</typeparam>
-        </member>
-        <member name="M:Towel.SetIndexArray`1.Do(System.Int32,`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.SetIndexArray`1.op_Implicit(`0[])~Towel.SetIndexArray{`0}">
-            <summary>Implicitly gets the setter from an array.</summary>
-            <param name="array">The array to get the setter of.</param>
-        </member>
-        <member name="T:Towel.SetIndexListArray`1">
-            <summary>Built in SetIndex struct for lists.</summary>
-            <typeparam name="T">The generic type of the value to set.</typeparam>
-        </member>
-        <member name="M:Towel.SetIndexListArray`1.Do(System.Int32,`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.SetIndexListArray`1.op_Implicit(Towel.DataStructures.ListArray{`0})~Towel.SetIndexListArray{`0}">
-            <summary>Implicitly gets the setter from a list.</summary>
-            <param name="list">The list to get the setter of.</param>
         </member>
         <member name="T:Towel.LevenshteinDistance">
             <summary>Contains algorithms for computing Levenshtein distances.</summary>
@@ -30474,7 +30456,7 @@
         <member name="M:Towel.Sort.Bubble``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Bubble``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Bubble_XML"/>
         </member>
         <member name="M:Towel.Sort.Bubble``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30502,7 +30484,7 @@
         <member name="M:Towel.Sort.Selection``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
-        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Selection``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Selection_XML"/>
         </member>
         <member name="M:Towel.Sort.Selection``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30530,7 +30512,7 @@
         <member name="M:Towel.Sort.Insertion``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
-        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Insertion``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Insertion_XML"/>
         </member>
         <member name="M:Towel.Sort.Insertion``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30558,7 +30540,7 @@
         <member name="M:Towel.Sort.Quick``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
-        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Quick``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Quick_XML"/>
         </member>
         <member name="M:Towel.Sort.Quick``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30586,7 +30568,7 @@
         <member name="M:Towel.Sort.Merge``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
-        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Merge``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Merge_XML"/>
         </member>
         <member name="M:Towel.Sort.Merge``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30614,7 +30596,7 @@
         <member name="M:Towel.Sort.Heap``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
-        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Heap``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Heap_XML"/>
         </member>
         <member name="M:Towel.Sort.Heap``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30642,7 +30624,7 @@
         <member name="M:Towel.Sort.OddEven``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
-        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.OddEven``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.OddEven_XML"/>
         </member>
         <member name="M:Towel.Sort.OddEven``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30671,7 +30653,7 @@
         <member name="M:Towel.Sort.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
             <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
         </member>
-        <member name="M:Towel.Sort.Shuffle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Random)">
+        <member name="M:Towel.Sort.Shuffle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Random)">
             <inheritdoc cref="M:Towel.Sort.Shuffle_XML"/>
         </member>
         <member name="M:Towel.Sort.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
@@ -30699,7 +30681,7 @@
         <member name="M:Towel.Sort.Bogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
-        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
+        <member name="M:Towel.Sort.Bogo``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
             <inheritdoc cref="M:Towel.Sort.Bogo_XML"/>
         </member>
         <member name="M:Towel.Sort.Bogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
@@ -30724,7 +30706,7 @@
         <member name="M:Towel.Sort.Slow``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
-        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Slow``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Slow_XML"/>
         </member>
         <member name="M:Towel.Sort.Slow``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30749,7 +30731,7 @@
         <member name="M:Towel.Sort.Gnome``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
-        <member name="M:Towel.Sort.Gnome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Gnome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Gnome_XML"/>
         </member>
         <member name="M:Towel.Sort.Gnome``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30774,7 +30756,7 @@
         <member name="M:Towel.Sort.Comb``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
-        <member name="M:Towel.Sort.Comb``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Comb``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Comb_XML"/>
         </member>
         <member name="M:Towel.Sort.Comb``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30799,7 +30781,7 @@
         <member name="M:Towel.Sort.Shell``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
-        <member name="M:Towel.Sort.Shell``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Shell``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Shell_XML"/>
         </member>
         <member name="M:Towel.Sort.Shell``4(System.Int32,System.Int32,``1,``2,``3)">
@@ -30824,7 +30806,7 @@
         <member name="M:Towel.Sort.Cocktail``2(``0[],System.Int32,System.Int32,``1)">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
-        <member name="M:Towel.Sort.Cocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},Towel.SetIndex{``0},System.Func{``0,``0,Towel.CompareResult})">
+        <member name="M:Towel.Sort.Cocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Sort.Cocktail_XML"/>
         </member>
         <member name="M:Towel.Sort.Cocktail``4(System.Int32,System.Int32,``1,``2,``3)">

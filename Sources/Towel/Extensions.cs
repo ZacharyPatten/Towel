@@ -830,7 +830,7 @@ namespace Towel
 		/// <param name="end">The ending index of the shuffle.</param>
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(this Random random, Func<int, T> get, SetIndex<T> set, int start, int end) =>
+		public static void Shuffle<T>(this Random random, Func<int, T> get, Action<int, T> set, int start, int end) =>
 			Sort.Shuffle(start, end, get, set, random);
 
 		/// <summary>Sorts values into a randomized order.</summary>
@@ -1146,20 +1146,6 @@ namespace Towel
 		}
 
 		#endregion
-
-		/// <summary>Converts the get indexer of an IList to a delegate.</summary>
-		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="array">The array to retrieve the get delegate of.</param>
-		/// <returns>A delegate for getting an indexed value in the IList.</returns>
-		public static Func<int, T> WrapGetIndex<T>(this T[] array) =>
-			index => array[index];
-
-		/// <summary>Converts the set indexer of an IList to a delegate.</summary>
-		/// <typeparam name="T">The generic type of the IList.</typeparam>
-		/// <param name="array">The array to retrieve the set delegate of.</param>
-		/// <returns>A delegate for setting an indexed value in the IList.</returns>
-		public static SetIndex<T> WrapSetIndex<T>(this T[] array) =>
-			(index, value) => array[index] = value;
 
 		/// <summary>Builds an array from a size and initialization delegate.</summary>
 		/// <typeparam name="T">The generic type of the array.</typeparam>
