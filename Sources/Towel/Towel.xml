@@ -30098,17 +30098,6 @@
         <member name="M:Towel.Permute.Iterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
             <inheritdoc cref="M:Towel.Permute.Iterative_XML"/>
         </member>
-        <member name="T:Towel.PredicateRuntime`1">
-            <summary>Built in Compare struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values to compare.</typeparam>
-        </member>
-        <member name="M:Towel.PredicateRuntime`1.Do(`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.PredicateRuntime`1.op_Implicit(System.Func{`0,System.Boolean})~Towel.PredicateRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="predicate">The runtime Step delegate.</param>
-        </member>
         <member name="T:Towel.Search">
             <summary>Static class taht constains algorithms for searching.</summary>
         </member>
