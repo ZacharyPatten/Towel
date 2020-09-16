@@ -14,7 +14,7 @@ namespace Towel_Benchmarking
 		[IterationSetup] public void IterationSetup()
 		{
 			Values = new int[N];
-			Stepper.Iterate(N, i => Values[i] = i);
+			Extensions.Iterate(N, i => Values[i] = i);
 			Random random = new Random(7);
 			random.Shuffle(Values);
 		}

@@ -206,7 +206,7 @@ namespace Mathematics
 			bool noModes = true;
 			Console.Write("    Mode(data): ");
 			Mode(data,
-				Step.Gaps<double>(
+				Extensions.Gaps<double>(
 					x => { Console.Write(Format(x)); noModes = false; },
 					x => Console.Write(", ")));
 			if (noModes)

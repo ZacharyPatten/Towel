@@ -28,9 +28,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IRedBlackTree<int> tree = new RedBlackTreeLinked<int>();
-				Stepper.Iterate(100, i => tree.TryAdd(i));
+				Extensions.Iterate(100, i => tree.TryAdd(i));
 				Assert.IsTrue(tree.Count == 100);
-				Stepper.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
+				Extensions.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
 			}
 		}
 
@@ -51,9 +51,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IRedBlackTree<int> tree = new RedBlackTreeLinked<int>();
-				Stepper.Iterate(100, i => tree.Add(i));
+				Extensions.Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count == 100);
-				Stepper.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
+				Extensions.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
 			}
 		}
 
@@ -80,9 +80,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IRedBlackTree<int> tree = new RedBlackTreeLinked<int>();
-				Stepper.Iterate(100, i => tree.Add(i));
+				Extensions.Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count == 100);
-				Stepper.Iterate(100, i => tree.TryRemove(i));
+				Extensions.Iterate(100, i => tree.TryRemove(i));
 				Assert.IsTrue(tree.Count == 0);
 			}
 		}
@@ -110,9 +110,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IRedBlackTree<int> tree = new RedBlackTreeLinked<int>();
-				Stepper.Iterate(100, i => tree.Add(i));
+				Extensions.Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count == 100);
-				Stepper.Iterate(100, i => tree.Remove(i));
+				Extensions.Iterate(100, i => tree.Remove(i));
 				Assert.IsTrue(tree.Count == 0);
 			}
 		}

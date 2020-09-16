@@ -33,7 +33,7 @@ namespace Towel_Testing
 			{
 				Random random = new Random(randomSeed);
 				int[] array = new int[sizeAdjusted];
-				Stepper.Iterate(sizeAdjusted, i => array[i] = i);
+				Extensions.Iterate(sizeAdjusted, i => array[i] = i);
 				Sort.Shuffle(array, random);
 				Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
 				algorithm(array, Comparison);
@@ -60,7 +60,7 @@ namespace Towel_Testing
 		{
 			Random random = new Random(randomSeed);
 			int[] array = new int[size];
-			Stepper.Iterate(size, i => array[i] = i);
+			Extensions.Iterate(size, i => array[i] = i);
 			Sort.Shuffle(array, random);
 			Assert.IsFalse(IsLeastToGreatest(array));
 		}

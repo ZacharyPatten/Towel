@@ -29,7 +29,7 @@ namespace Towel_Testing.DataStructures
 		{
 			const int count = 10000;
 			int[] values = new int[count];
-			Stepper.Iterate(count, i => values[i] = i);
+			Extensions.Iterate(count, i => values[i] = i);
 			Push_Pop_Testing<int, Stack>(values);
 		}
 
@@ -38,7 +38,7 @@ namespace Towel_Testing.DataStructures
 		{
 			const int count = 10000;
 			string[] values = new string[count];
-			Stepper.Iterate(count, i => values[i] = i.ToString());
+			Extensions.Iterate(count, i => values[i] = i.ToString());
 			Push_Pop_Testing<string, Stack>(values);
 		}
 

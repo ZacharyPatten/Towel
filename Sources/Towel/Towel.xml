@@ -15891,6 +15891,145 @@
             <param name="range">The <see cref="T:System.Range"/> to convert int a <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</param>
             <returns>The resulting <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the conversion.</returns>
         </member>
+        <member name="M:Towel.Extensions.Gaps``1(System.Action{``0},System.Action{``0})">
+            <summary>Adds a step to the gaps (in-betweens) of another step funtion.</summary>
+            <typeparam name="T">The generic type of the step function.</typeparam>
+            <param name="step">The step to add a gap step to.</param>
+            <param name="gapStep">The step to perform in the gaps.</param>
+            <returns>The combined step + gapStep function.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Convert``2(Towel.Stepper{``0},System.Func{``0,``1})">
+            <summary>Converts the values in this stepper to another type.</summary>
+            <typeparam name="A">The generic type of the values of the original stepper.</typeparam>
+            <typeparam name="B">The generic type of the values to convert the stepper into.</typeparam>
+            <param name="stepper">The stepper to convert.</param>
+            <param name="func">The conversion function.</param>
+            <returns>The converted stepper.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Append``1(Towel.Stepper{``0},``0[])">
+            <summary>Appends values to the stepper.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to append to.</param>
+            <param name="values">The values to append to the stepper.</param>
+            <returns>The resulting stepper with the appended values.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Build``1(``0[])">
+            <summary>Builds a stepper from values.</summary>
+            <typeparam name="T">The generic type of the stepper to build.</typeparam>
+            <param name="values">The values to build the stepper from.</param>
+            <returns>The resulting stepper function for the provided values.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Concat``1(Towel.Stepper{``0},Towel.Stepper{``0}[])">
+            <summary>Concatenates steppers.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The first stepper of the contactenation.</param>
+            <param name="otherSteppers">The other steppers of the concatenation.</param>
+            <returns>The concatenated steppers as a single stepper.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Where``1(Towel.Stepper{``0},System.Func{``0,System.Boolean})">
+            <summary>Filters a stepper using a where predicate.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to filter.</param>
+            <param name="predicate">The predicate of the where filter.</param>
+            <returns>The filtered stepper.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Iterate(System.Int32,System.Action{System.Int32})">
+            <summary>Steps through a set number of integers.</summary>
+            <param name="iterations">The number of times to iterate.</param>
+            <param name="step">The step function.</param>
+        </member>
+        <member name="M:Towel.Extensions.ToStepper``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>Converts an IEnumerable into a stepper delegate./></summary>
+            <typeparam name="T">The generic type being iterated.</typeparam>
+            <param name="iEnumerable">The IEnumerable to convert.</param>
+            <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ToStepperBreak``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>Converts an IEnumerable into a stepper delegate./></summary>
+            <typeparam name="T">The generic type being iterated.</typeparam>
+            <param name="iEnumerable">The IEnumerable to convert.</param>
+            <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ToStepperRef``1(``0[])">
+            <summary>Converts an array into a stepper delegate./></summary>
+            <typeparam name="T">The generic type being iterated.</typeparam>
+            <param name="array">The array to convert.</param>
+            <returns>The stepper delegate comparable to the array provided.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ToStepperRefBreak``1(``0[])">
+            <summary>Converts an array into a stepper delegate./></summary>
+            <typeparam name="T">The generic type being iterated.</typeparam>
+            <param name="array">The array to convert.</param>
+            <returns>The stepper delegate comparable to the array provided.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ToArray``1(Towel.Stepper{``0})">
+            <summary>Converts the stepper into an array.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to convert.</param>
+            <returns>The array created from the stepper.</returns>
+        </member>
+        <member name="M:Towel.Extensions.Count``1(Towel.Stepper{``0})">
+            <summary>Counts the number of items in the stepper.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to count the items of.</param>
+            <returns>The number of items in the stepper.</returns>
+        </member>
+        <member name="M:Towel.Extensions.EveryNth``1(Towel.Stepper{``0},System.Int32)">
+            <summary>Reduces the stepper to be every nth value.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to reduce.</param>
+            <param name="nth">Represents the values to reduce the stepper to; "5" means every 5th value.</param>
+            <returns>The reduced stepper function.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ContainsDuplicates``1(Towel.StepperBreak{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Determines if the data contains any duplicates.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="stepper">The stepper function for the data.</param>
+            <param name="equate">An equality function for the data</param>
+            <param name="hash">A hashing function for the data.</param>
+            <returns>True if the data contains duplicates. False if not.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ContainsDuplicates``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Determines if the data contains any duplicates.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="stepper">The stepper function for the data.</param>
+            <param name="equate">An equality function for the data</param>
+            <param name="hash">A hashing function for the data.</param>
+            <returns>True if the data contains duplicates. False if not.</returns>
+            <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
+        </member>
+        <member name="M:Towel.Extensions.ContainsDuplicates``1(Towel.StepperBreak{``0})">
+            <summary>Determines if the data contains any duplicates.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="stepper">The stepper function for the data.</param>
+            <returns>True if the data contains duplicates. False if not.</returns>
+        </member>
+        <member name="M:Towel.Extensions.ContainsDuplicates``1(Towel.Stepper{``0})">
+            <summary>Determines if the data contains any duplicates.</summary>
+            <typeparam name="T">The generic type of the data.</typeparam>
+            <param name="stepper">The stepper function for the data.</param>
+            <returns>True if the data contains duplicates. False if not.</returns>
+            <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
+        </member>
+        <member name="M:Towel.Extensions.Any``1(Towel.Stepper{``0},System.Predicate{``0})">
+            <summary>Determines if the stepper contains any of the predicated values.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to determine if any predicated values exist.</param>
+            <param name="where">The predicate.</param>
+            <returns>True if any of the predicated values exist or </returns>
+        </member>
+        <member name="M:Towel.Extensions.Any``1(Towel.StepperBreak{``0},System.Predicate{``0})">
+            <summary>Determines if the stepper contains any of the predicated values.</summary>
+            <typeparam name="T">The generic type of the stepper.</typeparam>
+            <param name="stepper">The stepper to determine if any predicated values exist.</param>
+            <param name="where">The predicate.</param>
+            <returns>True if any of the predicated values exist or </returns>
+        </member>
+        <member name="M:Towel.Extensions.ConcatToString(Towel.Stepper{System.Char})">
+            <summary>Converts a stepper into a string of the concatenated chars.</summary>
+            <param name="stepper">The stepper to concatenate the values into a string.</param>
+            <returns>The string of the concatenated chars.</returns>
+        </member>
         <member name="T:Towel.IAction">
             <summary>Interface for a compile time delegate.</summary>
         </member>
@@ -31038,151 +31177,6 @@
             <typeparam name="T1">The type of the object to step on.</typeparam>
             <typeparam name="T2">The type of the object to step on.</typeparam>
             <param name="step">The action to perform on every step.</param>
-        </member>
-        <member name="T:Towel.Step">
-            <summary>Extension methods.</summary>
-        </member>
-        <member name="M:Towel.Step.Gaps``1(System.Action{``0},System.Action{``0})">
-            <summary>Adds a step to the gaps (in-betweens) of another step funtion.</summary>
-            <typeparam name="T">The generic type of the step function.</typeparam>
-            <param name="step">The step to add a gap step to.</param>
-            <param name="gapStep">The step to perform in the gaps.</param>
-            <returns>The combined step + gapStep function.</returns>
-        </member>
-        <member name="T:Towel.Stepper">
-            <summary>Extension methods.</summary>
-        </member>
-        <member name="M:Towel.Stepper.Convert``2(Towel.Stepper{``0},System.Func{``0,``1})">
-            <summary>Converts the values in this stepper to another type.</summary>
-            <typeparam name="A">The generic type of the values of the original stepper.</typeparam>
-            <typeparam name="B">The generic type of the values to convert the stepper into.</typeparam>
-            <param name="stepper">The stepper to convert.</param>
-            <param name="func">The conversion function.</param>
-            <returns>The converted stepper.</returns>
-        </member>
-        <member name="M:Towel.Stepper.Append``1(Towel.Stepper{``0},``0[])">
-            <summary>Appends values to the stepper.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The stepper to append to.</param>
-            <param name="values">The values to append to the stepper.</param>
-            <returns>The resulting stepper with the appended values.</returns>
-        </member>
-        <member name="M:Towel.Stepper.Build``1(``0[])">
-            <summary>Builds a stepper from values.</summary>
-            <typeparam name="T">The generic type of the stepper to build.</typeparam>
-            <param name="values">The values to build the stepper from.</param>
-            <returns>The resulting stepper function for the provided values.</returns>
-        </member>
-        <member name="M:Towel.Stepper.Concat``1(Towel.Stepper{``0},Towel.Stepper{``0}[])">
-            <summary>Concatenates steppers.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The first stepper of the contactenation.</param>
-            <param name="otherSteppers">The other steppers of the concatenation.</param>
-            <returns>The concatenated steppers as a single stepper.</returns>
-        </member>
-        <member name="M:Towel.Stepper.Where``1(Towel.Stepper{``0},System.Func{``0,System.Boolean})">
-            <summary>Filters a stepper using a where predicate.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The stepper to filter.</param>
-            <param name="predicate">The predicate of the where filter.</param>
-            <returns>The filtered stepper.</returns>
-        </member>
-        <member name="M:Towel.Stepper.Iterate(System.Int32,System.Action{System.Int32})">
-            <summary>Steps through a set number of integers.</summary>
-            <param name="iterations">The number of times to iterate.</param>
-            <param name="step">The step function.</param>
-        </member>
-        <member name="M:Towel.Stepper.ToStepper``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>Converts an IEnumerable into a stepper delegate./></summary>
-            <typeparam name="T">The generic type being iterated.</typeparam>
-            <param name="iEnumerable">The IEnumerable to convert.</param>
-            <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-        </member>
-        <member name="M:Towel.Stepper.ToStepperBreak``1(System.Collections.Generic.IEnumerable{``0})">
-            <summary>Converts an IEnumerable into a stepper delegate./></summary>
-            <typeparam name="T">The generic type being iterated.</typeparam>
-            <param name="iEnumerable">The IEnumerable to convert.</param>
-            <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-        </member>
-        <member name="M:Towel.Stepper.ToStepperRef``1(``0[])">
-            <summary>Converts an array into a stepper delegate./></summary>
-            <typeparam name="T">The generic type being iterated.</typeparam>
-            <param name="array">The array to convert.</param>
-            <returns>The stepper delegate comparable to the array provided.</returns>
-        </member>
-        <member name="M:Towel.Stepper.ToStepperRefBreak``1(``0[])">
-            <summary>Converts an array into a stepper delegate./></summary>
-            <typeparam name="T">The generic type being iterated.</typeparam>
-            <param name="array">The array to convert.</param>
-            <returns>The stepper delegate comparable to the array provided.</returns>
-        </member>
-        <member name="M:Towel.Stepper.ToArray``1(Towel.Stepper{``0})">
-            <summary>Converts the stepper into an array.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The stepper to convert.</param>
-            <returns>The array created from the stepper.</returns>
-        </member>
-        <member name="M:Towel.Stepper.Count``1(Towel.Stepper{``0})">
-            <summary>Counts the number of items in the stepper.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The stepper to count the items of.</param>
-            <returns>The number of items in the stepper.</returns>
-        </member>
-        <member name="M:Towel.Stepper.EveryNth``1(Towel.Stepper{``0},System.Int32)">
-            <summary>Reduces the stepper to be every nth value.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The stepper to reduce.</param>
-            <param name="nth">Represents the values to reduce the stepper to; "5" means every 5th value.</param>
-            <returns>The reduced stepper function.</returns>
-        </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
-            <summary>Determines if the data contains any duplicates.</summary>
-            <typeparam name="T">The generic type of the data.</typeparam>
-            <param name="stepper">The stepper function for the data.</param>
-            <param name="equate">An equality function for the data</param>
-            <param name="hash">A hashing function for the data.</param>
-            <returns>True if the data contains duplicates. False if not.</returns>
-        </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
-            <summary>Determines if the data contains any duplicates.</summary>
-            <typeparam name="T">The generic type of the data.</typeparam>
-            <param name="stepper">The stepper function for the data.</param>
-            <param name="equate">An equality function for the data</param>
-            <param name="hash">A hashing function for the data.</param>
-            <returns>True if the data contains duplicates. False if not.</returns>
-            <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-        </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.StepperBreak{``0})">
-            <summary>Determines if the data contains any duplicates.</summary>
-            <typeparam name="T">The generic type of the data.</typeparam>
-            <param name="stepper">The stepper function for the data.</param>
-            <returns>True if the data contains duplicates. False if not.</returns>
-        </member>
-        <member name="M:Towel.Stepper.ContainsDuplicates``1(Towel.Stepper{``0})">
-            <summary>Determines if the data contains any duplicates.</summary>
-            <typeparam name="T">The generic type of the data.</typeparam>
-            <param name="stepper">The stepper function for the data.</param>
-            <returns>True if the data contains duplicates. False if not.</returns>
-            <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-        </member>
-        <member name="M:Towel.Stepper.Any``1(Towel.Stepper{``0},System.Predicate{``0})">
-            <summary>Determines if the stepper contains any of the predicated values.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The stepper to determine if any predicated values exist.</param>
-            <param name="where">The predicate.</param>
-            <returns>True if any of the predicated values exist or </returns>
-        </member>
-        <member name="M:Towel.Stepper.Any``1(Towel.StepperBreak{``0},System.Predicate{``0})">
-            <summary>Determines if the stepper contains any of the predicated values.</summary>
-            <typeparam name="T">The generic type of the stepper.</typeparam>
-            <param name="stepper">The stepper to determine if any predicated values exist.</param>
-            <param name="where">The predicate.</param>
-            <returns>True if any of the predicated values exist or </returns>
-        </member>
-        <member name="M:Towel.Stepper.ConcatToString(Towel.Stepper{System.Char})">
-            <summary>Converts a stepper into a string of the concatenated chars.</summary>
-            <param name="stepper">The stepper to concatenate the values into a string.</param>
-            <returns>The string of the concatenated chars.</returns>
         </member>
         <member name="T:Towel.Syntax">
             <summary>Towel syntax.</summary>

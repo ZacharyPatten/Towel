@@ -28,7 +28,7 @@ namespace Towel_Testing.DataStructures
 		{
 			const int count = 100000;
 			int[] values = new int[count];
-			Stepper.Iterate(count, i => values[i] = i);
+			Extensions.Iterate(count, i => values[i] = i);
 			Enqueue_Dequeue_Testing<int, Queue>(values);
 		}
 
@@ -37,7 +37,7 @@ namespace Towel_Testing.DataStructures
 		{
 			const int count = 100000;
 			string[] values = new string[count];
-			Stepper.Iterate(count, i => values[i] = i.ToString());
+			Extensions.Iterate(count, i => values[i] = i.ToString());
 			Enqueue_Dequeue_Testing<string, Queue>(values);
 		}
 

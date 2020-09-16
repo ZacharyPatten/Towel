@@ -28,7 +28,7 @@ namespace Towel_Documenting
 			{
 				Meta.LoadXmlDocumentation(reader);
 			}
-			Assembly assembly = typeof(Towel.Stepper).Assembly;
+			Assembly assembly = typeof(Towel.Extensions).Assembly;
 
 			#region Build Namespace Tree
 
