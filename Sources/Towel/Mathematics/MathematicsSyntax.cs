@@ -1,4 +1,5 @@
-﻿using static Towel.Syntax;
+﻿using System;
+using static Towel.Syntax;
 
 namespace Towel.Mathematics
 {
@@ -39,7 +40,7 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper of the values to add.</param>
 		/// <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
-		public static T Σ<T>(Stepper<T> stepper) =>
+		public static T Σ<T>(Action<Action<T>> stepper) =>
 			Addition(stepper);
 
 		#endregion
@@ -78,7 +79,7 @@ namespace Towel.Mathematics
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
-		public static T Π<T>(Stepper<T> stepper) =>
+		public static T Π<T>(Action<Action<T>> stepper) =>
 			Multiplication(stepper);
 
 		#endregion

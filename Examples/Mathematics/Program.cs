@@ -29,7 +29,7 @@ namespace Mathematics
 			Fraction<short> clampB = new Fraction<short>(7, 12);   //    7 / 12
 			Fraction<short> clampC = new Fraction<short>(14, 15);  //   14 / 15
 			double[] values = new double[4];
-			Stepper<double> valueStepper = values.ToStepper();
+			Action<Action<double>> valueStepper = values.ToStepper();
 			values.Format(x => random.NextDouble());
 
 			// Examples
@@ -102,10 +102,10 @@ namespace Mathematics
 			int random8 = random.Next(1, 100000);
 			int[] randomInts1 = new int[3];
 			randomInts1.Format(x => random.Next(1, 500) * 2);
-			Stepper<int> randomInts1Stepper = randomInts1.ToStepper();
+			Action<Action<int>> randomInts1Stepper = randomInts1.ToStepper();
 			int[] randomInts2 = new int[3];
 			randomInts2.Format(x => random.Next(1, 500) * 2);
-			Stepper<int> randomInts2Stepper = randomInts2.ToStepper();
+			Action<Action<int>> randomInts2Stepper = randomInts2.ToStepper();
 
 			bool isPrime = IsPrime(random1);
 			Console.WriteLine("    IsPrime(" + random1 + "): " + isPrime);
@@ -184,7 +184,7 @@ namespace Mathematics
 			Console.WriteLine("    data: [" + string.Join(", ", dataArray.Select(x => Format(x))) + "]");
 			Console.WriteLine();
 
-			Stepper<double> data = dataArray.ToStepper();
+			Action<Action<double>> data = dataArray.ToStepper();
 
 			// Examples
 

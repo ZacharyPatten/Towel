@@ -46,7 +46,7 @@ namespace Towel
 			};
 		}
 
-		internal static T OperationOnStepper<T>(Stepper<T> stepper, Func<T, T, T> operation)
+		internal static T OperationOnStepper<T>(Action<Action<T>> stepper, Func<T, T, T> operation)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T result = default;
@@ -726,7 +726,7 @@ namespace Towel
 			public static implicit operator System.Collections.Generic.SortedSet<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.SortedSet<T>(universalQuantification.Value);
 			/// <summary>Converts a universal quantification to an <see cref="Stepper{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator Stepper<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepper();
+			public static implicit operator Action<Action<T>>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepper();
 			/// <summary>Converts a universal quantification to an <see cref="StepperRef{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator StepperRef<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRef();
@@ -835,7 +835,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
 		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool EqualTo<T>(Stepper<T> stepper)
+		public static bool EqualTo<T>(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T value = default;
@@ -1259,7 +1259,7 @@ namespace Towel
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper of the values to add.</param>
 		/// <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
-		public static T Addition<T>(Stepper<T> stepper) =>
+		public static T Addition<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Addition);
 
 		internal static class AdditionImplementation<A, B, C>
@@ -1310,7 +1310,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the subtraction [step1 - step2 - step3 - ...].</returns>
-		public static T Subtraction<T>(Stepper<T> stepper) =>
+		public static T Subtraction<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Subtraction);
 
 		internal static class SubtractionImplementation<A, B, C>
@@ -1361,7 +1361,7 @@ namespace Towel
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
-		public static T Multiplication<T>(Stepper<T> stepper) =>
+		public static T Multiplication<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Multiplication);
 
 		internal static class MultiplicationImplementation<A, B, C>
@@ -1412,7 +1412,7 @@ namespace Towel
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the division [step1 / step2 / step3 / ...].</returns>
-		public static T Division<T>(Stepper<T> stepper) =>
+		public static T Division<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Division);
 
 		internal static class DivisionImplementation<A, B, C>
@@ -1463,7 +1463,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the modulation.</returns>
-		public static T Remainder<T>(Stepper<T> stepper) =>
+		public static T Remainder<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Remainder);
 
 		internal static class RemainderImplementation<A, B, C>
@@ -1515,7 +1515,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The stepper containing the values.</param>
 		/// <returns>The result of the power.</returns>
-		public static T Power<T>(Stepper<T> stepper) =>
+		public static T Power<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Power);
 
 		internal static class PowerImplementation<T>
@@ -1939,7 +1939,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The set of data to compute the maximum of.</param>
 		/// <returns>The computed maximum of the provided values.</returns>
-		public static T Maximum<T>(Stepper<T> stepper) =>
+		public static T Maximum<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Maximum);
 
 		#endregion
@@ -1968,7 +1968,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The set of data to compute the minimum of.</param>
 		/// <returns>The computed minimum of the provided values.</returns>
-		public static T Minimum<T>(Stepper<T> stepper) =>
+		public static T Minimum<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Minimum);
 
 		/// <summary>Computes the minimum of multiple numeric values.</summary>
@@ -2048,7 +2048,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the computation.</typeparam>
 		/// <param name="stepper">The set of numbers to compute the greatest common factor of.</param>
 		/// <returns>The computed greatest common factor of the set of numbers.</returns>
-		public static T GreatestCommonFactor<T>(Stepper<T> stepper)
+		public static T GreatestCommonFactor<T>(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			bool assigned = false;
@@ -2109,7 +2109,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The set of numbers to compute the least common multiple of.</param>
 		/// <returns>The computed least common least common multiple of the set of numbers.</returns>
-		public static T LeastCommonMultiple<T>(Stepper<T> stepper)
+		public static T LeastCommonMultiple<T>(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			bool assigned = false;
@@ -2328,7 +2328,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Stepper<T> stepper, Func<T, T, bool> equate = null, Func<T, int> hash = null)
+		public static IMap<int, T> Occurences<T>(Action<Action<T>> stepper, Func<T, T, bool> equate = null, Func<T, int> hash = null)
 		{
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
 			stepper(a =>
@@ -2392,7 +2392,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <returns>The modes of the data set.</returns>
-		public static void Mode<T>(Stepper<T> stepper, Action<T> step, Func<T, T, bool> equate = null, Func<T, int> hash = null)
+		public static void Mode<T>(Action<Action<T>> stepper, Action<T> step, Func<T, T, bool> equate = null, Func<T, int> hash = null)
 		{
 			int maxOccurences = -1;
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
@@ -2434,7 +2434,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The set of data to compute the mean of.</param>
 		/// <returns>The computed mean of the set of data.</returns>
-		public static T Mean<T>(Stepper<T> stepper)
+		public static T Mean<T>(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T i = Constant<T>.Zero;
@@ -2483,7 +2483,7 @@ namespace Towel
 		/// <param name="compare">The comparison algorithm to sort the data by.</param>
 		/// <param name="stepper">The set of data to compute the median of.</param>
 		/// <returns>The computed median value of the set of data.</returns>
-		public static T Median<T>(Func<T, T, CompareResult> compare, Stepper<T> stepper)
+		public static T Median<T>(Func<T, T, CompareResult> compare, Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			return Median<T>(compare, stepper.ToArray());
@@ -2502,7 +2502,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The set of data to compute the median of.</param>
 		/// <returns>The computed median value of the set of data.</returns>
-		public static T Median<T>(Stepper<T> stepper)
+		public static T Median<T>(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			return Median(Comparison, stepper.ToArray());
@@ -2569,7 +2569,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the computation.</typeparam>
 		/// <param name="stepper">The set of numbres to compute the geometric mean of.</param>
 		/// <returns>The computed geometric mean of the set of numbers.</returns>
-		public static T GeometricMean<T>(Stepper<T> stepper)
+		public static T GeometricMean<T>(Action<Action<T>> stepper)
 		{
 			T multiple = Constant<T>.One;
 			T count = Constant<T>.Zero;
@@ -2589,7 +2589,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the computation.</typeparam>
 		/// <param name="stepper">The set of numbers to compute the variance of.</param>
 		/// <returns>The computed variance of the set of numbers.</returns>
-		public static T Variance<T>(Stepper<T> stepper)
+		public static T Variance<T>(Action<Action<T>> stepper)
 		{
 			T mean = Mean(stepper);
 			T variance = Constant<T>.Zero;
@@ -2611,7 +2611,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the computation.</typeparam>
 		/// <param name="stepper">The set of numbers to compute the standard deviation of.</param>
 		/// <returns>The computed standard deviation of the set of numbers.</returns>
-		public static T StandardDeviation<T>(Stepper<T> stepper) =>
+		public static T StandardDeviation<T>(Action<Action<T>> stepper) =>
 			SquareRoot(Variance(stepper));
 
 		#endregion
@@ -2622,7 +2622,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the computation.</typeparam>
 		/// <param name="stepper">The set of numbers to compute the mean deviation of.</param>
 		/// <returns>The computed mean deviation of the set of numbers.</returns>
-		public static T MeanDeviation<T>(Stepper<T> stepper)
+		public static T MeanDeviation<T>(Action<Action<T>> stepper)
 		{
 			T mean = Mean(stepper);
 			T temp = Constant<T>.Zero;
@@ -2646,7 +2646,7 @@ namespace Towel
 		/// <param name="maximum">The maximum of the set of data.</param>
 		/// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
 		/// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
-		public static void Range<T>(out T minimum, out T maximum, Stepper<T> stepper) =>
+		public static void Range<T>(out T minimum, out T maximum, Action<Action<T>> stepper) =>
 			Range(stepper, out minimum, out maximum);
 
 		/// <summary>Gets the range (minimum and maximum) of a set of data.</summary>
@@ -2656,7 +2656,7 @@ namespace Towel
 		/// <param name="maximum">The maximum of the set of data.</param>
 		/// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
 		/// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
-		public static void Range<T>(Stepper<T> stepper, out T minimum, out T maximum)
+		public static void Range<T>(Action<Action<T>> stepper, out T minimum, out T maximum)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			// Note: can't use out parameters as capture variables
@@ -2694,7 +2694,7 @@ namespace Towel
 		/// <param name="quantiles">The number of quantiles to compute.</param>
 		/// <param name="stepper">The data stepper.</param>
 		/// <returns>The computed quantiles of the data set.</returns>
-		public static T[] Quantiles<T>(int quantiles, Stepper<T> stepper)
+		public static T[] Quantiles<T>(int quantiles, Action<Action<T>> stepper)
 		{
 			if (quantiles < 1)
 			{

@@ -813,7 +813,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			//		<#= documentation_AxisX_axisX #>
 
 			//		/// <returns>A Stepper of the items at the given coordinates.</returns>
-			//		Stepper<T> this[<#= chain_AxisX_axisX #>] { get; }
+			//		Action<Action<T>> this[<#= chain_AxisX_axisX #>] { get; }
 
 			//		/// <summary>The number of dimensions in this tree.</summary>
 			//		int Dimensions { get; }
@@ -1169,7 +1169,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			//		/// <param name="axis<#= j #>">The coordinate along axis <#= j #>.</param>
 			//<# } #>
 			//		/// <returns>The stepper for the items at the given coordinate.</returns>
-			//public Stepper<T> this[<#= chain_AxisX_axisX #>] =>
+			//public Action<Action<T>> this[<#= chain_AxisX_axisX #>] =>
 			//			step => Stepper(step, <#= chain_axisX #>);
 
 			//		/// <summary>The number of dimensions in this tree.</summary>
@@ -1422,7 +1422,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			////		}
 			////
 			////		
-			////		internal int Add(Branch parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, 
+			////		internal int Add(Branch parent, int depth, <#= child_index_type #> child, Action<Action<T>> additions, int parent_count, 
 			//<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
 			//<# } #>int initial_count, 
 			//<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 
@@ -1521,7 +1521,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			////			return count;
 			////		}
 			////
-			////		int ReversedChildBuilding(Branch parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, 
+			////		int ReversedChildBuilding(Branch parent, <#= child_index_type #> child_index, int depth, Action<Action<T>> additions, int count, 
 			//<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
 			//<# } #>int initial_count, 
 			//<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 
@@ -3290,7 +3290,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			////		}
 			////
 			////		
-			////		internal int Add(Node parent, int depth, <#= child_index_type #> child, Stepper<T> additions, int parent_count, 
+			////		internal int Add(Node parent, int depth, <#= child_index_type #> child, Action<Action<T>> additions, int parent_count, 
 			//<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
 			//<# } #>int initial_count, 
 			//<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 
@@ -3389,7 +3389,7 @@ $@"/// <summary>The minimum value along the 1 dimension.</summary>
 			////			return count;
 			////		}
 			////
-			////		int ReversedChildBuilding(Node parent, <#= child_index_type #> child_index, int depth, Stepper<T> additions, int count, 
+			////		int ReversedChildBuilding(Node parent, <#= child_index_type #> child_index, int depth, Action<Action<T>> additions, int count, 
 			//<# for (int j = 1; j <= i; j++) { #>int prevmed<#= j #>, 
 			//<# } #>int initial_count, 
 			//<# for (int j = 1; j <= i; j++) { #>GetIndex<Axis<#= j #>> values<#= j #>, 

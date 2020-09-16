@@ -70,12 +70,12 @@ namespace GraphSearch
 				static bool Goal(int node) => node == 3;
 
 				// run the A* algorithm
-				Stepper<int> graphAStarPath = Search.Graph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost);
+				Action<Action<int>> graphAStarPath = Search.Graph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost);
 				// run the Dijkstra algorithm
-				Stepper<int> graphDijkstraPath = Search.Graph(0, graph, Heuristic, Goal);
+				Action<Action<int>> graphDijkstraPath = Search.Graph(0, graph, Heuristic, Goal);
 
 				// print the paths to the console
-				static void PrintPathToConsole(Stepper<int> path)
+				static void PrintPathToConsole(Action<Action<int>> path)
 				{
 					if (path != null)
 					{
@@ -107,9 +107,9 @@ namespace GraphSearch
 				}
 
 				// run the A* algorithm
-				Stepper<int> functionAStarPath = Search.Graph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost);
+				Action<Action<int>> functionAStarPath = Search.Graph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost);
 				// run the Dijkstra algorithm
-				Stepper<int> functionDdijkstraPath = Search.Graph(0, Neighbors, Heuristic, Goal);
+				Action<Action<int>> functionDdijkstraPath = Search.Graph(0, Neighbors, Heuristic, Goal);
 
 				Console.WriteLine("    Using Neighbors Function...");
 				Console.Write("    A* Path:       ");
@@ -245,7 +245,7 @@ namespace GraphSearch
 				}
 
 				// We have all the necessary parameters. Run the pathfinding algorithms!
-				Stepper<Vector<float>> aStarPath =
+				Action<Action<Vector<float>>> aStarPath =
 					Search.Graph(
 						enemyLocation,
 						neighborFunction,
@@ -261,7 +261,7 @@ namespace GraphSearch
 
 				alreadyUsed.Clear();
 
-				Stepper<Vector<float>> dijkstraPath =
+				Action<Action<Vector<float>>> dijkstraPath =
 					Search.Graph(
 						enemyLocation,
 						neighborFunction,
@@ -275,7 +275,7 @@ namespace GraphSearch
 
 				DateTime startTime = DateTime.Now;
 				TimeSpan timeSpan = TimeSpan.FromSeconds(2);
-				Stepper<Vector<float>> breadthFirstSearch =
+				Action<Action<Vector<float>>> breadthFirstSearch =
 					Search.Graph(
 						enemyLocation,
 						neighborFunction,

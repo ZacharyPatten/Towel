@@ -36,11 +36,6 @@ namespace Towel
 	/// <summary>Delegate for a traversal function on a data structure.</summary>
 	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
 	/// <param name="step">The foreach function to perform on each iteration.</param>
-	public delegate void Stepper<T>(Action<T> step);
-
-	/// <summary>Delegate for a traversal function on a data structure.</summary>
-	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step">The foreach function to perform on each iteration.</param>
 	public delegate void StepperRef<T>(StepRef<T> step);
 
 	/// <summary>Delegate for a traversal function on a data structure.</summary>

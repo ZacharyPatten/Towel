@@ -14872,7 +14872,7 @@
         <member name="T:Towel.DataStructures.Trie">
             <summary>Extension methods for trie data structures.</summary>
         </member>
-        <member name="M:Towel.DataStructures.Trie.TryAdd``2(Towel.DataStructures.ITrie{``0,``1},``1,Towel.Stepper{``0})">
+        <member name="M:Towel.DataStructures.Trie.TryAdd``2(Towel.DataStructures.ITrie{``0,``1},``1,System.Action{System.Action{``0}})">
             <summary>Adds a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <typeparam name="K">The type of the keys.</typeparam>
@@ -14881,7 +14881,7 @@
             <param name="stepper">The keys of the relative value.</param>
             <returns>True if the add was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Trie.Add``2(Towel.DataStructures.ITrie{``1,``0},``0,Towel.Stepper{``1})">
+        <member name="M:Towel.DataStructures.Trie.Add``2(Towel.DataStructures.ITrie{``1,``0},``0,System.Action{System.Action{``1}})">
             <summary>Adds a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <typeparam name="K">The type of the keys.</typeparam>
@@ -14889,7 +14889,7 @@
             <param name="value">The value to be added.</param>
             <param name="stepper">The keys of the relative value.</param>
         </member>
-        <member name="M:Towel.DataStructures.Trie.TryGet``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``0},``1@)">
+        <member name="M:Towel.DataStructures.Trie.TryGet``2(Towel.DataStructures.ITrie{``0,``1},System.Action{System.Action{``0}},``1@)">
             <summary>Tries to get a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <typeparam name="K">The type of the keys.</typeparam>
@@ -14898,7 +14898,7 @@
             <param name="value">The value if found.</param>
             <returns>True if the get was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Trie.Get``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``0})">
+        <member name="M:Towel.DataStructures.Trie.Get``2(Towel.DataStructures.ITrie{``0,``1},System.Action{System.Action{``0}})">
             <summary>Gets a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <typeparam name="K">The type of the keys.</typeparam>
@@ -14906,7 +14906,7 @@
             <param name="stepper">The keys of the relative value.</param>
             <returns>The value.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Trie.TryRemove``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``0})">
+        <member name="M:Towel.DataStructures.Trie.TryRemove``2(Towel.DataStructures.ITrie{``0,``1},System.Action{System.Action{``0}})">
             <summary>Tries to removes a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <typeparam name="K">The type of the keys.</typeparam>
@@ -14914,7 +14914,7 @@
             <param name="stepper">The keys of the relative value.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Trie.Remove``2(Towel.DataStructures.ITrie{``0,``1},Towel.Stepper{``0})">
+        <member name="M:Towel.DataStructures.Trie.Remove``2(Towel.DataStructures.ITrie{``0,``1},System.Action{System.Action{``0}})">
             <summary>Removes a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <typeparam name="K">The type of the keys.</typeparam>
@@ -14925,7 +14925,7 @@
             <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
             <typeparam name="T">The type of values in the trie.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`1.Contains(Towel.Stepper{`0})">
+        <member name="M:Towel.DataStructures.ITrie`1.Contains(System.Action{System.Action{`0}})">
             <summary>Determines if the trie contains the relative keys.</summary>
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
@@ -14948,19 +14948,19 @@
         <member name="P:Towel.DataStructures.TrieLinkedHashLinked`1.Hash">
             <summary>The hash fucntion for the keys.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.TryAdd(Towel.Stepper{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.TryAdd(System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to add a value to the trie.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the add failed.</param>
             <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.TryRemove(Towel.Stepper{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.TryRemove(System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to remove a value.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Contains(Towel.Stepper{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Contains(System.Action{System.Action{`0}})">
             <summary>Determines if the trie contains the relative keys.</summary>
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
@@ -14968,11 +14968,11 @@
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Clear">
             <summary>Returns the trie to an empty state.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(System.Action{Towel.Stepper{`0}})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(System.Action{System.Action{System.Action{`0}}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(System.Func{Towel.Stepper{`0},Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(System.Func{System.Action{System.Action{`0}},Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -14986,36 +14986,36 @@
             <typeparam name="T">The type of values in the trie.</typeparam>
             <typeparam name="D">The additional data type to store with each leaf.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.Stepper(System.Action{Towel.Stepper{`0},`1})">
+        <member name="M:Towel.DataStructures.ITrie`2.Stepper(System.Action{System.Action{System.Action{`0}},`1})">
             <summary>Steps through all the additional data in the trie.</summary>
             <param name="step">The step function of the iteration.</param>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.StepBreak{Towel.Stepper{`0},`1})">
+        <member name="M:Towel.DataStructures.ITrie`2.Stepper(Towel.StepBreak{System.Action{System.Action{`0}},`1})">
             <summary>Steps through all the additional data in the trie.</summary>
             <param name="step">The step function of the iteration.</param>
             <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.TryAdd(`1,Towel.Stepper{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.ITrie`2.TryAdd(`1,System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to add a value to the trie.</summary>
             <param name="value">The value to add.</param>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the add failed.</param>
             <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.TryGet(Towel.Stepper{`0},`1@,System.Exception@)">
+        <member name="M:Towel.DataStructures.ITrie`2.TryGet(System.Action{System.Action{`0}},`1@,System.Exception@)">
             <summary>Tries to get a value.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="value">The value if found.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.TryRemove(Towel.Stepper{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.ITrie`2.TryRemove(System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to remove a value.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ITrie`2.Contains(Towel.Stepper{`0})">
+        <member name="M:Towel.DataStructures.ITrie`2.Contains(System.Action{System.Action{`0}})">
             <summary>Determines if the trie contains the relative keys.</summary>
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
@@ -15039,27 +15039,27 @@
         <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Hash">
             <summary>The hash fucntion for the keys.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryAdd(`1,Towel.Stepper{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryAdd(`1,System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to add a value to the trie.</summary>
             <param name="value">The value to add.</param>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the add failed.</param>
             <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryGet(Towel.Stepper{`0},`1@,System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryGet(System.Action{System.Action{`0}},`1@,System.Exception@)">
             <summary>Tries to get a value.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="value">The value if found.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryRemove(Towel.Stepper{`0},System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryRemove(System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to remove a value.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Contains(Towel.Stepper{`0})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Contains(System.Action{System.Action{`0}})">
             <summary>Determines if the trie contains the relative keys.</summary>
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
@@ -15067,20 +15067,20 @@
         <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Clear">
             <summary>Returns the trie to an empty state.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Action{Towel.Stepper{`0},`1})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Action{System.Action{System.Action{`0}},`1})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{Towel.Stepper{`0},`1})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(Towel.StepBreak{System.Action{System.Action{`0}},`1})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Action{Towel.Stepper{`0}})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Action{System.Action{System.Action{`0}}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Func{Towel.Stepper{`0},Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Func{System.Action{System.Action{`0}},Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -15898,7 +15898,7 @@
             <param name="gapStep">The step to perform in the gaps.</param>
             <returns>The combined step + gapStep function.</returns>
         </member>
-        <member name="M:Towel.Extensions.Convert``2(Towel.Stepper{``0},System.Func{``0,``1})">
+        <member name="M:Towel.Extensions.Convert``2(System.Action{System.Action{``0}},System.Func{``0,``1})">
             <summary>Converts the values in this stepper to another type.</summary>
             <typeparam name="A">The generic type of the values of the original stepper.</typeparam>
             <typeparam name="B">The generic type of the values to convert the stepper into.</typeparam>
@@ -15906,7 +15906,7 @@
             <param name="func">The conversion function.</param>
             <returns>The converted stepper.</returns>
         </member>
-        <member name="M:Towel.Extensions.Append``1(Towel.Stepper{``0},``0[])">
+        <member name="M:Towel.Extensions.Append``1(System.Action{System.Action{``0}},``0[])">
             <summary>Appends values to the stepper.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to append to.</param>
@@ -15919,14 +15919,14 @@
             <param name="values">The values to build the stepper from.</param>
             <returns>The resulting stepper function for the provided values.</returns>
         </member>
-        <member name="M:Towel.Extensions.Concat``1(Towel.Stepper{``0},Towel.Stepper{``0}[])">
+        <member name="M:Towel.Extensions.Concat``1(System.Action{System.Action{``0}},System.Action{System.Action{``0}}[])">
             <summary>Concatenates steppers.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The first stepper of the contactenation.</param>
             <param name="otherSteppers">The other steppers of the concatenation.</param>
             <returns>The concatenated steppers as a single stepper.</returns>
         </member>
-        <member name="M:Towel.Extensions.Where``1(Towel.Stepper{``0},System.Func{``0,System.Boolean})">
+        <member name="M:Towel.Extensions.Where``1(System.Action{System.Action{``0}},System.Func{``0,System.Boolean})">
             <summary>Filters a stepper using a where predicate.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to filter.</param>
@@ -15962,19 +15962,19 @@
             <param name="array">The array to convert.</param>
             <returns>The stepper delegate comparable to the array provided.</returns>
         </member>
-        <member name="M:Towel.Extensions.ToArray``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Extensions.ToArray``1(System.Action{System.Action{``0}})">
             <summary>Converts the stepper into an array.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to convert.</param>
             <returns>The array created from the stepper.</returns>
         </member>
-        <member name="M:Towel.Extensions.Count``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Extensions.Count``1(System.Action{System.Action{``0}})">
             <summary>Counts the number of items in the stepper.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to count the items of.</param>
             <returns>The number of items in the stepper.</returns>
         </member>
-        <member name="M:Towel.Extensions.EveryNth``1(Towel.Stepper{``0},System.Int32)">
+        <member name="M:Towel.Extensions.EveryNth``1(System.Action{System.Action{``0}},System.Int32)">
             <summary>Reduces the stepper to be every nth value.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to reduce.</param>
@@ -15989,7 +15989,7 @@
             <param name="hash">A hashing function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
         </member>
-        <member name="M:Towel.Extensions.ContainsDuplicates``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+        <member name="M:Towel.Extensions.ContainsDuplicates``1(System.Action{System.Action{``0}},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
@@ -16004,14 +16004,14 @@
             <param name="stepper">The stepper function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
         </member>
-        <member name="M:Towel.Extensions.ContainsDuplicates``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Extensions.ContainsDuplicates``1(System.Action{System.Action{``0}})">
             <summary>Determines if the data contains any duplicates.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The stepper function for the data.</param>
             <returns>True if the data contains duplicates. False if not.</returns>
             <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
         </member>
-        <member name="M:Towel.Extensions.Any``1(Towel.Stepper{``0},System.Predicate{``0})">
+        <member name="M:Towel.Extensions.Any``1(System.Action{System.Action{``0}},System.Predicate{``0})">
             <summary>Determines if the stepper contains any of the predicated values.</summary>
             <typeparam name="T">The generic type of the stepper.</typeparam>
             <param name="stepper">The stepper to determine if any predicated values exist.</param>
@@ -16025,7 +16025,7 @@
             <param name="where">The predicate.</param>
             <returns>True if any of the predicated values exist or </returns>
         </member>
-        <member name="M:Towel.Extensions.ConcatToString(Towel.Stepper{System.Char})">
+        <member name="M:Towel.Extensions.ConcatToString(System.Action{System.Action{System.Char}})">
             <summary>Converts a stepper into a string of the concatenated chars.</summary>
             <param name="stepper">The stepper to concatenate the values into a string.</param>
             <returns>The string of the concatenated chars.</returns>
@@ -16682,7 +16682,7 @@
             <param name="d">The remaining operands of the addition.</param>
             <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</returns>
         </member>
-        <member name="M:Towel.Mathematics.MathematicsSyntax.Σ``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Σ``1(System.Action{System.Action{``0}})">
             <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper of the values to add.</param>
@@ -16713,7 +16713,7 @@
             <param name="d">The remaining values.</param>
             <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
         </member>
-        <member name="M:Towel.Mathematics.MathematicsSyntax.Π``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Mathematics.MathematicsSyntax.Π``1(System.Action{System.Action{``0}})">
             <summary>Multiplies multiple numeric values [step1 * step2 * step3 * ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
@@ -30974,11 +30974,6 @@
             <param name="current">The current instance of iteration through the data structure.</param>
             <returns>The status of the iteration. Allows breaking functionality.</returns>
         </member>
-        <member name="T:Towel.Stepper`1">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
-        </member>
         <member name="T:Towel.StepperRef`1">
             <summary>Delegate for a traversal function on a data structure.</summary>
             <typeparam name="T">The type of instances the will be traversed.</typeparam>
@@ -31492,8 +31487,8 @@
             <summary>Converts a universal quantification to a sorted <see cref="T:System.Collections.Generic.SortedSet`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.Stepper{`0}">
-            <summary>Converts a universal quantification to an <see cref="T:Towel.Stepper`1"/>.</summary>
+        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Action{System.Action{`0}}">
+            <summary>Converts a universal quantification to an <see cref="!:Stepper&lt;T&gt;"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
         <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.StepperRef{`0}">
@@ -31551,7 +31546,7 @@
             <param name="c">The remaining operands of the equality check.</param>
             <returns>True if all operands are equal or false if not.</returns>
         </member>
-        <member name="M:Towel.Syntax.EqualTo``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.EqualTo``1(System.Action{System.Action{``0}})">
             <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The operands of the equality check.</param>
@@ -31689,7 +31684,7 @@
             <param name="d">The remaining operands of the addition.</param>
             <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Addition``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Addition``1(System.Action{System.Action{``0}})">
             <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper of the values to add.</param>
@@ -31720,7 +31715,7 @@
             <param name="d">The remaining values.</param>
             <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/> - <paramref name="c"/> - ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Subtraction``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Subtraction``1(System.Action{System.Action{``0}})">
             <summary>Subtracts multiple numeric values [step1 - step2 - step3 - ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
@@ -31751,7 +31746,7 @@
             <param name="d">The remaining values.</param>
             <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Multiplication``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Multiplication``1(System.Action{System.Action{``0}})">
             <summary>Multiplies multiple values [step1 * step2 * step3 * ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
@@ -31782,7 +31777,7 @@
             <param name="d">The remaining values of the division.</param>
             <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/> / <paramref name="c"/> / ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Division``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Division``1(System.Action{System.Action{``0}})">
             <summary>Divides multiple values [step1 / step2 / step3 / ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
@@ -31813,7 +31808,7 @@
             <param name="d">The remaining values of the modulation.</param>
             <returns>The result of the modulation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Remainder``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Remainder``1(System.Action{System.Action{``0}})">
             <summary>Modulos multiple numeric values [step_1 % step_2 % step_3...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
@@ -31841,7 +31836,7 @@
             <param name="d">The remaining values of the power.</param>
             <returns>The result of the power.</returns>
         </member>
-        <member name="M:Towel.Syntax.Power``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Power``1(System.Action{System.Action{``0}})">
             <summary>Powers multiple numeric values [step_1 ^ step_2 ^ step_3...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
@@ -31931,7 +31926,7 @@
             <param name="d">The remaining operands of the maximum operation.</param>
             <returns>The computed maximum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Maximum``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Maximum``1(System.Action{System.Action{``0}})">
             <summary>Computes the maximum of multiple numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the maximum of.</param>
@@ -31953,7 +31948,7 @@
             <param name="d">The remaining operands of the minimum operation.</param>
             <returns>The computed minimum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Minimum``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Minimum``1(System.Action{System.Action{``0}})">
             <summary>Computes the minimum of multiple numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the minimum of.</param>
@@ -31990,7 +31985,7 @@
             <param name="c">The remaining operands of the greatest common factor computation.</param>
             <returns>The computed greatest common factor of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.GreatestCommonFactor``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.GreatestCommonFactor``1(System.Action{System.Action{``0}})">
             <summary>Computes the greatest common factor of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the greatest common factor of.</param>
@@ -32004,7 +31999,7 @@
             <param name="c">The remaining operands of the least common muiltiple computation.</param>
             <returns>The computed least common least common multiple of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.LeastCommonMultiple``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.LeastCommonMultiple``1(System.Action{System.Action{``0}})">
             <summary>Computes the least common multiple of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of numbers to compute the least common multiple of.</param>
@@ -32074,7 +32069,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(Towel.Stepper{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+        <member name="M:Towel.Syntax.Occurences``1(System.Action{System.Action{``0}},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="stepper">The data to count the occurences of.</param>
@@ -32114,7 +32109,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(Towel.Stepper{``0},System.Action{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+        <member name="M:Towel.Syntax.Mode``1(System.Action{System.Action{``0}},System.Action{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The data set.</param>
@@ -32130,7 +32125,7 @@
             <param name="b">The remaining values in the data set to compute the mean of.</param>
             <returns>The computed mean of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Mean``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Mean``1(System.Action{System.Action{``0}})">
             <summary>Computes the mean of a set of numerical values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the mean of.</param>
@@ -32143,7 +32138,7 @@
             <param name="values">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(System.Func{``0,``0,Towel.CompareResult},Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Median``1(System.Func{``0,``0,Towel.CompareResult},System.Action{System.Action{``0}})">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="compare">The comparison algorithm to sort the data by.</param>
@@ -32156,37 +32151,37 @@
             <param name="values">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Median``1(System.Action{System.Action{``0}})">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.GeometricMean``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.GeometricMean``1(System.Action{System.Action{``0}})">
             <summary>Computes the geometric mean of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbres to compute the geometric mean of.</param>
             <returns>The computed geometric mean of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.Variance``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Variance``1(System.Action{System.Action{``0}})">
             <summary>Computes the variance of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the variance of.</param>
             <returns>The computed variance of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.StandardDeviation``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.StandardDeviation``1(System.Action{System.Action{``0}})">
             <summary>Computes the standard deviation of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the standard deviation of.</param>
             <returns>The computed standard deviation of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.MeanDeviation``1(Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.MeanDeviation``1(System.Action{System.Action{``0}})">
             <summary>The mean deviation of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the mean deviation of.</param>
             <returns>The computed mean deviation of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.Range``1(``0@,``0@,Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Range``1(``0@,``0@,System.Action{System.Action{``0}})">
             <summary>Gets the range (minimum and maximum) of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             /// <param name="stepper">The set of data to get the range of.</param>
@@ -32195,7 +32190,7 @@
             <exception cref="T:System.ArgumentNullException">Throws when stepper is null.</exception>
             <exception cref="T:System.ArgumentException">Throws when stepper is empty.</exception>
         </member>
-        <member name="M:Towel.Syntax.Range``1(Towel.Stepper{``0},``0@,``0@)">
+        <member name="M:Towel.Syntax.Range``1(System.Action{System.Action{``0}},``0@,``0@)">
             <summary>Gets the range (minimum and maximum) of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             /// <param name="stepper">The set of data to get the range of.</param>
@@ -32204,7 +32199,7 @@
             <exception cref="T:System.ArgumentNullException">Throws when stepper is null.</exception>
             <exception cref="T:System.ArgumentException">Throws when stepper is empty.</exception>
         </member>
-        <member name="M:Towel.Syntax.Quantiles``1(System.Int32,Towel.Stepper{``0})">
+        <member name="M:Towel.Syntax.Quantiles``1(System.Int32,System.Action{System.Action{``0}})">
             <summary>Computes the quantiles of a set of data.</summary>
             <typeparam name="T">The generic data type.</typeparam>
             <param name="quantiles">The number of quantiles to compute.</param>

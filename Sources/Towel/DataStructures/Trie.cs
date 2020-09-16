@@ -15,7 +15,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to be added.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>True if the add was successful or false if not.</returns>
-		public static bool TryAdd<K, T>(this ITrie<K, T> trie, T value, Stepper<K> stepper) =>
+		public static bool TryAdd<K, T>(this ITrie<K, T> trie, T value, Action<Action<K>> stepper) =>
 			trie.TryAdd(value, stepper, out _);
 
 		/// <summary>Adds a value.</summary>
@@ -24,7 +24,7 @@ namespace Towel.DataStructures
 		/// <param name="trie">The trie to add the value to.</param>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
-		public static void Add<T, K>(this ITrie<K, T> trie, T value, Stepper<K> stepper)
+		public static void Add<T, K>(this ITrie<K, T> trie, T value, Action<Action<K>> stepper)
 		{
 			if (!trie.TryAdd(value, stepper, out Exception exception))
 			{
@@ -39,7 +39,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <param name="value">The value if found.</param>
 		/// <returns>True if the get was successful or false if not.</returns>
-		public static bool TryGet<K, T>(this ITrie<K, T> trie, Stepper<K> stepper, out T value) =>
+		public static bool TryGet<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper, out T value) =>
 			trie.TryGet(stepper, out value, out _);
 
 		/// <summary>Gets a value.</summary>
@@ -48,7 +48,7 @@ namespace Towel.DataStructures
 		/// <param name="trie">The trie to get the value from.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>The value.</returns>
-		public static T Get<K, T>(this ITrie<K, T> trie, Stepper<K> stepper) =>
+		public static T Get<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper) =>
 			trie.TryGet(stepper, out T value, out Exception exception)
 			? value
 			: throw exception;
@@ -59,7 +59,7 @@ namespace Towel.DataStructures
 		/// <param name="trie">The trie to remove the value from.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<K, T>(this ITrie<K, T> trie, Stepper<K> stepper) =>
+		public static bool TryRemove<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper) =>
 			trie.TryRemove(stepper, out _);
 
 		/// <summary>Removes a value.</summary>
@@ -67,7 +67,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="K">The type of the keys.</typeparam>
 		/// <param name="trie">The trie to remove the value from.</param>
 		/// <param name="stepper">The keys to store the value relative to.</param>
-		public static void Remove<K, T>(this ITrie<K, T> trie, Stepper<K> stepper)
+		public static void Remove<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper)
 		{
 			if (!trie.TryRemove(stepper, out Exception exception))
 			{
@@ -80,20 +80,20 @@ namespace Towel.DataStructures
 
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
-	public interface ITrie<T> : IDataStructure<Stepper<T>>,
+	public interface ITrie<T> : IDataStructure<Action<Action<T>>>,
 		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IEquating<T>,
-		DataStructure.IAddable<Stepper<T>>,
-		DataStructure.IRemovable<Stepper<T>>
+		DataStructure.IAddable<Action<Action<T>>>,
+		DataStructure.IRemovable<Action<Action<T>>>
 	{
 		#region Members
 
 		/// <summary>Determines if the trie contains the relative keys.</summary>
 		/// <param name="stepper">The relative keys.</param>
 		/// <returns>True if the trie contains th relative keys or false if not.</returns>
-		bool Contains(Stepper<T> stepper);
+		bool Contains(Action<Action<T>> stepper);
 
 		#endregion
 	}
@@ -158,7 +158,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(Stepper<T> stepper, out Exception exception)
+		public bool TryAdd(Action<Action<T>> stepper, out Exception exception)
 		{
 			if (stepper is null)
 			{
@@ -212,7 +212,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Stepper<T> stepper, out Exception exception)
+		public bool TryRemove(Action<Action<T>> stepper, out Exception exception)
 		{
 			if (stepper is null)
 			{
@@ -284,7 +284,7 @@ namespace Towel.DataStructures
 		/// <summary>Determines if the trie contains the relative keys.</summary>
 		/// <param name="stepper">The relative keys.</param>
 		/// <returns>True if the trie contains th relative keys or false if not.</returns>
-		public bool Contains(Stepper<T> stepper)
+		public bool Contains(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			Node node = null;
@@ -334,9 +334,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<Stepper<T>> step)
+		public void Stepper(Action<Action<Action<T>>> step)
 		{
-			void Stepper(Node node, Stepper<T> stepper)
+			void Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.IsLeaf)
 				{
@@ -353,9 +353,9 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<Stepper<T>, StepStatus> step)
+		public StepStatus Stepper(Func<Action<Action<T>>, StepStatus> step)
 		{
-			StepStatus Stepper(Node node, Stepper<T> stepper)
+			StepStatus Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.IsLeaf)
 				{
@@ -377,9 +377,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the enumerator for the trie.</summary>
 		/// <returns>The enumerator for the trie.</returns>
-		public System.Collections.Generic.IEnumerator<Stepper<T>> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<Action<Action<T>>> GetEnumerator()
 		{
-			IList<Stepper<T>> list = new ListLinked<Stepper<T>>();
+			IList<Action<Action<T>>> list = new ListLinked<Action<Action<T>>>();
 			Stepper(x => list.Add(x));
 			return list.GetEnumerator();
 		}
@@ -392,7 +392,7 @@ namespace Towel.DataStructures
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
-	public interface ITrie<T, D> : IDataStructure<Stepper<T>>,
+	public interface ITrie<T, D> : IDataStructure<Action<Action<T>>>,
 		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
@@ -402,37 +402,37 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the additional data in the trie.</summary>
 		/// <param name="step">The step function of the iteration.</param>
-		void Stepper(Action<Stepper<T>, D> step);
+		void Stepper(Action<Action<Action<T>>, D> step);
 
 		/// <summary>Steps through all the additional data in the trie.</summary>
 		/// <param name="step">The step function of the iteration.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(StepBreak<Stepper<T>, D> step);
+		StepStatus Stepper(StepBreak<Action<Action<T>>, D> step);
 
 		/// <summary>Tries to add a value to the trie.</summary>
 		/// <param name="value">The value to add.</param>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		bool TryAdd(D value, Stepper<T> stepper, out Exception exception);
+		bool TryAdd(D value, Action<Action<T>> stepper, out Exception exception);
 
 		/// <summary>Tries to get a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="value">The value if found.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		bool TryGet(Stepper<T> stepper, out D value, out Exception exception);
+		bool TryGet(Action<Action<T>> stepper, out D value, out Exception exception);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		bool TryRemove(Stepper<T> stepper, out Exception exception);
+		bool TryRemove(Action<Action<T>> stepper, out Exception exception);
 
 		/// <summary>Determines if the trie contains the relative keys.</summary>
 		/// <param name="stepper">The relative keys.</param>
 		/// <returns>True if the trie contains th relative keys or false if not.</returns>
-		bool Contains(Stepper<T> stepper);
+		bool Contains(Action<Action<T>> stepper);
 
 		#endregion
 	}
@@ -503,7 +503,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(D value, Stepper<T> stepper, out Exception exception)
+		public bool TryAdd(D value, Action<Action<T>> stepper, out Exception exception)
 		{
 			if (stepper is null)
 			{
@@ -559,7 +559,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryGet(Stepper<T> stepper, out D value, out Exception exception)
+		public bool TryGet(Action<Action<T>> stepper, out D value, out Exception exception)
 		{
 			if (stepper is null)
 			{
@@ -612,7 +612,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Stepper<T> stepper, out Exception exception)
+		public bool TryRemove(Action<Action<T>> stepper, out Exception exception)
 		{
 			if (stepper is null)
 			{
@@ -684,7 +684,7 @@ namespace Towel.DataStructures
 		/// <summary>Determines if the trie contains the relative keys.</summary>
 		/// <param name="stepper">The relative keys.</param>
 		/// <returns>True if the trie contains th relative keys or false if not.</returns>
-		public bool Contains(Stepper<T> stepper)
+		public bool Contains(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			Node node = null;
@@ -734,9 +734,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<Stepper<T>, D> step)
+		public void Stepper(Action<Action<Action<T>>, D> step)
 		{
-			void Stepper(Node node, Stepper<T> stepper)
+			void Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.HasValue)
 				{
@@ -753,9 +753,9 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepBreak<Stepper<T>, D> step)
+		public StepStatus Stepper(StepBreak<Action<Action<T>>, D> step)
 		{
-			StepStatus Stepper(Node node, Stepper<T> stepper)
+			StepStatus Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.HasValue)
 				{
@@ -774,9 +774,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<Stepper<T>> step)
+		public void Stepper(Action<Action<Action<T>>> step)
 		{
-			void Stepper(Node node, Stepper<T> stepper)
+			void Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.HasValue)
 				{
@@ -793,9 +793,9 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<Stepper<T>, StepStatus> step)
+		public StepStatus Stepper(Func<Action<Action<T>>, StepStatus> step)
 		{
-			StepStatus Stepper(Node node, Stepper<T> stepper)
+			StepStatus Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.HasValue)
 				{
@@ -817,9 +817,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the enumerator for the trie.</summary>
 		/// <returns>The enumerator for the trie.</returns>
-		public System.Collections.Generic.IEnumerator<Stepper<T>> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<Action<Action<T>>> GetEnumerator()
 		{
-			IList<Stepper<T>> list = new ListLinked<Stepper<T>>();
+			IList<Action<Action<T>>> list = new ListLinked<Action<Action<T>>>();
 			Stepper(x => list.Add(x));
 			return list.GetEnumerator();
 		}

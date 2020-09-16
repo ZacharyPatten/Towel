@@ -1725,7 +1725,7 @@ namespace Towel
 		/// <param name="stepper">The stepper to convert.</param>
 		/// <param name="func">The conversion function.</param>
 		/// <returns>The converted stepper.</returns>
-		public static Stepper<B> Convert<A, B>(this Stepper<A> stepper, Func<A, B> func) =>
+		public static Action<Action<B>> Convert<A, B>(this Action<Action<A>> stepper, Func<A, B> func) =>
 			b => stepper(a => b(func(a)));
 
 		/// <summary>Appends values to the stepper.</summary>
@@ -1733,14 +1733,14 @@ namespace Towel
 		/// <param name="stepper">The stepper to append to.</param>
 		/// <param name="values">The values to append to the stepper.</param>
 		/// <returns>The resulting stepper with the appended values.</returns>
-		public static Stepper<T> Append<T>(this Stepper<T> stepper, params T[] values) =>
+		public static Action<Action<T>> Append<T>(this Action<Action<T>> stepper, params T[] values) =>
 			stepper.Concat(values.ToStepper());
 
 		/// <summary>Builds a stepper from values.</summary>
 		/// <typeparam name="T">The generic type of the stepper to build.</typeparam>
 		/// <param name="values">The values to build the stepper from.</param>
 		/// <returns>The resulting stepper function for the provided values.</returns>
-		public static Stepper<T> Build<T>(params T[] values) =>
+		public static Action<Action<T>> Build<T>(params T[] values) =>
 			values.ToStepper();
 
 		/// <summary>Concatenates steppers.</summary>
@@ -1748,11 +1748,11 @@ namespace Towel
 		/// <param name="stepper">The first stepper of the contactenation.</param>
 		/// <param name="otherSteppers">The other steppers of the concatenation.</param>
 		/// <returns>The concatenated steppers as a single stepper.</returns>
-		public static Stepper<T> Concat<T>(this Stepper<T> stepper, params Stepper<T>[] otherSteppers) =>
+		public static Action<Action<T>> Concat<T>(this Action<Action<T>> stepper, params Action<Action<T>>[] otherSteppers) =>
 			step =>
 			{
 				stepper(step);
-				foreach (Stepper<T> otherStepper in otherSteppers)
+				foreach (Action<Action<T>> otherStepper in otherSteppers)
 				{
 					otherStepper(step);
 				}
@@ -1763,7 +1763,7 @@ namespace Towel
 		/// <param name="stepper">The stepper to filter.</param>
 		/// <param name="predicate">The predicate of the where filter.</param>
 		/// <returns>The filtered stepper.</returns>
-		public static Stepper<T> Where<T>(this Stepper<T> stepper, Func<T, bool> predicate) =>
+		public static Action<Action<T>> Where<T>(this Action<Action<T>> stepper, Func<T, bool> predicate) =>
 			step => stepper(x =>
 			{
 				if (predicate(x))
@@ -1787,7 +1787,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
 		/// <param name="iEnumerable">The IEnumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-		public static Stepper<T> ToStepper<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable) =>
+		public static Action<Action<T>> ToStepper<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable) =>
 			step =>
 			{
 				foreach (T value in iEnumerable)
@@ -1847,7 +1847,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="stepper">The stepper to convert.</param>
 		/// <returns>The array created from the stepper.</returns>
-		public static T[] ToArray<T>(this Stepper<T> stepper)
+		public static T[] ToArray<T>(this Action<Action<T>> stepper)
 		{
 			int count = stepper.Count();
 			T[] array = new T[count];
@@ -1860,7 +1860,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="stepper">The stepper to count the items of.</param>
 		/// <returns>The number of items in the stepper.</returns>
-		public static int Count<T>(this Stepper<T> stepper)
+		public static int Count<T>(this Action<Action<T>> stepper)
 		{
 			int count = 0;
 			stepper(step => count++);
@@ -1872,7 +1872,7 @@ namespace Towel
 		/// <param name="stepper">The stepper to reduce.</param>
 		/// <param name="nth">Represents the values to reduce the stepper to; "5" means every 5th value.</param>
 		/// <returns>The reduced stepper function.</returns>
-		public static Stepper<T> EveryNth<T>(this Stepper<T> stepper, int nth)
+		public static Action<Action<T>> EveryNth<T>(this Action<Action<T>> stepper, int nth)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			if (nth <= 0)
@@ -1927,7 +1927,7 @@ namespace Towel
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-		public static bool ContainsDuplicates<T>(this Stepper<T> stepper, Func<T, T, bool> equate, Func<T, int> hash)
+		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper, Func<T, T, bool> equate, Func<T, int> hash)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
@@ -1957,7 +1957,7 @@ namespace Towel
 		/// <param name="stepper">The stepper function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-		public static bool ContainsDuplicates<T>(this Stepper<T> stepper) =>
+		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper) =>
 			ContainsDuplicates(stepper, DefaultEquals, DefaultHash);
 
 		/// <summary>Determines if the stepper contains any of the predicated values.</summary>
@@ -1965,7 +1965,7 @@ namespace Towel
 		/// <param name="stepper">The stepper to determine if any predicated values exist.</param>
 		/// <param name="where">The predicate.</param>
 		/// <returns>True if any of the predicated values exist or </returns>
-		public static bool Any<T>(this Stepper<T> stepper, Predicate<T> where)
+		public static bool Any<T>(this Action<Action<T>> stepper, Predicate<T> where)
 		{
 			bool any = false;
 			stepper(x => any = any || where(x));
@@ -1989,7 +1989,7 @@ namespace Towel
 		/// <summary>Converts a stepper into a string of the concatenated chars.</summary>
 		/// <param name="stepper">The stepper to concatenate the values into a string.</param>
 		/// <returns>The string of the concatenated chars.</returns>
-		public static string ConcatToString(this Stepper<char> stepper)
+		public static string ConcatToString(this Action<Action<char>> stepper)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
 			stepper(c => stringBuilder.Append(c));

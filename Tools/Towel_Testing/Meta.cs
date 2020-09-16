@@ -16,8 +16,6 @@ namespace Towel_Testing
 				(Type, string)[] testCases = new (Type, string)[]
 				{
 				(typeof(System.Int32), "System.Int32"),
-				(typeof(Towel.Stepper<System.Int32>), "Towel.Stepper<System.Int32>"),
-				(typeof(System.Collections.Generic.List<Towel.Stepper<System.Int32>>), "System.Collections.Generic.List<Towel.Stepper<System.Int32>>"),
 				(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
 				(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"),
 				(typeof(Towel_Testing.A.B.C), "Towel_Testing.A.B.C"),
@@ -62,7 +60,6 @@ namespace Towel_Testing
 			{ // showGenericParameters = true
 				(Type, string)[] testCases = new (Type, string)[]
 				{
-				(typeof(Towel.Stepper<>), "Towel.Stepper<T>"),
 				(typeof(System.Collections.Generic.List<>), "System.Collections.Generic.List<T>"),
 				(typeof(Towel.Mathematics.Symbolics.Constant<>), "Towel.Mathematics.Symbolics.Constant<T>"),
 				(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<AA>.E<BB>"),
@@ -498,7 +495,7 @@ namespace Towel_Testing
 		/// <param name="b">b</param>
 		/// <param name="c">c</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a, Stepper<A> b, A[] c) { }
+		public void DocumentedMethod<A>(A a, Action<Action<A>> b, A[] c) { }
 
 		/// <summary>Test T</summary>
 		/// <typeparam name="A">A</typeparam>
@@ -507,7 +504,7 @@ namespace Towel_Testing
 		/// <param name="c">c</param>
 		/// <param name="d">d</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a, Stepper<A> b, A[] c, A[,] d) { }
+		public void DocumentedMethod<A>(A a, Action<Action<A>> b, A[] c, A[,] d) { }
 
 		/// <summary>Test V</summary>
 		/// <param name="a">a</param>

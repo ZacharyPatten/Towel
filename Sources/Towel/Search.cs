@@ -149,16 +149,12 @@ namespace Towel
 		/// <summary>The status of a graph search algorithm.</summary>
 		public enum GraphSearchStatus
 		{
-			#region Members
-
 			/// <summary>Graph search was not broken.</summary>
 			Continue = StepStatus.Continue,
 			/// <summary>Graph search was broken.</summary>
 			Break = StepStatus.Break,
 			/// <summary>Graph search found the goal.</summary>
 			Goal = 2,
-
-			#endregion
 		}
 
 		/// <summary>Syntax sugar hacks.</summary>
@@ -242,7 +238,7 @@ namespace Towel
 			internal PathNode<Node> Next;
 		}
 
-		internal static Stepper<Node> BuildPath<AlgorithmNode, Node>(BaseAlgorithmNode<AlgorithmNode, Node> node)
+		internal static Action<Action<Node>> BuildPath<AlgorithmNode, Node>(BaseAlgorithmNode<AlgorithmNode, Node> node)
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
 		{
 			PathNode<Node> start = null;
@@ -312,31 +308,31 @@ namespace Towel
 		internal static void Graph_Astar_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
 			Graph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Goal<Node> goal, out Numeric totalCost) =>
 			Graph(start, graph.Neighbors, heuristic, cost, goal, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
 			Graph(start, neighbors, heuristic, cost, goal, DefaultEquals, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
 			Graph(start, neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
 			Graph(start, graph, heuristic, cost, goal, DefaultEquals, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
 			Graph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Check<Node> check, out Numeric totalCost)
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Cost<Node, Numeric> cost, Check<Node> check, out Numeric totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
 			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>, AStarPriorityCompare<Node, Numeric>>();
@@ -396,31 +392,31 @@ namespace Towel
 		internal static void Graph_Dijkstra_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
 			Graph(start, neighbors, heuristic, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal) =>
 			Graph(start, neighbors, heuristic, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
 			Graph(start, neighbors, heuristic, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal) =>
 			Graph(start, graph, heuristic, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
 			Graph(start, graph.Neighbors, heuristic, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, IGraph<Node> graph, Heuristic<Node, Numeric> heuristic, Goal<Node> goal) =>
 			Graph(start, graph.Neighbors, heuristic, goal);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Stepper<Node> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Check<Node> check)
+		public static Action<Action<Node>> Graph<Node, Numeric>(Node start, Neighbors<Node> neighbors, Heuristic<Node, Numeric> heuristic, Check<Node> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
 			IHeap<DijkstraNode<Node, Numeric>> fringe = new HeapArray<DijkstraNode<Node, Numeric>, DijkstraPriorityCompare<Node, Numeric>>();
@@ -475,31 +471,31 @@ namespace Towel
 		internal static void Graph_BreadthFirstSearch_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal) =>
+		public static Action<Action<Node>> Graph<Node>(Node start, Neighbors<Node> neighbors, Goal<Node> goal) =>
 			Graph(start, neighbors, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal) =>
+		public static Action<Action<Node>> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal) =>
 			Graph(start, neighbors, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>> Graph<Node>(Node start, Neighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
 			Graph(start, neighbors, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal) =>
+		public static Action<Action<Node>> Graph<Node>(Node start, IGraph<Node> graph, Node goal) =>
 			Graph(start, graph, goal, DefaultEquals);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>> Graph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>
 			Graph(start, graph.Neighbors, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Stepper<Node> Graph<Node>(Node start, IGraph<Node> graph, Goal<Node> goal) =>
+		public static Action<Action<Node>> Graph<Node>(Node start, IGraph<Node> graph, Goal<Node> goal) =>
 			Graph(start, graph.Neighbors, goal);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Stepper<Node> Graph<Node>(Node start, Neighbors<Node> neighbors, Check<Node> check)
+		public static Action<Action<Node>> Graph<Node>(Node start, Neighbors<Node> neighbors, Check<Node> check)
 		{
 			IQueue<BreadthFirstSearch<Node>> fringe = new QueueLinked<BreadthFirstSearch<Node>>();
 

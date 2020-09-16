@@ -2931,7 +2931,7 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The coordinate along the 1D axis.</param>
 
 		/// <returns>A Stepper of the items at the given coordinates.</returns>
-		Stepper<T> this[Axis1 axis1] { get; }
+		Action<Action<T>> this[Axis1 axis1] { get; }
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		int Dimensions { get; }
@@ -3250,7 +3250,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the items at a given coordinate.</summary>
 		/// <param name="axis1">The coordinate along axis 1.</param>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[Axis1 axis1] =>
+		public Action<Action<T>> this[Axis1 axis1] =>
 			step => Stepper(step, axis1);
 
 		/// <summary>The number of dimensions in this tree.</summary>
@@ -4439,7 +4439,7 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The coordinate along the 2D axis.</param>
 
 		/// <returns>A Stepper of the items at the given coordinates.</returns>
-		Stepper<T> this[Axis1 axis1, Axis2 axis2] { get; }
+		Action<Action<T>> this[Axis1 axis1, Axis2 axis2] { get; }
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		int Dimensions { get; }
@@ -4807,7 +4807,7 @@ namespace Towel.DataStructures
 		/// <param name="axis1">The coordinate along axis 1.</param>
 		/// <param name="axis2">The coordinate along axis 2.</param>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[Axis1 axis1, Axis2 axis2] =>
+		public Action<Action<T>> this[Axis1 axis1, Axis2 axis2] =>
 			step => Stepper(step, axis1, axis2);
 
 		/// <summary>The number of dimensions in this tree.</summary>
@@ -6086,7 +6086,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The coordinate along the 3D axis.</param>
 
 		/// <returns>A Stepper of the items at the given coordinates.</returns>
-		Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3] { get; }
+		Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3] { get; }
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		int Dimensions { get; }
@@ -6503,7 +6503,7 @@ namespace Towel.DataStructures
 		/// <param name="axis2">The coordinate along axis 2.</param>
 		/// <param name="axis3">The coordinate along axis 3.</param>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3] =>
+		public Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3] =>
 			step => Stepper(step, axis1, axis2, axis3);
 
 		/// <summary>The number of dimensions in this tree.</summary>
@@ -7874,7 +7874,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The coordinate along the 4D axis.</param>
 
 		/// <returns>A Stepper of the items at the given coordinates.</returns>
-		Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4] { get; }
+		Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4] { get; }
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		int Dimensions { get; }
@@ -8340,7 +8340,7 @@ namespace Towel.DataStructures
 		/// <param name="axis3">The coordinate along axis 3.</param>
 		/// <param name="axis4">The coordinate along axis 4.</param>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4] =>
+		public Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4] =>
 			step => Stepper(step, axis1, axis2, axis3, axis4);
 
 		/// <summary>The number of dimensions in this tree.</summary>
@@ -9805,7 +9805,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The coordinate along the 5D axis.</param>
 
 		/// <returns>A Stepper of the items at the given coordinates.</returns>
-		Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5] { get; }
+		Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5] { get; }
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		int Dimensions { get; }
@@ -10320,7 +10320,7 @@ namespace Towel.DataStructures
 		/// <param name="axis4">The coordinate along axis 4.</param>
 		/// <param name="axis5">The coordinate along axis 5.</param>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5] =>
+		public Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5] =>
 			step => Stepper(step, axis1, axis2, axis3, axis4, axis5);
 
 		/// <summary>The number of dimensions in this tree.</summary>
@@ -11881,7 +11881,7 @@ namespace Towel.DataStructures
 		/// <param name="axis6">The coordinate along the 6D axis.</param>
 
 		/// <returns>A Stepper of the items at the given coordinates.</returns>
-		Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6] { get; }
+		Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6] { get; }
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		int Dimensions { get; }
@@ -12445,7 +12445,7 @@ namespace Towel.DataStructures
 		/// <param name="axis5">The coordinate along axis 5.</param>
 		/// <param name="axis6">The coordinate along axis 6.</param>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6] =>
+		public Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6] =>
 			step => Stepper(step, axis1, axis2, axis3, axis4, axis5, axis6);
 
 		/// <summary>The number of dimensions in this tree.</summary>
@@ -14104,7 +14104,7 @@ namespace Towel.DataStructures
 		/// <param name="axis7">The coordinate along the 7D axis.</param>
 
 		/// <returns>A Stepper of the items at the given coordinates.</returns>
-		Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7] { get; }
+		Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7] { get; }
 
 		/// <summary>The number of dimensions in this tree.</summary>
 		int Dimensions { get; }
@@ -14717,7 +14717,7 @@ namespace Towel.DataStructures
 		/// <param name="axis6">The coordinate along axis 6.</param>
 		/// <param name="axis7">The coordinate along axis 7.</param>
 		/// <returns>The stepper for the items at the given coordinate.</returns>
-		public Stepper<T> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7] =>
+		public Action<Action<T>> this[Axis1 axis1, Axis2 axis2, Axis3 axis3, Axis4 axis4, Axis5 axis5, Axis6 axis6, Axis7 axis7] =>
 			step => Stepper(step, axis1, axis2, axis3, axis4, axis5, axis6, axis7);
 
 		/// <summary>The number of dimensions in this tree.</summary>

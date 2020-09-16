@@ -99,14 +99,14 @@
             <typeparam name="A">A</typeparam>
             <param name="a">a</param>
         </member>
-        <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod``1(``0,Towel.Stepper{``0},``0[])">
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod``1(``0,System.Action{System.Action{``0}},``0[])">
             <summary>Test S</summary>
             <typeparam name="A">A</typeparam>
             <param name="a">a</param>
             <param name="b">b</param>
             <param name="c">c</param>
         </member>
-        <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod``1(``0,Towel.Stepper{``0},``0[],``0[0:,0:])">
+        <member name="M:Towel_Testing.XmlDocumentationFromMethod.DocumentedMethod``1(``0,System.Action{System.Action{``0}},``0[],``0[0:,0:])">
             <summary>Test T</summary>
             <typeparam name="A">A</typeparam>
             <param name="a">a</param>

@@ -90,7 +90,7 @@ namespace BasicsAndExtensions
 				}
 				Console.WriteLine();
 
-				Stepper<int> stepper = Ɐ(1, 2, 3);
+				Action<Action<int>> stepper = Ɐ(1, 2, 3);
 				Console.Write("    stepper values:");
 				stepper(value => Console.Write(" " + value));
 				Console.WriteLine();
@@ -561,7 +561,7 @@ namespace BasicsAndExtensions
 				System.Collections.Generic.Stack<int>       g = Ɐ(1, 2, 3);
 				System.Collections.Generic.Queue<int>       h = Ɐ(1, 2, 3);
 				System.Collections.Generic.SortedSet<int>   i = Ɐ(1, 2, 3);
-				Stepper<int>                                j = Ɐ(1, 2, 3);
+				Action<Action<int>>                         j = Ɐ(1, 2, 3);
 				StepperRef<int>                             k = Ɐ(1, 2, 3);
 				StepperBreak<int>                           l = Ɐ(1, 2, 3);
 				StepperRefBreak<int>                        m = Ɐ(1, 2, 3);

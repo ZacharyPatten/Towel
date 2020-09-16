@@ -158,7 +158,7 @@ namespace Towel.DataStructures
 		/// <param name="bounds">The current bounds of the set of values.</param>
 		/// <param name="values">The values to find the point of subdivision.</param>
 		/// <returns></returns>
-		public delegate A SubdivisionOverride<T, A, BoundsType>(BoundsType bounds, Stepper<T> values);
+		public delegate A SubdivisionOverride<T, A, BoundsType>(BoundsType bounds, Action<Action<T>> values);
 
 		internal static T SubDivide<T>(Bound<T>[] bounds, Func<T, T, CompareResult> compare)
 		{

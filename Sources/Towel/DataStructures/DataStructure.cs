@@ -111,7 +111,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static Stepper<T> Stepper<T>(this IDataStructure<T> dataStructure) =>
+		public static Action<Action<T>> Stepper<T>(this IDataStructure<T> dataStructure) =>
 			dataStructure.Stepper;
 
 		/// <summary>Gets the stepper for this data structure.</summary>

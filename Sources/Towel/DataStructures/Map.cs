@@ -157,7 +157,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static Stepper<K> Keys<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
+		public static Action<Action<K>> Keys<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>

@@ -115,7 +115,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> Stepper<T>(this ISortedBinaryTree<T> tree) =>
+		public static Action<Action<T>> Stepper<T>(this ISortedBinaryTree<T> tree) =>
 			tree.Stepper;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
@@ -143,7 +143,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> StepperReverse<T>(this ISortedBinaryTree<T> tree) =>
+		public static Action<Action<T>> StepperReverse<T>(this ISortedBinaryTree<T> tree) =>
 			tree.StepperReverse;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
@@ -173,7 +173,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> Stepper<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static Action<Action<T>> Stepper<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
 			x => tree.Stepper(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
@@ -209,7 +209,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Stepper<T> StepperReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static Action<Action<T>> StepperReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
 			x => tree.StepperReverse(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
