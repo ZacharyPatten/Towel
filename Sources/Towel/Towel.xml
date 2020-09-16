@@ -16232,6 +16232,223 @@
             <summary>Implicitly gets the setter from a list.</summary>
             <param name="list">The list to get the setter of.</param>
         </member>
+        <member name="T:Towel.StepContinue">
+            <summary>Compile time resulution to the <see cref="F:Towel.StepStatus.Continue"/> value.</summary>
+        </member>
+        <member name="M:Towel.StepContinue.Do">
+            <summary>Returns <see cref="F:Towel.StepStatus.Continue"/>.</summary>
+            <returns><see cref="F:Towel.StepStatus.Continue"/></returns>
+        </member>
+        <member name="T:Towel.StepRef`1">
+            <summary>Delegate for data structure iteration.</summary>
+            <typeparam name="T">The type of the instances within the data structure.</typeparam>
+            <param name="current">The current instance of iteration through the data structure.</param>
+        </member>
+        <member name="T:Towel.StepRefBreak`1">
+            <summary>Delegate for data structure iteration.</summary>
+            <typeparam name="T">The type of the instances within the data structure.</typeparam>
+            <param name="current">The current instance of iteration through the data structure.</param>
+            <returns>The status of the iteration. Allows breaking functionality.</returns>
+        </member>
+        <member name="T:Towel.StepperRef`1">
+            <summary>Delegate for a traversal function on a data structure.</summary>
+            <typeparam name="T">The type of instances the will be traversed.</typeparam>
+            <param name="step">The foreach function to perform on each iteration.</param>
+        </member>
+        <member name="T:Towel.StepperBreak`1">
+            <summary>Delegate for a traversal function on a data structure.</summary>
+            <typeparam name="T">The type of instances the will be traversed.</typeparam>
+            <param name="step">The foreach function to perform on each iteration.</param>
+        </member>
+        <member name="T:Towel.StepperRefBreak`1">
+            <summary>Delegate for a traversal function on a data structure.</summary>
+            <typeparam name="T">The type of instances the will be traversed.</typeparam>
+            <param name="step">The foreach function to perform on each iteration.</param>
+        </member>
+        <member name="T:Towel.StepFromStepRef`2">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+            <typeparam name="StepRef">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepFromStepRef`2.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepFromStepRef`2.op_Implicit(`1)~Towel.StepFromStepRef{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepRef">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.IStepRef`1">
+            <summary>A compile time delegate for stepping values of iteration.</summary>
+            <typeparam name="T">The generic type of values to step.</typeparam>
+        </member>
+        <member name="M:Towel.IStepRef`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.StepRefRuntime`1">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefRuntime`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefRuntime`1.op_Implicit(Towel.StepRef{`0})~Towel.StepRefRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepRef">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepToStepRef`2">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepToStepRef`2.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepToStepRef`2.op_Implicit(`1)~Towel.StepToStepRef{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepBreakRuntime`1">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+        </member>
+        <member name="M:Towel.StepBreakRuntime`1.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepBreakRuntime`1.op_Implicit(System.Func{`0,Towel.StepStatus})~Towel.StepBreakRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepBreak">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepBreakFromAction`2">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepBreakFromAction`2.Do(`0)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepBreakFromAction`2.op_Implicit(`1)~Towel.StepBreakFromAction{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.IStepRefBreak`1">
+            <summary>A compile time delegate for stepping values of iteration.</summary>
+            <typeparam name="T">The generic type of values to step.</typeparam>
+        </member>
+        <member name="M:Towel.IStepRefBreak`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="T:Towel.StepRefBreakRuntime`1">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefBreakRuntime`1.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefBreakRuntime`1.op_Implicit(Towel.StepRefBreak{`0})~Towel.StepRefBreakRuntime{`0}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="stepRefBreak">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepRefBreakFromStepBreak`2">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepBreak`2.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepBreak`2.op_Implicit(`1)~Towel.StepRefBreakFromStepBreak{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepRefBreakFromStepRef`2">
+            <summary>Built in struct for runtime computations.</summary>
+            <typeparam name="T">The generic type of the values.</typeparam>
+            <typeparam name="Step">The Step function.</typeparam>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepRef`2.Do(`0@)">
+            <summary>The invocation of the compile time delegate.</summary>
+        </member>
+        <member name="M:Towel.StepRefBreakFromStepRef`2.op_Implicit(`1)~Towel.StepRefBreakFromStepRef{`0,`1}">
+            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+            <param name="step">The runtime Step delegate.</param>
+        </member>
+        <member name="T:Towel.StepRef`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+        </member>
+        <member name="T:Towel.StepRef1`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+        </member>
+        <member name="T:Towel.StepRef2`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+        </member>
+        <member name="T:Towel.StepBreak`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+            <returns>The status of the iteration. Allows breaking functionality.</returns>
+        </member>
+        <member name="T:Towel.StepRefBreak`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+            <returns>The status of the iteration. Allows breaking functionality.</returns>
+        </member>
+        <member name="T:Towel.StepRefBreak1`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+            <returns>The status of the iteration. Allows breaking functionality.</returns>
+        </member>
+        <member name="T:Towel.StepRefBreak2`2">
+            <summary>Delegate for an action to perform while stepping.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="a">The first component of the step.</param>
+            <param name="b">The second component of the step.</param>
+            <returns>The status of the iteration. Allows breaking functionality.</returns>
+        </member>
+        <member name="T:Towel.Stepper`2">
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
+        </member>
+        <member name="T:Towel.StepperRef`2">
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
+        </member>
+        <member name="T:Towel.StepperBreak`2">
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
+        </member>
+        <member name="T:Towel.StepperRefBreak`2">
+            <summary>Delegate for stepping through a collection.</summary>
+            <typeparam name="T1">The type of the object to step on.</typeparam>
+            <typeparam name="T2">The type of the object to step on.</typeparam>
+            <param name="step">The action to perform on every step.</param>
+        </member>
         <member name="T:Towel.HammingDistance">
             <summary>Contains algorithms for computing Hamming distances.</summary>
         </member>
@@ -30955,223 +31172,6 @@
         </member>
         <member name="F:Towel.StepStatus.Break">
             <summary>Stepper was broken.</summary>
-        </member>
-        <member name="T:Towel.StepContinue">
-            <summary>Compile time resulution to the <see cref="F:Towel.StepStatus.Continue"/> value.</summary>
-        </member>
-        <member name="M:Towel.StepContinue.Do">
-            <summary>Returns <see cref="F:Towel.StepStatus.Continue"/>.</summary>
-            <returns><see cref="F:Towel.StepStatus.Continue"/></returns>
-        </member>
-        <member name="T:Towel.StepRef`1">
-            <summary>Delegate for data structure iteration.</summary>
-            <typeparam name="T">The type of the instances within the data structure.</typeparam>
-            <param name="current">The current instance of iteration through the data structure.</param>
-        </member>
-        <member name="T:Towel.StepRefBreak`1">
-            <summary>Delegate for data structure iteration.</summary>
-            <typeparam name="T">The type of the instances within the data structure.</typeparam>
-            <param name="current">The current instance of iteration through the data structure.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.StepperRef`1">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
-        </member>
-        <member name="T:Towel.StepperBreak`1">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
-        </member>
-        <member name="T:Towel.StepperRefBreak`1">
-            <summary>Delegate for a traversal function on a data structure.</summary>
-            <typeparam name="T">The type of instances the will be traversed.</typeparam>
-            <param name="step">The foreach function to perform on each iteration.</param>
-        </member>
-        <member name="T:Towel.StepFromStepRef`2">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-            <typeparam name="StepRef">The Step function.</typeparam>
-        </member>
-        <member name="M:Towel.StepFromStepRef`2.Do(`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepFromStepRef`2.op_Implicit(`1)~Towel.StepFromStepRef{`0,`1}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="stepRef">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.IStepRef`1">
-            <summary>A compile time delegate for stepping values of iteration.</summary>
-            <typeparam name="T">The generic type of values to step.</typeparam>
-        </member>
-        <member name="M:Towel.IStepRef`1.Do(`0@)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="T:Towel.StepRefRuntime`1">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-        </member>
-        <member name="M:Towel.StepRefRuntime`1.Do(`0@)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepRefRuntime`1.op_Implicit(Towel.StepRef{`0})~Towel.StepRefRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="stepRef">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.StepToStepRef`2">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-            <typeparam name="Step">The Step function.</typeparam>
-        </member>
-        <member name="M:Towel.StepToStepRef`2.Do(`0@)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepToStepRef`2.op_Implicit(`1)~Towel.StepToStepRef{`0,`1}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="step">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.StepBreakRuntime`1">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-        </member>
-        <member name="M:Towel.StepBreakRuntime`1.Do(`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepBreakRuntime`1.op_Implicit(System.Func{`0,Towel.StepStatus})~Towel.StepBreakRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="stepBreak">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.StepBreakFromAction`2">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-            <typeparam name="Step">The Step function.</typeparam>
-        </member>
-        <member name="M:Towel.StepBreakFromAction`2.Do(`0)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepBreakFromAction`2.op_Implicit(`1)~Towel.StepBreakFromAction{`0,`1}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="step">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.IStepRefBreak`1">
-            <summary>A compile time delegate for stepping values of iteration.</summary>
-            <typeparam name="T">The generic type of values to step.</typeparam>
-        </member>
-        <member name="M:Towel.IStepRefBreak`1.Do(`0@)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="T:Towel.StepRefBreakRuntime`1">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-        </member>
-        <member name="M:Towel.StepRefBreakRuntime`1.Do(`0@)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepRefBreakRuntime`1.op_Implicit(Towel.StepRefBreak{`0})~Towel.StepRefBreakRuntime{`0}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="stepRefBreak">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.StepRefBreakFromStepBreak`2">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-            <typeparam name="Step">The Step function.</typeparam>
-        </member>
-        <member name="M:Towel.StepRefBreakFromStepBreak`2.Do(`0@)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepRefBreakFromStepBreak`2.op_Implicit(`1)~Towel.StepRefBreakFromStepBreak{`0,`1}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="step">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.StepRefBreakFromStepRef`2">
-            <summary>Built in struct for runtime computations.</summary>
-            <typeparam name="T">The generic type of the values.</typeparam>
-            <typeparam name="Step">The Step function.</typeparam>
-        </member>
-        <member name="M:Towel.StepRefBreakFromStepRef`2.Do(`0@)">
-            <summary>The invocation of the compile time delegate.</summary>
-        </member>
-        <member name="M:Towel.StepRefBreakFromStepRef`2.op_Implicit(`1)~Towel.StepRefBreakFromStepRef{`0,`1}">
-            <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-            <param name="step">The runtime Step delegate.</param>
-        </member>
-        <member name="T:Towel.StepRef`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-        </member>
-        <member name="T:Towel.StepRef1`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-        </member>
-        <member name="T:Towel.StepRef2`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-        </member>
-        <member name="T:Towel.StepBreak`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.StepRefBreak`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.StepRefBreak1`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.StepRefBreak2`2">
-            <summary>Delegate for an action to perform while stepping.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="a">The first component of the step.</param>
-            <param name="b">The second component of the step.</param>
-            <returns>The status of the iteration. Allows breaking functionality.</returns>
-        </member>
-        <member name="T:Towel.Stepper`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
-        </member>
-        <member name="T:Towel.StepperRef`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
-        </member>
-        <member name="T:Towel.StepperBreak`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
-        </member>
-        <member name="T:Towel.StepperRefBreak`2">
-            <summary>Delegate for stepping through a collection.</summary>
-            <typeparam name="T1">The type of the object to step on.</typeparam>
-            <typeparam name="T2">The type of the object to step on.</typeparam>
-            <param name="step">The action to perform on every step.</param>
         </member>
         <member name="T:Towel.Syntax">
             <summary>Towel syntax.</summary>

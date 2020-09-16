@@ -11,5 +11,5 @@ namespace Towel
 		Equal = 0,
 		/// <summary>The left operand is greater than the right operand.</summary>
 		Greater = 1
-	};
+	}
 }
