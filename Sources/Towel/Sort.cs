@@ -28,8 +28,6 @@ namespace Towel
 
 		#region Bubble
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the bubble sort algorithm.</summary>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
@@ -37,8 +35,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Bubble_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -103,8 +99,6 @@ namespace Towel
 
 		#region Selection
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the selection sort algoritm.</summary>
 		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
 		/// <stability>False</stability>
@@ -112,8 +106,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Selection_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -182,8 +174,6 @@ namespace Towel
 
 		#region Insertion
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the insertion sort algorithm.</summary>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
@@ -191,8 +181,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Insertion_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -254,8 +242,6 @@ namespace Towel
 
 		#region Quick
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the quick sort algorithm.</summary>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
@@ -263,8 +249,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Quick_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Quick_XML"/>
 		public static void Quick<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -370,8 +354,6 @@ namespace Towel
 
 		#region Merge
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the merge sort algorithm.</summary>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
 		/// <stability>True</stability>
@@ -379,8 +361,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Merge_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -498,8 +478,6 @@ namespace Towel
 
 		#region Heap
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the heap sort algorithm.</summary>
 		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
 		/// <stability>False</stability>
@@ -507,8 +485,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Heap_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -620,8 +596,6 @@ namespace Towel
 
 		#region OddEven
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the odd even sort algorithm.</summary>
 		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
 		/// <stability>True</stability>
@@ -629,8 +603,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void OddEven_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -853,8 +825,6 @@ namespace Towel
 
 		#region Bogo
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the bogo sort algorithm.</summary>
 		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
 		/// <stability>False</stability>
@@ -862,8 +832,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Bogo_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T>(T[] array, Func<T, T, CompareResult> compare = null, Random random = null) =>
@@ -937,14 +905,10 @@ namespace Towel
 
 		#region Slow
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the slow sort algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Slow_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Slow_XML"/>
 		public static void Slow<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -1021,14 +985,10 @@ namespace Towel
 
 		#region Gnome
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the gnome sort algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Gnome_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -1099,14 +1059,10 @@ namespace Towel
 
 		#region Comb
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the comb sort algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Comb_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -1190,14 +1146,10 @@ namespace Towel
 
 		#region Shell
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the shell sort algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Shell_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
@@ -1267,14 +1219,10 @@ namespace Towel
 
 		#region Cocktail
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Sorts values using the shell sort algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Cocktail_XML() => throw new DocumentationMethodException();
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
