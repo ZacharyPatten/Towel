@@ -94,9 +94,11 @@ namespace Example
 		[Value(MyAttributeA, "works :P")]
 		[Value(MyAttributeB, "B")]
 		public static void Method(
+#pragma warning disable IDE0060 // Remove unused parameter
 			[Value(MyAttributeA, "works ;)")]
 			[Value(MyAttributeB, "G")]
 			object a) { }
+#pragma warning restore IDE0060 // Remove unused parameter
 
 		[Value(MyAttributeA, "works :D")]
 		[Value(MyAttributeB, "C")]

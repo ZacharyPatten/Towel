@@ -10,6 +10,12 @@ namespace CommandLine
 	{
 		static void Main(string[] args)
 		{
+			if (args is null && args.Length > 0)
+			{
+				HandleArguments(args);
+				return;
+			}
+
 			string[] example_args =
 			{
 				@"A --a helloworld",

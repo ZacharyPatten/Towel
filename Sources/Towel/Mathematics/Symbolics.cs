@@ -3028,7 +3028,7 @@ namespace Towel.Mathematics
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");
-						operationName = operationName.Substring(index + 1);
+						operationName = operationName[(index + 1)..];
 					}
 					ParsableUnaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
@@ -3067,7 +3067,7 @@ namespace Towel.Mathematics
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");
-						operationName = operationName.Substring(index + 1);
+						operationName = operationName[(index + 1)..];
 					}
 					ParsableBinaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
@@ -3100,7 +3100,7 @@ namespace Towel.Mathematics
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");
-						operationName = operationName.Substring(index + 1);
+						operationName = operationName[(index + 1)..];
 					}
 					ParsableTernaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
@@ -3125,7 +3125,7 @@ namespace Towel.Mathematics
 					if (operationName.Contains("+"))
 					{
 						int index = operationName.LastIndexOf("+");
-						operationName = operationName.Substring(index + 1);
+						operationName = operationName[(index + 1)..];
 					}
 					ParsableMultinaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
@@ -3430,7 +3430,7 @@ namespace Towel.Mathematics
 								else
 								{
 									int leftIndex = leftSpecialMatch.Index + 1;
-									string substring = @string.Substring(leftIndex, rightIndex - leftIndex);
+									string substring = @string[leftIndex..rightIndex];
 									return string.IsNullOrWhiteSpace(substring);
 								}
 							}
@@ -3458,12 +3458,12 @@ namespace Towel.Mathematics
 								}
 								if (rightSpecialMatch is null)
 								{
-									return string.IsNullOrWhiteSpace(@string.Substring(leftIndex + 1));
+									return string.IsNullOrWhiteSpace(@string[(leftIndex + 1)..]);
 								}
 								else
 								{
 									int rightIndex = rightSpecialMatch.Index - rightSpecialMatch.Length;
-									return string.IsNullOrWhiteSpace(@string.Substring(leftIndex, rightIndex - leftIndex));
+									return string.IsNullOrWhiteSpace(@string[leftIndex..rightIndex]);
 								}
 							}
 
@@ -3543,7 +3543,7 @@ namespace Towel.Mathematics
 				{
 					if (isUnaryLeftOperator)
 					{
-						string a = @string.Substring(@operator.Index + @operator.Length);
+						string a = @string[(@operator.Index + @operator.Length)..];
 						Expression A = Parse(a, tryParse);
 						expression = ParsableLeftUnaryOperators[@operator.Value].Item2(A);
 						return true;
@@ -3557,9 +3557,9 @@ namespace Towel.Mathematics
 					}
 					else if (isBinaryOperator)
 					{
-						string a = @string.Substring(0, @operator.Index);
+						string a = @string[..@operator.Index];
 						Expression A = Parse(a, tryParse);
-						string b = @string.Substring(@operator.Index + @operator.Length);
+						string b = @string[(@operator.Index + @operator.Length)..];
 						Expression B = Parse(b, tryParse);
 						expression = ParsableBinaryOperators[@operator.Value].Item2(A, B);
 						return true;
@@ -3602,7 +3602,7 @@ namespace Towel.Mathematics
 				int right_start = parenthesisMatch.Index + parenthesisMatch.Length;
 				if (right_start != @string.Length)
 				{
-					string rightExpression = @string.Substring(right_start, @string.Length - right_start);
+					string rightExpression = @string[right_start..];
 					expression *= Parse(rightExpression, tryParse);
 				}
 
@@ -3626,7 +3626,7 @@ namespace Towel.Mathematics
 				string operation = operationMatch_Value.Substring(0, operationMatch_Value.IndexOf('(') - 1);
 				Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
 				string parenthesisMatch_Value = parenthesisMatch.Value;
-				ListArray<string> operandSplits = SplitOperands(parenthesisMatch_Value.Substring(1, parenthesisMatch_Value.Length - 2));
+				ListArray<string> operandSplits = SplitOperands(parenthesisMatch_Value[1..^1]);
 
 				switch (operandSplits.Count)
 				{
@@ -3662,7 +3662,7 @@ namespace Towel.Mathematics
 				}
 				if (operationMatch.Length + operationMatch.Index < @string.Length) // Right
 				{
-					Expression A = Parse(@string.Substring(operationMatch.Length + operationMatch.Index), tryParse);
+					Expression A = Parse(@string[(operationMatch.Length + operationMatch.Index)..], tryParse);
 					expression *= A;
 				}
 
@@ -3694,7 +3694,7 @@ namespace Towel.Mathematics
 					case ',':
 						if (scope == 0)
 						{
-							operands.Add(@string.Substring(operandStart, i - operandStart));
+							operands.Add(@string[operandStart..i]);
 						}
 						break;
 				}
@@ -3703,7 +3703,7 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
 			}
-			operands.Add(@string.Substring(operandStart, @string.Length - operandStart));
+			operands.Add(@string[operandStart..]);
 			return operands;
 		}
 
@@ -3715,7 +3715,7 @@ namespace Towel.Mathematics
 			System.Collections.Generic.IEnumerable<Expression> variables =
 				Regex.Matches(@string, variablePattern)
 				.Cast<Match>()
-				.Select(x => new Variable(x.Value.Substring(1, x.Value.Length - 2)));
+				.Select(x => new Variable(x.Value[1..^1]));
 
 			// if no variables, fall back
 			if (!variables.Any())
@@ -3769,7 +3769,7 @@ namespace Towel.Mathematics
 				}
 				if (knownConstantMatch.Index < @string.Length - 1)
 				{
-					Expression B = Parse<T>(@string.Substring(knownConstantMatch.Index + 1), tryParse);
+					Expression B = Parse<T>(@string[(knownConstantMatch.Index + 1)..], tryParse);
 					parsedExpression *= B;
 				}
 				return true;
@@ -3822,9 +3822,9 @@ namespace Towel.Mathematics
 				}
 				else
 				{
-					wholeNumberString = @string.Substring(0, decimalIndex);
+					wholeNumberString = @string[..decimalIndex];
 				}
-				string decimalPlacesString = @string.Substring(decimalIndex + 1);
+				string decimalPlacesString = @string[(decimalIndex + 1)..];
 
 				int zeroCount = 0;
 				while (decimalPlacesString[zeroCount] == '0')

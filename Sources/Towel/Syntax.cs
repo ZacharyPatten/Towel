@@ -285,20 +285,20 @@ namespace Towel
 		/// <typeparam name="T">The generic type parameter to the Switch statement.</typeparam>
 		/// <param name="value">The value argument of the Switch statement.</param>
 		/// <returns>The delegate for the Switch statement.</returns>
-		public static SwitchSyntax.SwitchDelegate<T> Switch<T>(T value) =>
+		public static ParamsAction<SwitchSyntax.Condition<T>, Action> Switch<T>(T value) =>
 			SwitchSyntax.Do<T>(value);
 
 		/// <summary>Definitions for Switch syntax.</summary>
 		public static class SwitchSyntax
 		{
-			internal static SwitchDelegate<T> Do<T>(T value) =>
+			internal static ParamsAction<Condition<T>, Action> Do<T>(T value) =>
 				possibleActions =>
 				{
 					foreach (var possibleAction in possibleActions)
 					{
-						if (possibleAction.Condition.Resolve(value))
+						if (possibleAction.Item1.Resolve(value))
 						{
-							possibleAction.Action();
+							possibleAction.Item2();
 							return;
 						}
 					}
@@ -320,11 +320,6 @@ namespace Towel
 			{
 				Default,
 			}
-
-			/// <summary>The delegate of the Switch statement.</summary>
-			/// <typeparam name="T">The generic type of the Switch statement.</typeparam>
-			/// <param name="possibleActions">The possible actions of the Switch statement.</param>
-			public delegate void SwitchDelegate<T>(params (Condition<T> Condition, Action Action)[] possibleActions);
 
 			/// <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
 			/// <typeparam name="T">The generic type of the Switch condition for equality checks.</typeparam>

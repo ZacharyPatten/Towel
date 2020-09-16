@@ -219,7 +219,7 @@ for (i = 0; i < coll.length; i++)
 						throw new NotImplementedException();
 
 					output.Append("<button class='collapsible type " + typeString + "'>");
-					output.Append(HttpUtility.HtmlEncode(typeToString.Substring(typeToString.LastIndexOf('.') + 1) + " [" + typeString + "]"));
+					output.Append(HttpUtility.HtmlEncode(typeToString[(typeToString.LastIndexOf('.') + 1)..] + " [" + typeString + "]"));
 					output.AppendLine("</button>");
 
 					output.AppendLine("<div class='content'>");

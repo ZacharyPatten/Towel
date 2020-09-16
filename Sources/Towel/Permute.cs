@@ -98,7 +98,7 @@ namespace Towel
 				}
 				return Continue;
 			}
-			void Swap(Span<T> span, int a, int b)
+			static void Swap(Span<T> span, int a, int b)
 			{
 				T temp = span[a];
 				span[a]= span[b];

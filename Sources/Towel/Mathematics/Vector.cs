@@ -183,7 +183,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, Vector<T>> FactoryZeroImplementation = dimensions =>
 		{
-			if (Syntax.EqualTo(default(T), Constant<T>.Zero))
+			if (EqualTo(default, Constant<T>.Zero))
 			{
 				FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
 			}
@@ -209,7 +209,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, Vector<T>> FactoryOneImplementation = dimensions =>
 		{
-			if (Syntax.EqualTo(default(T), Constant<T>.One))
+			if (EqualTo(default, Constant<T>.One))
 			{
 				FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
 			}
@@ -1360,13 +1360,13 @@ namespace Towel.Mathematics
 		/// <returns>True if the references are equal, false if not.</returns>
 		public override bool Equals(object right)
 		{
-			if (!(right is Vector<T>))
+			if (!(right is Vector<T> vector))
 			{
 				return false;
 			}
 			else
 			{
-				return Equal(this, (Vector<T>)right);
+				return Equal(this, vector);
 			}
 		}
 

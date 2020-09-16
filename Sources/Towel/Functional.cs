@@ -4,6 +4,10 @@ using static Towel.Syntax;
 
 namespace Towel
 {
+	public delegate void ParamsAction<T>(params T[] values);
+
+	public delegate void ParamsAction<A, B>(params (A, B)[] values);
+
 	/// <summary>Interface for a compile time delegate.</summary>
 	public interface IAction
 	{

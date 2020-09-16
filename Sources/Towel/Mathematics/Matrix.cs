@@ -1369,7 +1369,6 @@ namespace Towel.Mathematics
 
 		#region Minor
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 		/// <summary>Gets the minor of a matrix.</summary>
 		/// <param name="a">The matrix to get the minor of.</param>
@@ -1380,7 +1379,6 @@ namespace Towel.Mathematics
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Minor_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Minor_XML"/>
 		public Matrix<T> Minor(int row, int column) =>

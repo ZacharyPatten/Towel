@@ -448,7 +448,7 @@ namespace Towel.Mathematics
 			{
 				int divideIndex = @string.IndexOf("/");
 				string numeratorString = @string.Substring(0, divideIndex - 1);
-				string denominatorString = @string.Substring(divideIndex + 1);
+				string denominatorString = @string[(divideIndex + 1)..];
 
 				// TODO: refactor this code so the try-catch is not necessary.
 

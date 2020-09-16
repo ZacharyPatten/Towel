@@ -979,11 +979,12 @@ namespace Towel.Mathematics
 		/// <param name="b">The max of the interpolation.</param>
 		/// <param name="blend">The blending point of the interpolation.</param>
 		/// <param name="c">The result of the spherical interpolation.</param>
+		[Obsolete("Not Implemented", true)]
 		public static void SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T> c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
-			if (Syntax.LessThan(blend, Constant<T>.Zero) || Syntax.GreaterThan(blend, Constant<T>.One))
+			if (LessThan(blend, Constant<T>.Zero) || GreaterThan(blend, Constant<T>.One))
 			{
 				throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
 			}
@@ -1178,9 +1179,7 @@ namespace Towel.Mathematics
 		/// <param name="other"></param>
 		/// <returns></returns>
 		public override bool Equals(object other) =>
-			other is Quaternion<T> b
-			? Equal(this, b)
-			: false;
+			other is Quaternion<T> b && Equal(this, b);
 
 		#endregion
 	}
