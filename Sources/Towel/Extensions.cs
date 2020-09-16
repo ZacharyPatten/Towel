@@ -670,19 +670,8 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
-			where Step : struct, IAction<int>
-		{
-			#pragma warning disable CS0618
-			if (count < Math.Sqrt(maxValue - minValue))
-			{
-				random.NextUniqueRollTracking(count, minValue, maxValue, step);
-			}
-			else
-			{
-				random.NextUniquePoolTracking(count, minValue, maxValue, step);
-			}
-			#pragma warning restore CS0618
-		}
+			where Step : struct, IAction<int> =>
+			NextUnique<Step, RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -697,43 +686,8 @@ namespace Towel
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		[Obsolete("It is recommended you use " + nameof(NextUnique) + " method instead.", false)]
 		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
-			where Step : struct, IAction<int>
-		{
-			if (maxValue < minValue)
-				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
-			if (count < 0)
-				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
-			if (maxValue - minValue < count)
-				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
-			// Algorithm B: O(.5*count^2), Ω(count), ε(.5*count^2)
-			Node head = null;
-			for (int i = 0; i < count; i++) // Θ(count)
-			{
-				int roll = random.Next(minValue, maxValue - i);
-				if (roll < minValue || roll >= maxValue - i)
-				{
-					throw new ArgumentException("The Random provided returned a value outside the requested range.");
-				}
-				Node node = head;
-				Node previous = null;
-				while (!(node is null) && !(node.Value > roll)) // O(count / 2), Ω(0), ε(count / 2)
-				{
-					roll++;
-					previous = node;
-					node = node.Next;
-				}
-				step.Do(roll);
-				if (previous is null)
-					head = new Node() { Value = roll, Next = head, };
-				else
-					previous.Next = new Node() { Value = roll, Next = previous.Next };
-			}
-		}
-		internal class Node
-		{
-			internal int Value;
-			internal Node Next;
-		}
+			where Step : struct, IAction<int> =>
+			NextUniqueRollTracking<Step, RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -748,31 +702,8 @@ namespace Towel
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		[Obsolete("It is recommended you use " + nameof(NextUnique) + " method instead.", false)]
 		public static void NextUniquePoolTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
-			where Step : struct, IAction<int>
-		{
-			if (maxValue < minValue)
-				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
-			if (count < 0)
-				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
-			if (maxValue - minValue < count)
-				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
-			// Algorithm B: Θ(range + count)
-			int pool = maxValue - minValue;
-			int[] array = new int[pool];
-			for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
-				array[i] = j;
-			for (int i = 0; i < count; i++) // Θ(count)
-			{
-				int rollIndex = random.Next(0, pool);
-				if (rollIndex < 0 || rollIndex >= pool)
-				{
-					throw new ArgumentException("The Random provided returned a value outside the requested range.");
-				}
-				int roll = array[rollIndex];
-				array[rollIndex] = array[--pool];
-				step.Do(roll);
-			}
-		}
+			where Step : struct, IAction<int> =>
+			NextUniquePoolTracking<Step, RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -800,13 +731,8 @@ namespace Towel
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue)
-		{
-			int[] values = new int[count];
-			int i = 0;
-			NextUnique(random, count, minValue, maxValue, value => values[i++] = value);
-			return values;
-		}
+		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue) =>
+			Statics.NextUnique<RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random());
 
 		#endregion
 
