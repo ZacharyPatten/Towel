@@ -1,7 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using System;
 using Towel;
-using static Towel.Syntax;
+using static Towel.Statics;
 using System.Linq;
 
 namespace Towel_Benchmarking

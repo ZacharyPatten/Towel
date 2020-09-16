@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Towel;
-using static Towel.Syntax;
+using static Towel.Statics;
 using Towel.Measurements;
 using Towel.DataStructures;
 using System.IO;

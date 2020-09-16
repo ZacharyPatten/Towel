@@ -30225,360 +30225,351 @@
             <param name="string">The string of JSON content to deserialize.</param>
             <returns>The deserialized delegate.</returns>
         </member>
-        <member name="T:Towel.StepStatus">
-            <summary>Status of iteration.</summary>
+        <member name="T:Towel.Statics">
+            <summary>Root type of the static functional methods in Towel.</summary>
         </member>
-        <member name="F:Towel.StepStatus.Continue">
-            <summary>Stepper was not broken.</summary>
-        </member>
-        <member name="F:Towel.StepStatus.Break">
-            <summary>Stepper was broken.</summary>
-        </member>
-        <member name="T:Towel.Syntax">
-            <summary>Towel syntax.</summary>
-        </member>
-        <member name="T:Towel.Syntax.MultiplyAddImplementation`1">
+        <member name="T:Towel.Statics.MultiplyAddImplementation`1">
             <summary>a * b + c</summary>
         </member>
-        <member name="T:Towel.Syntax.D_subtract_A_multiply_B_divide_C`1">
+        <member name="T:Towel.Statics.D_subtract_A_multiply_B_divide_C`1">
             <summary>d - a * b / c</summary>
         </member>
-        <member name="M:Towel.Syntax.Swap``1(``0@,``0@)">
+        <member name="M:Towel.Statics.Swap``1(``0@,``0@)">
             <summary>Swaps two values.</summary>
             <typeparam name="T">The type of values to swap.</typeparam>
             <param name="a">The first value of the swap.</param>
             <param name="b">The second value of the swap.</param>
         </member>
-        <member name="M:Towel.Syntax.sourcefilepath(System.String)">
+        <member name="M:Towel.Statics.sourcefilepath(System.String)">
             <summary>Gets the file path of the current location in source code.</summary>
             <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute"/>.</param>
             <returns>The file path of the current location in source code.</returns>
         </member>
-        <member name="M:Towel.Syntax.sourcemembername(System.String)">
+        <member name="M:Towel.Statics.sourcemembername(System.String)">
             <summary>Gets the member name of the current location in source code.</summary>
             <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/>.</param>
             <returns>The member name of the current location in source code.</returns>
         </member>
-        <member name="M:Towel.Syntax.sourcelinenumber(System.Int32)">
+        <member name="M:Towel.Statics.sourcelinenumber(System.Int32)">
             <summary>Gets the line number of the current location in source code.</summary>
             <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute"/>.</param>
             <returns>The line number of the current location in source code.</returns>
         </member>
-        <member name="M:Towel.Syntax.TryParse``1(System.String,``0)">
+        <member name="M:Towel.Statics.TryParse``1(System.String,``0)">
             <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
             <typeparam name="A">The generic type to make assumptions about.</typeparam>
             <param name="string">The string to be parsed.</param>
             <param name="Default">The default value if the parse fails.</param>
             <returns>The parsed value or the default value if the parse fails.</returns>
         </member>
-        <member name="M:Towel.Syntax.TryParse``1(System.String,``0@)">
+        <member name="M:Towel.Statics.TryParse``1(System.String,``0@)">
             <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
             <typeparam name="A">The generic type to make assumptions about.</typeparam>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value if successful or default if not.</param>
             <returns>True if successful or false if not.</returns>
         </member>
-        <member name="M:Towel.Syntax.DefaultHash``1(``0)">
+        <member name="M:Towel.Statics.DefaultHash``1(``0)">
             <summary>Static wrapper for the instance based "object.GetHashCode" function.</summary>
             <typeparam name="T">The generic type of the hash operation.</typeparam>
             <param name="value">The item to get the hash code of.</param>
             <returns>The computed hash code using the base GetHashCode instance method.</returns>
         </member>
-        <member name="M:Towel.Syntax.Convert``2(``0)">
+        <member name="M:Towel.Statics.Convert``2(``0)">
             <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
             <typeparam name="A">The type of the value to convert.</typeparam>
             <typeparam name="B">The type to convert teh value to.</typeparam>
             <param name="a">The value to convert.</param>
             <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
         </member>
-        <member name="M:Towel.Syntax.Join(System.Range,System.Func{System.Int32,System.String},System.String)">
+        <member name="M:Towel.Statics.Join(System.Range,System.Func{System.Int32,System.String},System.String)">
             <summary>Iterates a <see cref="T:System.Range"/> and joins the results of a System.Func&lt;int, string&gt; seperated by a <see cref="T:System.String"/> <paramref name="seperator"/>.</summary>
             <param name="range">The range of values to use use on the &lt;System.Func{int, string&gt; <paramref name="func"/>.</param>
             <param name="func">The System.Func&lt;int, string&gt;.</param>
             <param name="seperator">The <see cref="T:System.String"/> seperator to join the values with.</param>
             <returns>The resulting <see cref="T:System.String"/> of the join.</returns>
         </member>
-        <member name="F:Towel.Syntax.Continue">
+        <member name="F:Towel.Statics.Continue">
             <summary>Stepper was not broken.</summary>
         </member>
-        <member name="F:Towel.Syntax.Break">
+        <member name="F:Towel.Statics.Break">
             <summary>Stepper was broken.</summary>
         </member>
-        <member name="F:Towel.Syntax.Goal">
+        <member name="F:Towel.Statics.Goal">
             <summary>The Goal was found.</summary>
         </member>
-        <member name="F:Towel.Syntax.Less">
+        <member name="F:Towel.Statics.Less">
             <summary>The left operand is less than the right operand.</summary>
         </member>
-        <member name="F:Towel.Syntax.Equal">
+        <member name="F:Towel.Statics.Equal">
             <summary>The left operand is equal to the right operand.</summary>
         </member>
-        <member name="F:Towel.Syntax.Greater">
+        <member name="F:Towel.Statics.Greater">
             <summary>The left operand is greater than the right operand.</summary>
         </member>
-        <member name="F:Towel.Syntax.None">
+        <member name="F:Towel.Statics.None">
             <summary>There is no bound.</summary>
         </member>
-        <member name="F:Towel.Syntax.Default">
+        <member name="F:Towel.Statics.Default">
             <summary>The default case in a Switch statement (true).</summary>
         </member>
-        <member name="M:Towel.Syntax.Switch(System.ValueTuple{Towel.Syntax.SwitchSyntax.Condition,System.Action}[])">
+        <member name="M:Towel.Statics.Switch(System.ValueTuple{Towel.Statics.SwitchSyntax.Condition,System.Action}[])">
             <summary>Syntax sugar Switch statements.</summary>
             <param name="possibleActions">The possible actions of the Switch statement.</param>
         </member>
-        <member name="M:Towel.Syntax.Switch``1(``0)">
+        <member name="M:Towel.Statics.Switch``1(``0)">
             <summary>Syntax sugar Switch statements.</summary>
             <typeparam name="T">The generic type parameter to the Switch statement.</typeparam>
             <param name="value">The value argument of the Switch statement.</param>
             <returns>The delegate for the Switch statement.</returns>
         </member>
-        <member name="T:Towel.Syntax.SwitchSyntax">
+        <member name="T:Towel.Statics.SwitchSyntax">
             <summary>Definitions for Switch syntax.</summary>
         </member>
-        <member name="T:Towel.Syntax.SwitchSyntax.Condition`1">
+        <member name="T:Towel.Statics.SwitchSyntax.Condition`1">
             <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
             <typeparam name="T">The generic type of the Switch condition for equality checks.</typeparam>
         </member>
-        <member name="P:Towel.Syntax.Chance">
+        <member name="P:Towel.Statics.Chance">
             <summary>Allows chance syntax with "using static Towel.Syntax;".</summary>
             <example>25% Chance</example>
         </member>
-        <member name="T:Towel.Syntax.ChanceSyntax">
+        <member name="T:Towel.Statics.ChanceSyntax">
             <summary>Struct that allows percentage syntax that will be evaluated at runtime.</summary>
         </member>
-        <member name="F:Towel.Syntax.ChanceSyntax.Algorithm">
+        <member name="F:Towel.Statics.ChanceSyntax.Algorithm">
             <summary>The random algorithm currently being used by chance syntax.</summary>
         </member>
-        <member name="M:Towel.Syntax.ChanceSyntax.op_Modulus(System.Double,Towel.Syntax.ChanceSyntax)">
+        <member name="M:Towel.Statics.ChanceSyntax.op_Modulus(System.Double,Towel.Statics.ChanceSyntax)">
             <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
             <param name="percentage">The value of the percentage.</param>
             <param name="chance">The chance syntax struct object.</param>
             <returns>True if the the chance hits. False if not.</returns>
         </member>
-        <member name="T:Towel.Syntax.Inequality`1">
+        <member name="T:Towel.Statics.Inequality`1">
             <summary>Used for inequality syntax.</summary>
             <typeparam name="T">The generic type of elements the inequality is being used on.</typeparam>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.op_Implicit(`0)~Towel.Syntax.Inequality{`0}">
-            <summary>Contructs a new <see cref="T:Towel.Syntax.Inequality`1"/>.</summary>
+        <member name="M:Towel.Statics.Inequality`1.op_Implicit(`0)~Towel.Statics.Inequality{`0}">
+            <summary>Contructs a new <see cref="T:Towel.Statics.Inequality`1"/>.</summary>
             <param name="a">The initial value of the running inequality.</param>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.op_GreaterThan(Towel.Syntax.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.Inequality`1.op_GreaterThan(Towel.Statics.Inequality{`0},`0)">
             <summary>Adds a greater than operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the greater than operation.</param>
             <returns>A running inequality with the additonal greater than operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.op_LessThan(Towel.Syntax.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.Inequality`1.op_LessThan(Towel.Statics.Inequality{`0},`0)">
             <summary>Adds a less than operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the less than operation.</param>
             <returns>A running inequality with the additonal less than operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.op_GreaterThanOrEqual(Towel.Syntax.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.Inequality`1.op_GreaterThanOrEqual(Towel.Statics.Inequality{`0},`0)">
             <summary>Adds a greater than or equal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
             <returns>A running inequality with the additonal greater than or equal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.op_LessThanOrEqual(Towel.Syntax.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.Inequality`1.op_LessThanOrEqual(Towel.Statics.Inequality{`0},`0)">
             <summary>Adds a less than or equal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the less than or equal operation.</param>
             <returns>A running inequality with the additonal less than or equal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.op_Equality(Towel.Syntax.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.Inequality`1.op_Equality(Towel.Statics.Inequality{`0},`0)">
             <summary>Adds an equal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the equal operation.</param>
             <returns>A running inequality with the additonal equal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.op_Inequality(Towel.Syntax.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.Inequality`1.op_Inequality(Towel.Statics.Inequality{`0},`0)">
             <summary>Adds an inequal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the inequal operation.</param>
             <returns>A running inequality with the additonal inequal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.ToString">
+        <member name="M:Towel.Statics.Inequality`1.ToString">
             <summary>This member is not intended to be invoked.</summary>
             <returns>This member is not intended to be invoked.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.Equals(System.Object)">
+        <member name="M:Towel.Statics.Inequality`1.Equals(System.Object)">
             <summary>This member is not intended to be invoked.</summary>
             <param name="obj">This member is not intended to be invoked.</param>
             <returns>This member is not intended to be invoked.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inequality`1.GetHashCode">
+        <member name="M:Towel.Statics.Inequality`1.GetHashCode">
             <summary>This member is not intended to be invoked.</summary>
             <returns>This member is not intended to be invoked.</returns>
         </member>
-        <member name="T:Towel.Syntax.OperatorValidated">
+        <member name="T:Towel.Statics.OperatorValidated">
             <summary>Helper type for inequality syntax. Contains an Inequality type that has been operator validated.</summary>
         </member>
-        <member name="T:Towel.Syntax.OperatorValidated.Inequality`1">
+        <member name="T:Towel.Statics.OperatorValidated.Inequality`1">
             <summary>Used for inequality syntax.</summary>
             <typeparam name="T">The generic type of elements the inequality is being used on.</typeparam>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_Implicit(Towel.Syntax.OperatorValidated.Inequality{`0})~System.Boolean">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.op_Implicit(Towel.Statics.OperatorValidated.Inequality{`0})~System.Boolean">
             <summary>Converts this running inequality into the result of the expression.</summary>
             <param name="inequality">The inequality to convert into the result of the expression.</param>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_GreaterThan(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.op_GreaterThan(Towel.Statics.OperatorValidated.Inequality{`0},`0)">
             <summary>Adds a greater than operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the greater than operation.</param>
             <returns>A running inequality with the additonal greater than operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_LessThan(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.op_LessThan(Towel.Statics.OperatorValidated.Inequality{`0},`0)">
             <summary>Adds a less than operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the less than operation.</param>
             <returns>A running inequality with the additonal less than operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_GreaterThanOrEqual(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.op_GreaterThanOrEqual(Towel.Statics.OperatorValidated.Inequality{`0},`0)">
             <summary>Adds a greater than or equal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
             <returns>A running inequality with the additonal greater than or equal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_LessThanOrEqual(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.op_LessThanOrEqual(Towel.Statics.OperatorValidated.Inequality{`0},`0)">
             <summary>Adds a less than or equal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the less than or equal operation.</param>
             <returns>A running inequality with the additonal less than or equal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_Equality(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.op_Equality(Towel.Statics.OperatorValidated.Inequality{`0},`0)">
             <summary>Adds an equal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the equal operation.</param>
             <returns>A running inequality with the additonal equal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.op_Inequality(Towel.Syntax.OperatorValidated.Inequality{`0},`0)">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.op_Inequality(Towel.Statics.OperatorValidated.Inequality{`0},`0)">
             <summary>Adds an inequal operation to a running inequality.</summary>
             <param name="a">The current running inequality and left hand operand.</param>
             <param name="b">The value of the right hand operand of the inequal operation.</param>
             <returns>A running inequality with the additonal inequal operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.ToString">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.ToString">
             <summary>Converts the result of this inequality to a <see cref="T:System.String"/>.</summary>
             <returns>The result of this inequality converted to a <see cref="T:System.String"/>.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.Equals(System.Object)">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.Equals(System.Object)">
             <summary>This member is not intended to be invoked.</summary>
             <param name="obj">This member is not intended to be invoked.</param>
             <returns>This member is not intended to be invoked.</returns>
         </member>
-        <member name="M:Towel.Syntax.OperatorValidated.Inequality`1.GetHashCode">
+        <member name="M:Towel.Statics.OperatorValidated.Inequality`1.GetHashCode">
             <summary>This member is not intended to be invoked.</summary>
             <returns>This member is not intended to be invoked.</returns>
         </member>
-        <member name="M:Towel.Syntax.Ɐ``1(``0[])">
+        <member name="M:Towel.Statics.Ɐ``1(``0[])">
             <summary>Universal Quantification Operator.</summary>
             <typeparam name="T">The element type of the universal quantification to declare.</typeparam>
             <param name="values">The values of the universal quantification.</param>
             <returns>The declared universal quantification.</returns>
         </member>
-        <member name="T:Towel.Syntax.UniversalQuantification`1">
+        <member name="T:Towel.Statics.UniversalQuantification`1">
             <summary>Universal Quantification.</summary>
             <typeparam name="T">The element type of the universal quantification.</typeparam>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.#ctor(`0[])">
+        <member name="M:Towel.Statics.UniversalQuantification`1.#ctor(`0[])">
             <summary>Constructs a new universal quantification from an array.</summary>
             <param name="array">The array value of the universal quantification.</param>
         </member>
-        <member name="P:Towel.Syntax.UniversalQuantification`1.Length">
+        <member name="P:Towel.Statics.UniversalQuantification`1.Length">
             <summary>The number of values in this universal quantification.</summary>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.Stepper(System.Action{`0})">
+        <member name="M:Towel.Statics.UniversalQuantification`1.Stepper(System.Action{`0})">
             <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
             <param name="step">The action to perform on every step of the iteration.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.Stepper(System.Func{`0,Towel.StepStatus})">
+        <member name="M:Towel.Statics.UniversalQuantification`1.Stepper(System.Func{`0,Towel.StepStatus})">
             <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
         </member>
-        <member name="P:Towel.Syntax.UniversalQuantification`1.Item(System.Int32)">
+        <member name="P:Towel.Statics.UniversalQuantification`1.Item(System.Int32)">
             <summary>Index property for get/set operations.</summary>
             <param name="index">The index to get/set.</param>
             <returns>The value at the provided index.</returns>
         </member>
-        <member name="P:Towel.Syntax.UniversalQuantification`1.Count">
+        <member name="P:Towel.Statics.UniversalQuantification`1.Count">
             <summary>Gets the number of elements in this universal quantification.</summary>
         </member>
-        <member name="P:Towel.Syntax.UniversalQuantification`1.IsReadOnly">
+        <member name="P:Towel.Statics.UniversalQuantification`1.IsReadOnly">
             <summary>Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.</summary>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.Add(`0)">
+        <member name="M:Towel.Statics.UniversalQuantification`1.Add(`0)">
             <summary>Adds an item to this universal quantifier.</summary>
             <param name="item">The item to add to this universal quantifier.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.GetEnumerator">
+        <member name="M:Towel.Statics.UniversalQuantification`1.GetEnumerator">
             <summary>Gets the <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</summary>
             <returns>The <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</returns>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~`0[]">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~`0[]">
             <summary>Converts a universal quantification to an array.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.List{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Collections.Generic.List{`0}">
             <summary>Converts a universal quantification to a <see cref="T:System.Collections.Generic.List`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.HashSet{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Collections.Generic.HashSet{`0}">
             <summary>Converts a universal quantification to an <see cref="T:System.Collections.Generic.HashSet`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.LinkedList{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Collections.Generic.LinkedList{`0}">
             <summary>Converts a universal quantification to a <see cref="T:System.Collections.Generic.LinkedList`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.Stack{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Collections.Generic.Stack{`0}">
             <summary>Converts a universal quantification to an <see cref="T:System.Collections.Generic.Stack`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.Queue{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Collections.Generic.Queue{`0}">
             <summary>Converts a universal quantification to an <see cref="T:System.Collections.Generic.Queue`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Collections.Generic.SortedSet{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Collections.Generic.SortedSet{`0}">
             <summary>Converts a universal quantification to a sorted <see cref="T:System.Collections.Generic.SortedSet`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~System.Action{System.Action{`0}}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Action{System.Action{`0}}">
             <summary>Converts a universal quantification to an <see cref="!:Stepper&lt;T&gt;"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.StepperRef{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.StepperRef{`0}">
             <summary>Converts a universal quantification to an <see cref="T:Towel.StepperRef`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.StepperBreak{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.StepperBreak{`0}">
             <summary>Converts a universal quantification to an <see cref="T:Towel.StepperBreak`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.StepperRefBreak{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.StepperRefBreak{`0}">
             <summary>Converts a universal quantification to an <see cref="T:Towel.StepperRefBreak`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.DataStructures.Array{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.DataStructures.Array{`0}">
             <summary>Converts a universal quantification to an <see cref="T:Towel.DataStructures.Array`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.DataStructures.ListArray{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.DataStructures.ListArray{`0}">
             <summary>Converts a universal quantification to an <see cref="T:Towel.DataStructures.ListArray`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.UniversalQuantification`1.op_Implicit(Towel.Syntax.UniversalQuantification{`0})~Towel.DataStructures.StackArray{`0}">
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.DataStructures.StackArray{`0}">
             <summary>Converts a universal quantification to an <see cref="T:Towel.DataStructures.StackArray`1"/>.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
-        <member name="M:Towel.Syntax.DefaultEquals``1(``0,``0)">
+        <member name="M:Towel.Statics.DefaultEquals``1(``0,``0)">
             <summary>Static wrapper for the based "<see cref="T:System.Object"/>.Equals" fuction.</summary>
             <typeparam name="T">The generic type of this operation.</typeparam>
             <param name="a">The first item of the equate function.</param>
             <param name="b">The second item of the equate function.</param>
             <returns>True if deemed equal; False if not.</returns>
         </member>
-        <member name="M:Towel.Syntax.EqualTo``3(``0,``1)">
+        <member name="M:Towel.Statics.EqualTo``3(``0,``1)">
             <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30587,14 +30578,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the equality.</returns>
         </member>
-        <member name="M:Towel.Syntax.EqualTo``1(``0,``0)">
+        <member name="M:Towel.Statics.EqualTo``1(``0,``0)">
             <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The left operand.</param>
             <param name="b">The right operand.</param>
             <returns>The result of the equality check.</returns>
         </member>
-        <member name="M:Towel.Syntax.EqualTo``1(``0,``0,``0[])">
+        <member name="M:Towel.Statics.EqualTo``1(``0,``0,``0[])">
             <summary>Checks for equality among multiple values [<paramref name="a"/> == <paramref name="b"/> == <paramref name="c"/> == ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the equality check.</param>
@@ -30602,19 +30593,19 @@
             <param name="c">The remaining operands of the equality check.</param>
             <returns>True if all operands are equal or false if not.</returns>
         </member>
-        <member name="M:Towel.Syntax.EqualTo``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.EqualTo``1(System.Action{System.Action{``0}})">
             <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The operands of the equality check.</param>
             <returns>True if all operand are equal or false if not.</returns>
         </member>
-        <member name="M:Towel.Syntax.EqualTo``1(Towel.StepperBreak{``0})">
+        <member name="M:Towel.Statics.EqualTo``1(Towel.StepperBreak{``0})">
             <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The operands of the equality check.</param>
             <returns>True if all operand are equal or false if not.</returns>
         </member>
-        <member name="M:Towel.Syntax.InequalTo``3(``0,``1)">
+        <member name="M:Towel.Statics.InequalTo``3(``0,``1)">
             <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30623,14 +30614,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the inequality.</returns>
         </member>
-        <member name="M:Towel.Syntax.InequalTo``1(``0,``0)">
+        <member name="M:Towel.Statics.InequalTo``1(``0,``0)">
             <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the inequality check.</param>
             <param name="b">The second operand of the inequality check.</param>
             <returns>The result of the inequality check.</returns>
         </member>
-        <member name="M:Towel.Syntax.LessThan``3(``0,``1)">
+        <member name="M:Towel.Statics.LessThan``3(``0,``1)">
             <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30639,14 +30630,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the less than operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.LessThan``1(``0,``0)">
+        <member name="M:Towel.Statics.LessThan``1(``0,``0)">
             <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the less than check.</param>
             <param name="b">The second operand of the less than check.</param>
             <returns>The result of the less than check.</returns>
         </member>
-        <member name="M:Towel.Syntax.GreaterThan``3(``0,``1)">
+        <member name="M:Towel.Statics.GreaterThan``3(``0,``1)">
             <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30655,14 +30646,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the greater than operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.GreaterThan``1(``0,``0)">
+        <member name="M:Towel.Statics.GreaterThan``1(``0,``0)">
             <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the greater than check.</param>
             <param name="b">The second operand of the greater than check.</param>
             <returns>The result of the greater than check.</returns>
         </member>
-        <member name="M:Towel.Syntax.LessThanOrEqual``3(``0,``1)">
+        <member name="M:Towel.Statics.LessThanOrEqual``3(``0,``1)">
             <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30671,14 +30662,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the less than or equal to operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.LessThanOrEqual``1(``0,``0)">
+        <member name="M:Towel.Statics.LessThanOrEqual``1(``0,``0)">
             <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the less than or equal to check.</param>
             <param name="b">The second operand of the less than or equal to check.</param>
             <returns>The result of the less than or equal to check.</returns>
         </member>
-        <member name="M:Towel.Syntax.GreaterThanOrEqual``3(``0,``1)">
+        <member name="M:Towel.Statics.GreaterThanOrEqual``3(``0,``1)">
             <summary>Checks if one value is less greater or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30687,14 +30678,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the greater than or equal to operation.</returns>
         </member>
-        <member name="M:Towel.Syntax.GreaterThanOrEqual``1(``0,``0)">
+        <member name="M:Towel.Statics.GreaterThanOrEqual``1(``0,``0)">
             <summary>Checks if one value is greater than or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the greater than or equal to check.</param>
             <param name="b">The second operand of the greater than or equal to check.</param>
             <returns>The result of the greater than or equal to check.</returns>
         </member>
-        <member name="M:Towel.Syntax.Comparison``2(``0,``1)">
+        <member name="M:Towel.Statics.Comparison``2(``0,``1)">
             <summary>Compares two values.</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30702,20 +30693,20 @@
             <param name="b">The right operand.</param>
             <returns>The result of the comparison.</returns>
         </member>
-        <member name="M:Towel.Syntax.Negation``2(``0)">
+        <member name="M:Towel.Statics.Negation``2(``0)">
             <summary>Negates a value [-<paramref name="a"/>].</summary>
             <typeparam name="A">The type of the value to negate.</typeparam>
             <typeparam name="B">The resulting type of the negation.</typeparam>
             <param name="a">The value to negate.</param>
             <returns>The result of the negation [-<paramref name="a"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Negation``1(``0)">
+        <member name="M:Towel.Statics.Negation``1(``0)">
             <summary>Negates a value [-<paramref name="a"/>].</summary>
             <typeparam name="T">The type of the value to negate.</typeparam>
             <param name="a">The value to negate.</param>
             <returns>The result of the negation [-<paramref name="a"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Addition``3(``0,``1)">
+        <member name="M:Towel.Statics.Addition``3(``0,``1)">
             <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30724,14 +30715,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Addition``1(``0,``0)">
+        <member name="M:Towel.Statics.Addition``1(``0,``0)">
             <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The left operand.</param>
             <param name="b">The right operand.</param>
             <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Addition``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Addition``1(``0,``0,``0,``0[])">
             <summary>Adds multiple values [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The first operand of the addition.</param>
@@ -30740,13 +30731,13 @@
             <param name="d">The remaining operands of the addition.</param>
             <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/> + <paramref name="c"/> + ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Addition``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Addition``1(System.Action{System.Action{``0}})">
             <summary>Adds multiple values [step1 + step2 + step3 + ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper of the values to add.</param>
             <returns>The result of the addition [step1 + step2 + step3 + ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Subtraction``3(``0,``1)">
+        <member name="M:Towel.Statics.Subtraction``3(``0,``1)">
             <summary>Subtracts two values [<paramref name="a"/> - <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30755,14 +30746,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Subtraction``1(``0,``0)">
+        <member name="M:Towel.Statics.Subtraction``1(``0,``0)">
             <summary>Subtracts two values [<paramref name="a"/> - <paramref name="b"/>].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The left operand.</param>
             <param name="b">The right operand.</param>
             <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Subtraction``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Subtraction``1(``0,``0,``0,``0[])">
             <summary>Subtracts multiple values [<paramref name="a"/> - <paramref name="b"/> - <paramref name="c"/> - ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The first operand.</param>
@@ -30771,13 +30762,13 @@
             <param name="d">The remaining values.</param>
             <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/> - <paramref name="c"/> - ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Subtraction``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Subtraction``1(System.Action{System.Action{``0}})">
             <summary>Subtracts multiple numeric values [step1 - step2 - step3 - ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
             <returns>The result of the subtraction [step1 - step2 - step3 - ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Multiplication``3(``0,``1)">
+        <member name="M:Towel.Statics.Multiplication``3(``0,``1)">
             <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30786,14 +30777,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Multiplication``1(``0,``0)">
+        <member name="M:Towel.Statics.Multiplication``1(``0,``0)">
             <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The left operand.</param>
             <param name="b">The right operand.</param>
             <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Multiplication``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Multiplication``1(``0,``0,``0,``0[])">
             <summary>Multiplies multiple values [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The first operand.</param>
@@ -30802,13 +30793,13 @@
             <param name="d">The remaining values.</param>
             <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/> * <paramref name="c"/> * ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Multiplication``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Multiplication``1(System.Action{System.Action{``0}})">
             <summary>Multiplies multiple values [step1 * step2 * step3 * ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
             <returns>The result of the multiplication [step1 * step2 * step3 * ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Division``3(``0,``1)">
+        <member name="M:Towel.Statics.Division``3(``0,``1)">
             <summary>Divides two values [<paramref name="a"/> / <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30817,14 +30808,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Division``1(``0,``0)">
+        <member name="M:Towel.Statics.Division``1(``0,``0)">
             <summary>Divides two values [<paramref name="a"/> / <paramref name="b"/>].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The left operand.</param>
             <param name="b">The right operand.</param>
             <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Division``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Division``1(``0,``0,``0,``0[])">
             <summary>Divides multiple values [<paramref name="a"/> / <paramref name="b"/> / <paramref name="c"/> / ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="a">The first operand of the division.</param>
@@ -30833,13 +30824,13 @@
             <param name="d">The remaining values of the division.</param>
             <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/> / <paramref name="c"/> / ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Division``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Division``1(System.Action{System.Action{``0}})">
             <summary>Divides multiple values [step1 / step2 / step3 / ...].</summary>
             <typeparam name="T">The type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
             <returns>The result of the division [step1 / step2 / step3 / ...].</returns>
         </member>
-        <member name="M:Towel.Syntax.Remainder``3(``0,``1)">
+        <member name="M:Towel.Statics.Remainder``3(``0,``1)">
             <summary>Remainders two values [<paramref name="a"/> % <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
             <typeparam name="B">The type of the right operand.</typeparam>
@@ -30848,14 +30839,14 @@
             <param name="b">The right operand.</param>
             <returns>The result of the remainder operation [<paramref name="a"/> % <paramref name="b"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.Remainder``1(``0,``0)">
+        <member name="M:Towel.Statics.Remainder``1(``0,``0)">
             <summary>Modulos two numeric values [<paramref name="a"/> % <paramref name="b"/>].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the modulation.</param>
             <param name="b">The second operand of the modulation.</param>
             <returns>The result of the modulation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Remainder``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Remainder``1(``0,``0,``0,``0[])">
             <summary>Modulos multiple numeric values [<paramref name="a"/> % <paramref name="b"/> % <paramref name="c"/> % ...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the modulation.</param>
@@ -30864,26 +30855,26 @@
             <param name="d">The remaining values of the modulation.</param>
             <returns>The result of the modulation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Remainder``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Remainder``1(System.Action{System.Action{``0}})">
             <summary>Modulos multiple numeric values [step_1 % step_2 % step_3...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
             <returns>The result of the modulation.</returns>
         </member>
-        <member name="M:Towel.Syntax.Inversion``1(``0)">
+        <member name="M:Towel.Statics.Inversion``1(``0)">
             <summary>Inverts a numeric value [1 / a].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The numeric value to invert.</param>
             <returns>The result of the inversion.</returns>
         </member>
-        <member name="M:Towel.Syntax.Power``1(``0,``0)">
+        <member name="M:Towel.Statics.Power``1(``0,``0)">
             <summary>Powers two numeric values [a ^ b].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the power.</param>
             <param name="b">The first operand of the power.</param>
             <returns>The result of the power.</returns>
         </member>
-        <member name="M:Towel.Syntax.Power``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Power``1(``0,``0,``0,``0[])">
             <summary>Powers multiple numeric values [a ^ b ^ c...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the power.</param>
@@ -30892,88 +30883,88 @@
             <param name="d">The remaining values of the power.</param>
             <returns>The result of the power.</returns>
         </member>
-        <member name="M:Towel.Syntax.Power``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Power``1(System.Action{System.Action{``0}})">
             <summary>Powers multiple numeric values [step_1 ^ step_2 ^ step_3...].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The stepper containing the values.</param>
             <returns>The result of the power.</returns>
         </member>
-        <member name="M:Towel.Syntax.SquareRoot``1(``0)">
+        <member name="M:Towel.Statics.SquareRoot``1(``0)">
             <summary>Square roots a numeric value [√a].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The numeric value to square root.</param>
             <returns>The result of the square root.</returns>
         </member>
-        <member name="M:Towel.Syntax.Root``1(``0,``0)">
+        <member name="M:Towel.Statics.Root``1(``0,``0)">
             <summary>Roots two numeric values [a ^ (1 / b)].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The base of the root.</param>
             <param name="b">The root of the operation.</param>
             <returns>The result of the root.</returns>
         </member>
-        <member name="M:Towel.Syntax.Logarithm``1(``0,``0)">
+        <member name="M:Towel.Statics.Logarithm``1(``0,``0)">
             <summary>Computes the logarithm of a value.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="value">The value to compute the logarithm of.</param>
             <param name="base">The base of the logarithm to compute.</param>
             <returns>The computed logarithm value.</returns>
         </member>
-        <member name="M:Towel.Syntax.IsInteger``1(``0)">
+        <member name="M:Towel.Statics.IsInteger``1(``0)">
             <summary>Determines if a numerical value is an integer.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to determine integer status of.</param>
             <returns>Whether or not the value is an integer.</returns>
         </member>
-        <member name="M:Towel.Syntax.IsNonNegative``1(``0)">
+        <member name="M:Towel.Statics.IsNonNegative``1(``0)">
             <summary>Determines if a numerical value is non-negative.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to determine non-negative status of.</param>
             <returns>Whether or not the value is non-negative.</returns>
         </member>
-        <member name="M:Towel.Syntax.IsNegative``1(``0)">
+        <member name="M:Towel.Statics.IsNegative``1(``0)">
             <summary>Determines if a numerical value is negative.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to determine negative status of.</param>
             <returns>Whether or not the value is negative.</returns>
         </member>
-        <member name="M:Towel.Syntax.IsPositive``1(``0)">
+        <member name="M:Towel.Statics.IsPositive``1(``0)">
             <summary>Determines if a numerical value is positive.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to determine positive status of.</param>
             <returns>Whether or not the value is positive.</returns>
         </member>
-        <member name="M:Towel.Syntax.IsEven``1(``0)">
+        <member name="M:Towel.Statics.IsEven``1(``0)">
             <summary>Determines if a numerical value is even.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to determine even status of.</param>
             <returns>Whether or not the value is even.</returns>
         </member>
-        <member name="M:Towel.Syntax.IsOdd``1(``0)">
+        <member name="M:Towel.Statics.IsOdd``1(``0)">
             <summary>Determines if a numerical value is odd.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to determine odd status of.</param>
             <returns>Whether or not the value is odd.</returns>
         </member>
-        <member name="M:Towel.Syntax.IsPrime``1(``0)">
+        <member name="M:Towel.Statics.IsPrime``1(``0)">
             <summary>Determines if a numerical value is prime.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to determine prime status of.</param>
             <returns>Whether or not the value is prime.</returns>
         </member>
-        <member name="M:Towel.Syntax.AbsoluteValue``1(``0)">
+        <member name="M:Towel.Statics.AbsoluteValue``1(``0)">
             <summary>Gets the absolute value of a value.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to get the absolute value of.</param>
             <returns>The absolute value of the provided value.</returns>
         </member>
-        <member name="M:Towel.Syntax.Maximum``1(``0,``0)">
+        <member name="M:Towel.Statics.Maximum``1(``0,``0)">
             <summary>Computes the maximum of two numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the maximum operation.</param>
             <param name="b">The second operand of the maximum operation.</param>
             <returns>The computed maximum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Maximum``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Maximum``1(``0,``0,``0,``0[])">
             <summary>Computes the maximum of multiple numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the maximum operation.</param>
@@ -30982,20 +30973,20 @@
             <param name="d">The remaining operands of the maximum operation.</param>
             <returns>The computed maximum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Maximum``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Maximum``1(System.Action{System.Action{``0}})">
             <summary>Computes the maximum of multiple numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the maximum of.</param>
             <returns>The computed maximum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Minimum``1(``0,``0)">
+        <member name="M:Towel.Statics.Minimum``1(``0,``0)">
             <summary>Computes the minimum of two numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the minimum operation.</param>
             <param name="b">The second operand of the minimum operation.</param>
             <returns>The computed minimum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Minimum``1(``0,``0,``0,``0[])">
+        <member name="M:Towel.Statics.Minimum``1(``0,``0,``0,``0[])">
             <summary>Computes the minimum of multiple numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the minimum operation.</param>
@@ -31004,20 +30995,20 @@
             <param name="d">The remaining operands of the minimum operation.</param>
             <returns>The computed minimum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Minimum``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Minimum``1(System.Action{System.Action{``0}})">
             <summary>Computes the minimum of multiple numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the minimum of.</param>
             <returns>The computed minimum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Minimum(System.Int32,System.Int32,System.Int32)">
+        <member name="M:Towel.Statics.Minimum(System.Int32,System.Int32,System.Int32)">
             <summary>Computes the minimum of multiple numeric values.</summary>
             <param name="a">The first operand of the minimum operation.</param>
             <param name="b">The second operand of the minimum operation.</param>
             <param name="c">The third operand of the minimum operation.</param>
             <returns>The computed minimum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Syntax.Clamp``1(``0,``0,``0)">
+        <member name="M:Towel.Statics.Clamp``1(``0,``0,``0)">
             <summary>Gets a value restricted to a minimum and maximum range.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="value">The value to clamp.</param>
@@ -31025,7 +31016,7 @@
             <param name="maximum">The maximum of the range to clamp the value by.</param>
             <returns>The value restricted to the provided range.</returns>
         </member>
-        <member name="M:Towel.Syntax.EqualToLeniency``1(``0,``0,``0)">
+        <member name="M:Towel.Statics.EqualToLeniency``1(``0,``0,``0)">
             <summary>Checks for equality between two numeric values with a range of possibly leniency.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the equality check.</param>
@@ -31033,7 +31024,7 @@
             <param name="leniency">The allowed distance between the values to still be considered equal.</param>
             <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
         </member>
-        <member name="M:Towel.Syntax.GreatestCommonFactor``1(``0,``0,``0[])">
+        <member name="M:Towel.Statics.GreatestCommonFactor``1(``0,``0,``0[])">
             <summary>Computes the greatest common factor of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="a">The first operand of the greatest common factor computation.</param>
@@ -31041,13 +31032,13 @@
             <param name="c">The remaining operands of the greatest common factor computation.</param>
             <returns>The computed greatest common factor of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.GreatestCommonFactor``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.GreatestCommonFactor``1(System.Action{System.Action{``0}})">
             <summary>Computes the greatest common factor of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the greatest common factor of.</param>
             <returns>The computed greatest common factor of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.LeastCommonMultiple``1(``0,``0,``0[])">
+        <member name="M:Towel.Statics.LeastCommonMultiple``1(``0,``0,``0[])">
             <summary>Computes the least common multiple of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the least common muiltiple computation.</param>
@@ -31055,13 +31046,13 @@
             <param name="c">The remaining operands of the least common muiltiple computation.</param>
             <returns>The computed least common least common multiple of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.LeastCommonMultiple``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.LeastCommonMultiple``1(System.Action{System.Action{``0}})">
             <summary>Computes the least common multiple of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of numbers to compute the least common multiple of.</param>
             <returns>The computed least common least common multiple of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.LinearInterpolation``1(``0,``0,``0,``0,``0)">
+        <member name="M:Towel.Statics.LinearInterpolation``1(``0,``0,``0,``0,``0)">
             <summary>Linearly interpolations a value.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="x">The value along the first dimension to compute the linear interpolation for.</param>
@@ -31071,7 +31062,7 @@
             <param name="y1">A known ending point along the second dimension.</param>
             <returns>The linearly interpolated value.</returns>
         </member>
-        <member name="M:Towel.Syntax.Factorial``1(``0)">
+        <member name="M:Towel.Statics.Factorial``1(``0)">
             <summary>Computes the factorial of a numeric value [<paramref name="a"/>!] == [<paramref name="a"/> * (<paramref name="a"/> - 1) * (<paramref name="a"/> - 2) * ... * 1].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The integer value to compute the factorial of.</param>
@@ -31079,28 +31070,28 @@
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the parameter is not an integer value.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the parameter is less than zero.</exception>
         </member>
-        <member name="M:Towel.Syntax.Combinations``1(``0,``0[])">
+        <member name="M:Towel.Statics.Combinations``1(``0,``0[])">
             <summary>Computes the combinations of <paramref name="N"/> values using the <paramref name="n"/> grouping definitions.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="N">The number of values to compute the combinations of.</param>
             <param name="n">The groups and how many values fall into each group.</param>
             <returns>The computed number of combinations.</returns>
         </member>
-        <member name="M:Towel.Syntax.BinomialCoefficient``1(``0,``0)">
+        <member name="M:Towel.Statics.BinomialCoefficient``1(``0,``0)">
             <summary>Computes the Binomial coefficient (N choose n).</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="N">The size of the entire set (N choose n).</param>
             <param name="n">The size of the subset (N choose n).</param>
             <returns>The computed binomial coefficient (N choose n).</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(``0,``0[])">
+        <member name="M:Towel.Statics.Occurences``1(``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="a">The first value in the data.</param>
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,``0,System.Boolean},``0,``0[])">
+        <member name="M:Towel.Statics.Occurences``1(System.Func{``0,``0,System.Boolean},``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="equate">The equality delegate.</param>
@@ -31108,7 +31099,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,System.Int32},``0,``0[])">
+        <member name="M:Towel.Statics.Occurences``1(System.Func{``0,System.Int32},``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="hash">The hash code delegate.</param>
@@ -31116,7 +31107,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32},``0,``0[])">
+        <member name="M:Towel.Statics.Occurences``1(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32},``0,``0[])">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="equate">The equality delegate.</param>
@@ -31125,7 +31116,7 @@
             <param name="b">The rest of the data.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Occurences``1(System.Action{System.Action{``0}},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+        <member name="M:Towel.Statics.Occurences``1(System.Action{System.Action{``0}},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Counts the number of occurences of each item.</summary>
             <typeparam name="T">The generic type to count the occerences of.</typeparam>
             <param name="stepper">The data to count the occurences of.</param>
@@ -31133,14 +31124,14 @@
             <param name="hash">The hash code delegate.</param>
             <returns>The occurence map of the data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(System.Action{``0},``0,``0[])">
+        <member name="M:Towel.Statics.Mode``1(System.Action{``0},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(System.Action{``0},System.Func{``0,``0,System.Boolean},``0,``0[])">
+        <member name="M:Towel.Statics.Mode``1(System.Action{``0},System.Func{``0,``0,System.Boolean},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
@@ -31148,7 +31139,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(System.Action{``0},System.Func{``0,System.Int32},``0,``0[])">
+        <member name="M:Towel.Statics.Mode``1(System.Action{``0},System.Func{``0,System.Int32},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
@@ -31156,7 +31147,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(System.Action{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32},``0,``0[])">
+        <member name="M:Towel.Statics.Mode``1(System.Action{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32},``0,``0[])">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="step">The action to perform on every mode value found.</param>
@@ -31165,7 +31156,7 @@
             <param name="a">The first value of the data set.</param>
             <param name="b">The rest of the data set.</param>
         </member>
-        <member name="M:Towel.Syntax.Mode``1(System.Action{System.Action{``0}},System.Action{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+        <member name="M:Towel.Statics.Mode``1(System.Action{System.Action{``0}},System.Action{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
             <summary>Gets the mode(s) of a data set.</summary>
             <typeparam name="T">The generic type of the data.</typeparam>
             <param name="stepper">The data set.</param>
@@ -31174,70 +31165,70 @@
             <param name="hash">The hash code delegate</param>
             <returns>The modes of the data set.</returns>
         </member>
-        <member name="M:Towel.Syntax.Mean``1(``0,``0[])">
+        <member name="M:Towel.Statics.Mean``1(``0,``0[])">
             <summary>Computes the mean of a set of numerical values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first value of the set of data to compute the mean of.</param>
             <param name="b">The remaining values in the data set to compute the mean of.</param>
             <returns>The computed mean of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Mean``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Mean``1(System.Action{System.Action{``0}})">
             <summary>Computes the mean of a set of numerical values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the mean of.</param>
             <returns>The computed mean of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(System.Func{``0,``0,Towel.CompareResult},``0[])">
+        <member name="M:Towel.Statics.Median``1(System.Func{``0,``0,Towel.CompareResult},``0[])">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="compare">The comparison algorithm to sort the data by.</param>
             <param name="values">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(System.Func{``0,``0,Towel.CompareResult},System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Median``1(System.Func{``0,``0,Towel.CompareResult},System.Action{System.Action{``0}})">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="compare">The comparison algorithm to sort the data by.</param>
             <param name="stepper">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(``0[])">
+        <member name="M:Towel.Statics.Median``1(``0[])">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="values">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.Median``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Median``1(System.Action{System.Action{``0}})">
             <summary>Computes the median of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="stepper">The set of data to compute the median of.</param>
             <returns>The computed median value of the set of data.</returns>
         </member>
-        <member name="M:Towel.Syntax.GeometricMean``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.GeometricMean``1(System.Action{System.Action{``0}})">
             <summary>Computes the geometric mean of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbres to compute the geometric mean of.</param>
             <returns>The computed geometric mean of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.Variance``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Variance``1(System.Action{System.Action{``0}})">
             <summary>Computes the variance of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the variance of.</param>
             <returns>The computed variance of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.StandardDeviation``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.StandardDeviation``1(System.Action{System.Action{``0}})">
             <summary>Computes the standard deviation of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the standard deviation of.</param>
             <returns>The computed standard deviation of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.MeanDeviation``1(System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.MeanDeviation``1(System.Action{System.Action{``0}})">
             <summary>The mean deviation of a set of numbers.</summary>
             <typeparam name="T">The numeric type of the computation.</typeparam>
             <param name="stepper">The set of numbers to compute the mean deviation of.</param>
             <returns>The computed mean deviation of the set of numbers.</returns>
         </member>
-        <member name="M:Towel.Syntax.Range``1(``0@,``0@,System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Range``1(``0@,``0@,System.Action{System.Action{``0}})">
             <summary>Gets the range (minimum and maximum) of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             /// <param name="stepper">The set of data to get the range of.</param>
@@ -31246,7 +31237,7 @@
             <exception cref="T:System.ArgumentNullException">Throws when stepper is null.</exception>
             <exception cref="T:System.ArgumentException">Throws when stepper is empty.</exception>
         </member>
-        <member name="M:Towel.Syntax.Range``1(System.Action{System.Action{``0}},``0@,``0@)">
+        <member name="M:Towel.Statics.Range``1(System.Action{System.Action{``0}},``0@,``0@)">
             <summary>Gets the range (minimum and maximum) of a set of data.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             /// <param name="stepper">The set of data to get the range of.</param>
@@ -31255,143 +31246,143 @@
             <exception cref="T:System.ArgumentNullException">Throws when stepper is null.</exception>
             <exception cref="T:System.ArgumentException">Throws when stepper is empty.</exception>
         </member>
-        <member name="M:Towel.Syntax.Quantiles``1(System.Int32,System.Action{System.Action{``0}})">
+        <member name="M:Towel.Statics.Quantiles``1(System.Int32,System.Action{System.Action{``0}})">
             <summary>Computes the quantiles of a set of data.</summary>
             <typeparam name="T">The generic data type.</typeparam>
             <param name="quantiles">The number of quantiles to compute.</param>
             <param name="stepper">The data stepper.</param>
             <returns>The computed quantiles of the data set.</returns>
         </member>
-        <member name="M:Towel.Syntax.Exponential``1(``0)">
+        <member name="M:Towel.Statics.Exponential``1(``0)">
             <summary>Computes the exponentional of a value [e ^ <paramref name="a"/>].</summary>
             <typeparam name="T">The generic type of the operation.</typeparam>
             <param name="a">The value to compute the exponentional of.</param>
             <returns>The exponential of the value [e ^ <paramref name="a"/>].</returns>
         </member>
-        <member name="M:Towel.Syntax.NaturalLogarithm``1(``0)">
+        <member name="M:Towel.Statics.NaturalLogarithm``1(``0)">
             <summary>Computes the natural logarithm of a value [ln(<paramref name="a"/>)].</summary>
             <typeparam name="T">The generic type of the operation.</typeparam>
             <param name="a">The value to compute the natural log of.</param>
             <returns>The natural log of the provided value [ln(<paramref name="a"/>)].</returns>
         </member>
-        <member name="M:Towel.Syntax.SineTaylorSeries``1(Towel.Measurements.Angle{``0},System.Predicate{``0})">
+        <member name="M:Towel.Statics.SineTaylorSeries``1(Towel.Measurements.Angle{``0},System.Predicate{``0})">
             <summary>Computes the sine ratio of an angle using the relative talor series. Accurate but slow.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the sine ratio of.</param>
             <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
             <returns>The taylor series computed sine ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.SineSystem``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.SineSystem``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the sine ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the sine ratio of.</param>
             <returns>The sine ratio of the provided angle.</returns>
             <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         </member>
-        <member name="M:Towel.Syntax.SineQuadratic``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.SineQuadratic``1(Towel.Measurements.Angle{``0})">
             <summary>Estimates the sine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the quadratic estimated sine ratio of.</param>
             <returns>The quadratic estimation of the sine ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.CosineTaylorSeries``1(Towel.Measurements.Angle{``0},System.Predicate{``0})">
+        <member name="M:Towel.Statics.CosineTaylorSeries``1(Towel.Measurements.Angle{``0},System.Predicate{``0})">
             <summary>Computes the cosine ratio of an angle using the relative talor series. Accurate but slow.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the cosine ratio of.</param>
             <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
             <returns>The taylor series computed cosine ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.CosineSystem``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.CosineSystem``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the cosine ratio of an angle using the system's cosine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the cosine ratio of.</param>
             <returns>The cosine ratio of the provided angle.</returns>
             <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         </member>
-        <member name="M:Towel.Syntax.CosineQuadratic``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.CosineQuadratic``1(Towel.Measurements.Angle{``0})">
             <summary>Estimates the cosine ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the quadratic estimated cosine ratio of.</param>
             <returns>The quadratic estimation of the cosine ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.TangentTaylorSeries``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.TangentTaylorSeries``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the tangent ratio of an angle using the relative talor series. Accurate but slow.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the tangent ratio of.</param>
             <returns>The taylor series computed tangent ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.TangentSystem``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.TangentSystem``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the tangent ratio of an angle using the system's tangent function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the tangent ratio of.</param>
             <returns>The tangent ratio of the provided angle.</returns>
             <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         </member>
-        <member name="M:Towel.Syntax.TangentQuadratic``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.TangentQuadratic``1(Towel.Measurements.Angle{``0})">
             <summary>Estimates the tangent ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the quadratic estimated tangent ratio of.</param>
             <returns>The quadratic estimation of the tangent ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.CosecantSystem``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.CosecantSystem``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the cosecant ratio of an angle using the system's sine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the cosecant ratio of.</param>
             <returns>The cosecant ratio of the provided angle.</returns>
             <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         </member>
-        <member name="M:Towel.Syntax.CosecantQuadratic``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.CosecantQuadratic``1(Towel.Measurements.Angle{``0})">
             <summary>Estimates the cosecant ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the quadratic estimated cosecant ratio of.</param>
             <returns>The quadratic estimation of the cosecant ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.SecantSystem``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.SecantSystem``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the secant ratio of an angle using the system's cosine function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the secant ratio of.</param>
             <returns>The secant ratio of the provided angle.</returns>
             <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         </member>
-        <member name="M:Towel.Syntax.SecantQuadratic``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.SecantQuadratic``1(Towel.Measurements.Angle{``0})">
             <summary>Estimates the secant ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the quadratic estimated secant ratio of.</param>
             <returns>The quadratic estimation of the secant ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.CotangentSystem``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.CotangentSystem``1(Towel.Measurements.Angle{``0})">
             <summary>Computes the cotangent ratio of an angle using the system's tangent function. WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the cotangent ratio of.</param>
             <returns>The cotangent ratio of the provided angle.</returns>
             <remarks>WARNING! CONVERSION TO/FROM DOUBLE (possible loss of significant figures).</remarks>
         </member>
-        <member name="M:Towel.Syntax.CotangentQuadratic``1(Towel.Measurements.Angle{``0})">
+        <member name="M:Towel.Statics.CotangentQuadratic``1(Towel.Measurements.Angle{``0})">
             <summary>Estimates the cotangent ratio using piecewise quadratic equations. Fast but NOT very accurate.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The angle to compute the quadratic estimated cotangent ratio of.</param>
             <returns>The quadratic estimation of the cotangent ratio of the provided angle.</returns>
         </member>
-        <member name="M:Towel.Syntax.LinearRegression2D``1(System.Action{System.Action{``0,``0}},``0@,``0@)">
+        <member name="M:Towel.Statics.LinearRegression2D``1(System.Action{System.Action{``0,``0}},``0@,``0@)">
             <summary>Computes the best fit line from a set of points in 2D space [y = slope * x + y_intercept].</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="points">The points to compute the best fit line of.</param>
             <param name="slope">The slope of the computed best fit line [y = slope * x + y_intercept].</param>
             <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
         </member>
-        <member name="M:Towel.Syntax.FactorPrimes``1(``0,System.Action{``0})">
+        <member name="M:Towel.Statics.FactorPrimes``1(``0,System.Action{``0})">
             <summary>Factors the primes numbers of a numeric integer value.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The value to factor the prime numbers of.</param>
             <param name="step">The action to perform on all found prime factors.</param>
         </member>
-        <member name="M:Towel.Syntax.HammingDistance(System.String,System.String)">
+        <member name="M:Towel.Statics.HammingDistance(System.String,System.String)">
             <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
             <param name="a">The first sequence.</param>
             <param name="b">The second sequence.</param>
             <returns>The computed Hamming distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.HammingDistance``4(System.Int32,``1,``2,``3)">
+        <member name="M:Towel.Statics.HammingDistance``4(System.Int32,``1,``2,``3)">
             <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
             <typeparam name="T">The element type of the sequences.</typeparam>
             <typeparam name="GetA">The get index function for the first sequence.</typeparam>
@@ -31403,13 +31394,13 @@
             <param name="equals">The equality check function.</param>
             <returns>The computed Hamming distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.HammingDistance(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
-            <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+        <member name="M:Towel.Statics.HammingDistance(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+            <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
             <param name="a">The first sequence of the operation.</param>
             <param name="b">The second sequence of the operation.</param>
-            <returns>The computed Levenshtein distance of the two sequences.</returns>
+            <returns>The computed Hamming distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.HammingDistance``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+        <member name="M:Towel.Statics.HammingDistance``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
             <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
             <typeparam name="T">The element type of the sequences.</typeparam>
             <typeparam name="Equals">The equality check function.</typeparam>
@@ -31418,13 +31409,13 @@
             <param name="equals">The equality check function.</param>
             <returns>The computed Hamming distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceRecursive(System.String,System.String)">
+        <member name="M:Towel.Statics.LevenshteinDistanceRecursive(System.String,System.String)">
             <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
             <param name="a">The first sequence.</param>
             <param name="b">The second sequence.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceRecursive``4(System.Int32,System.Int32,``1,``2,``3)">
+        <member name="M:Towel.Statics.LevenshteinDistanceRecursive``4(System.Int32,System.Int32,``1,``2,``3)">
             <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
             <typeparam name="T">The element type of the sequences.</typeparam>
             <typeparam name="GetA">The get index function for the first sequence.</typeparam>
@@ -31437,13 +31428,13 @@
             <param name="equals">The equality check function.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceRecursive(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+        <member name="M:Towel.Statics.LevenshteinDistanceRecursive(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
             <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
             <param name="a">The first sequence of the operation.</param>
             <param name="b">The second sequence of the operation.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceRecursive``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+        <member name="M:Towel.Statics.LevenshteinDistanceRecursive``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
             <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
             <typeparam name="T">The element type of the sequences.</typeparam>
             <typeparam name="Equals">The equality check function.</typeparam>
@@ -31452,13 +31443,13 @@
             <param name="equals">The equality check function.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceIterative(System.String,System.String)">
+        <member name="M:Towel.Statics.LevenshteinDistanceIterative(System.String,System.String)">
             <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
             <param name="a">The first sequence.</param>
             <param name="b">The second sequence.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceIterative``4(System.Int32,System.Int32,``1,``2,``3)">
+        <member name="M:Towel.Statics.LevenshteinDistanceIterative``4(System.Int32,System.Int32,``1,``2,``3)">
             <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
             <typeparam name="T">The element type of the sequences.</typeparam>
             <typeparam name="GetA">The get index function for the first sequence.</typeparam>
@@ -31471,13 +31462,13 @@
             <param name="equals">The equality check function.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceIterative(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+        <member name="M:Towel.Statics.LevenshteinDistanceIterative(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
             <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
             <param name="a">The first sequence of the operation.</param>
             <param name="b">The second sequence of the operation.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.LevenshteinDistanceIterative``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+        <member name="M:Towel.Statics.LevenshteinDistanceIterative``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
             <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
             <typeparam name="T">The element type of the sequences.</typeparam>
             <typeparam name="Equals">The equality check function.</typeparam>
@@ -31486,7 +31477,7 @@
             <param name="equals">The equality check function.</param>
             <returns>The computed Levenshtein distance of the two sequences.</returns>
         </member>
-        <member name="M:Towel.Syntax.PermuteXML">
+        <member name="M:Towel.Statics.PermuteXML">
             <typeparam name="T">The generic element type of the indexed collection.</typeparam>
             <typeparam name="Action">The action to perform on each permutation.</typeparam>
             <typeparam name="Status">The status checker for cancellation.</typeparam>
@@ -31502,81 +31493,81 @@
             <param name="list">The list to iterate the permutations of.</param>
             <param name="span">The span of the permutation.</param>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive_XML">
+        <member name="M:Towel.Statics.PermuteRecursive_XML">
             <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
-            <inheritdoc cref="M:Towel.Syntax.PermuteXML"/>
+            <inheritdoc cref="M:Towel.Statics.PermuteXML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative_XML">
+        <member name="M:Towel.Statics.PermuteIterative_XML">
             <summary>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</summary>
-            <inheritdoc cref="M:Towel.Syntax.PermuteXML"/>
+            <inheritdoc cref="M:Towel.Statics.PermuteXML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``3(System.Span{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``3(System.Span{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``1(``0[],System.Action)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``3(``0[],``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteRecursive_XML"/>
+        <member name="M:Towel.Statics.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``3(System.Span{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``3(System.Span{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``1(``0[],System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``1(``0[],System.Action)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``3(``0[],``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Syntax.PermuteIterative_XML"/>
+        <member name="M:Towel.Statics.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary_XML">
+        <member name="M:Towel.Statics.SearchBinary_XML">
             <summary>Performs a binary search on sorted indexed data.</summary>
             <typeparam name="T">The type of elements to search through.</typeparam>
             <typeparam name="Get">The function for getting an element at an index.</typeparam>
@@ -31597,75 +31588,75 @@
             <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
             </returns>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary``1(``0[],``0,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        <member name="M:Towel.Statics.SearchBinary``1(``0[],``0,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary``2(``0[],``0,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        <member name="M:Towel.Statics.SearchBinary``2(``0[],``0,``1)">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary``1(``0[],System.Func{``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        <member name="M:Towel.Statics.SearchBinary``1(``0[],System.Func{``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        <member name="M:Towel.Statics.SearchBinary``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary``1(System.Int32,System.Func{System.Int32,``0},System.Func{``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        <member name="M:Towel.Statics.SearchBinary``1(System.Int32,System.Func{System.Int32,``0},System.Func{``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary``3(System.Int32,System.Int32,``1,``2)">
-            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        <member name="M:Towel.Statics.SearchBinary``3(System.Int32,System.Int32,``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchBinary``2(System.ReadOnlySpan{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SearchBinary_XML"/>
+        <member name="M:Towel.Statics.SearchBinary``2(System.ReadOnlySpan{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
-        <member name="T:Towel.Syntax.GraphSearchStatus">
+        <member name="T:Towel.Statics.GraphSearchStatus">
             <summary>The status of a graph search algorithm.</summary>
         </member>
-        <member name="F:Towel.Syntax.GraphSearchStatus.Continue">
+        <member name="F:Towel.Statics.GraphSearchStatus.Continue">
             <summary>Graph search was not broken.</summary>
         </member>
-        <member name="F:Towel.Syntax.GraphSearchStatus.Break">
+        <member name="F:Towel.Statics.GraphSearchStatus.Break">
             <summary>Graph search was broken.</summary>
         </member>
-        <member name="F:Towel.Syntax.GraphSearchStatus.Goal">
+        <member name="F:Towel.Statics.GraphSearchStatus.Goal">
             <summary>Graph search found the goal.</summary>
         </member>
-        <member name="T:Towel.Syntax.GraphSyntax">
+        <member name="T:Towel.Statics.GraphSyntax">
             <summary>Syntax sugar hacks.</summary>
         </member>
-        <member name="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct">
+        <member name="T:Towel.Statics.GraphSyntax.GraphSearchStatusStruct">
             <summary>This is a syntax sugar hack to allow implicit conversions from StepStatus to GraphSearchStatus.</summary>
         </member>
-        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.#ctor(Towel.Syntax.GraphSearchStatus)">
+        <member name="M:Towel.Statics.GraphSyntax.GraphSearchStatusStruct.#ctor(Towel.Statics.GraphSearchStatus)">
             <summary>Constructs a new graph search status.</summary>
             <param name="value">The status of the graph search.</param>
         </member>
-        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.Syntax.GraphSearchStatus)~Towel.Syntax.GraphSyntax.GraphSearchStatusStruct">
-            <summary>Converts a <see cref="T:Towel.Syntax.GraphSearchStatus"/> into a <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/>.</summary>
-            <param name="value">The <see cref="T:Towel.Syntax.GraphSearchStatus"/> to convert.</param>
+        <member name="M:Towel.Statics.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.Statics.GraphSearchStatus)~Towel.Statics.GraphSyntax.GraphSearchStatusStruct">
+            <summary>Converts a <see cref="T:Towel.Statics.GraphSearchStatus"/> into a <see cref="T:Towel.Statics.GraphSyntax.GraphSearchStatusStruct"/>.</summary>
+            <param name="value">The <see cref="T:Towel.Statics.GraphSearchStatus"/> to convert.</param>
         </member>
-        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.StepStatus)~Towel.Syntax.GraphSyntax.GraphSearchStatusStruct">
-            <summary>Converts a <see cref="T:Towel.StepStatus"/> into a <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/>.</summary>
+        <member name="M:Towel.Statics.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.StepStatus)~Towel.Statics.GraphSyntax.GraphSearchStatusStruct">
+            <summary>Converts a <see cref="T:Towel.StepStatus"/> into a <see cref="T:Towel.Statics.GraphSyntax.GraphSearchStatusStruct"/>.</summary>
             <param name="value">The <see cref="T:Towel.StepStatus"/> to convert.</param>
         </member>
-        <member name="M:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.Syntax.GraphSyntax.GraphSearchStatusStruct)~Towel.Syntax.GraphSearchStatus">
-            <summary>Converts a <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/> into a <see cref="T:Towel.Syntax.GraphSearchStatus"/>.</summary>
-            <param name="value">The <see cref="T:Towel.Syntax.GraphSyntax.GraphSearchStatusStruct"/> to convert.</param>
+        <member name="M:Towel.Statics.GraphSyntax.GraphSearchStatusStruct.op_Implicit(Towel.Statics.GraphSyntax.GraphSearchStatusStruct)~Towel.Statics.GraphSearchStatus">
+            <summary>Converts a <see cref="T:Towel.Statics.GraphSyntax.GraphSearchStatusStruct"/> into a <see cref="T:Towel.Statics.GraphSearchStatus"/>.</summary>
+            <param name="value">The <see cref="T:Towel.Statics.GraphSyntax.GraphSearchStatusStruct"/> to convert.</param>
         </member>
-        <member name="T:Towel.Syntax.SearchNeighbors`1">
+        <member name="T:Towel.Statics.SearchNeighbors`1">
             <summary>Step function for all neigbors of a given node.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="current">The node to step through all the neighbors of.</param>
             <param name="neighbors">Step function to perform on all neighbors.</param>
         </member>
-        <member name="T:Towel.Syntax.SearchHeuristic`2">
+        <member name="T:Towel.Statics.SearchHeuristic`2">
             <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="node">The node to compute the heuristic value of.</param>
             <returns>The computed heuristic value for this node.</returns>
         </member>
-        <member name="T:Towel.Syntax.SearchCost`2">
+        <member name="T:Towel.Statics.SearchCost`2">
             <summary>Computes the cost of moving from the current node to a specific neighbor.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
@@ -31673,19 +31664,19 @@
             <param name="neighbor">The node to compute the cost of movign to.</param>
             <returns>The computed cost value of movign from current to neighbor.</returns>
         </member>
-        <member name="T:Towel.Syntax.SearchGoal`1">
+        <member name="T:Towel.Statics.SearchGoal`1">
             <summary>Predicate for determining if we have reached the goal node.</summary>
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <param name="current">The current node.</param>
             <returns>True if the current node is a/the goal node; False if not.</returns>
         </member>
-        <member name="T:Towel.Syntax.SearchCheck`1">
+        <member name="T:Towel.Statics.SearchCheck`1">
             <summary>Checks the status of a graph search.</summary>
             <typeparam name="Node">The node type of the search.</typeparam>
             <param name="current">The current node of the search.</param>
             <returns>The status of the search.</returns>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph_XML">
+        <member name="M:Towel.Statics.SearchGraph_XML">
             <typeparam name="Node">The node type of the graph being searched.</typeparam>
             <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
             <param name="start">The node to start at.</param>
@@ -31698,82 +31689,82 @@
             <param name="graph">The graph to perform the search on.</param>
             <returns>Stepper of the shortest path or null if no path exists.</returns>
         </member>
-        <member name="M:Towel.Syntax.Graph_Astar_XML">
+        <member name="M:Towel.Statics.Graph_Astar_XML">
             <summary>Runs the A* search algorithm on a graph.</summary>
-            <inheritdoc cref="M:Towel.Syntax.SearchGraph_XML"/>
+            <inheritdoc cref="M:Towel.Statics.SearchGraph_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},Towel.Syntax.SearchGoal{``0},``1@)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},Towel.Statics.SearchGoal{``0},``1@)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},Towel.Syntax.SearchGoal{``0},``1@)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},Towel.Statics.SearchGoal{``0},``1@)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,``1@)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},``0,``1@)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,``1@)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},``0,``1@)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},``0,System.Func{``0,``0,System.Boolean},``1@)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCost{``0,``1},Towel.Syntax.SearchCheck{``0},``1@)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Astar_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},Towel.Statics.SearchCheck{``0},``1@)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Graph_Dijkstra_XML">
+        <member name="M:Towel.Statics.Graph_Dijkstra_XML">
             <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-            <inheritdoc cref="M:Towel.Syntax.SearchGraph_XML"/>
+            <inheritdoc cref="M:Towel.Statics.SearchGraph_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchGoal{``0})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},``0)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Statics.SearchHeuristic{``0,``1},``0)">
+            <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Statics.SearchHeuristic{``0,``1},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchGoal{``0})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.DataStructures.IGraph{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``2(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchHeuristic{``0,``1},Towel.Syntax.SearchCheck{``0})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_Dijkstra_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCheck{``0})">
+            <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Graph_BreadthFirstSearch_XML">
+        <member name="M:Towel.Statics.Graph_BreadthFirstSearch_XML">
             <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-            <inheritdoc cref="M:Towel.Syntax.SearchGraph_XML"/>
+            <inheritdoc cref="M:Towel.Statics.SearchGraph_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchGoal{``0})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},``0)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.Statics.SearchNeighbors{``0},``0)">
+            <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.Statics.SearchNeighbors{``0},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
-            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},``0)">
+            <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},``0,System.Func{``0,``0,System.Boolean})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},``0,System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Syntax.SearchGoal{``0})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.DataStructures.IGraph{``0},Towel.Statics.SearchGoal{``0})">
+            <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SearchGraph``1(``0,Towel.Syntax.SearchNeighbors{``0},Towel.Syntax.SearchCheck{``0})">
-            <inheritdoc cref="M:Towel.Syntax.Graph_BreadthFirstSearch_XML"/>
+        <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchCheck{``0})">
+            <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Sort_XML">
+        <member name="M:Towel.Statics.Sort_XML">
             <typeparam name="T">The type of values to sort.</typeparam>
             <typeparam name="Compare">The compare function.</typeparam>
             <typeparam name="Get">The get function.</typeparam>
@@ -31786,203 +31777,203 @@
             <param name="array">The array to be sorted.</param>
             <param name="span">The span to be sorted.</param>
         </member>
-        <member name="M:Towel.Syntax.SortBubble_XML">
+        <member name="M:Towel.Statics.SortBubble_XML">
             <summary>Sorts values using the bubble sort algorithm.</summary>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBubble``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        <member name="M:Towel.Statics.SortBubble``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBubble``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        <member name="M:Towel.Statics.SortBubble``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBubble``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        <member name="M:Towel.Statics.SortBubble``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBubble``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        <member name="M:Towel.Statics.SortBubble``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBubble``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        <member name="M:Towel.Statics.SortBubble``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBubble``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        <member name="M:Towel.Statics.SortBubble``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBubble``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortBubble_XML"/>
+        <member name="M:Towel.Statics.SortBubble``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection_XML">
+        <member name="M:Towel.Statics.SortSelection_XML">
             <summary>Sorts values using the selection sort algoritm.</summary>
             <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
             <stability>False</stability>
             <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        <member name="M:Towel.Statics.SortSelection``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        <member name="M:Towel.Statics.SortSelection``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        <member name="M:Towel.Statics.SortSelection``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        <member name="M:Towel.Statics.SortSelection``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        <member name="M:Towel.Statics.SortSelection``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        <member name="M:Towel.Statics.SortSelection``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSelection``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortSelection_XML"/>
+        <member name="M:Towel.Statics.SortSelection``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion_XML">
+        <member name="M:Towel.Statics.SortInsertion_XML">
             <summary>Sorts values using the insertion sort algorithm.</summary>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        <member name="M:Towel.Statics.SortInsertion``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        <member name="M:Towel.Statics.SortInsertion``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        <member name="M:Towel.Statics.SortInsertion``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        <member name="M:Towel.Statics.SortInsertion``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        <member name="M:Towel.Statics.SortInsertion``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        <member name="M:Towel.Statics.SortInsertion``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortInsertion``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortInsertion_XML"/>
+        <member name="M:Towel.Statics.SortInsertion``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick_XML">
+        <member name="M:Towel.Statics.SortQuick_XML">
             <summary>Sorts values using the quick sort algorithm.</summary>
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
             <stability>False</stability>
             <memory>ln(n)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        <member name="M:Towel.Statics.SortQuick``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        <member name="M:Towel.Statics.SortQuick``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        <member name="M:Towel.Statics.SortQuick``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        <member name="M:Towel.Statics.SortQuick``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        <member name="M:Towel.Statics.SortQuick``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        <member name="M:Towel.Statics.SortQuick``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortQuick``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortQuick_XML"/>
+        <member name="M:Towel.Statics.SortQuick``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge_XML">
+        <member name="M:Towel.Statics.SortMerge_XML">
             <summary>Sorts values using the merge sort algorithm.</summary>
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
             <stability>True</stability>
             <memory>Θ(n)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        <member name="M:Towel.Statics.SortMerge``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        <member name="M:Towel.Statics.SortMerge``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        <member name="M:Towel.Statics.SortMerge``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        <member name="M:Towel.Statics.SortMerge``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        <member name="M:Towel.Statics.SortMerge``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        <member name="M:Towel.Statics.SortMerge``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortMerge``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortMerge_XML"/>
+        <member name="M:Towel.Statics.SortMerge``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap_XML">
+        <member name="M:Towel.Statics.SortHeap_XML">
             <summary>Sorts values using the heap sort algorithm.</summary>
             <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
             <stability>False</stability>
             <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        <member name="M:Towel.Statics.SortHeap``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        <member name="M:Towel.Statics.SortHeap``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        <member name="M:Towel.Statics.SortHeap``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        <member name="M:Towel.Statics.SortHeap``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        <member name="M:Towel.Statics.SortHeap``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        <member name="M:Towel.Statics.SortHeap``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortHeap``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortHeap_XML"/>
+        <member name="M:Towel.Statics.SortHeap``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven_XML">
+        <member name="M:Towel.Statics.SortOddEven_XML">
             <summary>Sorts values using the odd even sort algorithm.</summary>
             <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
             <stability>True</stability>
             <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        <member name="M:Towel.Statics.SortOddEven``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        <member name="M:Towel.Statics.SortOddEven``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        <member name="M:Towel.Statics.SortOddEven``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        <member name="M:Towel.Statics.SortOddEven``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        <member name="M:Towel.Statics.SortOddEven``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        <member name="M:Towel.Statics.SortOddEven``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortOddEven``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortOddEven_XML"/>
+        <member name="M:Towel.Statics.SortOddEven``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Shuffle_XML">
+        <member name="M:Towel.Statics.Shuffle_XML">
             <summary>Sorts values into a randomized order.</summary>
             <typeparam name="T">The type of values to sort.</typeparam>
             <typeparam name="Get">The get function.</typeparam>
@@ -31996,173 +31987,182 @@
             <runtime>O(n)</runtime>
             <memory>O(1)</memory>
         </member>
-        <member name="M:Towel.Syntax.Shuffle``1(``0[],System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        <member name="M:Towel.Statics.Shuffle``1(``0[],System.Random)">
+            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        <member name="M:Towel.Statics.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
+            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Shuffle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        <member name="M:Towel.Statics.Shuffle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Random)">
+            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        <member name="M:Towel.Statics.Shuffle``3(System.Int32,System.Int32,``1,``2,System.Random)">
+            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
-        <member name="M:Towel.Syntax.Shuffle``1(System.Span{``0},System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.Shuffle_XML"/>
+        <member name="M:Towel.Statics.Shuffle``1(System.Span{``0},System.Random)">
+            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo_XML">
+        <member name="M:Towel.Statics.SortBogo_XML">
             <summary>Sorts values using the bogo sort algorithm.</summary>
             <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
             <stability>False</stability>
             <memory>O(1)</memory>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo``1(``0[],System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        <member name="M:Towel.Statics.SortBogo``1(``0[],System.Func{``0,``0,Towel.CompareResult},System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo``2(``0[],``1,System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        <member name="M:Towel.Statics.SortBogo``2(``0[],``1,System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        <member name="M:Towel.Statics.SortBogo``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult},System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        <member name="M:Towel.Statics.SortBogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        <member name="M:Towel.Statics.SortBogo``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        <member name="M:Towel.Statics.SortBogo``4(System.Int32,System.Int32,``1,``2,``3,System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortBogo``2(System.Span{``0},``1,System.Random)">
-            <inheritdoc cref="M:Towel.Syntax.SortBogo_XML"/>
+        <member name="M:Towel.Statics.SortBogo``2(System.Span{``0},``1,System.Random)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow_XML">
+        <member name="M:Towel.Statics.SortSlow_XML">
             <summary>Sorts values using the slow sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        <member name="M:Towel.Statics.SortSlow``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        <member name="M:Towel.Statics.SortSlow``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        <member name="M:Towel.Statics.SortSlow``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        <member name="M:Towel.Statics.SortSlow``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        <member name="M:Towel.Statics.SortSlow``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        <member name="M:Towel.Statics.SortSlow``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortSlow``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortSlow_XML"/>
+        <member name="M:Towel.Statics.SortSlow``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome_XML">
+        <member name="M:Towel.Statics.SortGnome_XML">
             <summary>Sorts values using the gnome sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        <member name="M:Towel.Statics.SortGnome``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        <member name="M:Towel.Statics.SortGnome``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        <member name="M:Towel.Statics.SortGnome``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        <member name="M:Towel.Statics.SortGnome``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        <member name="M:Towel.Statics.SortGnome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        <member name="M:Towel.Statics.SortGnome``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortGnome``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortGnome_XML"/>
+        <member name="M:Towel.Statics.SortGnome``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb_XML">
+        <member name="M:Towel.Statics.SortComb_XML">
             <summary>Sorts values using the comb sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        <member name="M:Towel.Statics.SortComb``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        <member name="M:Towel.Statics.SortComb``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        <member name="M:Towel.Statics.SortComb``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        <member name="M:Towel.Statics.SortComb``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        <member name="M:Towel.Statics.SortComb``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        <member name="M:Towel.Statics.SortComb``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortComb``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortComb_XML"/>
+        <member name="M:Towel.Statics.SortComb``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell_XML">
+        <member name="M:Towel.Statics.SortShell_XML">
             <summary>Sorts values using the shell sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        <member name="M:Towel.Statics.SortShell``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        <member name="M:Towel.Statics.SortShell``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        <member name="M:Towel.Statics.SortShell``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        <member name="M:Towel.Statics.SortShell``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        <member name="M:Towel.Statics.SortShell``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        <member name="M:Towel.Statics.SortShell``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortShell``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortShell_XML"/>
+        <member name="M:Towel.Statics.SortShell``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail_XML">
+        <member name="M:Towel.Statics.SortCocktail_XML">
             <summary>Sorts values using the shell sort algorithm.</summary>
-            <inheritdoc cref="M:Towel.Syntax.Sort_XML"/>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        <member name="M:Towel.Statics.SortCocktail``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        <member name="M:Towel.Statics.SortCocktail``2(``0[],``1)">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        <member name="M:Towel.Statics.SortCocktail``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        <member name="M:Towel.Statics.SortCocktail``2(``0[],System.Int32,System.Int32,``1)">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        <member name="M:Towel.Statics.SortCocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail``4(System.Int32,System.Int32,``1,``2,``3)">
-            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        <member name="M:Towel.Statics.SortCocktail``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
-        <member name="M:Towel.Syntax.SortCocktail``2(System.Span{``0},``1)">
-            <inheritdoc cref="M:Towel.Syntax.SortCocktail_XML"/>
+        <member name="M:Towel.Statics.SortCocktail``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
+        </member>
+        <member name="T:Towel.StepStatus">
+            <summary>Status of iteration.</summary>
+        </member>
+        <member name="F:Towel.StepStatus.Continue">
+            <summary>Stepper was not broken.</summary>
+        </member>
+        <member name="F:Towel.StepStatus.Break">
+            <summary>Stepper was broken.</summary>
         </member>
         <member name="T:Towel.ValueAttribute">
             <summary>A value-based attribute.</summary>

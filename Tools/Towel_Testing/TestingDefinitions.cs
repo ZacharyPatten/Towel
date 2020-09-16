@@ -1,6 +1,6 @@
 ﻿using System;
 using Towel;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel_Testing
 {

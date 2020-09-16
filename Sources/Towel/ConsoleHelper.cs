@@ -102,7 +102,7 @@ namespace Towel
 			}
 			tryParse ??= typeof(T) == typeof(string)
 				? (string s, out T v) => { v = (T)(object)s; return true; }
-				: (FuncO1<string, T, bool>)Syntax.TryParse;
+				: (FuncO1<string, T, bool>)Statics.TryParse;
 			validation ??= v => true;
 			GetInput:
 			Console.Write(prompt ?? $"Input a {typeof(T).Name} value: ");

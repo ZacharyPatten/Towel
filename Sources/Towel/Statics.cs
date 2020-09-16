@@ -9,8 +9,8 @@ using System.Runtime.CompilerServices;
 
 namespace Towel
 {
-	/// <summary>Towel syntax.</summary>
-	public static class Syntax
+	/// <summary>Root type of the static functional methods in Towel.</summary>
+	public static class Statics
 	{
 		#region Internals
 
@@ -3468,10 +3468,10 @@ namespace Towel
 			return distance;
 		}
 
-		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
+		/// <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
 		/// <param name="a">The first sequence of the operation.</param>
 		/// <param name="b">The second sequence of the operation.</param>
-		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
+		/// <returns>The computed Hamming distance of the two sequences.</returns>
 		public static int HammingDistance(ReadOnlySpan<char> a, ReadOnlySpan<char> b) =>
 			HammingDistance<char, EqualsChar>(a, b);
 

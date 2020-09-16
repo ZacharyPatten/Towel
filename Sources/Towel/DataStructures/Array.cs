@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel.DataStructures
 {

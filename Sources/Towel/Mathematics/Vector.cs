@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Text;
 using Towel.Measurements;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel.Mathematics
 {
@@ -236,7 +236,7 @@ namespace Towel.Mathematics
 		public static T GetMagnitude(Vector<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			return Syntax.SquareRoot(GetMagnitudeSquared(a));
+			return Statics.SquareRoot(GetMagnitudeSquared(a));
 		}
 
 		/// <summary>Computes the length of this vector.</summary>
@@ -307,7 +307,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				B[i] = Syntax.Negation(A[i]);
+				B[i] = Statics.Negation(A[i]);
 			}
 		}
 
@@ -379,7 +379,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Syntax.Addition(A[i], B[i]);
+				C[i] = Statics.Addition(A[i], B[i]);
 			}
 		}
 
@@ -455,7 +455,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Syntax.Subtraction(A[i], B[i]);
+				C[i] = Statics.Subtraction(A[i], B[i]);
 			}
 		}
 
@@ -525,7 +525,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Syntax.Multiplication(A[i], b);
+				C[i] = Statics.Multiplication(A[i], b);
 			}
 		}
 
@@ -604,7 +604,7 @@ namespace Towel.Mathematics
 			}
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Syntax.Division(A[i], b);
+				C[i] = Statics.Division(A[i], b);
 			}
 		}
 
@@ -707,9 +707,9 @@ namespace Towel.Mathematics
 				c = new Vector<T>(3);
 			}
 			T[] C = c._vector;
-			C[0] = Syntax.Subtraction(Syntax.Multiplication(A[1], B[2]), Syntax.Multiplication(A[2], B[1]));
-			C[1] = Syntax.Subtraction(Syntax.Multiplication(A[2], B[0]), Syntax.Multiplication(A[0], B[2]));
-			C[2] = Syntax.Subtraction(Syntax.Multiplication(A[0], B[1]), Syntax.Multiplication(A[1], B[0]));
+			C[0] = Statics.Subtraction(Statics.Multiplication(A[1], B[2]), Statics.Multiplication(A[2], B[1]));
+			C[1] = Statics.Subtraction(Statics.Multiplication(A[2], B[0]), Statics.Multiplication(A[0], B[2]));
+			C[2] = Statics.Subtraction(Statics.Multiplication(A[0], B[1]), Statics.Multiplication(A[1], B[0]));
 		}
 
 		/// <summary>Computes teh cross product of two vectors.</summary>
@@ -755,7 +755,7 @@ namespace Towel.Mathematics
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Dimensions) + " > 0)");
 			}
 			T magnitude = a.Magnitude;
-			if (Syntax.EqualTo(magnitude, Constant<T>.Zero))
+			if (Statics.EqualTo(magnitude, Constant<T>.Zero))
 			{
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 			}
@@ -767,7 +767,7 @@ namespace Towel.Mathematics
 			T[] B = b._vector;
 			for (int i = 0; i < Dimensions; i++)
 			{
-				B[i] = Syntax.Division(a[i], magnitude);
+				B[i] = Statics.Division(a[i], magnitude);
 			}
 		}
 
@@ -811,8 +811,8 @@ namespace Towel.Mathematics
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
 			T dotProduct = a.DotProduct(b);
-			T aMagTimesbMag = Syntax.Multiplication(a.Magnitude, b.Magnitude);
-			T divided = Syntax.Division(dotProduct, aMagTimesbMag);
+			T aMagTimesbMag = Statics.Multiplication(a.Magnitude, b.Magnitude);
+			T divided = Statics.Division(dotProduct, aMagTimesbMag);
 			return arccos(divided);
 		}
 
@@ -847,12 +847,12 @@ namespace Towel.Mathematics
 				c = new Vector<T>(Dimensions);
 			}
 			T magSquared = a.MagnitudeSquared;
-			if (Syntax.EqualTo(magSquared, Constant<T>.Zero))
+			if (Statics.EqualTo(magSquared, Constant<T>.Zero))
 			{
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 			}
 			T dot = a.DotProduct(b);
-			T divided = Syntax.Division(dot, magSquared);
+			T divided = Statics.Division(dot, magSquared);
 			a.Multiply(divided, ref c);
 		}
 
@@ -949,7 +949,7 @@ namespace Towel.Mathematics
 		/// <param name="c">The result of the interpolation.</param>
 		public static void LinearInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c)
 		{
-			if (Syntax.LessThan(blend, Constant<T>.Zero) || Syntax.GreaterThan(blend, Constant<T>.One))
+			if (Statics.LessThan(blend, Constant<T>.Zero) || Statics.GreaterThan(blend, Constant<T>.One))
 			{
 				throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
 			}
@@ -967,7 +967,7 @@ namespace Towel.Mathematics
 			T[] C = c._vector;
 			for (int i = 0; i < Length; i++)
 			{
-				C[i] = Syntax.Addition(A[i], Syntax.Multiplication(blend, Syntax.Subtraction(B[i], A[i])));
+				C[i] = Statics.Addition(A[i], Statics.Multiplication(blend, Statics.Subtraction(B[i], A[i])));
 			}
 		}
 
@@ -1052,7 +1052,7 @@ namespace Towel.Mathematics
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
 			_ = c ?? throw new ArgumentNullException(nameof(c));
-			if (Syntax.EqualTo(a.Dimensions, b.Dimensions, c.Dimensions))
+			if (Statics.EqualTo(a.Dimensions, b.Dimensions, c.Dimensions))
 			{
 				throw new MathematicsException("Arguments invalid !(" +
 					nameof(a) + "." + nameof(a.Dimensions) + " == " +
@@ -1125,7 +1125,7 @@ namespace Towel.Mathematics
 				T[] B = b._vector;
 				for (int i = 0; i < Length; i++)
 				{
-					if (Syntax.InequalTo(A[i], B[i]))
+					if (Statics.InequalTo(A[i], B[i]))
 					{
 						return false;
 					}
@@ -1209,7 +1209,7 @@ namespace Towel.Mathematics
 			T[] A = a._vector;
 			T[] B = b._vector;
 			for (int i = 0; i < Length; i++)
-				if (!Syntax.EqualToLeniency(A[i], B[i], leniency))
+				if (!Statics.EqualToLeniency(A[i], B[i], leniency))
 					return false;
 			return true;
 		}

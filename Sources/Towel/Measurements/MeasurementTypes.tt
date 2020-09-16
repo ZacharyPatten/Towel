@@ -126,7 +126,7 @@ foreach (var a in measurements)
 #endregion
 
 using System;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel.Measurements
 {
@@ -420,7 +420,7 @@ namespace Towel.Measurements
         /// <returns>The result of the addition operation.</returns>
         public static <#= measurement.Item1 #><T> Add(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return MathBase(a, b, Syntax.Addition);
+            return MathBase(a, b, Statics.Addition);
         }
 
         /// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
@@ -450,7 +450,7 @@ namespace Towel.Measurements
         /// <returns>The result of the subtraction.</returns>
         public static <#= measurement.Item1 #><T> Subtract(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return MathBase(a, b, Syntax.Subtraction);
+            return MathBase(a, b, Statics.Subtraction);
         }
 
         /// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
@@ -480,7 +480,7 @@ namespace Towel.Measurements
         /// <returns>The result of the multiplication.</returns>
         public static <#= measurement.Item1 #><T> Multiply(<#= measurement.Item1 #><T> a, T b)
         {
-            return MathBase(a, b, Syntax.Multiplication);
+            return MathBase(a, b, Statics.Multiplication);
         }
 
         /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
@@ -669,7 +669,7 @@ string bIndexString = null;
 
 			T A = a[<#= aIndexString #>];
 			T B = b[<#= bIndexString #>];
-			T C = Syntax.Multiplication(A, B);
+			T C = Statics.Multiplication(A, B);
 
 			return new <#= @operator.Item2 #><T>(C
 <# foreach (var unitNonCollision in sortedUnitNoncollisions) { #>
@@ -717,7 +717,7 @@ string bIndexString = null;
 <# { int temp = 0; #>
 			T B = b[<#= string.Join(", ", concatenatedBaseUnits.Select(x => x + "Units" + ++temp)) #>];
 <# } #>
-            return Syntax.Division(A, B);
+            return Statics.Division(A, B);
         }
 
         /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
@@ -726,7 +726,7 @@ string bIndexString = null;
         /// <returns>The result of the division.</returns>
         public static <#= measurement.Item1 #><T> Divide(<#= measurement.Item1 #><T> a, T b)
         {
-            return MathBase(a, b, Syntax.Division);
+            return MathBase(a, b, Statics.Division);
         }
 
         /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
@@ -916,7 +916,7 @@ string bIndexString = null;
 
 			T A = a[<#= aIndexString #>];
 			T B = b[<#= bIndexString #>];
-			T C = Syntax.Division(A, B);
+			T C = Statics.Division(A, B);
 
 			return new <#= @operator.Item2 #><T>(C
 <# foreach (var unitNonCollision in sortedUnitNoncollisions) { #>
@@ -955,7 +955,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is less than the second operand. False if not.</returns>
         public static bool LessThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.LessThan);
+            return LogicBase(a, b, Statics.LessThan);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
@@ -985,7 +985,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
         public static bool GreaterThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.GreaterThan);
+            return LogicBase(a, b, Statics.GreaterThan);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
@@ -1015,7 +1015,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
         public static bool LessThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.LessThanOrEqual);
+            return LogicBase(a, b, Statics.LessThanOrEqual);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1045,7 +1045,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
         public static bool GreaterThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.GreaterThanOrEqual);
+            return LogicBase(a, b, Statics.GreaterThanOrEqual);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1075,7 +1075,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.EqualTo);
+            return LogicBase(a, b, Statics.EqualTo);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1105,7 +1105,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Syntax.InequalTo);
+            return LogicBase(a, b, Statics.InequalTo);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>

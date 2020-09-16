@@ -5,7 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Towel;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel_Generating
 {

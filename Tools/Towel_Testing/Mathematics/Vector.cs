@@ -3,7 +3,7 @@ using System;
 using Towel;
 using Towel.Measurements;
 using Towel.Mathematics;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel_Testing.Mathematics
 {

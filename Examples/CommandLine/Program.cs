@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using Towel;
-using static Towel.Syntax;
+using static Towel.Statics;
 using static Towel.CommandLine;
 
 namespace CommandLine

@@ -2,7 +2,7 @@
 using System;
 using Towel;
 using Towel.DataStructures;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using Towel.Mathematics;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel.Measurements
 {

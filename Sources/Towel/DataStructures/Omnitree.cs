@@ -6,7 +6,7 @@
 
 using System;
 using System.Numerics;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel.DataStructures
 {

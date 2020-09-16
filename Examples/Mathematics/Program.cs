@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using Towel;
 using Towel.Mathematics;
 using Towel.Measurements;
-using static Towel.Syntax;
+using static Towel.Statics;
 using static Towel.Mathematics.MathematicsSyntax;
 
 namespace Mathematics

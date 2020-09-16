@@ -1,7 +1,7 @@
 ﻿using Towel;
 using BenchmarkDotNet.Running;
 using static Towel.CommandLine;
-using static Towel.Syntax;
+using static Towel.Statics;
 using System.IO;
 using System.Text;
 using System;

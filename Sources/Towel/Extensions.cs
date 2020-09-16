@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Towel.DataStructures;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel
 {
@@ -819,7 +819,7 @@ namespace Towel
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(this Random random, T[] array) =>
-			Syntax.Shuffle(array, random);
+			Statics.Shuffle(array, random);
 
 		/// <summary>Sorts values into a randomized order.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -831,7 +831,7 @@ namespace Towel
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
 		public static void Shuffle<T>(this Random random, Func<int, T> get, Action<int, T> set, int start, int end) =>
-			Syntax.Shuffle(start, end, get, set, random);
+			Statics.Shuffle(start, end, get, set, random);
 
 		/// <summary>Sorts values into a randomized order.</summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
@@ -847,7 +847,7 @@ namespace Towel
 		public static void Shuffle<T, Get, Set>(this Random random, Get get, Set set, int start, int end)
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T> =>
-			Syntax.Shuffle<T, Get, Set>(start, end, get, set, random);
+			Statics.Shuffle<T, Get, Set>(start, end, get, set, random);
 
 		#endregion
 

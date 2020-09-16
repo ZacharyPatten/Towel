@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using Towel.DataStructures;
 using System.Linq;
-using static Towel.Syntax;
+using static Towel.Statics;
 using System.Runtime.CompilerServices;
 
 namespace Towel

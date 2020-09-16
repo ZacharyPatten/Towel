@@ -1,6 +1,6 @@
 ﻿using System;
 using Towel.DataStructures;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel
 {

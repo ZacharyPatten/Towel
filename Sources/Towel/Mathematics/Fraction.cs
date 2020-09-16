@@ -1,5 +1,5 @@
 ﻿using System;
-using static Towel.Syntax;
+using static Towel.Statics;
 
 namespace Towel.Mathematics
 {
@@ -25,7 +25,7 @@ namespace Towel.Mathematics
 			get => _denominator;
 			set
 			{
-				if (Syntax.EqualTo(value, Constant<T>.Zero))
+				if (Statics.EqualTo(value, Constant<T>.Zero))
 				{
 					throw new ArgumentOutOfRangeException(nameof(value), value, "!(" + nameof(value) + " != 0)");
 				}
@@ -202,7 +202,7 @@ namespace Towel.Mathematics
 
 		internal static void ReduceInternal(T a, T b, out T c, out T d)
 		{
-			if (Syntax.EqualTo(a, Constant<T>.Zero))
+			if (Statics.EqualTo(a, Constant<T>.Zero))
 			{
 				c = a;
 				d = Constant<T>.One;
@@ -305,7 +305,7 @@ namespace Towel.Mathematics
 		{
 			T c = Multiplication(a.Numerator, b.Denominator);
 			T d = Multiplication(b.Numerator, a.Denominator);
-			return Syntax.LessThan(c, d);
+			return Statics.LessThan(c, d);
 		}
 
 		/// <summary>Determines if one value is less than another.</summary>
@@ -333,7 +333,7 @@ namespace Towel.Mathematics
 		{
 			T c = Multiplication(a.Numerator, b.Denominator);
 			T d = Multiplication(b.Numerator, a.Denominator);
-			return Syntax.GreaterThan(c, d);
+			return Statics.GreaterThan(c, d);
 		}
 
 		/// <summary>Determines if one value is greater than another.</summary>
@@ -361,7 +361,7 @@ namespace Towel.Mathematics
 		{
 			T c = Multiplication(a.Numerator, b.Denominator);
 			T d = Multiplication(b.Numerator, a.Denominator);
-			return Syntax.LessThanOrEqual(c, d);
+			return Statics.LessThanOrEqual(c, d);
 		}
 
 		/// <summary>Determines if one value is less than another.</summary>
@@ -389,7 +389,7 @@ namespace Towel.Mathematics
 		{
 			T c = Multiplication(a.Numerator, b.Denominator);
 			T d = Multiplication(b.Numerator, a.Denominator);
-			return Syntax.GreaterThanOrEqual(c, d);
+			return Statics.GreaterThanOrEqual(c, d);
 		}
 
 		/// <summary>Determines if one value is greater than another.</summary>

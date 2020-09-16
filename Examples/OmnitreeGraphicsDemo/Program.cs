@@ -10,7 +10,7 @@ using System.Numerics;
 using Towel;
 using Towel.DataStructures;
 using Towel.Measurements;
-using static Towel.Syntax;
+using static Towel.Statics;
 using static Towel.Measurements.MeasurementsSyntax;
 
 namespace OmnitreeGraphicsDemo
