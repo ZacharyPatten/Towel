@@ -59,8 +59,8 @@ namespace Towel
 			Bubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Bubble_XML"/>
-		public static void Bubble<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Bubble<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Bubble<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Bubble<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Bubble_XML"/>
 		public static void Bubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -134,8 +134,8 @@ namespace Towel
 			Selection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Selection_XML"/>
-		public static void Selection<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Selection<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Selection<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Selection<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Selection_XML"/>
 		public static void Selection<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -213,8 +213,8 @@ namespace Towel
 			Insertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Insertion_XML"/>
-		public static void Insertion<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Insertion<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Insertion<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Insertion<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Insertion_XML"/>
 		public static void Insertion<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -285,8 +285,8 @@ namespace Towel
 			Quick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Quick_XML"/>
-		public static void Quick<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Quick<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Quick<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Quick<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Quick_XML"/>
 		public static void Quick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -401,8 +401,8 @@ namespace Towel
 			Merge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Merge_XML"/>
-		public static void Merge<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Merge<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Merge<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Merge<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Merge_XML"/>
 		public static void Merge<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -529,8 +529,8 @@ namespace Towel
 			Heap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Heap_XML"/>
-		public static void Heap<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Heap<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Heap<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Heap<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Heap_XML"/>
 		public static void Heap<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -651,8 +651,8 @@ namespace Towel
 			OddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="OddEven_XML"/>
-		public static void OddEven<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			OddEven<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void OddEven<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			OddEven<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="OddEven_XML"/>
 		public static void OddEven<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -819,8 +819,8 @@ namespace Towel
 			Shuffle<T, GetIndexArray<T>, SetIndexArray<T>>(start, end, array, array, random);
 
 		/// <inheritdoc cref="Shuffle_XML"/>
-		public static void Shuffle<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Random random = null) =>
-			Shuffle<T, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, get, set, random);
+		public static void Shuffle<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Random random = null) =>
+			Shuffle<T, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, get, set, random);
 
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random random = null)
@@ -884,8 +884,8 @@ namespace Towel
 			Bogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
-		public static void Bogo<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null, Random random = null) =>
-			Bogo<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set, random);
+		public static void Bogo<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null, Random random = null) =>
+			Bogo<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set, random);
 
 		/// <inheritdoc cref="Bogo_XML"/>
 		public static void Bogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
@@ -965,8 +965,8 @@ namespace Towel
 			Slow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Slow_XML"/>
-		public static void Slow<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Slow<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Slow<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Slow<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Slow_XML"/>
 		public static void Slow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -1049,8 +1049,8 @@ namespace Towel
 			Gnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Gnome_XML"/>
-		public static void Gnome<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Gnome<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Gnome<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Gnome<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Gnome_XML"/>
 		public static void Gnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -1127,8 +1127,8 @@ namespace Towel
 			Comb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Comb_XML"/>
-		public static void Comb<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Comb<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Comb<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Comb<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Comb_XML"/>
 		public static void Comb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -1218,8 +1218,8 @@ namespace Towel
 			Shell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Shell_XML"/>
-		public static void Shell<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Shell<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Shell<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Shell<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Shell_XML"/>
 		public static void Shell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -1295,8 +1295,8 @@ namespace Towel
 			Cocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
-		public static void Cocktail<T>(int start, int end, GetIndex<T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
-			Cocktail<T, FuncRuntime<T, T, CompareResult>, GetIndexRuntime<T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
+		public static void Cocktail<T>(int start, int end, Func<int, T> get, SetIndex<T> set, Func<T, T, CompareResult> compare = null) =>
+			Cocktail<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, SetIndexRuntime<T>>(start, end, compare ?? Comparison, get, set);
 
 		/// <inheritdoc cref="Cocktail_XML"/>
 		public static void Cocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)

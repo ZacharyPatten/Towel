@@ -830,7 +830,7 @@ namespace Towel
 		/// <param name="end">The ending index of the shuffle.</param>
 		/// <runtime>O(n)</runtime>
 		/// <memory>O(1)</memory>
-		public static void Shuffle<T>(this Random random, GetIndex<T> get, SetIndex<T> set, int start, int end) =>
+		public static void Shuffle<T>(this Random random, Func<int, T> get, SetIndex<T> set, int start, int end) =>
 			Sort.Shuffle(start, end, get, set, random);
 
 		/// <summary>Sorts values into a randomized order.</summary>
@@ -1151,7 +1151,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the IList.</typeparam>
 		/// <param name="array">The array to retrieve the get delegate of.</param>
 		/// <returns>A delegate for getting an indexed value in the IList.</returns>
-		public static GetIndex<T> WrapGetIndex<T>(this T[] array) =>
+		public static Func<int, T> WrapGetIndex<T>(this T[] array) =>
 			index => array[index];
 
 		/// <summary>Converts the set indexer of an IList to a delegate.</summary>

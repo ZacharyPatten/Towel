@@ -70,11 +70,11 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
-		public static (bool Success, int Index, T Value) Binary<T>(int length, GetIndex<T> get, Func<T, CompareResult> sift)
+		public static (bool Success, int Index, T Value) Binary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
-			return Binary<T, GetIndexRuntime<T>, FuncRuntime<T, CompareResult>>(0, length, get, sift);
+			return Binary<T, FuncRuntime<int, T>, FuncRuntime<T, CompareResult>>(0, length, get, sift);
 		}
 
 		/// <inheritdoc cref="Binary_XML"/>
