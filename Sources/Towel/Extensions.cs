@@ -1053,7 +1053,7 @@ namespace Towel
 		/// <param name="a2">The second array of the deep equality check.</param>
 		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
 		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2) =>
-			a1.ValuesAreEqual(a2, DefaultEquate);
+			a1.ValuesAreEqual(a2, Equate);
 
 		/// <summary>Performs a deep equality check of two arrays.</summary>
 		/// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
@@ -1747,7 +1747,7 @@ namespace Towel
 		/// <param name="stepper">The stepper function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper) =>
-			ContainsDuplicates(stepper, DefaultEquate, DefaultHash);
+			ContainsDuplicates(stepper, Equate, DefaultHash);
 
 		/// <summary>Determines if the data contains any duplicates.</summary>
 		/// <typeparam name="T">The generic type of the data.</typeparam>
@@ -1755,7 +1755,7 @@ namespace Towel
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
 		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper) =>
-			ContainsDuplicates(stepper, DefaultEquate, DefaultHash);
+			ContainsDuplicates(stepper, Equate, DefaultHash);
 
 		/// <summary>Determines if the stepper contains any of the predicated values.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>

@@ -73,7 +73,7 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		public TreeMap(T head) : this(head, DefaultEquate, DefaultHash) { }
+		public TreeMap(T head) : this(head, Statics.Equate, DefaultHash) { }
 
 		public TreeMap(T head, Func<T, T, bool> equate, Func<T, int> hash)
 		{

@@ -779,7 +779,7 @@ namespace Towel.DataStructures
 		public MapHashLinked(
 			Func<K, K, bool> equate = null,
 			Func<K, int> hash = null,
-			int? expectedCount = null) : base(equate ?? DefaultEquate, hash ?? DefaultHash, expectedCount) { }
+			int? expectedCount = null) : base(equate ?? Statics.Equate, hash ?? DefaultHash, expectedCount) { }
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="map">The map to clone.</param>

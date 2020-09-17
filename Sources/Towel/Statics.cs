@@ -748,13 +748,6 @@ namespace Towel
 
 		#region EqualTo
 
-		/// <summary>Static wrapper for the based "<see cref="object"/>.Equals" fuction.</summary>
-		/// <typeparam name="T">The generic type of this operation.</typeparam>
-		/// <param name="a">The first item of the equate function.</param>
-		/// <param name="b">The second item of the equate function.</param>
-		/// <returns>True if deemed equal; False if not.</returns>
-		public static bool DefaultEquate<T>(T a, T b) => a.Equals(b);
-
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
@@ -886,11 +879,27 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.Equal(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
-				return Function(a, b);
+				// todo: I need to kill this try-catch...
+				try
+				{
+					ParameterExpression A = Expression.Parameter(typeof(A));
+					ParameterExpression B = Expression.Parameter(typeof(B));
+					Expression BODY = Expression.Equal(A, B);
+					Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+					return Function(a, b);
+				}
+				catch
+				{
+
+				}
+
+				if (typeof(C) == typeof(bool))
+				{
+					EquateImplementation<A, B, bool>.Function = (_A, _B) => _A.Equals(_B);
+					return Function(a, b);
+				}
+
+				throw new NotImplementedException();
 			};
 		}
 
@@ -4275,7 +4284,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			SearchGraph(start, neighbors, heuristic, cost, goal, DefaultEquate, out totalCost);
+			SearchGraph(start, neighbors, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
@@ -4283,7 +4292,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			SearchGraph(start, graph, heuristic, cost, goal, DefaultEquate, out totalCost);
+			SearchGraph(start, graph, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
@@ -4355,7 +4364,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
-			SearchGraph(start, neighbors, heuristic, goal, DefaultEquate);
+			SearchGraph(start, neighbors, heuristic, goal, Equate);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
@@ -4363,7 +4372,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
-			SearchGraph(start, graph, heuristic, goal, DefaultEquate);
+			SearchGraph(start, graph, heuristic, goal, Equate);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
@@ -4434,7 +4443,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal) =>
-			SearchGraph(start, neighbors, goal, DefaultEquate);
+			SearchGraph(start, neighbors, goal, Equate);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
@@ -4442,7 +4451,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal) =>
-			SearchGraph(start, graph, goal, DefaultEquate);
+			SearchGraph(start, graph, goal, Equate);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>
