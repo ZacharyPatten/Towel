@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>The result of a comparison between two values.</summary>
 	public enum CompareResult
