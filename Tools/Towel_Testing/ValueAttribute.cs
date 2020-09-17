@@ -37,6 +37,8 @@ namespace Towel_Testing
 				BindingFlags.Instance);
 			ParameterInfo parameterInfo = methodInfo.GetParameters()[0];
 
+#pragma warning disable IDE0042 // Deconstruct variable declaration
+
 			// TestAttribute1 -----------------------------------
 
 			var typeAttribute1 = type.GetValueAttribute(TestAttribute1);
@@ -126,6 +128,12 @@ namespace Towel_Testing
 			var parmeterAttributeFail = parameterInfo.GetValueAttribute(TestAttributeFail);
 			Assert.IsFalse(parmeterAttributeFail.Found);
 			Assert.AreEqual(parmeterAttributeFail.Value, null);
+
+			var ambiguousMatchFail = typeof(B).GetValueAttribute(TestAttribute1);
+			Assert.IsFalse(ambiguousMatchFail.Found);
+			Assert.AreEqual(ambiguousMatchFail.Value, null);
+
+#pragma warning restore IDE0042 // Deconstruct variable declaration
 		}
 
 		[Value(TestAttribute1, TestValue1)]
@@ -156,5 +164,9 @@ namespace Towel_Testing
 		[Value(TestAttribute1, TestValue1)]
 		[Value(TestAttribute2, TestValue2)]
 		public static event Action Event;
+
+		[Value(TestAttribute1, TestValue1)]
+		[Value(TestAttribute1, TestValue1)]
+		public class B { }
 	}
 }
