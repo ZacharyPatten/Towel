@@ -75,7 +75,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove the first occurence of.</param>
 		public static void RemoveFirst<T>(this IList<T> iList, T value)
 		{
-			iList.RemoveFirst(value, DefaultEquals);
+			iList.RemoveFirst(value, DefaultEquate);
 		}
 
 		/// <summary>Removes the first occurence of an item in the list.</summary>
@@ -93,7 +93,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the item was found and removed; False if not.</returns>
 		public static bool TryRemoveFirst<T>(this IList<T> iList, T value)
 		{
-			return iList.TryRemoveFirst(value, DefaultEquals);
+			return iList.TryRemoveFirst(value, DefaultEquate);
 		}
 
 		/// <summary>Removes the first occurence of an item in the list or returns false.</summary>
@@ -111,7 +111,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove all occurences of.</param>
 		public static void RemoveAll<T>(this IList<T> iList, T value)
 		{
-			iList.RemoveAll(value, DefaultEquals);
+			iList.RemoveAll(value, DefaultEquate);
 		}
 
 		/// <summary>Removes all occurences of an item in the list.</summary>
@@ -714,7 +714,7 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1)</runtime>
 		public void RemoveFirstWithoutShrink(T value)
 		{
-			RemoveFirstWithoutShrink(value, DefaultEquals);
+			RemoveFirstWithoutShrink(value, DefaultEquate);
 		}
 
 		/// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>

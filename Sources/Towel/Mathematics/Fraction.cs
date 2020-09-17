@@ -25,7 +25,7 @@ namespace Towel.Mathematics
 			get => _denominator;
 			set
 			{
-				if (Statics.EqualTo(value, Constant<T>.Zero))
+				if (Statics.Equate(value, Constant<T>.Zero))
 				{
 					throw new ArgumentOutOfRangeException(nameof(value), value, "!(" + nameof(value) + " != 0)");
 				}
@@ -202,7 +202,7 @@ namespace Towel.Mathematics
 
 		internal static void ReduceInternal(T a, T b, out T c, out T d)
 		{
-			if (Statics.EqualTo(a, Constant<T>.Zero))
+			if (Statics.Equate(a, Constant<T>.Zero))
 			{
 				c = a;
 				d = Constant<T>.One;
@@ -246,8 +246,8 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand.</param>
 		/// <returns>The result of the equality check.</returns>
 		public static bool Equality(Fraction<T> a, Fraction<T> b) =>
-			EqualTo(a._numerator, b._numerator) &&
-			EqualTo(a._denominator, b._denominator);
+			Equate(a._numerator, b._numerator) &&
+			Equate(a._denominator, b._denominator);
 
 		/// <summary>Checks for equality between two values.</summary>
 		/// <param name="b">The second operand.</param>
@@ -532,7 +532,7 @@ namespace Towel.Mathematics
 		/// <returns>The value represented as a string.</returns>
 		public static string ToString(Fraction<T> fraction, Func<T, string> toString)
 		{
-			if (EqualTo(fraction._denominator, Constant<T>.One))
+			if (Equate(fraction._denominator, Constant<T>.One))
 			{
 				return toString(fraction._numerator);
 			}

@@ -169,10 +169,10 @@ namespace Towel.Mathematics
 		public static bool GetHasZeroMagnitude(Quaternion<T> a)
 		{
 			return
-				Statics.EqualTo(a._x, Constant<T>.Zero) &&
-				Statics.EqualTo(a._y, Constant<T>.Zero) &&
-				Statics.EqualTo(a._z, Constant<T>.Zero) &&
-				Statics.EqualTo(a._w, Constant<T>.Zero);
+				Statics.Equate(a._x, Constant<T>.Zero) &&
+				Statics.Equate(a._y, Constant<T>.Zero) &&
+				Statics.Equate(a._z, Constant<T>.Zero) &&
+				Statics.Equate(a._w, Constant<T>.Zero);
 		}
 
 		/// <summary>Checks quaternion for zero magnitude.</summary>
@@ -814,7 +814,7 @@ namespace Towel.Mathematics
 			T y;
 			T z;
 			T w;
-			if (Statics.EqualTo(magnitudeSquared, Constant<T>.Zero))
+			if (Statics.Equate(magnitudeSquared, Constant<T>.Zero))
 			{
 				x = a._x;
 				y = a._y;
@@ -1074,10 +1074,10 @@ namespace Towel.Mathematics
 				return false;
 			}
 			return
-				Statics.EqualTo(a._x, b._x) &&
-				Statics.EqualTo(a._y, b._y) &&
-				Statics.EqualTo(a._z, b._z) &&
-				Statics.EqualTo(a._w, b._w);
+				Statics.Equate(a._x, b._x) &&
+				Statics.Equate(a._y, b._y) &&
+				Statics.Equate(a._z, b._z) &&
+				Statics.Equate(a._w, b._w);
 		}
 
 		/// <summary>Does a value equality check.</summary>

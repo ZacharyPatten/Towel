@@ -183,7 +183,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, Vector<T>> FactoryZeroImplementation = dimensions =>
 		{
-			if (EqualTo(default, Constant<T>.Zero))
+			if (Equate(default, Constant<T>.Zero))
 			{
 				FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
 			}
@@ -209,7 +209,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, Vector<T>> FactoryOneImplementation = dimensions =>
 		{
-			if (EqualTo(default, Constant<T>.One))
+			if (Equate(default, Constant<T>.One))
 			{
 				FactoryZeroImplementation = DIMENSIONS => new Vector<T>(DIMENSIONS);
 			}
@@ -755,7 +755,7 @@ namespace Towel.Mathematics
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Dimensions) + " > 0)");
 			}
 			T magnitude = a.Magnitude;
-			if (Statics.EqualTo(magnitude, Constant<T>.Zero))
+			if (Statics.Equate(magnitude, Constant<T>.Zero))
 			{
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 			}
@@ -847,7 +847,7 @@ namespace Towel.Mathematics
 				c = new Vector<T>(Dimensions);
 			}
 			T magSquared = a.MagnitudeSquared;
-			if (Statics.EqualTo(magSquared, Constant<T>.Zero))
+			if (Statics.Equate(magSquared, Constant<T>.Zero))
 			{
 				throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 			}
@@ -1052,7 +1052,7 @@ namespace Towel.Mathematics
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
 			_ = c ?? throw new ArgumentNullException(nameof(c));
-			if (Statics.EqualTo(a.Dimensions, b.Dimensions, c.Dimensions))
+			if (Statics.Equate(a.Dimensions, b.Dimensions, c.Dimensions))
 			{
 				throw new MathematicsException("Arguments invalid !(" +
 					nameof(a) + "." + nameof(a.Dimensions) + " == " +

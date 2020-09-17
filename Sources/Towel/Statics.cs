@@ -458,7 +458,7 @@ namespace Towel
 			/// <returns>A running inequality with the additonal equal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator ==(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(EqualTo(a.A, b), b);
+				new OperatorValidated.Inequality<T>(Equate(a.A, b), b);
 			/// <summary>Adds an inequal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the inequal operation.</param>
@@ -532,7 +532,7 @@ namespace Towel
 				/// <param name="b">The value of the right hand operand of the equal operation.</param>
 				/// <returns>A running inequality with the additonal equal operation.</returns>
 				public static Inequality<T> operator ==(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && EqualTo(a.A, b), b);
+					new Inequality<T>(a.Result && Equate(a.A, b), b);
 				/// <summary>Adds an inequal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the inequal operation.</param>
@@ -753,7 +753,7 @@ namespace Towel
 		/// <param name="a">The first item of the equate function.</param>
 		/// <param name="b">The second item of the equate function.</param>
 		/// <returns>True if deemed equal; False if not.</returns>
-		public static bool DefaultEquals<T>(T a, T b) => a.Equals(b);
+		public static bool DefaultEquate<T>(T a, T b) => a.Equals(b);
 
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
@@ -762,16 +762,16 @@ namespace Towel
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the equality.</returns>
-		public static C EqualTo<A, B, C>(A a, B b) =>
-			EqualToImplementation<A, B, C>.Function(a, b);
+		public static C Equate<A, B, C>(A a, B b) =>
+			EquateImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the equality check.</returns>
-		public static bool EqualTo<T>(T a, T b) =>
-			EqualTo<T, T, bool>(a, b);
+		public static bool Equate<T>(T a, T b) =>
+			Equate<T, T, bool>(a, b);
 
 		/// <summary>Checks for equality among multiple values [<paramref name="a"/> == <paramref name="b"/> == <paramref name="c"/> == ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -779,10 +779,10 @@ namespace Towel
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <param name="c">The remaining operands of the equality check.</param>
 		/// <returns>True if all operands are equal or false if not.</returns>
-		public static bool EqualTo<T>(T a, T b, params T[] c) =>
+		public static bool Equate<T>(T a, T b, params T[] c) =>
 			c is null ? throw new ArgumentNullException(nameof(c)) :
 			c.Length == 0 ? throw new ArgumentException("The array is empty.", nameof(c)) :
-			EqualTo(a, b) && !c.Any(x => !EqualTo(a, x));
+			Equate(a, b) && !c.Any(x => !Equate(a, x));
 
 		#region Alternative
 
@@ -830,7 +830,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
 		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool EqualTo<T>(Action<Action<T>> stepper)
+		public static bool Equate<T>(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T value = default;
@@ -839,7 +839,7 @@ namespace Towel
 			{
 				if (assigned)
 				{
-					return !EqualTo(value, x);
+					return !Equate(value, x);
 				}
 				else
 				{
@@ -859,7 +859,7 @@ namespace Towel
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="stepper">The operands of the equality check.</param>
 		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool EqualTo<T>(StepperBreak<T> stepper)
+		public static bool Equate<T>(StepperBreak<T> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			T value = default;
@@ -868,7 +868,7 @@ namespace Towel
 			{
 				if (assigned)
 				{
-					return !EqualTo(value, x);
+					return !Equate(value, x);
 				}
 				else
 				{
@@ -882,7 +882,7 @@ namespace Towel
 				: throw new ArgumentException(nameof(stepper), nameof(stepper) + " is empty.");
 		}
 
-		internal static class EqualToImplementation<A, B, C>
+		internal static class EquateImplementation<A, B, C>
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
@@ -1853,7 +1853,7 @@ namespace Towel
 				{
 					if (IsInteger(A) && !LessThan(A, Constant<T>.Two))
 					{
-						if (EqualTo(A, Constant<T>.Two))
+						if (Equate(A, Constant<T>.Two))
 						{
 							return true;
 						}
@@ -1864,7 +1864,7 @@ namespace Towel
 						T squareRoot = SquareRoot(A);
 						for (T divisor = Constant<T>.Three; LessThanOrEqual(divisor, squareRoot); divisor = Addition(divisor, Constant<T>.Two))
 						{
-							if (EqualTo(Remainder<T>(A, divisor), Constant<T>.Zero))
+							if (Equate(Remainder<T>(A, divisor), Constant<T>.Zero))
 							{
 								return false;
 							}
@@ -2051,7 +2051,7 @@ namespace Towel
 			stepper((T n) =>
 			{
 				_ = n ?? throw new ArgumentNullException(nameof(n));
-				if (EqualTo(n, Constant<T>.Zero))
+				if (Equate(n, Constant<T>.Zero))
 				{
 					throw new MathematicsException("Encountered Zero (0) while computing the " + nameof(GreatestCommonFactor));
 				}
@@ -2111,7 +2111,7 @@ namespace Towel
 			T answer = default;
 			stepper(parameter =>
 			{
-				if (EqualTo(parameter, Constant<T>.Zero))
+				if (Equate(parameter, Constant<T>.Zero))
 				{
 					throw new MathematicsException(nameof(stepper) + " contains 0 value(s).");
 				}
@@ -2157,7 +2157,7 @@ namespace Towel
 			{
 				throw new MathematicsException("Arguments out of range !(" + nameof(x0) + " <= " + nameof(x) + " <= " + nameof(x1) + ") [" + x0 + " <= " + x + " <= " + x1 + "].");
 			}
-			if (EqualTo(x0, x1))
+			if (Equate(x0, x1))
 			{
 				if (InequalTo(y0, y1))
 				{
@@ -2439,7 +2439,7 @@ namespace Towel
 				i = Addition(i, Constant<T>.One);
 				sum = Addition(sum, step);
 			});
-			if (EqualTo(i, Constant<T>.Zero))
+			if (Equate(i, Constant<T>.Zero))
 			{
 				throw new ArgumentException("The argument is empty.", nameof(stepper));
 			}
@@ -3402,7 +3402,7 @@ namespace Towel
 					}
 					for (T i = Constant<T>.Three; LessThanOrEqual(i, SquareRoot(A)); i = Addition(i, Constant<T>.Two))
 					{
-						while (EqualTo(Remainder(A, i), Constant<T>.Zero))
+						while (Equate(Remainder(A, i), Constant<T>.Zero))
 						{
 							step(i);
 							A = Division(A, i);
@@ -4275,7 +4275,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			SearchGraph(start, neighbors, heuristic, cost, goal, DefaultEquals, out totalCost);
+			SearchGraph(start, neighbors, heuristic, cost, goal, DefaultEquate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
@@ -4283,7 +4283,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
-			SearchGraph(start, graph, heuristic, cost, goal, DefaultEquals, out totalCost);
+			SearchGraph(start, graph, heuristic, cost, goal, DefaultEquate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
@@ -4355,7 +4355,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
-			SearchGraph(start, neighbors, heuristic, goal, DefaultEquals);
+			SearchGraph(start, neighbors, heuristic, goal, DefaultEquate);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
@@ -4363,7 +4363,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
-			SearchGraph(start, graph, heuristic, goal, DefaultEquals);
+			SearchGraph(start, graph, heuristic, goal, DefaultEquate);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
@@ -4434,7 +4434,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal) =>
-			SearchGraph(start, neighbors, goal, DefaultEquals);
+			SearchGraph(start, neighbors, goal, DefaultEquate);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
@@ -4442,7 +4442,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal) =>
-			SearchGraph(start, graph, goal, DefaultEquals);
+			SearchGraph(start, graph, goal, DefaultEquate);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
 		public static Action<Action<Node>> SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>

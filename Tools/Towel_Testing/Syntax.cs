@@ -538,43 +538,43 @@ namespace Towel_Testing
 
 		[TestMethod] public void EqualTo_Testing()
 		{
-			Assert.IsTrue(EqualTo(0, 0));
-			Assert.IsTrue(EqualTo(1, 1));
-			Assert.IsTrue(EqualTo(2, 2));
-			Assert.IsFalse(EqualTo(0, 1));
+			Assert.IsTrue(Equate(0, 0));
+			Assert.IsTrue(Equate(1, 1));
+			Assert.IsTrue(Equate(2, 2));
+			Assert.IsFalse(Equate(0, 1));
 
-			Assert.IsTrue(EqualTo(0f, 0f));
-			Assert.IsTrue(EqualTo(1f, 1f));
-			Assert.IsTrue(EqualTo(2f, 2f));
-			Assert.IsFalse(EqualTo(0f, 1f));
+			Assert.IsTrue(Equate(0f, 0f));
+			Assert.IsTrue(Equate(1f, 1f));
+			Assert.IsTrue(Equate(2f, 2f));
+			Assert.IsFalse(Equate(0f, 1f));
 
-			Assert.IsTrue(EqualTo(0d, 0d));
-			Assert.IsTrue(EqualTo(1d, 1d));
-			Assert.IsTrue(EqualTo(2d, 2d));
-			Assert.IsFalse(EqualTo(0d, 1d));
+			Assert.IsTrue(Equate(0d, 0d));
+			Assert.IsTrue(Equate(1d, 1d));
+			Assert.IsTrue(Equate(2d, 2d));
+			Assert.IsFalse(Equate(0d, 1d));
 
-			Assert.IsTrue(EqualTo(0m, 0m));
-			Assert.IsTrue(EqualTo(1m, 1m));
-			Assert.IsTrue(EqualTo(2m, 2m));
-			Assert.IsFalse(EqualTo(0m, 1m));
+			Assert.IsTrue(Equate(0m, 0m));
+			Assert.IsTrue(Equate(1m, 1m));
+			Assert.IsTrue(Equate(2m, 2m));
+			Assert.IsFalse(Equate(0m, 1m));
 
 			// More than 2 operands
 
-			Assert.IsTrue(EqualTo(0, 0, 0));
-			Assert.IsTrue(EqualTo(1, 1, 1));
-			Assert.IsTrue(EqualTo(2, 2, 2));
+			Assert.IsTrue(Equate(0, 0, 0));
+			Assert.IsTrue(Equate(1, 1, 1));
+			Assert.IsTrue(Equate(2, 2, 2));
 
-			Assert.IsFalse(EqualTo(0, 0, 1));
-			Assert.IsFalse(EqualTo(1, 1, 2));
-			Assert.IsFalse(EqualTo(2, 2, 3));
+			Assert.IsFalse(Equate(0, 0, 1));
+			Assert.IsFalse(Equate(1, 1, 2));
+			Assert.IsFalse(Equate(2, 2, 3));
 
-			Assert.IsFalse(EqualTo(0, 1, 0));
-			Assert.IsFalse(EqualTo(1, 2, 1));
-			Assert.IsFalse(EqualTo(2, 3, 2));
+			Assert.IsFalse(Equate(0, 1, 0));
+			Assert.IsFalse(Equate(1, 2, 1));
+			Assert.IsFalse(Equate(2, 3, 2));
 
-			Assert.IsFalse(EqualTo(1, 0, 0));
-			Assert.IsFalse(EqualTo(2, 1, 1));
-			Assert.IsFalse(EqualTo(3, 2, 2));
+			Assert.IsFalse(Equate(1, 0, 0));
+			Assert.IsFalse(Equate(2, 1, 1));
+			Assert.IsFalse(Equate(3, 2, 2));
 		}
 
 		#endregion

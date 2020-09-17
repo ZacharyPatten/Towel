@@ -98,7 +98,7 @@ namespace Towel.DataStructures
 			Func<T, T, CompareResult> compare = null,
 			Func<T, int> hash = null)
 		{
-			equate ??= DefaultEquals;
+			equate ??= DefaultEquate;
 			compare ??= Comparison;
 			hash ??= DefaultHash;
 
@@ -288,7 +288,7 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Constructs a new GraphMap.</summary>
-		public GraphMap() : this(DefaultEquals, DefaultHash) { }
+		public GraphMap() : this(DefaultEquate, DefaultHash) { }
 
 		/// <summary>Constructs a new GraphMap.</summary>
 		/// <param name="equate">The equate delegate for the data structure to use.</param>

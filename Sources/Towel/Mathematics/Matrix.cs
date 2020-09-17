@@ -231,7 +231,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryZeroImplementation = (rows, columns) =>
 		{
-			if (EqualTo(default, Constant<T>.Zero))
+			if (Equate(default, Constant<T>.Zero))
 			{
 				FactoryZeroImplementation = (ROWS, COLUMNS) => new Matrix<T>(ROWS, COLUMNS);
 			}
@@ -266,7 +266,7 @@ namespace Towel.Mathematics
 
 		internal static Func<int, int, Matrix<T>> FactoryIdentityImplementation = (rows, columns) =>
 		{
-			if (EqualTo(default, Constant<T>.Zero))
+			if (Equate(default, Constant<T>.Zero))
 			{
 				FactoryIdentityImplementation = (ROWS, COLUMNS) =>
 				{
@@ -440,8 +440,8 @@ namespace Towel.Mathematics
 			}
 
 			public static bool operator ==(MatrixElementFraction<T> a, MatrixElementFraction<T> b) =>
-				EqualTo(a.Numerator, b.Numerator) &&
-				EqualTo(a.Denominator, b.Denominator);
+				Equate(a.Numerator, b.Numerator) &&
+				Equate(a.Denominator, b.Denominator);
 			public static bool operator !=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
 				=> !(a == b);
 
@@ -460,7 +460,7 @@ namespace Towel.Mathematics
 			public MatrixElementFraction<T> Abs()
 				=> new MatrixElementFraction<T>(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
 
-			public bool IsDividedByZero => EqualTo(Denominator, Constant<T>.Zero);
+			public bool IsDividedByZero => Equate(Denominator, Constant<T>.Zero);
 		}
 #endregion
 
@@ -1661,7 +1661,7 @@ namespace Towel.Mathematics
 			{
 				if (Columns <= lead) break;
 				int i = r;
-				while (EqualTo(b.Get(i, lead), Constant<T>.Zero))
+				while (Equate(b.Get(i, lead), Constant<T>.Zero))
 				{
 					i++;
 					if (i == Rows)
@@ -1806,7 +1806,7 @@ namespace Towel.Mathematics
 				throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
 			}
 			T determinant = Determinant(a);
-			if (EqualTo(determinant, Constant<T>.Zero))
+			if (Equate(determinant, Constant<T>.Zero))
 			{
 				throw new MathematicsException("Singular matrix encountered during inverse caluculation (cannot be inversed).");
 			}
@@ -2135,7 +2135,7 @@ namespace Towel.Mathematics
 						k0 = i;
 					}
 				}
-				if (EqualTo(p, Constant<T>.Zero))
+				if (Equate(p, Constant<T>.Zero))
 				{
 					throw new MathematicsException("The matrix is singular!");
 				}
@@ -2244,7 +2244,7 @@ namespace Towel.Mathematics
 			}
 
 			// if the angle is zero, no rotation is required
-			if (EqualTo(angle._measurement, Constant<T>.Zero))
+			if (Equate(angle._measurement, Constant<T>.Zero))
 			{
 				return matrix.Clone();
 			}
@@ -2357,7 +2357,7 @@ namespace Towel.Mathematics
 			int Length = A.Length;
 			for (int i = 0; i < Length; i++)
 			{
-				if (!EqualTo(A[i], B[i]))
+				if (!Equate(A[i], B[i]))
 				{
 					return false;
 				}
