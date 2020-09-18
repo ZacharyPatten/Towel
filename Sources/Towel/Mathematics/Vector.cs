@@ -1125,7 +1125,7 @@ namespace Towel.Mathematics
 				T[] B = b._vector;
 				for (int i = 0; i < Length; i++)
 				{
-					if (Statics.InequalTo(A[i], B[i]))
+					if (Statics.Inequate(A[i], B[i]))
 					{
 						return false;
 					}

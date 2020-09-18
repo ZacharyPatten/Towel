@@ -566,7 +566,7 @@ namespace Towel.Mathematics
 			{
 				for (int column = row + 1; column < rows; column++)
 				{
-					if (InequalTo(A[row * rows + column], A[column * rows + row]))
+					if (Inequate(A[row * rows + column], A[column * rows + row]))
 					{
 						return false;
 					}
@@ -1682,7 +1682,7 @@ namespace Towel.Mathematics
 					b.Set(i, j, temp);
 				}
 				T div = b.Get(r, lead);
-				if (InequalTo(div, Constant<T>.Zero))
+				if (Inequate(div, Constant<T>.Zero))
 				{
 					for (int j = 0; j < Columns; j++)
 					{

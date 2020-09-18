@@ -41,7 +41,7 @@ namespace Towel_Testing
 		public static bool operator <(RefNumeric<T> a, RefNumeric<T> b) => LessThan(a._value, b._value);
 		public static bool operator >(RefNumeric<T> a, RefNumeric<T> b) => GreaterThan(a._value, b._value);
 		public static bool operator ==(RefNumeric<T> a, RefNumeric<T> b) => Equate(a._value, b._value);
-		public static bool operator !=(RefNumeric<T> a, RefNumeric<T> b) => InequalTo(a._value, b._value);
+		public static bool operator !=(RefNumeric<T> a, RefNumeric<T> b) => Inequate(a._value, b._value);
 		public static RefNumeric<T> operator -(RefNumeric<T> a) => new RefNumeric<T>(Negation(a._value));
 		public override bool Equals(object obj) => obj is RefNumeric<T> b && Equate(_value, b._value);
 		public override int GetHashCode() => _value.GetHashCode();

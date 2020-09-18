@@ -1307,25 +1307,25 @@ namespace Towel_Testing
 
 		[TestMethod] public void InequalTo_Testing()
 		{
-			Assert.IsTrue(InequalTo(0, 1));
-			Assert.IsTrue(InequalTo(-1, 1));
-			Assert.IsFalse(InequalTo(1, 1));
-			Assert.IsTrue(InequalTo(6, 7));
+			Assert.IsTrue(Inequate(0, 1));
+			Assert.IsTrue(Inequate(-1, 1));
+			Assert.IsFalse(Inequate(1, 1));
+			Assert.IsTrue(Inequate(6, 7));
 
-			Assert.IsTrue(InequalTo(0f, 1f));
-			Assert.IsTrue(InequalTo(-1f, 1f));
-			Assert.IsFalse(InequalTo(1f, 1f));
-			Assert.IsTrue(InequalTo(6f, 7f));
+			Assert.IsTrue(Inequate(0f, 1f));
+			Assert.IsTrue(Inequate(-1f, 1f));
+			Assert.IsFalse(Inequate(1f, 1f));
+			Assert.IsTrue(Inequate(6f, 7f));
 
-			Assert.IsTrue(InequalTo(0d, 1d));
-			Assert.IsTrue(InequalTo(-1d, 1d));
-			Assert.IsFalse(InequalTo(1d, 1d));
-			Assert.IsTrue(InequalTo(6d, 7d));
+			Assert.IsTrue(Inequate(0d, 1d));
+			Assert.IsTrue(Inequate(-1d, 1d));
+			Assert.IsFalse(Inequate(1d, 1d));
+			Assert.IsTrue(Inequate(6d, 7d));
 
-			Assert.IsTrue(InequalTo(0m, 1m));
-			Assert.IsTrue(InequalTo(-1m, 1m));
-			Assert.IsFalse(InequalTo(1m, 1m));
-			Assert.IsTrue(InequalTo(6m, 7m));
+			Assert.IsTrue(Inequate(0m, 1m));
+			Assert.IsTrue(Inequate(-1m, 1m));
+			Assert.IsFalse(Inequate(1m, 1m));
+			Assert.IsTrue(Inequate(6m, 7m));
 		}
 
 		#endregion

@@ -2656,7 +2656,7 @@ namespace Towel.Mathematics
 			{
 				if (operands[0] is Constant<T> a && operands[1] is Constant<T> b)
 				{
-					return new Constant<bool>(InequalTo(a.Value, b.Value));
+					return new Constant<bool>(Inequate(a.Value, b.Value));
 				}
 				return base.Simplify<T>();
 			}

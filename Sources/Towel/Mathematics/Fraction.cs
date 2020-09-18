@@ -277,8 +277,8 @@ namespace Towel.Mathematics
 		/// <param name="b">The second operand.</param>
 		/// <returns>The result of the inequality check.</returns>
 		public static bool NotEqual(Fraction<T> a, Fraction<T> b) =>
-			InequalTo(a._numerator, b._numerator) ||
-			InequalTo(a._denominator, b._denominator);
+			Inequate(a._numerator, b._numerator) ||
+			Inequate(a._denominator, b._denominator);
 
 		/// <summary>Checks for inequality between two values.</summary>
 		/// <param name="b">The second operand.</param>

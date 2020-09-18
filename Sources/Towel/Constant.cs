@@ -421,7 +421,7 @@ namespace Towel
 
 			T pi = Constant<T>.One;
 			T previous = Constant<T>.Zero;
-			for (int i = 1; InequalTo(previous, pi) && predicate(pi); i++)
+			for (int i = 1; Inequate(previous, pi) && predicate(pi); i++)
 			{
 				previous = pi;
 				pi = Constant<T>.One;

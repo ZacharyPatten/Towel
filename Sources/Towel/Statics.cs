@@ -465,7 +465,7 @@ namespace Towel
 			/// <returns>A running inequality with the additonal inequal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator !=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(InequalTo(a.A, b), b);
+				new OperatorValidated.Inequality<T>(Inequate(a.A, b), b);
 
 #pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
 			/// <summary>This member is not intended to be invoked.</summary>
@@ -538,7 +538,7 @@ namespace Towel
 				/// <param name="b">The value of the right hand operand of the inequal operation.</param>
 				/// <returns>A running inequality with the additonal inequal operation.</returns>
 				public static Inequality<T> operator !=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && InequalTo(a.A, b), b);
+					new Inequality<T>(a.Result && Inequate(a.A, b), b);
 				/// <summary>Converts the result of this inequality to a <see cref="string"/>.</summary>
 				/// <returns>The result of this inequality converted to a <see cref="string"/>.</returns>
 				public override string ToString() => Result.ToString();
@@ -928,61 +928,18 @@ namespace Towel
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the inequality.</returns>
-		public static C InequalTo<A, B, C>(A a, B b) =>
-			InequalToImplementation<A, B, C>.Function(a, b);
+		public static C Inequate<A, B, C>(A a, B b) =>
+			InequateImplementation<A, B, C>.Function(a, b);
 
 		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the inequality check.</param>
 		/// <param name="b">The second operand of the inequality check.</param>
 		/// <returns>The result of the inequality check.</returns>
-		public static bool InequalTo<T>(T a, T b) =>
-			InequalTo<T, T, bool>(a, b);
+		public static bool Inequate<T>(T a, T b) =>
+			Inequate<T, T, bool>(a, b);
 
-		#region Alternative
-
-		//NotEqual((Func<T, StepStatus> x) =>
-		//	x(a) is Break
-		//		? Break
-		//		: x(b) is Break
-		//			? Break
-		//			: c.ToStepperBreak()(x));
-
-		#endregion
-
-		#region System.Collections.Generic.IEnumerable<T>
-
-		// I'm not sure it I want to add IEnumerable overloads or not...
-
-		///// <summary>Checks for equality among multiple numeric operands.</summary>
-		///// <typeparam name="T">The numeric type of the operation.</typeparam>
-		///// <param name="iEnumerable">The operands.</param>
-		///// <returns>True if all operands are equal or false if not.</returns>
-		//public static bool Equal<T>(System.Collections.Generic.IEnumerable<T> iEnumerable)
-		//{
-		//	return NotEqual(iEnumerable.ToStepperBreak());
-
-		//	#region Alternative
-
-		//	//if (!iEnumerable.TryFirst(out T first))
-		//	//{
-		//	//	throw new ArgumentNullException(nameof(iEnumerable), nameof(iEnumerable) + " is empty.");
-		//	//}
-		//	//foreach (T value in iEnumerable)
-		//	//{
-		//	//	if (!NotEqual(first, value))
-		//	//	{
-		//	//		return false;
-		//	//	}
-		//	//}
-		//	//return true;
-
-		//	#endregion
-		//}
-
-		#endregion
-
-		internal static class InequalToImplementation<A, B, C>
+		internal static class InequateImplementation<A, B, C>
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
@@ -2093,7 +2050,7 @@ namespace Towel
 					{
 						T a = answer;
 						T b = n;
-						while (InequalTo(b, Constant<T>.Zero))
+						while (Inequate(b, Constant<T>.Zero))
 						{
 							T remainder = Remainder(a, b);
 							a = b;
@@ -2182,7 +2139,7 @@ namespace Towel
 			}
 			if (Equate(x0, x1))
 			{
-				if (InequalTo(y0, y1))
+				if (Inequate(y0, y1))
 				{
 					throw new MathematicsException("Arguments out of range (" + nameof(x0) + " == " + nameof(x1) + ") but !(" + nameof(y0) + " != " + nameof(y1) + ") [" + y0 + " != " + y1 + "].");
 				}
@@ -2873,7 +2830,7 @@ namespace Towel
 				}
 				isAddTerm = !isAddTerm;
 				i = Addition(i, Constant<T>.Two);
-			} while (InequalTo(sine, previous) && (predicate is null || !predicate(sine)));
+			} while (Inequate(sine, previous) && (predicate is null || !predicate(sine)));
 			return sine;
 		}
 
@@ -2959,7 +2916,7 @@ namespace Towel
 				}
 				isAddTerm = !isAddTerm;
 				i = Addition(i, Constant<T>.Two);
-			} while (InequalTo(cosine, previous) && (predicate is null || !predicate(cosine)));
+			} while (Inequate(cosine, previous) && (predicate is null || !predicate(cosine)));
 			return cosine;
 		}
 
