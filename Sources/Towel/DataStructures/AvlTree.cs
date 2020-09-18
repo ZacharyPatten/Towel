@@ -816,7 +816,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs an AVL Tree.</summary>
 		/// <param name="compare">The comparison function for sorting the items.</param>
 		/// <runtime>θ(1)</runtime>
-		public AvlTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Comparison) { }
+		public AvlTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Statics.Compare) { }
 
 		/// <summary>This constructor if for cloning purposes.</summary>
 		/// <param name="tree">The tree to clone.</param>

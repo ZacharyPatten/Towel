@@ -971,7 +971,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new Red Black Tree.</summary>
 		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-		public RedBlackTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Comparison) { }
+		public RedBlackTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Statics.Compare) { }
 
 		/// <summary>Constructor for cloning purposes.</summary>
 		/// <param name="tree">The tree to be cloned.</param>

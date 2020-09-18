@@ -263,7 +263,7 @@ namespace DataStructures
 				{
 					int _a = AbsoluteValue(a - 5);
 					int _b = AbsoluteValue(b - 5);
-					CompareResult comparison = Comparison(_b, _a);
+					CompareResult comparison = Compare(_b, _a);
 					return comparison;
 				}
 				Console.WriteLine();

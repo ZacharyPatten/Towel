@@ -73,7 +73,7 @@ namespace Mathematics
 			bool greaterThan = GreaterThan((Fraction<int>)1, (Fraction<int>)2);
 			Console.WriteLine("    GreaterThan(1, 2): " + greaterThan);
 
-			CompareResult compare = Comparison((Fraction<short>)7, (Fraction<short>)7);
+			CompareResult compare = Compare((Fraction<short>)7, (Fraction<short>)7);
 			Console.WriteLine("    Compare(7, 7): " + compare);
 
 			bool equality = Equate(7, 6);

@@ -430,28 +430,28 @@ namespace Towel
 			/// <returns>A running inequality with the additonal greater than operation.</returns>
 			public static OperatorValidated.Inequality<T> operator >(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == Greater, b);
+				new OperatorValidated.Inequality<T>(Compare(a.A, b) == Greater, b);
 			/// <summary>Adds a less than operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the less than operation.</param>
 			/// <returns>A running inequality with the additonal less than operation.</returns>
 			public static OperatorValidated.Inequality<T> operator <(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) == Less, b);
+				new OperatorValidated.Inequality<T>(Compare(a.A, b) == Less, b);
 			/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
 			/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator >=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != Less, b);
+				new OperatorValidated.Inequality<T>(Compare(a.A, b) != Less, b);
 			/// <summary>Adds a less than or equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
 			/// <returns>A running inequality with the additonal less than or equal operation.</returns>
 			public static OperatorValidated.Inequality<T> operator <=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
-				new OperatorValidated.Inequality<T>(Comparison(a.A, b) != Greater, b);
+				new OperatorValidated.Inequality<T>(Compare(a.A, b) != Greater, b);
 			/// <summary>Adds an equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the equal operation.</param>
@@ -508,25 +508,25 @@ namespace Towel
 				/// <param name="b">The value of the right hand operand of the greater than operation.</param>
 				/// <returns>A running inequality with the additonal greater than operation.</returns>
 				public static Inequality<T> operator >(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) == Greater, b);
+					new Inequality<T>(a.Result && Compare(a.A, b) == Greater, b);
 				/// <summary>Adds a less than operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than operation.</param>
 				/// <returns>A running inequality with the additonal less than operation.</returns>
 				public static Inequality<T> operator <(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) == Less, b);
+					new Inequality<T>(a.Result && Compare(a.A, b) == Less, b);
 				/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
 				/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
 				public static Inequality<T> operator >=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) != Less, b);
+					new Inequality<T>(a.Result && Compare(a.A, b) != Less, b);
 				/// <summary>Adds a less than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
 				/// <returns>A running inequality with the additonal less than or equal operation.</returns>
 				public static Inequality<T> operator <=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Comparison(a.A, b) != Greater, b);
+					new Inequality<T>(a.Result && Compare(a.A, b) != Greater, b);
 				/// <summary>Adds an equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the equal operation.</param>
@@ -748,6 +748,7 @@ namespace Towel
 
 		#region Equate
 
+		#if false
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
@@ -757,6 +758,7 @@ namespace Towel
 		/// <returns>The result of the equality.</returns>
 		public static C Equate<A, B, C>(A a, B b) =>
 			EquateImplementation<A, B, C>.Function(a, b);
+		#endif
 
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
@@ -764,7 +766,7 @@ namespace Towel
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the equality check.</returns>
 		public static bool Equate<T>(T a, T b) =>
-			Equate<T, T, bool>(a, b);
+			EquateImplementation<T, T, bool>.Function(a, b);
 
 		/// <summary>Checks for equality among multiple values [<paramref name="a"/> == <paramref name="b"/> == <paramref name="c"/> == ...].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -1089,82 +1091,82 @@ namespace Towel
 
 		#endregion
 
-		#region Comparison
+		#region Compare
 
+		#if false
 		/// <summary>Compares two values.</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the comparison.</returns>
-		public static CompareResult Comparison<A, B>(A a, B b) =>
-			CompareImplementation<A, B>.Function(a, b);
-
-#if false
-		// This code is hidden currently because it collides with the
-		// System.Comparison<T> delegate type. I may or may not add it
-		// in the future.
+		public static C Compare<A, B, C>(A a, B b) =>
+			CompareImplementation<A, B, C>.Function(a, b);
+		#endif
 
 		/// <summary>Compares two values.</summary>
-		/// <typeparam name="T">The type of the operands.</typeparam>
-		/// <param name="a">The left operand.</param>
-		/// <param name="b">The right operand.</param>
+		/// <typeparam name="T">The type of values to compare.</typeparam>
+		/// <param name="a">The first value of the comparison.</param>
+		/// <param name="b">The second value of the comparison.</param>
 		/// <returns>The result of the comparison.</returns>
-		public static CompareResult Comparison<T>(T a, T b) =>
-			Comparison<T, T>(a, b);
-#endif
+		public static CompareResult Compare<T>(T a, T b) =>
+			CompareImplementation<T, T, CompareResult>.Function(a, b);
 
-		internal static class CompareImplementation<A, B>
+		internal static class CompareImplementation<A, B, C>
 		{
-			internal static Func<A, B, CompareResult> Function = (a, b) =>
+			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				if (typeof(A) == typeof(B) && a is IComparable<B> &&
-					!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
+				if (typeof(C) == typeof(CompareResult))
 				{
-					CompareImplementation<A, A>.Function =
-						(a, b) => System.Collections.Generic.Comparer<A>.Default.Compare(a, b).ToCompareResult();
-				}
-				else
-				{
-					ParameterExpression A = Expression.Parameter(typeof(A));
-					ParameterExpression B = Expression.Parameter(typeof(B));
-
-					Expression lessThanPredicate =
-						typeof(A).IsPrimitive && typeof(B).IsPrimitive
-						? Expression.LessThan(A, B)
-						: !(Meta.GetLessThanMethod<A, B, bool>() is null)
-							? Expression.LessThan(A, B)
-							: !(Meta.GetGreaterThanMethod<B, A, bool>() is null)
-								? Expression.GreaterThan(B, A)
-								: null;
-
-					Expression greaterThanPredicate =
-						typeof(A).IsPrimitive && typeof(B).IsPrimitive
-						? Expression.GreaterThan(A, B)
-						: !(Meta.GetGreaterThanMethod<A, B, bool>() is null)
-							? Expression.GreaterThan(A, B)
-							: !(Meta.GetLessThanMethod<B, A, bool>() is null)
-								? Expression.LessThan(B, A)
-								: null;
-
-					if (lessThanPredicate is null || greaterThanPredicate is null)
+					if (typeof(A) == typeof(B) && a is IComparable<B> &&
+						!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
 					{
-						throw new NotSupportedException("You attempted a comparison operation with unsupported types.");
+						CompareImplementation<A, A, CompareResult>.Function =
+							(a, b) => System.Collections.Generic.Comparer<A>.Default.Compare(a, b).ToCompareResult();
 					}
+					else
+					{
+						ParameterExpression A = Expression.Parameter(typeof(A));
+						ParameterExpression B = Expression.Parameter(typeof(B));
 
-					LabelTarget RETURN = Expression.Label(typeof(CompareResult));
-					Expression BODY = Expression.Block(
-						Expression.IfThen(
-								lessThanPredicate,
-								Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
+						Expression lessThanPredicate =
+							typeof(A).IsPrimitive && typeof(B).IsPrimitive
+							? Expression.LessThan(A, B)
+							: !(Meta.GetLessThanMethod<A, B, bool>() is null)
+								? Expression.LessThan(A, B)
+								: !(Meta.GetGreaterThanMethod<B, A, bool>() is null)
+									? Expression.GreaterThan(B, A)
+									: null;
+
+						Expression greaterThanPredicate =
+							typeof(A).IsPrimitive && typeof(B).IsPrimitive
+							? Expression.GreaterThan(A, B)
+							: !(Meta.GetGreaterThanMethod<A, B, bool>() is null)
+								? Expression.GreaterThan(A, B)
+								: !(Meta.GetLessThanMethod<B, A, bool>() is null)
+									? Expression.LessThan(B, A)
+									: null;
+
+						if (lessThanPredicate is null || greaterThanPredicate is null)
+						{
+							throw new NotSupportedException("You attempted a comparison operation with unsupported types.");
+						}
+
+						LabelTarget RETURN = Expression.Label(typeof(CompareResult));
+						Expression BODY = Expression.Block(
 							Expression.IfThen(
-								greaterThanPredicate,
-								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
-							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
-							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
-					Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
+									lessThanPredicate,
+									Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
+								Expression.IfThen(
+									greaterThanPredicate,
+									Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
+								Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
+								Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
+						CompareImplementation<A, B, CompareResult>.Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
+					}
+					return Function(a, b);
 				}
-				return Function(a, b);
+				throw new NotImplementedException();
 			};
 		}
 
@@ -2470,7 +2472,7 @@ namespace Towel
 		/// <returns>The computed median value of the set of data.</returns>
 		public static T Median<T>(params T[] values)
 		{
-			return Median(Comparison, values);
+			return Median(Compare, values);
 		}
 
 		/// <summary>Computes the median of a set of data.</summary>
@@ -2480,7 +2482,7 @@ namespace Towel
 		public static T Median<T>(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			return Median(Comparison, stepper.ToArray());
+			return Median(Compare, stepper.ToArray());
 		}
 
 		#region Possible Optimization (Still in Development)
@@ -2679,7 +2681,7 @@ namespace Towel
 			T[] ordered = new T[count];
 			int a = 0;
 			stepper(i => { ordered[a++] = i; });
-			SortQuick(ordered, Comparison);
+			SortQuick(ordered, Compare);
 			T[] resultingQuantiles = new T[quantiles + 1];
 			resultingQuantiles[0] = ordered[0];
 			resultingQuantiles[^1] = ordered[^1];
@@ -3981,7 +3983,7 @@ namespace Towel
 		public static (bool Success, int Index, T Value) SearchBinary<T>(T[] array, T element, Func<T, T, CompareResult> compare = default)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return SearchBinary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(0, array.Length, array, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Comparison));
+			return SearchBinary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(0, array.Length, array, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
@@ -4204,14 +4206,14 @@ namespace Towel
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
 			public CompareResult Do(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
-				Comparison(b.Priority, a.Priority);
+				Compare(b.Priority, a.Priority);
 		}
 
 		internal struct DijkstraPriorityCompare<Node, Numeric> : IFunc<DijkstraNode<Node, Numeric>, DijkstraNode<Node, Numeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
 			public CompareResult Do(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>
-				Comparison(b.Priority, a.Priority);
+				Compare(b.Priority, a.Priority);
 		}
 
 		#endregion
@@ -4522,7 +4524,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortBubble<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortBubble<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -4531,7 +4533,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortBubble<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortBubble<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -4593,7 +4595,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortSelection<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortSelection<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -4602,7 +4604,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortSelection<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortSelection<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -4668,7 +4670,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortInsertion<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortInsertion<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -4677,7 +4679,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortInsertion<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortInsertion<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -4736,7 +4738,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortQuick<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortQuick<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -4745,7 +4747,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortQuick<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortQuick<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -4848,7 +4850,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortMerge<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortMerge<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -4857,7 +4859,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortMerge<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortMerge<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -4972,7 +4974,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortHeap<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortHeap<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -4981,7 +4983,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortHeap<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortHeap<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -5090,7 +5092,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortOddEven<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortOddEven<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -5099,7 +5101,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortOddEven<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortOddEven<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -5329,7 +5331,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null, Random random = null) =>
-			SortBogo<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array, random);
+			SortBogo<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array, random);
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare>(T[] array, int start, int end, Compare compare = default, Random random = null)
@@ -5338,7 +5340,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null, Random random = null) =>
-			SortBogo<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set, random);
+			SortBogo<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set, random);
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
@@ -5418,7 +5420,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortSlow<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortSlow<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -5427,7 +5429,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortSlow<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortSlow<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -5498,7 +5500,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortGnome<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortGnome<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -5507,7 +5509,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortGnome<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortGnome<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -5572,7 +5574,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortComb<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortComb<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -5581,7 +5583,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortComb<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortComb<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -5659,7 +5661,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortShell<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortShell<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -5668,7 +5670,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortShell<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortShell<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -5732,7 +5734,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortCocktail<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Comparison, array, array);
+			SortCocktail<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -5741,7 +5743,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
-			SortCocktail<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Comparison, get, set);
+			SortCocktail<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)

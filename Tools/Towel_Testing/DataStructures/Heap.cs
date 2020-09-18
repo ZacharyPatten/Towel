@@ -28,28 +28,28 @@ namespace Towel_Testing.DataStructures
 				int[] values = new int[count];
 				Extensions.Iterate(count, i => values[i] = i);
 				Array.Sort(values, (a, b) => -a.CompareTo(b));
-				Test(values, Comparison);
+				Test(values, Compare);
 			}
 			{ // string compare
 				const int count = 100;
 				string[] values = new string[count];
 				Extensions.Iterate(count, i => values[i] = i.ToString());
 				Array.Sort(values, (a, b) => -a.CompareTo(b));
-				Test(values, Comparison);
+				Test(values, Compare);
 			}
 			{ // int reverse compare
 				const int count = 100;
 				int[] values = new int[count];
 				Extensions.Iterate(count, i => values[i] = i);
 				Array.Sort(values);
-				Test(values, (a, b) => Comparison(b, a));
+				Test(values, (a, b) => Compare(b, a));
 			}
 			{ // string reverse compare
 				const int count = 100;
 				string[] values = new string[count];
 				Extensions.Iterate(count, i => values[i] = i.ToString());
 				Array.Sort(values);
-				Test(values, (a, b) => Comparison(b, a));
+				Test(values, (a, b) => Compare(b, a));
 			}
 		}
 	}

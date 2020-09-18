@@ -99,7 +99,7 @@ namespace Towel.DataStructures
 			Func<T, int> hash = null)
 		{
 			equate ??= Statics.Equate;
-			compare ??= Comparison;
+			compare ??= Compare;
 			hash ??= DefaultHash;
 
 			_nodes = new SetHashLinked<T>(equate, hash);
