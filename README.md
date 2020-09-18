@@ -203,7 +203,7 @@ You can break type safe-ness using generic types and runtime compilation, and yo
 
 ```cs
 // Logic Fundamentals
-bool EqualTo<T>(T a , T b);
+bool Equate<T>(T a , T b);
 bool LessThan<T>(T a, T b);
 bool GreaterThan<T>(T a, T b);
 CompareResult Compare<T>(T a, T b);
@@ -779,37 +779,37 @@ ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
 
 ```cs
 // Note: supports System.Span<T> and any (non ref struct) int-indexed type
-Sort.Shuffle<T>(...);
-Sort.Bubble<T>(...);
-Sort.Selection<T>(...);
-Sort.Insertion<T>(...);
-Sort.Quick<T>(...);
-Sort.Merge<T>(...);
-Sort.Heap<T>(...);
-Sort.OddEven<T>(...);
-Sort.Cocktail<T>(...);
-Sort.Comb<T>(...);
-Sort.Gnome<T>(...);
-Sort.Shell<T>(...);
-Sort.Bogo<T>(...);
-Sort.Slow<T>(...);
+SortShuffle<T>(...);
+SortBubble<T>(...);
+SortSelection<T>(...);
+SortInsertion<T>(...);
+SortQuick<T>(...);
+SortMerge<T>(...);
+SortHeap<T>(...);
+SortOddEven<T>(...);
+SortCocktail<T>(...);
+SortComb<T>(...);
+SortGnome<T>(...);
+SortShell<T>(...);
+SortBogo<T>(...);
+SortSlow<T>(...);
 
 // Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
-Search.Binary<T>(...);
+SearchBinary<T>(...);
 
 // Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
-int HammingDistance.Iterative<...>(...);
-int LevenshteinDistance.Recursive<...>(...);
-int LevenshteinDistance.Iterative<...>(...);
+int HammingDistanceIterative<...>(...);
+int LevenshteinDistanceRecursive<...>(...);
+int LevenshteinDistanceIterative<...>(...);
 
 // Permutations of sequences
 // Note: supports System.Span<T> and any (non ref struct) int-indexed type
-void Permute.Recursive<...>(...);
-void Permute.Iterative<...>(...);
+void PermuteRecursive<...>(...);
+void PermuteIterative<...>(...);
 
 // Path Finding (Graph Search)
 // Note: overloads for A*, Dijkstra, and Breadth-First-Search algorithms
-Search.Graph<Node, Numeric>(...);
+SearchGraph<Node, Numeric>(...);
 ```
 
 > _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html#sorting-algorithms) are included for the sorting algorithms._
