@@ -15671,21 +15671,6 @@
             <param name="func">The initialization pattern.</param>
             <returns>The built array.</returns>
         </member>
-        <member name="M:Towel.Extensions.ValuesAreEqual``1(``0[],``0[])">
-            <summary>Performs a deep equality check of two arrays using the default equality check of the generic type.</summary>
-            <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
-            <param name="a1">The first array of the deep equality check.</param>
-            <param name="a2">The second array of the deep equality check.</param>
-            <returns>True if the array are determined to be deeply equal. False if not.</returns>
-        </member>
-        <member name="M:Towel.Extensions.ValuesAreEqual``1(``0[],``0[],System.Func{``0,``0,System.Boolean})">
-            <summary>Performs a deep equality check of two arrays.</summary>
-            <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
-            <param name="a1">The first array of the deep equality check.</param>
-            <param name="a2">The second array of the deep equality check.</param>
-            /// <param name="equate">The delegate for checking two values for equality.</param>
-            <returns>True if the array are determined to be deeply equal. False if not.</returns>
-        </member>
         <member name="M:Towel.Extensions.Format``1(``0[],``0)">
             <summary>Formats an array so that all values are the same.</summary>
             <typeparam name="T">The generic type of the array to format.</typeparam>
@@ -30553,18 +30538,6 @@
             <param name="b">The second operand of the equality check.</param>
             <param name="c">The remaining operands of the equality check.</param>
             <returns>True if all operands are equal or false if not.</returns>
-        </member>
-        <member name="M:Towel.Statics.Equate``1(System.Action{System.Action{``0}})">
-            <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="stepper">The operands of the equality check.</param>
-            <returns>True if all operand are equal or false if not.</returns>
-        </member>
-        <member name="M:Towel.Statics.Equate``1(Towel.StepperBreak{``0})">
-            <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="stepper">The operands of the equality check.</param>
-            <returns>True if all operand are equal or false if not.</returns>
         </member>
         <member name="M:Towel.Statics.InequalTo``3(``0,``1)">
             <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>

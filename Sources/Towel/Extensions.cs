@@ -1047,44 +1047,6 @@ namespace Towel
 			return array;
 		}
 
-		/// <summary>Performs a deep equality check of two arrays using the default equality check of the generic type.</summary>
-		/// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
-		/// <param name="a1">The first array of the deep equality check.</param>
-		/// <param name="a2">The second array of the deep equality check.</param>
-		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
-		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2) =>
-			a1.ValuesAreEqual(a2, Equate);
-
-		/// <summary>Performs a deep equality check of two arrays.</summary>
-		/// <typeparam name="T">The generic type of the arrays to check for deep equality.</typeparam>
-		/// <param name="a1">The first array of the deep equality check.</param>
-		/// <param name="a2">The second array of the deep equality check.</param>
-		/// /// <param name="equate">The delegate for checking two values for equality.</param>
-		/// <returns>True if the array are determined to be deeply equal. False if not.</returns>
-		public static bool ValuesAreEqual<T>(this T[] a1, T[] a2, Func<T, T, bool> equate)
-		{
-			if (ReferenceEquals(a1, a2))
-			{
-				return true;
-			}
-			if (a1 is null || a2 is null)
-			{
-				return false;
-			}
-			if (a1.Length != a2.Length)
-			{
-				return false;
-			}
-			for (int i = 0; i < a1.Length; i++)
-			{
-				if (!equate(a1[i], a2[i]))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
 		/// <summary>Formats an array so that all values are the same.</summary>
 		/// <typeparam name="T">The generic type of the array to format.</typeparam>
 		/// <param name="array">The array to format.</param>

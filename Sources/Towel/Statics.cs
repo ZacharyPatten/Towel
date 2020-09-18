@@ -746,7 +746,7 @@ namespace Towel
 
 		#endregion
 
-		#region EqualTo
+		#region Equate
 
 		/// <summary>Checks for equality of two values [<paramref name="a"/> == <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
@@ -819,62 +819,6 @@ namespace Towel
 
 		#endregion
 
-		/// <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The operands of the equality check.</param>
-		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Equate<T>(Action<Action<T>> stepper)
-		{
-			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			T value = default;
-			bool assigned = false;
-			bool result = stepper.Any(x =>
-			{
-				if (assigned)
-				{
-					return !Equate(value, x);
-				}
-				else
-				{
-					value = x;
-					assigned = true;
-					return false;
-				}
-			});
-			if (!assigned)
-			{
-				throw new ArgumentException(nameof(stepper) + " is empty.", nameof(stepper));
-			}
-			return result;
-		}
-
-		/// <summary>Checks for equality among multiple values [step1 == step2 == step3 == ...].</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The operands of the equality check.</param>
-		/// <returns>True if all operand are equal or false if not.</returns>
-		public static bool Equate<T>(StepperBreak<T> stepper)
-		{
-			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			T value = default;
-			bool assigned = false;
-			bool result = stepper.Any(x =>
-			{
-				if (assigned)
-				{
-					return !Equate(value, x);
-				}
-				else
-				{
-					value = x;
-					assigned = true;
-					return false;
-				}
-			});
-			return assigned
-				? result
-				: throw new ArgumentException(nameof(stepper), nameof(stepper) + " is empty.");
-		}
-
 		internal static class EquateImplementation<A, B, C>
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
@@ -901,6 +845,93 @@ namespace Towel
 
 				throw new NotImplementedException();
 			};
+		}
+
+		/// <summary>Determines if two sequences are equal.</summary>
+		/// <typeparam name="T">The element type of the sequences.</typeparam>
+		/// <typeparam name="A">The first sequence of the equate.</typeparam>
+		/// <typeparam name="B">The second sequence of the equate.</typeparam>
+		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <param name="start">The inclusive starting index to equate from.</param>
+		/// <param name="end">The inclusive ending index to equate to.</param>
+		/// <param name="a">The first sequence of the equate.</param>
+		/// <param name="b">The second sequence of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool Equate<T, A, B, Equate>(int start, int end, A a = default, B b = default, Equate equate = default)
+			where A : struct, IFunc<int, T>
+			where B : struct, IFunc<int, T>
+			where Equate : struct, IFunc<T, T, bool>
+		{
+			for (int i = start; i <= end; i++)
+			{
+				if (!equate.Do(a.Do(i), b.Do(i)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/// <summary>Determines if two spans are equal.</summary>
+		/// <typeparam name="T">The element type of the spans.</typeparam>
+		/// <param name="a">The first span of the equate.</param>
+		/// <param name="b">The second span of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool Equate<T>(Span<T> a, Span<T> b, Func<T, T, bool> equate = default) =>
+			Equate<T>(0, a.Length - 1, a, b, equate);
+
+		/// <summary>Determines if two spans are equal.</summary>
+		/// <typeparam name="T">The element type of the spans.</typeparam>
+		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <param name="a">The first span of the equate.</param>
+		/// <param name="b">The second span of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool Equate<T, Equate>(Span<T> a, Span<T> b, Equate equate = default)
+			where Equate : struct, IFunc<T, T, bool> =>
+			Equate<T, Equate>(0, a.Length - 1, a, b, equate);
+
+		/// <summary>Determines if two spans are equal.</summary>
+		/// <typeparam name="T">The element type of the spans.</typeparam>
+		/// <param name="start">The inclusive starting index to equate from.</param>
+		/// <param name="end">The inclusive ending index to equate to.</param>
+		/// <param name="a">The first span of the equate.</param>
+		/// <param name="b">The second span of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool Equate<T>(int start, int end, Span<T> a, Span<T> b, Func<T, T, bool> equate = default) =>
+			Equate<T, FuncRuntime<T, T, bool>>(start, end, a, b, equate ?? Equate);
+
+		/// <summary>Determines if two spans are equal.</summary>
+		/// <typeparam name="T">The element type of the spans.</typeparam>
+		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <param name="start">The inclusive starting index to equate from.</param>
+		/// <param name="end">The inclusive ending index to equate to.</param>
+		/// <param name="a">The first span of the equate.</param>
+		/// <param name="b">The second span of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool Equate<T, Equate>(int start, int end, Span<T> a, Span<T> b, Equate equate = default)
+			where Equate : struct, IFunc<T, T, bool>
+		{
+			if (a.IsEmpty && b.IsEmpty)
+			{
+				return true;
+			}
+			if (a.Length != b.Length)
+			{
+				return false;
+			}
+			for (int i = start; i <= end; i++)
+			{
+				if (!equate.Do(a[i], b[i]))
+				{
+					return false;
+				}
+			}
+			return true;
 		}
 
 		#endregion

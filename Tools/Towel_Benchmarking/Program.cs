@@ -25,7 +25,7 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		static Type[] Benchmarks =
+		static readonly Type[] Benchmarks =
 		{
 			typeof(Sort_Benchmarks),
 			typeof(DataStructures_Benchmarks),

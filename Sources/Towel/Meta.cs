@@ -51,8 +51,7 @@ namespace Towel
 				{
 					Type[] methodInfoGenerics = methodInfo.GetGenericArguments();
 					if (methodInfoGenerics.Length != signatureGenerics.Length ||
-						!signatureGenericGenerics.ValuesAreEqual(methodInfoGenerics, (a, b) =>
-							a.Name == b.Name))
+						!Equate<Type>(signatureGenericGenerics, methodInfoGenerics, (a, b) => a.Name == b.Name))
 					{
 						continue;
 					}
@@ -67,9 +66,7 @@ namespace Towel
 					}
 				}
 				if (signatureMethodInfo.ReturnType != methodInfo.ReturnType ||
-					!signatureParameters.ValuesAreEqual(methodInfo.GetParameters(), (a, b) =>
-						a.ParameterType == b.ParameterType &&
-						a.Name == b.Name))
+					!Equate<ParameterInfo>(signatureParameters, methodInfo.GetParameters(), (a, b) => a.ParameterType == b.ParameterType && a.Name == b.Name))
 				{
 					continue;
 				}
