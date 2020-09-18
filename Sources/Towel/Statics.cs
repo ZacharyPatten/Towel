@@ -772,52 +772,23 @@ namespace Towel
 		/// <param name="b">The second operand of the equality check.</param>
 		/// <param name="c">The remaining operands of the equality check.</param>
 		/// <returns>True if all operands are equal or false if not.</returns>
-		public static bool Equate<T>(T a, T b, params T[] c) =>
-			c is null ? throw new ArgumentNullException(nameof(c)) :
-			c.Length == 0 ? throw new ArgumentException("The array is empty.", nameof(c)) :
-			Equate(a, b) && !c.Any(x => !Equate(a, x));
-
-		#region Alternative
-
-		//Equal((Func<T, StepStatus> x) => x(a) is Break
-		//	? Break
-		//	: x(b) is Break
-		//		? Break
-		//		: c.ToStepperBreak()(x));
-
-		#endregion
-
-		#region System.Collections.Generic.IEnumerable<T>
-
-		// I'm not sure it I want to add IEnumerable overloads or not...
-
-		///// <summary>Checks for equality among multiple numeric operands.</summary>
-		///// <typeparam name="T">The numeric type of the operation.</typeparam>
-		///// <param name="iEnumerable">The operands.</param>
-		///// <returns>True if all operands are equal or false if not.</returns>
-		//public static bool Equal<T>(System.Collections.Generic.IEnumerable<T> iEnumerable)
-		//{
-		//	return Equal(iEnumerable.ToStepperBreak());
-
-		//	#region Alternative
-
-		//	//if (!iEnumerable.TryFirst(out T first))
-		//	//{
-		//	//	throw new ArgumentNullException(nameof(iEnumerable), nameof(iEnumerable) + " is empty.");
-		//	//}
-		//	//foreach (T value in iEnumerable)
-		//	//{
-		//	//	if (!Equal(first, value))
-		//	//	{
-		//	//		return false;
-		//	//	}
-		//	//}
-		//	//return true;
-
-		//	#endregion
-		//}
-
-		#endregion
+		public static bool Equate<T>(T a, T b, params T[] c)
+		{
+			_ = c ?? throw new ArgumentNullException(nameof(c));
+			if (c.Length == 0) throw new ArgumentException("The array is empty.", nameof(c));
+			if (!Equate(a, b))
+			{
+				return false;
+			}
+			for (int i = 0; i < c.Length; i++)
+			{
+				if (!Equate(a, c[i]))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
 
 		internal static class EquateImplementation<A, B, C>
 		{
@@ -916,6 +887,18 @@ namespace Towel
 		public static bool Equate<T, Equate>(int start, int end, Span<T> a, Span<T> b, Equate equate = default)
 			where Equate : struct, IFunc<T, T, bool>
 		{
+			if (start < 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(start), start, $@"{nameof(start)} < 0");
+			}
+			if (end >= Minimum(a.Length, b.Length))
+			{
+				throw new ArgumentOutOfRangeException(nameof(end), end, $@"{nameof(end)} >= Min({nameof(a)}.{nameof(a.Length)} {a.Length}, {nameof(b)}.{nameof(b.Length)} {b.Length})");
+			}
+			if (end < start)
+			{
+				throw new ArgumentOutOfRangeException($@"{nameof(end)} {end} < {nameof(start)} {start}");
+			}
 			if (a.IsEmpty && b.IsEmpty)
 			{
 				return true;

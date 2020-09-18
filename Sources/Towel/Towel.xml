@@ -30539,6 +30539,57 @@
             <param name="c">The remaining operands of the equality check.</param>
             <returns>True if all operands are equal or false if not.</returns>
         </member>
+        <member name="M:Towel.Statics.Equate``4(System.Int32,System.Int32,``1,``2,``3)">
+            <summary>Determines if two sequences are equal.</summary>
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <typeparam name="A">The first sequence of the equate.</typeparam>
+            <typeparam name="B">The second sequence of the equate.</typeparam>
+            <typeparam name="Equate">The element equate function.</typeparam>
+            <param name="start">The inclusive starting index to equate from.</param>
+            <param name="end">The inclusive ending index to equate to.</param>
+            <param name="a">The first sequence of the equate.</param>
+            <param name="b">The second sequence of the equate.</param>
+            <param name="equate">The element equate function.</param>
+            <returns>True if the spans are equal; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.Equate``1(System.Span{``0},System.Span{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>Determines if two spans are equal.</summary>
+            <typeparam name="T">The element type of the spans.</typeparam>
+            <param name="a">The first span of the equate.</param>
+            <param name="b">The second span of the equate.</param>
+            <param name="equate">The element equate function.</param>
+            <returns>True if the spans are equal; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.Equate``2(System.Span{``0},System.Span{``0},``1)">
+            <summary>Determines if two spans are equal.</summary>
+            <typeparam name="T">The element type of the spans.</typeparam>
+            <typeparam name="Equate">The element equate function.</typeparam>
+            <param name="a">The first span of the equate.</param>
+            <param name="b">The second span of the equate.</param>
+            <param name="equate">The element equate function.</param>
+            <returns>True if the spans are equal; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.Equate``1(System.Int32,System.Int32,System.Span{``0},System.Span{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>Determines if two spans are equal.</summary>
+            <typeparam name="T">The element type of the spans.</typeparam>
+            <param name="start">The inclusive starting index to equate from.</param>
+            <param name="end">The inclusive ending index to equate to.</param>
+            <param name="a">The first span of the equate.</param>
+            <param name="b">The second span of the equate.</param>
+            <param name="equate">The element equate function.</param>
+            <returns>True if the spans are equal; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.Equate``2(System.Int32,System.Int32,System.Span{``0},System.Span{``0},``1)">
+            <summary>Determines if two spans are equal.</summary>
+            <typeparam name="T">The element type of the spans.</typeparam>
+            <typeparam name="Equate">The element equate function.</typeparam>
+            <param name="start">The inclusive starting index to equate from.</param>
+            <param name="end">The inclusive ending index to equate to.</param>
+            <param name="a">The first span of the equate.</param>
+            <param name="b">The second span of the equate.</param>
+            <param name="equate">The element equate function.</param>
+            <returns>True if the spans are equal; False if not.</returns>
+        </member>
         <member name="M:Towel.Statics.InequalTo``3(``0,``1)">
             <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
             <typeparam name="A">The type of the left operand.</typeparam>
