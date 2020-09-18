@@ -355,7 +355,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine($"    Let's search for value {valueToSearchFor}...");
 
 				var result = SearchBinary(values, valueToSearchFor);
-				Console.WriteLine($"      Success: {result.Success}");
+				Console.WriteLine($"      Found: {result.Found}");
 				Console.WriteLine($"      Index: {result.Index}");
 				Console.WriteLine($"      Value: {result.Value}");
 				Console.WriteLine();

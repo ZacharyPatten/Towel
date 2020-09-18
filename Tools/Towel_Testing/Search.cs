@@ -14,7 +14,7 @@ namespace Towel_Testing
 				for (int i = 0; i < values.Length; i++)
 				{
 					var result = SearchBinary(values, i);
-					Assert.IsTrue(result.Success);
+					Assert.IsTrue(result.Found);
 					Assert.IsTrue(result.Index == i);
 					Assert.IsTrue(result.Value == i);
 				}
@@ -24,7 +24,7 @@ namespace Towel_Testing
 				for (int i = 0; i < values.Length; i++)
 				{
 					var result = SearchBinary(values, i);
-					Assert.IsTrue(result.Success);
+					Assert.IsTrue(result.Found);
 					Assert.IsTrue(result.Index == i);
 					Assert.IsTrue(result.Value == i);
 				}
@@ -34,7 +34,7 @@ namespace Towel_Testing
 				for (int i = 0, j = -10; j <= 10; i++, j += 2)
 				{
 					var result = SearchBinary(values, j);
-					Assert.IsTrue(!result.Success);
+					Assert.IsTrue(!result.Found);
 					Assert.IsTrue(result.Index == i - 1);
 					Assert.IsTrue(result.Value == default);
 				}
@@ -44,18 +44,18 @@ namespace Towel_Testing
 				for (int i = 0, j = -10; j <= 8; i++, j += 2)
 				{
 					var result = SearchBinary(values, j);
-					Assert.IsTrue(!result.Success);
+					Assert.IsTrue(!result.Found);
 					Assert.IsTrue(result.Index == i - 1);
 					Assert.IsTrue(result.Value == default);
 				}
 			}
 			{ // exception: invalid compare function
 				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, };
-				Assert.ThrowsException<ArgumentException>(() => SearchBinary(values, a => (CompareResult)int.MinValue));
+				Assert.ThrowsException<ArgumentException>(() => SearchBinary<int>(values, a => (CompareResult)int.MinValue));
 			}
 			{ // exception: null argument
 				int[] values = null;
-				Assert.ThrowsException<ArgumentNullException>(() => SearchBinary(values, 7));
+				Assert.ThrowsException<ArgumentException>(() => SearchBinary(values, 7));
 			}
 		}
 	}

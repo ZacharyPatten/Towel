@@ -31557,28 +31557,22 @@
             <param name="compare">The compare function.</param>
             <param name="span">The span of the binary search.</param>
             <returns>
-            (<see cref="T:System.Boolean"/> Success, <see cref="T:System.Int32"/> Index, <typeparamref name="T"/> Value)
-            <para>- <see cref="T:System.Boolean"/> Success: True if a match was found; False if not.</para>
+            (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Int32"/> Index, <typeparamref name="T"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Found: True if a match was found; False if not.</para>
             <para>- <see cref="T:System.Int32"/> Index: The resulting index of the search that will always be &lt;= the desired match.</para>
             <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
             </returns>
         </member>
-        <member name="M:Towel.Statics.SearchBinary``1(``0[],``0,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SearchBinary``2(``0[],``0,``1)">
-            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SearchBinary``1(``0[],System.Func{``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SearchBinary``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SearchBinary``1(System.Int32,System.Func{System.Int32,``0},System.Func{``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
-        </member>
         <member name="M:Towel.Statics.SearchBinary``3(System.Int32,System.Int32,``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SearchBinary``1(System.ReadOnlySpan{``0},``0,System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SearchBinary``1(System.ReadOnlySpan{``0},System.Func{``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SearchBinary``2(System.ReadOnlySpan{``0},``0,``1)">
             <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
         <member name="M:Towel.Statics.SearchBinary``2(System.ReadOnlySpan{``0},``1)">

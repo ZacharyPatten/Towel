@@ -3967,8 +3967,8 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="span">The span of the binary search.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Success, <see cref="int"/> Index, <typeparamref name="T"/> Value)
-		/// <para>- <see cref="bool"/> Success: True if a match was found; False if not.</para>
+		/// (<see cref="bool"/> Found, <see cref="int"/> Index, <typeparamref name="T"/> Value)
+		/// <para>- <see cref="bool"/> Found: True if a match was found; False if not.</para>
 		/// <para>- <see cref="int"/> Index: The resulting index of the search that will always be &lt;= the desired match.</para>
 		/// <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
 		/// </returns>
@@ -3979,15 +3979,17 @@ namespace Towel
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
+		#if false // keeping this for future reference; array types are supports by the ReadOnlySpan<T> overloads
+
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Success, int Index, T Value) SearchBinary<T>(T[] array, T element, Func<T, T, CompareResult> compare = default)
+		public static (bool Found, int Index, T Value) SearchBinary<T>(T[] array, T element, Func<T, T, CompareResult> compare = default)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
 			return SearchBinary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(0, array.Length, array, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Success, int Index, T Value) SearchBinary<T, Compare>(T[] array, T element, Compare compare = default)
+		public static (bool Found, int Index, T Value) SearchBinary<T, Compare>(T[] array, T element, Compare compare = default)
 			where Compare : IFunc<T, T, CompareResult>
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
@@ -3995,14 +3997,14 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Success, int Index, T Value) SearchBinary<T>(T[] array, Func<T, CompareResult> sift)
+		public static (bool Found, int Index, T Value) SearchBinary<T>(T[] array, Func<T, CompareResult> sift)
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
 			return SearchBinary<T, GetIndexArray<T>, FuncRuntime<T, CompareResult>>(0, array.Length, array, sift);
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Success, int Index, T Value) SearchBinary<T, Sift>(T[] array, Sift sift = default)
+		public static (bool Found, int Index, T Value) SearchBinary<T, Sift>(T[] array, Sift sift = default)
 			where Sift : IFunc<T, CompareResult>
 		{
 			_ = array ?? throw new ArgumentNullException(nameof(array));
@@ -4010,15 +4012,17 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Success, int Index, T Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
+		public static (bool Found, int Index, T Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
 			return SearchBinary<T, FuncRuntime<int, T>, FuncRuntime<T, CompareResult>>(0, length, get, sift);
 		}
 
+		#endif
+
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Success, int Index, T Value) SearchBinary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
+		public static (bool Found, int Index, T Value) SearchBinary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
 			where Get : IFunc<int, T>
 			where Sift : IFunc<T, CompareResult>
 		{
@@ -4056,9 +4060,29 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Success, int Index, T Value) SearchBinary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
+		public static (bool Found, int Index, T Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult> compare = default) =>
+			SearchBinary<T, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
+
+		/// <inheritdoc cref="SearchBinary_XML"/>
+		public static (bool Found, int Index, T Value) SearchBinary<T>(ReadOnlySpan<T> span, Func<T, CompareResult> sift)
+		{
+			_ = sift ?? throw new ArgumentNullException(nameof(sift));
+			return SearchBinary<T, FuncRuntime<T, CompareResult>>(span, sift);
+		}
+
+		/// <inheritdoc cref="SearchBinary_XML"/>
+		public static (bool Found, int Index, T Value) SearchBinary<T, Compare>(ReadOnlySpan<T> span, T element, Compare compare = default)
+			where Compare : IFunc<T, T, CompareResult> =>
+			SearchBinary<T, SiftFromCompareAndValue<T, Compare>>(span, new SiftFromCompareAndValue<T, Compare>(element, compare));
+
+		/// <inheritdoc cref="SearchBinary_XML"/>
+		public static (bool Found, int Index, T Value) SearchBinary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
 			where Sift : IFunc<T, CompareResult>
 		{
+			if (span.IsEmpty)
+			{
+				throw new ArgumentException($@"{nameof(span)}.{nameof(span.IsEmpty)}", nameof(span));
+			}
 			int low = 0;
 			int hi = span.Length - 1;
 			while (low <= hi)
