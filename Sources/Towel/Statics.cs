@@ -921,7 +921,7 @@ namespace Towel
 
 		#endregion
 
-		#region InequalTo
+		#region Inequate
 
 		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
 		/// <typeparam name="A">The type of the left operand.</typeparam>
