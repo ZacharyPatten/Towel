@@ -279,12 +279,8 @@ namespace Towel.DataStructures
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
 			_ = value ?? throw new ArgumentNullException(nameof(value));
-
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			// duplicate value check
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
@@ -293,23 +289,15 @@ namespace Towel.DataStructures
 					return false;
 				}
 			}
-
+			_table[location] = new Node()
 			{
-				// add the value
-				Node node = new Node()
-				{
-					Key = key,
-					Value = value,
-					Next = _table[location],
-				};
-				_table[location] = node;
-				_count++;
-			}
-
-			// check if the table needs to grow
+				Key = key,
+				Value = value,
+				Next = _table[location],
+			};
+			_count++;
 			if (_count > _table.Length * _maxLoadFactor)
 			{
-				// calculate new table size
 				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
 				if (tableSizeFloat <= int.MaxValue)
 				{
@@ -318,12 +306,9 @@ namespace Towel.DataStructures
 					{
 						tableSize++;
 					}
-
-					// resize the table
 					Resize(tableSize);
 				}
 			}
-
 			exception = null;
 			return true;
 		}
@@ -373,12 +358,8 @@ namespace Towel.DataStructures
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
 			_ = value ?? throw new ArgumentNullException(nameof(value));
-
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			// duplicate value check
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
@@ -387,23 +368,15 @@ namespace Towel.DataStructures
 					return;
 				}
 			}
-
+			_table[location] = new Node()
 			{
-				// add the value
-				Node node = new Node()
-				{
-					Key = key,
-					Value = value,
-					Next = _table[location],
-				};
-				_table[location] = node;
-				_count++;
-			}
-
-			// check if the table needs to grow
+				Key = key,
+				Value = value,
+				Next = _table[location],
+			};
+			_count++;
 			if (_count > _table.Length * _maxLoadFactor)
 			{
-				// calculate new table size
 				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
 				if (tableSizeFloat <= int.MaxValue)
 				{
@@ -412,8 +385,6 @@ namespace Towel.DataStructures
 					{
 						tableSize++;
 					}
-
-					// resize the table
 					Resize(tableSize);
 				}
 			}
@@ -433,14 +404,11 @@ namespace Towel.DataStructures
 			{
 				if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
 				{
-					// calculate new table size
 					int tableSize = (int)(_count * (1 / _maxLoadFactor));
 					while (!IsPrime(tableSize))
 					{
 						tableSize++;
 					}
-
-					// resize the table
 					Resize(tableSize);
 				}
 				return true;
@@ -455,15 +423,10 @@ namespace Towel.DataStructures
 		public bool TryRemoveWithoutTrim(K key, out Exception exception)
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
-
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			// find and remove the node
 			if (_equate.Do(_table[location].Key, key))
 			{
-				// the value was the head node of the table index
 				_table[location] = _table[location].Next;
 				_count--;
 				exception = null;
@@ -471,7 +434,6 @@ namespace Towel.DataStructures
 			}
 			else
 			{
-				// that value is a child node of the table index
 				for (Node node = _table[location]; !(node.Next is null); node = node.Next)
 				{
 					if (_equate.Do(node.Next.Key, key))
@@ -495,29 +457,20 @@ namespace Towel.DataStructures
 		/// <param name="tableSize">The desired size of the table.</param>
 		internal void Resize(int tableSize)
 		{
-			// ensure the desired size is different than the current
 			if (tableSize == _table.Length)
 			{
 				return;
 			}
-
 			Node[] temp = _table;
 			_table = new Node[tableSize];
-
-			// iterate through all the values
 			for (int i = 0; i < temp.Length; i++)
 			{
 				while (!(temp[i] is null))
 				{
-					// grab the value from the old table
 					Node node = temp[i];
 					temp[i] = node.Next;
-
-					// compute the hash code and relate it to the current table
 					int hashCode = _hash.Do(node.Key);
 					int location = (hashCode & int.MaxValue) % _table.Length;
-
-					// add the value to the new table
 					node.Next = _table[location];
 					_table[location] = node;
 				}
@@ -559,11 +512,8 @@ namespace Towel.DataStructures
 		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool Contains(K key)
 		{
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			// look for the value
 			for (Node node = _table[location]; !(node is null); node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))

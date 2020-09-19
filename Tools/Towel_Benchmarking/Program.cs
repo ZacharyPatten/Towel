@@ -32,6 +32,8 @@ namespace Towel_Benchmarking
 			typeof(Random_Benchmarks),
 			typeof(ToEnglishWords_Benchmarks),
 			typeof(Permute_Benchmarks),
+			//typeof(MapVsDictionary_Add),
+			//typeof(MapVsDictionary_LookUp),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>
