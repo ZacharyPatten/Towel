@@ -12,112 +12,112 @@ The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://git
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
-.NET Core SDK=5.0.100-preview.8.20417.9
-  [Host]     : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
-  Job-MADVMA : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  Job-ZKCIBR : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
 
 InvocationCount=1  UnrollFactor=1  
 
 ```
 |                   Method |     N |             Mean |             Error |            StdDev |           Median |
 |------------------------- |------ |-----------------:|------------------:|------------------:|-----------------:|
-|          **SystemArraySort** |    **10** |         **477.8 ns** |          **15.00 ns** |          **41.81 ns** |         **500.0 ns** |
-|  SystemArraySortDelegate |    10 |         691.7 ns |          46.00 ns |         132.72 ns |         600.0 ns |
-| SystemArraySortIComparer |    10 |       3,033.3 ns |          61.35 ns |          73.03 ns |       3,000.0 ns |
-|            BubbleRunTime |    10 |       2,296.9 ns |          49.80 ns |         115.43 ns |       2,300.0 ns |
-|        BubbleCompileTime |    10 |         384.6 ns |          12.94 ns |          36.28 ns |         400.0 ns |
-|         SelectionRunTime |    10 |       2,166.3 ns |         327.53 ns |         939.74 ns |       1,700.0 ns |
-|     SelectionCompileTime |    10 |         342.0 ns |          18.15 ns |          53.52 ns |         300.0 ns |
-|         InsertionRunTime |    10 |       1,505.9 ns |          33.73 ns |          80.82 ns |       1,500.0 ns |
-|     InsertionCompileTime |    10 |         200.0 ns |           0.00 ns |           0.00 ns |         200.0 ns |
-|             QuickRunTime |    10 |       2,332.5 ns |          49.98 ns |          88.83 ns |       2,300.0 ns |
-|         QuickCompileTime |    10 |         825.5 ns |          22.72 ns |          66.29 ns |         800.0 ns |
-|             MergeRunTime |    10 |       1,814.3 ns |          40.04 ns |          86.19 ns |       1,800.0 ns |
-|         MergeCompileTime |    10 |       1,667.7 ns |         270.72 ns |         793.96 ns |       1,200.0 ns |
-|              HeapRunTime |    10 |       2,867.6 ns |          60.59 ns |         102.89 ns |       2,900.0 ns |
-|          HeapCompileTime |    10 |       1,786.7 ns |          37.62 ns |          35.19 ns |       1,800.0 ns |
-|           OddEvenRunTime |    10 |       2,694.7 ns |         339.18 ns |         967.69 ns |       2,200.0 ns |
-|       OddEvenCompileTime |    10 |         641.4 ns |          17.57 ns |          51.53 ns |         600.0 ns |
-|             GnomeRunTime |    10 |       2,310.4 ns |         342.54 ns |         988.30 ns |       1,900.0 ns |
-|         GnomeCompileTime |    10 |         354.0 ns |          18.31 ns |          53.97 ns |         400.0 ns |
-|              CombRunTime |    10 |       1,656.9 ns |          36.97 ns |          75.51 ns |       1,700.0 ns |
-|          CombCompileTime |    10 |         300.0 ns |           0.00 ns |           0.00 ns |         300.0 ns |
-|             ShellRunTime |    10 |       2,103.2 ns |         328.73 ns |         932.56 ns |       1,600.0 ns |
-|         ShellCompileTime |    10 |       1,475.8 ns |         287.84 ns |         844.20 ns |       1,000.0 ns |
-|          CocktailRunTime |    10 |       1,872.3 ns |          40.99 ns |          79.95 ns |       1,900.0 ns |
-|      CocktailCompileTime |    10 |         353.1 ns |          19.19 ns |          55.99 ns |         350.0 ns |
-|              SlowRunTime |    10 |       4,147.4 ns |          86.75 ns |          96.43 ns |       4,200.0 ns |
-|          SlowCompileTime |    10 |       2,863.6 ns |          59.18 ns |          72.67 ns |       2,900.0 ns |
-|              BogoRunTime |    10 | 402,130,793.7 ns | 117,936,087.39 ns | 338,380,742.60 ns | 341,082,000.0 ns |
-|          BogoCompileTime |    10 | 423,697,769.1 ns | 122,523,836.93 ns | 355,463,867.48 ns | 281,170,000.0 ns |
-|          **SystemArraySort** |  **1000** |      **28,957.1 ns** |         **519.24 ns** |         **460.29 ns** |      **29,050.0 ns** |
-|  SystemArraySortDelegate |  1000 |      65,757.1 ns |         830.98 ns |         736.64 ns |      65,400.0 ns |
-| SystemArraySortIComparer |  1000 |      77,485.7 ns |       1,116.60 ns |         989.84 ns |      77,000.0 ns |
-|            BubbleRunTime |  1000 |  10,723,192.9 ns |     261,492.82 ns |     231,806.57 ns |  10,711,250.0 ns |
-|        BubbleCompileTime |  1000 |   1,848,755.4 ns |      37,078.49 ns |      93,022.68 ns |   1,834,150.0 ns |
-|         SelectionRunTime |  1000 |   3,506,127.0 ns |     362,534.27 ns |   1,068,940.48 ns |   2,799,250.0 ns |
-|     SelectionCompileTime |  1000 |     873,157.7 ns |      19,382.32 ns |      26,530.74 ns |     874,250.0 ns |
-|         InsertionRunTime |  1000 |   2,189,488.1 ns |      45,729.40 ns |     101,333.19 ns |   2,158,000.0 ns |
-|     InsertionCompileTime |  1000 |     450,805.9 ns |       8,587.46 ns |       8,818.69 ns |     449,600.0 ns |
-|             QuickRunTime |  1000 |     326,215.2 ns |       6,915.26 ns |      19,504.62 ns |     318,750.0 ns |
-|         QuickCompileTime |  1000 |     180,653.6 ns |       3,962.40 ns |       5,682.75 ns |     180,200.0 ns |
-|             MergeRunTime |  1000 |     144,652.9 ns |       2,845.10 ns |       2,921.71 ns |     144,700.0 ns |
-|         MergeCompileTime |  1000 |      73,154.5 ns |       1,962.07 ns |       5,404.10 ns |      71,650.0 ns |
-|              HeapRunTime |  1000 |     493,156.9 ns |       9,309.81 ns |      21,761.39 ns |     492,100.0 ns |
-|          HeapCompileTime |  1000 |     416,325.9 ns |       8,742.50 ns |      19,190.00 ns |     409,350.0 ns |
-|           OddEvenRunTime |  1000 |   3,323,241.7 ns |      65,999.00 ns |     147,616.21 ns |   3,298,450.0 ns |
-|       OddEvenCompileTime |  1000 |   3,475,116.7 ns |      68,170.53 ns |     143,794.77 ns |   3,467,750.0 ns |
-|             GnomeRunTime |  1000 |   3,300,550.0 ns |     341,821.48 ns |   1,007,868.36 ns |   2,658,400.0 ns |
-|         GnomeCompileTime |  1000 |     881,766.0 ns |      19,979.68 ns |      57,964.68 ns |     872,800.0 ns |
-|              CombRunTime |  1000 |     241,295.0 ns |      10,600.93 ns |      12,208.04 ns |     236,500.0 ns |
-|          CombCompileTime |  1000 |      55,518.9 ns |       1,619.56 ns |       2,750.14 ns |      54,700.0 ns |
-|             ShellRunTime |  1000 |     173,100.0 ns |       3,414.48 ns |       5,980.19 ns |     171,500.0 ns |
-|         ShellCompileTime |  1000 |      53,253.3 ns |       1,006.01 ns |         941.02 ns |      53,200.0 ns |
-|          CocktailRunTime |  1000 |   4,996,885.4 ns |      98,848.70 ns |     195,117.69 ns |   4,946,250.0 ns |
-|      CocktailCompileTime |  1000 |   1,010,495.9 ns |      23,359.93 ns |      68,142.02 ns |   1,001,300.0 ns |
+|          **SystemArraySort** |    **10** |         **476.5 ns** |          **15.78 ns** |          **42.67 ns** |         **500.0 ns** |
+|  SystemArraySortDelegate |    10 |         645.4 ns |          20.53 ns |          59.55 ns |         600.0 ns |
+| SystemArraySortIComparer |    10 |       3,120.6 ns |          66.31 ns |         158.88 ns |       3,100.0 ns |
+|            BubbleRunTime |    10 |       1,976.2 ns |          43.23 ns |          79.05 ns |       2,000.0 ns |
+|        BubbleCompileTime |    10 |         480.0 ns |          14.02 ns |          40.21 ns |         500.0 ns |
+|         SelectionRunTime |    10 |       1,844.1 ns |         267.22 ns |         758.07 ns |       1,500.0 ns |
+|     SelectionCompileTime |    10 |         380.4 ns |          14.14 ns |          39.89 ns |         400.0 ns |
+|         InsertionRunTime |    10 |       1,442.4 ns |          32.67 ns |          72.41 ns |       1,400.0 ns |
+|     InsertionCompileTime |    10 |         236.0 ns |          17.06 ns |          50.29 ns |         200.0 ns |
+|             QuickRunTime |    10 |       1,798.3 ns |          38.63 ns |          84.79 ns |       1,800.0 ns |
+|         QuickCompileTime |    10 |         544.9 ns |          19.14 ns |          55.84 ns |         500.0 ns |
+|             MergeRunTime |    10 |       1,696.2 ns |          37.54 ns |          78.35 ns |       1,700.0 ns |
+|         MergeCompileTime |    10 |       1,772.7 ns |         294.60 ns |         864.00 ns |       1,300.0 ns |
+|              HeapRunTime |    10 |       2,530.0 ns |          53.07 ns |          79.44 ns |       2,500.0 ns |
+|          HeapCompileTime |    10 |       1,637.3 ns |          36.58 ns |          74.73 ns |       1,600.0 ns |
+|           OddEvenRunTime |    10 |       2,089.0 ns |         323.56 ns |         907.31 ns |       1,700.0 ns |
+|       OddEvenCompileTime |    10 |         362.0 ns |          16.54 ns |          48.78 ns |         400.0 ns |
+|             GnomeRunTime |    10 |       1,723.9 ns |          38.03 ns |          93.30 ns |       1,700.0 ns |
+|         GnomeCompileTime |    10 |         400.0 ns |           0.00 ns |           0.00 ns |         400.0 ns |
+|              CombRunTime |    10 |       1,545.5 ns |          34.76 ns |          74.08 ns |       1,500.0 ns |
+|          CombCompileTime |    10 |         351.0 ns |          19.58 ns |          57.73 ns |         300.0 ns |
+|             ShellRunTime |    10 |       1,438.8 ns |          32.72 ns |          77.76 ns |       1,400.0 ns |
+|         ShellCompileTime |    10 |       1,566.7 ns |         301.69 ns |         884.79 ns |       1,100.0 ns |
+|          CocktailRunTime |    10 |       2,173.3 ns |         228.90 ns |         638.08 ns |       1,900.0 ns |
+|      CocktailCompileTime |    10 |         468.7 ns |          20.46 ns |          60.01 ns |         500.0 ns |
+|              SlowRunTime |    10 |       5,664.3 ns |          71.44 ns |          63.33 ns |       5,700.0 ns |
+|          SlowCompileTime |    10 |       4,722.2 ns |          93.76 ns |         100.33 ns |       4,700.0 ns |
+|              BogoRunTime |    10 | 348,409,920.6 ns | 100,596,876.19 ns | 291,849,778.49 ns | 269,969,000.0 ns |
+|          BogoCompileTime |    10 | 347,184,452.6 ns |  96,283,325.77 ns | 279,335,386.55 ns | 295,738,800.0 ns |
+|          **SystemArraySort** |  **1000** |      **28,684.6 ns** |         **493.39 ns** |         **412.00 ns** |      **28,600.0 ns** |
+|  SystemArraySortDelegate |  1000 |      64,800.0 ns |         976.99 ns |         762.77 ns |      64,550.0 ns |
+| SystemArraySortIComparer |  1000 |      77,868.4 ns |       2,053.15 ns |       2,282.07 ns |      77,300.0 ns |
+|            BubbleRunTime |  1000 |   5,091,730.9 ns |     101,322.99 ns |     242,763.42 ns |   5,034,550.0 ns |
+|        BubbleCompileTime |  1000 |   1,582,448.0 ns |      49,845.54 ns |     146,970.71 ns |   1,526,950.0 ns |
+|         SelectionRunTime |  1000 |   2,990,598.0 ns |     234,394.18 ns |     691,116.53 ns |   3,339,850.0 ns |
+|     SelectionCompileTime |  1000 |     897,590.2 ns |      17,855.33 ns |      47,349.79 ns |     886,600.0 ns |
+|         InsertionRunTime |  1000 |   1,752,852.2 ns |      39,726.95 ns |      76,540.34 ns |   1,730,050.0 ns |
+|     InsertionCompileTime |  1000 |     283,010.3 ns |       8,318.96 ns |      24,134.81 ns |     294,200.0 ns |
+|             QuickRunTime |  1000 |     175,508.2 ns |       3,464.97 ns |       6,919.92 ns |     174,700.0 ns |
+|         QuickCompileTime |  1000 |      57,376.0 ns |       1,142.97 ns |       2,308.86 ns |      57,050.0 ns |
+|             MergeRunTime |  1000 |     122,831.0 ns |       2,440.34 ns |       3,577.02 ns |     123,000.0 ns |
+|         MergeCompileTime |  1000 |      62,775.0 ns |       1,231.23 ns |       1,417.88 ns |      62,700.0 ns |
+|              HeapRunTime |  1000 |     386,460.9 ns |       7,709.37 ns |      18,619.01 ns |     386,600.0 ns |
+|          HeapCompileTime |  1000 |     344,105.5 ns |       6,836.67 ns |      14,569.51 ns |     340,500.0 ns |
+|           OddEvenRunTime |  1000 |   3,219,749.0 ns |     296,402.27 ns |     873,948.78 ns |   3,759,250.0 ns |
+|       OddEvenCompileTime |  1000 |     920,867.0 ns |      25,097.76 ns |      72,813.15 ns |     906,600.0 ns |
+|             GnomeRunTime |  1000 |   3,684,235.1 ns |      91,476.53 ns |     155,334.09 ns |   3,635,000.0 ns |
+|         GnomeCompileTime |  1000 |     775,531.7 ns |      15,367.77 ns |      40,753.14 ns |     771,100.0 ns |
+|              CombRunTime |  1000 |     215,395.0 ns |       8,990.71 ns |      10,353.72 ns |     210,400.0 ns |
+|          CombCompileTime |  1000 |      51,766.7 ns |         635.36 ns |         496.04 ns |      51,550.0 ns |
+|             ShellRunTime |  1000 |     137,058.3 ns |       1,665.96 ns |       1,300.67 ns |     137,100.0 ns |
+|         ShellCompileTime |  1000 |      53,066.7 ns |         884.59 ns |         690.63 ns |      52,850.0 ns |
+|          CocktailRunTime |  1000 |   4,109,638.3 ns |      87,453.26 ns |     170,570.88 ns |   4,052,200.0 ns |
+|      CocktailCompileTime |  1000 |   1,063,801.0 ns |      24,536.05 ns |      70,792.11 ns |   1,048,500.0 ns |
 |              SlowRunTime |  1000 |               NA |                NA |                NA |               NA |
 |          SlowCompileTime |  1000 |               NA |                NA |                NA |               NA |
 |              BogoRunTime |  1000 |               NA |                NA |                NA |               NA |
 |          BogoCompileTime |  1000 |               NA |                NA |                NA |               NA |
-|          **SystemArraySort** | **10000** |     **374,023.6 ns** |       **7,374.91 ns** |      **15,716.54 ns** |     **366,400.0 ns** |
-|  SystemArraySortDelegate | 10000 |     922,430.0 ns |      18,373.52 ns |      21,158.97 ns |     914,400.0 ns |
-| SystemArraySortIComparer | 10000 |   1,085,884.5 ns |      43,541.44 ns |     126,321.61 ns |   1,077,800.0 ns |
-|            BubbleRunTime | 10000 | 584,489,700.0 ns |   5,006,869.28 ns |   4,683,428.63 ns | 583,277,400.0 ns |
-|        BubbleCompileTime | 10000 | 197,777,873.3 ns |   3,691,588.43 ns |   3,453,114.11 ns | 197,532,000.0 ns |
-|         SelectionRunTime | 10000 | 243,380,031.2 ns |   4,558,932.56 ns |   4,477,481.36 ns | 242,778,400.0 ns |
-|     SelectionCompileTime | 10000 |  72,415,406.7 ns |     662,560.42 ns |     619,759.43 ns |  72,477,000.0 ns |
-|         InsertionRunTime | 10000 | 114,582,171.4 ns |     716,411.74 ns |     635,080.35 ns | 114,683,200.0 ns |
-|     InsertionCompileTime | 10000 |  40,525,453.3 ns |     307,248.66 ns |     287,400.59 ns |  40,472,400.0 ns |
-|             QuickRunTime | 10000 |   4,331,593.9 ns |      88,360.80 ns |     176,466.06 ns |   4,299,900.0 ns |
-|         QuickCompileTime | 10000 |   2,428,853.4 ns |      47,912.24 ns |     105,168.54 ns |   2,411,350.0 ns |
-|             MergeRunTime | 10000 |   1,801,689.0 ns |      81,243.78 ns |     227,816.27 ns |   1,824,200.0 ns |
-|         MergeCompileTime | 10000 |     892,195.5 ns |      17,929.94 ns |      42,262.99 ns |     881,250.0 ns |
-|              HeapRunTime | 10000 |   6,601,850.0 ns |     130,221.18 ns |     149,962.90 ns |   6,604,050.0 ns |
-|          HeapCompileTime | 10000 |   1,411,759.3 ns |      28,272.09 ns |      74,480.01 ns |   1,401,200.0 ns |
-|           OddEvenRunTime | 10000 | 330,227,841.2 ns |   6,568,207.68 ns |   6,745,065.70 ns | 326,998,800.0 ns |
-|       OddEvenCompileTime | 10000 | 146,578,326.7 ns |   2,111,155.76 ns |   1,974,776.40 ns | 146,855,200.0 ns |
-|             GnomeRunTime | 10000 | 242,447,970.0 ns |   1,383,276.20 ns |   1,293,917.41 ns | 242,346,550.0 ns |
-|         GnomeCompileTime | 10000 |  76,675,423.5 ns |   1,456,002.01 ns |   1,495,206.86 ns |  76,515,300.0 ns |
-|              CombRunTime | 10000 |   3,475,097.5 ns |      68,817.74 ns |     122,323.47 ns |   3,448,750.0 ns |
-|          CombCompileTime | 10000 |     753,560.0 ns |      15,056.38 ns |      17,338.96 ns |     751,400.0 ns |
-|             ShellRunTime | 10000 |   2,584,190.2 ns |      51,671.49 ns |      93,174.35 ns |   2,546,100.0 ns |
-|         ShellCompileTime | 10000 |     742,521.2 ns |      14,825.39 ns |      30,617.01 ns |     732,000.0 ns |
-|          CocktailRunTime | 10000 | 280,279,953.3 ns |   4,941,271.59 ns |   4,622,068.51 ns | 281,199,100.0 ns |
-|      CocktailCompileTime | 10000 | 108,856,442.9 ns |   1,216,923.85 ns |   1,078,771.30 ns | 108,448,050.0 ns |
+|          **SystemArraySort** | **10000** |     **375,588.2 ns** |       **7,159.17 ns** |       **7,351.95 ns** |     **374,600.0 ns** |
+|  SystemArraySortDelegate | 10000 |     882,028.6 ns |      13,078.25 ns |      11,593.53 ns |     879,050.0 ns |
+| SystemArraySortIComparer | 10000 |   1,023,307.7 ns |      19,933.85 ns |      27,285.67 ns |   1,019,150.0 ns |
+|            BubbleRunTime | 10000 | 528,211,900.0 ns |     881,965.43 ns |     781,839.38 ns | 528,035,200.0 ns |
+|        BubbleCompileTime | 10000 | 181,560,513.3 ns |   2,627,085.18 ns |   2,457,377.11 ns | 180,623,300.0 ns |
+|         SelectionRunTime | 10000 | 212,526,813.3 ns |   2,282,016.46 ns |   2,134,599.61 ns | 211,880,200.0 ns |
+|     SelectionCompileTime | 10000 |  87,702,120.0 ns |     730,295.57 ns |     683,118.93 ns |  87,626,300.0 ns |
+|         InsertionRunTime | 10000 | 100,515,369.2 ns |     399,236.14 ns |     333,380.26 ns | 100,502,100.0 ns |
+|     InsertionCompileTime | 10000 |  23,704,820.0 ns |     460,820.33 ns |     431,051.62 ns |  23,787,900.0 ns |
+|             QuickRunTime | 10000 |   2,300,021.9 ns |      73,932.91 ns |     115,104.63 ns |   2,272,750.0 ns |
+|         QuickCompileTime | 10000 |     736,716.7 ns |      10,410.63 ns |       8,127.94 ns |     734,950.0 ns |
+|             MergeRunTime | 10000 |   1,605,363.8 ns |      31,941.39 ns |      62,299.23 ns |   1,591,700.0 ns |
+|         MergeCompileTime | 10000 |     777,888.5 ns |      15,554.01 ns |      21,290.51 ns |     771,400.0 ns |
+|              HeapRunTime | 10000 |   1,813,392.6 ns |      75,455.52 ns |     198,780.02 ns |   1,726,600.0 ns |
+|          HeapCompileTime | 10000 |   2,778,552.0 ns |     626,971.35 ns |   1,848,639.16 ns |   1,254,400.0 ns |
+|           OddEvenRunTime | 10000 | 249,007,246.2 ns |     783,602.86 ns |     654,343.88 ns | 248,769,600.0 ns |
+|       OddEvenCompileTime | 10000 |  98,183,846.7 ns |     771,000.03 ns |     721,193.91 ns |  97,977,500.0 ns |
+|             GnomeRunTime | 10000 | 192,898,900.0 ns |   1,776,236.67 ns |   1,661,492.89 ns | 192,680,100.0 ns |
+|         GnomeCompileTime | 10000 |  73,236,420.0 ns |     916,576.37 ns |     857,366.10 ns |  73,181,800.0 ns |
+|              CombRunTime | 10000 |   2,451,925.0 ns |     197,472.37 ns |     582,251.73 ns |   2,730,650.0 ns |
+|          CombCompileTime | 10000 |     722,571.4 ns |      11,346.35 ns |      10,058.25 ns |     720,500.0 ns |
+|             ShellRunTime | 10000 |   1,973,082.1 ns |     116,071.31 ns |     333,030.35 ns |   2,049,300.0 ns |
+|         ShellCompileTime | 10000 |     785,991.3 ns |      15,949.16 ns |      38,519.02 ns |     770,400.0 ns |
+|          CocktailRunTime | 10000 | 235,964,593.3 ns |   1,158,553.71 ns |   1,083,711.86 ns | 235,888,000.0 ns |
+|      CocktailCompileTime | 10000 | 109,647,266.7 ns |     756,960.54 ns |     708,061.36 ns | 109,853,500.0 ns |
 |              SlowRunTime | 10000 |               NA |                NA |                NA |               NA |
 |          SlowCompileTime | 10000 |               NA |                NA |                NA |               NA |
 |              BogoRunTime | 10000 |               NA |                NA |                NA |               NA |
 |          BogoCompileTime | 10000 |               NA |                NA |                NA |               NA |
 
 Benchmarks with issues:
-  Sort_Benchmarks.SlowRunTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=1000]
-  Sort_Benchmarks.SlowCompileTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=1000]
-  Sort_Benchmarks.BogoRunTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=1000]
-  Sort_Benchmarks.BogoCompileTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=1000]
-  Sort_Benchmarks.SlowRunTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=10000]
-  Sort_Benchmarks.SlowCompileTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=10000]
-  Sort_Benchmarks.BogoRunTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=10000]
-  Sort_Benchmarks.BogoCompileTime: Job-MADVMA(InvocationCount=1, UnrollFactor=1) [N=10000]
+  Sort_Benchmarks.SlowRunTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=1000]
+  Sort_Benchmarks.SlowCompileTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=1000]
+  Sort_Benchmarks.BogoRunTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=1000]
+  Sort_Benchmarks.BogoCompileTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=1000]
+  Sort_Benchmarks.SlowRunTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=10000]
+  Sort_Benchmarks.SlowCompileTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=10000]
+  Sort_Benchmarks.BogoRunTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=10000]
+  Sort_Benchmarks.BogoCompileTime: Job-ZKCIBR(InvocationCount=1, UnrollFactor=1) [N=10000]
 
 # Data Structures
 
@@ -127,44 +127,44 @@ The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://git
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
-.NET Core SDK=5.0.100-preview.8.20417.9
-  [Host]     : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
-  DefaultJob : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
 
 
 ```
 |                         Method |       RandomTestData |             Mean |           Error |          StdDev |
 |------------------------------- |--------------------- |-----------------:|----------------:|----------------:|
-|                  ListArray_Add | Towel(...)son[] [27] |         892.1 ns |         6.48 ns |         6.06 ns |
-|                  ListArray_Add | Towel(...)son[] [27] |   2,063,704.3 ns |    61,221.25 ns |    72,879.55 ns |
-|      ListArray_AddWithCapacity | Towel(...)son[] [27] |         600.3 ns |         8.80 ns |         7.80 ns |
-|      ListArray_AddWithCapacity | Towel(...)son[] [27] |   1,467,744.8 ns |    15,579.70 ns |    14,573.26 ns |
-|                            Add | Towel(...)son[] [27] |       1,239.8 ns |         6.67 ns |         5.91 ns |
-|                            Add | Towel(...)son[] [27] |   2,512,265.5 ns |    50,000.10 ns |    65,014.25 ns |
-|             QueueArray_Enqueue | Towel(...)son[] [27] |       1,420.0 ns |         4.31 ns |         4.03 ns |
-|             QueueArray_Enqueue | Towel(...)son[] [27] |   2,804,101.7 ns |    12,829.79 ns |    11,373.27 ns |
-| QueueArray_EnqueueWithCapacity | Towel(...)son[] [27] |         725.0 ns |         4.14 ns |         3.67 ns |
-| QueueArray_EnqueueWithCapacity | Towel(...)son[] [27] |   1,504,950.4 ns |    18,677.42 ns |    17,470.87 ns |
-|            QueueLinked_Enqueue | Towel(...)son[] [27] |       1,061.5 ns |        14.21 ns |        11.87 ns |
-|            QueueLinked_Enqueue | Towel(...)son[] [27] |   2,330,209.1 ns |    21,592.43 ns |    16,857.95 ns |
-|                StackArray_Push | Towel(...)son[] [27] |       1,010.3 ns |        20.09 ns |        30.68 ns |
-|                StackArray_Push | Towel(...)son[] [27] |   2,659,195.4 ns |    53,077.92 ns |   116,507.32 ns |
-|    StackArray_PushWithCapacity | Towel(...)son[] [27] |         493.3 ns |         2.08 ns |         1.95 ns |
-|    StackArray_PushWithCapacity | Towel(...)son[] [27] |   1,342,732.7 ns |    15,054.41 ns |    13,345.35 ns |
-|               StackLinked_Push | Towel(...)son[] [27] |       1,064.2 ns |        20.95 ns |        44.18 ns |
-|               StackLinked_Push | Towel(...)son[] [27] |   2,310,322.1 ns |    45,084.90 ns |    55,368.30 ns |
-|       AvlTreeLinked_AddRunTime | Towel(...)son[] [27] |      44,550.1 ns |       101.36 ns |        84.64 ns |
-|       AvlTreeLinked_AddRunTime | Towel(...)son[] [27] | 179,947,676.2 ns | 1,143,315.41 ns | 1,013,519.33 ns |
-|   AvlTreeLinked_AddCompileTime | Towel(...)son[] [27] |      39,030.0 ns |       137.13 ns |       128.27 ns |
-|   AvlTreeLinked_AddCompileTime | Towel(...)son[] [27] | 175,934,222.2 ns | 2,716,452.79 ns | 2,540,971.63 ns |
-|        RedBlackTree_AddRunTime | Towel(...)son[] [27] |      46,873.7 ns |       222.96 ns |       197.65 ns |
-|        RedBlackTree_AddRunTime | Towel(...)son[] [27] | 171,209,864.3 ns | 1,690,353.37 ns | 1,498,454.23 ns |
-|    RedBlackTree_AddCompileTime | Towel(...)son[] [27] |      39,424.8 ns |       225.60 ns |       211.02 ns |
-|    RedBlackTree_AddCompileTime | Towel(...)son[] [27] | 164,266,078.6 ns | 2,205,299.16 ns | 1,954,940.26 ns |
-|       SetHashLinked_AddRunTime | Towel(...)son[] [27] |       5,507.0 ns |        44.48 ns |        39.43 ns |
-|       SetHashLinked_AddRunTime | Towel(...)son[] [27] |  33,953,784.4 ns |   325,890.11 ns |   304,837.82 ns |
-|   SetHashLinked_AddCompileTime | Towel(...)son[] [27] |       4,400.9 ns |        19.02 ns |        16.86 ns |
-|   SetHashLinked_AddCompileTime | Towel(...)son[] [27] |  31,951,061.7 ns |   402,521.87 ns |   376,519.21 ns |
+|                  ListArray_Add | Towel(...)son[] [27] |         963.2 ns |         6.52 ns |         6.10 ns |
+|                  ListArray_Add | Towel(...)son[] [27] |   2,035,842.5 ns |    18,823.29 ns |    17,607.32 ns |
+|      ListArray_AddWithCapacity | Towel(...)son[] [27] |         623.3 ns |         2.14 ns |         1.78 ns |
+|      ListArray_AddWithCapacity | Towel(...)son[] [27] |   1,594,337.3 ns |     9,843.56 ns |     8,726.06 ns |
+|                            Add | Towel(...)son[] [27] |       1,255.1 ns |        24.99 ns |        26.74 ns |
+|                            Add | Towel(...)son[] [27] |   2,588,119.8 ns |    30,657.49 ns |    27,177.07 ns |
+|             QueueArray_Enqueue | Towel(...)son[] [27] |       1,531.0 ns |        20.50 ns |        19.17 ns |
+|             QueueArray_Enqueue | Towel(...)son[] [27] |   3,094,074.6 ns |    25,860.20 ns |    24,189.65 ns |
+| QueueArray_EnqueueWithCapacity | Towel(...)son[] [27] |         782.1 ns |        14.97 ns |        14.70 ns |
+| QueueArray_EnqueueWithCapacity | Towel(...)son[] [27] |   1,621,417.3 ns |    20,138.13 ns |    18,837.22 ns |
+|            QueueLinked_Enqueue | Towel(...)son[] [27] |       1,040.8 ns |        13.55 ns |        12.67 ns |
+|            QueueLinked_Enqueue | Towel(...)son[] [27] |   2,375,892.9 ns |    30,222.14 ns |    26,791.14 ns |
+|                StackArray_Push | Towel(...)son[] [27] |       1,005.4 ns |         5.49 ns |         4.87 ns |
+|                StackArray_Push | Towel(...)son[] [27] |   2,765,587.7 ns |     9,648.74 ns |     8,553.35 ns |
+|    StackArray_PushWithCapacity | Towel(...)son[] [27] |         522.3 ns |         2.11 ns |         1.76 ns |
+|    StackArray_PushWithCapacity | Towel(...)son[] [27] |   1,450,710.2 ns |    14,544.67 ns |    12,893.47 ns |
+|               StackLinked_Push | Towel(...)son[] [27] |       1,011.8 ns |        10.15 ns |         9.49 ns |
+|               StackLinked_Push | Towel(...)son[] [27] |   2,414,910.8 ns |    45,902.85 ns |    42,937.55 ns |
+|       AvlTreeLinked_AddRunTime | Towel(...)son[] [27] |      63,596.4 ns |       767.54 ns |       717.96 ns |
+|       AvlTreeLinked_AddRunTime | Towel(...)son[] [27] | 264,524,833.3 ns | 5,203,594.52 ns | 4,867,445.54 ns |
+|   AvlTreeLinked_AddCompileTime | Towel(...)son[] [27] |      63,154.6 ns |       217.25 ns |       181.41 ns |
+|   AvlTreeLinked_AddCompileTime | Towel(...)son[] [27] | 261,191,700.0 ns | 3,299,321.67 ns | 2,924,762.72 ns |
+|        RedBlackTree_AddRunTime | Towel(...)son[] [27] |      71,869.3 ns |       244.19 ns |       203.91 ns |
+|        RedBlackTree_AddRunTime | Towel(...)son[] [27] | 247,596,395.6 ns | 2,756,212.87 ns | 2,578,163.23 ns |
+|    RedBlackTree_AddCompileTime | Towel(...)son[] [27] |      69,429.1 ns |       214.10 ns |       189.80 ns |
+|    RedBlackTree_AddCompileTime | Towel(...)son[] [27] | 253,333,080.0 ns | 3,015,928.60 ns | 2,821,101.48 ns |
+|       SetHashLinked_AddRunTime | Towel(...)son[] [27] |       5,664.4 ns |        34.30 ns |        30.40 ns |
+|       SetHashLinked_AddRunTime | Towel(...)son[] [27] |  36,965,666.7 ns |   673,118.14 ns |   629,635.12 ns |
+|   SetHashLinked_AddCompileTime | Towel(...)son[] [27] |       4,584.7 ns |        20.36 ns |        15.90 ns |
+|   SetHashLinked_AddCompileTime | Towel(...)son[] [27] |  35,193,594.8 ns |   459,667.39 ns |   407,483.17 ns |
 
 # Random
 
@@ -174,25 +174,25 @@ The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://git
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
-.NET Core SDK=5.0.100-preview.8.20417.9
-  [Host]     : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
-  Job-MADVMA : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  Job-ZKCIBR : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
 
 InvocationCount=1  UnrollFactor=1  
 
 ```
 |                       Method |      N |         Mean |       Error |      StdDev |       Median |
 |----------------------------- |------- |-------------:|------------:|------------:|-------------:|
-| **Next_IEnumerable_TotalWeight** |     **10** |     **2.176 us** |   **0.0452 us** |   **0.0902 us** |     **2.200 us** |
-|             Next_IEnumerable |     10 |     2.900 us |   0.3263 us |   0.9256 us |     2.400 us |
-| **Next_IEnumerable_TotalWeight** |    **100** |     **3.414 us** |   **0.0717 us** |   **0.0854 us** |     **3.400 us** |
-|             Next_IEnumerable |    100 |     5.082 us |   0.1023 us |   0.1467 us |     5.100 us |
-| **Next_IEnumerable_TotalWeight** |   **1000** |    **14.900 us** |   **0.1467 us** |   **0.1225 us** |    **14.900 us** |
-|             Next_IEnumerable |   1000 |    31.565 us |   2.2504 us |   2.5915 us |    30.600 us |
-| **Next_IEnumerable_TotalWeight** |  **10000** |   **130.036 us** |   **2.1626 us** |   **1.9171 us** |   **130.250 us** |
-|             Next_IEnumerable |  10000 |   298.751 us |   8.1385 us |  23.3510 us |   291.500 us |
-| **Next_IEnumerable_TotalWeight** | **100000** | **1,267.934 us** |  **25.0408 us** |  **41.1428 us** | **1,248.700 us** |
-|             Next_IEnumerable | 100000 | 2,863.558 us | 160.4650 us | 473.1346 us | 3,064.100 us |
+| **Next_IEnumerable_TotalWeight** |     **10** |     **2.556 us** |   **0.2915 us** |   **0.8175 us** |     **2.100 us** |
+|             Next_IEnumerable |     10 |     2.410 us |   0.0550 us |   0.1478 us |     2.400 us |
+| **Next_IEnumerable_TotalWeight** |    **100** |     **4.098 us** |   **0.3785 us** |   **1.0551 us** |     **3.500 us** |
+|             Next_IEnumerable |    100 |     4.983 us |   0.1282 us |   0.2312 us |     5.000 us |
+| **Next_IEnumerable_TotalWeight** |   **1000** |    **17.706 us** |   **0.8182 us** |   **2.3475 us** |    **17.200 us** |
+|             Next_IEnumerable |   1000 |    33.939 us |   1.5423 us |   4.4004 us |    32.600 us |
+| **Next_IEnumerable_TotalWeight** |  **10000** |   **136.041 us** |   **8.8173 us** |   **9.0548 us** |   **131.500 us** |
+|             Next_IEnumerable |  10000 |   330.240 us |  12.9513 us |  37.9838 us |   323.900 us |
+| **Next_IEnumerable_TotalWeight** | **100000** | **1,327.625 us** |  **26.3989 us** |  **61.7065 us** | **1,303.400 us** |
+|             Next_IEnumerable | 100000 | 2,876.262 us | 179.3327 us | 528.7664 us | 3,045.800 us |
 
 # [Numeric] To English Words
 
@@ -202,19 +202,19 @@ The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://git
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
-.NET Core SDK=5.0.100-preview.8.20417.9
-  [Host]     : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
-  DefaultJob : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
 
 
 ```
 |                 Method |  Range |     Mean |    Error |   StdDev |
 |----------------------- |------- |---------:|---------:|---------:|
-| **Decimal_ToEnglishWords** |     **10** | **68.17 ms** | **0.108 ms** | **0.085 ms** |
-| **Decimal_ToEnglishWords** |    **100** | **67.70 ms** | **1.411 ms** | **1.932 ms** |
-| **Decimal_ToEnglishWords** |   **1000** | **61.38 ms** | **0.389 ms** | **0.364 ms** |
-| **Decimal_ToEnglishWords** |  **10000** | **63.52 ms** | **0.282 ms** | **0.250 ms** |
-| **Decimal_ToEnglishWords** | **100000** | **63.63 ms** | **0.215 ms** | **0.168 ms** |
+| **Decimal_ToEnglishWords** |     **10** | **72.75 ms** | **0.382 ms** | **0.338 ms** |
+| **Decimal_ToEnglishWords** |    **100** | **71.27 ms** | **0.247 ms** | **0.219 ms** |
+| **Decimal_ToEnglishWords** |   **1000** | **65.85 ms** | **0.226 ms** | **0.189 ms** |
+| **Decimal_ToEnglishWords** |  **10000** | **68.44 ms** | **0.337 ms** | **0.298 ms** |
+| **Decimal_ToEnglishWords** | **100000** | **68.87 ms** | **0.870 ms** | **0.813 ms** |
 
 # Permute
 
@@ -224,37 +224,150 @@ The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://git
 
 BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
-.NET Core SDK=5.0.100-preview.8.20417.9
-  [Host]     : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
-  Job-MADVMA : .NET Core 3.1.7 (CoreCLR 4.700.20.36602, CoreFX 4.700.20.37001), X64 RyuJIT
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  Job-ZKCIBR : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
 
 InvocationCount=1  UnrollFactor=1  
 
 ```
-|    Method |  N |               Mean |           Error |          StdDev |             Median |
-|---------- |--- |-------------------:|----------------:|----------------:|-------------------:|
-| **Recursive** |  **1** |           **176.8 ns** |        **19.38 ns** |        **56.84 ns** |           **200.0 ns** |
-| Iterative |  1 |         1,203.2 ns |       240.62 ns |       686.50 ns |           900.0 ns |
-| **Recursive** |  **2** |           **374.7 ns** |        **15.67 ns** |        **45.94 ns** |           **400.0 ns** |
-| Iterative |  2 |         1,485.9 ns |       278.63 ns |       817.16 ns |         1,000.0 ns |
-| **Recursive** |  **3** |           **590.9 ns** |        **15.48 ns** |        **29.08 ns** |           **600.0 ns** |
-| Iterative |  3 |         1,484.2 ns |       275.81 ns |       791.35 ns |         1,100.0 ns |
-| **Recursive** |  **4** |         **1,571.4 ns** |        **35.41 ns** |        **70.71 ns** |         **1,600.0 ns** |
-| Iterative |  4 |         1,983.8 ns |       278.66 ns |       817.25 ns |         1,600.0 ns |
-| **Recursive** |  **5** |         **6,637.7 ns** |       **135.59 ns** |       **347.56 ns** |         **6,800.0 ns** |
-| Iterative |  5 |         3,293.9 ns |        69.63 ns |       139.06 ns |         3,300.0 ns |
-| **Recursive** |  **6** |        **37,993.8 ns** |       **794.10 ns** |     **2,303.84 ns** |        **38,900.0 ns** |
-| Iterative |  6 |        13,976.0 ns |       278.52 ns |       562.63 ns |        14,100.0 ns |
-| **Recursive** |  **7** |       **259,318.2 ns** |     **5,168.49 ns** |    **13,248.81 ns** |       **261,400.0 ns** |
-| Iterative |  7 |        90,507.7 ns |     1,796.14 ns |     3,709.33 ns |        90,600.0 ns |
-| **Recursive** |  **8** |     **2,011,738.5 ns** |    **39,769.08 ns** |    **69,652.33 ns** |     **1,993,700.0 ns** |
-| Iterative |  8 |       702,852.2 ns |    15,225.96 ns |    29,335.26 ns |       692,050.0 ns |
-| **Recursive** |  **9** |     **5,013,779.6 ns** |    **99,485.21 ns** |   **209,848.08 ns** |     **4,959,300.0 ns** |
-| Iterative |  9 |     2,159,011.2 ns |    43,856.97 ns |   114,766.04 ns |     2,144,550.0 ns |
-| **Recursive** | **10** |    **49,404,187.5 ns** |   **931,287.72 ns** |   **914,649.07 ns** |    **49,118,100.0 ns** |
-| Iterative | 10 |    21,008,268.8 ns |   397,070.50 ns |   389,976.32 ns |    20,959,000.0 ns |
-| **Recursive** | **11** |   **544,501,121.4 ns** | **9,151,655.05 ns** | **8,112,703.82 ns** |   **544,463,850.0 ns** |
-| Iterative | 11 |   217,365,914.3 ns | 1,149,207.72 ns | 1,018,742.71 ns |   217,458,400.0 ns |
-| **Recursive** | **12** | **6,370,422,315.4 ns** | **7,517,128.11 ns** | **6,277,142.42 ns** | **6,373,265,100.0 ns** |
-| Iterative | 12 | 2,602,590,163.3 ns | 5,456,525.20 ns | 5,104,037.06 ns | 2,602,554,050.0 ns |
+|          Method |  N |               Mean |            Error |           StdDev |             Median |
+|---------------- |--- |-------------------:|-----------------:|-----------------:|-------------------:|
+|       **Recursive** |  **1** |           **290.8 ns** |         **10.62 ns** |         **29.06 ns** |           **300.0 ns** |
+|       Iterative |  1 |           993.4 ns |         43.67 ns |        111.16 ns |         1,000.0 ns |
+| RecursiveStruct |  1 |           176.3 ns |         15.06 ns |         42.73 ns |           200.0 ns |
+| IterativeStruct |  1 |         1,492.9 ns |        337.87 ns |        990.90 ns |         1,000.0 ns |
+|       **Recursive** |  **2** |           **400.0 ns** |          **0.00 ns** |          **0.00 ns** |           **400.0 ns** |
+|       Iterative |  2 |         1,029.5 ns |         26.49 ns |         72.97 ns |         1,000.0 ns |
+| RecursiveStruct |  2 |           323.5 ns |         42.58 ns |         43.72 ns |           300.0 ns |
+| IterativeStruct |  2 |         1,456.6 ns |        316.21 ns |        927.38 ns |         1,000.0 ns |
+|       **Recursive** |  **3** |           **589.6 ns** |         **15.64 ns** |         **30.87 ns** |           **600.0 ns** |
+|       Iterative |  3 |         1,628.3 ns |        319.19 ns |        936.13 ns |         1,100.0 ns |
+| RecursiveStruct |  3 |           564.3 ns |         17.92 ns |         52.27 ns |           600.0 ns |
+| IterativeStruct |  3 |         1,492.9 ns |        320.46 ns |        939.85 ns |         1,000.0 ns |
+|       **Recursive** |  **4** |         **1,300.0 ns** |         **29.93 ns** |         **74.54 ns** |         **1,300.0 ns** |
+|       Iterative |  4 |         1,971.4 ns |        288.96 ns |        842.92 ns |         1,500.0 ns |
+| RecursiveStruct |  4 |         1,093.8 ns |         25.45 ns |         25.00 ns |         1,100.0 ns |
+| IterativeStruct |  4 |         1,681.6 ns |        278.17 ns |        811.43 ns |         1,300.0 ns |
+|       **Recursive** |  **5** |         **4,809.7 ns** |        **133.83 ns** |        **379.66 ns** |         **5,000.0 ns** |
+|       Iterative |  5 |         2,861.4 ns |         61.04 ns |        162.92 ns |         2,900.0 ns |
+| RecursiveStruct |  5 |         4,230.6 ns |        112.51 ns |        328.20 ns |         4,400.0 ns |
+| IterativeStruct |  5 |         2,836.1 ns |        255.78 ns |        742.07 ns |         2,600.0 ns |
+|       **Recursive** |  **6** |        **26,031.9 ns** |        **794.16 ns** |      **2,226.90 ns** |        **27,100.0 ns** |
+|       Iterative |  6 |        11,505.4 ns |        368.80 ns |      1,040.22 ns |        11,400.0 ns |
+| RecursiveStruct |  6 |        23,266.3 ns |        527.40 ns |      1,487.55 ns |        24,100.0 ns |
+| IterativeStruct |  6 |         9,005.1 ns |        420.85 ns |      1,227.63 ns |         9,500.0 ns |
+|       **Recursive** |  **7** |       **179,527.1 ns** |      **4,458.07 ns** |     **12,862.54 ns** |       **185,250.0 ns** |
+|       Iterative |  7 |        70,106.9 ns |      1,396.67 ns |      3,452.22 ns |        70,650.0 ns |
+| RecursiveStruct |  7 |       160,771.1 ns |      3,210.39 ns |      8,171.46 ns |       161,850.0 ns |
+| IterativeStruct |  7 |        51,457.6 ns |      2,532.71 ns |      7,428.01 ns |        53,100.0 ns |
+|       **Recursive** |  **8** |     **1,277,079.2 ns** |    **112,618.85 ns** |    **324,931.15 ns** |     **1,380,650.0 ns** |
+|       Iterative |  8 |       549,762.2 ns |     10,745.88 ns |     20,445.16 ns |       551,200.0 ns |
+| RecursiveStruct |  8 |     1,254,614.0 ns |     24,961.42 ns |     50,423.30 ns |     1,254,250.0 ns |
+| IterativeStruct |  8 |       412,090.7 ns |     14,467.32 ns |     41,972.33 ns |       427,700.0 ns |
+|       **Recursive** |  **9** |     **4,712,122.4 ns** |    **100,712.56 ns** |    **272,282.25 ns** |     **4,651,800.0 ns** |
+|       Iterative |  9 |     4,784,983.9 ns |    106,671.09 ns |    162,898.02 ns |     4,770,700.0 ns |
+| RecursiveStruct |  9 |     4,347,445.7 ns |     86,039.06 ns |    226,661.30 ns |     4,304,100.0 ns |
+| IterativeStruct |  9 |     2,693,905.0 ns |    328,783.33 ns |    969,425.06 ns |     3,148,900.0 ns |
+|       **Recursive** | **10** |    **44,466,333.3 ns** |    **695,222.78 ns** |    **650,311.82 ns** |    **44,210,200.0 ns** |
+|       Iterative | 10 |    22,862,104.3 ns |    448,490.49 ns |    567,196.87 ns |    22,645,300.0 ns |
+| RecursiveStruct | 10 |    42,560,269.2 ns |    687,196.44 ns |    573,840.15 ns |    42,688,700.0 ns |
+| IterativeStruct | 10 |    13,990,683.3 ns |    273,603.30 ns |    409,516.54 ns |    13,932,700.0 ns |
+|       **Recursive** | **11** |   **514,467,876.9 ns** |  **2,451,207.70 ns** |  **2,046,869.45 ns** |   **514,123,300.0 ns** |
+|       Iterative | 11 |   249,272,342.9 ns |  1,355,880.84 ns |  1,201,953.05 ns |   249,310,450.0 ns |
+| RecursiveStruct | 11 |   468,063,853.3 ns |  4,238,022.48 ns |  3,964,248.86 ns |   466,432,200.0 ns |
+| IterativeStruct | 11 |   151,132,000.0 ns |  1,288,450.93 ns |  1,142,178.19 ns |   150,951,050.0 ns |
+|       **Recursive** | **12** | **6,177,772,966.7 ns** | **73,324,436.57 ns** | **68,587,723.46 ns** | **6,129,063,100.0 ns** |
+|       Iterative | 12 | 2,966,728,490.0 ns |  3,708,905.09 ns |  3,469,312.12 ns | 2,966,516,550.0 ns |
+| RecursiveStruct | 12 | 5,582,501,335.7 ns | 67,418,310.47 ns | 59,764,576.19 ns | 5,574,910,200.0 ns |
+| IterativeStruct | 12 | 1,821,838,092.9 ns |  5,106,766.30 ns |  4,527,015.31 ns | 1,822,382,050.0 ns |
+
+# Map vs Dictionary (Add)
+
+The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).
+
+``` ini
+
+BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  DefaultJob : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+
+
+```
+|       Method |     N |         Mean |       Error |      StdDev |
+|------------- |------ |-------------:|------------:|------------:|
+| **MapDelegates** |    **10** |     **512.3 ns** |     **6.07 ns** |     **5.38 ns** |
+|   MapStructs |    10 |     435.5 ns |     3.62 ns |     3.21 ns |
+|   Dictionary |    10 |     249.6 ns |     0.94 ns |     0.79 ns |
+| **MapDelegates** |   **100** |   **4,164.9 ns** |    **15.83 ns** |    **14.03 ns** |
+|   MapStructs |   100 |   3,711.3 ns |     8.72 ns |     8.16 ns |
+|   Dictionary |   100 |   2,198.2 ns |    12.64 ns |    10.55 ns |
+| **MapDelegates** |  **1000** |  **33,653.4 ns** |   **385.06 ns** |   **360.18 ns** |
+|   MapStructs |  1000 |  29,771.6 ns |   120.02 ns |   100.22 ns |
+|   Dictionary |  1000 |  21,078.6 ns |    82.18 ns |    76.87 ns |
+| **MapDelegates** | **10000** | **617,945.4 ns** | **6,062.47 ns** | **5,374.22 ns** |
+|   MapStructs | 10000 | 582,379.9 ns | 4,567.55 ns | 3,814.11 ns |
+|   Dictionary | 10000 | 296,027.0 ns | 1,504.60 ns | 1,256.41 ns |
+
+# Map vs Dictionary (Look Up)
+
+The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).
+
+``` ini
+
+BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  Job-ZKCIBR : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+
+InvocationCount=1  UnrollFactor=1  
+
+```
+|       Method |     N |         Mean |        Error |       StdDev |       Median |
+|------------- |------ |-------------:|-------------:|-------------:|-------------:|
+| **MapDelegates** |    **10** |     **714.8 ns** |     **32.53 ns** |     **45.60 ns** |     **700.0 ns** |
+|   MapStructs |    10 |     218.8 ns |     41.04 ns |     40.31 ns |     200.0 ns |
+|   Dictionary |    10 |     361.3 ns |     20.15 ns |     57.17 ns |     400.0 ns |
+| **MapDelegates** |   **100** |   **2,158.6 ns** |     **46.55 ns** |     **68.23 ns** |   **2,100.0 ns** |
+|   MapStructs |   100 |     795.0 ns |     19.42 ns |     22.36 ns |     800.0 ns |
+|   Dictionary |   100 |   1,051.4 ns |     24.90 ns |     62.47 ns |   1,000.0 ns |
+| **MapDelegates** |  **1000** |  **17,393.8 ns** |    **339.67 ns** |    **333.60 ns** |  **17,300.0 ns** |
+|   MapStructs |  1000 |   7,083.3 ns |     49.86 ns |     38.92 ns |   7,100.0 ns |
+|   Dictionary |  1000 |   8,300.0 ns |    165.55 ns |    146.76 ns |   8,250.0 ns |
+| **MapDelegates** | **10000** | **153,867.7 ns** | **11,274.79 ns** | **33,067.01 ns** | **166,500.0 ns** |
+|   MapStructs | 10000 |  69,869.2 ns |  1,390.03 ns |  1,160.74 ns |  70,200.0 ns |
+|   Dictionary | 10000 |  80,023.1 ns |  1,132.03 ns |    945.30 ns |  80,100.0 ns |
+
+# Span vs Array Sorting
+
+The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).
+
+``` ini
+
+BenchmarkDotNet=v0.12.0, OS=Windows 10.0.18363
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host]     : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  Job-ZKCIBR : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+
+InvocationCount=1  UnrollFactor=1  
+
+```
+|                 Method |     N |             Mean |           Error |          StdDev |           Median |
+|----------------------- |------ |-----------------:|----------------:|----------------:|-----------------:|
+|     **ArrayBubbleRunTime** |    **10** |       **2,027.7 ns** |        **43.69 ns** |        **85.22 ns** |       **2,000.0 ns** |
+| ArrayBubbleCompileTime |    10 |         536.7 ns |        20.53 ns |        59.88 ns |         500.0 ns |
+|      SpanBubbleRunTime |    10 |       2,126.3 ns |        44.06 ns |        76.00 ns |       2,100.0 ns |
+|  SpanBubbleCompileTime |    10 |         450.0 ns |        20.73 ns |        61.13 ns |         400.0 ns |
+|     **ArrayBubbleRunTime** |  **1000** |   **6,184,537.0 ns** |   **670,352.44 ns** | **1,976,549.29 ns** |   **4,938,950.0 ns** |
+| ArrayBubbleCompileTime |  1000 |   1,758,985.3 ns |    36,695.24 ns |   105,285.52 ns |   1,732,300.0 ns |
+|      SpanBubbleRunTime |  1000 |   5,828,465.0 ns |   617,791.74 ns | 1,821,572.88 ns |   4,612,150.0 ns |
+|  SpanBubbleCompileTime |  1000 |   1,442,844.0 ns |    74,397.07 ns |   219,361.45 ns |   1,340,600.0 ns |
+|     **ArrayBubbleRunTime** | **10000** | **490,926,392.9 ns** | **1,007,005.29 ns** |   **892,683.96 ns** | **491,241,500.0 ns** |
+| ArrayBubbleCompileTime | 10000 | 192,653,735.7 ns | 1,218,264.51 ns | 1,079,959.75 ns | 192,520,800.0 ns |
+|      SpanBubbleRunTime | 10000 | 475,065,076.9 ns | 1,637,935.30 ns | 1,367,750.16 ns | 474,994,300.0 ns |
+|  SpanBubbleCompileTime | 10000 | 181,612,793.3 ns |   684,740.86 ns |   640,507.03 ns | 181,776,400.0 ns |
 
