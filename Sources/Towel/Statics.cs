@@ -2681,7 +2681,7 @@ namespace Towel
 			T[] ordered = new T[count];
 			int a = 0;
 			stepper(i => { ordered[a++] = i; });
-			SortQuick(ordered, Compare);
+			SortQuick<T>(ordered, Compare);
 			T[] resultingQuantiles = new T[quantiles + 1];
 			resultingQuantiles[0] = ordered[0];
 			resultingQuantiles[^1] = ordered[^1];
@@ -4011,6 +4011,8 @@ namespace Towel
 			return SearchBinary<T, GetIndexArray<T>, Sift>(0, array.Length, array, sift);
 		}
 
+		#endif
+
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
 		{
@@ -4018,8 +4020,6 @@ namespace Towel
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
 			return SearchBinary<T, FuncRuntime<int, T>, FuncRuntime<T, CompareResult>>(0, length, get, sift);
 		}
-
-		#endif
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T Value) SearchBinary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
@@ -4538,24 +4538,6 @@ namespace Towel
 		internal static void SortBubble_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubble<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortBubble(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubble<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortBubble(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubble<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortBubble<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubble<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortBubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortBubble<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -4579,6 +4561,10 @@ namespace Towel
 				}
 			}
 		}
+
+		/// <inheritdoc cref="SortBubble_XML"/>
+		public static void SortBubble<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortBubble<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T, Compare>(Span<T> span, Compare compare = default)
@@ -4609,24 +4595,6 @@ namespace Towel
 		internal static void SortSelection_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortSelection_XML"/>
-		public static void SortSelection<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortSelection(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortSelection_XML"/>
-		public static void SortSelection<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortSelection(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortSelection_XML"/>
-		public static void SortSelection<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortSelection<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortSelection_XML"/>
-		public static void SortSelection<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortSelection<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortSelection<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -4652,6 +4620,10 @@ namespace Towel
 				set.Do(i, temp);
 			}
 		}
+
+		/// <inheritdoc cref="SortSelection_XML"/>
+		public static void SortSelection<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortSelection<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T, Compare>(Span<T> span, Compare compare = default)
@@ -4684,24 +4656,6 @@ namespace Towel
 		internal static void SortInsertion_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
-		public static void SortInsertion<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortInsertion(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortInsertion_XML"/>
-		public static void SortInsertion<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortInsertion(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortInsertion_XML"/>
-		public static void SortInsertion<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortInsertion<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortInsertion_XML"/>
-		public static void SortInsertion<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortInsertion<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortInsertion<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -4722,6 +4676,10 @@ namespace Towel
 				set.Do(j, temp);
 			}
 		}
+
+		/// <inheritdoc cref="SortInsertion_XML"/>
+		public static void SortInsertion<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortInsertion<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T, Compare>(Span<T> span, Compare compare = default)
@@ -4750,24 +4708,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortQuick_XML() => throw new DocumentationMethodException();
-
-		/// <inheritdoc cref="SortQuick_XML"/>
-		public static void SortQuick<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortQuick(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortQuick_XML"/>
-		public static void SortQuick<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortQuick(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortQuick_XML"/>
-		public static void SortQuick<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortQuick<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortQuick_XML"/>
-		public static void SortQuick<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortQuick<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
@@ -4817,6 +4757,10 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortQuick_XML"/>
+		public static void SortQuick<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortQuick<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T, Compare>(Span<T> span, Compare compare = default)
 			where Compare : struct, IFunc<T, T, CompareResult>
 		{
@@ -4862,24 +4806,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortMerge_XML() => throw new DocumentationMethodException();
-
-		/// <inheritdoc cref="SortMerge_XML"/>
-		public static void SortMerge<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortMerge(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortMerge_XML"/>
-		public static void SortMerge<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortMerge(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortMerge_XML"/>
-		public static void SortMerge<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortMerge<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortMerge_XML"/>
-		public static void SortMerge<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortMerge<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
@@ -4930,6 +4856,10 @@ namespace Towel
 				}
 			}
 		}
+
+		/// <inheritdoc cref="SortMerge_XML"/>
+		public static void SortMerge<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortMerge<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T, Compare>(Span<T> span, Compare compare = default)
@@ -4988,24 +4918,6 @@ namespace Towel
 		internal static void SortHeap_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortHeap_XML"/>
-		public static void SortHeap<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortHeap(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortHeap_XML"/>
-		public static void SortHeap<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortHeap(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortHeap_XML"/>
-		public static void SortHeap<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortHeap<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortHeap_XML"/>
-		public static void SortHeap<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortHeap<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortHeap<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -5053,6 +4965,10 @@ namespace Towel
 				set.Do(b, temp);
 			}
 		}
+
+		/// <inheritdoc cref="SortHeap_XML"/>
+		public static void SortHeap<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortHeap<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T, Compare>(Span<T> span, Compare compare = default)
@@ -5106,24 +5022,6 @@ namespace Towel
 		internal static void SortOddEven_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
-		public static void SortOddEven<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortOddEven(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortOddEven_XML"/>
-		public static void SortOddEven<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortOddEven(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortOddEven_XML"/>
-		public static void SortOddEven<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortOddEven<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortOddEven_XML"/>
-		public static void SortOddEven<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortOddEven<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortOddEven<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -5161,6 +5059,10 @@ namespace Towel
 				}
 			}
 		}
+
+		/// <inheritdoc cref="SortOddEven_XML"/>
+		public static void SortOddEven<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortOddEven<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T, Compare>(Span<T> span, Compare compare = default)
@@ -5284,14 +5186,6 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Shuffle_XML"/>
-		public static void Shuffle<T>(T[] array, Random random = null) =>
-			Shuffle(array, 0, array.Length - 1, random);
-
-		/// <inheritdoc cref="Shuffle_XML"/>
-		public static void Shuffle<T>(T[] array, int start, int end, Random random = null) =>
-			Shuffle<T, GetIndexArray<T>, SetIndexArray<T>>(start, end, array, array, random);
-
-		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Random random = null) =>
 			Shuffle<T, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, get, set, random);
 
@@ -5345,24 +5239,6 @@ namespace Towel
 		internal static void SortBogo_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T>(T[] array, Func<T, T, CompareResult> compare = null, Random random = null) =>
-			SortBogo(array, 0, array.Length - 1, compare, random);
-
-		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T, Compare>(T[] array, Compare compare = default, Random random = null)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortBogo(array, 0, array.Length - 1, compare, random);
-
-		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null, Random random = null) =>
-			SortBogo<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array, random);
-
-		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T, Compare>(T[] array, int start, int end, Compare compare = default, Random random = null)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortBogo<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array, random);
-
-		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null, Random random = null) =>
 			SortBogo<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set, random);
 
@@ -5396,6 +5272,10 @@ namespace Towel
 				return true;
 			}
 		}
+
+		/// <inheritdoc cref="SortBogo_XML"/>
+		public static void SortBogo<T>(Span<T> span, Func<T, T, CompareResult> compare = null, Random random = null) =>
+			SortBogo<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare, random ?? new Random());
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare>(Span<T> span, Compare compare = default, Random random = null)
@@ -5434,24 +5314,6 @@ namespace Towel
 		internal static void SortSlow_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortSlow_XML"/>
-		public static void SortSlow<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortSlow(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortSlow_XML"/>
-		public static void SortSlow<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortSlow(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortSlow_XML"/>
-		public static void SortSlow<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortSlow<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortSlow_XML"/>
-		public static void SortSlow<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortSlow<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortSlow<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -5481,6 +5343,10 @@ namespace Towel
 				SortSlowRecursive(i, j - 1);
 			}
 		}
+
+		/// <inheritdoc cref="SortSlow_XML"/>
+		public static void SortSlow<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortSlow<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T, Compare>(Span<T> span, Compare compare = default)
@@ -5514,24 +5380,6 @@ namespace Towel
 		internal static void SortGnome_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortGnome_XML"/>
-		public static void SortGnome<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortGnome(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortGnome_XML"/>
-		public static void SortGnome<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortGnome(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortGnome_XML"/>
-		public static void SortGnome<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortGnome<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortGnome_XML"/>
-		public static void SortGnome<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortGnome<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortGnome<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -5560,6 +5408,10 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortGnome_XML"/>
+		public static void SortGnome<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortGnome<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T, Compare>(Span<T> span, Compare compare = default)
 			where Compare : struct, IFunc<T, T, CompareResult>
 		{
@@ -5586,24 +5438,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortComb_XML() => throw new DocumentationMethodException();
-
-		/// <inheritdoc cref="SortComb_XML"/>
-		public static void SortComb<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortComb(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortComb_XML"/>
-		public static void SortComb<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortComb(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortComb_XML"/>
-		public static void SortComb<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortComb<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortComb_XML"/>
-		public static void SortComb<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortComb<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
@@ -5638,6 +5472,10 @@ namespace Towel
 				}
 			}
 		}
+
+		/// <inheritdoc cref="SortComb_XML"/>
+		public static void SortComb<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortComb<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T, Compare>(Span<T> span, Compare compare = default)
@@ -5675,24 +5513,6 @@ namespace Towel
 		internal static void SortShell_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortShell_XML"/>
-		public static void SortShell<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortShell(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortShell_XML"/>
-		public static void SortShell<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortShell(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortShell_XML"/>
-		public static void SortShell<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortShell<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortShell_XML"/>
-		public static void SortShell<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortShell<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
-
-		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
 			SortShell<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
@@ -5717,6 +5537,10 @@ namespace Towel
 				}
 			}
 		}
+
+		/// <inheritdoc cref="SortShell_XML"/>
+		public static void SortShell<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortShell<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T, Compare>(Span<T> span, Compare compare = default)
@@ -5746,24 +5570,6 @@ namespace Towel
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortCocktail_XML() => throw new DocumentationMethodException();
-
-		/// <inheritdoc cref="SortCocktail_XML"/>
-		public static void SortCocktail<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
-			SortCocktail(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortCocktail_XML"/>
-		public static void SortCocktail<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortCocktail(array, 0, array.Length - 1, compare);
-
-		/// <inheritdoc cref="SortCocktail_XML"/>
-		public static void SortCocktail<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortCocktail<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
-
-		/// <inheritdoc cref="SortCocktail_XML"/>
-		public static void SortCocktail<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortCocktail<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
@@ -5809,6 +5615,10 @@ namespace Towel
 				}
 			}
 		}
+
+		/// <inheritdoc cref="SortCocktail_XML"/>
+		public static void SortCocktail<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+			SortCocktail<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T, Compare>(Span<T> span, Compare compare = default)

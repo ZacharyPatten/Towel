@@ -34,7 +34,7 @@ namespace Towel_Testing
 				Random random = new Random(randomSeed);
 				int[] array = new int[sizeAdjusted];
 				Extensions.Iterate(sizeAdjusted, i => array[i] = i);
-				Shuffle(array, random);
+				Shuffle<int>(array, random);
 				Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
 				algorithm(array, Compare);
 				Assert.IsTrue(IsLeastToGreatest(array), "Sorting algorithm failed.");
@@ -61,37 +61,62 @@ namespace Towel_Testing
 			Random random = new Random(randomSeed);
 			int[] array = new int[size];
 			Extensions.Iterate(size, i => array[i] = i);
-			Shuffle(array, random);
+			Shuffle<int>(array, random);
 			Assert.IsFalse(IsLeastToGreatest(array));
 		}
 
-		[TestMethod] public void Bubble_Testing() => TestAlgorithm(SortBubble, SortBubble);
+		[TestMethod] public void Bubble_Testing() => TestAlgorithm(
+			(array, compare) => SortBubble<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortBubble<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Insertion_Testing() => TestAlgorithm(SortInsertion, SortInsertion);
+		[TestMethod] public void Insertion_Testing() => TestAlgorithm(
+			(array, compare) => SortInsertion<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortInsertion<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Selection_Testing() => TestAlgorithm(SortSelection, SortSelection);
+		[TestMethod] public void Selection_Testing() => TestAlgorithm(
+			(array, compare) => SortSelection<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortSelection<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Merge_Testing() => TestAlgorithm(SortMerge, SortMerge);
+		[TestMethod] public void Merge_Testing() => TestAlgorithm(
+			(array, compare) => SortMerge<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortMerge<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Quick_Testing() => TestAlgorithm(SortQuick, SortQuick);
+		[TestMethod] public void Quick_Testing() => TestAlgorithm(
+			(array, compare) => SortQuick<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortQuick<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Heap_Testing() => TestAlgorithm(SortHeap, SortHeap);
+		[TestMethod] public void Heap_Testing() => TestAlgorithm(
+			(array, compare) => SortHeap<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortHeap<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void OddEven_Testing() => TestAlgorithm(SortOddEven, SortOddEven);
+		[TestMethod] public void OddEven_Testing() => TestAlgorithm(
+			(array, compare) => SortOddEven<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortOddEven<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Slow_Testing() => TestAlgorithm(SortSlow, SortSlow, 10);
+		[TestMethod] public void Slow_Testing() => TestAlgorithm(
+			(array, compare) => SortSlow<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortSlow<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
+			10);
 
-		[TestMethod] public void Gnome_Testing() => TestAlgorithm(SortGnome, SortGnome);
+		[TestMethod] public void Gnome_Testing() => TestAlgorithm(
+			(array, compare) => SortGnome<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortGnome<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Comb_Testing() => TestAlgorithm(SortComb, SortComb);
+		[TestMethod] public void Comb_Testing() => TestAlgorithm(
+			(array, compare) => SortComb<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortComb<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Shell_Testing() => TestAlgorithm(SortShell, SortShell);
+		[TestMethod] public void Shell_Testing() => TestAlgorithm(
+			(array, compare) => SortShell<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortShell<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
-		[TestMethod] public void Cocktail_Testing() => TestAlgorithm(SortCocktail, SortCocktail);
+		[TestMethod] public void Cocktail_Testing() => TestAlgorithm(
+			(array, compare) => SortCocktail<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortCocktail<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod] public void Bogo_Testing() => TestAlgorithm(
 			(array, compare) => SortBogo(array, compare),
-			(array, start, end, compare) => SortBogo(array, start, end, compare),
+			(array, start, end, compare) => SortBogo<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
 			6);
 
 

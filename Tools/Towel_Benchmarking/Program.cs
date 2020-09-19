@@ -34,6 +34,7 @@ namespace Towel_Benchmarking
 			typeof(Permute_Benchmarks),
 			//typeof(MapVsDictionary_Add),
 			//typeof(MapVsDictionary_LookUp),
+			//typeof(SpanVsArraySorting),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>

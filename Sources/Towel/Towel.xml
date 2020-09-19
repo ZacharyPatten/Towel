@@ -31563,6 +31563,9 @@
             <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
             </returns>
         </member>
+        <member name="M:Towel.Statics.SearchBinary``1(System.Int32,System.Func{System.Int32,``0},System.Func{``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
+        </member>
         <member name="M:Towel.Statics.SearchBinary``3(System.Int32,System.Int32,``1,``2)">
             <inheritdoc cref="M:Towel.Statics.SearchBinary_XML"/>
         </member>
@@ -31753,22 +31756,13 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortBubble``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortBubble``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortBubble``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortBubble``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortBubble``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
         <member name="M:Towel.Statics.SortBubble``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortBubble``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortBubble_XML"/>
         </member>
         <member name="M:Towel.Statics.SortBubble``2(System.Span{``0},``1)">
@@ -31781,22 +31775,13 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortSelection``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortSelection``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortSelection``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortSelection``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortSelection``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
         <member name="M:Towel.Statics.SortSelection``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortSelection``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortSelection_XML"/>
         </member>
         <member name="M:Towel.Statics.SortSelection``2(System.Span{``0},``1)">
@@ -31809,22 +31794,13 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortInsertion``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortInsertion``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortInsertion``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortInsertion``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortInsertion``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
         <member name="M:Towel.Statics.SortInsertion``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortInsertion``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortInsertion_XML"/>
         </member>
         <member name="M:Towel.Statics.SortInsertion``2(System.Span{``0},``1)">
@@ -31837,22 +31813,13 @@
             <memory>ln(n)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortQuick``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortQuick``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortQuick``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortQuick``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortQuick``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
         <member name="M:Towel.Statics.SortQuick``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortQuick``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortQuick_XML"/>
         </member>
         <member name="M:Towel.Statics.SortQuick``2(System.Span{``0},``1)">
@@ -31865,22 +31832,13 @@
             <memory>Θ(n)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortMerge``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortMerge``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortMerge``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortMerge``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortMerge``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
         <member name="M:Towel.Statics.SortMerge``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortMerge``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortMerge_XML"/>
         </member>
         <member name="M:Towel.Statics.SortMerge``2(System.Span{``0},``1)">
@@ -31893,22 +31851,13 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortHeap``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortHeap``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortHeap``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortHeap``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortHeap``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
         <member name="M:Towel.Statics.SortHeap``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortHeap``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortHeap_XML"/>
         </member>
         <member name="M:Towel.Statics.SortHeap``2(System.Span{``0},``1)">
@@ -31921,22 +31870,13 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortOddEven``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortOddEven``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortOddEven``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortOddEven``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortOddEven``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
         <member name="M:Towel.Statics.SortOddEven``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortOddEven``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortOddEven_XML"/>
         </member>
         <member name="M:Towel.Statics.SortOddEven``2(System.Span{``0},``1)">
@@ -31955,12 +31895,6 @@
             <param name="array">The array to shuffle.</param>
             <runtime>O(n)</runtime>
             <memory>O(1)</memory>
-        </member>
-        <member name="M:Towel.Statics.Shuffle``1(``0[],System.Random)">
-            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
-        </member>
-        <member name="M:Towel.Statics.Shuffle``1(``0[],System.Int32,System.Int32,System.Random)">
-            <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
         </member>
         <member name="M:Towel.Statics.Shuffle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Random)">
             <inheritdoc cref="M:Towel.Statics.Shuffle_XML"/>
@@ -31984,18 +31918,6 @@
             <memory>O(1)</memory>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortBogo``1(``0[],System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortBogo``2(``0[],``1,System.Random)">
-            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortBogo``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult},System.Random)">
-            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortBogo``2(``0[],System.Int32,System.Int32,``1,System.Random)">
-            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortBogo``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
             <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
@@ -32003,6 +31925,9 @@
             <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
         <member name="M:Towel.Statics.SortBogo``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+            <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortBogo``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult},System.Random)">
             <inheritdoc cref="M:Towel.Statics.SortBogo_XML"/>
         </member>
         <member name="M:Towel.Statics.SortBogo``2(System.Span{``0},``1,System.Random)">
@@ -32015,22 +31940,13 @@
             <summary>Sorts values using the slow sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortSlow``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortSlow``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortSlow``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortSlow``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortSlow``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
         <member name="M:Towel.Statics.SortSlow``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortSlow``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortSlow_XML"/>
         </member>
         <member name="M:Towel.Statics.SortSlow``2(System.Span{``0},``1)">
@@ -32040,22 +31956,13 @@
             <summary>Sorts values using the gnome sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortGnome``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortGnome``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortGnome``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortGnome``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortGnome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
         <member name="M:Towel.Statics.SortGnome``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortGnome``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortGnome_XML"/>
         </member>
         <member name="M:Towel.Statics.SortGnome``2(System.Span{``0},``1)">
@@ -32065,22 +31972,13 @@
             <summary>Sorts values using the comb sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortComb``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortComb``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortComb``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortComb``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortComb``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
         <member name="M:Towel.Statics.SortComb``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortComb``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortComb_XML"/>
         </member>
         <member name="M:Towel.Statics.SortComb``2(System.Span{``0},``1)">
@@ -32090,22 +31988,13 @@
             <summary>Sorts values using the shell sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortShell``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortShell``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortShell``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortShell``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortShell``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
         <member name="M:Towel.Statics.SortShell``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortShell``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
         <member name="M:Towel.Statics.SortShell``2(System.Span{``0},``1)">
@@ -32115,22 +32004,13 @@
             <summary>Sorts values using the shell sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
-        <member name="M:Towel.Statics.SortCocktail``1(``0[],System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortCocktail``2(``0[],``1)">
-            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortCocktail``1(``0[],System.Int32,System.Int32,System.Func{``0,``0,Towel.CompareResult})">
-            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
-        </member>
-        <member name="M:Towel.Statics.SortCocktail``2(``0[],System.Int32,System.Int32,``1)">
-            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
-        </member>
         <member name="M:Towel.Statics.SortCocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
         <member name="M:Towel.Statics.SortCocktail``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortCocktail``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
             <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
         </member>
         <member name="M:Towel.Statics.SortCocktail``2(System.Span{``0},``1)">

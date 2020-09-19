@@ -1075,7 +1075,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
         public static bool Equal(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Statics.EqualTo);
+            return LogicBase(a, b, Statics.Equate);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
@@ -1105,7 +1105,7 @@ string bIndexString = null;
         /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
         public static bool NotEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
         {
-            return LogicBase(a, b, Statics.InequalTo);
+            return LogicBase(a, b, Statics.Inequate);
         }
 
         /// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>

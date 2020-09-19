@@ -12,7 +12,7 @@ namespace Towel_Testing.DataStructures
 			where Queue : IQueue<T>, new()
 		{
 			{ // enqueue && dequeue
-				Shuffle(values);
+				Shuffle<T>(values);
 				IQueue<T> queue = new Queue();
 				values.Stepper(x => queue.Enqueue(x));
 				Assert.IsTrue(queue.Count == values.Length);
