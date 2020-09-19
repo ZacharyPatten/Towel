@@ -31476,70 +31476,52 @@
             <summary>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</summary>
             <inheritdoc cref="M:Towel.Statics.PermuteXML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+        <member name="M:Towel.Statics.PermuteRecursive``1(System.Int32,System.Int32,System.Action,System.Func{System.Int32,``0},System.Action{System.Int32,``0})">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``3(System.Span{``0},``1,``2)">
+        <member name="M:Towel.Statics.PermuteRecursive``1(System.Int32,System.Int32,System.Action,System.Func{Towel.StepStatus},System.Func{System.Int32,``0},System.Action{System.Int32,``0})">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
         <member name="M:Towel.Statics.PermuteRecursive``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``2(``0[],``1)">
+        <member name="M:Towel.Statics.PermuteRecursive``5(System.Int32,System.Int32,``1,``2,``3,``4)">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``1(``0[],System.Action)">
+        <member name="M:Towel.Statics.PermuteRecursive``1(System.Span{``0},System.Action)">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``2(Towel.DataStructures.ListArray{``0},``1)">
+        <member name="M:Towel.Statics.PermuteRecursive``2(System.Span{``0},``1)">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action)">
+        <member name="M:Towel.Statics.PermuteRecursive``2(System.Span{``0},System.Action,``1)">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``3(``0[],``1,``2)">
+        <member name="M:Towel.Statics.PermuteRecursive``3(System.Span{``0},``1,``2)">
             <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteRecursive``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Statics.PermuteRecursive``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Statics.PermuteRecursive``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Statics.PermuteRecursive_XML"/>
-        </member>
-        <member name="M:Towel.Statics.PermuteIterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
+        <member name="M:Towel.Statics.PermuteIterative``1(System.Int32,System.Int32,System.Action,System.Func{System.Int32,``0},System.Action{System.Int32,``0})">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteIterative``3(System.Span{``0},``1,``2)">
+        <member name="M:Towel.Statics.PermuteIterative``1(System.Int32,System.Int32,System.Action,System.Func{Towel.StepStatus},System.Func{System.Int32,``0},System.Action{System.Int32,``0})">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
         <member name="M:Towel.Statics.PermuteIterative``4(System.Int32,System.Int32,``1,``2,``3)">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteIterative``2(``0[],``1)">
+        <member name="M:Towel.Statics.PermuteIterative``5(System.Int32,System.Int32,``1,``2,``3,``4)">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteIterative``1(``0[],System.Action)">
+        <member name="M:Towel.Statics.PermuteIterative``1(System.Span{``0},System.Action)">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteIterative``2(Towel.DataStructures.ListArray{``0},``1)">
+        <member name="M:Towel.Statics.PermuteIterative``2(System.Span{``0},``1)">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action)">
+        <member name="M:Towel.Statics.PermuteIterative``2(System.Span{``0},System.Action,``1)">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
-        <member name="M:Towel.Statics.PermuteIterative``3(``0[],``1,``2)">
-            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Statics.PermuteIterative``1(``0[],System.Action,System.Func{Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Statics.PermuteIterative``3(Towel.DataStructures.ListArray{``0},``1,``2)">
-            <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
-        </member>
-        <member name="M:Towel.Statics.PermuteIterative``1(Towel.DataStructures.ListArray{``0},System.Action,System.Func{Towel.StepStatus})">
+        <member name="M:Towel.Statics.PermuteIterative``3(System.Span{``0},``1,``2)">
             <inheritdoc cref="M:Towel.Statics.PermuteIterative_XML"/>
         </member>
         <member name="M:Towel.Statics.SearchBinary_XML">

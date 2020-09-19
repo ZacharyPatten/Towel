@@ -19,7 +19,7 @@ namespace Towel_Benchmarking
 				array[i] = i;
 		}
 
-		[Benchmark] public void Recursive() => PermuteRecursive(array, () => { });
-		[Benchmark] public void Iterative() => PermuteIterative(array, () => { });
+		[Benchmark] public void Recursive() => PermuteRecursive<int>(array, () => { });
+		[Benchmark] public void Iterative() => PermuteIterative<int>(array, () => { });
 	}
 }
