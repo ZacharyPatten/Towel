@@ -872,6 +872,31 @@ ConsoleHelper.IntMenu(...);
 ConsoleHelper.FlushInputBuffer();
 ```
 
+## Value-Based Attributes
+
+```cs
+// With ValueAttribute's you can make value-based attributes so
+// you don't always have to make your own custom attribute types.
+// Just use a constant value.
+
+using System;
+using Towel;
+
+static class Program
+{
+	static void Main()
+	{
+		var (Found, Value) = typeof(MyClass).GetValueAttribute("MyCustomAttribute");
+		Console.WriteLine("MyCustomAttribute...");
+		Console.WriteLine("Found: " + Found);
+		Console.WriteLine("Value: " + Value);
+	}
+}
+
+[Value("MyCustomAttribute", "hello world")]
+public class MyClass { }
+```
+
 ## Developer(s)
 
 > <a href="https://github.com/ZacharyPatten" alt="Zachary Patten"><img src="https://img.shields.io/badge/Zachary-Patten-gray?style=flat-square&logo=github" title="Go To Profile" alt="Zachary Patten"/></a></br>
