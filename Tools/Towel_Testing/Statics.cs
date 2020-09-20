@@ -9,7 +9,7 @@ using System.Runtime.CompilerServices;
 
 namespace Towel_Testing
 {
-	[TestClass] public class Syntax_Testing
+	[TestClass] public class Statics_Testing
 	{
 		#region source...
 
@@ -1536,6 +1536,472 @@ namespace Towel_Testing
 				FactorPrimes_Test<decimal>(15, /* factors: */ 3, 5);
 				FactorPrimes_Test<decimal>(21, /* factors: */ 7, 3);
 			}
+		}
+
+		#endregion
+
+		#region SearchBinary_Testing
+
+		[TestMethod] public void SearchBinary_Test()
+		{
+			{ // [even] collection size [found]
+				int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
+				for (int i = 0; i < values.Length; i++)
+				{
+					var result = SearchBinary(values, i);
+					Assert.IsTrue(result.Found);
+					Assert.IsTrue(result.Index == i);
+					Assert.IsTrue(result.Value == i);
+				}
+			}
+			{ // [odd] collection size [found]
+				int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8, };
+				for (int i = 0; i < values.Length; i++)
+				{
+					var result = SearchBinary(values, i);
+					Assert.IsTrue(result.Found);
+					Assert.IsTrue(result.Index == i);
+					Assert.IsTrue(result.Value == i);
+				}
+			}
+			{ // [even] collection size [not found]
+				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, 9, };
+				for (int i = 0, j = -10; j <= 10; i++, j += 2)
+				{
+					var result = SearchBinary(values, j);
+					Assert.IsTrue(!result.Found);
+					Assert.IsTrue(result.Index == i - 1);
+					Assert.IsTrue(result.Value == default);
+				}
+			}
+			{ // [odd] collection size [not found]
+				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, };
+				for (int i = 0, j = -10; j <= 8; i++, j += 2)
+				{
+					var result = SearchBinary(values, j);
+					Assert.IsTrue(!result.Found);
+					Assert.IsTrue(result.Index == i - 1);
+					Assert.IsTrue(result.Value == default);
+				}
+			}
+			{ // exception: invalid compare function
+				int[] values = { -9, -7, -5, -3, -1, 1, 3, 5, 7, };
+				Assert.ThrowsException<ArgumentException>(() => SearchBinary<int>(values, a => (CompareResult)int.MinValue));
+			}
+			{ // exception: null argument
+				int[] values = null;
+				Assert.ThrowsException<ArgumentException>(() => SearchBinary(values, 7));
+			}
+		}
+
+		#endregion
+
+		#region Sort
+
+		public const int SortSize = 10;
+		public const int SortRandomSeed = 7;
+
+		public static bool IsLeastToGreatest<T>(T[] array)
+		{
+			for (int i = 0; i < array.Length - 1; i++)
+			{
+				if (Compare(array[i], array[i + 1]) is Greater)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public static int[] watchArray;
+
+		public static void TestAlgorithm(
+			Action<int[], Func<int, int, CompareResult>> algorithm,
+			Action<int[], int, int, Func<int, int, CompareResult>> algorithmPartial,
+			int? sizeOverride = null)
+		{
+			void Test(int sizeAdjusted)
+			{
+				Random random = new Random(SortRandomSeed);
+				int[] array = new int[sizeAdjusted];
+				Extensions.Iterate(sizeAdjusted, i => array[i] = i);
+				Shuffle<int>(array, random);
+				Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
+				algorithm(array, Compare);
+				Assert.IsTrue(IsLeastToGreatest(array), "Sorting algorithm failed.");
+			}
+
+			Test(sizeOverride ?? SortSize); // Even Data Set
+			Test((sizeOverride ?? SortSize) + 1); // Odd Data Set
+			if (sizeOverride is null) Test(1000); // Large(er) Data Set
+
+			{ // Partial Array Sort
+				int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+				watchArray = array;
+				algorithmPartial(array, 3, 7, Compare);
+				int[] expected = { 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0 };
+				for (int i = 0; i < SortSize; i++)
+				{
+					Assert.IsTrue(array[i] == expected[i]);
+				}
+			}
+		}
+
+		[TestMethod]
+		public void Shuffle_Testing()
+		{
+			Random random = new Random(SortRandomSeed);
+			int[] array = new int[SortSize];
+			Extensions.Iterate(SortSize, i => array[i] = i);
+			Shuffle<int>(array, random);
+			Assert.IsFalse(IsLeastToGreatest(array));
+		}
+
+		[TestMethod]
+		public void Bubble_Testing() => TestAlgorithm(
+			(array, compare) => SortBubble<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortBubble<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Insertion_Testing() => TestAlgorithm(
+			(array, compare) => SortInsertion<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortInsertion<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Selection_Testing() => TestAlgorithm(
+			(array, compare) => SortSelection<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortSelection<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Merge_Testing() => TestAlgorithm(
+			(array, compare) => SortMerge<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortMerge<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Quick_Testing() => TestAlgorithm(
+			(array, compare) => SortQuick<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortQuick<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Heap_Testing() => TestAlgorithm(
+			(array, compare) => SortHeap<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortHeap<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void OddEven_Testing() => TestAlgorithm(
+			(array, compare) => SortOddEven<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortOddEven<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Slow_Testing() => TestAlgorithm(
+			(array, compare) => SortSlow<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortSlow<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
+			10);
+
+		[TestMethod]
+		public void Gnome_Testing() => TestAlgorithm(
+			(array, compare) => SortGnome<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortGnome<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Comb_Testing() => TestAlgorithm(
+			(array, compare) => SortComb<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortComb<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Shell_Testing() => TestAlgorithm(
+			(array, compare) => SortShell<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortShell<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Cocktail_Testing() => TestAlgorithm(
+			(array, compare) => SortCocktail<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortCocktail<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Bogo_Testing() => TestAlgorithm(
+			(array, compare) => SortBogo(array, compare),
+			(array, start, end, compare) => SortBogo<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
+			6);
+
+
+		[TestMethod]
+		public void BubbleSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortBubble<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void InsertionSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortInsertion<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void SelectionSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortInsertion<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void MergeSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortMerge<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void QuickSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortQuick<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void HeapSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortHeap<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void OddEvenSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortOddEven<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void SlowSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortSlow<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void GnomeSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortGnome<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void CombSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortComb<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void ShellSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortShell<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void CocktailSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortCocktail<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		[TestMethod]
+		public void BogoSpan_Test()
+		{
+			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
+			SortBogo<int, CompareInt>(span);
+			for (int i = 1; i < span.Length; i++)
+			{
+				Assert.IsTrue(span[i - 1] <= span[i]);
+			}
+		}
+
+		#endregion
+
+		#region IsPalindrome
+
+		[TestMethod] public void IsPalindrome_Span_Testing()
+		{
+			// char----------------
+
+			// odd
+			Assert.IsTrue(IsPalindrome("a"));
+			Assert.IsTrue(IsPalindrome("aaa"));
+			Assert.IsTrue(IsPalindrome("bab"));
+			Assert.IsTrue(IsPalindrome("ababa"));
+			Assert.IsTrue(IsPalindrome("cbabc"));
+			// even
+			Assert.IsTrue(IsPalindrome("aa"));
+			Assert.IsTrue(IsPalindrome("aabbaa"));
+			Assert.IsTrue(IsPalindrome("aabbccbbaa"));
+			// false
+			Assert.IsFalse(IsPalindrome("ab"));
+			Assert.IsFalse(IsPalindrome("abc"));
+			Assert.IsFalse(IsPalindrome("abaa"));
+			Assert.IsFalse(IsPalindrome("aaba"));
+			Assert.IsFalse(IsPalindrome("baaa"));
+			Assert.IsFalse(IsPalindrome("aaab"));
+
+			// non-char------------
+
+			// odd
+			Assert.IsTrue(IsPalindrome<int>(new[] { 1 }));
+			Assert.IsTrue(IsPalindrome<int>(new[] { 1, 1, 1 }));
+			Assert.IsTrue(IsPalindrome<int>(new[] { 2, 1, 2 }));
+			Assert.IsTrue(IsPalindrome<int>(new[] { 1, 2, 1, 2, 1 }));
+			Assert.IsTrue(IsPalindrome<int>(new[] { 3, 2, 1, 2, 3 }));
+			// even
+			Assert.IsTrue(IsPalindrome<int>(new[] { 1, 1 }));
+			Assert.IsTrue(IsPalindrome<int>(new[] { 1, 1, 2, 2, 1, 1, }));
+			Assert.IsTrue(IsPalindrome<int>(new[] { 1, 1, 2, 2, 3, 3, 2, 2, 1, 1, }));
+			// false
+			Assert.IsFalse(IsPalindrome<int>(new[] { 1, 2 }));
+			Assert.IsFalse(IsPalindrome<int>(new[] { 1, 2, 3 }));
+			Assert.IsFalse(IsPalindrome<int>(new[] { 1, 2, 1, 1 }));
+			Assert.IsFalse(IsPalindrome<int>(new[] { 1, 1, 2, 1 }));
+			Assert.IsFalse(IsPalindrome<int>(new[] { 2, 1, 1, 1 }));
+			Assert.IsFalse(IsPalindrome<int>(new[] { 1, 1, 1, 2 }));
+		}
+
+		[TestMethod] public void IsPalindrome_NonSpan_Testing()
+		{
+			// char-----------------
+
+			// odd
+			string a = "a";
+			Assert.IsTrue(IsPalindrome(0, a.Length - 1, i => a[i]));
+			string aaa = "aaa";
+			Assert.IsTrue(IsPalindrome(0, aaa.Length - 1, i => aaa[i]));
+			string bab = "bab";
+			Assert.IsTrue(IsPalindrome(0, bab.Length - 1, i => bab[i]));
+			string ababa = "ababa";
+			Assert.IsTrue(IsPalindrome(0, ababa.Length - 1, i => ababa[i]));
+			string cbabc = "cbabc";
+			Assert.IsTrue(IsPalindrome(0, cbabc.Length - 1, i => cbabc[i]));
+			// even
+			string aa = "aa";
+			Assert.IsTrue(IsPalindrome(0, aa.Length - 1, i => aa[i]));
+			string aabbaa = "aabbaa";
+			Assert.IsTrue(IsPalindrome(0, aabbaa.Length - 1, i => aabbaa[i]));
+			string aabbccbbaa = "aabbccbbaa";
+			Assert.IsTrue(IsPalindrome(0, aabbccbbaa.Length - 1, i => aabbccbbaa[i]));
+			// false
+			string ab = "ab";
+			Assert.IsFalse(IsPalindrome(0, ab.Length - 1, i => ab[i]));
+			string abc = "abc";
+			Assert.IsFalse(IsPalindrome(0, abc.Length - 1, i => abc[i]));
+			string abaa = "abaa";
+			Assert.IsFalse(IsPalindrome(0, abaa.Length - 1, i => abaa[i]));
+			string aaba = "aaba";
+			Assert.IsFalse(IsPalindrome(0, aaba.Length - 1, i => aaba[i]));
+			string baaa = "baaa";
+			Assert.IsFalse(IsPalindrome(0, baaa.Length - 1, i => baaa[i]));
+			string aaab = "aaab";
+			Assert.IsFalse(IsPalindrome(0, aaab.Length - 1, i => aaab[i]));
+			// partials
+			string bbb = "bbb";
+			Assert.IsTrue(IsPalindrome(1, bbb.Length - 2, i => bbb[i]));
+			string babab = "babab";
+			Assert.IsTrue(IsPalindrome(1, babab.Length - 2, i => babab[i]));
+			string babb = "babb";
+			Assert.IsFalse(IsPalindrome(1, babb.Length - 2, i => babb[i]));
+			string babbb = "babbb";
+			Assert.IsFalse(IsPalindrome(1, babbb.Length - 2, i => babbb[i]));
+
+			// non char-------------
+
+			// odd
+			int[] _1 = { 1 };
+			Assert.IsTrue(IsPalindrome(0, _1.Length - 1, i => _1[i]));
+			int[] _1_1_1 = { 1, 1, 1 };
+			Assert.IsTrue(IsPalindrome(0, _1_1_1.Length - 1, i => _1_1_1[i]));
+			int[] _2_1_2 = { 2, 1, 2 };
+			Assert.IsTrue(IsPalindrome(0, _2_1_2.Length - 1, i => _2_1_2[i]));
+			int[] _1_2_1_2_1 = { 1, 2, 1, 2, 1 };
+			Assert.IsTrue(IsPalindrome(0, _1_2_1_2_1.Length - 1, i => _1_2_1_2_1[i]));
+			int[] _3_2_1_2_3 = { 3, 2, 1, 2, 3 };
+			Assert.IsTrue(IsPalindrome(0, _3_2_1_2_3.Length - 1, i => _3_2_1_2_3[i]));
+			// even
+			int[] _1_1 = { 1, 1 };
+			Assert.IsTrue(IsPalindrome(0, _1_1.Length - 1, i => _1_1[i]));
+			int[] _1_1_2_2_1_1 = { 1, 1, 2, 2, 1, 1 };
+			Assert.IsTrue(IsPalindrome(0, _1_1_2_2_1_1.Length - 1, i => _1_1_2_2_1_1[i]));
+			int[] _1_1_2_2_3_3_2_2_1_1 = { 1, 1, 2, 2, 3, 3, 2, 2, 1, 1 };
+			Assert.IsTrue(IsPalindrome(0, _1_1_2_2_3_3_2_2_1_1.Length - 1, i => _1_1_2_2_3_3_2_2_1_1[i]));
+			// false
+			int[] _1_2 = { 1, 2 };
+			Assert.IsFalse(IsPalindrome(0, _1_2.Length - 1, i => _1_2[i]));
+			int[] _1_2_3 = { 1, 2, 3 };
+			Assert.IsFalse(IsPalindrome(0, _1_2_3.Length - 1, i => _1_2_3[i]));
+			int[] _1_2_1_1 = { 1, 2, 1, 1 };
+			Assert.IsFalse(IsPalindrome(0, _1_2_1_1.Length - 1, i => _1_2_1_1[i]));
+			int[] _1_1_2_1 = { 1, 1, 2, 1 };
+			Assert.IsFalse(IsPalindrome(0, _1_1_2_1.Length - 1, i => _1_1_2_1[i]));
+			int[] _2_1_1_1 = { 2, 1, 1, 1 };
+			Assert.IsFalse(IsPalindrome(0, _2_1_1_1.Length - 1, i => _2_1_1_1[i]));
+			int[] _1_1_1_2 = { 1, 1, 1, 2 };
+			Assert.IsFalse(IsPalindrome(0, _1_1_1_2.Length - 1, i => _1_1_1_2[i]));
+			// partials
+			int[] _2_2_2 = { 2, 2, 2 };
+			Assert.IsTrue(IsPalindrome(1, _2_2_2.Length - 2, i => _2_2_2[i]));
+			int[] _2_1_2_1_2 = { 2, 1, 2, 1, 2 };
+			Assert.IsTrue(IsPalindrome(1, _2_1_2_1_2.Length - 2, i => _2_1_2_1_2[i]));
+			int[] _2_1_2_2 = { 2, 1, 2, 2 };
+			Assert.IsFalse(IsPalindrome(1, _2_1_2_2.Length - 2, i => _2_1_2_2[i]));
+			int[] _2_1_2_2_2 = { 2, 1, 2, 2, 2 };
+			Assert.IsFalse(IsPalindrome(1, _2_1_2_2_2.Length - 2, i => _2_1_2_2_2[i]));
 		}
 
 		#endregion

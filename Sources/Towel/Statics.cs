@@ -5781,5 +5781,90 @@ namespace Towel
 		}
 
 		#endregion
+
+		#region IsPalindrome
+
+		/// <summary>Determines if a sequence is a palindrome.</summary>
+		/// <typeparam name="T">The element type of the sequence.</typeparam>
+		/// <param name="start">The inclusive starting index of the palindrome check.</param>
+		/// <param name="end">The inclusive ending index of the palindrome check.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <param name="get">The get index function of the sequence.</param>
+		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		public static bool IsPalindrome<T>(int start, int end, Func<int, T> get, Func<T, T, bool> equate = default) =>
+			IsPalindrome<T, FuncRuntime<int, T> , FuncRuntime<T, T, bool>>(start, end, get, equate ?? Equate);
+
+		/// <summary>Determines if a sequence is a palindrome.</summary>
+		/// <typeparam name="T">The element type of the sequence.</typeparam>
+		/// <typeparam name="Get">The get index function of the sequence.</typeparam>
+		/// <param name="start">The inclusive starting index of the palindrome check.</param>
+		/// <param name="end">The inclusive ending index of the palindrome check.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <param name="get">The get index function of the sequence.</param>
+		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		public static bool IsPalindrome<T, Get>(int start, int end, Get get = default, Func<T, T, bool> equate = default)
+			where Get : struct, IFunc<int, T> =>
+			IsPalindrome<T, Get, FuncRuntime<T, T, bool>>(start, end, get, equate ?? Equate);
+
+		/// <summary>Determines if a sequence is a palindrome.</summary>
+		/// <typeparam name="T">The element type of the sequence.</typeparam>
+		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="Get">The get index function of the sequence.</typeparam>
+		/// <param name="start">The inclusive starting index of the palindrome check.</param>
+		/// <param name="end">The inclusive ending index of the palindrome check.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <param name="get">The get index function of the sequence.</param>
+		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		public static bool IsPalindrome<T, Get, Equate>(int start, int end, Get get = default, Equate equate = default)
+			where Get : struct, IFunc<int, T>
+			where Equate : struct, IFunc<T, T, bool>
+		{
+			int middle = (end - start) / 2 + start;
+			for (int i = start; i <= middle; i++)
+			{
+				if (!equate.Do(get.Do(i), get.Do(end - i + start)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/// <summary>Determines if a sequence is a palindrome.</summary>
+		/// <param name="span">The span to check.</param>
+		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		public static bool IsPalindrome(ReadOnlySpan<char> span) =>
+			IsPalindrome<char, EqualsChar>(span);
+
+		/// <summary>Determines if a sequence is a palindrome.</summary>
+		/// <typeparam name="T">The element type of the sequence.</typeparam>
+		/// <param name="span">The span to check.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		public static bool IsPalindrome<T>(ReadOnlySpan<T> span, Func<T, T, bool> equate = default) =>
+			IsPalindrome<T, FuncRuntime<T, T, bool>>(span, equate ?? Equate);
+
+		/// <summary>Determines if a sequence is a palindrome.</summary>
+		/// <typeparam name="T">The element type of the sequence.</typeparam>
+		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <param name="span">The span to check.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		public static bool IsPalindrome<T, Equate>(ReadOnlySpan<T> span, Equate equate = default)
+			where Equate : struct, IFunc<T, T, bool>
+		{
+			int middle = span.Length / 2;
+			for (int i = 0; i < middle; i++)
+			{
+				if(!equate.Do(span[i], span[^(i + 1)]))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		#endregion
+
 	}
 }

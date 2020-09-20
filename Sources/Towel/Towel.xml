@@ -32065,6 +32065,56 @@
             <param name="minValue">Inclusive endpoint of the random generation range.</param>
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
         </member>
+        <member name="M:Towel.Statics.IsPalindrome``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Func{``0,``0,System.Boolean})">
+            <summary>Determines if a sequence is a palindrome.</summary>
+            <typeparam name="T">The element type of the sequence.</typeparam>
+            <param name="start">The inclusive starting index of the palindrome check.</param>
+            <param name="end">The inclusive ending index of the palindrome check.</param>
+            <param name="equate">The element equate function.</param>
+            <param name="get">The get index function of the sequence.</param>
+            <returns>True if the sequence is a palindrome; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.IsPalindrome``2(System.Int32,System.Int32,``1,System.Func{``0,``0,System.Boolean})">
+            <summary>Determines if a sequence is a palindrome.</summary>
+            <typeparam name="T">The element type of the sequence.</typeparam>
+            <typeparam name="Get">The get index function of the sequence.</typeparam>
+            <param name="start">The inclusive starting index of the palindrome check.</param>
+            <param name="end">The inclusive ending index of the palindrome check.</param>
+            <param name="equate">The element equate function.</param>
+            <param name="get">The get index function of the sequence.</param>
+            <returns>True if the sequence is a palindrome; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.IsPalindrome``3(System.Int32,System.Int32,``1,``2)">
+            <summary>Determines if a sequence is a palindrome.</summary>
+            <typeparam name="T">The element type of the sequence.</typeparam>
+            <typeparam name="Equate">The element equate function.</typeparam>
+            <typeparam name="Get">The get index function of the sequence.</typeparam>
+            <param name="start">The inclusive starting index of the palindrome check.</param>
+            <param name="end">The inclusive ending index of the palindrome check.</param>
+            <param name="equate">The element equate function.</param>
+            <param name="get">The get index function of the sequence.</param>
+            <returns>True if the sequence is a palindrome; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.IsPalindrome(System.ReadOnlySpan{System.Char})">
+            <summary>Determines if a sequence is a palindrome.</summary>
+            <param name="span">The span to check.</param>
+            <returns>True if the sequence is a palindrome; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.IsPalindrome``1(System.ReadOnlySpan{``0},System.Func{``0,``0,System.Boolean})">
+            <summary>Determines if a sequence is a palindrome.</summary>
+            <typeparam name="T">The element type of the sequence.</typeparam>
+            <param name="span">The span to check.</param>
+            <param name="equate">The element equate function.</param>
+            <returns>True if the sequence is a palindrome; False if not.</returns>
+        </member>
+        <member name="M:Towel.Statics.IsPalindrome``2(System.ReadOnlySpan{``0},``1)">
+            <summary>Determines if a sequence is a palindrome.</summary>
+            <typeparam name="T">The element type of the sequence.</typeparam>
+            <typeparam name="Equate">The element equate function.</typeparam>
+            <param name="span">The span to check.</param>
+            <param name="equate">The element equate function.</param>
+            <returns>True if the sequence is a palindrome; False if not.</returns>
+        </member>
         <member name="T:Towel.StepStatus">
             <summary>Status of iteration.</summary>
         </member>
