@@ -13,6 +13,8 @@ namespace Towel_Testing
 		internal const string TestAttribute2 = nameof(TestAttribute2);
 		internal const string TestValue2 = nameof(TestValue2);
 
+		internal const string not_null = nameof(not_null);
+
 		internal const string TestAttributeFail = nameof(TestAttributeFail);
 
 		[TestMethod] public void Test()
@@ -99,6 +101,20 @@ namespace Towel_Testing
 			Assert.IsTrue(parmeterAttribute2.Found);
 			Assert.AreEqual(parmeterAttribute2.Value, TestValue2);
 
+			// Testing null -----------------------------------
+
+			var null_null = typeof(C).GetValueAttribute(null);
+			Assert.IsTrue(null_null.Found);
+			Assert.AreEqual(null_null.Value, null);
+
+			var not_null_null = typeof(D).GetValueAttribute(not_null);
+			Assert.IsTrue(not_null_null.Found);
+			Assert.AreEqual(not_null_null.Value, null);
+
+			var null_not_null = typeof(E).GetValueAttribute(null);
+			Assert.IsTrue(null_not_null.Found);
+			Assert.AreEqual(null_not_null.Value, not_null);
+
 			// Failure -----------------------------------
 
 			var typeAttributeFail = type.GetValueAttribute(TestAttributeFail);
@@ -168,5 +184,14 @@ namespace Towel_Testing
 		[Value(TestAttribute1, TestValue1)]
 		[Value(TestAttribute1, TestValue1)]
 		public class B { }
+
+		[Value(null, null)]
+		public class C { }
+
+		[Value(not_null, null)]
+		public class D { }
+
+		[Value(null, not_null)]
+		public class E { }
 	}
 }

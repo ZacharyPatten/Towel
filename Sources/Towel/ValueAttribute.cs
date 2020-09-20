@@ -38,7 +38,7 @@ namespace Towel
 			object value = default;
 			foreach (ValueAttribute valueAttribute in memberInfo.GetCustomAttributes<ValueAttribute>())
 			{
-				if (attribute.Equals(valueAttribute.Attribute))
+				if (ReferenceEquals(attribute, valueAttribute.Attribute) || attribute.Equals(valueAttribute.Attribute))
 				{
 					if (found)
 					{
@@ -66,7 +66,7 @@ namespace Towel
 			object value = default;
 			foreach (ValueAttribute valueAttribute in parameterInfo.GetCustomAttributes<ValueAttribute>())
 			{
-				if (attribute.Equals(valueAttribute.Attribute))
+				if (ReferenceEquals(attribute, valueAttribute.Attribute) || attribute.Equals(valueAttribute.Attribute))
 				{
 					if (found)
 					{
