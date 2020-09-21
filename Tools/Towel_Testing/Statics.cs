@@ -44,10 +44,12 @@ namespace Towel_Testing
 			#endif
 		}
 
+		#pragma warning disable IDE0060 // Remove unused parameter
 		public static void sourceofTest<T>(string result, T expression, [CallerArgumentExpression("expression")] string expected = default) =>
 			Assert.IsTrue(result == expected);
 		public static string sourceofTempTest<T>(T expression, [CallerArgumentExpression("expression")] string expected = default) =>
 			expected;
+		#pragma warning restore IDE0060 // Remove unused parameter
 
 		#pragma warning restore IDE1006 // Naming Styles
 

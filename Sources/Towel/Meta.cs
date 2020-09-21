@@ -17,6 +17,7 @@ namespace Towel
 
 		#region System.Type.GetMethod
 
+		#if false
 		/// <summary>Gets a method on a type by signature.</summary>
 		/// <typeparam name="Signature">
 		/// The signature of the method to get as a delegate type. Must match the 
@@ -74,6 +75,7 @@ namespace Towel
 			}
 			return null;
 		}
+		#endif
 
 		#endregion
 

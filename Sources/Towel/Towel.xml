@@ -29711,16 +29711,6 @@
         <member name="T:Towel.Meta">
             <summary>Constains static analysis methods of the code (reflection).</summary>
         </member>
-        <member name="M:Towel.Meta.GetMethod``1(System.Type)">
-            <summary>Gets a method on a type by signature.</summary>
-            <typeparam name="Signature">
-            The signature of the method to get as a delegate type. Must match the 
-            method in return type, parameter types, generic types, parameter names,
-            generic parameter names, and delegate/method name.
-            </typeparam>
-            <param name="declaringType">The declaring type of the method to get.</param>
-            <returns>The method info if found. null if not.</returns>
-        </member>
         <member name="M:Towel.Meta.GetTryParseMethod``1">
             <summary>Gets the TryParse <see cref="T:System.Reflection.MethodInfo"/> on a type if it exists [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
             <typeparam name="A">The type of the out parameter.</typeparam>
@@ -29995,9 +29985,6 @@
             <summary>Determines if a MethodInfo is a local function.</summary>
             <param name="methodInfo">The method info to determine if it is a local function.</param>
             <returns>True if the MethodInfo is a local function. False if not.</returns>
-        </member>
-        <member name="T:Towel.MethodSignatures">
-            <summary>Contains internal static method signatures for reflection look ups.</summary>
         </member>
         <member name="T:Towel.Serialization">
             <summary>Static class containing serialization code.</summary>

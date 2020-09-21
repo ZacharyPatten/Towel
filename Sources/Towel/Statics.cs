@@ -155,40 +155,28 @@ namespace Towel
 				}
 				if (typeof(A).IsEnum)
 				{
-					MethodInfo methodInfo = typeof(Enum).GetMethod<MethodSignatures.System.Enum.TryParse<A>>();
-					if (methodInfo is null)
+					foreach (MethodInfo methodInfo in typeof(Enum).GetMethods(
+						BindingFlags.Static |
+						BindingFlags.Public))
 					{
-						throw new TowelBugException("The System.Enum.TryParse method was not found via reflection.");
+						if (methodInfo.Name == nameof(Enum.TryParse) &&
+							methodInfo.IsGenericMethod &&
+							methodInfo.IsStatic &&
+							methodInfo.IsPublic &&
+							methodInfo.ReturnType == typeof(bool))
+						{
+							MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
+							ParameterInfo[] parameters = genericMethodInfo.GetParameters();
+							if (parameters.Length == 2 &&
+								parameters[0].ParameterType == typeof(string) &&
+								parameters[1].ParameterType == typeof(A).MakeByRefType())
+							{
+								Function = genericMethodInfo.CreateDelegate<TryParse<string, A, bool>>();
+								return Function(@string, out value);
+							}
+						}
 					}
-					Function = methodInfo.CreateDelegate<TryParse<string, A, bool>>();
-					return Function(@string, out value);
-
-					#region Old Version
-
-					//foreach (MethodInfo methodInfo in typeof(Enum).GetMethods(
-					//	BindingFlags.Static |
-					//	BindingFlags.Public))
-					//{
-					//	if (methodInfo.Name == nameof(Enum.TryParse) &&
-					//		methodInfo.IsGenericMethod &&
-					//		methodInfo.IsStatic &&
-					//		methodInfo.IsPublic &&
-					//		methodInfo.ReturnType == typeof(bool))
-					//	{
-					//		MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
-					//		ParameterInfo[] parameters = genericMethodInfo.GetParameters();
-					//		if (parameters.Length == 2 &&
-					//			parameters[0].ParameterType == typeof(string) &&
-					//			parameters[1].ParameterType == typeof(A).MakeByRefType())
-					//		{
-					//			Function = genericMethodInfo.CreateDelegate<TryParse<A>>();
-					//			return Function(@string, out value);
-					//		}
-					//	}
-					//}
-					//throw new TowelBugException("The System.Enum.TryParse method was not found via reflection.");
-
-					#endregion
+					throw new TowelBugException("The System.Enum.TryParse method was not found via reflection.");
 				}
 				else
 				{
