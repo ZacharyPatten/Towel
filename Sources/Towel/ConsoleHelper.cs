@@ -1,4 +1,5 @@
 ﻿using System;
+using static Towel.Statics;
 
 namespace Towel
 {
@@ -87,13 +88,13 @@ namespace Towel
 		/// <typeparam name="T">The generic type of console input to get from the user.</typeparam>
 		/// <param name="prompt">The prompt message to display when requesting console input from the user.</param>
 		/// <param name="invalidMessage">The message to display if invalid input is detected.</param>
-		/// <param name="tryParse">The TryParse method for converting the console input into the generic type.</param>
+		/// <param name="tryParse">The <see cref="TryParse"/> method for converting <see cref="string"/> into a <typeparamref name="T"/> value.</param>
 		/// <param name="validation">The predicate for validating the value of the input.</param>
 		/// <returns>The validated value of the console input provided by the user.</returns>
 		public static T GetInput<T>(
 			string prompt = null,
 			string invalidMessage = null,
-			FuncO1<string, T, bool> tryParse = null,
+			Func<string, (bool Success, T Value)> tryParse = null,
 			Predicate<T> validation = null)
 		{
 			if (tryParse is null && (typeof(T) != typeof(string) && !typeof(T).IsEnum && Meta.GetTryParseMethod<T>() is null))
@@ -101,12 +102,13 @@ namespace Towel
 				throw new InvalidOperationException($"Using {nameof(ConsoleHelper)}.{nameof(GetInput)} without providing a {nameof(tryParse)} delegate for a non-supported type {typeof(T).Name}.");
 			}
 			tryParse ??= typeof(T) == typeof(string)
-				? (string s, out T v) => { v = (T)(object)s; return true; }
-				: (FuncO1<string, T, bool>)Statics.TryParse;
+				? s => (true, (T)(object)s)
+				: (Func<string, (bool, T)>)TryParse<T>;
 			validation ??= v => true;
 			GetInput:
 			Console.Write(prompt ?? $"Input a {typeof(T).Name} value: ");
-			if (!tryParse(Console.ReadLine(), out T value) || !validation(value))
+			var (success, value) = tryParse(Console.ReadLine());
+			if (!success || !validation(value))
 			{
 				Console.WriteLine(invalidMessage ?? $"Invalid input. Try again...");
 				goto GetInput;

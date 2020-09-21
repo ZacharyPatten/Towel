@@ -308,7 +308,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Acceleration<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Acceleration<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Acceleration<T>>(@string, out value, tryParse);
 		}
@@ -1226,7 +1226,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out AngularAcceleration<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out AngularAcceleration<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, AngularAcceleration<T>>(@string, out value, tryParse);
 		}
@@ -1953,7 +1953,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Angle<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Angle<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Angle<T>>(@string, out value, tryParse);
 		}
@@ -2702,7 +2702,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out AngularSpeed<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out AngularSpeed<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, AngularSpeed<T>>(@string, out value, tryParse);
 		}
@@ -3447,7 +3447,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Area<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Area<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Area<T>>(@string, out value, tryParse);
 		}
@@ -4365,7 +4365,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out AreaDensity<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out AreaDensity<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, AreaDensity<T>>(@string, out value, tryParse);
 		}
@@ -5337,7 +5337,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Density<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Density<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Density<T>>(@string, out value, tryParse);
 		}
@@ -6182,7 +6182,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out ElectricCharge<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out ElectricCharge<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, ElectricCharge<T>>(@string, out value, tryParse);
 		}
@@ -6851,7 +6851,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out ElectricCurrent<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out ElectricCurrent<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, ElectricCurrent<T>>(@string, out value, tryParse);
 		}
@@ -7558,7 +7558,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Energy<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Energy<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Energy<T>>(@string, out value, tryParse);
 		}
@@ -8744,7 +8744,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Force<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Force<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Force<T>>(@string, out value, tryParse);
 		}
@@ -9840,7 +9840,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Length<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Length<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Length<T>>(@string, out value, tryParse);
 		}
@@ -10901,7 +10901,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out LinearDensity<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out LinearDensity<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, LinearDensity<T>>(@string, out value, tryParse);
 		}
@@ -11888,7 +11888,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out LinearMass<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out LinearMass<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, LinearMass<T>>(@string, out value, tryParse);
 		}
@@ -12972,7 +12972,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out LinearMassFlow<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out LinearMassFlow<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, LinearMassFlow<T>>(@string, out value, tryParse);
 		}
@@ -14070,7 +14070,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Mass<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Mass<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Mass<T>>(@string, out value, tryParse);
 		}
@@ -15096,7 +15096,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out MassRate<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out MassRate<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, MassRate<T>>(@string, out value, tryParse);
 		}
@@ -16060,7 +16060,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Power<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Power<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Power<T>>(@string, out value, tryParse);
 		}
@@ -17159,7 +17159,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Pressure<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Pressure<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Pressure<T>>(@string, out value, tryParse);
 		}
@@ -18106,7 +18106,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Speed<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Speed<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Speed<T>>(@string, out value, tryParse);
 		}
@@ -19079,7 +19079,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Tempurature<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Tempurature<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Tempurature<T>>(@string, out value, tryParse);
 		}
@@ -19657,7 +19657,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Time<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Time<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Time<T>>(@string, out value, tryParse);
 		}
@@ -20677,7 +20677,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out TimeArea<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out TimeArea<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, TimeArea<T>>(@string, out value, tryParse);
 		}
@@ -21515,7 +21515,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out Volume<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out Volume<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, Volume<T>>(@string, out value, tryParse);
 		}
@@ -22490,7 +22490,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out VolumeRate<T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out VolumeRate<T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, VolumeRate<T>>(@string, out value, tryParse);
 		}

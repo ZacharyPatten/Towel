@@ -228,7 +228,7 @@ namespace Towel.Measurements
 		/// <param name="value">The parsed value.</param>
 		/// <param name="tryParse">The tryparse function for the generic type.</param>
 		/// <returns>True if the parse was successful or false if not.</returns>
-		public static bool TryParse(string @string, out <#= measurement.Item1 #><T> value, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse(string @string, out <#= measurement.Item1 #><T> value, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			return Measurement.TryParse<T, <#= measurement.Item1 #><T>>(@string, out value, tryParse);
 		}

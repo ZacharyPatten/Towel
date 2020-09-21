@@ -104,7 +104,7 @@ namespace Towel
 		/// <returns>The line number of the current location in source code.</returns>
 		public static int sourcelinenumber([CallerLineNumber] int DEFAULT = default) => DEFAULT;
 
-		#if false
+#if false
 		/// <summary>Gets the source code and evaluation of an expression.</summary>
 		/// <typeparam name="T">The type the expression will evaluate to.</typeparam>
 		/// <param name="expression">The expression to evaluate and get the source of.</param>
@@ -123,35 +123,30 @@ namespace Towel
 			source = DEFAULT;
 			return expression;
 		}
-		#endif
+#endif
 
-		#pragma warning restore IDE1006 // Naming Styles
+#pragma warning restore IDE1006 // Naming Styles
 
 		#endregion
 
 		#region TryParse
 
-		/// <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The generic type to make assumptions about.</typeparam>
-		/// <param name="string">The string to be parsed.</param>
-		/// <param name="Default">The default value if the parse fails.</param>
-		/// <returns>The parsed value or the default value if the parse fails.</returns>
-		public static A TryParse<A>(string @string, A Default = default) =>
-			TryParse(@string, out A value)
-			? value
-			: Default;
-
-		/// <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The generic type to make assumptions about.</typeparam>
-		/// <param name="string">The string to be parsed.</param>
-		/// <param name="value">The parsed value if successful or default if not.</param>
-		/// <returns>True if successful or false if not.</returns>
-		public static bool TryParse<A>(string @string, out A value) =>
-			TryParseImplementation<A>.Function(@string, out value);
+		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <typeparamref name="A"/>.</summary>
+		/// <typeparam name="A">The type to parse the <see cref="string"/> into a value of.</typeparam>
+		/// <param name="string">The <see cref="string"/> to parse into a value ot type <typeparamref name="A"/>.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Success, <typeparamref name="A"/> Value)
+		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
+		/// <para>- <typeparamref name="A"/> Value: The value if the parse was successful or default if not.</para>
+		/// </returns>
+		public static (bool Success, A Value) TryParse<A>(string @string) =>
+			(TryParseImplementation<A>.Function(@string, out A value), value);
 
 		internal static class TryParseImplementation<A>
 		{
-			internal static FuncO1<string, A, bool> Function = (string @string, out A value) =>
+			internal delegate TResult TryParse<T1, T2, TResult>(T1 arg1, out T2 arg2);
+
+			internal static TryParse<string, A, bool> Function = (string @string, out A value) =>
 			{
 				static bool Fail(string @string, out A value)
 				{
@@ -165,7 +160,7 @@ namespace Towel
 					{
 						throw new TowelBugException("The System.Enum.TryParse method was not found via reflection.");
 					}
-					Function = methodInfo.CreateDelegate<FuncO1<string, A, bool>>();
+					Function = methodInfo.CreateDelegate<TryParse<string, A, bool>>();
 					return Function(@string, out value);
 
 					#region Old Version
@@ -200,7 +195,7 @@ namespace Towel
 					MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
 					Function = methodInfo is null
 						? Fail
-						: methodInfo.CreateDelegate<FuncO1<string, A, bool>>();
+						: methodInfo.CreateDelegate<TryParse<string, A, bool>>();
 					return Function(@string, out value);
 				}
 			};
@@ -328,9 +323,7 @@ namespace Towel
 				public abstract bool Resolve(T b);
 				public static implicit operator Condition<T>(T value) => new Value<T> { A = value, };
 				public static implicit operator Condition<T>(bool result) => new Bool<T> { Result = result, };
-#pragma warning disable IDE0060 // Remove unused parameter
 				public static implicit operator Condition<T>(Keyword keyword) => new Default<T>();
-#pragma warning restore IDE0060 // Remove unused parameter
 			}
 
 			internal class Value<T> : Condition<T>
@@ -3875,7 +3868,7 @@ namespace Towel
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T, Status>(Span<T> span, Action action = default, Status status = default)
 			where Status : struct, IFunc<StepStatus> =>
-			PermuteIterative<T, ActionRuntime, Status>(span, action);
+			PermuteIterative<T, ActionRuntime, Status>(span, action, status);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T, Action, Status>(Span<T> span, Action action = default, Status status = default)

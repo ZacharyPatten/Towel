@@ -58,12 +58,12 @@
             <param name="invalidMessage">The message to display if invalid input is detected.</param>
             <param name="options">The options of the menu.</param>
         </member>
-        <member name="M:Towel.ConsoleHelper.GetInput``1(System.String,System.String,Towel.FuncO1{System.String,``0,System.Boolean},System.Predicate{``0})">
+        <member name="M:Towel.ConsoleHelper.GetInput``1(System.String,System.String,System.Func{System.String,System.ValueTuple{System.Boolean,``0}},System.Predicate{``0})">
             <summary>Gets console input from the user.</summary>
             <typeparam name="T">The generic type of console input to get from the user.</typeparam>
             <param name="prompt">The prompt message to display when requesting console input from the user.</param>
             <param name="invalidMessage">The message to display if invalid input is detected.</param>
-            <param name="tryParse">The TryParse method for converting the console input into the generic type.</param>
+            <param name="tryParse">The <see cref="M:Towel.Statics.TryParse``1(System.String)"/> method for converting <see cref="T:System.String"/> into a <typeparamref name="T"/> value.</param>
             <param name="validation">The predicate for validating the value of the input.</param>
             <returns>The validated value of the console input provided by the user.</returns>
         </member>
@@ -16023,15 +16023,6 @@
         <member name="M:Towel.IFunc`4.Do(`0,`1,`2)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
-        <member name="T:Towel.FuncO1`3">
-            <summary>Encapsulates a method that has two parameters and returns a value of the type specified by the TResult parameter; the index 1 parameter is an out.</summary>
-            <typeparam name="T1">The type of the first parameter of the method that this delegate encapsulates.</typeparam>
-            <typeparam name="T2">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
-            <typeparam name="TResult">The type of the return value of the method that this delegate encapsulates.</typeparam>
-            <param name="arg1">The first parameter of the method that this delegate encapsulates.</param>
-            <param name="arg2"></param>
-            <returns></returns>
-        </member>
         <member name="T:Towel.CompareInt">
             <summary>Default int compare.</summary>
         </member>
@@ -16484,39 +16475,26 @@
             <summary>Gets the default hash code for this instance.</summary>
             <returns>Teh computed hash code.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.FuncO1{System.String,`0,System.Boolean},Towel.Mathematics.Fraction{`0}@,System.Exception@)">
-            <summary>Tries to parse a string into a fraction.</summary>
-            <param name="string">The string to parse.</param>
-            <param name="tryParse">The function to parse the numerator and denominator.</param>
-            <param name="fraction">The parsed value if succeeded.</param>
-            <param name="exception">The exception that occurred if failed.</param>
-            <returns>True if the parse succeeded or false if not.</returns>
+        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
+            <summary>Tries to parse a <see cref="T:System.String"/> into a value of the type <see cref="T:Towel.Mathematics.Fraction`1"/>.</summary>
+            <param name="string">The <see cref="T:System.String"/> to parse into a value ot type <see cref="T:Towel.Mathematics.Fraction`1"/>.</param>
+            <param name="tryParse">The <see cref="M:Towel.Statics.TryParse``1(System.String)"/> method of the numerator and denomiator types.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Success, <see cref="T:Towel.Mathematics.Fraction`1"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Success: True if the parse was successful; False if not.</para>
+            <para>- <see cref="T:Towel.Mathematics.Fraction`1"/> Value: The value if the parse was successful or default if not.</para>
+            </returns>
         </member>
-        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.FuncO1{System.String,`0,System.Boolean},Towel.Mathematics.Fraction{`0}@)">
-            <summary>Tries to parse a string into a fraction.</summary>
-            <param name="string">The string to parse.</param>
-            <param name="tryParse">The function to parse the numerator and denominator.</param>
-            <param name="fraction">The parsed value if succeeded.</param>
-            <returns>True if the parse succeeded or false if not.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction`1.Parse(System.String,Towel.FuncO1{System.String,`0,System.Boolean})">
-            <summary>Parses a string into a fraction.</summary>
-            <param name="string">The string to parse.</param>
-            <param name="tryParse">The function to parse the numerator and denominator.</param>
-            <returns>The parsed value from the string.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.Mathematics.Fraction{`0}@,System.Exception@)">
-            <summary>Tries to parse a string into a fraction.</summary>
-            <param name="string">The string to parse.</param>
-            <param name="fraction">The parsed value if succeeded.</param>
-            <param name="exception">The exception that occurred if failed.</param>
-            <returns>True if the parse succeeded or false if not.</returns>
-        </member>
-        <member name="M:Towel.Mathematics.Fraction`1.TryParse(System.String,Towel.Mathematics.Fraction{`0}@)">
-            <summary>Tries to parse a string into a fraction.</summary>
-            <param name="string">The string to parse.</param>
-            <param name="fraction">The parsed value if succeeded.</param>
-            <returns>True if the parse succeeded or false if not.</returns>
+        <member name="M:Towel.Mathematics.Fraction`1.TryParse``1(System.String,``0)">
+            <summary>Tries to parse a <see cref="T:System.String"/> into a value of the type <see cref="T:Towel.Mathematics.Fraction`1"/>.</summary>
+            <typeparam name="TryParse">The <see cref="M:Towel.Statics.TryParse``1(System.String)"/> method of the numerator and denomiator types.</typeparam>
+            <param name="string">The <see cref="T:System.String"/> to parse into a value ot type <see cref="T:Towel.Mathematics.Fraction`1"/>.</param>
+            <param name="tryParse">The <see cref="M:Towel.Statics.TryParse``1(System.String)"/> method of the numerator and denomiator types.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Success, <see cref="T:Towel.Mathematics.Fraction`1"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Success: True if the parse was successful; False if not.</para>
+            <para>- <see cref="T:Towel.Mathematics.Fraction`1"/> Value: The value if the parse was successful or default if not.</para>
+            </returns>
         </member>
         <member name="M:Towel.Mathematics.Fraction`1.Parse(System.String)">
             <summary>Parses a string into a fraction.</summary>
@@ -18931,14 +18909,14 @@
             <param name="e">The linq expression to parse.</param>
             <returns>The parsed symbolic mathematics linq expression.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Symbolics.ParseAndSimplifyToConstant``1(System.String,Towel.FuncO1{System.String,``0,System.Boolean})">
+        <member name="M:Towel.Mathematics.Symbolics.ParseAndSimplifyToConstant``1(System.String,System.Func{System.String,System.ValueTuple{System.Boolean,``0}})">
             <summary>Parses a symbolic methematics expression with the assumption that it will simplify to a constant.</summary>
             <typeparam name="T">The generic numerical type to recieve as the outputted type.</typeparam>
             <param name="string">The string to be parse.</param>
             <param name="tryParse">A function for parsing numerical values into the provided generic type.</param>
             <returns>The parsed expression simplified down to a constant value.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Symbolics.Parse``1(System.String,Towel.FuncO1{System.String,``0,System.Boolean})">
+        <member name="M:Towel.Mathematics.Symbolics.Parse``1(System.String,System.Func{System.String,System.ValueTuple{System.Boolean,``0}})">
             <summary>Parses a string into a Towel.Mathematics.Symbolics expression tree.</summary>
             <typeparam name="T">The type to convert any constants into (ex: float, double, etc).</typeparam>
             <param name="string">The expression string to parse.</param>
@@ -19465,7 +19443,7 @@
             <param name="to">The desired units of the value.</param>
             <returns>The value converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Measurement.TryParse``1(System.String,System.Object@,Towel.FuncO1{System.String,``0,System.Boolean})">
+        <member name="M:Towel.Measurements.Measurement.TryParse``1(System.String,System.Object@,System.Func{System.String,System.ValueTuple{System.Boolean,``0}})">
             <summary>Parses a measurement from a string.</summary>
             <typeparam name="T">The numeric type to parse the quantity as.</typeparam>
             <param name="string">The string to parse.</param>
@@ -19495,7 +19473,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Acceleration measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Acceleration`1.TryParse(System.String,Towel.Measurements.Acceleration{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Acceleration`1.TryParse(System.String,Towel.Measurements.Acceleration{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Acceleration measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -19875,7 +19853,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The AngularAcceleration measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.AngularAcceleration`1.TryParse(System.String,Towel.Measurements.AngularAcceleration{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.AngularAcceleration`1.TryParse(System.String,Towel.Measurements.AngularAcceleration{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a AngularAcceleration measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -20183,7 +20161,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Angle measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Angle`1.TryParse(System.String,Towel.Measurements.Angle{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Angle`1.TryParse(System.String,Towel.Measurements.Angle{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Angle measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -20517,7 +20495,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The AngularSpeed measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.AngularSpeed`1.TryParse(System.String,Towel.Measurements.AngularSpeed{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.AngularSpeed`1.TryParse(System.String,Towel.Measurements.AngularSpeed{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a AngularSpeed measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -20839,7 +20817,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Area measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Area`1.TryParse(System.String,Towel.Measurements.Area{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Area`1.TryParse(System.String,Towel.Measurements.Area{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Area measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -21231,7 +21209,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The AreaDensity measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.AreaDensity`1.TryParse(System.String,Towel.Measurements.AreaDensity{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.AreaDensity`1.TryParse(System.String,Towel.Measurements.AreaDensity{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a AreaDensity measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -21630,7 +21608,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Density measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Density`1.TryParse(System.String,Towel.Measurements.Density{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Density`1.TryParse(System.String,Towel.Measurements.Density{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Density measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -21977,7 +21955,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The ElectricCharge measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.ElectricCharge`1.TryParse(System.String,Towel.Measurements.ElectricCharge{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.ElectricCharge`1.TryParse(System.String,Towel.Measurements.ElectricCharge{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a ElectricCharge measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -22277,7 +22255,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The ElectricCurrent measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.ElectricCurrent`1.TryParse(System.String,Towel.Measurements.ElectricCurrent{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.ElectricCurrent`1.TryParse(System.String,Towel.Measurements.ElectricCurrent{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a ElectricCurrent measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -22571,7 +22549,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Energy measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Energy`1.TryParse(System.String,Towel.Measurements.Energy{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Energy`1.TryParse(System.String,Towel.Measurements.Energy{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Energy measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -23031,7 +23009,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Force measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Force`1.TryParse(System.String,Towel.Measurements.Force{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Force`1.TryParse(System.String,Towel.Measurements.Force{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Force measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -23480,7 +23458,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Length measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Length`1.TryParse(System.String,Towel.Measurements.Length{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Length`1.TryParse(System.String,Towel.Measurements.Length{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Length measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -23950,7 +23928,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The LinearDensity measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.LinearDensity`1.TryParse(System.String,Towel.Measurements.LinearDensity{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.LinearDensity`1.TryParse(System.String,Towel.Measurements.LinearDensity{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a LinearDensity measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -24374,7 +24352,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The LinearMass measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.LinearMass`1.TryParse(System.String,Towel.Measurements.LinearMass{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.LinearMass`1.TryParse(System.String,Towel.Measurements.LinearMass{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a LinearMass measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -24834,7 +24812,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The LinearMassFlow measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.LinearMassFlow`1.TryParse(System.String,Towel.Measurements.LinearMassFlow{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.LinearMassFlow`1.TryParse(System.String,Towel.Measurements.LinearMassFlow{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a LinearMassFlow measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -25295,7 +25273,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Mass measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Mass`1.TryParse(System.String,Towel.Measurements.Mass{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Mass`1.TryParse(System.String,Towel.Measurements.Mass{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Mass measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -25748,7 +25726,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The MassRate measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.MassRate`1.TryParse(System.String,Towel.Measurements.MassRate{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.MassRate`1.TryParse(System.String,Towel.Measurements.MassRate{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a MassRate measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -26146,7 +26124,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Power measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Power`1.TryParse(System.String,Towel.Measurements.Power{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Power`1.TryParse(System.String,Towel.Measurements.Power{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Power measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -26560,7 +26538,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Pressure measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Pressure`1.TryParse(System.String,Towel.Measurements.Pressure{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Pressure`1.TryParse(System.String,Towel.Measurements.Pressure{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Pressure measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -26943,7 +26921,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Speed measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Speed`1.TryParse(System.String,Towel.Measurements.Speed{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Speed`1.TryParse(System.String,Towel.Measurements.Speed{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Speed measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -27365,7 +27343,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Tempurature measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Tempurature`1.TryParse(System.String,Towel.Measurements.Tempurature{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Tempurature`1.TryParse(System.String,Towel.Measurements.Tempurature{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Tempurature measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -27629,7 +27607,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Time measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Time`1.TryParse(System.String,Towel.Measurements.Time{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Time`1.TryParse(System.String,Towel.Measurements.Time{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Time measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -28082,7 +28060,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The TimeArea measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.TimeArea`1.TryParse(System.String,Towel.Measurements.TimeArea{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.TimeArea`1.TryParse(System.String,Towel.Measurements.TimeArea{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a TimeArea measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -28440,7 +28418,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The Volume measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.Volume`1.TryParse(System.String,Towel.Measurements.Volume{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.Volume`1.TryParse(System.String,Towel.Measurements.Volume{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a Volume measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -28839,7 +28817,7 @@
             <param name="to">The desired units of the measurement.</param>
             <returns>The VolumeRate measurement converted into the desired units.</returns>
         </member>
-        <member name="M:Towel.Measurements.VolumeRate`1.TryParse(System.String,Towel.Measurements.VolumeRate{`0}@,Towel.FuncO1{System.String,`0,System.Boolean})">
+        <member name="M:Towel.Measurements.VolumeRate`1.TryParse(System.String,Towel.Measurements.VolumeRate{`0}@,System.Func{System.String,System.ValueTuple{System.Boolean,`0}})">
             <summary>Parses a VolumeRate measurement string.</summary>
             <param name="string">The string to be parsed.</param>
             <param name="value">The parsed value.</param>
@@ -30208,19 +30186,15 @@
             <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute"/>.</param>
             <returns>The line number of the current location in source code.</returns>
         </member>
-        <member name="M:Towel.Statics.TryParse``1(System.String,``0)">
-            <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
-            <typeparam name="A">The generic type to make assumptions about.</typeparam>
-            <param name="string">The string to be parsed.</param>
-            <param name="Default">The default value if the parse fails.</param>
-            <returns>The parsed value or the default value if the parse fails.</returns>
-        </member>
-        <member name="M:Towel.Statics.TryParse``1(System.String,``0@)">
-            <summary>Assumes a TryParse method exists for a generic type and calls it [<see cref="T:System.Boolean"/> TryParse(<see cref="T:System.String"/>, out <typeparamref name="A"/>)].</summary>
-            <typeparam name="A">The generic type to make assumptions about.</typeparam>
-            <param name="string">The string to be parsed.</param>
-            <param name="value">The parsed value if successful or default if not.</param>
-            <returns>True if successful or false if not.</returns>
+        <member name="M:Towel.Statics.TryParse``1(System.String)">
+            <summary>Tries to parse a <see cref="T:System.String"/> into a value of the type <typeparamref name="A"/>.</summary>
+            <typeparam name="A">The type to parse the <see cref="T:System.String"/> into a value of.</typeparam>
+            <param name="string">The <see cref="T:System.String"/> to parse into a value ot type <typeparamref name="A"/>.</param>
+            <returns>
+            (<see cref="T:System.Boolean"/> Success, <typeparamref name="A"/> Value)
+            <para>- <see cref="T:System.Boolean"/> Success: True if the parse was successful; False if not.</para>
+            <para>- <typeparamref name="A"/> Value: The value if the parse was successful or default if not.</para>
+            </returns>
         </member>
         <member name="M:Towel.Statics.DefaultHash``1(``0)">
             <summary>Static wrapper for the instance based "object.GetHashCode" function.</summary>

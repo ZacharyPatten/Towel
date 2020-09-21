@@ -432,85 +432,50 @@ namespace Towel.Mathematics
 
 		#region TryParse + Parse
 
-		/// <summary>Tries to parse a string into a fraction.</summary>
-		/// <param name="string">The string to parse.</param>
-		/// <param name="tryParse">The function to parse the numerator and denominator.</param>
-		/// <param name="fraction">The parsed value if succeeded.</param>
-		/// <param name="exception">The exception that occurred if failed.</param>
-		/// <returns>True if the parse succeeded or false if not.</returns>
-		public bool TryParse(string @string, FuncO1<string, T, bool> tryParse, out Fraction<T> fraction, out Exception exception)
+		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <see cref="Fraction{T}"/>.</summary>
+		/// <param name="string">The <see cref="string"/> to parse into a value ot type <see cref="Fraction{T}"/>.</param>
+		/// <param name="tryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Success, <see cref="Fraction{T}"/> Value)
+		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
+		/// <para>- <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.</para>
+		/// </returns>
+		public (bool Success, Fraction<T> Value) TryParse(string @string, Func<string, (bool, T)> tryParse = null) =>
+			TryParse<FuncRuntime<string, (bool, T)>>(@string, tryParse ?? Statics.TryParse<T>);
+
+		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <see cref="Fraction{T}"/>.</summary>
+		/// <typeparam name="TryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</typeparam>
+		/// <param name="string">The <see cref="string"/> to parse into a value ot type <see cref="Fraction{T}"/>.</param>
+		/// <param name="tryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Success, <see cref="Fraction{T}"/> Value)
+		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
+		/// <para>- <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.</para>
+		/// </returns>
+		public (bool Success, Fraction<T> Value) TryParse<TryParse>(string @string, TryParse tryParse = default)
+			where TryParse : struct, IFunc<string, (bool Success, T Value)>
 		{
-			if (!(tryParse is null) && tryParse(@string, out T value))
-			{
-				fraction = new Fraction<T>(value);
-			}
 			if (@string.Contains("/"))
 			{
 				int divideIndex = @string.IndexOf("/");
 				string numeratorString = @string.Substring(0, divideIndex - 1);
 				string denominatorString = @string[(divideIndex + 1)..];
-
-				// TODO: refactor this code so the try-catch is not necessary.
-
-				try
+				var (numeratorSuccess, numerator) = tryParse.Do(@string);
+				var (denominatorSuccess, denominator) = tryParse.Do(@string);
+				if (numeratorSuccess && denominatorSuccess)
 				{
-					if (!tryParse(numeratorString, out T numerator))
-					{
-						numerator = Symbolics.ParseAndSimplifyToConstant<T>(numeratorString);
-					}
-					if (!tryParse(denominatorString, out T denominator))
-					{
-						denominator = Symbolics.ParseAndSimplifyToConstant<T>(denominatorString);
-					}
-					fraction = new Fraction<T>(numerator, denominator);
-					exception = null;
-					return true;
+					return (true, new Fraction<T>(numerator, denominator));
 				}
-				catch { }
 			}
-
-			exception = new Exception("The value could not be parsed.");
-			fraction = default;
-			return false;
-		}
-
-		/// <summary>Tries to parse a string into a fraction.</summary>
-		/// <param name="string">The string to parse.</param>
-		/// <param name="tryParse">The function to parse the numerator and denominator.</param>
-		/// <param name="fraction">The parsed value if succeeded.</param>
-		/// <returns>True if the parse succeeded or false if not.</returns>
-		public bool TryParse(string @string, FuncO1<string, T, bool> tryParse, out Fraction<T> fraction)
-		{
-			return TryParse(@string, tryParse, out fraction, out _);
-		}
-
-		/// <summary>Parses a string into a fraction.</summary>
-		/// <param name="string">The string to parse.</param>
-		/// <param name="tryParse">The function to parse the numerator and denominator.</param>
-		/// <returns>The parsed value from the string.</returns>
-		public Fraction<T> Parse(string @string, FuncO1<string, T, bool> tryParse)
-		{
-			TryParse(@string, tryParse, out Fraction<T> fraction);
-			return fraction;
-		}
-
-		/// <summary>Tries to parse a string into a fraction.</summary>
-		/// <param name="string">The string to parse.</param>
-		/// <param name="fraction">The parsed value if succeeded.</param>
-		/// <param name="exception">The exception that occurred if failed.</param>
-		/// <returns>True if the parse succeeded or false if not.</returns>
-		public bool TryParse(string @string, out Fraction<T> fraction, out Exception exception)
-		{
-			return TryParse(@string, null, out fraction, out exception);
-		}
-
-		/// <summary>Tries to parse a string into a fraction.</summary>
-		/// <param name="string">The string to parse.</param>
-		/// <param name="fraction">The parsed value if succeeded.</param>
-		/// <returns>True if the parse succeeded or false if not.</returns>
-		public bool TryParse(string @string, out Fraction<T> fraction)
-		{
-			return TryParse(@string, out fraction, out _);
+			else
+			{
+				var (success, value) = tryParse.Do(@string);
+				if (success)
+				{
+					return (true, new Fraction<T>(value));
+				}
+			}
+			return (false, default);
 		}
 
 		/// <summary>Parses a string into a fraction.</summary>
@@ -518,8 +483,15 @@ namespace Towel.Mathematics
 		/// <returns>The parsed value from the string.</returns>
 		public Fraction<T> Parse(string @string)
 		{
-			TryParse(@string, out Fraction<T> fraction);
-			return fraction;
+			var (success, value) = TryParse(@string);
+			if (success)
+			{
+				return value;
+			}
+			else
+			{
+				throw new ArgumentException($@"the {nameof(@string)} parameter was not in a parsable format", nameof(@string));
+			}
 		}
 
 		#endregion

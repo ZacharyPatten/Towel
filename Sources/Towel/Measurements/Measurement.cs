@@ -136,7 +136,7 @@ namespace Towel.Measurements
 		/// <param name="measurement">The parsed measurement if successful or default if unsuccessful.</param>
 		/// <param name="tryParse">Explicit try parse function for the numeric type.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public static bool TryParse<T>(string @string, out object measurement, FuncO1<string, T, bool> tryParse = null)
+		public static bool TryParse<T>(string @string, out object measurement, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			if (!ParsingLibraryBuilt)
 			{
@@ -233,7 +233,7 @@ namespace Towel.Measurements
 			return true;
 		}
 
-		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, FuncO1<string, T, bool> tryParse = null)
+		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Func<string, (bool Success, T Value)> tryParse = null)
 		{
 			if (!TryParse(@string, out object parsedMeasurment, tryParse) ||
 				!(parsedMeasurment is MEASUREMENT))

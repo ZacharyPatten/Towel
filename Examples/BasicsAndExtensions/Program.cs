@@ -32,13 +32,13 @@ namespace BasicsAndExtensions
 
 			#region TryParse
 			{
-				TryParse("123.4",   out double a);
-				TryParse("12.3",    out float b);
-				TryParse("1",       out byte c);
-				TryParse("1234",    out int d);
-				TryParse("1234",    out Program e);
-				TryParse("Red",     out ConsoleColor f);
-				TryParse("Ordinal", out StringComparison g);
+				var (_, a) = TryParse<double>("123.4");
+				var (_, b) = TryParse<float>("12.3");
+				var (_, c) = TryParse<byte>("1");
+				var (_, d) = TryParse<int>("1234");
+				var (_, e) = TryParse<Program>("1234");
+				var (_, f) = TryParse<ConsoleColor>("Red");
+				var (_, g) = TryParse<StringComparison>("Ordinal");
 
 				Console.WriteLine("  TryParse------------------------------------");
 				Console.WriteLine();
