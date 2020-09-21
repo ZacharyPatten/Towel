@@ -362,6 +362,21 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region IsPalindrome
+			{
+				Console.WriteLine("  Is Palindrome ----------------------");
+				Console.WriteLine();
+
+				string kayak = "kayak";
+				Console.WriteLine($@"      IsPalindrome(""{kayak}""): {IsPalindrome(kayak)}");
+
+				int[] values = { 1, 2, 3, 4 };
+				Console.WriteLine($@"      IsPalindrome({{ {string.Join(", ", values)} }}): {IsPalindrome<int>(values)}");
+
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Hamming Distance
 			{
 				Console.WriteLine("  HammingDistance----------------");
