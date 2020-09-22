@@ -3,6 +3,9 @@ using static Towel.Statics;
 
 namespace Towel
 {
+	// This file has temporary components that will be removed once I finish redesigning them.
+
+
 	/// <summary>Delegate for data structure iteration.</summary>
 	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
 	/// <param name="current">The current instance of iteration through the data structure.</param>
