@@ -85,6 +85,8 @@
 > You can install the Towel nuget package with the `dotnet add package Towel --version XXXXX` command, or you can
 > manually add a reference to it in your `.csproj` files `<PackageReference Include="Towel" Version="XXXXX" />`
 > (where `XXXXX` is the version to install).
+>
+> See the [releases page](https://github.com/ZacharyPatten/Towel/releases) for change logs.
 
 </p>
 </details>
