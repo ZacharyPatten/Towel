@@ -875,12 +875,12 @@ ConsoleHelper.IntMenu(...);
 ConsoleHelper.FlushInputBuffer();
 ```
 
-## Value-Based Attributes
+## TagAttribute
 
 ```cs
-// With ValueAttribute's you can make value-based attributes so
+// With TagAttribute's you can make value-based attributes so
 // you don't always have to make your own custom attribute types.
-// Just use a constant value.
+// Just "tag" a code member with constant values.
 
 using System;
 using Towel;
@@ -889,14 +889,14 @@ static class Program
 {
 	static void Main()
 	{
-		var (Found, Value) = typeof(MyClass).GetValueAttribute("MyCustomAttribute");
-		Console.WriteLine("MyCustomAttribute...");
+		var (Found, Value) = typeof(MyClass).GetTag("My Tag");
+		Console.WriteLine("My Tag...");
 		Console.WriteLine("Found: " + Found);
 		Console.WriteLine("Value: " + Value);
 	}
 }
 
-[Value("MyCustomAttribute", "hello world")]
+[Tag("My Tag", "hello world")]
 public class MyClass { }
 ```
 

@@ -32085,34 +32085,34 @@
         <member name="F:Towel.StepStatus.Break">
             <summary>Stepper was broken.</summary>
         </member>
-        <member name="T:Towel.ValueAttribute">
-            <summary>A value-based attribute.</summary>
+        <member name="T:Towel.TagAttribute">
+            <summary>A value-based "tag" attribute.</summary>
         </member>
-        <member name="M:Towel.ValueAttribute.#ctor(System.Object,System.Object)">
-            <summary>Creates a new value-based attribute.</summary>
-            <param name="attribute">The attribute.</param>
+        <member name="M:Towel.TagAttribute.#ctor(System.Object,System.Object)">
+            <summary>Creates a new value-based "tag" attribute.</summary>
+            <param name="tag">The tag.</param>
             <param name="value">The value.</param>
         </member>
-        <member name="T:Towel.ValueAttributeExtensions">
-            <summary>Extension methods for reflection types and <see cref="T:Towel.ValueAttribute"/>.</summary>
+        <member name="T:Towel.TagAttributeExtensions">
+            <summary>Extension methods for reflection types and <see cref="T:Towel.TagAttribute"/>.</summary>
         </member>
-        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.MemberInfo,System.Object)">
-            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.MemberInfo"/>.</summary>
-            <param name="memberInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
-            <param name="attribute">The attribute to get the value of.</param>
+        <member name="M:Towel.TagAttributeExtensions.GetTag(System.Reflection.MemberInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.TagAttribute"/> on a <see cref="T:System.Reflection.MemberInfo"/>.</summary>
+            <param name="memberInfo">The type to get the <see cref="T:Towel.TagAttribute"/> of.</param>
+            <param name="tag">The tag to get the value of.</param>
             <returns>
             (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
-            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not or if multiple attributes were found (ambiguous).</para>
+            <para>- <see cref="T:System.Boolean"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
             <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
             </returns>
         </member>
-        <member name="M:Towel.ValueAttributeExtensions.GetValueAttribute(System.Reflection.ParameterInfo,System.Object)">
-            <summary>Gets a <see cref="T:Towel.ValueAttribute"/> on a <see cref="T:System.Reflection.ParameterInfo"/>.</summary>
-            <param name="parameterInfo">The type to get the <see cref="T:Towel.ValueAttribute"/> of.</param>
-            <param name="attribute">The attribute to get the value of.</param>
+        <member name="M:Towel.TagAttributeExtensions.GetTag(System.Reflection.ParameterInfo,System.Object)">
+            <summary>Gets a <see cref="T:Towel.TagAttribute"/> on a <see cref="T:System.Reflection.ParameterInfo"/>.</summary>
+            <param name="parameterInfo">The type to get the <see cref="T:Towel.TagAttribute"/> of.</param>
+            <param name="tag">The tag to get the value of.</param>
             <returns>
             (<see cref="T:System.Boolean"/> Found, <see cref="T:System.Object"/> Value)
-            <para>- <see cref="T:System.Boolean"/> Found: True if the attribute was found; False if not or if multiple attributes were found (ambiguous).</para>
+            <para>- <see cref="T:System.Boolean"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
             <para>- <see cref="T:System.Object"/> Value: The value if found or default if not.</para>
             </returns>
         </member>

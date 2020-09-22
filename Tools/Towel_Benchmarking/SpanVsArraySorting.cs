@@ -5,7 +5,7 @@ using static Towel.Statics;
 
 namespace Towel_Benchmarking
 {
-	[Value(Program.Name, "Span vs Array Sorting")]
+	[Tag(Program.Name, "Span vs Array Sorting")]
 	public class SpanVsArraySorting
 	{
 		[Params(10, 1000, 10000)] public int N;

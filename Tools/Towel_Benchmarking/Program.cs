@@ -56,7 +56,7 @@ namespace Towel_Benchmarking
 			foreach (Type type in Benchmarks)
 			{
 				string output = RunBenchmarkAndGetMarkdownOutput(type);
-				stringBuilder.AppendLine($"# {type.GetValueAttribute(Name).Value ?? type.Name}");
+				stringBuilder.AppendLine($"# {type.GetTag(Name).Value ?? type.Name}");
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine("The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).");
 				stringBuilder.AppendLine();

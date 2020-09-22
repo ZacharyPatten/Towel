@@ -6,16 +6,17 @@ namespace Example
 {
 	static class Program
 	{
-		const string MyAttributeA = nameof(MyAttributeA);
-		const string MyAttributeB = nameof(MyAttributeB);
+		const string MyTagA = "My Tag A";
+		const string MyTagB = "My Tag B";
 
 		static void Main()
 		{
-			Console.WriteLine("You are runnning the ValueAttributes example.");
+			Console.WriteLine("You are runnning the TagAttributes example.");
 			Console.WriteLine("============================================");
 			Console.WriteLine();
-			Console.WriteLine("  Towel has value-based attributes. Rather than making");
-			Console.WriteLine("  custom attribute types, you can use constant values.");
+			Console.WriteLine(@"  Towel has value-based ""tag"" attributes. Rather than making");
+			Console.WriteLine(@"  custom attribute types, you can ""tag"" code members with");
+			Console.WriteLine(@"  constant values.");
 			Console.WriteLine();
 
 			// Reflection Code
@@ -39,33 +40,33 @@ namespace Example
 				BindingFlags.Instance);
 			ParameterInfo parameterInfo = methodInfo.GetParameters()[0];
 
-			Console.WriteLine($@"  Lets look up the ""{nameof(MyAttributeA)}"" attribute on ");
-			Console.WriteLine($@"  the common reflection types:");
+			Console.WriteLine($@"  Lets look up the ""{nameof(MyTagA)}"" tag on each");
+			Console.WriteLine($@"  type of code member:");
 			Console.WriteLine();
 
 			// Looking Up MyAttributeA
-			Console.WriteLine($"  - type: {type.GetValueAttribute(MyAttributeA).Value}");
-			Console.WriteLine($"  - method: {methodInfo.GetValueAttribute(MyAttributeA).Value}");
-			Console.WriteLine($"  - event: {eventInfo.GetValueAttribute(MyAttributeA).Value}");
-			Console.WriteLine($"  - constructor: {constructorInfo.GetValueAttribute(MyAttributeA).Value}");
-			Console.WriteLine($"  - field: {fieldInfo.GetValueAttribute(MyAttributeA).Value}");
-			Console.WriteLine($"  - property: {propertyInfo.GetValueAttribute(MyAttributeA).Value}");
-			Console.WriteLine($"  - parameter: {parameterInfo.GetValueAttribute(MyAttributeA).Value}");
+			Console.WriteLine($"  - type: {type.GetTag(MyTagA).Value}");
+			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagA).Value}");
+			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagA).Value}");
+			Console.WriteLine($"  - constructor: {constructorInfo.GetTag(MyTagA).Value}");
+			Console.WriteLine($"  - field: {fieldInfo.GetTag(MyTagA).Value}");
+			Console.WriteLine($"  - property: {propertyInfo.GetTag(MyTagA).Value}");
+			Console.WriteLine($"  - parameter: {parameterInfo.GetTag(MyTagA).Value}");
 
 			Console.WriteLine();
-			Console.WriteLine("  Of course you can use multiple value-based attributes per");
-			Console.WriteLine($@"  member. Lets look up the ""{nameof(MyAttributeB)}"" attribute on ");
-			Console.WriteLine($@"  the common reflection types:");
+			Console.WriteLine($@"  Of course you can use multiple tags per code member.");
+			Console.WriteLine($@"  Lets look up the ""{nameof(MyTagB)}"" tag on");
+			Console.WriteLine($@"  on the same code members:");
 			Console.WriteLine();
 
 			// Looking Up MyAttributeB
-			Console.WriteLine($"  - type: {type.GetValueAttribute(MyAttributeB).Value}");
-			Console.WriteLine($"  - method: {methodInfo.GetValueAttribute(MyAttributeB).Value}");
-			Console.WriteLine($"  - event: {eventInfo.GetValueAttribute(MyAttributeB).Value}");
-			Console.WriteLine($"  - constructor: {constructorInfo.GetValueAttribute(MyAttributeB).Value}");
-			Console.WriteLine($"  - field: {fieldInfo.GetValueAttribute(MyAttributeB).Value}");
-			Console.WriteLine($"  - property: {propertyInfo.GetValueAttribute(MyAttributeB).Value}");
-			Console.WriteLine($"  - parameter: {parameterInfo.GetValueAttribute(MyAttributeB).Value}");
+			Console.WriteLine($"  - type: {type.GetTag(MyTagB).Value}");
+			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagB).Value}");
+			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagB).Value}");
+			Console.WriteLine($"  - constructor: {constructorInfo.GetTag(MyTagB).Value}");
+			Console.WriteLine($"  - field: {fieldInfo.GetTag(MyTagB).Value}");
+			Console.WriteLine($"  - property: {propertyInfo.GetTag(MyTagB).Value}");
+			Console.WriteLine($"  - parameter: {parameterInfo.GetTag(MyTagB).Value}");
 
 			Console.WriteLine();
 			Console.WriteLine("============================================");
@@ -74,34 +75,32 @@ namespace Example
 			ConsoleHelper.PromptPressToContinue();
 		}
 
-		[Value(MyAttributeA, "works :)")]
-		[Value(MyAttributeB, "A")]
+		[Tag(MyTagA, "works :)")]
+		[Tag(MyTagB, "A")]
 		public class A
 		{
-			[Value(MyAttributeA, "works :3")]
-			[Value(MyAttributeB, "E")]
+			[Tag(MyTagA, "works :3")]
+			[Tag(MyTagB, "E")]
 			public object Field;
 
-			[Value(MyAttributeA, "works :b")]
-			[Value(MyAttributeB, "F")]
+			[Tag(MyTagA, "works :b")]
+			[Tag(MyTagB, "F")]
 			public object Property { get; set; }
 
-			[Value(MyAttributeA, "works :O")]
-			[Value(MyAttributeB, "D")]
+			[Tag(MyTagA, "works :O")]
+			[Tag(MyTagB, "D")]
 			public A() { }
 		}
 
-		[Value(MyAttributeA, "works :P")]
-		[Value(MyAttributeB, "B")]
+		[Tag(MyTagA, "works :P")]
+		[Tag(MyTagB, "B")]
 		public static void Method(
-#pragma warning disable IDE0060 // Remove unused parameter
-			[Value(MyAttributeA, "works ;)")]
-			[Value(MyAttributeB, "G")]
+			[Tag(MyTagA, "works ;)")]
+			[Tag(MyTagB, "G")]
 			object a) { }
-#pragma warning restore IDE0060 // Remove unused parameter
 
-		[Value(MyAttributeA, "works :D")]
-		[Value(MyAttributeB, "C")]
+		[Tag(MyTagA, "works :D")]
+		[Tag(MyTagB, "C")]
 		public static event Action Event;
 	}
 }

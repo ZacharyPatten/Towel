@@ -5,7 +5,7 @@ using Towel.DataStructures;
 
 namespace Towel_Benchmarking
 {
-	[Value(Program.Name, "Map vs Dictionary (Add)")]
+	[Tag(Program.Name, "Map vs Dictionary (Add)")]
 	public class MapVsDictionary_Add
 	{
 		[Params(10, 100, 1000, 10000)]
@@ -49,7 +49,7 @@ namespace Towel_Benchmarking
 		}
 	}
 
-	[Value(Program.Name, "Map vs Dictionary (Look Up)")]
+	[Tag(Program.Name, "Map vs Dictionary (Look Up)")]
 	public class MapVsDictionary_LookUp
 	{
 		[Params(10, 100, 1000, 10000)]

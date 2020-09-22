@@ -4,7 +4,7 @@ using static Towel.Statics;
 
 namespace Towel_Benchmarking
 {
-	[Value(Program.Name, "Permute")]
+	[Tag(Program.Name, "Permute")]
 	public class Permute_Benchmarks
 	{
 		[Params(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)]
