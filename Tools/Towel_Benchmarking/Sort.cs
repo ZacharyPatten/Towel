@@ -33,67 +33,67 @@ namespace Towel_Benchmarking
 			SortBubble<int>(Values);
 
 		[Benchmark] public void BubbleCompileTime() =>
-			SortBubble<int, CompareInt>(Values);
+			SortBubble<int, IntCompare>(Values);
 
 		[Benchmark] public void SelectionRunTime() =>
 			SortSelection<int>(Values);
 
 		[Benchmark] public void SelectionCompileTime() =>
-			SortSelection<int, CompareInt>(Values);
+			SortSelection<int, IntCompare>(Values);
 
 		[Benchmark] public void InsertionRunTime() =>
 			SortInsertion<int>(Values);
 
 		[Benchmark] public void InsertionCompileTime() =>
-			SortInsertion<int, CompareInt>(Values);
+			SortInsertion<int, IntCompare>(Values);
 
 		[Benchmark] public void QuickRunTime() =>
 			SortQuick<int>(Values);
 
 		[Benchmark] public void QuickCompileTime() =>
-			SortQuick<int, CompareInt>(Values);
+			SortQuick<int, IntCompare>(Values);
 
 		[Benchmark] public void MergeRunTime() =>
 			SortMerge<int>(Values);
 
 		[Benchmark] public void MergeCompileTime() =>
-			SortMerge<int, CompareInt>(Values);
+			SortMerge<int, IntCompare>(Values);
 
 		[Benchmark] public void HeapRunTime() =>
 			SortHeap<int>(Values);
 
 		[Benchmark] public void HeapCompileTime() =>
-			SortHeap<int, CompareInt>(Values);
+			SortHeap<int, IntCompare>(Values);
 
 		[Benchmark] public void OddEvenRunTime() =>
 			SortOddEven<int>(Values);
 
 		[Benchmark] public void OddEvenCompileTime() =>
-			SortOddEven<int, CompareInt>(Values);
+			SortOddEven<int, IntCompare>(Values);
 
 		[Benchmark] public void GnomeRunTime() =>
 			SortGnome<int>(Values);
 
 		[Benchmark] public void GnomeCompileTime() =>
-			SortGnome<int, CompareInt>(Values);
+			SortGnome<int, IntCompare>(Values);
 
 		[Benchmark] public void CombRunTime() =>
 			SortComb<int>(Values);
 
 		[Benchmark] public void CombCompileTime() =>
-			SortComb<int, CompareInt>(Values);
+			SortComb<int, IntCompare>(Values);
 
 		[Benchmark] public void ShellRunTime() =>
 			SortShell<int>(Values);
 
 		[Benchmark] public void ShellCompileTime() =>
-			SortShell<int, CompareInt>(Values);
+			SortShell<int, IntCompare>(Values);
 
 		[Benchmark] public void CocktailRunTime() =>
 			SortCocktail<int>(Values);
 
 		[Benchmark] public void CocktailCompileTime() =>
-			SortCocktail<int, CompareInt>(Values);
+			SortCocktail<int, IntCompare>(Values);
 
 		[Benchmark] public void SlowRunTime()
 		{
@@ -110,7 +110,7 @@ namespace Towel_Benchmarking
 			{
 				throw new Exception("Too Slow.");
 			}
-			SortSlow<int, CompareInt>(Values);
+			SortSlow<int, IntCompare>(Values);
 		}
 
 		[Benchmark] public void BogoRunTime()
@@ -128,7 +128,7 @@ namespace Towel_Benchmarking
 			{
 				throw new Exception("Too Slow.");
 			}
-			SortBogo<int, CompareInt>(Values);
+			SortBogo<int, IntCompare>(Values);
 		}
 
 		public struct ComparerInt : System.Collections.Generic.IComparer<int>

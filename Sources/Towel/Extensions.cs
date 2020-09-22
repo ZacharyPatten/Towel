@@ -671,7 +671,7 @@ namespace Towel
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int> =>
-			NextUnique<Step, RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random(), step);
+			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -687,7 +687,7 @@ namespace Towel
 		[Obsolete("It is recommended you use " + nameof(NextUnique) + " method instead.", false)]
 		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int> =>
-			NextUniqueRollTracking<Step, RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random(), step);
+			NextUniqueRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -703,7 +703,7 @@ namespace Towel
 		[Obsolete("It is recommended you use " + nameof(NextUnique) + " method instead.", false)]
 		public static void NextUniquePoolTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int> =>
-			NextUniquePoolTracking<Step, RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random(), step);
+			NextUniquePoolTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -732,7 +732,7 @@ namespace Towel
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue) =>
-			Statics.NextUnique<RandomIntNextMinMax>(count, minValue, maxValue, random ?? new Random());
+			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
 
 		#endregion
 
@@ -1559,7 +1559,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type being iterated.</typeparam>
 		/// <param name="iEnumerable">The IEnumerable to convert.</param>
 		/// <returns>The stepper delegate comparable to the IEnumerable provided.</returns>
-		public static StepperBreak<T> ToStepperBreak<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable) =>
+		public static Func<Func<T, StepStatus>, StepStatus> ToStepperBreak<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable) =>
 			step =>
 			{
 				foreach (T value in iEnumerable)
@@ -1659,7 +1659,7 @@ namespace Towel
 		/// <param name="equate">An equality function for the data</param>
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
-		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper, Func<T, T, bool> equate, Func<T, int> hash)
+		public static bool ContainsDuplicates<T>(this Func<Func<T, StepStatus>, StepStatus> stepper, Func<T, T, bool> equate, Func<T, int> hash)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
@@ -1708,7 +1708,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the data.</typeparam>
 		/// <param name="stepper">The stepper function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
-		public static bool ContainsDuplicates<T>(this StepperBreak<T> stepper) =>
+		public static bool ContainsDuplicates<T>(this Func<Func<T, StepStatus>, StepStatus> stepper) =>
 			ContainsDuplicates(stepper, Equate, DefaultHash);
 
 		/// <summary>Determines if the data contains any duplicates.</summary>
@@ -1736,7 +1736,7 @@ namespace Towel
 		/// <param name="stepper">The stepper to determine if any predicated values exist.</param>
 		/// <param name="where">The predicate.</param>
 		/// <returns>True if any of the predicated values exist or </returns>
-		public static bool Any<T>(this StepperBreak<T> stepper, Predicate<T> where)
+		public static bool Any<T>(this Func<Func<T, StepStatus>, StepStatus> stepper, Predicate<T> where)
 		{
 			bool any = false;
 			stepper(x => (any = where(x))

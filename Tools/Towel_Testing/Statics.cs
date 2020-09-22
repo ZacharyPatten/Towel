@@ -4,7 +4,6 @@ using Towel;
 using static Towel.Statics;
 using Towel.Measurements;
 using Towel.DataStructures;
-using System.IO;
 using System.Runtime.CompilerServices;
 
 namespace Towel_Testing
@@ -1713,7 +1712,7 @@ namespace Towel_Testing
 		public void BubbleSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortBubble<int, CompareInt>(span);
+			SortBubble<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1724,7 +1723,7 @@ namespace Towel_Testing
 		public void InsertionSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortInsertion<int, CompareInt>(span);
+			SortInsertion<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1735,7 +1734,7 @@ namespace Towel_Testing
 		public void SelectionSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortInsertion<int, CompareInt>(span);
+			SortInsertion<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1746,7 +1745,7 @@ namespace Towel_Testing
 		public void MergeSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortMerge<int, CompareInt>(span);
+			SortMerge<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1757,7 +1756,7 @@ namespace Towel_Testing
 		public void QuickSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortQuick<int, CompareInt>(span);
+			SortQuick<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1768,7 +1767,7 @@ namespace Towel_Testing
 		public void HeapSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortHeap<int, CompareInt>(span);
+			SortHeap<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1779,7 +1778,7 @@ namespace Towel_Testing
 		public void OddEvenSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortOddEven<int, CompareInt>(span);
+			SortOddEven<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1790,7 +1789,7 @@ namespace Towel_Testing
 		public void SlowSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortSlow<int, CompareInt>(span);
+			SortSlow<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1801,7 +1800,7 @@ namespace Towel_Testing
 		public void GnomeSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortGnome<int, CompareInt>(span);
+			SortGnome<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1812,7 +1811,7 @@ namespace Towel_Testing
 		public void CombSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortComb<int, CompareInt>(span);
+			SortComb<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1823,7 +1822,7 @@ namespace Towel_Testing
 		public void ShellSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortShell<int, CompareInt>(span);
+			SortShell<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1834,7 +1833,7 @@ namespace Towel_Testing
 		public void CocktailSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortCocktail<int, CompareInt>(span);
+			SortCocktail<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);
@@ -1845,7 +1844,7 @@ namespace Towel_Testing
 		public void BogoSpan_Test()
 		{
 			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
-			SortBogo<int, CompareInt>(span);
+			SortBogo<int, IntCompare>(span);
 			for (int i = 1; i < span.Length; i++)
 			{
 				Assert.IsTrue(span[i - 1] <= span[i]);

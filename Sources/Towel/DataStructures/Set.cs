@@ -107,14 +107,14 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		Func<T, int> DataStructure.IHashing<T>.Hash =>
 			_hash is FuncRuntime<T, int> hash
-				? hash._func
+				? hash._delegate
 				: _hash.Do;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
 		Func<T, T, bool> DataStructure.IEquating<T>.Equate =>
 			_equate is FuncRuntime<T, T, bool> func
-			? func._func
+			? func._delegate
 			: _equate.Do;
 
 		#endregion
@@ -452,11 +452,11 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		public Func<T, int> Hash => _hash._func;
+		public Func<T, int> Hash => _hash._delegate;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Func<T, T, bool> Equate => _equate._func;
+		public Func<T, T, bool> Equate => _equate._delegate;
 
 		#endregion
 

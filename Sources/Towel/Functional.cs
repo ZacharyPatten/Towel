@@ -1,451 +1,229 @@
 ﻿using System;
-using Towel.DataStructures;
-using static Towel.Statics;
 
 namespace Towel
 {
-	public delegate void ParamsAction<T>(params T[] values);
 
-	public delegate void ParamsAction<A, B>(params (A, B)[] values);
-
-	/// <summary>Interface for a compile time delegate.</summary>
 	public interface IAction
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
 		void Do();
 	}
 
-	/// <summary>Built in struct for runtime computations.</summary>
+	public interface IAction<T1>
+	{
+		void Do(T1 arg1);
+	}
+
+	public interface IAction<T1, T2>
+	{
+		void Do(T1 arg1, T2 arg2);
+	}
+
+	public interface IAction<T1, T2, T3>
+	{
+		void Do(T1 arg1, T2 arg2, T3 arg3);
+	}
+
+	public interface IAction<T1, T2, T3, T4>
+	{
+		void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+	}
+
+	public interface IAction<T1, T2, T3, T4, T5>
+	{
+		void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
+	}
+
+	public interface IAction<T1, T2, T3, T4, T5, T6>
+	{
+		void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
+	}
+
+	public interface IAction<T1, T2, T3, T4, T5, T6, T7>
+	{
+		void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
+	}
+
+	public interface IFunc<TResult>
+	{
+		TResult Do();
+	}
+
+	public interface IFunc<T1, TResult>
+	{
+		TResult Do(T1 arg1);
+	}
+
+	public interface IFunc<T1, T2, TResult>
+	{
+		TResult Do(T1 arg1, T2 arg2);
+	}
+
+	public interface IFunc<T1, T2, T3, TResult>
+	{
+		TResult Do(T1 arg1, T2 arg2, T3 arg3);
+	}
+
+	public interface IFunc<T1, T2, T3, T4, TResult>
+	{
+		TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+	}
+
+	public interface IFunc<T1, T2, T3, T4, T5, TResult>
+	{
+		TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
+	}
+
+	public interface IFunc<T1, T2, T3, T4, T5, T6, TResult>
+	{
+		TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
+	}
+
+	public interface IFunc<T1, T2, T3, T4, T5, T6, T7, TResult>
+	{
+		TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
+	}
+
 	public struct ActionRuntime : IAction
 	{
-		internal Action Action;
+		internal Action _delegate;
 
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do() => Action();
+		public void Do() => _delegate();
 
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="action">The runtime delegate.</param>
-		public static implicit operator ActionRuntime(Action action) => new ActionRuntime() { Action = action, };
+		public static implicit operator ActionRuntime(Action @delegate) => new ActionRuntime() { _delegate = @delegate, };
 	}
 
-	/// <summary>Interface for a compile time delegate.</summary>
-	public interface IAction<A>
+	public struct ActionRuntime<T1> : IAction<T1>
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		void Do(A a);
+		internal Action<T1> _delegate;
+
+		public void Do(T1 arg1) => _delegate(arg1);
+
+		public static implicit operator ActionRuntime<T1>(Action<T1> @delegate) => new ActionRuntime<T1>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Built in struct for runtime computations.</summary>
-	public struct ActionRuntime<A> : IAction<A>
+	public struct ActionRuntime<T1, T2> : IAction<T1, T2>
 	{
-		internal Action<A> _action;
+		internal Action<T1, T2> _delegate;
 
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(A a) => _action(a);
+		public void Do(T1 arg1, T2 arg2) => _delegate(arg1, arg2);
 
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="action">The runtime delegate.</param>
-		public static implicit operator ActionRuntime<A>(Action<A> action) => new ActionRuntime<A>() { _action = action, };
+		public static implicit operator ActionRuntime<T1, T2>(Action<T1, T2> @delegate) => new ActionRuntime<T1, T2>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Interface for a compile time delegate.</summary>
-	public interface IAction<A, B>
+	public struct ActionRuntime<T1, T2, T3> : IAction<T1, T2, T3>
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		void Do(A a, B b);
+		internal Action<T1, T2, T3> _delegate;
+
+		public void Do(T1 arg1, T2 arg2, T3 arg3) => _delegate(arg1, arg2, arg3);
+
+		public static implicit operator ActionRuntime<T1, T2, T3>(Action<T1, T2, T3> @delegate) => new ActionRuntime<T1, T2, T3>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Built in struct for runtime computations.</summary>
-	public struct ActionRuntime<A, B> : IAction<A, B>
+	public struct ActionRuntime<T1, T2, T3, T4> : IAction<T1, T2, T3, T4>
 	{
-		internal Action<A,B> _action;
+		internal Action<T1, T2, T3, T4> _delegate;
 
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(A a, B b) => _action(a, b);
+		public void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4) => _delegate(arg1, arg2, arg3, arg4);
 
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="action">The runtime delegate.</param>
-		public static implicit operator ActionRuntime<A, B>(Action<A, B> action) => new ActionRuntime<A, B>() { _action = action, };
+		public static implicit operator ActionRuntime<T1, T2, T3, T4>(Action<T1, T2, T3, T4> @delegate) => new ActionRuntime<T1, T2, T3, T4>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Interface for a compile time delegate.</summary>
-	public interface IAction<A, B, C>
+	public struct ActionRuntime<T1, T2, T3, T4, T5> : IAction<T1, T2, T3, T4, T5>
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		void Do(A a, B b, C c);
+		internal Action<T1, T2, T3, T4, T5> _delegate;
+
+		public void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) => _delegate(arg1, arg2, arg3, arg4, arg5);
+
+		public static implicit operator ActionRuntime<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> @delegate) => new ActionRuntime<T1, T2, T3, T4, T5>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Interface for a compile time delegate.</summary>
-	public interface IFunc<A>
+	public struct ActionRuntime<T1, T2, T3, T4, T5, T6> : IAction<T1, T2, T3, T4, T5, T6>
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		A Do();
+		internal Action<T1, T2, T3, T4, T5, T6> _delegate;
+
+		public void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) => _delegate(arg1, arg2, arg3, arg4, arg5, arg6);
+
+		public static implicit operator ActionRuntime<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> @delegate) => new ActionRuntime<T1, T2, T3, T4, T5, T6>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Built in struct for runtime computations.</summary>
-	public struct FuncRuntime<A> : IFunc<A>
+	public struct ActionRuntime<T1, T2, T3, T4, T5, T6, T7> : IAction<T1, T2, T3, T4, T5, T6, T7>
 	{
-		internal Func<A> Func;
+		internal Action<T1, T2, T3, T4, T5, T6, T7> _delegate;
 
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public A Do() => Func();
+		public void Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) => _delegate(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
 
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="func">The runtime delegate.</param>
-		public static implicit operator FuncRuntime<A>(Func<A> func) => new FuncRuntime<A>() { Func = func, };
+		public static implicit operator ActionRuntime<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> @delegate) => new ActionRuntime<T1, T2, T3, T4, T5, T6, T7>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Interface for a compile time delegate.</summary>
-	public interface IFunc<A, B>
+	public struct FuncRuntime<TResult> : IFunc<TResult>
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		B Do(A a);
+		internal Func<TResult> _delegate;
+
+		public TResult Do() => _delegate();
+
+		public static implicit operator FuncRuntime<TResult>(Func<TResult> @delegate) => new FuncRuntime<TResult>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Built in struct for runtime computations.</summary>
-	public struct FuncRuntime<A, B> : IFunc<A, B>
+	public struct FuncRuntime<T1, TResult> : IFunc<T1, TResult>
 	{
-		internal Func<A, B> _func;
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public B Do(A a) => _func(a);
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="func">The runtime delegate.</param>
-		public static implicit operator FuncRuntime<A, B>(Func<A, B> func) => new FuncRuntime<A, B>() { _func = func, };
+		internal Func<T1, TResult> _delegate;
+
+		public TResult Do(T1 arg1) => _delegate(arg1);
+
+		public static implicit operator FuncRuntime<T1, TResult>(Func<T1, TResult> @delegate) => new FuncRuntime<T1, TResult>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Interface for a compile time delegate.</summary>
-	public interface IFunc<A, B, C>
+	public struct FuncRuntime<T1, T2, TResult> : IFunc<T1, T2, TResult>
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		C Do(A a, B b);
+		internal Func<T1, T2, TResult> _delegate;
+
+		public TResult Do(T1 arg1, T2 arg2) => _delegate(arg1, arg2);
+
+		public static implicit operator FuncRuntime<T1, T2, TResult>(Func<T1, T2, TResult> @delegate) => new FuncRuntime<T1, T2, TResult>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Built in struct for runtime computations.</summary>
-	public struct FuncRuntime<A, B, C> : IFunc<A, B, C>
+	public struct FuncRuntime<T1, T2, T3, TResult> : IFunc<T1, T2, T3, TResult>
 	{
-		internal Func<A, B, C> _func;
+		internal Func<T1, T2, T3, TResult> _delegate;
 
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public C Do(A a, B b) => _func(a, b);
+		public TResult Do(T1 arg1, T2 arg2, T3 arg3) => _delegate(arg1, arg2, arg3);
 
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="func">The runtime delegate.</param>
-		public static implicit operator FuncRuntime<A, B, C>(Func<A, B, C> func) => new FuncRuntime<A, B, C>() { _func = func, };
+		public static implicit operator FuncRuntime<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> @delegate) => new FuncRuntime<T1, T2, T3, TResult>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Interface for a compile time delegate.</summary>
-	public interface IFunc<A, B, C, D>
+	public struct FuncRuntime<T1, T2, T3, T4, TResult> : IFunc<T1, T2, T3, T4, TResult>
 	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		D Do(A a, B b, C c);
+		internal Func<T1, T2, T3, T4, TResult> _delegate;
+
+		public TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4) => _delegate(arg1, arg2, arg3, arg4);
+
+		public static implicit operator FuncRuntime<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> @delegate) => new FuncRuntime<T1, T2, T3, T4, TResult>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Default int compare.</summary>
-	public struct CompareInt : IFunc<int, int, CompareResult>
+	public struct FuncRuntime<T1, T2, T3, T4, T5, TResult> : IFunc<T1, T2, T3, T4, T5, TResult>
 	{
-		/// <summary>Default int compare.</summary>
-		/// <param name="a">The left hand side of the compare.</param>
-		/// <param name="b">The right ahnd side of the compare.</param>
-		/// <returns>The result of the comparison.</returns>
-		public CompareResult Do(int a, int b) => a.CompareTo(b).ToCompareResult();
+		internal Func<T1, T2, T3, T4, T5, TResult> _delegate;
+
+		public TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) => _delegate(arg1, arg2, arg3, arg4, arg5);
+
+		public static implicit operator FuncRuntime<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> @delegate) => new FuncRuntime<T1, T2, T3, T4, T5, TResult>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Built in Compare struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values to compare.</typeparam>
-	/// <typeparam name="Compare">The compare function.</typeparam>
-	public struct SiftFromCompareAndValue<T, Compare> : IFunc<T, CompareResult>
-		where Compare : IFunc<T, T, CompareResult>
+	public struct FuncRuntime<T1, T2, T3, T4, T5, T6, TResult> : IFunc<T1, T2, T3, T4, T5, T6, TResult>
 	{
-		internal Compare CompareFunction;
-		internal T Value;
+		internal Func<T1, T2, T3, T4, T5, T6, TResult> _delegate;
 
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public CompareResult Do(T a) => CompareFunction.Do(a, Value);
+		public TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) => _delegate(arg1, arg2, arg3, arg4, arg5, arg6);
 
-		/// <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
-		/// <param name="value">The value for future values to be compared against.</param>
-		/// <param name="compare">The compare function.</param>
-		public SiftFromCompareAndValue(T value, Compare compare = default)
-		{
-			Value = value;
-			CompareFunction = compare;
-		}
+		public static implicit operator FuncRuntime<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> @delegate) => new FuncRuntime<T1, T2, T3, T4, T5, T6, TResult>() { _delegate = @delegate, };
 	}
 
-	/// <summary>Compares two char values for equality.</summary>
-	public struct EqualsChar : IFunc<char, char, bool>
+	public struct FuncRuntime<T1, T2, T3, T4, T5, T6, T7, TResult> : IFunc<T1, T2, T3, T4, T5, T6, T7, TResult>
 	{
-		/// <summary>Compares two char values for equality.</summary>
-		/// <param name="a">The first operand of the equality check.</param>
-		/// <param name="b">The second operand of the equality check.</param>
-		/// <returns>True if equal; False if not.</returns>
-		public bool Do(char a, char b) => a == b;
+		internal Func<T1, T2, T3, T4, T5, T6, T7, TResult> _delegate;
+
+		public TResult Do(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) => _delegate(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+
+		public static implicit operator FuncRuntime<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> @delegate) => new FuncRuntime<T1, T2, T3, T4, T5, T6, T7, TResult>() { _delegate = @delegate, };
 	}
-
-	/// <summary>Built in GetIndex struct for arrays.</summary>
-	/// <typeparam name="T">The generic type of the value to get.</typeparam>
-	public struct GetIndexArray<T> : IFunc<int, T>
-	{
-		internal T[] Array;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public T Do(int index) => Array[index];
-
-		/// <summary>Implicitly gets the getter from an array.</summary>
-		/// <param name="array">The array to get the getter of.</param>
-		public static implicit operator GetIndexArray<T>(T[] array) =>
-			new GetIndexArray<T>() { Array = array, };
-	}
-
-	/// <summary>Built in GetIndex struct for lists.</summary>
-	/// <typeparam name="T">The generic type of the value to get.</typeparam>
-	public struct GetIndexListArray<T> : IFunc<int, T>
-	{
-		internal ListArray<T> List;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public T Do(int index) => List[index];
-
-		/// <summary>Implicitly gets the getter from a list.</summary>
-		/// <param name="list">The list to get the getter of.</param>
-		public static implicit operator GetIndexListArray<T>(ListArray<T> list) =>
-			new GetIndexListArray<T>() { List = list, };
-	}
-
-	/// <summary>Built in GetIndex struct for lists.</summary>
-	public struct GetIndexString : IFunc<int, char>
-	{
-		internal string String;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public char Do(int index) => String[index];
-
-		/// <summary>Implicitly gets the getter from a list.</summary>
-		/// <param name="string">The string to get the indexer of.</param>
-		public static implicit operator GetIndexString(string @string) =>
-			new GetIndexString() { String = @string, };
-	}
-
-	/// <summary>Built in SetIndex struct for arrays.</summary>
-	/// <typeparam name="T">The generic type of the value to set.</typeparam>
-	public struct SetIndexArray<T> : IAction<int, T>
-	{
-		internal T[] Array;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(int index, T value) => Array[index] = value;
-
-		/// <summary>Implicitly gets the setter from an array.</summary>
-		/// <param name="array">The array to get the setter of.</param>
-		public static implicit operator SetIndexArray<T>(T[] array) =>
-			new SetIndexArray<T>() { Array = array, };
-	}
-
-	/// <summary>Built in SetIndex struct for lists.</summary>
-	/// <typeparam name="T">The generic type of the value to set.</typeparam>
-	public struct SetIndexListArray<T> : IAction<int, T>
-	{
-		internal ListArray<T> List;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(int index, T value) => List[index] = value;
-
-		/// <summary>Implicitly gets the setter from a list.</summary>
-		/// <param name="list">The list to get the setter of.</param>
-		public static implicit operator SetIndexListArray<T>(ListArray<T> list) =>
-			new SetIndexListArray<T>() { List = list, };
-	}
-
-	/// <summary>Compile time resulution to the <see cref="StepStatus.Continue"/> value.</summary>
-	public struct StepStatusContinue : IFunc<StepStatus>
-	{
-		/// <summary>Returns <see cref="StepStatus.Continue"/>.</summary>
-		/// <returns><see cref="StepStatus.Continue"/></returns>
-		public StepStatus Do() => Continue;
-	}
-
-	#region Need To be Translated
-
-	/// <summary>Delegate for data structure iteration.</summary>
-	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-	/// <param name="current">The current instance of iteration through the data structure.</param>
-	public delegate void StepRef<T>(ref T current);
-
-	/// <summary>Delegate for data structure iteration.</summary>
-	/// <typeparam name="T">The type of the instances within the data structure.</typeparam>
-	/// <param name="current">The current instance of iteration through the data structure.</param>
-	/// <returns>The status of the iteration. Allows breaking functionality.</returns>
-	public delegate StepStatus StepRefBreak<T>(ref T current);
-
-	/// <summary>Delegate for a traversal function on a data structure.</summary>
-	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step">The foreach function to perform on each iteration.</param>
-	public delegate void StepperRef<T>(StepRef<T> step);
-
-	/// <summary>Delegate for a traversal function on a data structure.</summary>
-	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step">The foreach function to perform on each iteration.</param>
-	public delegate StepStatus StepperBreak<T>(Func<T, StepStatus> step);
-
-	/// <summary>Delegate for a traversal function on a data structure.</summary>
-	/// <typeparam name="T">The type of instances the will be traversed.</typeparam>
-	/// <param name="step">The foreach function to perform on each iteration.</param>
-	public delegate StepStatus StepperRefBreak<T>(StepRefBreak<T> step);
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	/// <typeparam name="StepRef">The Step function.</typeparam>
-	public struct StepFromStepRef<T, StepRef> : IAction<T>
-		where StepRef : struct, IStepRef<T>
-	{
-		internal StepRef StepRefFunction;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(T value) => StepRefFunction.Do(ref value);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="stepRef">The runtime Step delegate.</param>
-		public static implicit operator StepFromStepRef<T, StepRef>(StepRef stepRef) =>
-			new StepFromStepRef<T, StepRef>() { StepRefFunction = stepRef, };
-	}
-
-	/// <summary>A compile time delegate for stepping values of iteration.</summary>
-	/// <typeparam name="T">The generic type of values to step.</typeparam>
-	public interface IStepRef<T>
-	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		void Do(ref T a);
-	}
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	public struct StepRefRuntime<T> : IStepRef<T>
-	{
-		internal StepRef<T> StepRef;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(ref T value) => StepRef(ref value);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="stepRef">The runtime Step delegate.</param>
-		public static implicit operator StepRefRuntime<T>(StepRef<T> stepRef) =>
-			new StepRefRuntime<T>() { StepRef = stepRef, };
-	}
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	/// <typeparam name="Step">The Step function.</typeparam>
-	public struct StepToStepRef<T, Step> : IStepRef<T>
-		where Step : struct, IAction<T>
-	{
-		internal Step StepFunction;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(ref T value) => StepFunction.Do(value);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="step">The runtime Step delegate.</param>
-		public static implicit operator StepToStepRef<T, Step>(Step step) =>
-			new StepToStepRef<T, Step>() { StepFunction = step, };
-	}
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	public struct StepBreakRuntime<T> : IFunc<T, StepStatus>
-	{
-		internal Func<T, StepStatus> StepBreak;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(T value) => StepBreak(value);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="stepBreak">The runtime Step delegate.</param>
-		public static implicit operator StepBreakRuntime<T>(Func<T, StepStatus> stepBreak) =>
-			new StepBreakRuntime<T>() { StepBreak = stepBreak, };
-	}
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	/// <typeparam name="Step">The Step function.</typeparam>
-	public struct StepBreakFromAction<T, Step> : IFunc<T, StepStatus>
-		where Step : struct, IAction<T>
-	{
-		internal Step StepFunction;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(T value) { StepFunction.Do(value); return Continue; }
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="step">The runtime Step delegate.</param>
-		public static implicit operator StepBreakFromAction<T, Step>(Step step) =>
-			new StepBreakFromAction<T, Step>() { StepFunction = step, };
-	}
-
-	/// <summary>A compile time delegate for stepping values of iteration.</summary>
-	/// <typeparam name="T">The generic type of values to step.</typeparam>
-	public interface IStepRefBreak<T>
-	{
-		/// <summary>The invocation of the compile time delegate.</summary>
-		StepStatus Do(ref T a);
-	}
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	public struct StepRefBreakRuntime<T> : IStepRefBreak<T>
-	{
-		internal StepRefBreak<T> StepRefBreak;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(ref T value) => StepRefBreak(ref value);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="stepRefBreak">The runtime Step delegate.</param>
-		public static implicit operator StepRefBreakRuntime<T>(StepRefBreak<T> stepRefBreak) =>
-			new StepRefBreakRuntime<T>() { StepRefBreak = stepRefBreak, };
-	}
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	/// <typeparam name="Step">The Step function.</typeparam>
-	public struct StepRefBreakFromStepBreak<T, Step> : IStepRefBreak<T>
-		where Step : struct, IFunc<T, StepStatus>
-	{
-		internal Step StepFunction;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(ref T value) => StepFunction.Do(value);
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="step">The runtime Step delegate.</param>
-		public static implicit operator StepRefBreakFromStepBreak<T, Step>(Step step) =>
-			new StepRefBreakFromStepBreak<T, Step>() { StepFunction = step, };
-	}
-
-	/// <summary>Built in struct for runtime computations.</summary>
-	/// <typeparam name="T">The generic type of the values.</typeparam>
-	/// <typeparam name="Step">The Step function.</typeparam>
-	public struct StepRefBreakFromStepRef<T, Step> : IStepRefBreak<T>
-		where Step : struct, IStepRef<T>
-	{
-		internal Step StepFunction;
-
-		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(ref T value) { StepFunction.Do(ref value); return Continue; }
-
-		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
-		/// <param name="step">The runtime Step delegate.</param>
-		public static implicit operator StepRefBreakFromStepRef<T, Step>(Step step) =>
-			new StepRefBreakFromStepRef<T, Step>() { StepFunction = step, };
-	}
-
-	public struct RandomIntNextMinMax : IFunc<int, int, int>
-	{
-		internal Random _random;
-		public int Do(int a, int b) => _random.Next(a, b);
-
-		public static implicit operator RandomIntNextMinMax(Random random) =>
-			new RandomIntNextMinMax() { _random = random, };
-	}
-
-	#endregion
 }

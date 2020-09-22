@@ -268,12 +268,14 @@ namespace Towel
 		/// <typeparam name="T">The generic type parameter to the Switch statement.</typeparam>
 		/// <param name="value">The value argument of the Switch statement.</param>
 		/// <returns>The delegate for the Switch statement.</returns>
-		public static ParamsAction<SwitchSyntax.Condition<T>, Action> Switch<T>(T value) =>
+		public static SwitchSyntax.ParamsAction<SwitchSyntax.Condition<T>, Action> Switch<T>(T value) =>
 			SwitchSyntax.Do<T>(value);
 
 		/// <summary>Definitions for Switch syntax.</summary>
 		public static class SwitchSyntax
 		{
+			public delegate void ParamsAction<A, B>(params (A, B)[] values);
+
 			internal static ParamsAction<Condition<T>, Action> Do<T>(T value) =>
 				possibleActions =>
 				{
@@ -708,7 +710,7 @@ namespace Towel
 			public static implicit operator StepperRef<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRef();
 			/// <summary>Converts a universal quantification to an <see cref="StepperBreak{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator StepperBreak<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperBreak();
+			public static implicit operator Func<Func<T, StepStatus>, StepStatus>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperBreak();
 			/// <summary>Converts a universal quantification to an <see cref="StepperRefBreak{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator StepperRefBreak<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRefBreak();
@@ -3384,19 +3386,6 @@ namespace Towel
 
 		#region Hamming Distance
 
-		/// <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
-		/// <param name="a">The first sequence.</param>
-		/// <param name="b">The second sequence.</param>
-		/// <returns>The computed Hamming distance of the two sequences.</returns>
-		public static int HammingDistance(string a, string b)
-		{
-			if (a.Length != b.Length)
-			{
-				throw new ArgumentException($@"{nameof(a)}.{nameof(a.Length)} ({a.Length}) != {nameof(b)}.{nameof(b.Length)} ({b.Length})");
-			}
-			return HammingDistance<char, GetIndexString, GetIndexString, EqualsChar>(a.Length, a, b);
-		}
-
 		/// <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
 		/// <typeparam name="GetA">The get index function for the first sequence.</typeparam>
@@ -3436,7 +3425,7 @@ namespace Towel
 		/// <param name="b">The second sequence of the operation.</param>
 		/// <returns>The computed Hamming distance of the two sequences.</returns>
 		public static int HammingDistance(ReadOnlySpan<char> a, ReadOnlySpan<char> b) =>
-			HammingDistance<char, EqualsChar>(a, b);
+			HammingDistance<char, CharEquate>(a, b);
 
 		/// <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
@@ -3469,13 +3458,6 @@ namespace Towel
 		#endregion
 
 		#region Levenshtein distance
-
-		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
-		/// <param name="a">The first sequence.</param>
-		/// <param name="b">The second sequence.</param>
-		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
-		public static int LevenshteinDistanceRecursive(string a, string b) =>
-			LevenshteinDistanceRecursive<char, GetIndexString, GetIndexString, EqualsChar>(a.Length, b.Length, a, b);
 
 		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
@@ -3526,7 +3508,7 @@ namespace Towel
 		/// <param name="b">The second sequence of the operation.</param>
 		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
 		public static int LevenshteinDistanceRecursive(ReadOnlySpan<char> a, ReadOnlySpan<char> b) =>
-			LevenshteinDistanceRecursive<char, EqualsChar>(a, b);
+			LevenshteinDistanceRecursive<char, CharEquate>(a, b);
 
 		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
@@ -3558,13 +3540,6 @@ namespace Towel
 			}
 			return LDR(a, b, 0, 0);
 		}
-
-		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
-		/// <param name="a">The first sequence.</param>
-		/// <param name="b">The second sequence.</param>
-		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
-		public static int LevenshteinDistanceIterative(string a, string b) =>
-			LevenshteinDistanceIterative<char, GetIndexString, GetIndexString, EqualsChar>(a.Length, b.Length, a, b);
 
 		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
@@ -3626,7 +3601,7 @@ namespace Towel
 		/// <param name="b">The second sequence of the operation.</param>
 		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
 		public static int LevenshteinDistanceIterative(ReadOnlySpan<char> a, ReadOnlySpan<char> b) =>
-			LevenshteinDistanceIterative<char, EqualsChar>(a, b);
+			LevenshteinDistanceIterative<char, CharEquate>(a, b);
 
 		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
@@ -5134,7 +5109,7 @@ namespace Towel
 		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random random = null)
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T> =>
-			Shuffle<T, Get, Set, RandomIntNextMinMax>(start, end, get, set, random ?? new Random());
+			Shuffle<T, Get, Set, RandomNextIntMinValueIntMaxValue>(start, end, get, set, random ?? new Random());
 
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T, Get, Set, Random>(int start, int end, Get get = default, Set set = default, Random random = default)
@@ -5154,7 +5129,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T>(Span<T> span, Random random = null) =>
-			Shuffle<T, RandomIntNextMinMax>(span, random ?? new Random());
+			Shuffle<T, RandomNextIntMinValueIntMaxValue>(span, random ?? new Random());
 
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T, Random>(Span<T> span, Random random = default)
@@ -5188,7 +5163,7 @@ namespace Towel
 			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T> =>
-			SortBogo<T, Compare, Get, Set, RandomIntNextMinMax>(start, end, compare, get, set, random ?? new Random());
+			SortBogo<T, Compare, Get, Set, RandomNextIntMinValueIntMaxValue>(start, end, compare, get, set, random ?? new Random());
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare, Get, Set, Random>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = default)
@@ -5221,7 +5196,7 @@ namespace Towel
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare>(Span<T> span, Compare compare = default, Random random = null)
 			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortBogo<T, Compare, RandomIntNextMinMax>(span, compare, random ?? new Random());
+			SortBogo<T, Compare, RandomNextIntMinValueIntMaxValue>(span, compare, random ?? new Random());
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare, Random>(Span<T> span, Compare compare = default, Random random = default)
@@ -5815,7 +5790,7 @@ namespace Towel
 		/// <param name="span">The span to check.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
 		public static bool IsPalindrome(ReadOnlySpan<char> span) =>
-			IsPalindrome<char, EqualsChar>(span);
+			IsPalindrome<char, CharEquate>(span);
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
@@ -5847,5 +5822,67 @@ namespace Towel
 
 		#endregion
 
+		#region Structs
+
+		/// <summary>Default int compare.</summary>
+		public struct IntCompare : IFunc<int, int, CompareResult>
+		{
+			/// <summary>Default int compare.</summary>
+			/// <param name="a">The left hand side of the compare.</param>
+			/// <param name="b">The right ahnd side of the compare.</param>
+			/// <returns>The result of the comparison.</returns>
+			public CompareResult Do(int a, int b) => a.CompareTo(b).ToCompareResult();
+		}
+
+		/// <summary>Compares two char values for equality.</summary>
+		public struct CharEquate : IFunc<char, char, bool>
+		{
+			/// <summary>Compares two char values for equality.</summary>
+			/// <param name="a">The first operand of the equality check.</param>
+			/// <param name="b">The second operand of the equality check.</param>
+			/// <returns>True if equal; False if not.</returns>
+			public bool Do(char a, char b) => a == b;
+		}
+
+		/// <summary>Built in Compare struct for runtime computations.</summary>
+		/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		public struct SiftFromCompareAndValue<T, Compare> : IFunc<T, CompareResult>
+			where Compare : IFunc<T, T, CompareResult>
+		{
+			internal Compare CompareFunction;
+			internal T Value;
+
+			/// <summary>The invocation of the compile time delegate.</summary>
+			public CompareResult Do(T a) => CompareFunction.Do(a, Value);
+
+			/// <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
+			/// <param name="value">The value for future values to be compared against.</param>
+			/// <param name="compare">The compare function.</param>
+			public SiftFromCompareAndValue(T value, Compare compare = default)
+			{
+				Value = value;
+				CompareFunction = compare;
+			}
+		}
+
+		/// <summary>Compile time resulution to the <see cref="StepStatus.Continue"/> value.</summary>
+		public struct StepStatusContinue : IFunc<StepStatus>
+		{
+			/// <summary>Returns <see cref="StepStatus.Continue"/>.</summary>
+			/// <returns><see cref="StepStatus.Continue"/></returns>
+			public StepStatus Do() => Continue;
+		}
+
+		public struct RandomNextIntMinValueIntMaxValue : IFunc<int, int, int>
+		{
+			internal Random _random;
+			public int Do(int a, int b) => _random.Next(a, b);
+
+			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) =>
+				new RandomNextIntMinValueIntMaxValue() { _random = random, };
+		}
+
+		#endregion
 	}
 }

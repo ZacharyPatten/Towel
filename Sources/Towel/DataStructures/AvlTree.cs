@@ -103,7 +103,7 @@ namespace Towel.DataStructures
 		/// <runtime>θ(1)</runtime>
 		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
 			_compare is FuncRuntime<T, T, CompareResult> func
-			? func._func
+			? func._delegate
 			: _compare.Do;
 
 		/// <summary>Gets the number of elements in the collection.</summary>
@@ -842,7 +842,7 @@ namespace Towel.DataStructures
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
 		/// <runtime>θ(1)</runtime>
-		public Func<T, T, CompareResult> Compare => _compare._func;
+		public Func<T, T, CompareResult> Compare => _compare._delegate;
 
 		#endregion
 

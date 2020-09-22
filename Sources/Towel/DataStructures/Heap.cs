@@ -71,7 +71,7 @@ namespace Towel.DataStructures
 		/// <runtime>θ(1)</runtime>
 		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
 			_compare is FuncRuntime<T, T, CompareResult> func
-			? func._func
+			? func._delegate
 			: _compare.Do;
 
 		/// <summary>The maximum items the queue can hold.</summary>
@@ -303,7 +303,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>Delegate determining the comparison technique used for sorting.</summary>
-		public Func<T, T, CompareResult> Compare => _compare._func;
+		public Func<T, T, CompareResult> Compare => _compare._delegate;
 
 		#endregion
 

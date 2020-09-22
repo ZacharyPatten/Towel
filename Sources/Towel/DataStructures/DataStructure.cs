@@ -116,7 +116,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static StepperBreak<T> StepperBreak<T>(this IDataStructure<T> dataStructure) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T>(this IDataStructure<T> dataStructure) =>
 			dataStructure.Stepper;
 
 		/// <summary>Adds a value.</summary>

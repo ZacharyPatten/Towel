@@ -154,7 +154,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static StepperBreak<K> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
+		public static Func<Func<K, StepStatus>, StepStatus> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
 
 		#endregion
 
@@ -248,14 +248,14 @@ namespace Towel.DataStructures
 		/// <runtime>O(1)</runtime>
 		Func<K, int> DataStructure.IHashing<K>.Hash =>
 			_hash is FuncRuntime<K, int> hash
-				? hash._func
+				? hash._delegate
 				: _hash.Do;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
 		Func<K, K, bool> DataStructure.IEquating<K>.Equate =>
 			_equate is FuncRuntime<K, K, bool> equate
-			? equate._func
+			? equate._delegate
 			: _equate.Do;
 
 		/// <summary>Gets the value of a specified key.</summary>
@@ -748,11 +748,11 @@ namespace Towel.DataStructures
 
 		/// <summary>The delegate for computing hash codes.</summary>
 		/// <runtime>O(1)</runtime>
-		public Func<K, int> Hash => _hash._func;
+		public Func<K, int> Hash => _hash._delegate;
 
 		/// <summary>The delegate for equality checking.</summary>
 		/// <runtime>O(1)</runtime>
-		public Func<K, K, bool> Equate => _equate._func;
+		public Func<K, K, bool> Equate => _equate._delegate;
 
 		#endregion
 

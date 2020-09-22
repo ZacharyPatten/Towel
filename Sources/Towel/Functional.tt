@@ -1,0 +1,48 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# int parameterCount = 7; #>
+using System;
+
+namespace Towel
+{
+<# for (int i = 0; i <= parameterCount; i++) { #>
+
+	public interface IAction<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>
+	{
+		void Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>);
+	}
+<# } #>
+<# for (int i = 0; i <= parameterCount; i++) { #>
+
+	public interface IFunc<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>
+	{
+		TResult Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>);
+	}
+<# } #>
+<# for (int i = 0; i <= parameterCount; i++) { #>
+
+	public struct ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #> : IAction<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>
+	{
+		internal Action<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #> _delegate;
+
+		public void Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{j}")) #>);
+
+		public static implicit operator ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>(Action<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #> @delegate) => new ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>() { _delegate = @delegate, };
+	}
+<# } #>
+<# for (int i = 0; i <= parameterCount; i++) { #>
+
+	public struct FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult> : IFunc<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>
+	{
+		internal Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult> _delegate;
+
+		public TResult Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{j}")) #>);
+
+		public static implicit operator FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>(Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult> @delegate) => new FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>() { _delegate = @delegate, };
+	}
+<# } #>
+}

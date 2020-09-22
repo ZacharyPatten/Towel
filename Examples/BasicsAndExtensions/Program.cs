@@ -99,7 +99,7 @@ namespace BasicsAndExtensions
 				/// For this, there is another type of stepper that is breakable. "Towel.StepperBreak<T>"
 				/// is a breakable version of the stepper.
 
-				StepperBreak<int> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
+				Func<Func<int, StepStatus>, StepStatus> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
 				Console.Write("    stepperBreak values:");
 				stepperBreak(value =>
 				{
@@ -577,7 +577,7 @@ namespace BasicsAndExtensions
 				System.Collections.Generic.SortedSet<int>   i = Ɐ(1, 2, 3);
 				Action<Action<int>>                         j = Ɐ(1, 2, 3);
 				StepperRef<int>                             k = Ɐ(1, 2, 3);
-				StepperBreak<int>                           l = Ɐ(1, 2, 3);
+				Func<Func<int, StepStatus>, StepStatus>     l = Ɐ(1, 2, 3);
 				StepperRefBreak<int>                        m = Ɐ(1, 2, 3);
 				Towel.DataStructures.Array<int>             n = Ɐ(1, 2, 3);
 				Towel.DataStructures.ListArray<int>         o = Ɐ(1, 2, 3);

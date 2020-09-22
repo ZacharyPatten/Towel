@@ -14,6 +14,15 @@
 		<RepositoryUrl>https://github.com/ZacharyPatten/Towel</RepositoryUrl>
 	</PropertyGroup>
 	<ItemGroup>
+		<None Update="Functional.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>Functional.cs</LastGenOutput>
+		</None>
+		<None Include="Functional.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Functional.tt</DependentUpon>
+		</None>
 		<None Remove="Measurements\MeasurementGeneration.tt" />
 		<None Include="..\..\.github\Resources\icon.png">
 			<Pack>True</Pack>
