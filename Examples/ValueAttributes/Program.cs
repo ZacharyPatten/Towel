@@ -44,7 +44,7 @@ namespace Example
 			Console.WriteLine($@"  type of code member:");
 			Console.WriteLine();
 
-			// Looking Up MyAttributeA
+			// Looking Up MyTagA
 			Console.WriteLine($"  - type: {type.GetTag(MyTagA).Value}");
 			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagA).Value}");
 			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagA).Value}");
@@ -59,7 +59,7 @@ namespace Example
 			Console.WriteLine($@"  on the same code members:");
 			Console.WriteLine();
 
-			// Looking Up MyAttributeB
+			// Looking Up MyTagB
 			Console.WriteLine($"  - type: {type.GetTag(MyTagB).Value}");
 			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagB).Value}");
 			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagB).Value}");
