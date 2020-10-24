@@ -377,6 +377,27 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region IsInterleaved
+			{
+				Console.WriteLine("  Is Interleaved ----------------------");
+				Console.WriteLine();
+
+				string abc = "abc";
+				string xyz = "xyz";
+				string axbycz = "axbycz";
+				Console.WriteLine($@"      IsInterleavedRecursive(""{abc}"", ""{xyz}"", ""{axbycz}""): {IsInterleavedRecursive(abc, xyz, axbycz)}");
+				Console.WriteLine($@"      IsInterleavedIterative(""{abc}"", ""{xyz}"", ""{axbycz}""): {IsInterleavedIterative(abc, xyz, axbycz)}");
+
+				string a = "a";
+				string b = "b";
+				string c = "c";
+				Console.WriteLine($@"      IsInterleavedRecursive(""{a}"", ""{b}"", ""{c}""): {IsInterleavedRecursive(a, b, c)}");
+				Console.WriteLine($@"      IsInterleavedIterative(""{a}"", ""{b}"", ""{c}""): {IsInterleavedIterative(a, b, c)}");
+
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Hamming Distance
 			{
 				Console.WriteLine("  HammingDistance----------------");

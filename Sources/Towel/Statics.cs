@@ -5822,6 +5822,159 @@ namespace Towel
 
 		#endregion
 
+		#region IsInterleaved
+
+		#region XML
+
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
+
+		/// <typeparam name="T">The element type of the sequences.</typeparam>
+		/// <param name="a">The first sequence to determine if <paramref name="c"/> is interleaved of.</param>
+		/// <param name="b">The second sequence to determine if <paramref name="c"/> is interleaved of.</param>
+		/// <param name="c">The sequence to determine if it is interleaved from <paramref name="a"/> and <paramref name="b"/>.</param>
+		/// <param name="equate">The function for equating <typeparamref name="T"/> values.</param>
+		/// <returns>True if <paramref name="c"/> is interleaved of <paramref name="a"/> and <paramref name="b"/> or False if not.</returns>
+		/// <example>
+		/// <code>
+		/// IsInterleaved("abc", "xyz", "axbycz") // True
+		/// IsInterleaved("abc", "xyz", "cbazyx") // False (order not preserved)
+		/// IsInterleaved("abc", "xyz", "012345") // False
+		/// </code>
+		/// </example>
+		internal static void IsInterleaved_XML() => throw new DocumentationMethodException();
+
+		/// <summary>
+		/// <para>
+		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
+		/// meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
+		/// while retaining the order of the respective elements. Uses a recursive algorithm.
+		/// </para>
+		/// <para>Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)</para>
+		/// <para>Memory: O(1)</para>
+		/// </summary>
+		/// <inheritdoc cref="IsInterleaved_XML"/>
+		internal static void IsInterleavedRecursive_XML() => throw new DocumentationMethodException();
+
+		/// <summary>
+		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
+		/// meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
+		/// while retaining the order of the respective elements. Uses a interative algorithm.
+		/// <para>Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)</para>
+		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
+		/// </summary>
+		/// <inheritdoc cref="IsInterleaved_XML"/>
+		internal static void IsInterleavedIterative_XML() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		#endregion
+
+		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		public static bool IsInterleavedRecursive<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool> equate = default) =>
+			IsInterleavedRecursive<T, FuncRuntime<T, T, bool>>(a, b, c, equate ?? Equate);
+
+		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		public static bool IsInterleavedRecursive(ReadOnlySpan<char> a, ReadOnlySpan<char> b, ReadOnlySpan<char> c) =>
+			IsInterleavedRecursive<char, CharEquate>(a, b, c);
+
+		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		public static bool IsInterleavedRecursive<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
+			where Equate : IFunc<T, T, bool>
+		{
+			if (a.Length + b.Length != c.Length)
+			{
+				return false;
+			}
+
+			bool Implementation(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c) =>
+				a.IsEmpty && b.IsEmpty && c.IsEmpty ||
+				(
+					!c.IsEmpty &&
+					(
+						(!a.IsEmpty && equate.Do(a[0], c[0]) && Implementation(a[1..], b, c[1..])) ||
+						(!b.IsEmpty && equate.Do(b[0], c[0]) && Implementation(a, b[1..], c[1..]))
+					)
+				);
+
+			return Implementation(a, b, c);
+		}
+
+		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
+		public static bool IsInterleavedIterative<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool> equate = default) =>
+			IsInterleavedIterative<T, FuncRuntime<T, T, bool>>(a, b, c, equate ?? Equate);
+
+		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		public static bool IsInterleavedIterative(ReadOnlySpan<char> a, ReadOnlySpan<char> b, ReadOnlySpan<char> c) =>
+			IsInterleavedIterative<char, CharEquate>(a, b, c);
+
+		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
+		public static bool IsInterleavedIterative<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
+			where Equate : IFunc<T, T, bool>
+		{
+			if (a.Length + b.Length != c.Length)
+			{
+				return false;
+			}
+			bool[,] d = new bool[a.Length + 1, b.Length + 1];
+			for (int i = 0; i <= a.Length; ++i)
+			{
+				for (int j = 0; j <= b.Length; ++j)
+				{
+					d[i, j] =
+						(i == 0 && j == 0) ||
+						(
+							i == 0 ? (equate.Do(b[j - 1], c[j - 1]) && d[i, j - 1]) :
+							j == 0 ? (equate.Do(a[i - 1], c[i - 1]) && d[i - 1, j]) :
+							equate.Do(a[i - 1], c[i + j - 1]) && !equate.Do(b[j - 1], c[i + j - 1]) ? d[i - 1, j] :
+							!equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]) ? d[i, j - 1] :
+							equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]) && (d[i - 1, j] || d[i, j - 1])
+						);
+
+					#region expanded version
+
+					//if (i == 0 && j == 0)
+					//{
+					//	d[i, j] = true;
+					//}
+					//else if (i == 0)
+					//{
+					//	if (equate.Do(b[j - 1], c[j - 1]))
+					//	{
+					//		d[i, j] = d[i, j - 1];
+					//	}
+					//}
+					//else if (j == 0)
+					//{
+					//	if (equate.Do(a[i - 1], c[i - 1]))
+					//	{
+					//		d[i, j] = d[i - 1, j];
+					//	}
+					//}
+					//else if (equate.Do(a[i - 1], c[i + j - 1]) && !equate.Do(b[j - 1], c[i + j - 1]))
+					//{
+					//	d[i, j] = d[i - 1, j];
+					//}
+					//else if (!equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]))
+					//{
+					//	d[i, j] = d[i, j - 1];
+					//}
+					//else if (equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]))
+					//{
+					//	d[i, j] = d[i - 1, j] || d[i, j - 1];
+					//}
+
+					#endregion
+				}
+			}
+			return d[a.Length, b.Length];
+		}
+
+		#endregion
+
 		#region Structs
 
 		/// <summary>Default int compare.</summary>

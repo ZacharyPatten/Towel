@@ -31725,6 +31725,61 @@
             <param name="equate">The element equate function.</param>
             <returns>True if the sequence is a palindrome; False if not.</returns>
         </member>
+        <member name="M:Towel.Statics.IsInterleaved_XML">
+            <typeparam name="T">The element type of the sequences.</typeparam>
+            <param name="a">The first sequence to determine if <paramref name="c"/> is interleaved of.</param>
+            <param name="b">The second sequence to determine if <paramref name="c"/> is interleaved of.</param>
+            <param name="c">The sequence to determine if it is interleaved from <paramref name="a"/> and <paramref name="b"/>.</param>
+            <param name="equate">The function for equating <typeparamref name="T"/> values.</param>
+            <returns>True if <paramref name="c"/> is interleaved of <paramref name="a"/> and <paramref name="b"/> or False if not.</returns>
+            <example>
+            <code>
+            IsInterleaved("abc", "xyz", "axbycz") // True
+            IsInterleaved("abc", "xyz", "cbazyx") // False (order not preserved)
+            IsInterleaved("abc", "xyz", "012345") // False
+            </code>
+            </example>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedRecursive_XML">
+            <summary>
+            <para>
+            Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
+            meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
+            while retaining the order of the respective elements. Uses a recursive algorithm.
+            </para>
+            <para>Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)</para>
+            <para>Memory: O(1)</para>
+            </summary>
+            <inheritdoc cref="M:Towel.Statics.IsInterleaved_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedIterative_XML">
+            <summary>
+            Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
+            meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
+            while retaining the order of the respective elements. Uses a interative algorithm.
+            <para>Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)</para>
+            <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
+            </summary>
+            <inheritdoc cref="M:Towel.Statics.IsInterleaved_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedRecursive``1(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Statics.IsInterleavedRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedRecursive(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+            <inheritdoc cref="M:Towel.Statics.IsInterleavedRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedRecursive``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.IsInterleavedRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedIterative``1(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.Func{``0,``0,System.Boolean})">
+            <inheritdoc cref="M:Towel.Statics.IsInterleavedIterative_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedIterative(System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char},System.ReadOnlySpan{System.Char})">
+            <inheritdoc cref="M:Towel.Statics.IsInterleavedRecursive_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsInterleavedIterative``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.IsInterleavedIterative_XML"/>
+        </member>
         <member name="T:Towel.Statics.IntCompare">
             <summary>Default int compare.</summary>
         </member>

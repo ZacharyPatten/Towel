@@ -1988,5 +1988,62 @@ namespace Towel_Testing
 		}
 
 		#endregion
+
+		#region IsInterleaved
+
+		[TestMethod] public void IsInterleavedRecursive_Testing()
+		{
+			Assert.IsTrue(IsInterleavedRecursive("a", "z", "az"));
+			Assert.IsTrue(IsInterleavedRecursive("ab", "yz", "aybz"));
+			Assert.IsTrue(IsInterleavedRecursive("abc", "xyz", "axbycz"));
+			Assert.IsTrue(IsInterleavedRecursive("abcd", "wxyz", "awbxcydz"));
+
+			Assert.IsTrue(IsInterleavedRecursive("a", "z", "za"));
+			Assert.IsTrue(IsInterleavedRecursive("ab", "yz", "yazb"));
+			Assert.IsTrue(IsInterleavedRecursive("abc", "xyz", "xaybzc"));
+			Assert.IsTrue(IsInterleavedRecursive("abcd", "wxyz", "waxbyczd"));
+
+			Assert.IsTrue(IsInterleavedRecursive("aa", "zz", "aazz"));
+			Assert.IsTrue(IsInterleavedRecursive("aa", "zz", "azaz"));
+			Assert.IsTrue(IsInterleavedRecursive("aa", "zz", "zaza"));
+			Assert.IsTrue(IsInterleavedRecursive("aa", "zz", "zzaa"));
+
+			Assert.IsTrue(IsInterleavedRecursive("", "", ""));
+
+			Assert.IsFalse(IsInterleavedRecursive("a", "", ""));
+			Assert.IsFalse(IsInterleavedRecursive("", "a", ""));
+			Assert.IsFalse(IsInterleavedRecursive("", "", "a"));
+			Assert.IsFalse(IsInterleavedRecursive("a", "a", ""));
+			Assert.IsFalse(IsInterleavedRecursive("a", "a", "aaa"));
+		}
+
+		[TestMethod] public void IsInterleavedIterative_Testing()
+		{
+			Assert.IsTrue(IsInterleavedIterative("a", "z", "az"));
+			Assert.IsTrue(IsInterleavedIterative("ab", "yz", "aybz"));
+			Assert.IsTrue(IsInterleavedIterative("abc", "xyz", "axbycz"));
+			Assert.IsTrue(IsInterleavedRecursive("abcd", "wxyz", "awbxcydz"));
+
+			Assert.IsTrue(IsInterleavedIterative("a", "z", "za"));
+			Assert.IsTrue(IsInterleavedIterative("ab", "yz", "yazb"));
+			Assert.IsTrue(IsInterleavedIterative("abc", "xyz", "xaybzc"));
+			Assert.IsTrue(IsInterleavedIterative("abcd", "wxyz", "waxbyczd"));
+
+			Assert.IsTrue(IsInterleavedIterative("aa", "zz", "aazz"));
+			Assert.IsTrue(IsInterleavedIterative("aa", "zz", "azaz"));
+			Assert.IsTrue(IsInterleavedIterative("aa", "zz", "zaza"));
+			Assert.IsTrue(IsInterleavedIterative("aa", "zz", "zzaa"));
+
+			Assert.IsTrue(IsInterleavedIterative("", "", ""));
+
+			Assert.IsFalse(IsInterleavedIterative("a", "", ""));
+			Assert.IsFalse(IsInterleavedIterative("", "a", ""));
+			Assert.IsFalse(IsInterleavedIterative("", "", "a"));
+			Assert.IsFalse(IsInterleavedIterative("a", "a", ""));
+			Assert.IsFalse(IsInterleavedIterative("a", "a", "aaa"));
+		}
+
+		#endregion
+
 	}
 }

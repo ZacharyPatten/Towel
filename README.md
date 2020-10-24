@@ -783,6 +783,10 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 // Note: supports System.Span<T> and any (non ref struct) int-indexed type
 IsPalindrome<...>(...);
 
+// Note: supports System.ReadOnlySpan<T>
+IsInterleavedRecursive<...>(...);
+IsInterleavedIterative<...>(...);
+
 // Note: supports System.Span<T> and any (non ref struct) int-indexed type
 SortShuffle<T>(...);
 SortBubble<T>(...);
