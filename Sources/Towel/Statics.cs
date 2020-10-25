@@ -65,7 +65,7 @@ namespace Towel
 			});
 			return assigned
 				? result
-				: throw new ArgumentException(nameof(stepper), nameof(stepper) + " is empty.");
+				: throw new ArgumentException($"{nameof(stepper)} is empty.", nameof(stepper));
 		}
 
 		#endregion
@@ -337,9 +337,9 @@ namespace Towel
 			{
 				public abstract bool Resolve();
 				public static implicit operator Condition(bool result) => new Bool { Result = result, };
-#pragma warning disable IDE0060 // Remove unused parameter
+//#pragma warning disable IDE0060 // Remove unused parameter
 				public static implicit operator Condition(Keyword keyword) => new Default();
-#pragma warning restore IDE0060 // Remove unused parameter
+//#pragma warning restore IDE0060 // Remove unused parameter
 				public static implicit operator bool(Condition condition) => condition.Resolve();
 			}
 
@@ -367,9 +367,11 @@ namespace Towel
 		public struct ChanceSyntax
 		{
 			/// <summary>The random algorithm currently being used by chance syntax.</summary>
+#pragma warning disable CA2211 // Non-constant fields should not be visible
 			public static Random Algorithm = new Random();
+#pragma warning restore CA2211 // Non-constant fields should not be visible
 
-#pragma warning disable IDE0060 // Remove unused parameter
+//#pragma warning disable IDE0060 // Remove unused parameter
 #pragma warning disable IDE0075 // Simplify conditional expression
 
 			/// <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
@@ -379,13 +381,12 @@ namespace Towel
 			public static bool operator %(double percentage, ChanceSyntax chance) =>
 				percentage < 0d ? throw new ArgumentOutOfRangeException(nameof(chance)) :
 				percentage > 100d ? throw new ArgumentOutOfRangeException(nameof(chance)) :
-
 				percentage is 100d ? true :
 				percentage is 0d ? false :
 				Algorithm.NextDouble() < percentage / 100d;
 
 #pragma warning restore IDE0075 // Simplify conditional expression
-#pragma warning restore IDE0060 // Remove unused parameter
+//#pragma warning restore IDE0060 // Remove unused parameter
 		}
 
 		#endregion
@@ -600,7 +601,7 @@ namespace Towel
 				Value = newValue;
 			}
 			[Obsolete(TowelConstants.NotIntended, true)]
-			public void Clear() => Value = new T[0];
+			public void Clear() => Value = Array.Empty<T>();
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public bool Contains(T item) => Value.Contains(item);
 			[Obsolete(TowelConstants.NotIntended, true)]
@@ -4445,10 +4446,12 @@ namespace Towel
 
 		#region SortBubble
 
-		/// <summary>Sorts values using the bubble sort algorithm.</summary>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
+		/// <summary>
+		/// Sorts values using the bubble sort algorithm.
+		/// <para>Runtime: Ω(n), ε(n^2), O(n^2)</para>
+		/// <para>Memory: O(1)</para>
+		/// <para>Stable: True</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortBubble_XML() => throw new DocumentationMethodException();
@@ -4502,10 +4505,12 @@ namespace Towel
 
 		#region SortSelection
 
-		/// <summary>Sorts values using the selection sort algoritm.</summary>
-		/// <runtime>Ω(n^2), ε(n^2), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
+		/// <summary>
+		/// Sorts values using the selection sort algoritm.
+		/// <para>Runtime: Ω(n^2), ε(n^2), O(n^2)</para>
+		/// <para>Memory: O(1)</para>
+		/// <para>Stable: False</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortSelection_XML() => throw new DocumentationMethodException();
@@ -4563,10 +4568,12 @@ namespace Towel
 
 		#region SortInsertion
 
-		/// <summary>Sorts values using the insertion sort algorithm.</summary>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
+		/// <summary>
+		/// Sorts values using the insertion sort algorithm.
+		/// <para>Runtime: Ω(n), ε(n^2), O(n^2)</para>
+		/// <para>Memory: O(1)</para>
+		/// <para>Stable: True</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortInsertion_XML() => throw new DocumentationMethodException();
@@ -4617,10 +4624,12 @@ namespace Towel
 
 		#region SortQuick
 
-		/// <summary>Sorts values using the quick sort algorithm.</summary>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>ln(n)</memory>
+		/// <summary>
+		/// Sorts values using the quick sort algorithm.
+		/// <para>Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</para>
+		/// <para>Memory: ln(n)</para>
+		/// <para>Stable: False</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortQuick_XML() => throw new DocumentationMethodException();
@@ -4715,10 +4724,12 @@ namespace Towel
 
 		#region SortMerge
 
-		/// <summary>Sorts values using the merge sort algorithm.</summary>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</runtime>
-		/// <stability>True</stability>
-		/// <memory>Θ(n)</memory>
+		/// <summary>
+		/// Sorts values using the merge sort algorithm.
+		/// <para>Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</para>
+		/// <para>Memory: Θ(n)</para>
+		/// <para>Stable: True</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortMerge_XML() => throw new DocumentationMethodException();
@@ -4825,10 +4836,12 @@ namespace Towel
 
 		#region SortHeap
 
-		/// <summary>Sorts values using the heap sort algorithm.</summary>
-		/// <runtime>Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
+		/// <summary>
+		/// Sorts values using the heap sort algorithm.
+		/// <para>Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</para>
+		/// <para>Memory: O(1)</para>
+		/// <para>Stable: False</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortHeap_XML() => throw new DocumentationMethodException();
@@ -4929,10 +4942,12 @@ namespace Towel
 
 		#region SortOddEven
 
-		/// <summary>Sorts values using the odd even sort algorithm.</summary>
-		/// <runtime>Ω(n), ε(n^2), O(n^2)</runtime>
-		/// <stability>True</stability>
-		/// <memory>O(1)</memory>
+		/// <summary>
+		/// Sorts values using the odd even sort algorithm.
+		/// <para>Runtime: Ω(n), ε(n^2), O(n^2)</para>
+		/// <para>Memory: O(1)</para>
+		/// <para>Stable: True</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortOddEven_XML() => throw new DocumentationMethodException();
@@ -5019,11 +5034,15 @@ namespace Towel
 		///// <returns>The counting key computed from the provided instance.</returns>
 		//public delegate int ComputeSortCountingKey(T instance);
 
-		///// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
+		///// <summary>
+		///// Sorts an entire array in non-decreasing order using the heap sort algorithm.
+		///// <para>Runtime: Θ(Max(key))</para>
+		///// <para>Memory: Max(Key)</para>
+		///// <para>Stable: True</para>
+		///// </summary>
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
 		///// <param name="array">The array to be sorted</param>
-		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
 		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, T[] array)
 		//{
 		//	throw new System.NotImplementedException();
@@ -5056,21 +5075,11 @@ namespace Towel
 		//	}
 		//}
 
-		///// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
-		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
-		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
-		///// <param name="array">The array to be sorted</param>
-		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
 		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, T[] array, int start, int end)
 		//{
 		//	throw new System.NotImplementedException();
 		//}
 
-		///// <summary>Sorts an entire array in non-decreasing order using the heap sort algorithm.</summary>
-		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
-		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
-		///// <param name="array">The array to be sorted</param>
-		///// <runtime>Θ(Max(key)). Memory: Max(key). Stablity: yes</runtime>
 		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, Get<T> get, Assign<T> set, int start, int end)
 		//{
 		//	throw new System.NotImplementedException();
@@ -5084,7 +5093,11 @@ namespace Towel
 
 #pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-		/// <summary>Sorts values into a randomized order.</summary>
+		/// <summary>
+		/// Sorts values into a randomized order.
+		/// <para>Runtime: O(n)</para>
+		/// <para>Memory: O(1)</para>
+		/// </summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Get">The get function.</typeparam>
 		/// <typeparam name="Set">The set function.</typeparam>
@@ -5094,8 +5107,6 @@ namespace Towel
 		/// <param name="set">The set function.</param>
 		/// <param name="random">The random to shuffle with.</param>
 		/// <param name="array">The array to shuffle.</param>
-		/// <runtime>O(n)</runtime>
-		/// <memory>O(1)</memory>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void Shuffle_XML() => throw new DocumentationMethodException();
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
@@ -5146,10 +5157,12 @@ namespace Towel
 
 		#region SortBogo
 
-		/// <summary>Sorts values using the bogo sort algorithm.</summary>
-		/// <runtime>Ω(n), ε(n*n!), O(∞)</runtime>
-		/// <stability>False</stability>
-		/// <memory>O(1)</memory>
+		/// <summary>
+		/// Sorts values using the bogo sort algorithm.
+		/// <para>Runtime: Ω(n), ε(n*n!), O(∞)</para>
+		/// <para>Memory: O(1)</para>
+		/// <para>Stable: False</para>
+		/// </summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortBogo_XML() => throw new DocumentationMethodException();
@@ -5623,11 +5636,17 @@ namespace Towel
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
-				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
+			{
+				throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
+			}
 			if (count < 0)
-				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
+			{
+				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
+			}
 			if (maxValue - minValue < count)
-				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
+			{
+				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
+			}
 			// Algorithm B: O(.5*count^2), Ω(count), ε(.5*count^2)
 			Node head = null;
 			for (int i = 0; i < count; i++) // Θ(count)
@@ -5647,9 +5666,13 @@ namespace Towel
 				}
 				step.Do(roll);
 				if (previous is null)
+				{
 					head = new Node() { Value = roll, Next = head, };
+				}
 				else
+				{
 					previous.Next = new Node() { Value = roll, Next = previous.Next };
+				}
 			}
 		}
 		internal class Node
@@ -5676,11 +5699,17 @@ namespace Towel
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
-				throw new ArgumentOutOfRangeException(nameof(minValue) + " > " + nameof(minValue));
+			{
+				throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
+			}
 			if (count < 0)
-				throw new ArgumentOutOfRangeException(nameof(count) + " < 0");
+			{
+				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
+			}
 			if (maxValue - minValue < count)
-				throw new ArgumentOutOfRangeException(nameof(count) + " is larger than " + nameof(maxValue) + " - " + nameof(minValue) + ".");
+			{
+				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
+			}
 			// Algorithm B: Θ(range + count)
 			int pool = maxValue - minValue;
 			int[] array = new int[pool];

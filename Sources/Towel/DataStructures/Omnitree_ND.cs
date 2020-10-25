@@ -97,58 +97,31 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The generic type of the bound.</typeparam>
 		public struct Bound<T>
 		{
-			internal readonly bool Exists;
-			internal readonly T Value;
-
-			/// <summary>Constructs a bound from a value.</summary>
-			/// <param name="value">The value of the bound.</param>
-			public Bound(T value)
-			{
-				Exists = true;
-				Value = value;
-			}
-
-			internal Bound(bool exists, T value)
-			{
-				Exists = exists;
-				Value = value;
-			}
+			internal bool Exists;
+			internal T Value;
 
 			/// <summary>Represents a null bound meaning it does not exist.</summary>
-			public readonly static Bound<T> None = new Bound<T>(false, default);
+			public readonly static Bound<T> None = new Bound<T> { Value = default, Exists = false };
 
 			/// <summary>Converts a value to a bound.</summary>
 			/// <param name="value">The value to convert into a bound.</param>
-			public static implicit operator Bound<T>(T value) => new Bound<T>(value);
+			public static implicit operator Bound<T>(T value) => new Bound<T> { Value = value, Exists = true };
 
 			/// <summary>Implicitly converts the "None" keyword into a non-existant bound.</summary>
 			/// <param name="keyword">The keyword to convert into a non-existant bound.</param>
 			public static implicit operator Bound<T>(Keyword keyword) => 
 				keyword == Keyword.None
-				? None
-				: throw new InvalidCastException("Implicit cast from invalid Omnitree.Keyword.");
+					? None
+					: throw new InvalidCastException("Implicit cast from invalid Omnitree.Keyword.");
 
 			/// <summary>Gets the bound compare delegate from a value compare delegate.</summary>
 			/// <param name="compare">The value compare to wrap into a bounds compare.</param>
 			/// <returns>The bounds compare.</returns>
-			public static Func<Bound<T>, Bound<T>, CompareResult> Compare(Func<T, T, CompareResult> compare)
-			{
-				return (Bound<T> a, Bound<T> b) =>
-				{
-					if (a.Exists && b.Exists)
-					{
-						return compare(a.Value, b.Value);
-					}
-					else if (!b.Exists)
-					{
-						return Equal;
-					}
-					else
-					{
-						return Greater;
-					}
-				};
-			}
+			public static Func<Bound<T>, Bound<T>, CompareResult> Compare(Func<T, T, CompareResult> compare) =>
+				(a, b) =>
+					a.Exists && b.Exists ? compare(a.Value, b.Value) :
+					!b.Exists ? Equal :
+					Greater;
 		}
 
 		/// <summary>A delegate for determining the point of subdivision in a set of values and current bounds.</summary>
@@ -243,16 +216,11 @@ namespace Towel.DataStructures
 		{
 			internal object[] _location;
 
-
 			/// <summary>The locations along each axis.</summary>
 			public object[] Location => _location;
 
-
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector Default
-			{
-				get { return new Vector(null); }
-			}
+			public static Vector Default => new Vector(null);
 
 			/// <summary>Constructs an N-D vector.</summary>
 			/// <param name="location"></param>
@@ -287,8 +255,8 @@ namespace Towel.DataStructures
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
 			public Bounds(Bound<object>[] min, Bound<object>[] max)
 			{
-				this._min = min.Clone() as Bound<object>[];
-				this._max = max.Clone() as Bound<object>[];
+				_min = min.Clone() as Bound<object>[];
+				_max = max.Clone() as Bound<object>[];
 			}
 		}
 

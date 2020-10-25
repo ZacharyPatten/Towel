@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 		<DocumentationFile>Towel.xml</DocumentationFile>
 		<PackageId>Towel</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
@@ -19,9 +19,9 @@
 			<LastGenOutput>Functional.cs</LastGenOutput>
 		</None>
 		<None Include="Functional.cs">
-		  <DesignTime>True</DesignTime>
-		  <AutoGen>True</AutoGen>
-		  <DependentUpon>Functional.tt</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Functional.tt</DependentUpon>
 		</None>
 		<None Remove="Measurements\MeasurementGeneration.tt" />
 		<None Include="..\..\.github\Resources\icon.png">
@@ -63,5 +63,8 @@
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>Towel_Testing</_Parameter1>
 		</AssemblyAttribute>
+	</ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 </Project>

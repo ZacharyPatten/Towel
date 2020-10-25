@@ -40,23 +40,19 @@ namespace Towel.DataStructures
 		{
 			internal T Value;
 			internal Node Next;
-
-			internal Node(T value, Node next)
-			{
-				Value = value;
-				Next = next;
-			}
 		}
 
 		#endregion
 
 		#region Constructors
 
-		/// <summary>Constructs a hashed set.</summary>
+		/// <summary>
+		/// Constructs a hashed set.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="equate">The equate delegate.</param>
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the set.</param>
-		/// <runtime>O(1)</runtime>
 		public SetHashLinked(
 			Equate equate = default,
 			Hash hash = default,
@@ -80,9 +76,11 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <summary>
+		/// This constructor is for cloning purposes.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <param name="set">The set to clone.</param>
-		/// <runtime>O(n)</runtime>
 		internal SetHashLinked(SetHashLinked<T, Equate, Hash> set)
 		{
 			_equate = set._equate;
@@ -95,23 +93,31 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The current size of the hashed table.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current size of the hashed table.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int TableSize => _table.Length;
 
-		/// <summary>The current number of values in the set.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current number of values in the set.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
-		/// <summary>The delegate for computing hash codes.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for computing hash codes.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		Func<T, int> DataStructure.IHashing<T>.Hash =>
 			_hash is FuncRuntime<T, int> hash
 				? hash._delegate
 				: _hash.Do;
 
-		/// <summary>The delegate for equality checking.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for equality checking.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		Func<T, T, bool> DataStructure.IEquating<T>.Equate =>
 			_equate is FuncRuntime<T, T, bool> func
 			? func._delegate
@@ -123,10 +129,12 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds a value to the set.</summary>
+		/// <summary>
+		/// Adds a value to the set.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The value to add to the set.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
@@ -147,7 +155,7 @@ namespace Towel.DataStructures
 
 			{
 				// add the value
-				Node node = new Node(value, _table[location]);
+				Node node = new Node { Value = value, Next = _table[location] };
 				_table[location] = node;
 			}
 
@@ -282,8 +290,10 @@ namespace Towel.DataStructures
 
 		#region Trim
 
-		/// <summary>Trims the table to an appropriate size based on the current count.</summary>
-		/// <runtime>O(n), Ω(1)</runtime>
+		/// <summary>
+		/// Trims the table to an appropriate size based on the current count.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		public void Trim()
 		{
 			int tableSize = _count;
@@ -298,19 +308,23 @@ namespace Towel.DataStructures
 
 		#region Clone
 
-		/// <summary>Creates a shallow clone of this set.</summary>
+		/// <summary>
+		/// Creates a shallow clone of this set.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>A shallow clone of this set.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public SetHashLinked<T, Equate, Hash> Clone() => new SetHashLinked<T, Equate, Hash>(this);
 
 		#endregion
 
 		#region Contains
 
-		/// <summary>Determines if a value has been added to a set.</summary>
+		/// <summary>
+		/// Determines if a value has been added to a set.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The value to look for in the set.</param>
 		/// <returns>True if the value has been added to the set or false if not.</returns>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool Contains(T value)
 		{
 			// compute the hash code and relate it to the current table
@@ -332,8 +346,10 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Removes all the values in the set.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Removes all the values in the set.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
 			_table = new Node[2];
@@ -344,9 +360,7 @@ namespace Towel.DataStructures
 
 		#region Stepper And IEnumerable
 
-		/// <summary>Steps through all the values of the set.</summary>
-		/// <param name="step">The action to perform on every value in the set.</param>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -358,10 +372,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Steps through all the values of the set.</summary>
-		/// <param name="step">The action to perform on every value in the set.</param>
-		/// <returns>The status of the stepper.</returns>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -381,7 +392,6 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the enumerator for the set.</summary>
 		/// <returns>The enumerator for the set.</returns>
-		/// <runtime>O(n)</runtime>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -397,9 +407,11 @@ namespace Towel.DataStructures
 
 		#region ToArray
 
-		/// <summary>Puts all the values in this set into an array.</summary>
+		/// <summary>
+		/// Puts all the values in this set into an array.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>An array with all the values in the set.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
 			T[] array = new T[_count];
@@ -425,19 +437,23 @@ namespace Towel.DataStructures
 	{
 		#region Constructors
 
-		/// <summary>Constructs a hashed set.</summary>
+		/// <summary>
+		/// Constructs a hashed set.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="equate">The equate delegate.</param>
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the set.</param>
-		/// <runtime>O(1)</runtime>
 		public SetHashLinked(
 			Func<T, T, bool> equate = null,
 			Func<T, int> hash = null,
 			int? expectedCount = null) : base(equate ?? Statics.Equate, hash ?? DefaultHash, expectedCount) { }
 
-		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <summary>
+		/// This constructor is for cloning purposes.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <param name="set">The set to clone.</param>
-		/// <runtime>O(n)</runtime>
 		internal SetHashLinked(SetHashLinked<T> set)
 		{
 			_equate = set._equate;
@@ -450,21 +466,27 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The delegate for computing hash codes.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for computing hash codes.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public Func<T, int> Hash => _hash._delegate;
 
-		/// <summary>The delegate for equality checking.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for equality checking.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public Func<T, T, bool> Equate => _equate._delegate;
 
 		#endregion
 
 		#region Clone
 
-		/// <summary>Creates a shallow clone of this set.</summary>
+		/// <summary>
+		/// Creates a shallow clone of this set.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>A shallow clone of this set.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public new SetHashLinked<T> Clone() => new SetHashLinked<T>(this);
 
 		#endregion
@@ -509,12 +531,14 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Constructs a hashed set.</summary>
+		/// <summary>
+		/// Constructs a hashed set.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="factory">The factory delegate.</param>
 		/// <param name="equate">The equate delegate.</param>
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the set.</param>
-		/// <runtime>O(1)</runtime>
 		public Set(
 			StructureFactory factory,
 			Func<T, T, bool> equate = null,
@@ -540,10 +564,12 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <summary>
+		/// This constructor is for cloning purposes.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <param name="set">The set to clone.</param>
 		/// <param name="clone">A delegate for cloning the structures.</param>
-		/// <runtime>O(n)</runtime>
 		internal Set(Set<Structure, T> set, StructureClone clone)
 		{
 			_factory = set._factory;
@@ -564,20 +590,28 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The current size of the hashed table.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current size of the hashed table.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int TableSize => _table.Length;
 
-		/// <summary>The current number of values in the set.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current number of values in the set.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
-		/// <summary>The delegate for computing hash codes.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for computing hash codes.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public Func<T, int> Hash => _hash;
 
-		/// <summary>The delegate for equality checking.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for equality checking.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public Func<T, T, bool> Equate => _equate;
 
 		#endregion
@@ -586,10 +620,12 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds a value to the hash table.</summary>
+		/// <summary>
+		/// Adds a value to the hash table.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The key value to use as the look-up reference in the hash table.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
@@ -639,10 +675,12 @@ namespace Towel.DataStructures
 
 		#region Remove
 
-		/// <summary>Removes a value from the set.</summary>
+		/// <summary>
+		/// Removes a value from the set.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryRemove(T value, out Exception exception)
 		{
 			if (TryRemoveWithoutTrim(value, out exception))
@@ -664,10 +702,12 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <summary>Removes a value from the set.</summary>
+		/// <summary>
+		/// Removes a value from the set.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryRemoveWithoutTrim(T value, out Exception exception)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
@@ -723,19 +763,23 @@ namespace Towel.DataStructures
 
 		#region Clone
 
-		/// <summary>Creates a shallow clone of this set.</summary>
+		/// <summary>
+		/// Creates a shallow clone of this set.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>A shallow clone of this set.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public Set<Structure, T> Clone(StructureClone clone) => new Set<Structure, T>(this, clone);
 
 		#endregion
 
 		#region Contains
 
-		/// <summary>Determines if a value has been added to a set.</summary>
+		/// <summary>
+		/// Determines if a value has been added to a set.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The value to look for in the set.</param>
 		/// <returns>True if the value has been added to the set or false if not.</returns>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool Contains(T value)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
@@ -751,8 +795,10 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Removes all the values in the set.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Removes all the values in the set.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
 			_table = new Structure[2];
@@ -763,8 +809,10 @@ namespace Towel.DataStructures
 
 		#region Trim
 
-		/// <summary>Trims the table to an appropriate size based on the current count.</summary>
-		/// <runtime>O(n), Ω(1)</runtime>
+		/// <summary>
+		/// Trims the table to an appropriate size based on the current count.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		public void Trim()
 		{
 			int tableSize = _count;
@@ -779,9 +827,7 @@ namespace Towel.DataStructures
 
 		#region Stepper And IEnumerable
 
-		/// <summary>Steps through all the values of the set.</summary>
-		/// <param name="step">The action to perform on every value in the set.</param>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -793,10 +839,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Steps through all the values of the set.</summary>
-		/// <param name="step">The action to perform on every value in the set.</param>
-		/// <returns>The status of the stepper.</returns>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -816,7 +859,6 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the enumerator for the set.</summary>
 		/// <returns>The enumerator for the set.</returns>
-		/// <runtime>O(n)</runtime>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -835,9 +877,11 @@ namespace Towel.DataStructures
 
 		#region ToArray
 
-		/// <summary>Puts all the values in this set into an array.</summary>
+		/// <summary>
+		/// Puts all the values in this set into an array.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>An array with all the values in the set.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
 			T[] array = new T[_count];

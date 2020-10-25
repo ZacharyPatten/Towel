@@ -39,13 +39,15 @@ namespace Towel.DataStructures
 		internal T[] _heap;
 		internal int _minimumCapacity;
 		internal int _count;
-		
+
 		#region Constructors
 
-		/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
+		/// <summary>
+		/// Generates a priority queue with a capacity of the parameter.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
 		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
-		/// <runtime>θ(1)</runtime>
 		public HeapArray(Compare compare = default, int ? minimumCapacity = null)
 		{
 			int capacity = minimumCapacity ?? 1;
@@ -67,23 +69,31 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The comparison function being utilized by this structure.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// The comparison function being utilized by this structure.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
 			_compare is FuncRuntime<T, T, CompareResult> func
 			? func._delegate
 			: _compare.Do;
 
-		/// <summary>The maximum items the queue can hold.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// The maximum items the queue can hold.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int CurrentCapacity => _heap.Length - 1;
 
-		/// <summary>The minumum capacity of this queue to limit low-level resizing.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// The minumum capacity of this queue to limit low-level resizing.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int MinimumCapacity => _minimumCapacity;
 
-		/// <summary>The number of items in the queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The number of items in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
 		#endregion
@@ -105,9 +115,11 @@ namespace Towel.DataStructures
 		/// <returns>The index of the parent of the provided item.</returns>
 		internal static int Parent(int child) => child / 2;
 
-		/// <summary>Enqueue an item into the priority queue and let it works its magic.</summary>
+		/// <summary>
+		/// Enqueue an item into the priority queue and let it works its magic.
+		/// <para>Runtime: O(ln(n)), Ω(1), ε(ln(n))</para>
+		/// </summary>
 		/// <param name="addition">The item to be added.</param>
-		/// <runtime>O(ln(n)), Ω(1), ε(ln(n))</runtime>
 		public void Enqueue(T addition)
 		{
 			if (!(_count + 1 < _heap.Length))
@@ -128,9 +140,11 @@ namespace Towel.DataStructures
 			ShiftUp(_count);
 		}
 
-		/// <summary>Dequeues the item with the highest priority.</summary>
+		/// <summary>
+		/// Dequeues the item with the highest priority.
+		/// <para>Runtime: O(ln(n))</para>
+		/// </summary>
 		/// <returns>The item of the highest priority.</returns>
-		/// <runtime>O(ln(n))</runtime>
 		public T Dequeue()
 		{
 			if (_count > 0)
@@ -144,9 +158,11 @@ namespace Towel.DataStructures
 			throw new InvalidOperationException("Attempting to remove from an empty priority queue.");
 		}
 
-		/// <summary>Requeues an item after a change has occured.</summary>
+		/// <summary>
+		/// Requeues an item after a change has occured.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <param name="item">The item to requeue.</param>
-		/// <runtime>O(n)</runtime>
 		public void Requeue(T item)
 		{
 			int i;
@@ -165,8 +181,10 @@ namespace Towel.DataStructures
 			ShiftDown(i);
 		}
 
-		/// <summary>This lets you peek at the top priority WITHOUT REMOVING it.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Get the highest priority element without removing it.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public T Peek()
 		{
 			if (_count > 0)
@@ -176,9 +194,11 @@ namespace Towel.DataStructures
 			throw new InvalidOperationException("Attempting to peek at an empty priority queue.");
 		}
 
-		/// <summary>Standard priority queue algorithm for up sifting.</summary>
+		/// <summary>
+		/// Standard priority queue algorithm for up sifting.
+		/// <para>Runtime: O(ln(n)), Ω(1)</para>
+		/// </summary>
 		/// <param name="index">The index to be up sifted.</param>
-		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftUp(int index)
 		{
 			int parent;
@@ -189,9 +209,11 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Standard priority queue algorithm for sifting down.</summary>
+		/// <summary>
+		/// Standard priority queue algorithm for sifting down.
+		/// <para>Runtime: O(ln(n)), Ω(1)</para>
+		/// </summary>
 		/// <param name="index">The index to be down sifted.</param>
-		/// <runtime>O(ln(n)), Ω(1)</runtime>
 		internal void ShiftDown(int index)
 		{
 			int leftChild, rightChild;
@@ -211,10 +233,12 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Standard array swap method.</summary>
+		/// <summary>
+		/// Standard array swap method.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="indexOne">The first index of the swap.</param>
 		/// <param name="indexTwo">The second index of the swap.</param>
-		/// <runtime>O(1)</runtime>
 		internal void ArraySwap(int indexOne, int indexTwo)
 		{
 			T temp = _heap[indexTwo];
@@ -222,8 +246,10 @@ namespace Towel.DataStructures
 			_heap[indexOne] = temp;
 		}
 
-		/// <summary>Returns this queue to an empty state.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Returns this queue to an empty state.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
 			_count = 0;
@@ -284,10 +310,12 @@ namespace Towel.DataStructures
 	{
 		#region Constructors
 
-		/// <summary>Generates a priority queue with a capacity of the parameter. Runtime O(1).</summary>
+		/// <summary>
+		/// Generates a priority queue with a capacity of the parameter.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
 		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
-		/// <runtime>θ(1)</runtime>
 		public HeapArray(Func<T, T, CompareResult> compare = null, int? minimumCapacity = null) : base(compare ?? Statics.Compare, minimumCapacity) { }
 
 		internal HeapArray(HeapArray<T> heap)

@@ -102,26 +102,24 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				int ROWS = this.Rows;
-				int COLUMNS = this.Columns;
-				if (ROWS < 5 && COLUMNS < 5)
+				if (Rows < 5 && Columns < 5)
 				{
 					StringBuilder stringBuilder = new StringBuilder();
-					stringBuilder.Append("[");
-					for (int i = 0; i < ROWS; i++)
+					stringBuilder.Append('[');
+					for (int i = 0; i < Rows; i++)
 					{
-						stringBuilder.Append("[");
-						for (int j = 0; j < COLUMNS; j++)
+						stringBuilder.Append('[');
+						for (int j = 0; j < Columns; j++)
 						{
 							stringBuilder.Append(Get(i, j));
-							if (j < COLUMNS - 1)
+							if (j < Columns - 1)
 							{
-								stringBuilder.Append(",");
+								stringBuilder.Append(',');
 							}
 						}
-						stringBuilder.Append("]");
+						stringBuilder.Append(']');
 					}
-					stringBuilder.Append("]");
+					stringBuilder.Append(']');
 					return stringBuilder.ToString();
 				}
 				return ToString();
@@ -146,11 +144,11 @@ namespace Towel.Mathematics
 		{
 			if (rows < 1)
 			{
-				throw new ArgumentOutOfRangeException("rows", rows, "!(rows > 0)");
+				throw new ArgumentOutOfRangeException(nameof(rows), rows, "!(rows > 0)");
 			}
 			if (columns < 1)
 			{
-				throw new ArgumentOutOfRangeException("columns", columns, "!(columns > 0)");
+				throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(columns > 0)");
 			}
 			_matrix = new T[rows * columns];
 			_rows = rows;
@@ -1283,10 +1281,12 @@ namespace Towel.Mathematics
 
 		}
 
-		/// <summary>Computes the determinant of a square matrix via Gaussian elimination.</summary>
+		/// <summary>
+		/// Computes the determinant of a square matrix via Gaussian elimination.
+		/// <para>Runtime: O((n^3 + 2n^−3) / 3)</para>
+		/// </summary>
 		/// <param name="a">The matrix to compute the determinant of.</param>
 		/// <returns>The computed determinant.</returns>
-		/// <runtime>O((n^3 + 2n^−3) / 3)</runtime>
 		public static T DeterminantGaussian(Matrix<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
@@ -1297,10 +1297,12 @@ namespace Towel.Mathematics
 			return GetDeterminantGaussian(a, a.Rows);
 		}
 
-		/// <summary>Computes the determinant of a square matrix via Laplace's method.</summary>
+		/// <summary>
+		/// Computes the determinant of a square matrix via Laplace's method.
+		/// <para>Runtime: O(n(2^(n − 1) − 1))</para>
+		/// </summary>
 		/// <param name="a">The matrix to compute the determinant of.</param>
 		/// <returns>The computed determinant.</returns>
-		/// <runtime>O(n(2^(n − 1) − 1))</runtime>
 		public static T DeterminantLaplace(Matrix<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));

@@ -141,11 +141,6 @@ namespace Towel.DataStructures
 		{
 			internal Node Next;
 			internal T Value;
-
-			internal Node(T data)
-			{
-				Value = data;
-			}
 		}
 
 		#endregion
@@ -154,12 +149,12 @@ namespace Towel.DataStructures
 
 		internal ListLinked(ListLinked<T> listLinked)
 		{
-			Node head = new Node(listLinked._head.Value);
+			Node head = new Node { Value = listLinked._head.Value };
 			Node current = listLinked._head.Next;
 			Node current_clone = head;
 			while (!(current is null))
 			{
-				current_clone.Next = new Node(current.Value);
+				current_clone.Next = new Node { Value = current.Value };
 				current_clone = current_clone.Next;
 				current = current.Next;
 			}
@@ -168,8 +163,10 @@ namespace Towel.DataStructures
 			_count = listLinked._count;
 		}
 
-		/// <summary>Creates an instance of a AddableLinked.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// Creates an instance of a AddableLinked.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public ListLinked()
 		{
 			_head = _tail = null;
@@ -180,8 +177,10 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Returns the number of items in the list.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// Returns the number of items in the list.
+		/// <para>Runitme: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
 		#endregion
@@ -190,11 +189,13 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Adds an item to the list.</summary>
+		/// <summary>
+		/// Adds an item to the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="value">The item to add to the list.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the add succeeded or false if not.</returns>
-		/// <runtime>O(1)</runtime>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			Add(value);
@@ -202,18 +203,20 @@ namespace Towel.DataStructures
 			return true;
 		}
 
-		/// <summary>Adds an item to the list.</summary>
+		/// <summary>
+		/// Adds an item to the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="addition">The item to add to the list.</param>
-		/// <runtime>O(1)</runtime>
 		public void Add(T addition)
 		{
 			if (_tail is null)
 			{
-				_head = _tail = new Node(addition);
+				_head = _tail = new Node { Value = addition };
 			}
 			else
 			{
-				_tail = _tail.Next = new Node(addition);
+				_tail = _tail.Next = new Node { Value = addition };
 			}
 			_count++;
 		}
@@ -222,8 +225,10 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Resets the list to an empty state.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// Resets the list to an empty state.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
 			_head = _tail = null;
@@ -234,9 +239,11 @@ namespace Towel.DataStructures
 
 		#region Clone
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
+		/// <summary>
+		/// Creates a shallow clone of this data structure.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		/// <runtime>θ(n)</runtime>
 		public ListLinked<T> Clone() => new ListLinked<T>(this);
 
 		#endregion
@@ -351,60 +358,36 @@ namespace Towel.DataStructures
 
 		#region Stepper
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
 			Stepper<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
@@ -441,14 +424,16 @@ namespace Towel.DataStructures
 
 		#region ToArray
 
-		/// <summary>Converts the list into a standard array.</summary>
+		/// <summary>
+		/// Converts the list into a standard array.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <returns>A standard array of all the items.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
 			if (_count == 0)
 			{
-				return new T[0];
+				return Array.Empty<T>();
 			}
 			T[] array = new T[_count];
 			Node node = _head;
@@ -474,13 +459,17 @@ namespace Towel.DataStructures
 
 		#region Constructor
 
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Creates an instance of a ListArray, and sets it's minimum capacity.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public ListArray() : this(1) { }
 
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
+		/// <summary>
+		/// Creates an instance of a ListArray, and sets it's minimum capacity.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
-		/// <runtime>O(1)</runtime>
 		public ListArray(int expectedCount)
 		{
 			if (expectedCount < 1)
@@ -535,12 +524,16 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Gets the number of items in the list.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Gets the number of items in the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Count { get { return this._count; } }
 
-		/// <summary>Gets the current capacity of the list.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Gets the current capacity of the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int CurrentCapacity => _list.Length;
 
 		#endregion
@@ -549,11 +542,13 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Tries to add a value.</summary>
+		/// <summary>
+		/// Tries to add a value.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="exception">The exception that occurrs if the add fails.</param>
 		/// <returns>True if the add succeds or false if not.</returns>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryAdd(T value, out Exception exception)
 		{
 			if (_count == _list.Length)
@@ -599,8 +594,10 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Empties the list back and reduces it back to its original capacity.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
 			_list = new T[1];
@@ -622,9 +619,11 @@ namespace Towel.DataStructures
 
 		#region Remove
 
-		/// <summary>Removes the item at a specific index.</summary>
+		/// <summary>
+		/// Removes the item at a specific index.
+		/// <para>Runtime: O(n), Ω(n - index), ε(n - index)</para>
+		/// </summary>
 		/// <param name="index">The index of the item to be removed.</param>
-		/// <runtime>O(n), Ω(n - index), ε(n - index)</runtime>
 		public void Remove(int index)
 		{
 			RemoveWithoutShrink(index);
@@ -639,9 +638,11 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Removes the item at a specific index.</summary>
+		/// <summary>
+		/// Removes the item at a specific index.
+		/// <para>Runtime: Θ(n - index)</para>
+		/// </summary>
 		/// <param name="index">The index of the item to be removed.</param>
-		/// <runtime>Θ(n - index)</runtime>
 		public void RemoveWithoutShrink(int index)
 		{
 			if (index < 0 || index >= _count)
@@ -655,9 +656,11 @@ namespace Towel.DataStructures
 			_count--;
 		}
 
-		/// <summary>Removes all predicated items from the list.</summary>
+		/// <summary>
+		/// Removes all predicated items from the list.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <runtime>Θ(n)</runtime>
 		public void RemoveAll<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
@@ -673,9 +676,11 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Removes all predicated items from the list.</summary>
+		/// <summary>
+		/// Removes all predicated items from the list.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <runtime>Θ(n)</runtime>
 		public void RemoveAllWithoutShrink<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
@@ -698,9 +703,11 @@ namespace Towel.DataStructures
 			_count -= removed;
 		}
 
-		/// <summary>Removes the first predicated value from the list.</summary>
+		/// <summary>
+		/// Removes the first predicated value from the list.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
 		public void RemoveFirst(Func<T, bool> predicate)
 		{
 			if (!TryRemoveFirst(predicate, out Exception exception))
@@ -709,27 +716,33 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
+		/// <summary>
+		/// Removes the first occurence of a value from the list without causing the list to shrink.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		/// <param name="value">The value to remove.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
 		public void RemoveFirstWithoutShrink(T value)
 		{
 			RemoveFirstWithoutShrink(value, Equate);
 		}
 
-		/// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
+		/// <summary>
+		/// Removes the first occurence of a value from the list without causing the list to shrink.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="equate">The delegate providing the equality check.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
 		public void RemoveFirstWithoutShrink(T value, Func<T, T, bool> equate)
 		{
 			RemoveFirstWithoutShrink(x => equate(x, value), out _);
 		}
 
-		/// <summary>Removes the first predicated value from the list wihtout shrinking the list.</summary>
+		/// <summary>
+		/// Removes the first predicated value from the list wihtout shrinking the list.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <param name="exception">The exception that occured if the removal failed.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
 		public void RemoveFirstWithoutShrink(Func<T, bool> predicate, out Exception exception)
 		{
 			if (!TryRemoveFirst(predicate, out exception))
@@ -775,60 +788,36 @@ namespace Towel.DataStructures
 
 		#region Stepper
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
 			Stepper<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T> =>
 			_list.StepperRefBreak(0, _count, step);

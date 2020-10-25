@@ -193,11 +193,13 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Constructs a hashed map.</summary>
+		/// <summary>
+		/// Constructs a hashed map.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="equate">The equate delegate.</param>
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the map.</param>
-		/// <runtime>O(1)</runtime>
 		public MapHashLinked(
 			Equate equate = default,
 			Hash hash = default,
@@ -221,9 +223,11 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <summary>
+		/// This constructor is for cloning purposes.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <param name="map">The map to clone.</param>
-		/// <runtime>O(n)</runtime>
 		internal MapHashLinked(MapHashLinked<T, K, Equate, Hash> map)
 		{
 			_equate = map._equate;
@@ -236,23 +240,31 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The current size of the hashed table.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current size of the hashed table.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int TableSize => _table.Length;
 
-		/// <summary>The current number of values in the map.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current number of values in the map.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
-		/// <summary>The delegate for computing hash codes.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for computing hash codes.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		Func<K, int> DataStructure.IHashing<K>.Hash =>
 			_hash is FuncRuntime<K, int> hash
 				? hash._delegate
 				: _hash.Do;
 
-		/// <summary>The delegate for equality checking.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for equality checking.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		Func<K, K, bool> DataStructure.IEquating<K>.Equate =>
 			_equate is FuncRuntime<K, K, bool> equate
 			? equate._delegate
@@ -269,12 +281,14 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Tries to add a value to the map.</summary>
+		/// <summary>
+		/// Tries to add a value to the map.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="exception">The exception that occured if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool TryAdd(K key, T value, out Exception exception)
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
@@ -350,10 +364,12 @@ namespace Towel.DataStructures
 
 		#region Set
 
-		/// <summary>Sets value in the map.</summary>
+		/// <summary>
+		/// Sets value in the map.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be set.</param>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public void Set(K key, T value)
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
@@ -481,8 +497,10 @@ namespace Towel.DataStructures
 
 		#region Trim
 
-		/// <summary>Trims the table to an appropriate size based on the current count.</summary>
-		/// <runtime>O(n), Ω(1)</runtime>
+		/// <summary>
+		/// Trims the table to an appropriate size based on the current count.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		public void Trim()
 		{
 			int tableSize = _count;
@@ -497,19 +515,23 @@ namespace Towel.DataStructures
 
 		#region Clone
 
-		/// <summary>Creates a shallow clone of this map.</summary>
+		/// <summary>
+		/// Creates a shallow clone of this map.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>A shallow clone of this map.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public MapHashLinked<T, K, Equate, Hash> Clone() => new MapHashLinked<T, K, Equate, Hash>(this);
 
 		#endregion
 
 		#region Contains
 
-		/// <summary>Determines if a value has been added to a map.</summary>
+		/// <summary>
+		/// Determines if a value has been added to a map.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="key">The key of the value to look for in the map.</param>
 		/// <returns>True if the value has been added to the map or false if not.</returns>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
 		public bool Contains(K key)
 		{
 			int hashCode = _hash.Do(key);
@@ -528,8 +550,10 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Removes all the values in the map.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Removes all the values in the map.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
 			_table = new Node[2];
@@ -540,9 +564,7 @@ namespace Towel.DataStructures
 
 		#region Stepper And IEnumerable
 
-		/// <summary>Steps through all the values of the map.</summary>
-		/// <param name="step">The action to perform on every value in the map.</param>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -554,9 +576,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Steps through all the values of the map.</summary>
-		/// <param name="step">The action to perform on every value in the map.</param>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -568,10 +588,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Steps through all the values of the map.</summary>
-		/// <param name="step">The action to perform on every value in the map.</param>
-		/// <returns>The status of the stepper.</returns>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -587,10 +604,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Steps through all the values of the map.</summary>
-		/// <param name="step">The action to perform on every value in the map.</param>
-		/// <returns>The status of the stepper.</returns>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(StepRefBreak<T> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -606,9 +620,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Steps through all the keys of the map.</summary>
-		/// <param name="step">The action to perform on every value in the map.</param>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Keys(Action<K> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -620,10 +632,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Steps through all the keys of the map.</summary>
-		/// <param name="step">The action to perform on every value in the map.</param>
-		/// <returns>The status of the stepper.</returns>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Keys(Func<K, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -639,9 +648,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Steps through all the keys and values of the map.</summary>
-		/// <param name="step">The action to perform on every key and value in the map.</param>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T, K> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -653,10 +660,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Steps through all the keys and values of the map.</summary>
-		/// <param name="step">The action to perform on every key and value in the map.</param>
-		/// <returns>The status of the stepper.</returns>
-		/// <runtime>Θ(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, K, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -676,7 +680,6 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the enumerator for the map.</summary>
 		/// <returns>The enumerator for the map.</returns>
-		/// <runtime>O(n)</runtime>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -692,9 +695,11 @@ namespace Towel.DataStructures
 
 		#region ToArray
 
-		/// <summary>Puts all the values in this map into an array.</summary>
+		/// <summary>
+		/// Puts all the values in this map into an array.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>An array with all the values in the map.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
 			T[] array = new T[_count];
@@ -721,19 +726,23 @@ namespace Towel.DataStructures
 	{
 		#region Constructors
 
-		/// <summary>Constructs a hashed map.</summary>
+		/// <summary>
+		/// Constructs a hashed map.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="equate">The equate delegate.</param>
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the map.</param>
-		/// <runtime>O(1)</runtime>
 		public MapHashLinked(
 			Func<K, K, bool> equate = null,
 			Func<K, int> hash = null,
 			int? expectedCount = null) : base(equate ?? Statics.Equate, hash ?? DefaultHash, expectedCount) { }
 
-		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <summary>
+		/// This constructor is for cloning purposes.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <param name="map">The map to clone.</param>
-		/// <runtime>O(n)</runtime>
 		internal MapHashLinked(MapHashLinked<T, K> map)
 		{
 			_equate = map._equate;
@@ -746,21 +755,27 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The delegate for computing hash codes.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for computing hash codes.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public Func<K, int> Hash => _hash._delegate;
 
-		/// <summary>The delegate for equality checking.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The delegate for equality checking.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public Func<K, K, bool> Equate => _equate._delegate;
 
 		#endregion
 
 		#region Clone
 
-		/// <summary>Creates a shallow clone of this map.</summary>
+		/// <summary>
+		/// Creates a shallow clone of this map.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <returns>A shallow clone of this map.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public new MapHashLinked<T, K> Clone() => new MapHashLinked<T, K>(this);
 
 		#endregion

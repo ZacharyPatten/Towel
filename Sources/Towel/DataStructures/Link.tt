@@ -40,11 +40,13 @@ namespace Towel.DataStructures
 
 		#region Constructors
 		
-		/// <summary>Creates a link between objects.</summary>
+		/// <summary>
+		/// Creates a link between objects.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 <# for (int j = 1; j <= i; j++) { #>
 		/// <param name="_<#= j #>">The #<#= j #> item to be linked.</param>
 <# } #>
-		/// <runtime>O(1)</runtime>
 		public Link(T1 _1
 <# for (int j = 2; j <= i; j++) { #>
 			, T<#= j #> _<#= j #>
@@ -60,11 +62,13 @@ namespace Towel.DataStructures
 
 		#region Properties
 		
-		/// <summary>The number of objects in the tuple.</summary>
+		/// <summary>
+		/// The number of objects in the tuple.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Size => <#= i #>;
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The #<#= j #> item in the link.</summary>
-		/// <runtime>O(1)</runtime>
 		public T<#= j #> _<#= j #> { get => __<#= j #>; set => __<#= j #> = value; }
 <# } #>
 
@@ -314,11 +318,13 @@ namespace Towel.DataStructures
 
 		#region Constructors
 		
-		/// <summary>Creates a link between objects.</summary>
+		/// <summary>
+		/// Creates a link between objects.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 <# for (int j = 1; j <= i; j++) { #>
 		/// <param name="_<#= j #>">The #<#= j #> item to be linked.</param>
 <# } #>
-		/// <runtime>O(1)</runtime>
 		public LinkStruct(T1 _1
 <# for (int j = 2; j <= i; j++) { #>
 			, T<#= j #> _<#= j #>
@@ -333,11 +339,13 @@ namespace Towel.DataStructures
 
 		#region Properties
 		
-		/// <summary>The number of objects in the tuple.</summary>
+		/// <summary>
+		/// The number of objects in the tuple.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public	int Size => <#= i #>;
 <# for (int j = 1; j <= i; j++) { #>
 		/// <summary>The #<#= j #> item in the link.</summary>
-		/// <runtime>O(1)</runtime>
 		public T<#= j #> _<#= j #> { get => __<#= j #>; set => __<#= j #> = value; }
 <# } #>
 

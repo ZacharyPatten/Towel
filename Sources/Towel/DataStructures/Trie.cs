@@ -112,14 +112,8 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal MapHashLinked<Node, T> Map;
-			internal bool IsLeaf = false;
+			internal bool IsLeaf;
 			internal int Count;
-
-			internal Node(Func<T, T, bool> equate, Func<T, int> hash)
-			{
-				Count = 0;
-				Map = new MapHashLinked<Node, T>(equate, hash);
-			}
 		}
 
 		#endregion
@@ -178,7 +172,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new Node(Equate, Hash);
+					Node temp = new Node { Map = new MapHashLinked<Node, T>(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -186,12 +180,12 @@ namespace Towel.DataStructures
 			});
 			if (node is null)
 			{
-				exception = new ArgumentException(nameof(stepper), "Stepper was empty.");
+				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
 				return false;
 			}
 			else if (node.IsLeaf)
 			{
-				exception = new ArgumentException(nameof(stepper), "Attempted to add an already existing item.");
+				exception = new ArgumentException("Attempted to add an already existing item.", nameof(stepper));
 				return false;
 			}
 			else
@@ -236,7 +230,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					capturedException ??= new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
+					capturedException ??= new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
 				}
 				pathStack.Push((finalKey, finalMap, node));
 			});
@@ -247,12 +241,12 @@ namespace Towel.DataStructures
 			}
 			else if (node is null)
 			{
-				exception = new ArgumentException(nameof(stepper), "Stepper was empty.");
+				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
 				return false;
 			}
 			else if (!node.IsLeaf)
 			{
-				exception = new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
+				exception = new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
 				return false;
 			}
 			else
@@ -312,7 +306,7 @@ namespace Towel.DataStructures
 			});
 			if (node is null)
 			{
-				throw new ArgumentException(nameof(stepper), "Stepper was empty.");
+				throw new ArgumentException("Stepper was empty.", nameof(stepper));
 			}
 			return node.IsLeaf;
 		}
@@ -455,15 +449,9 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal MapHashLinked<Node, T> Map;
-			internal D Value = default;
-			internal bool HasValue = false;
+			internal D Value;
+			internal bool HasValue;
 			internal int Count;
-
-			internal Node(Func<T, T, bool> equate, Func<T, int> hash)
-			{
-				Count = 0;
-				Map = new MapHashLinked<Node, T>(equate, hash);
-			}
 		}
 
 		#endregion
@@ -523,7 +511,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new Node(Equate, Hash);
+					Node temp = new Node { Map = new MapHashLinked<Node, T>(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -531,12 +519,12 @@ namespace Towel.DataStructures
 			});
 			if (node is null)
 			{
-				exception = new ArgumentException(nameof(stepper), "Stepper was empty.");
+				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
 				return false;
 			}
 			else if (node.HasValue)
 			{
-				exception = new ArgumentException(nameof(stepper), "Attempted to add an already existing item.");
+				exception = new ArgumentException("Attempted to add an already existing item.", nameof(stepper));
 				return false;
 			}
 			else
@@ -579,7 +567,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new Node(Equate, Hash);
+					Node temp = new Node { Map = new MapHashLinked<Node, T>(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -587,13 +575,13 @@ namespace Towel.DataStructures
 			if (node is null)
 			{
 				value = default;
-				exception = new ArgumentException(nameof(stepper), "Stepper was empty.");
+				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
 				return false;
 			}
 			else if (!node.HasValue)
 			{
 				value = default;
-				exception = new ArgumentException(nameof(stepper), "Attempted to get a non-existing item.");
+				exception = new ArgumentException("Attempted to get a non-existing item.", nameof(stepper));
 				return false;
 			}
 			else
@@ -620,8 +608,8 @@ namespace Towel.DataStructures
 				return false;
 			}
 			IStack<(T, MapHashLinked<Node, T>, Node)> pathStack = new StackLinked<(T, MapHashLinked<Node, T>, Node)>();
-			T finalKey = default;
-			MapHashLinked<Node, T> finalMap = null;
+			T finalKey;
+			MapHashLinked<Node, T> finalMap;
 			Node node = null;
 			Exception capturedException = null;
 			stepper(key =>
@@ -636,7 +624,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					capturedException ??= new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
+					capturedException ??= new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
 				}
 				pathStack.Push((finalKey, finalMap, node));
 			});
@@ -647,12 +635,12 @@ namespace Towel.DataStructures
 			}
 			else if (node is null)
 			{
-				exception = new ArgumentException(nameof(stepper), "Stepper was empty.");
+				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
 				return false;
 			}
 			else if (!node.HasValue)
 			{
-				exception = new ArgumentException(nameof(stepper), "Attempted to remove a non-existing item.");
+				exception = new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
 				return false;
 			}
 			else
@@ -712,7 +700,7 @@ namespace Towel.DataStructures
 			});
 			if (node is null)
 			{
-				throw new ArgumentException(nameof(stepper), "Stepper was empty.");
+				throw new ArgumentException("Stepper was empty.", nameof(stepper));
 			}
 			return node.HasValue;
 		}

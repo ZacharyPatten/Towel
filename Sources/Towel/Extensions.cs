@@ -49,7 +49,7 @@ namespace Towel
 				{
 					if (Pattern is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Pattern)}s");
 					if (Replacement is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Replacement)}s");
-					if (Pattern == string.Empty) throw new ArgumentException(nameof(rules), $"{nameof(rules)} contains empty {nameof(Pattern)}s");
+					if (Pattern == string.Empty) throw new ArgumentException($"{nameof(rules)} contains empty {nameof(Pattern)}s", nameof(rules));
 					// TODO: TryAdd when available
 					if (regexAndRuleSet.RuleSet.ContainsKey(Pattern))
 					{
@@ -296,11 +296,11 @@ namespace Towel
 			string[] lines = @string.SplitLines();
 			if (startingLineNumber < 0 || startingLineNumber >= lines.Length)
 			{
-				throw new ArgumentOutOfRangeException("startingLineNumber");
+				throw new ArgumentOutOfRangeException(nameof(startingLineNumber));
 			}
 			if (endingLineNumber >= lines.Length || endingLineNumber < startingLineNumber)
 			{
-				throw new ArgumentOutOfRangeException("endingLineNumber");
+				throw new ArgumentOutOfRangeException(nameof(endingLineNumber));
 			}
 			for (int i = startingLineNumber; i <= endingLineNumber; i++)
 			{
@@ -781,26 +781,26 @@ namespace Towel
 				foreach (var (Value, Weight) in pool)
 				{
 					if (Weight < 0)
-						throw new ArgumentOutOfRangeException("A value in the pool had a weight less than zero.");
+						throw new ArgumentOutOfRangeException(nameof(pool), $"A value in {nameof(pool)} had a weight less than zero.");
 					totalWeight += Weight;
 				}
 			}
 			else
 			{
 				if (totalWeight < 0)
-					throw new ArgumentOutOfRangeException("The provided total weight of the pool was less than zero.");
+					throw new ArgumentOutOfRangeException(nameof(totalWeight), $"The provided {nameof(totalWeight)} of the {nameof(pool)} was less than zero.");
 			}
 			if (totalWeight == 0)
-				throw new ArgumentOutOfRangeException("The total weight of all values in the pool was zero.");
+				throw new ArgumentOutOfRangeException(nameof(pool), $"The total weight of all values in the {nameof(pool)} was zero.");
 			if (double.IsInfinity(totalWeight.Value))
-				throw new ArgumentOutOfRangeException("The total weight of all values in the pool was an infinite double.");
+				throw new ArgumentOutOfRangeException(nameof(pool), $"The total weight of all values in the {nameof(pool)} was an infinite double.");
 			double randomDouble = random.NextDouble();
 			double range = 0;
 			foreach (var (Value, Weight) in pool)
 			{
 				range += Weight;
 				if (range > totalWeight)
-					throw new ArgumentOutOfRangeException("The provided total weight of the pool was less than the actual total weight.");
+					throw new ArgumentOutOfRangeException(nameof(totalWeight), $"The provided {nameof(totalWeight)} of the {nameof(pool)} was less than the actual total weight.");
 				if (randomDouble < range / totalWeight)
 					return Value;
 			}

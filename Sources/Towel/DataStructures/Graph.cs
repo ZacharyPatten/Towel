@@ -63,18 +63,9 @@ namespace Towel.DataStructures
 		public class Edge
 		{
 			/// <summary>The starting node of the edge.</summary>
-			public readonly T Start;
-			/// <summary>The ending node of hte edge.</summary>
-			public readonly T End;
-
-			/// <summary>Constructs a new Edge.</summary>
-			/// <param name="start">The starting point of the Edge.</param>
-			/// <param name="end">The ending point of the Edge.</param>
-			public Edge(T start, T end)
-			{
-				Start = start;
-				End = end;
-			}
+			public T Start { get; internal set; }
+			/// <summary>The ending node of the edge.</summary>
+			public T End { get; internal set; }
 		}
 
 		#endregion
@@ -151,7 +142,7 @@ namespace Towel.DataStructures
 				(Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
 				start, start, end, end);
 
-			_edges.Add(new Edge(start, end));
+			_edges.Add(new Edge() { Start = start, End = end });
 		}
 
 		/// <summary>Removes a node from the graph and all attached edges.</summary>
@@ -263,32 +254,10 @@ namespace Towel.DataStructures
 		internal MapHashLinked<SetHashLinked<T>, T> _map;
 		internal int _edges;
 
-		#region Edge
-
-		/// <summary>Represents an edge in a graph.</summary>
-		public class Edge
-		{
-			/// <summary>The starting point of the edge.</summary>
-			public readonly T Start;
-			/// <summary>The ending point of the edge.</summary>
-			public readonly T End;
-
-			/// <summary>Constructs a new Edge.</summary>
-			/// <param name="start">The starting point of the edge.</param>
-			/// <param name="end">The ending point of the edge.</param>
-			public Edge(T start, T end)
-			{
-				Start = start;
-				End = end;
-			}
-		}
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>Constructs a new GraphMap.</summary>
-		public GraphMap() : this(Statics.Equate, DefaultHash) { }
+		public GraphMap() : this(Equate, DefaultHash) { }
 
 		/// <summary>Constructs a new GraphMap.</summary>
 		/// <param name="equate">The equate delegate for the data structure to use.</param>

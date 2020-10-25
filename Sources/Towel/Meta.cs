@@ -762,7 +762,7 @@ namespace Towel
 		/// <returns>The file path of the assembly.</returns>
 		public static string GetDirectoryPath(this Assembly assembly)
 		{
-			string codeBase = assembly.CodeBase;
+			string codeBase = assembly.Location;
 			UriBuilder uri = new UriBuilder(codeBase);
 			string path = Uri.UnescapeDataString(uri.Path);
 			return Path.GetDirectoryName(path);

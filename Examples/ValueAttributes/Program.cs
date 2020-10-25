@@ -27,7 +27,7 @@ namespace Example
 				BindingFlags.Static |
 				BindingFlags.Instance);
 			EventInfo eventInfo = typeof(Program).GetEvent(nameof(Event));
-			ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { });
+			ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>());
 			FieldInfo fieldInfo = typeof(A).GetField(nameof(A.Field),
 				BindingFlags.Public |
 				BindingFlags.NonPublic |
@@ -97,7 +97,7 @@ namespace Example
 		public static void Method(
 			[Tag(MyTagA, "works ;)")]
 			[Tag(MyTagB, "G")]
-			object a) { }
+			object a) => a.ToString();
 
 		[Tag(MyTagA, "works :D")]
 		[Tag(MyTagB, "C")]

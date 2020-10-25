@@ -15,6 +15,7 @@ namespace Towel.Mathematics
 
 		internal enum OperatorPriority
 		{
+#pragma warning disable CA1069 // Enums values should not be duplicated
 			Addition = 1,
 			Subtraction = 1,
 			Multiplication = 2,
@@ -24,6 +25,7 @@ namespace Towel.Mathematics
 			Logical = 4,
 			Negation = 5,
 			Factorial = 6,
+#pragma warning restore CA1069 // Enums values should not be duplicated
 		}
 
 		#endregion
@@ -2983,7 +2985,7 @@ namespace Towel.Mathematics
 		#region Runtime Built Parsing Libary
 
 		// Library Building Fields
-		internal static bool ParseableLibraryBuilt = false;
+		internal static bool ParseableLibraryBuilt;
 		internal static readonly object ParseableLibraryLock = new object();
 		// Regex Expressions
 		internal const string ParenthesisPattern = @"\(.*\)";

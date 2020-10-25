@@ -116,8 +116,10 @@ namespace Towel.DataStructures
 		/// <summary>The number of items in this data structure.</summary>
 		public int Count => _count;
 
-		/// <summary>The comparison function being utilized by this structure.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// The comparison function being utilized by this structure.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		Func<T, T, CompareResult> DataStructure.IComparing<T>.Compare =>
 			_compare is FuncRuntime<T, T, CompareResult> func
 			? func._delegate
@@ -150,9 +152,11 @@ namespace Towel.DataStructures
 						capturedException = new ArgumentException($"Adding to add a duplicate value to a {nameof(RedBlackTreeLinked<T>)}: {value}.", nameof(value));
 						goto Break;
 					default:
+#pragma warning disable CA2208 // Instantiate argument exceptions correctly
 						capturedException = compareResult.IsDefined()
-						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-						: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(Compare));
+							? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+							: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(Compare));
+#pragma warning restore CA2208 // Instantiate argument exceptions correctly
 						goto Break;
 				}
 			}
@@ -224,10 +228,12 @@ namespace Towel.DataStructures
 		/// <returns>True if the tree contains the value. False if not.</returns>
 		public bool Contains(T value) => Contains(x => _compare.Do(x, value));
 
-		/// <summary>Determines if this structure contains an item by a given key.</summary>
+		/// <summary>
+		/// Determines if this structure contains an item by a given key.
+		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
+		/// </summary>
 		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
 		/// <returns>True of contained, False if not.</returns>
-		/// <runtime>O(ln(Count)) Ω(1)</runtime>
 		public bool Contains(Func<T, CompareResult> sift)
 		{
 			Node node = _root;
@@ -391,54 +397,36 @@ namespace Towel.DataStructures
 
 		#region Stepper
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
 			Stepper<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
@@ -457,72 +445,42 @@ namespace Towel.DataStructures
 			return Stepper(_root);
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
 		#endregion
 
 		#region Stepper (ranged)
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void Stepper<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperBreak<StepBreakFromAction<T, Step>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void Stepper(T minimum, T maximum, Action<T> step) =>
 			Stepper<ActionRuntime<T>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperRef<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void Stepper(T minimum, T maximum, StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual StepStatus StepperBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual StepStatus Stepper(T minimum, T maximum, Func<T, StepStatus> step) =>
 			StepperBreak<StepBreakRuntime<T>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
+		public virtual StepStatus Stepper(T minimum, T maximum, StepRefBreak<T> step) =>
+			StepperRefBreak<StepRefBreakRuntime<T>>(minimum, maximum);
+
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual StepStatus StepperRefBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
@@ -556,63 +514,42 @@ namespace Towel.DataStructures
 			return Stepper(_root);
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus Stepper(T minimum, T maximum, StepRefBreak<T> step) =>
-			StepperRefBreak<StepRefBreakRuntime<T>>(minimum, maximum);
-
 		#endregion
 
 		#region StepperReverse
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public void StepperReverse<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperReverseBreak<StepBreakFromAction<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public void StepperReverse(Action<T> step) =>
 			StepperReverse<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public void StepperReverseRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperReverseRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public void StepperReverse(StepRef<T> step) =>
 			StepperReverseRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public StepStatus StepperReverseBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public StepStatus StepperReverse(Func<T, StepStatus> step) =>
 			StepperReverseBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
+		public StepStatus StepperReverse(StepRefBreak<T> step) =>
+			StepperReverseRefBreak<StepRefBreakRuntime<T>>(step);
+
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public StepStatus StepperReverseRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
@@ -631,73 +568,42 @@ namespace Towel.DataStructures
 			return StepperReverse(_root);
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
-		public StepStatus StepperReverse(StepRefBreak<T> step) =>
-			StepperReverseRefBreak<StepRefBreakRuntime<T>>(step);
-
 		#endregion
 
 		#region StepperReverse (ranged)
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperReverse<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperReverseBreak<StepBreakFromAction<T, Step>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperReverse(T minimum, T maximum, Action<T> step) =>
 			StepperReverse<ActionRuntime<T>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperReverseRef<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperReverseRefBreak<StepRefBreakFromStepRef<T, Step>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperReverse(T minimum, T maximum, StepRef<T> step) =>
 			StepperReverseRef<StepRefRuntime<T>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual StepStatus StepperReverseBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual StepStatus StepperReverse(T minimum, T maximum, Func<T, StepStatus> step) =>
 			StepperReverseBreak<StepBreakRuntime<T>>(minimum, maximum, step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
+		public virtual StepStatus StepperReverse(T minimum, T maximum, StepRefBreak<T> step) =>
+			StepperReverseRefBreak<StepRefBreakRuntime<T>>(minimum, maximum, step);
+
+		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual StepStatus StepperReverseRefBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
@@ -730,14 +636,6 @@ namespace Towel.DataStructures
 			}
 			return StepperReverse(_root);
 		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <param name="minimum">The minimum value of the optimized stepper function.</param>
-		/// <param name="maximum">The maximum value of the optimized stepper function.</param>
-		/// <runtime>O(n * step), Ω(1)</runtime>
-		public virtual StepStatus StepperReverse(T minimum, T maximum, StepRefBreak<T> step) =>
-			StepperReverseRefBreak<StepRefBreakRuntime<T>>(minimum, maximum, step);
 
 		#endregion
 
