@@ -31,7 +31,7 @@ namespace Towel.DataStructures
 
 		internal Equate _equate;
 		internal Hash _hash;
-		internal Node[] _table;
+		internal Node?[] _table;
 		internal int _count;
 
 		#region Node
@@ -39,7 +39,13 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal T Value;
-			internal Node Next;
+			internal Node? Next;
+
+			internal Node(T value, Node? next = null)
+			{
+				Value = value;
+				Next = next;
+			}
 		}
 
 		#endregion
@@ -135,16 +141,14 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to add to the set.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
-		public bool TryAdd(T value, out Exception exception)
+		public bool TryAdd(T value, out Exception? exception)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(value);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
-			// duplicate value check
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Value, value))
 				{
@@ -153,16 +157,10 @@ namespace Towel.DataStructures
 				}
 			}
 
-			{
-				// add the value
-				Node node = new Node { Value = value, Next = _table[location] };
-				_table[location] = node;
-			}
+			_table[location] = new Node(value: value, next: _table[location]);
 
-			// check if the table needs to grow
 			if (++_count > _table.Length * _maxLoadFactor)
 			{
-				// calculate new table size
 				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
 				if (tableSizeFloat <= int.MaxValue)
 				{
@@ -171,8 +169,6 @@ namespace Towel.DataStructures
 					{
 						tableSize++;
 					}
-
-					// resize the table
 					Resize(tableSize);
 				}
 			}
@@ -189,7 +185,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public bool TryRemove(T value, out Exception? exception)
 		{
 			if (TryRemoveWithoutTrim(value, out exception))
 			{
@@ -214,39 +210,30 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemoveWithoutTrim(T value, out Exception exception)
+		public bool TryRemoveWithoutTrim(T value, out Exception? exception)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
-
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(value);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			// find and remove the node
-			if (_equate.Do(_table[location].Value, value))
+			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
 			{
-				// the value was the head node of the table index
-				_table[location] = _table[location].Next;
-				_count--;
-				exception = null;
-				return true;
-			}
-			else
-			{
-				// that value is a child node of the table index
-				for (Node node = _table[location]; !(node.Next is null); node = node.Next)
+				if (_equate.Do(node.Value, value))
 				{
-					if (_equate.Do(node.Next.Value, value))
+					if (previous is null)
 					{
-						node.Next = node.Next.Next;
-						_count--;
-						exception = null;
-						return true;
+						_table[location] = node.Next;
 					}
+					else
+					{
+						previous.Next = node.Next;
+					}
+					_count--;
+					exception = null;
+					return true;
 				}
-				exception = new ArgumentException("Attempting to remove a value that is no in a set.", nameof(value));
-				return false;
 			}
+			exception = new ArgumentException("Attempting to remove a value that is no in a set.", nameof(value));
+			return false;
 		}
 
 		#endregion
@@ -257,29 +244,23 @@ namespace Towel.DataStructures
 		/// <param name="tableSize">The desired size of the table.</param>
 		internal void Resize(int tableSize)
 		{
-			// ensure the desired size is different than the current
 			if (tableSize == _table.Length)
 			{
 				return;
 			}
 
-			Node[] temp = _table;
+			Node?[] temp = _table;
 			_table = new Node[tableSize];
 
-			// iterate through all the values
 			for (int i = 0; i < temp.Length; i++)
 			{
-				while (!(temp[i] is null))
+				for (Node? node = temp[i]; node is not null; node = temp[i])
 				{
-					// grab the value from the old table
-					Node node = temp[i];
 					temp[i] = node.Next;
 
-					// compute the hash code and relate it to the current table
 					int hashCode = _hash.Do(node.Value);
 					int location = (hashCode & int.MaxValue) % _table.Length;
 
-					// add the value to the new table
 					node.Next = _table[location];
 					_table[location] = node;
 				}
@@ -327,12 +308,10 @@ namespace Towel.DataStructures
 		/// <returns>True if the value has been added to the set or false if not.</returns>
 		public bool Contains(T value)
 		{
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(value);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
-			// look for the value
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Value, value))
 				{
@@ -365,7 +344,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					step(node.Value);
 				}
@@ -377,7 +356,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					if (step(node.Value) is Break)
 					{
@@ -396,7 +375,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					yield return node.Value;
 				}
@@ -409,18 +388,17 @@ namespace Towel.DataStructures
 
 		/// <summary>
 		/// Puts all the values in this set into an array.
-		/// <para>Runtime: Θ(n)</para>
+		/// <para>Runtime: Θ(<see cref="Count"/> + <see cref="TableSize"/>)</para>
 		/// </summary>
 		/// <returns>An array with all the values in the set.</returns>
-		public T[] ToArray()
+		public T?[] ToArray()
 		{
 			T[] array = new T[_count];
-			int index = 0;
-			for (int i = 0; i < _table.Length; i++)
+			for (int i = 0, index = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next, index++)
 				{
-					array[index++] = node.Value;
+					array[index] = node.Value;
 				}
 			}
 			return array;
@@ -445,8 +423,8 @@ namespace Towel.DataStructures
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the set.</param>
 		public SetHashLinked(
-			Func<T, T, bool> equate = null,
-			Func<T, int> hash = null,
+			Func<T, T, bool>? equate = null,
+			Func<T, int>? hash = null,
 			int? expectedCount = null) : base(equate ?? Statics.Equate, hash ?? DefaultHash, expectedCount) { }
 
 		/// <summary>
@@ -541,8 +519,8 @@ namespace Towel.DataStructures
 		/// <param name="expectedCount">The expected count of the set.</param>
 		public Set(
 			StructureFactory factory,
-			Func<T, T, bool> equate = null,
-			Func<T, int> hash = null,
+			Func<T?, T, bool>? equate = null,
+			Func<T?, int>? hash = null,
 			int? expectedCount = null)
 		{
 			if (expectedCount.HasValue && expectedCount.Value > 0)
@@ -626,7 +604,7 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The key value to use as the look-up reference in the hash table.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
-		public bool TryAdd(T value, out Exception exception)
+		public bool TryAdd(T value, out Exception? exception)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 
@@ -681,7 +659,7 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		public bool TryRemove(T value, out Exception exception)
+		public bool TryRemove(T value, out Exception? exception)
 		{
 			if (TryRemoveWithoutTrim(value, out exception))
 			{
@@ -708,7 +686,7 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		public bool TryRemoveWithoutTrim(T value, out Exception exception)
+		public bool TryRemoveWithoutTrim(T value, out Exception? exception)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 
@@ -828,11 +806,11 @@ namespace Towel.DataStructures
 		#region Stepper And IEnumerable
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step)
+		public void Stepper(Action<T?> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				if (!(_table[i] is null))
+				if (_table[i] is not null)
 				{
 					_table[i].Stepper(step);
 				}
@@ -840,11 +818,11 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step)
+		public StepStatus Stepper(Func<T?, StepStatus> step)
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				if (!(_table[i] is null))
+				if (_table[i] is not null)
 				{
 					if (_table[i].Stepper(step) is Break)
 					{
@@ -859,11 +837,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the enumerator for the set.</summary>
 		/// <returns>The enumerator for the set.</returns>
-		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T?> GetEnumerator()
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				if (!(_table[i] is null))
+				if (_table[i] is not null)
 				{
 					foreach (T value in _table[i])
 					{
@@ -882,13 +860,13 @@ namespace Towel.DataStructures
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>An array with all the values in the set.</returns>
-		public T[] ToArray()
+		public T?[] ToArray()
 		{
-			T[] array = new T[_count];
+			T?[] array = new T[_count];
 			int index = 0;
 			for (int i = 0; i < _table.Length; i++)
 			{
-				if (!(_table[i] is null))
+				if (_table[i] is not null)
 				{
 					_table[i].Stepper(x => array[index++] = x);
 				}

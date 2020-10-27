@@ -2465,9 +2465,6 @@
             <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
             <typeparam name="T">The type of objects to be placed in the list.</typeparam>
         </member>
-        <member name="T:Towel.DataStructures.ListLinked`1.Node">
-            <summary>This class just holds the data for each individual node of the list.</summary>
-        </member>
         <member name="M:Towel.DataStructures.ListLinked`1.#ctor">
             <summary>
             Creates an instance of a AddableLinked.
@@ -2612,11 +2609,14 @@
             <param name="value">The value to be added.</param>
             <param name="exception">The exception that occurrs if the add fails.</param>
             <returns>True if the add succeds or false if not.</returns>
+            <exception cref="T:System.InvalidOperationException"><see cref="P:Towel.DataStructures.ListArray`1.Count"/> == <see cref="P:Towel.DataStructures.ListArray`1.CurrentCapacity"/> &amp;&amp; <see cref="P:Towel.DataStructures.ListArray`1.CurrentCapacity"/> &gt; <see cref="F:System.Int32.MaxValue"/> / 2</exception>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Add(`0,System.Int32)">
             <summary>Adds an item at a given index.</summary>
             <param name="addition">The item to be added.</param>
             <param name="index">The index to add the item at.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">index &lt; 0 || index &gt; <see cref="P:Towel.DataStructures.ListArray`1.CurrentCapacity"/></exception>
+            <exception cref="T:System.InvalidOperationException"><see cref="P:Towel.DataStructures.ListArray`1.Count"/> == <see cref="P:Towel.DataStructures.ListArray`1.CurrentCapacity"/> &amp;&amp; <see cref="P:Towel.DataStructures.ListArray`1.CurrentCapacity"/> &gt; <see cref="F:System.Int32.MaxValue"/> / 2</exception>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.Clear">
             <summary>
@@ -2641,6 +2641,7 @@
             <para>Runtime: Θ(n - index)</para>
             </summary>
             <param name="index">The index of the item to be removed.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when: index &lt; 0 || index &gt;= _count</exception>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveAll``1(``0)">
             <summary>
@@ -2662,13 +2663,7 @@
             <para>Runtime: O(n), Ω(1)</para>
             </summary>
             <param name="predicate">The predicate to determine removals.</param>
-        </member>
-        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(`0)">
-            <summary>
-            Removes the first occurence of a value from the list without causing the list to shrink.
-            <para>Runtime: O(n), Ω(1)</para>
-            </summary>
-            <param name="value">The value to remove.</param>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="predicate"/> does not find a <typeparamref name="T"/> in the list.</exception>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(`0,System.Func{`0,`0,System.Boolean})">
             <summary>
@@ -2677,14 +2672,15 @@
             </summary>
             <param name="value">The value to remove.</param>
             <param name="equate">The delegate providing the equality check.</param>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="value"/> is not found in the list.</exception>
         </member>
-        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(System.Func{`0,System.Boolean},System.Exception@)">
+        <member name="M:Towel.DataStructures.ListArray`1.RemoveFirstWithoutShrink(System.Func{`0,System.Boolean})">
             <summary>
             Removes the first predicated value from the list wihtout shrinking the list.
             <para>Runtime: O(n), Ω(1)</para>
             </summary>
             <param name="predicate">The predicate to determine removals.</param>
-            <param name="exception">The exception that occured if the removal failed.</param>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="predicate"/> does not find a <typeparamref name="T"/> in the list.</exception>
         </member>
         <member name="M:Towel.DataStructures.ListArray`1.TryRemoveFirst(System.Func{`0,System.Boolean},System.Exception@)">
             <summary>Tries to remove the first predicated value if the value exists.</summary>
@@ -2817,7 +2813,7 @@
             <typeparam name="K">The type of keys in the map.</typeparam>
             <param name="map">The map to get the value from.</param>
             <param name="key">The key of the value to get.</param>
-            <param name="Default">The default value to return if the value is not found.</param>
+            <param name="default">The default value to return if the value is not found.</param>
             <returns>The value if found or the defautl value.</returns>
         </member>
         <member name="M:Towel.DataStructures.Map.TryGet``2(Towel.DataStructures.IMap{``0,``1},``1,``0@)">
@@ -4452,10 +4448,6 @@
         </member>
         <member name="P:Towel.DataStructures.Omnitree.Vector.Default">
             <summary>Returns a vector with defaulted values.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.Omnitree.Vector.#ctor(System.Object[])">
-            <summary>Constructs an N-D vector.</summary>
-            <param name="location"></param>
         </member>
         <member name="T:Towel.DataStructures.Omnitree.Bounds">
             <summary>An N-D bounding box.</summary>
@@ -13502,10 +13494,10 @@
             <typeparam name="T">The generic type within the structure.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.IQueue`1.Newest">
-            <summary>The newest item currently in the queue.</summary>
+            <summary>The current newest element in the queue.</summary>
         </member>
         <member name="P:Towel.DataStructures.IQueue`1.Oldest">
-            <summary>The oldest item currently in the queue.</summary>
+            <summary>The current oldest element in the queue.</summary>
         </member>
         <member name="M:Towel.DataStructures.IQueue`1.Enqueue(`0)">
             <summary>Adds an item to the back of the queue.</summary>
@@ -13531,13 +13523,13 @@
         </member>
         <member name="P:Towel.DataStructures.QueueLinked`1.Newest">
             <summary>
-            The newest item currently in the queue.
+            The current newest element in the queue.
             <para>Runtime: O(1)</para>
             </summary>
         </member>
         <member name="P:Towel.DataStructures.QueueLinked`1.Oldest">
             <summary>
-            The oldest item currently in the queue.
+            The current oldest element in the queue.
             <para>Runtime: O(1)</para>
             </summary>
         </member>
@@ -13573,7 +13565,10 @@
             <returns>The next item in the queue.</returns>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Peek">
-            <summary>Gets the next item in the queue without removing it.</summary>
+            <summary>
+            Gets the next item in the queue without removing it.
+            <para>Runtime: O(1)</para>
+            </summary>
             <returns>The next item in the queue.</returns>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.Clear">
@@ -13607,7 +13602,10 @@
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
         </member>
         <member name="M:Towel.DataStructures.QueueLinked`1.GetEnumerator">
-            <summary>Gets the enumerator for this queue.</summary>
+            <summary>
+            Gets the enumerator for this queue.
+            <para>Runtime: O(1)</para>
+            </summary>
             <returns>The enumerator for the queue.</returns>
         </member>
         <member name="T:Towel.DataStructures.QueueArray`1">
@@ -13616,13 +13614,13 @@
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.#ctor">
             <summary>
-            Creates an instance of a ListArray, and sets it's minimum capacity.
+            Constructs a new queue.
             <para>Runtime: O(1)</para>
             </summary>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.#ctor(System.Int32)">
             <summary>
-            Creates an instance of a ListArray, and sets it's minimum capacity.
+            Constructs a new queue.
             <para>Runtime: O(1)</para>
             </summary>
             <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
@@ -13647,13 +13645,33 @@
             </summary>
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.Newest">
-            <summary>The newest item currently in the queue.</summary>
+            <summary>
+            The current newest <typeparamref name="T"/> in the queue.
+            <para>Runtime: O(1)</para>
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown when: _count &lt;= 0</exception>
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.Oldest">
-            <summary>The oldest item currently in the queue.</summary>
+            <summary>
+            The current newest <typeparamref name="T"/> in the queue.
+            <para>Runtime: O(1)</para>
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown when: _count &lt;= 0</exception>
+        </member>
+        <member name="P:Towel.DataStructures.QueueArray`1.Item(System.Int32)">
+            <summary>
+            Gets or sets the <typeparamref name="T"/> at an index in the queue.
+            <para>Runtime: O(1)</para>
+            </summary>
+            <param name="index">The index of the <typeparamref name="T"/> to get or set.</param>
+            <returns>The element at the provided index.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when: index &lt;= 0 || index &gt; _count</exception>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.ToArray">
-            <summary>Converts the list array into a standard array.</summary>
+            <summary>
+            Converts the list array into a standard array.
+            <para>Runtime: O(<see cref="P:Towel.DataStructures.QueueArray`1.Count"/>)</para>
+            </summary>
             <returns>A standard array of all the elements.</returns>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Clone">
@@ -13670,7 +13688,7 @@
         <member name="M:Towel.DataStructures.QueueArray`1.Dequeue">
             <summary>
             Removes the item at a specific index.
-            <para>Runtime: O(n - index)</para>
+            <para>Runtime: O(n), ε(1)</para>
             </summary>
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Peek">
@@ -13679,7 +13697,7 @@
         </member>
         <member name="M:Towel.DataStructures.QueueArray`1.Clear">
             <summary>
-            Empties the list back and reduces it back to its original capacity.
+            Returns the queue to an empty state.
             <para>Runtime: O(1)</para>
             </summary>
         </member>
@@ -14031,7 +14049,7 @@
         <member name="M:Towel.DataStructures.SetHashLinked`3.ToArray">
             <summary>
             Puts all the values in this set into an array.
-            <para>Runtime: Θ(n)</para>
+            <para>Runtime: Θ(<see cref="P:Towel.DataStructures.SetHashLinked`3.Count"/> + <see cref="P:Towel.DataStructures.SetHashLinked`3.TableSize"/>)</para>
             </summary>
             <returns>An array with all the values in the set.</returns>
         </member>
@@ -14609,7 +14627,8 @@
         <member name="P:Towel.DataStructures.StackArray`1.MinimumCapacity">
             <summary>
             Allows you to adjust the minimum capacity of this list.
-            <para>Runtime: O(n), Ω(1)</para>
+            <para>Runtime (get): O(1)</para>
+            <para>Runtime (set): O(n), Ω(1)</para>
             </summary>
         </member>
         <member name="P:Towel.DataStructures.StackArray`1.Count">

@@ -31,12 +31,12 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		bool TryGet(Func<T, CompareResult> sift, out T value, out Exception exception);
+		bool TryGet(Func<T, CompareResult> sift, out T value, out Exception? exception);
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove succeeded or false if not.</returns>
-		bool TryRemove(Func<T, CompareResult> sift, out Exception exception);
+		bool TryRemove(Func<T, CompareResult> sift, out Exception? exception);
 		/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		void Stepper(StepRef<T> step);
@@ -294,8 +294,8 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to get the value from.</param>
 		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <returns>The value.</returns>
-		public static T Get<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift) =>
-			tree.TryGet(sift, out T value, out Exception exception)
+		public static T? Get<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift) =>
+			tree.TryGet(sift, out T value, out Exception? exception)
 			? value
 			: throw exception;
 
@@ -313,7 +313,7 @@ namespace Towel.DataStructures
 		/// <param name="sift">The compare delegate.</param>
 		public static void Remove<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift)
 		{
-			if (!tree.TryRemove(sift, out Exception exception))
+			if (!tree.TryRemove(sift, out Exception? exception))
 			{
 				throw exception;
 			}

@@ -30,7 +30,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public class StackLinked<T> : IStack<T>
 	{
-		internal Node _top;
+		internal Node? _top;
 		internal int _count;
 
 		#region Node
@@ -38,7 +38,13 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal T Value;
-			internal Node Down;
+			internal Node? Down;
+
+			internal Node(T value, Node? down = null)
+			{
+				Value = value;
+				Down = down;
+			}
 		}
 
 		#endregion
@@ -55,6 +61,23 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
+		internal StackLinked(StackLinked<T> stack)
+		{
+			if (stack._top is not null)
+			{
+				_top = new Node(value: stack._top.Value);
+				Node? a = stack._top.Down;
+				Node? b = _top;
+				while (a is not null)
+				{
+					b.Down = new Node(value: a.Value);
+					b = b.Down;
+					a = a.Down;
+				}
+				_count = stack._count;
+			}
+		}
+
 		#endregion
 
 		#region Properties
@@ -69,58 +92,28 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Clone
-
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public StackLinked<T> Clone()
-		{
-			StackLinked<T> clone = new StackLinked<T>();
-			if (_count == 0)
-			{
-				return clone;
-			}
-			Node copying = _top;
-			Node cloneTop = new Node { Value = _top.Value };
-			Node cloning = cloneTop;
-			while (!(copying is null))
-			{
-				copying = copying.Down;
-				cloning.Down = new Node { Value = _top.Value };
-				cloning = cloning.Down;
-			}
-			clone._top = cloneTop;
-			return clone;
-		}
-
-		#endregion
-
-		#region ToArray
+		public StackLinked<T> Clone() => new StackLinked<T>(this);
 
 		/// <summary>
 		/// Converts the structure into an array.
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>An array containing all the item in the structure.</returns>
-		public T[] ToArray()
+		public T?[] ToArray()
 		{
 			if (_count == 0)
 			{
-				return null;
+				return Array.Empty<T>();
 			}
 			T[] array = new T[_count];
-			Node node = _top;
-			for (int i = 0; i < _count; i++)
+			for (var (i, node) = (0, _top); node is not null; node = node.Down, i++)
 			{
 				array[i] = node.Value;
-				node = node.Down;
 			}
 			return array;
 		}
-
-		#endregion
-
-		#region Push
 
 		/// <summary>
 		/// Adds an item to the top of the stack.
@@ -129,13 +122,9 @@ namespace Towel.DataStructures
 		/// <param name="addition">The item to add to the stack.</param>
 		public void Push(T addition)
 		{
-			_top = new Node { Value = addition, Down = _top };
+			_top = new Node(value: addition, down: _top);
 			_count++;
 		}
-
-		#endregion
-
-		#region Peek
 
 		/// <summary>
 		/// Returns the most recent addition to the stack.
@@ -146,15 +135,11 @@ namespace Towel.DataStructures
 		{
 			if (_top is null)
 			{
-				throw new System.InvalidOperationException("Attempting to remove from an empty queue.");
+				throw new InvalidOperationException("Attempting to remove from an empty queue.");
 			}
 			T peek = _top.Value;
 			return peek;
 		}
-
-		#endregion
-
-		#region Pop
 
 		/// <summary>
 		/// Removes and returns the most recent addition to the stack.
@@ -167,15 +152,15 @@ namespace Towel.DataStructures
 			{
 				throw new InvalidOperationException("attempting to pop from an empty stack.");
 			}
-			T x = _top.Value;
+			if (_top is null)
+			{
+				throw new TowelBugException($"{nameof(Count)} is greater than 0 but {nameof(_top)} is null");
+			}
+			T pop = _top.Value;
 			_top = _top.Down;
 			_count--;
-			return x;
+			return pop;
 		}
-
-		#endregion
-
-		#region Clear
 
 		/// <summary>
 		/// Clears the stack to an empty state.
@@ -186,10 +171,6 @@ namespace Towel.DataStructures
 			_top = null;
 			_count = 0;
 		}
-
-		#endregion
-
-		#region Stepper
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
@@ -215,16 +196,18 @@ namespace Towel.DataStructures
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
+			StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
+		public StepStatus Stepper(StepRefBreak<T> step) =>
+			StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			for (Node node = _top; !(node is null); node = node.Down)
+			for (Node? node = _top; node is not null; node = node.Down)
 			{
 				if (step.Do(ref node.Value) is Break)
 				{
@@ -234,23 +217,17 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		#endregion
-
-		#region IEnumerable
-
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator for this stack.</summary>
 		/// <returns>The enumerator for this stack.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node node = _top; !(node is null); node = node.Down)
+			for (Node? node = _top; node is not null; node = node.Down)
 			{
 				yield return node.Value;
 			}
 		}
-
-		#endregion
 
 		#endregion
 	}
@@ -271,12 +248,7 @@ namespace Towel.DataStructures
 		/// Creates an instance of a ListArray, and sets it's minimum capacity.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		public StackArray()
-		{
-			_array = new T[1];
-			_count = 0;
-			_minimumCapacity = DefaultMinimumCapacity;
-		}
+		public StackArray() : this(DefaultMinimumCapacity) { }
 
 		/// <summary>
 		/// Creates an instance of a ListArray, and sets it's minimum capacity.
@@ -297,6 +269,13 @@ namespace Towel.DataStructures
 			_minimumCapacity = minimumCapacity;
 		}
 
+		internal StackArray(StackArray<T> stack)
+		{
+			_array = (T[])stack._array.Clone();
+			_count = stack._count;
+			_minimumCapacity = stack._minimumCapacity;
+		}
+
 		#endregion
 
 		#region Properties
@@ -309,15 +288,12 @@ namespace Towel.DataStructures
 
 		/// <summary>
 		/// Allows you to adjust the minimum capacity of this list.
-		/// <para>Runtime: O(n), Ω(1)</para>
+		/// <para>Runtime (get): O(1)</para>
+		/// <para>Runtime (set): O(n), Ω(1)</para>
 		/// </summary>
 		public int MinimumCapacity
 		{
-			get
-			{
-				int returnValue = _minimumCapacity;
-				return returnValue;
-			}
+			get => _minimumCapacity;
 			set
 			{
 				if (value < 1)
@@ -330,10 +306,7 @@ namespace Towel.DataStructures
 					_array.CopyTo(newList, 0);
 					_array = newList;
 				}
-				else
-				{
-					_minimumCapacity = value;
-				}
+				_minimumCapacity = value;
 			}
 		}
 
@@ -347,31 +320,13 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Clone
-
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public StackArray<T> Clone() => new StackArray<T>((T[])_array.Clone(), _count, _minimumCapacity);
-
-		#endregion
-
-		#region ToArray
+		public StackArray<T> Clone() => new StackArray<T>(this);
 
 		/// <summary>Converts the list array into a standard array.</summary>
 		/// <returns>A standard array of all the elements.</returns>
-		public T[] ToArray()
-		{
-			T[] array = new T[_count];
-			for (int i = 0; i < _count; i++)
-			{
-				array[i] = _array[i];
-			}
-			return array;
-		}
-
-		#endregion
-
-		#region Push
+		public T[] ToArray() => _array.AsSpan(0, _count).ToArray();
 
 		/// <summary>
 		/// Adds an item to the end of the list.
@@ -396,10 +351,6 @@ namespace Towel.DataStructures
 			_array[_count++] = addition;
 		}
 
-		#endregion
-
-		#region Pop
-
 		/// <summary>
 		/// Removes the item at a specific index.
 		/// <para>Runtime: O(Count), Ω(1), ε(1)</para>
@@ -423,20 +374,12 @@ namespace Towel.DataStructures
 			return returnValue;
 		}
 
-		#endregion
-
-		#region Peek
-
 		/// <summary>
 		/// Returns the most recent addition to the stack.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
 		/// <returns>The most recent addition to the stack.</returns>
 		public T Peek() => _array[_count - 1];
-
-		#endregion
-
-		#region Clear
 
 		/// <summary>
 		/// Empties the list back and reduces it back to its original capacity.
@@ -447,10 +390,6 @@ namespace Towel.DataStructures
 			_array = new T[_minimumCapacity];
 			_count = 0;
 		}
-
-		#endregion
-
-		#region Stepper
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
@@ -486,10 +425,6 @@ namespace Towel.DataStructures
 			where Step : struct, IStepRefBreak<T> =>
 			_array.StepperRefBreak(0, _count, step);
 
-		#endregion
-
-		#region IEnumerable
-
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator for this stack.</summary>
@@ -501,8 +436,6 @@ namespace Towel.DataStructures
 				yield return _array[i];
 			}
 		}
-
-		#endregion
 
 		#endregion
 	}

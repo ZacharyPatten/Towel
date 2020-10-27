@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
 		<DocumentationFile>Towel.xml</DocumentationFile>
 		<PackageId>Towel</PackageId>
 		<PackageIcon>icon.png</PackageIcon>

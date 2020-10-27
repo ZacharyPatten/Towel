@@ -1101,7 +1101,7 @@ namespace Towel
 		{
 			internal static string[] Digit =
 			{
-				/* 0 */ null,
+				/* 0 */ null!,
 				/* 1 */ "One",
 				/* 2 */ "Two",
 				/* 3 */ "Three",
@@ -1115,7 +1115,7 @@ namespace Towel
 
 			internal static string[] FractionalSufix =
 			{
-				/*  0 */ null,
+				/*  0 */ null!,
 				/*  1 */ "Tenths",
 				/*  2 */ "Hundredths",
 				/*  3 */ "Thousandths",
@@ -1149,7 +1149,7 @@ namespace Towel
 
 			internal static string[] Ten =
 			{
-				/* 0 */ null,
+				/* 0 */ null!,
 				/* 1 */ "Ten",
 				/* 2 */ "Twenty",
 				/* 3 */ "Thirty",
@@ -1163,7 +1163,7 @@ namespace Towel
 
 			internal static string[] Teen =
 			{
-				/* 0 */ null,
+				/* 0 */ null!,
 				/* 1 */ "Eleven",
 				/* 2 */ "Twelve",
 				/* 3 */ "Thirteen",
@@ -1177,8 +1177,8 @@ namespace Towel
 
 			internal static string[] Group =
 			{
-				/*  0 */ null,
-				/*  1 */ null,
+				/*  0 */ null!,
+				/*  1 */ null!,
 				/*  2 */ "Thousand",
 				/*  3 */ "Million",
 				/*  4 */ "Billion",
@@ -1659,7 +1659,7 @@ namespace Towel
 		/// <param name="equate">An equality function for the data</param>
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
-		public static bool ContainsDuplicates<T>(this Func<Func<T, StepStatus>, StepStatus> stepper, Func<T, T, bool> equate, Func<T, int> hash)
+		public static bool ContainsDuplicates<T>(this Func<Func<T, StepStatus>, StepStatus> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
@@ -1686,7 +1686,7 @@ namespace Towel
 		/// <param name="hash">A hashing function for the data.</param>
 		/// <returns>True if the data contains duplicates. False if not.</returns>
 		/// <remarks>Use the StepperBreak overload if possible. It is more effiecient.</remarks>
-		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper, Func<T, T, bool> equate, Func<T, int> hash)
+		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
 			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);

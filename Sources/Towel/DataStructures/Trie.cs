@@ -111,7 +111,7 @@ namespace Towel.DataStructures
 
 		internal class Node
 		{
-			internal MapHashLinked<Node, T> Map;
+			internal MapHashLinked<Node, T>? Map;
 			internal bool IsLeaf;
 			internal int Count;
 		}
@@ -123,7 +123,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Func<T, int> hash = null)
+		public TrieLinkedHashLinked(Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
@@ -152,7 +152,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(Action<Action<T>> stepper, out Exception exception)
+		public bool TryAdd(Action<Action<T>> stepper, out Exception? exception)
 		{
 			if (stepper is null)
 			{
@@ -160,10 +160,10 @@ namespace Towel.DataStructures
 				return false;
 			}
 			IStack<Node> stack = new StackLinked<Node>();
-			Node node = null;
+			Node? node = null;
 			stepper(key =>
 			{
-				MapHashLinked<Node, T> map = node is null
+				MapHashLinked<Node, T>? map = node is null
 					? _map
 					: node.Map;
 				if (map.Contains(key))
@@ -206,7 +206,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Action<Action<T>> stepper, out Exception exception)
+		public bool TryRemove(Action<Action<T>> stepper, out Exception? exception)
 		{
 			if (stepper is null)
 			{
@@ -215,9 +215,9 @@ namespace Towel.DataStructures
 			}
 			IStack<(T, MapHashLinked<Node, T>, Node)> pathStack = new StackLinked<(T, MapHashLinked<Node, T>, Node)>();
 			T finalKey = default;
-			MapHashLinked<Node, T> finalMap = null;
-			Node node = null;
-			Exception capturedException = null;
+			MapHashLinked<Node, T>? finalMap = null;
+			Node? node = null;
+			Exception? capturedException = null;
 			stepper(key =>
 			{
 				finalKey = key;
@@ -281,7 +281,7 @@ namespace Towel.DataStructures
 		public bool Contains(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			Node node = null;
+			Node? node = null;
 			bool contains = true;
 			stepper(key =>
 			{
@@ -291,7 +291,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					MapHashLinked<Node, T> map = node is null
+					MapHashLinked<Node, T>? map = node is null
 						? _map
 						: node.Map;
 					if (map.Contains(key))
@@ -448,7 +448,7 @@ namespace Towel.DataStructures
 
 		internal class Node
 		{
-			internal MapHashLinked<Node, T> Map;
+			internal MapHashLinked<Node, T>? Map;
 			internal D Value;
 			internal bool HasValue;
 			internal int Count;
@@ -461,7 +461,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Func<T, T, bool> equate = null, Func<T, int> hash = null)
+		public TrieLinkedHashLinked(Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			_count = 0;
 			_map = new MapHashLinked<Node, T>(
@@ -499,10 +499,10 @@ namespace Towel.DataStructures
 				return false;
 			}
 			IStack<Node> stack = new StackLinked<Node>();
-			Node node = null;
+			Node? node = null;
 			stepper(key =>
 			{
-				MapHashLinked<Node, T> map = node is null
+				MapHashLinked<Node, T>? map = node is null
 					? _map
 					: node.Map;
 				if (map.Contains(key))
@@ -547,7 +547,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryGet(Action<Action<T>> stepper, out D value, out Exception exception)
+		public bool TryGet(Action<Action<T>> stepper, out D value, out Exception? exception)
 		{
 			if (stepper is null)
 			{
@@ -555,10 +555,10 @@ namespace Towel.DataStructures
 				exception = new ArgumentNullException(nameof(stepper));
 				return false;
 			}
-			Node node = null;
+			Node? node = null;
 			stepper(key =>
 			{
-				MapHashLinked<Node, T> map = node is null
+				MapHashLinked<Node, T>? map = node is null
 					? _map
 					: node.Map;
 				if (map.Contains(key))
@@ -600,7 +600,7 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Action<Action<T>> stepper, out Exception exception)
+		public bool TryRemove(Action<Action<T>> stepper, out Exception? exception)
 		{
 			if (stepper is null)
 			{
@@ -609,9 +609,9 @@ namespace Towel.DataStructures
 			}
 			IStack<(T, MapHashLinked<Node, T>, Node)> pathStack = new StackLinked<(T, MapHashLinked<Node, T>, Node)>();
 			T finalKey;
-			MapHashLinked<Node, T> finalMap;
-			Node node = null;
-			Exception capturedException = null;
+			MapHashLinked<Node, T>? finalMap;
+			Node? node = null;
+			Exception? capturedException = null;
 			stepper(key =>
 			{
 				finalKey = key;
@@ -675,7 +675,7 @@ namespace Towel.DataStructures
 		public bool Contains(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			Node node = null;
+			Node? node = null;
 			bool contains = true;
 			stepper(key =>
 			{
@@ -685,7 +685,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					MapHashLinked<Node, T> map = node is null
+					MapHashLinked<Node, T>? map = node is null
 						? _map
 						: node.Map;
 					if (map.Contains(key))

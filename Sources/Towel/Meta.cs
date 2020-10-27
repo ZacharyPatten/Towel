@@ -84,30 +84,29 @@ namespace Towel
 		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetTryParseMethod<A>() => GetTryParseMethodCache<A>.Value;
+		public static MethodInfo? GetTryParseMethod<A>() => GetTryParseMethodCache<A>.Value;
 
 		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetTryParseMethod(Type a)
+		public static MethodInfo? GetTryParseMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("TryParse",
+			MethodInfo? methodInfo = a.GetMethod("TryParse",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(typeof(string), a.MakeByRefType()),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
-					? methodInfo
-					: null;
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
+				? methodInfo
+				: null;
 		}
 
 		internal static class GetTryParseMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetTryParseMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetTryParseMethod(typeof(A));
 		}
 
 		#endregion
@@ -117,30 +116,29 @@ namespace Towel
 		/// <summary>Gets the Factorial <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> Factorial(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsPrime <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetFactorialMethod<A>() => GetFactorialMethodCache<A>.Value;
+		public static MethodInfo? GetFactorialMethod<A>() => GetFactorialMethodCache<A>.Value;
 
 		/// <summary>Gets the Factorial <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> Factorial(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetFactorialMethod(Type a)
+		public static MethodInfo? GetFactorialMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("Factorial",
+			MethodInfo? methodInfo = a.GetMethod("Factorial",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetFactorialMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetFactorialMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetFactorialMethod(typeof(A));
 		}
 
 		#endregion
@@ -150,30 +148,29 @@ namespace Towel
 		/// <summary>Gets the IsPrime <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPrime(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsPrime <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPrimeMethod<A>() => GetIsPrimeMethodCache<A>.Value;
+		public static MethodInfo? GetIsPrimeMethod<A>() => GetIsPrimeMethodCache<A>.Value;
 
 		/// <summary>Gets the IsPrime <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPrime(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPrimeMethod(Type a)
+		public static MethodInfo? GetIsPrimeMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsPrime",
+			MethodInfo? methodInfo = a.GetMethod("IsPrime",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
-					? methodInfo
-					: null;
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
+				? methodInfo
+				: null;
 		}
 
 		internal static class GetIsPrimeMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsPrimeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsPrimeMethod(typeof(A));
 		}
 
 		#endregion
@@ -183,30 +180,29 @@ namespace Towel
 		/// <summary>Gets the IsNonNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNonNegative(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNonNegativeMethod<A>() => GetIsNonNegativeMethodCache<A>.Value;
+		public static MethodInfo? GetIsNonNegativeMethod<A>() => GetIsNonNegativeMethodCache<A>.Value;
 
 		/// <summary>Gets the IsNonNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNonNegative(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNonNegativeMethod(Type a)
+		public static MethodInfo? GetIsNonNegativeMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsNonNegative",
+			MethodInfo? methodInfo = a.GetMethod("IsNonNegative",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
-					? methodInfo
-					: null;
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
+				? methodInfo
+				: null;
 		}
 
 		internal static class GetIsNonNegativeMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsNonNegativeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsNonNegativeMethod(typeof(A));
 		}
 
 		#endregion
@@ -216,30 +212,29 @@ namespace Towel
 		/// <summary>Gets the IsNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNegative(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNegativeMethod<A>() => GetIsNegativeMethodCache<A>.Value;
+		public static MethodInfo? GetIsNegativeMethod<A>() => GetIsNegativeMethodCache<A>.Value;
 
 		/// <summary>Gets the IsNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNegative(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNegativeMethod(Type a)
+		public static MethodInfo? GetIsNegativeMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsNegative",
+			MethodInfo? methodInfo = a.GetMethod("IsNegative",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsNegativeMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsNegativeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsNegativeMethod(typeof(A));
 		}
 
 		#endregion
@@ -249,30 +244,29 @@ namespace Towel
 		/// <summary>Gets the IsPositive <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPositive(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsPositive <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPositiveMethod<A>() => GetIsPositiveMethodCache<A>.Value;
+		public static MethodInfo? GetIsPositiveMethod<A>() => GetIsPositiveMethodCache<A>.Value;
 
 		/// <summary>Gets the IsPositive <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPositive(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsPositive <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPositiveMethod(Type a)
+		public static MethodInfo? GetIsPositiveMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsPositive",
+			MethodInfo? methodInfo = a.GetMethod("IsPositive",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsPositiveMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsPositiveMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsPositiveMethod(typeof(A));
 		}
 
 		#endregion
@@ -282,15 +276,15 @@ namespace Towel
 		/// <summary>Gets the IsEven <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsEven(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsEven <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsEvenMethod<A>() => GetIsEvenMethodCache<A>.Value;
+		public static MethodInfo? GetIsEvenMethod<A>() => GetIsEvenMethodCache<A>.Value;
 
 		/// <summary>Gets the IsEven <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsEven(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsEven <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsEvenMethod(Type a)
+		public static MethodInfo? GetIsEvenMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod(
+			MethodInfo? methodInfo = a.GetMethod(
 				"IsOdd",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -298,15 +292,14 @@ namespace Towel
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsEvenMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsEvenMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsEvenMethod(typeof(A));
 		}
 
 		#endregion
@@ -316,15 +309,15 @@ namespace Towel
 		/// <summary>Gets the IsOdd <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsOdd(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsOdd <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsOddMethod<A>() => GetIsOddMethodCache<A>.Value;
+		public static MethodInfo? GetIsOddMethod<A>() => GetIsOddMethodCache<A>.Value;
 
 		/// <summary>Gets the IsOdd <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsOdd(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsOdd <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsOddMethod(Type a)
+		public static MethodInfo? GetIsOddMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod(
+			MethodInfo? methodInfo = a.GetMethod(
 				"IsOdd",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -332,15 +325,14 @@ namespace Towel
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsOddMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsOddMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsOddMethod(typeof(A));
 		}
 
 		#endregion
@@ -350,15 +342,15 @@ namespace Towel
 		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsIntegerMethod<A>() => GetIsIntegerMethodCache<A>.Value;
+		public static MethodInfo? GetIsIntegerMethod<A>() => GetIsIntegerMethodCache<A>.Value;
 
 		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsIntegerMethod(Type a)
+		public static MethodInfo? GetIsIntegerMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod(
+			MethodInfo? methodInfo = a.GetMethod(
 				"IsInteger",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -366,15 +358,14 @@ namespace Towel
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsIntegerMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsIntegerMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsIntegerMethod(typeof(A));
 		}
 
 		#endregion
@@ -386,20 +377,20 @@ namespace Towel
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <returns>True if the op_LessThan member exists or false if not.</returns>
-		public static MethodInfo GetLessThanMethod<A, B, C>() => GetLessThanMethodCache<A, B, C>.Value;
+		public static MethodInfo? GetLessThanMethod<A, B, C>() => GetLessThanMethodCache<A, B, C>.Value;
 
 		/// <summary>Determines if an op_LessThan member exists.</summary>
 		/// <param name="a">The type of the left operand.</param>
 		/// <param name="b">The type of the right operand.</param>
 		/// <param name="c">The type of the return.</param>
 		/// <returns>True if the op_LessThan member exists or false if not.</returns>
-		internal static MethodInfo GetLessThanMethod(Type a, Type b, Type c)
+		internal static MethodInfo? GetLessThanMethod(Type a, Type b, Type c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
-			MethodInfo CheckType(Type type)
+			MethodInfo? CheckType(Type type)
 			{
-				MethodInfo methodInfo = type.GetMethod(
+				MethodInfo? methodInfo = type.GetMethod(
 					"op_LessThan",
 					BindingFlags.Static |
 					BindingFlags.Public |
@@ -407,7 +398,7 @@ namespace Towel
 					null,
 					Ɐ(a, b),
 					null);
-				return !(methodInfo is null)
+				return methodInfo is not null
 					&& methodInfo.ReturnType == c
 					&& methodInfo.IsSpecialName
 						? methodInfo
@@ -418,7 +409,7 @@ namespace Towel
 
 		internal static class GetLessThanMethodCache<A, B, C>
 		{
-			internal static readonly MethodInfo Value = GetLessThanMethod(typeof(A), typeof(B), typeof(C));
+			internal static readonly MethodInfo? Value = GetLessThanMethod(typeof(A), typeof(B), typeof(C));
 		}
 
 		#endregion
@@ -430,20 +421,20 @@ namespace Towel
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
-		public static MethodInfo GetGreaterThanMethod<A, B, C>() => GetGreaterThanMethodCache<A, B, C>.Value;
+		public static MethodInfo? GetGreaterThanMethod<A, B, C>() => GetGreaterThanMethodCache<A, B, C>.Value;
 
 		/// <summary>Determines if an op_GreaterThan member exists.</summary>
 		/// <param name="a">The type of the left operand.</param>
 		/// <param name="b">The type of the right operand.</param>
 		/// <param name="c">The type of the return.</param>
 		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
-		internal static MethodInfo GetGreaterThanMethod(Type a, Type b, Type c)
+		internal static MethodInfo? GetGreaterThanMethod(Type a, Type b, Type c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
-			MethodInfo CheckType(Type type)
+			MethodInfo? CheckType(Type type)
 			{
-				MethodInfo methodInfo = type.GetMethod(
+				MethodInfo? methodInfo = type.GetMethod(
 					"op_GreaterThan",
 					BindingFlags.Static |
 					BindingFlags.Public |
@@ -462,7 +453,7 @@ namespace Towel
 
 		internal static class GetGreaterThanMethodCache<A, B, C>
 		{
-			internal static readonly MethodInfo Value = GetGreaterThanMethod(typeof(A), typeof(B), typeof(C));
+			internal static readonly MethodInfo? Value = GetGreaterThanMethod(typeof(A), typeof(B), typeof(C));
 		}
 
 		#endregion
@@ -501,7 +492,7 @@ namespace Towel
 				: "op_Explicit";
 			bool CheckType(Type type)
 			{
-				MethodInfo methodInfo = type.GetMethod(
+				MethodInfo? methodInfo = type.GetMethod(
 					methodName,
 					BindingFlags.Static |
 					BindingFlags.Public |
@@ -760,7 +751,7 @@ namespace Towel
 		/// <summary>Gets the file path of an assembly.</summary>
 		/// <param name="assembly">The assembly to get the file path of.</param>
 		/// <returns>The file path of the assembly.</returns>
-		public static string GetDirectoryPath(this Assembly assembly)
+		public static string? GetDirectoryPath(this Assembly assembly)
 		{
 			string codeBase = assembly.Location;
 			UriBuilder uri = new UriBuilder(codeBase);
@@ -810,8 +801,11 @@ namespace Towel
 			{
 				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
 				{
-					string raw_name = xmlReader["name"];
-					loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
+					string? raw_name = xmlReader["name"];
+					if (!string.IsNullOrWhiteSpace(raw_name))
+					{
+						loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
+					}
 				}
 			}
 		}

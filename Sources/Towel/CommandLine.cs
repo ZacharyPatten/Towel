@@ -11,7 +11,7 @@ namespace Towel
 
 		/// <summary>Handles the command line arguments by invoking the relative <see cref="CommandAttribute"/> method in the calling <see cref="Assembly"/>.</summary>
 		/// <param name="args">The command line arguments.</param>
-		public static void HandleArguments(string[] args = null)
+		public static void HandleArguments(string[]? args = null)
 		{
 			Assembly assembly = Assembly.GetCallingAssembly();
 			args ??= Environment.GetCommandLineArgs();
@@ -74,9 +74,10 @@ namespace Towel
 			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 			foreach (ParameterInfo parameterInfo in parameterInfos)
 			{
+				_ = parameterInfo.Name ?? throw new Exception("encountered a null parameter name");
 				parameterMap.Add(parameterInfo.Name, parameterCount++);
 			}
-			object[] parameters = new object[parameterCount];
+			object?[] parameters = new object[parameterCount];
 			for (int i = 1; i < args.Length; i += 2)
 			{
 				string arg = args[i];
@@ -91,7 +92,7 @@ namespace Towel
 					Console.Error.WriteLine($"Invalid parameter --{arg} in index {i}.");
 					return;
 				}
-				if (!(parameters[index] is null))
+				if (parameters[index] is not null)
 				{
 					Console.Error.WriteLine($"Duplicate parameters provided --{arg}.");
 					return;
@@ -104,20 +105,20 @@ namespace Towel
 				else
 				{
 					MethodInfo tryParse;
-					ConstructorInfo constuctor;
-					if (!((tryParse = Meta.GetTryParseMethod(parameterType)) is null))
+					ConstructorInfo? constuctor;
+					if ((tryParse = Meta.GetTryParseMethod(parameterType)) is not null)
 					{
 						object[] tryParseParameters = new object[2];
 						tryParseParameters[0] = args[i + 1];
-						object result = tryParse.Invoke(null, tryParseParameters);
-						if (!(result is bool resultBool) || !resultBool)
+						object? result = tryParse.Invoke(null, tryParseParameters);
+						if (result is not bool resultBool || !resultBool)
 						{
 							Console.Error.WriteLine($"Could not parse parameter value --{arg} {args[i + 1]}.");
 							return;
 						}
 						parameters[index] = tryParseParameters[1];
 					}
-					else if (!((constuctor = parameterType.GetConstructor(Ɐ(typeof(string)))) is null))
+					else if ((constuctor = parameterType.GetConstructor(Ɐ(typeof(string)))) is not null)
 					{
 						parameters[index] = constuctor.Invoke(Ɐ(args[i + 1]));
 					}
@@ -146,7 +147,7 @@ namespace Towel
 
 		/// <summary>This method is going to be changed...</summary>
 		[Obsolete("warning, this method is going to be changed... it is new and the design isn't finalized", false)]
-		public static void DefaultVersion(Assembly assembly = null)
+		public static void DefaultVersion(Assembly? assembly = null)
 		{
 			assembly ??= Assembly.GetCallingAssembly();
 			AssemblyName assemblyName = assembly.GetName();
@@ -156,8 +157,9 @@ namespace Towel
 
 		/// <summary>This method is going to be changed...</summary>
 		[Obsolete("warning, this method is going to be changed... it is new and the design isn't finalized", false)]
-		public static void DefaultHelp(Assembly assembly = null, string command = null)
+		public static void DefaultHelp(Assembly? assembly = null, string? command = null)
 		{
+			assembly ??= Assembly.GetCallingAssembly();
 			if (command is null)
 			{
 				DefaultVersion(assembly);

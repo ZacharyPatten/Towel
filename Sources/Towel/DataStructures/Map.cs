@@ -30,7 +30,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occured if not found.</param>
 		/// <returns>True if the key was found or false if not.</returns>
-		bool TryGet(K key, out T value, out Exception exception);
+		bool TryGet(K key, out T value, out Exception? exception);
 		/// <summary>Sets value in the map.</summary>
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be set.</param>
@@ -40,7 +40,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to be added.</param>
 		/// <param name="exception">The exception that occured if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		bool TryAdd(K key, T value, out Exception exception);
+		bool TryAdd(K key, T value, out Exception? exception);
 		///// <summary>Tries to remove a key-value pair from the map.</summary>
 		///// <param name="key">The key of the key-value pair to remove.</param>
 		///// <param name="exception">The exception that occurred if the removal failed.</param>
@@ -97,7 +97,7 @@ namespace Towel.DataStructures
 		/// <returns>The value of the provided key in the map.</returns>
 		public static void Add<T, K>(this IMap<T, K> map, K key, T value)
 		{
-			if (!map.TryAdd(key, value, out Exception exception))
+			if (!map.TryAdd(key, value, out Exception? exception))
 			{
 				throw exception;
 			}
@@ -112,12 +112,10 @@ namespace Towel.DataStructures
 		/// <typeparam name="K">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to get the value from.</param>
 		/// <param name="key">The key of the value to get.</param>
-		/// <param name="Default">The default value to return if the value is not found.</param>
+		/// <param name="default">The default value to return if the value is not found.</param>
 		/// <returns>The value if found or the defautl value.</returns>
-		public static T TryGet<T, K>(this IMap<T, K> map, K key, T Default = default) =>
-			map.TryGet(key, out T value, out _)
-				? value
-				: Default;
+		public static T TryGet<T, K>(this IMap<T, K> map, K key, T @default) =>
+			map.TryGet(key, out T value, out _) ? value : @default;
 
 		/// <summary>Tries to get a value in a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
@@ -137,7 +135,7 @@ namespace Towel.DataStructures
 		/// <returns>The value of the provided key in the map.</returns>
 		public static T Get<T, K>(this IMap<T, K> map, K key)
 		{
-			if (!map.TryGet(key, out T value, out Exception exception))
+			if (!map.TryGet(key, out T value, out Exception? exception))
 			{
 				throw exception;
 			}
@@ -177,7 +175,7 @@ namespace Towel.DataStructures
 
 		internal Equate _equate;
 		internal Hash _hash;
-		internal Node[] _table;
+		internal Node?[] _table;
 		internal int _count;
 
 		#region Node
@@ -186,7 +184,14 @@ namespace Towel.DataStructures
 		{
 			internal K Key;
 			internal T Value;
-			internal Node Next;
+			internal Node? Next;
+
+			internal Node(T value, K key, Node? next = null)
+			{
+				Value = value;
+				Key = key;
+				Next = next;
+			}
 		}
 
 		#endregion
@@ -289,13 +294,13 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to be added.</param>
 		/// <param name="exception">The exception that occured if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(K key, T value, out Exception exception)
+		public bool TryAdd(K key, T value, out Exception? exception)
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -303,12 +308,10 @@ namespace Towel.DataStructures
 					return false;
 				}
 			}
-			_table[location] = new Node()
-			{
-				Key = key,
-				Value = value,
-				Next = _table[location],
-			};
+			_table[location] = new Node(
+				value: value,
+				key: key,
+				next: _table[location]);
 			_count++;
 			if (_count > _table.Length * _maxLoadFactor)
 			{
@@ -336,16 +339,14 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occured if not found.</param>
 		/// <returns>True if the key was found or false if not.</returns>
-		public bool TryGet(K key, out T value, out Exception exception)
+		public bool TryGet(K key, out T value, out Exception? exception)
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
 
-			// compute the hash code and relate it to the current table
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
 
-			// look for the value
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -376,7 +377,7 @@ namespace Towel.DataStructures
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -384,12 +385,10 @@ namespace Towel.DataStructures
 					return;
 				}
 			}
-			_table[location] = new Node()
-			{
-				Key = key,
-				Value = value,
-				Next = _table[location],
-			};
+			_table[location] = new Node(
+				value: value,
+				key: key,
+				next: _table[location]);
 			_count++;
 			if (_count > _table.Length * _maxLoadFactor)
 			{
@@ -414,7 +413,7 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to remove.</param>
 		/// <param name="exception">The exception that occurred if the removal failed.</param>
 		/// <returns>True if the removal was successful for false if not.</returns>
-		public bool TryRemove(K key, out Exception exception)
+		public bool TryRemove(K key, out Exception? exception)
 		{
 			if (TryRemoveWithoutTrim(key, out exception))
 			{
@@ -436,7 +435,7 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to remove.</param>
 		/// <param name="exception">The exception that occurred if the removal failed.</param>
 		/// <returns>True if the removal was successful for false if not.</returns>
-		public bool TryRemoveWithoutTrim(K key, out Exception exception)
+		public bool TryRemoveWithoutTrim(K key, out Exception? exception)
 		{
 			_ = key ?? throw new ArgumentNullException(nameof(key));
 			int hashCode = _hash.Do(key);
@@ -450,7 +449,7 @@ namespace Towel.DataStructures
 			}
 			else
 			{
-				for (Node node = _table[location]; !(node.Next is null); node = node.Next)
+				for (Node? node = _table[location]; node.Next is not null; node = node.Next)
 				{
 					if (_equate.Do(node.Next.Key, key))
 					{
@@ -477,16 +476,19 @@ namespace Towel.DataStructures
 			{
 				return;
 			}
-			Node[] temp = _table;
+
+			Node?[] temp = _table;
 			_table = new Node[tableSize];
+
 			for (int i = 0; i < temp.Length; i++)
 			{
-				while (!(temp[i] is null))
+				for (Node? node = temp[i]; node is not null; node = temp[i])
 				{
-					Node node = temp[i];
 					temp[i] = node.Next;
+
 					int hashCode = _hash.Do(node.Key);
 					int location = (hashCode & int.MaxValue) % _table.Length;
+
 					node.Next = _table[location];
 					_table[location] = node;
 				}
@@ -536,7 +538,7 @@ namespace Towel.DataStructures
 		{
 			int hashCode = _hash.Do(key);
 			int location = (hashCode & int.MaxValue) % _table.Length;
-			for (Node node = _table[location]; !(node is null); node = node.Next)
+			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
@@ -569,7 +571,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					step(node.Value);
 				}
@@ -581,7 +583,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					step(ref node.Value);
 				}
@@ -593,7 +595,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					if (step(node.Value) is Break)
 					{
@@ -609,7 +611,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					if (step(ref node.Value) is Break)
 					{
@@ -625,7 +627,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					step(node.Key);
 				}
@@ -637,7 +639,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					if (step(node.Key) is Break)
 					{
@@ -653,7 +655,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					step(node.Value, node.Key);
 				}
@@ -665,7 +667,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					if (step(node.Value, node.Key) is Break)
 					{
@@ -684,7 +686,7 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					yield return node.Value;
 				}
@@ -703,12 +705,11 @@ namespace Towel.DataStructures
 		public T[] ToArray()
 		{
 			T[] array = new T[_count];
-			int index = 0;
-			for (int i = 0; i < _table.Length; i++)
+			for (int i = 0, index = 0; i < _table.Length; i++)
 			{
-				for (Node node = _table[i]; !(node is null); node = node.Next)
+				for (Node? node = _table[i]; node is not null; node = node.Next, index++)
 				{
-					array[index++] = node.Value;
+					array[index] = node.Value;
 				}
 			}
 			return array;
@@ -734,8 +735,8 @@ namespace Towel.DataStructures
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the map.</param>
 		public MapHashLinked(
-			Func<K, K, bool> equate = null,
-			Func<K, int> hash = null,
+			Func<K, K, bool>? equate = null,
+			Func<K, int>? hash = null,
 			int? expectedCount = null) : base(equate ?? Statics.Equate, hash ?? DefaultHash, expectedCount) { }
 
 		/// <summary>

@@ -17,7 +17,7 @@ namespace Towel.DataStructures
 	public class AvlTreeLinked<T, Compare> : IAvlTree<T>
 		where Compare : struct, IFunc<T, T, CompareResult>
 	{
-		internal Node _root;
+		internal Node? _root;
 		internal int _count;
 		internal Compare _compare;
 
@@ -26,8 +26,8 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal T Value;
-			internal Node LeftChild;
-			internal Node RightChild;
+			internal Node? LeftChild;
+			internal Node? RightChild;
 			internal int Height;
 		}
 
@@ -79,7 +79,7 @@ namespace Towel.DataStructures
 			{
 				_ = _root ?? throw new InvalidOperationException("Attempting to get the current least value from an empty AVL tree.");
 				Node node = _root;
-				while (!(node.LeftChild is null))
+				while (node.LeftChild is not null)
 				{
 					node = node.LeftChild;
 				}
@@ -97,7 +97,7 @@ namespace Towel.DataStructures
 			{
 				_ = _root ?? throw new InvalidOperationException("Attempting to get the current greatest value from an empty AVL tree.");
 				Node node = _root;
-				while (!(node.RightChild is null))
+				while (node.RightChild is not null)
 				{
 					node = node.RightChild;
 				}
@@ -133,10 +133,10 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to add.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the add succeeded or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public bool TryAdd(T value, out Exception? exception)
 		{
-			Exception capturedException = null;
-			Node Add(Node node)
+			Exception? capturedException = null;
+			Node? Add(Node? node)
 			{
 				if (node is null)
 				{
@@ -211,8 +211,8 @@ namespace Towel.DataStructures
 		/// <returns>True of contained, False if not.</returns>
 		public bool Contains(Func<T, CompareResult> sift)
 		{
-			Node node = _root;
-			while (!(node is null))
+			Node? node = _root;
+			while (node is not null)
 			{
 				CompareResult compareResult = sift(node.Value);
 				if (compareResult is Less)
@@ -243,10 +243,10 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the get succeeded or false if not.</returns>
-		public bool TryGet(Func<T, CompareResult> sift, out T value, out Exception exception)
+		public bool TryGet(Func<T, CompareResult> sift, out T value, out Exception? exception)
 		{
-			Node node = _root;
-			while (!(node is null))
+			Node? node = _root;
+			while (node is not null)
 			{
 				CompareResult comparison = sift(node.Value);
 				if (comparison is Less)
@@ -277,19 +277,19 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception) =>
+		public bool TryRemove(T value, out Exception? exception) =>
 			TryRemove(x => _compare.Do(x, value), out exception);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="sift">The compare delegate.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Func<T, CompareResult> sift, out Exception exception)
+		public bool TryRemove(Func<T, CompareResult> sift, out Exception? exception)
 		{
-			Exception capturedException = null;
-			Node Remove(Node node)
+			Exception? capturedException = null;
+			Node? Remove(Node? node)
 			{
-				if (!(node is null))
+				if (node is not null)
 				{
 					CompareResult compareResult = sift(node.Value);
 					if (compareResult is Less)
@@ -364,18 +364,20 @@ namespace Towel.DataStructures
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
+			StepperBreak<StepBreakRuntime<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
+		public StepStatus Stepper(StepRefBreak<T> step) =>
+			StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			StepStatus Stepper(Node node)
+			StepStatus Stepper(Node? node)
 			{
-				if (!(node is null))
+				if (node is not null)
 				{
 					return
 						Stepper(node.LeftChild) is Break ? Break :
@@ -427,9 +429,9 @@ namespace Towel.DataStructures
 		public virtual StepStatus StepperRefBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			StepStatus Stepper(Node node)
+			StepStatus Stepper(Node? node)
 			{
-				if (!(node is null))
+				if (node is not null)
 				{
 					if (_compare.Do(node.Value, minimum) is Less)
 					{
@@ -496,9 +498,9 @@ namespace Towel.DataStructures
 		public StepStatus StepperReverseRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			StepStatus StepperReverse(Node node)
+			StepStatus StepperReverse(Node? node)
 			{
-				if (!(node is null))
+				if (node is not null)
 				{
 					return
 						StepperReverse(node.RightChild) is Break ? Break :
@@ -550,9 +552,9 @@ namespace Towel.DataStructures
 		public virtual StepStatus StepperReverseRefBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			StepStatus StepperReverse(Node node)
+			StepStatus StepperReverse(Node? node)
 			{
-				if (!(node is null))
+				if (node is not null)
 				{
 					if (_compare.Do(node.Value, minimum) is Less)
 					{
@@ -607,11 +609,11 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="node">The tree to check the balancing of.</param>
 		/// <returns>The result of the possible balancing.</returns>
-		internal static Node Balance(Node node)
+		internal static Node? Balance(Node node)
 		{
 			static Node RotateSingleLeft(Node node)
 			{
-				Node temp = node.RightChild;
+				Node? temp = node.RightChild;
 				node.RightChild = temp.LeftChild;
 				temp.LeftChild = node;
 				SetHeight(node);
@@ -621,7 +623,7 @@ namespace Towel.DataStructures
 
 			static Node RotateDoubleLeft(Node node)
 			{
-				Node temp = node.RightChild.LeftChild;
+				Node? temp = node.RightChild.LeftChild;
 				node.RightChild.LeftChild = temp.RightChild;
 				temp.RightChild = node.RightChild;
 				node.RightChild = temp.LeftChild;
@@ -634,7 +636,7 @@ namespace Towel.DataStructures
 
 			static Node RotateSingleRight(Node node)
 			{
-				Node temp = node.LeftChild;
+				Node? temp = node.LeftChild;
 				node.LeftChild = temp.RightChild;
 				temp.RightChild = node;
 				SetHeight(node);
@@ -642,9 +644,9 @@ namespace Towel.DataStructures
 				return temp;
 			}
 
-			static Node RotateDoubleRight(Node node)
+			static Node? RotateDoubleRight(Node node)
 			{
-				Node temp = node.LeftChild.RightChild;
+				Node? temp = node.LeftChild.RightChild;
 				node.LeftChild.RightChild = temp.LeftChild;
 				temp.LeftChild = node.LeftChild;
 				node.LeftChild = temp.RightChild;
@@ -677,10 +679,7 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="node">The node to find the hight of.</param>
 		/// <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
-		internal static int Height(Node node) =>
-			node is null
-			? -1
-			: node.Height;
+		internal static int Height(Node? node) => node is null ? -1 : node.Height;
 
 		/// <summary>Removes the left-most child of an AVL Tree node and returns it 
 		/// through the out parameter.</summary>
@@ -740,7 +739,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
 		/// <param name="compare">The comparison function for sorting the items.</param>
-		public AvlTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Statics.Compare) { }
+		public AvlTreeLinked(Func<T, T, CompareResult>? compare = null) : base(compare ?? Statics.Compare) { }
 
 		/// <summary>This constructor if for cloning purposes.</summary>
 		/// <param name="tree">The tree to clone.</param>

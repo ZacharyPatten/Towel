@@ -98,7 +98,7 @@ namespace Towel.DataStructures
 		public struct Bound<T>
 		{
 			internal bool Exists;
-			internal T Value;
+			internal T? Value;
 
 			/// <summary>Represents a null bound meaning it does not exist.</summary>
 			public readonly static Bound<T> None = new Bound<T> { Value = default, Exists = false };
@@ -117,7 +117,7 @@ namespace Towel.DataStructures
 			/// <summary>Gets the bound compare delegate from a value compare delegate.</summary>
 			/// <param name="compare">The value compare to wrap into a bounds compare.</param>
 			/// <returns>The bounds compare.</returns>
-			public static Func<Bound<T>, Bound<T>, CompareResult> Compare(Func<T, T, CompareResult> compare) =>
+			public static Func<Bound<T>, Bound<T>, CompareResult> Compare(Func<T?, T?, CompareResult> compare) =>
 				(a, b) =>
 					a.Exists && b.Exists ? compare(a.Value, b.Value) :
 					!b.Exists ? Equal :
@@ -133,7 +133,7 @@ namespace Towel.DataStructures
 		/// <returns></returns>
 		public delegate A SubdivisionOverride<T, A, BoundsType>(BoundsType bounds, Action<Action<T>> values);
 
-		internal static T SubDivide<T>(Bound<T>[] bounds, Func<T, T, CompareResult> compare)
+		internal static T? SubDivide<T>(Bound<T>[] bounds, Func<T?, T?, CompareResult>? compare)
 		{
 			// make sure a bound exists (not all objects are infinitely bound)
 			bool exists = false;
@@ -151,7 +151,7 @@ namespace Towel.DataStructures
 			if (!exists)
 				return default;
 
-			SortQuick(bounds, Bound<T>.Compare(compare));
+			SortQuick(bounds, Bound<T>.Compare(compare ?? Compare));
 
 			// after sorting, we need to find the middle-most value that exists
 			int medianIndex = bounds.Length / 2;
@@ -169,7 +169,7 @@ namespace Towel.DataStructures
 			throw new Exception("There is a bug in the Towel Framwork [SubDivide]");
 		}
 
-		internal static T SubDivide<T>(ArrayJagged<Bound<T>> bounds, Func<T, T, CompareResult> compare)
+		internal static T? SubDivide<T>(ArrayJagged<Bound<T>> bounds, Func<T?, T?, CompareResult> compare)
 		{
 			// make sure a bound exists (not all objects are infinitely bound)
 			bool exists = false;
@@ -217,17 +217,10 @@ namespace Towel.DataStructures
 			internal object[] _location;
 
 			/// <summary>The locations along each axis.</summary>
-			public object[] Location => _location;
+			public ReadOnlySpan<object> Location => _location;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector Default => new Vector(null);
-
-			/// <summary>Constructs an N-D vector.</summary>
-			/// <param name="location"></param>
-			public Vector(params object[] location)
-			{
-				_location = location.Clone() as object[];
-			}
+			public static Vector Default => new Vector();
 		}
 
 		/// <summary>An N-D bounding box.</summary>
@@ -253,7 +246,7 @@ namespace Towel.DataStructures
 			}
 
 			/// <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
-			public Bounds(Bound<object>[] min, Bound<object>[] max)
+			public Bounds(Bound<object>[]? min, Bound<object>[]? max)
 			{
 				_min = min.Clone() as Bound<object>[];
 				_max = max.Clone() as Bound<object>[];
