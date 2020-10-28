@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Towel.DataStructures
 {
@@ -31,12 +29,12 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		bool TryGet(Func<T, CompareResult> sift, out T value, out Exception? exception);
+		bool TryGet(out T? value, out Exception? exception, Func<T, CompareResult> sift);
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove succeeded or false if not.</returns>
-		bool TryRemove(Func<T, CompareResult> sift, out Exception? exception);
+		bool TryRemove(out Exception? exception, Func<T, CompareResult> sift);
 		/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		void Stepper(StepRef<T> step);
@@ -286,8 +284,8 @@ namespace Towel.DataStructures
 		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <param name="value">The value if it is found.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		public static bool TryGet<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift, out T value) =>
-			tree.TryGet(sift, out value, out _);
+		public static bool TryGet<T>(this ISortedBinaryTree<T> tree, out T? value, Func<T, CompareResult> sift) =>
+			tree.TryGet(out value, out _, sift);
 
 		/// <summary>Gets a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -295,9 +293,9 @@ namespace Towel.DataStructures
 		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <returns>The value.</returns>
 		public static T? Get<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift) =>
-			tree.TryGet(sift, out T value, out Exception? exception)
+			tree.TryGet(out T value, out Exception? exception, sift)
 			? value
-			: throw exception;
+			: throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Get)} failed but the {nameof(exception)} is null");
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -305,7 +303,7 @@ namespace Towel.DataStructures
 		/// <param name="sift">The compare delegate.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public static bool TryRemove<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift) =>
-			tree.TryRemove(sift, out _);
+			tree.TryRemove(out _, sift);
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -313,9 +311,9 @@ namespace Towel.DataStructures
 		/// <param name="sift">The compare delegate.</param>
 		public static void Remove<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift)
 		{
-			if (!tree.TryRemove(sift, out Exception? exception))
+			if (!tree.TryRemove(out Exception? exception, sift))
 			{
-				throw exception;
+				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Remove)} failed but the {nameof(exception)} is null");
 			}
 		}
 

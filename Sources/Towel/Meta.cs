@@ -551,8 +551,8 @@ namespace Towel
 						Type correctGeneric = genericParameters.Dequeue();
 						result += (firstIteration ? string.Empty : ",") +
 							(correctGeneric.IsGenericParameter
-							? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
-							: (firstIteration ? string.Empty : " ") + ConvertToCSharpSource(correctGeneric));
+								? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
+								: (firstIteration ? string.Empty : " ") + ConvertToCSharpSource(correctGeneric));
 						firstIteration = false;
 					}
 					result += ">";

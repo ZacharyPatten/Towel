@@ -15,30 +15,30 @@ namespace Towel_Testing
 			{ // showGenericParameters = false
 				(Type, string)[] testCases = new (Type, string)[]
 				{
-				(typeof(System.Int32), "System.Int32"),
-				(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
-				(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"),
-				(typeof(Towel_Testing.A.B.C), "Towel_Testing.A.B.C"),
-				(typeof(Towel_Testing.A.D<System.Int32>.E<System.Int32>), "Towel_Testing.A.D<System.Int32>.E<System.Int32>"),
-				(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<>.E<>"),
-				(typeof(System.Collections.Generic.List<(System.String @event, System.Object @class)>), "System.Collections.Generic.List<System.ValueTuple<System.String, System.Object>>"),
-				(typeof(System.Int32?), "System.Nullable<System.Int32>"),
-				(typeof(Towel_Testing.A.D<System.Object>.E<System.String>), "Towel_Testing.A.D<System.Object>.E<System.String>"),
-				(typeof(Towel.DataStructures.IOmnitreePoints<,,,>), "Towel.DataStructures.IOmnitreePoints<,,,>"),
-				(typeof(Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>), "Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>"),
-				(typeof((int, int, int, int, int, int, int, int, int)), "System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.ValueTuple<System.Int32, System.Int32>>"),
-				(typeof(StepStatus), "Towel.StepStatus"),
-				(typeof(int*), "System.Int32*"),
-				(typeof(int**), "System.Int32**"),
-				(typeof(Span<int>), "System.Span<System.Int32>"),
-				(typeof(int[]), "System.Int32[]"),
-				(typeof(int[][]), "System.Int32[][]"),
-				(typeof(int[][][]), "System.Int32[][][]"),
-				(typeof(int[,]), "System.Int32[,]"),
-				(typeof(int[,,]), "System.Int32[,,]"),
-				(typeof(int[,,,]), "System.Int32[,,,]"),
-				(typeof(int[][,,,][]), "System.Int32[][,,,][]"),
-				(typeof(int[,,,][][,,,]), "System.Int32[,,,][][,,,]"),
+					(typeof(System.Int32), "System.Int32"),
+					(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
+					(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"),
+					(typeof(Towel_Testing.A.B.C), "Towel_Testing.A.B.C"),
+					(typeof(Towel_Testing.A.D<System.Int32>.E<System.Int32>), "Towel_Testing.A.D<System.Int32>.E<System.Int32>"),
+					(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<>.E<>"),
+					(typeof(System.Collections.Generic.List<(System.String @event, System.Object @class)>), "System.Collections.Generic.List<System.ValueTuple<System.String, System.Object>>"),
+					(typeof(System.Int32?), "System.Nullable<System.Int32>"),
+					(typeof(Towel_Testing.A.D<System.Object>.E<System.String>), "Towel_Testing.A.D<System.Object>.E<System.String>"),
+					(typeof(Towel.DataStructures.IOmnitreePoints<,,,>), "Towel.DataStructures.IOmnitreePoints<,,,>"),
+					(typeof(Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>), "Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>"),
+					(typeof((int, int, int, int, int, int, int, int, int)), "System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.ValueTuple<System.Int32, System.Int32>>"),
+					(typeof(StepStatus), "Towel.StepStatus"),
+					(typeof(int*), "System.Int32*"),
+					(typeof(int**), "System.Int32**"),
+					(typeof(Span<int>), "System.Span<System.Int32>"),
+					(typeof(int[]), "System.Int32[]"),
+					(typeof(int[][]), "System.Int32[][]"),
+					(typeof(int[][][]), "System.Int32[][][]"),
+					(typeof(int[,]), "System.Int32[,]"),
+					(typeof(int[,,]), "System.Int32[,,]"),
+					(typeof(int[,,,]), "System.Int32[,,,]"),
+					(typeof(int[][,,,][]), "System.Int32[][,,,][]"),
+					(typeof(int[,,,][][,,,]), "System.Int32[,,,][][,,,]"),
 				};
 				foreach ((Type, string) testCase in testCases)
 				{
@@ -60,11 +60,11 @@ namespace Towel_Testing
 			{ // showGenericParameters = true
 				(Type, string)[] testCases = new (Type, string)[]
 				{
-				(typeof(System.Collections.Generic.List<>), "System.Collections.Generic.List<T>"),
-				(typeof(Towel.Mathematics.Symbolics.Constant<>), "Towel.Mathematics.Symbolics.Constant<T>"),
-				(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<AA>.E<BB>"),
-				(typeof(Towel.DataStructures.IOmnitreePoints<,,,>), "Towel.DataStructures.IOmnitreePoints<T, Axis1, Axis2, Axis3>"),
-				(typeof(Span<>), "System.Span<T>"),
+					(typeof(System.Collections.Generic.List<>), "System.Collections.Generic.List<T>"),
+					(typeof(Towel.Mathematics.Symbolics.Constant<>), "Towel.Mathematics.Symbolics.Constant<T>"),
+					(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<AA>.E<BB>"),
+					(typeof(Towel.DataStructures.IOmnitreePoints<,,,>), "Towel.DataStructures.IOmnitreePoints<T, Axis1, Axis2, Axis3>"),
+					(typeof(Span<>), "System.Span<T>"),
 				};
 				foreach ((Type, string) testCase in testCases)
 				{

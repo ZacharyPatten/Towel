@@ -367,11 +367,30 @@
             <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
             <returns>True of contained, False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryGet(System.Func{`0,Towel.CompareResult},`0@,System.Exception@)">
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.Contains``1(``0)">
+            <summary>
+            Determines if this structure contains an item by a given key.
+            <para>Runtime: O(ln(Count)), Ω(1)</para>
+            </summary>
+            <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
+            <returns>True of contained, False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryGet(`0@,System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>
             Tries to get a value.
             <para>Runtime: O(ln(Count)), Ω(1)</para>
             </summary>
+            <param name="sift">The compare delegate.</param>
+            <param name="value">The value if found or default.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the get succeeded or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryGet``1(`0@,System.Exception@,``0)">
+            <summary>
+            Tries to get a value.
+            <para>Runtime: O(ln(Count)), Ω(1)</para>
+            </summary>
+            <typeparam name="Sift">The compare delegate.</typeparam>
             <param name="sift">The compare delegate.</param>
             <param name="value">The value if found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
@@ -383,7 +402,13 @@
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryRemove(System.Func{`0,Towel.CompareResult},System.Exception@)">
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryRemove(System.Exception@,System.Func{`0,Towel.CompareResult})">
+            <summary>Tries to remove a value.</summary>
+            <param name="sift">The compare delegate.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked`2.TryRemove``1(System.Exception@,``0)">
             <summary>Tries to remove a value.</summary>
             <param name="sift">The compare delegate.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
@@ -13790,8 +13815,25 @@
             <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
             <returns>True of contained, False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryGet(System.Func{`0,Towel.CompareResult},`0@,System.Exception@)">
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.Contains``1(``0)">
+            <summary>
+            Determines if this structure contains an item by a given key.
+            <para>Runtime: O(ln(Count)), Ω(1)</para>
+            </summary>
+            <typeparam name="Sift">The sifting method.</typeparam>
+            <param name="sift">The sifting method.</param>
+            <returns>True of contained, False if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryGet(`0@,System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to get a value.</summary>
+            <param name="sift">The compare delegate.</param>
+            <param name="value">The value if it was found or default.</param>
+            <param name="exception">The exception that occurred if the get failed.</param>
+            <returns>True if the value was found or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryGet``1(`0@,System.Exception@,``0)">
+            <summary>Tries to get a value.</summary>
+            <typeparam name="Sift">The compare delegate.</typeparam>
             <param name="sift">The compare delegate.</param>
             <param name="value">The value if it was found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
@@ -13803,8 +13845,15 @@
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(System.Func{`0,Towel.CompareResult},System.Exception@)">
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryRemove(System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to remove a value.</summary>
+            <param name="sift">The compare delegate.</param>
+            <param name="exception">The exception that occurred if the remove failed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryRemove``1(System.Exception@,``0)">
+            <summary>Tries to remove a value.</summary>
+            <typeparam name="Sift">The compare delegate.</typeparam>
             <param name="sift">The compare delegate.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
@@ -14237,14 +14286,14 @@
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <returns>True if the value is in the tree or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryGet(System.Func{`0,Towel.CompareResult},`0@,System.Exception@)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryGet(`0@,System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to get a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="value">The value if found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the value was found or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryRemove(System.Func{`0,Towel.CompareResult},System.Exception@)">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryRemove(System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to remove a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
@@ -14475,7 +14524,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.TryGet``1(Towel.DataStructures.ISortedBinaryTree{``0},System.Func{``0,Towel.CompareResult},``0@)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.TryGet``1(Towel.DataStructures.ISortedBinaryTree{``0},``0@,System.Func{``0,Towel.CompareResult})">
             <summary>Tries to get a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to get the value from.</param>

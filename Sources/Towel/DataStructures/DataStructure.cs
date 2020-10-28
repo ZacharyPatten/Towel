@@ -154,7 +154,7 @@ namespace Towel.DataStructures
 		{
 			if (!structure.TryAdd(value, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 
@@ -174,7 +174,7 @@ namespace Towel.DataStructures
 		{
 			if (!structure.TryRemove(value, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Remove)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 

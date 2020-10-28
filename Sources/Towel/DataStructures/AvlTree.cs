@@ -29,6 +29,18 @@ namespace Towel.DataStructures
 			internal Node? LeftChild;
 			internal Node? RightChild;
 			internal int Height;
+
+			internal Node(
+				T value,
+				int height = default,
+				Node? leftChild = null,
+				Node? rightChild = null)
+			{
+				Value = value;
+				Height = height;
+				LeftChild = leftChild;
+				RightChild = rightChild;
+			}
 		}
 
 		#endregion
@@ -52,14 +64,11 @@ namespace Towel.DataStructures
 		internal AvlTreeLinked(AvlTreeLinked<T, Compare> tree)
 		{
 			static Node Clone(Node node) =>
-				new Node()
-				{
-					Value = node.Value,
-					LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild),
-					RightChild = node.RightChild is null ? null : Clone(node.RightChild),
-					Height = node.Height,
-				};
-
+				new Node(
+					value: node.Value,
+					height: node.Height,
+					leftChild: node.LeftChild is null ? null : Clone(node.LeftChild),
+					rightChild: node.RightChild is null ? null : Clone(node.RightChild));
 			_root = tree._root is null ? null : Clone(tree._root);
 			_count = tree._count;
 			_compare = tree._compare;
@@ -141,7 +150,7 @@ namespace Towel.DataStructures
 				if (node is null)
 				{
 					_count++;
-					return new Node() { Value = value, };
+					return new Node(value: value);
 				}
 				CompareResult compareResult = _compare.Do(node.Value, value);
 				switch (compareResult)
@@ -152,11 +161,9 @@ namespace Towel.DataStructures
 						capturedException = new ArgumentException($"Adding to add a duplicate value to an {nameof(AvlTreeLinked<T>)}: {value}.", nameof(value));
 						return node;
 					default:
-#pragma warning disable CA2208 // Instantiate argument exceptions correctly
 						capturedException = compareResult.IsDefined()
-							? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(Compare));
-#pragma warning restore CA2208 // Instantiate argument exceptions correctly
+							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+							: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.");
 						break;
 				}
 				return capturedException is null ? Balance(node) : node;
@@ -164,10 +171,6 @@ namespace Towel.DataStructures
 			_root = Add(_root);
 			return (exception = capturedException) is null;
 		}
-
-		#endregion
-
-		#region Clear
 
 		/// <summary>
 		/// Returns the tree to an iterative state.
@@ -179,20 +182,12 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		#endregion
-
-		#region Clone
-
 		/// <summary>
 		/// Clones the AVL tree.
 		/// <para>Runtime: θ(n)</para>
 		/// </summary>
 		/// <returns>A clone of the AVL tree.</returns>
 		public AvlTreeLinked<T, Compare> Clone() => new AvlTreeLinked<T, Compare>(this);
-
-		#endregion
-
-		#region Contains
 
 		/// <summary>
 		/// Determines if the AVL tree contains a value.
@@ -209,23 +204,32 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
 		/// <returns>True of contained, False if not.</returns>
-		public bool Contains(Func<T, CompareResult> sift)
+		public bool Contains(Func<T, CompareResult> sift) =>
+			sift is null ? throw new ArgumentNullException(nameof(sift)) :
+			Contains<FuncRuntime<T, CompareResult>>(sift);
+
+		/// <summary>
+		/// Determines if this structure contains an item by a given key.
+		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
+		/// </summary>
+		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
+		/// <returns>True of contained, False if not.</returns>
+		public bool Contains<Sift>(Sift sift = default)
+			where Sift : struct, IFunc<T, CompareResult>
 		{
 			Node? node = _root;
 			while (node is not null)
 			{
-				CompareResult compareResult = sift(node.Value);
-				if (compareResult is Less)
+				CompareResult compareResult = sift.Do(node.Value);
+				switch (compareResult)
 				{
-					node = node.RightChild;
-				}
-				else if (compareResult is Greater)
-				{
-					node = node.LeftChild;
-				}
-				else // (compareResult == Copmarison.Equal)
-				{
-					return true;
+					case Less:    node = node.RightChild;  break;
+					case Greater: node = node.LeftChild; break;
+					case Equal:   return true;
+					default:
+						throw compareResult.IsDefined()
+							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+							: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.");
 				}
 			}
 			return false;
@@ -243,25 +247,37 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the get succeeded or false if not.</returns>
-		public bool TryGet(Func<T, CompareResult> sift, out T value, out Exception? exception)
+		public bool TryGet(out T? value, out Exception? exception, Func<T, CompareResult> sift) =>
+			TryGet<FuncRuntime<T, CompareResult>>(out value, out exception, sift);
+
+		/// <summary>
+		/// Tries to get a value.
+		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
+		/// </summary>
+		/// <typeparam name="Sift">The compare delegate.</typeparam>
+		/// <param name="sift">The compare delegate.</param>
+		/// <param name="value">The value if found or default.</param>
+		/// <param name="exception">The exception that occurred if the get failed.</param>
+		/// <returns>True if the get succeeded or false if not.</returns>
+		public bool TryGet<Sift>(out T? value, out Exception? exception, Sift sift = default)
+			where Sift : struct, IFunc<T, CompareResult>
 		{
 			Node? node = _root;
 			while (node is not null)
 			{
-				CompareResult comparison = sift(node.Value);
-				if (comparison is Less)
+				CompareResult compareResult = sift.Do(node.Value);
+				switch (compareResult)
 				{
-					node = node.LeftChild;
-				}
-				else if (comparison is Greater)
-				{
-					node = node.RightChild;
-				}
-				else // (compareResult == Copmarison.Equal)
-				{
-					value = node.Value;
-					exception = null;
-					return true;
+					case Less:    node = node.LeftChild;  break;
+					case Greater: node = node.RightChild; break;
+					case Equal:
+						value = node.Value;
+						exception = null;
+						return true;
+					default:
+						throw compareResult.IsDefined()
+							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+							: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.");
 				}
 			}
 			value = default;
@@ -278,48 +294,56 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception? exception) =>
-			TryRemove(x => _compare.Do(x, value), out exception);
+			TryRemove(out exception, new SiftFromCompareAndValue<T, Compare>(value, _compare));
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="sift">The compare delegate.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Func<T, CompareResult> sift, out Exception? exception)
+		public bool TryRemove(out Exception? exception, Func<T, CompareResult> sift) =>
+			TryRemove<FuncRuntime<T, CompareResult>>(out exception, sift);
+
+		/// <summary>Tries to remove a value.</summary>
+		/// <param name="sift">The compare delegate.</param>
+		/// <param name="exception">The exception that occurred if the remove failed.</param>
+		/// <returns>True if the remove was successful or false if not.</returns>
+		public bool TryRemove<Sift>(out Exception? exception, Sift sift = default)
+			where Sift : struct, IFunc<T, CompareResult>
 		{
 			Exception? capturedException = null;
 			Node? Remove(Node? node)
 			{
 				if (node is not null)
 				{
-					CompareResult compareResult = sift(node.Value);
-					if (compareResult is Less)
+					CompareResult compareResult = sift.Do(node.Value);
+					switch (compareResult)
 					{
-						node.RightChild = Remove(node.RightChild);
-					}
-					else if (compareResult is Greater)
-					{
-						node.LeftChild = Remove(node.LeftChild);
-					}
-					else // (compareResult == Comparison.Equal)
-					{
-						if (!(node.RightChild is null))
-						{
-							node.RightChild = RemoveLeftMost(node.RightChild, out Node leftMostOfRight);
-							leftMostOfRight.RightChild = node.RightChild;
-							leftMostOfRight.LeftChild = node.LeftChild;
-							node = leftMostOfRight;
-						}
-						else if (!(node.LeftChild is null))
-						{
-							node.LeftChild = RemoveRightMost(node.LeftChild, out Node rightMostOfLeft);
-							rightMostOfLeft.RightChild = node.RightChild;
-							rightMostOfLeft.LeftChild = node.LeftChild;
-							node = rightMostOfLeft;
-						}
-						else
-						{
-							return null;
-						}
+						case Less:    node.RightChild = Remove(node.RightChild); break;
+						case Greater: node.LeftChild  = Remove(node.LeftChild);  break;
+						case Equal:
+							if (!(node.RightChild is null))
+							{
+								node.RightChild = RemoveLeftMost(node.RightChild, out Node leftMostOfRight);
+								leftMostOfRight.RightChild = node.RightChild;
+								leftMostOfRight.LeftChild = node.LeftChild;
+								node = leftMostOfRight;
+							}
+							else if (!(node.LeftChild is null))
+							{
+								node.LeftChild = RemoveRightMost(node.LeftChild, out Node rightMostOfLeft);
+								rightMostOfLeft.RightChild = node.RightChild;
+								rightMostOfLeft.LeftChild = node.LeftChild;
+								node = rightMostOfLeft;
+							}
+							else
+							{
+								return null;
+							}
+							break;
+						default:
+							throw compareResult.IsDefined()
+								? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
+								: new ArgumentException($"Invalid {nameof(Compare)} function; an undefined {nameof(CompareResult)} was returned.");
 					}
 					SetHeight(node);
 					return Balance(node);
@@ -746,14 +770,11 @@ namespace Towel.DataStructures
 		internal AvlTreeLinked(AvlTreeLinked<T> tree)
 		{
 			static Node Clone(Node node) =>
-				new Node()
-				{
-					Value = node.Value,
-					LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild),
-					RightChild = node.RightChild is null ? null : Clone(node.RightChild),
-					Height = node.Height,
-				};
-
+				new Node(
+					value: node.Value,
+					height: node.Height,
+					leftChild: node.LeftChild is null ? null : Clone(node.LeftChild),
+					rightChild: node.RightChild is null ? null : Clone(node.RightChild));
 			_root = tree._root is null ? null : Clone(tree._root);
 			_count = tree._count;
 			_compare = tree._compare;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -428,12 +429,13 @@ namespace Towel.DataStructures
 				_start = 0;
 				_array = array;
 			}
-			int end = _start + _count++;
+			int end = _start + _count;
 			if (end >= _array.Length)
 			{
-				end -= _array.Length - _start;
+				end %= _array.Length;
 			}
 			_array[end] = addition;
+			_count++;
 		}
 
 		/// <summary>
@@ -457,8 +459,11 @@ namespace Towel.DataStructures
 				_start = 0;
 				_array = array;
 			}
-			T element = _array[_start];
-			_start = ++_start >= _array.Length ? _start : 0;
+			T element = _array[_start++];
+			if (_start >= _array.Length)
+			{
+				_start = 0;
+			}
 			_count--;
 			return element;
 		}
