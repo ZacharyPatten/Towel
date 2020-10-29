@@ -2955,10 +2955,6 @@
             <param name="exception">The exception that occurred if the removal failed.</param>
             <returns>True if the removal was successful for false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Resize(System.Int32)">
-            <summary>Resizes the table.</summary>
-            <param name="tableSize">The desired size of the table.</param>
-        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Trim">
             <summary>
             Trims the table to an appropriate size based on the current count.
@@ -14140,136 +14136,6 @@
             <para>Runtime: Θ(n)</para>
             </summary>
             <returns>A shallow clone of this set.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.Set`2">
-            <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="Structure">The type of structure to use for each index of the hash table.</typeparam>
-            <typeparam name="T">The type of values to store in the set.</typeparam>
-        </member>
-        <member name="T:Towel.DataStructures.Set`2.StructureFactory">
-            <summary>Factory for constructing new structures.</summary>
-            <param name="equate">A delegate for equality checks.</param>
-            <param name="hash">A delegate for computing hash codes.</param>
-            <returns>The constructed structure.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.Set`2.StructureClone">
-            <summary>Clones a structure.</summary>
-            <param name="structure">The structure to clone.</param>
-            <returns>A clone of the structure.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1}.StructureFactory,System.Func{`1,`1,System.Boolean},System.Func{`1,System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Constructs a hashed set.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="factory">The factory delegate.</param>
-            <param name="equate">The equate delegate.</param>
-            <param name="hash">The hashing function.</param>
-            <param name="expectedCount">The expected count of the set.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.#ctor(Towel.DataStructures.Set{`0,`1},Towel.DataStructures.Set{`0,`1}.StructureClone)">
-            <summary>
-            This constructor is for cloning purposes.
-            <para>Runtime: O(n)</para>
-            </summary>
-            <param name="set">The set to clone.</param>
-            <param name="clone">A delegate for cloning the structures.</param>
-        </member>
-        <member name="P:Towel.DataStructures.Set`2.TableSize">
-            <summary>
-            The current size of the hashed table.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="P:Towel.DataStructures.Set`2.Count">
-            <summary>
-            The current number of values in the set.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="P:Towel.DataStructures.Set`2.Hash">
-            <summary>
-            The delegate for computing hash codes.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="P:Towel.DataStructures.Set`2.Equate">
-            <summary>
-            The delegate for equality checking.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.TryAdd(`1,System.Exception@)">
-            <summary>
-            Adds a value to the hash table.
-            <para>Runtime: O(n), Ω(1), ε(1)</para>
-            </summary>
-            <param name="value">The key value to use as the look-up reference in the hash table.</param>
-            <param name="exception">The exception that occurred if the add failed.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.TryRemove(`1,System.Exception@)">
-            <summary>
-            Removes a value from the set.
-            <para>Runtime: O(n), Ω(1), ε(1)</para>
-            </summary>
-            <param name="value">The value to remove.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.TryRemoveWithoutTrim(`1,System.Exception@)">
-            <summary>
-            Removes a value from the set.
-            <para>Runtime: O(n), Ω(1), ε(1)</para>
-            </summary>
-            <param name="value">The value to remove.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Resize(System.Int32)">
-            <summary>Resizes the table.</summary>
-            <param name="tableSize">The desired size of the table.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Clone(Towel.DataStructures.Set{`0,`1}.StructureClone)">
-            <summary>
-            Creates a shallow clone of this set.
-            <para>Runtime: Θ(n)</para>
-            </summary>
-            <returns>A shallow clone of this set.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Contains(`1)">
-            <summary>
-            Determines if a value has been added to a set.
-            <para>Runtime: O(n), Ω(1), ε(1)</para>
-            </summary>
-            <param name="value">The value to look for in the set.</param>
-            <returns>True if the value has been added to the set or false if not.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Clear">
-            <summary>
-            Removes all the values in the set.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Trim">
-            <summary>
-            Trims the table to an appropriate size based on the current count.
-            <para>Runtime: O(n), Ω(1)</para>
-            </summary>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Stepper(System.Action{`1})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.Stepper(System.Func{`1,Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.GetEnumerator">
-            <summary>Gets the enumerator for the set.</summary>
-            <returns>The enumerator for the set.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Set`2.ToArray">
-            <summary>
-            Puts all the values in this set into an array.
-            <para>Runtime: Θ(n)</para>
-            </summary>
-            <returns>An array with all the values in the set.</returns>
         </member>
         <member name="T:Towel.DataStructures.ISortedBinaryTree`1">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
@@ -29888,6 +29754,15 @@
         <member name="T:Towel.Statics.SwitchSyntax">
             <summary>Definitions for Switch syntax.</summary>
         </member>
+        <member name="T:Towel.Statics.SwitchSyntax.ParamsAction`2">
+            <summary>Delegate with params intended to be used with the Switch syntax.</summary>
+        </member>
+        <member name="T:Towel.Statics.SwitchSyntax.Keyword">
+            <summary>Intended to be used with Switch syntax.</summary>
+        </member>
+        <member name="F:Towel.Statics.SwitchSyntax.Keyword.Default">
+            <summary>The default keyword for the the Switch syntax.</summary>
+        </member>
         <member name="T:Towel.Statics.SwitchSyntax.Condition`1">
             <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
             <typeparam name="T">The generic type of the Switch condition for equality checks.</typeparam>
@@ -30097,7 +29972,7 @@
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
         <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Action{System.Action{`0}}">
-            <summary>Converts a universal quantification to an <see cref="!:Stepper&lt;T&gt;"/>.</summary>
+            <summary>Converts a universal quantification to an Action&lt;Action&lt;T&gt;&gt;.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
         <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.StepperRef{`0}">
@@ -30105,7 +29980,7 @@
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
         <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Func{System.Func{`0,Towel.StepStatus},Towel.StepStatus}">
-            <summary>Converts a universal quantification to an <see cref="!:StepperBreak&lt;T&gt;"/>.</summary>
+            <summary>Converts a universal quantification to an Func&lt;Func&lt;T, StepStatus&gt;, StepStatus&gt;.</summary>
             <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
         <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~Towel.StepperRefBreak{`0}">

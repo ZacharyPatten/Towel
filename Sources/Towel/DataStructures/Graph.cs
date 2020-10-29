@@ -30,7 +30,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets all the nodes adjacent to a and performs the provided delegate on each.</summary>
 		/// <param name="a">The node to find all the adjacent node to.</param>
 		/// <param name="function">The delegate to perform on each adjacent node to a.</param>
-		void Neighbors(T a, Action<T?> function);
+		void Neighbors(T a, Action<T> function);
 		/// <summary>Adds an edge to the graph starting at a and ending at b.</summary>
 		/// <param name="start">The stating point of the edge to add.</param>
 		/// <param name="end">The ending point of the edge to add.</param>
@@ -45,7 +45,7 @@ namespace Towel.DataStructures
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus Stepper(Func<T?, T?, StepStatus> step);
+		StepStatus Stepper(Func<T, T, StepStatus> step);
 
 		#endregion
 	}
@@ -63,9 +63,9 @@ namespace Towel.DataStructures
 		public class Edge
 		{
 			/// <summary>The starting node of the edge.</summary>
-			public T? Start { get; internal set; }
+			public T Start { get; internal set; }
 			/// <summary>The ending node of the edge.</summary>
-			public T? End { get; internal set; }
+			public T End { get; internal set; }
 		}
 
 		#endregion
@@ -85,11 +85,11 @@ namespace Towel.DataStructures
 		/// <param name="compare">The compare delegate for the data structure to use.</param>
 		/// <param name="hash">The hash delegate for the datastructure to use.</param>
 		public GraphSetOmnitree(
-			Func<T?, T, bool>? equate = null,
-			Func<T?, T, CompareResult>? compare = null,
-			Func<T?, int>? hash = null)
+			Func<T, T, bool>? equate = null,
+			Func<T, T, CompareResult>? compare = null,
+			Func<T, int>? hash = null)
 		{
-			equate ??= Statics.Equate;
+			equate ??= Equate;
 			compare ??= Compare;
 			hash ??= DefaultHash;
 
@@ -198,7 +198,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets the neighbors of a node.</summary>
 		/// <param name="node">The node to get the neighbors of.</param>
 		/// <param name="step">The step to perform on all the neighbors.</param>
-		public void Neighbors(T node, Action<T?> step)
+		public void Neighbors(T node, Action<T> step)
 		{
 			if (!_nodes.Contains(node))
 			{
@@ -222,27 +222,27 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the nodes in the graph.</summary>
 		/// <param name="step">The action to perform on all the nodes in the graph.</param>
-		public void Stepper(Action<T?> step) => _nodes.Stepper(step);
+		public void Stepper(Action<T> step) => _nodes.Stepper(step);
 
 		/// <summary>Steps through all the nodes in the graph.</summary>
 		/// <param name="step">The action to perform on all the nodes in the graph.</param>
 		/// <returns>The status of the stepper operation.</returns>
-		public StepStatus Stepper(Func<T?, StepStatus> step) => _nodes.Stepper(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => _nodes.Stepper(step);
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
-		public void Stepper(Action<T?, T?> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
+		public void Stepper(Action<T, T> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
 		/// <returns>The status of the stepper operation.</returns>
-		public StepStatus Stepper(Func<T?, T?, StepStatus> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
+		public StepStatus Stepper(Func<T, T, StepStatus> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator for the nodes in the graph.</summary>
 		/// <returns>The enumerator for the nodes in the graph.</returns>
-		public System.Collections.Generic.IEnumerator<T?> GetEnumerator() => _nodes.GetEnumerator();
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _nodes.GetEnumerator();
 
 		#endregion
 	}

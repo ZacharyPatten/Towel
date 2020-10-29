@@ -133,7 +133,8 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Add
+		internal int GetLocation(T value) =>
+			(_hash.Do(value) & int.MaxValue) % _table.Length;
 
 		/// <summary>
 		/// Adds a value to the set.
@@ -143,11 +144,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		public bool TryAdd(T value, out Exception? exception)
 		{
-			_ = value ?? throw new ArgumentNullException(nameof(value));
-
-			int hashCode = _hash.Do(value);
-			int location = (hashCode & int.MaxValue) % _table.Length;
-
+			int location = GetLocation(value);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Value, value))
@@ -156,9 +153,7 @@ namespace Towel.DataStructures
 					return false;
 				}
 			}
-
 			_table[location] = new Node(value: value, next: _table[location]);
-
 			if (++_count > _table.Length * _maxLoadFactor)
 			{
 				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
@@ -177,10 +172,6 @@ namespace Towel.DataStructures
 			return true;
 		}
 
-		#endregion
-
-		#region Remove
-
 		/// <summary>Tries to remove a value from the set.</summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
@@ -191,14 +182,11 @@ namespace Towel.DataStructures
 			{
 				if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
 				{
-					// calculate new table size
 					int tableSize = (int)(_count * (1 / _maxLoadFactor));
 					while (!IsPrime(tableSize))
 					{
 						tableSize++;
 					}
-
-					// resize the table
 					Resize(tableSize);
 				}
 				return true;
@@ -212,9 +200,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryRemoveWithoutTrim(T value, out Exception? exception)
 		{
-			_ = value ?? throw new ArgumentNullException(nameof(value));
-			int hashCode = _hash.Do(value);
-			int location = (hashCode & int.MaxValue) % _table.Length;
+			int location = GetLocation(value);
 			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
 			{
 				if (_equate.Do(node.Value, value))
@@ -236,10 +222,6 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		#endregion
-
-		#region Resize
-
 		/// <summary>Resizes the table.</summary>
 		/// <param name="tableSize">The desired size of the table.</param>
 		internal void Resize(int tableSize)
@@ -248,28 +230,19 @@ namespace Towel.DataStructures
 			{
 				return;
 			}
-
 			Node?[] temp = _table;
 			_table = new Node[tableSize];
-
 			for (int i = 0; i < temp.Length; i++)
 			{
 				for (Node? node = temp[i]; node is not null; node = temp[i])
 				{
 					temp[i] = node.Next;
-
-					int hashCode = _hash.Do(node.Value);
-					int location = (hashCode & int.MaxValue) % _table.Length;
-
+					int location = GetLocation(node.Value);
 					node.Next = _table[location];
 					_table[location] = node;
 				}
 			}
 		}
-
-		#endregion
-
-		#region Trim
 
 		/// <summary>
 		/// Trims the table to an appropriate size based on the current count.
@@ -285,20 +258,12 @@ namespace Towel.DataStructures
 			Resize(tableSize);
 		}
 
-		#endregion
-
-		#region Clone
-
 		/// <summary>
 		/// Creates a shallow clone of this set.
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this set.</returns>
 		public SetHashLinked<T, Equate, Hash> Clone() => new SetHashLinked<T, Equate, Hash>(this);
-
-		#endregion
-
-		#region Contains
 
 		/// <summary>
 		/// Determines if a value has been added to a set.
@@ -308,9 +273,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the value has been added to the set or false if not.</returns>
 		public bool Contains(T value)
 		{
-			int hashCode = _hash.Do(value);
-			int location = (hashCode & int.MaxValue) % _table.Length;
-
+			int location = GetLocation(value);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Value, value))
@@ -321,10 +284,6 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		#endregion
-
-		#region Clear
-
 		/// <summary>
 		/// Removes all the values in the set.
 		/// <para>Runtime: O(1)</para>
@@ -334,10 +293,6 @@ namespace Towel.DataStructures
 			_table = new Node[2];
 			_count = 0;
 		}
-
-		#endregion
-
-		#region Stepper And IEnumerable
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step)
@@ -382,16 +337,12 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region ToArray
-
 		/// <summary>
 		/// Puts all the values in this set into an array.
 		/// <para>Runtime: Θ(<see cref="Count"/> + <see cref="TableSize"/>)</para>
 		/// </summary>
 		/// <returns>An array with all the values in the set.</returns>
-		public T?[] ToArray()
+		public T[] ToArray()
 		{
 			T[] array = new T[_count];
 			for (int i = 0, index = 0; i < _table.Length; i++)
@@ -403,8 +354,6 @@ namespace Towel.DataStructures
 			}
 			return array;
 		}
-
-		#endregion
 
 		#endregion
 	}
@@ -466,415 +415,6 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <returns>A shallow clone of this set.</returns>
 		public new SetHashLinked<T> Clone() => new SetHashLinked<T>(this);
-
-		#endregion
-	}
-
-	/// <summary>An unsorted structure of unique items.</summary>
-	/// <typeparam name="Structure">The type of structure to use for each index of the hash table.</typeparam>
-	/// <typeparam name="T">The type of values to store in the set.</typeparam>
-	public class Set<Structure, T> : ISet<T>,
-		// Structure Properties
-		DataStructure.IHashing<T>
-		where Structure :
-			class,
-			IDataStructure<T>,
-			DataStructure.IAddable<T>,
-			DataStructure.IRemovable<T>,
-			DataStructure.IAuditable<T>
-	{
-		internal const float _maxLoadFactor = .7f;
-		internal const float _minLoadFactor = .3f;
-
-		internal StructureFactory _factory;
-		internal Func<T, T, bool> _equate;
-		internal Func<T, int> _hash;
-		internal Structure[] _table;
-		internal int _count;
-
-		#region Delegates
-
-		/// <summary>Factory for constructing new structures.</summary>
-		/// <param name="equate">A delegate for equality checks.</param>
-		/// <param name="hash">A delegate for computing hash codes.</param>
-		/// <returns>The constructed structure.</returns>
-		public delegate Structure StructureFactory(Func<T, T, bool> equate, Func<T, int> hash);
-
-		/// <summary>Clones a structure.</summary>
-		/// <param name="structure">The structure to clone.</param>
-		/// <returns>A clone of the structure.</returns>
-		public delegate Structure StructureClone(Structure structure);
-
-		#endregion
-
-		#region Constructors
-
-		/// <summary>
-		/// Constructs a hashed set.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="factory">The factory delegate.</param>
-		/// <param name="equate">The equate delegate.</param>
-		/// <param name="hash">The hashing function.</param>
-		/// <param name="expectedCount">The expected count of the set.</param>
-		public Set(
-			StructureFactory factory,
-			Func<T?, T, bool>? equate = null,
-			Func<T?, int>? hash = null,
-			int? expectedCount = null)
-		{
-			if (expectedCount.HasValue && expectedCount.Value > 0)
-			{
-				int tableSize = (int)(expectedCount.Value * (1 / _maxLoadFactor));
-				while (!IsPrime(tableSize))
-				{
-					tableSize++;
-				}
-				_table = new Structure[tableSize];
-			}
-			else
-			{
-				_table = new Structure[2];
-			}
-			_factory = factory;
-			_equate = equate ?? Statics.Equate;
-			_hash = hash ?? DefaultHash;
-			_count = 0;
-		}
-
-		/// <summary>
-		/// This constructor is for cloning purposes.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <param name="set">The set to clone.</param>
-		/// <param name="clone">A delegate for cloning the structures.</param>
-		internal Set(Set<Structure, T> set, StructureClone clone)
-		{
-			_factory = set._factory;
-			_equate = set._equate;
-			_hash = set._hash;
-			_table = new Structure[set._table.Length];
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if (!(set._table[i] is null))
-				{
-					_table[i] = clone(set._table[i]);
-				}
-			}
-			_count = set._count;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// The current size of the hashed table.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public int TableSize => _table.Length;
-
-		/// <summary>
-		/// The current number of values in the set.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public int Count => _count;
-
-		/// <summary>
-		/// The delegate for computing hash codes.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public Func<T, int> Hash => _hash;
-
-		/// <summary>
-		/// The delegate for equality checking.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public Func<T, T, bool> Equate => _equate;
-
-		#endregion
-
-		#region Methods
-
-		#region Add
-
-		/// <summary>
-		/// Adds a value to the hash table.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="value">The key value to use as the look-up reference in the hash table.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
-		public bool TryAdd(T value, out Exception? exception)
-		{
-			_ = value ?? throw new ArgumentNullException(nameof(value));
-
-			// compute the hash code and relate it to the current table
-			int hashCode = _hash(value);
-			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			// duplicate value check
-			if (_table[location].Contains(value))
-			{
-				exception = new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
-				return false;
-			}
-
-			// add the value
-			if (_table[location] is null)
-			{
-				_table[location] = _factory(_equate, _hash);
-			}
-			_table[location].Add(value);
-
-			// check if the table needs to grow
-			if (++_count > _table.Length * _maxLoadFactor)
-			{
-				if (_count == int.MaxValue)
-				{
-					throw new InvalidOperationException("maximum size of hash table reached.");
-				}
-
-				// calculate new table size
-				int tableSize = (int)((_count * 2) * (1 / _maxLoadFactor));
-				while (!IsPrime(tableSize))
-				{
-					tableSize++;
-				}
-
-				// resize the table
-				Resize(tableSize);
-			}
-
-			exception = null;
-			return true;
-		}
-
-		#endregion
-
-		#region Remove
-
-		/// <summary>
-		/// Removes a value from the set.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		public bool TryRemove(T value, out Exception? exception)
-		{
-			if (TryRemoveWithoutTrim(value, out exception))
-			{
-				if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
-				{
-					// calculate new table size
-					int tableSize = (int)(_count * (1 / _maxLoadFactor));
-					while (!IsPrime(tableSize))
-					{
-						tableSize++;
-					}
-
-					// resize the table
-					Resize(tableSize);
-				}
-				return true;
-			}
-			return false;
-		}
-
-		/// <summary>
-		/// Removes a value from the set.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		public bool TryRemoveWithoutTrim(T value, out Exception? exception)
-		{
-			_ = value ?? throw new ArgumentNullException(nameof(value));
-
-			// compute the hash code and relate it to the current table
-			int hashCode = _hash(value);
-			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			// remove the value
-			if (_table[location].TryRemove(value, out exception))
-			{
-				_count--;
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		#endregion
-
-		#region Resize
-
-		/// <summary>Resizes the table.</summary>
-		/// <param name="tableSize">The desired size of the table.</param>
-		internal void Resize(int tableSize)
-		{
-			// ensure the desired size is different than the current
-			if (tableSize == _table.Length)
-			{
-				return;
-			}
-
-			Structure[] temp = _table;
-			_table = new Structure[tableSize];
-
-			// iterate through all the values
-			for (int i = 0; i < temp.Length; i++)
-			{
-				temp[i].Stepper(x =>
-				{
-					// compute the hash code and relate it to the current table
-					int hashCode = _hash(x);
-					int location = (hashCode & int.MaxValue) % _table.Length;
-
-					_table[location].Add(x);
-				});
-			}
-		}
-
-		#endregion
-
-		#region Clone
-
-		/// <summary>
-		/// Creates a shallow clone of this set.
-		/// <para>Runtime: Θ(n)</para>
-		/// </summary>
-		/// <returns>A shallow clone of this set.</returns>
-		public Set<Structure, T> Clone(StructureClone clone) => new Set<Structure, T>(this, clone);
-
-		#endregion
-
-		#region Contains
-
-		/// <summary>
-		/// Determines if a value has been added to a set.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="value">The value to look for in the set.</param>
-		/// <returns>True if the value has been added to the set or false if not.</returns>
-		public bool Contains(T value)
-		{
-			_ = value ?? throw new ArgumentNullException(nameof(value));
-
-			// compute the hash code and relate it to the current table
-			int hashCode = _hash(value);
-			int location = (hashCode & int.MaxValue) % _table.Length;
-
-			return _table[location].Contains(value);
-		}
-
-		#endregion
-
-		#region Clear
-
-		/// <summary>
-		/// Removes all the values in the set.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public void Clear()
-		{
-			_table = new Structure[2];
-			_count = 0;
-		}
-
-		#endregion
-
-		#region Trim
-
-		/// <summary>
-		/// Trims the table to an appropriate size based on the current count.
-		/// <para>Runtime: O(n), Ω(1)</para>
-		/// </summary>
-		public void Trim()
-		{
-			int tableSize = _count;
-			while (!IsPrime(tableSize))
-			{
-				tableSize++;
-			}
-			Resize(tableSize);
-		}
-
-		#endregion
-
-		#region Stepper And IEnumerable
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T?> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if (_table[i] is not null)
-				{
-					_table[i].Stepper(step);
-				}
-			}
-		}
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T?, StepStatus> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if (_table[i] is not null)
-				{
-					if (_table[i].Stepper(step) is Break)
-					{
-						return Break;
-					}
-				}
-			}
-			return Continue;
-		}
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <summary>Gets the enumerator for the set.</summary>
-		/// <returns>The enumerator for the set.</returns>
-		public System.Collections.Generic.IEnumerator<T?> GetEnumerator()
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if (_table[i] is not null)
-				{
-					foreach (T value in _table[i])
-					{
-						yield return value;
-					}
-				}
-			}
-		}
-
-		#endregion
-
-		#region ToArray
-
-		/// <summary>
-		/// Puts all the values in this set into an array.
-		/// <para>Runtime: Θ(n)</para>
-		/// </summary>
-		/// <returns>An array with all the values in the set.</returns>
-		public T?[] ToArray()
-		{
-			T?[] array = new T[_count];
-			int index = 0;
-			for (int i = 0; i < _table.Length; i++)
-			{
-				if (_table[i] is not null)
-				{
-					_table[i].Stepper(x => array[index++] = x);
-				}
-			}
-			return array;
-		}
-
-		#endregion
 
 		#endregion
 	}

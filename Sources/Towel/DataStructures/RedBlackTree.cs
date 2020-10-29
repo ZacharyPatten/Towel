@@ -82,7 +82,7 @@ namespace Towel.DataStructures
 			}
 			_compare = tree._compare;
 			_count = tree._count;
-			_root = tree._root is null ? null : Clone(tree._root, null);
+			_root = Clone(tree._root, null);
 		}
 
 		#endregion

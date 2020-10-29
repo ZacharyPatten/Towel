@@ -139,16 +139,16 @@ namespace Towel
 		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
 		/// <para>- <typeparamref name="A"/> Value: The value if the parse was successful or default if not.</para>
 		/// </returns>
-		public static (bool Success, A Value) TryParse<A>(string @string) =>
+		public static (bool Success, A? Value) TryParse<A>(string @string) =>
 			(TryParseImplementation<A>.Function(@string, out A value), value);
 
 		internal static class TryParseImplementation<A>
 		{
-			internal delegate TResult TryParse<T1, T2, TResult>(T1 arg1, out T2 arg2);
+			internal delegate TResult TryParse<T1, T2, TResult>(T1 arg1, out T2? arg2);
 
-			internal static TryParse<string, A, bool> Function = (string @string, out A value) =>
+			internal static TryParse<string, A, bool> Function = (string @string, out A? value) =>
 			{
-				static bool Fail(string @string, out A value)
+				static bool Fail(string @string, out A? value)
 				{
 					value = default;
 					return false;
@@ -180,7 +180,7 @@ namespace Towel
 				}
 				else
 				{
-					MethodInfo methodInfo = Meta.GetTryParseMethod<A>();
+					MethodInfo? methodInfo = Meta.GetTryParseMethod<A>();
 					Function = methodInfo is null
 						? Fail
 						: methodInfo.CreateDelegate<TryParse<string, A, bool>>();
@@ -197,7 +197,11 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the hash operation.</typeparam>
 		/// <param name="value">The item to get the hash code of.</param>
 		/// <returns>The computed hash code using the base GetHashCode instance method.</returns>
-		public static int DefaultHash<T>(T value) => value.GetHashCode();
+		public static int DefaultHash<T>(T value)
+		{
+			_ = value ?? throw new ArgumentNullException(nameof(value));
+			return value.GetHashCode();
+		}
 
 		#endregion
 
@@ -274,6 +278,7 @@ namespace Towel
 		/// <summary>Definitions for Switch syntax.</summary>
 		public static class SwitchSyntax
 		{
+			/// <summary>Delegate with params intended to be used with the Switch syntax.</summary>
 			public delegate void ParamsAction<A, B>(params (A, B)[] values);
 
 			internal static ParamsAction<Condition<T>, Action> Do<T>(T value) =>
@@ -301,8 +306,10 @@ namespace Towel
 				}
 			}
 
+			/// <summary>Intended to be used with Switch syntax.</summary>
 			public enum Keyword
 			{
+				/// <summary>The default keyword for the the Switch syntax.</summary>
 				Default,
 			}
 
@@ -371,8 +378,8 @@ namespace Towel
 			public static Random Algorithm = new Random();
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 
-//#pragma warning disable IDE0060 // Remove unused parameter
 #pragma warning disable IDE0075 // Simplify conditional expression
+#pragma warning disable IDE0060 // Remove unused parameter
 
 			/// <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
 			/// <param name="percentage">The value of the percentage.</param>
@@ -385,8 +392,8 @@ namespace Towel
 				percentage is 0d ? false :
 				Algorithm.NextDouble() < percentage / 100d;
 
+#pragma warning restore IDE0060 // Remove unused parameter
 #pragma warning restore IDE0075 // Simplify conditional expression
-//#pragma warning restore IDE0060 // Remove unused parameter
 		}
 
 		#endregion
@@ -460,7 +467,7 @@ namespace Towel
 			/// <param name="obj">This member is not intended to be invoked.</param>
 			/// <returns>This member is not intended to be invoked.</returns>
 			[Obsolete(TowelConstants.NotIntended, true)]
-			public override bool Equals(object obj) => throw new InequalitySyntaxException();
+			public override bool Equals(object? obj) => throw new InequalitySyntaxException();
 			/// <summary>This member is not intended to be invoked.</summary>
 			/// <returns>This member is not intended to be invoked.</returns>
 			[Obsolete(TowelConstants.NotIntended, true)]
@@ -531,7 +538,7 @@ namespace Towel
 				/// <param name="obj">This member is not intended to be invoked.</param>
 				/// <returns>This member is not intended to be invoked.</returns>
 				[Obsolete(TowelConstants.NotIntended, true)]
-				public override bool Equals(object obj) => throw new InequalitySyntaxException();
+				public override bool Equals(object? obj) => throw new InequalitySyntaxException();
 				/// <summary>This member is not intended to be invoked.</summary>
 				/// <returns>This member is not intended to be invoked.</returns>
 				[Obsolete(TowelConstants.NotIntended, true)]
@@ -703,13 +710,13 @@ namespace Towel
 			/// <summary>Converts a universal quantification to a sorted <see cref="System.Collections.Generic.SortedSet{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator System.Collections.Generic.SortedSet<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.SortedSet<T>(universalQuantification.Value);
-			/// <summary>Converts a universal quantification to an <see cref="Stepper{T}"/>.</summary>
+			/// <summary>Converts a universal quantification to an Action&lt;Action&lt;T&gt;&gt;.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator Action<Action<T>>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepper();
 			/// <summary>Converts a universal quantification to an <see cref="StepperRef{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator StepperRef<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRef();
-			/// <summary>Converts a universal quantification to an <see cref="StepperBreak{T}"/>.</summary>
+			/// <summary>Converts a universal quantification to an Func&lt;Func&lt;T, StepStatus&gt;, StepStatus&gt;.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator Func<Func<T, StepStatus>, StepStatus>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperBreak();
 			/// <summary>Converts a universal quantification to an <see cref="StepperRefBreak{T}"/>.</summary>
@@ -836,7 +843,7 @@ namespace Towel
 		/// <param name="b">The second span of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T>(Span<T> a, Span<T> b, Func<T, T, bool> equate = default) =>
+		public static bool Equate<T>(Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
 			Equate<T>(0, a.Length - 1, a, b, equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
@@ -858,7 +865,7 @@ namespace Towel
 		/// <param name="b">The second span of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T>(int start, int end, Span<T> a, Span<T> b, Func<T, T, bool> equate = default) =>
+		public static bool Equate<T>(int start, int end, Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
 			Equate<T, FuncRuntime<T, T, bool>>(start, end, a, b, equate ?? Equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
@@ -1113,7 +1120,7 @@ namespace Towel
 						ParameterExpression A = Expression.Parameter(typeof(A));
 						ParameterExpression B = Expression.Parameter(typeof(B));
 
-						Expression lessThanPredicate =
+						Expression? lessThanPredicate =
 							typeof(A).IsPrimitive && typeof(B).IsPrimitive
 							? Expression.LessThan(A, B)
 							: !(Meta.GetLessThanMethod<A, B, bool>() is null)
@@ -1122,7 +1129,7 @@ namespace Towel
 									? Expression.GreaterThan(B, A)
 									: null;
 
-						Expression greaterThanPredicate =
+						Expression? greaterThanPredicate =
 							typeof(A).IsPrimitive && typeof(B).IsPrimitive
 							? Expression.GreaterThan(A, B)
 							: !(Meta.GetGreaterThanMethod<A, B, bool>() is null)
@@ -1625,8 +1632,8 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetIsIntegerMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetIsIntegerMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
@@ -1656,8 +1663,8 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetIsNonNegativeMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetIsNonNegativeMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
@@ -1685,8 +1692,8 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetIsNegativeMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetIsNegativeMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
@@ -1715,8 +1722,8 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetIsPositiveMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetIsPositiveMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
@@ -1744,8 +1751,8 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetIsEvenMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetIsEvenMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
@@ -1773,8 +1780,8 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetIsOddMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetIsOddMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
@@ -1807,8 +1814,8 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetIsPrimeMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetIsPrimeMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
@@ -2154,8 +2161,8 @@ namespace Towel
 		{
 			internal static Func<T, T> Function = a =>
 			{
-				MethodInfo methodInfo = Meta.GetFactorialMethod<T>();
-				if (!(methodInfo is null))
+				MethodInfo? methodInfo = Meta.GetFactorialMethod<T>();
+				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, T>>();
 					return Function(a);
@@ -2289,7 +2296,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate.</param>
 		/// <returns>The occurence map of the data.</returns>
-		public static IMap<int, T> Occurences<T>(Action<Action<T>> stepper, Func<T, T, bool> equate = null, Func<T, int> hash = null)
+		public static IMap<int, T> Occurences<T>(Action<Action<T>> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
 			stepper(a =>
@@ -2353,7 +2360,7 @@ namespace Towel
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
 		/// <returns>The modes of the data set.</returns>
-		public static void Mode<T>(Action<Action<T>> stepper, Action<T> step, Func<T, T, bool> equate = null, Func<T, int> hash = null)
+		public static void Mode<T>(Action<Action<T>> stepper, Action<T> step, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			int maxOccurences = -1;
 			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
@@ -3402,9 +3409,9 @@ namespace Towel
 			GetA a = default,
 			GetB b = default,
 			Equals equals = default)
-			where GetA : IFunc<int, T>
-			where GetB : IFunc<int, T>
-			where Equals : IFunc<T, T, bool>
+			where GetA : struct, IFunc<int, T>
+			where GetB : struct, IFunc<int, T>
+			where Equals : struct, IFunc<T, T, bool>
 		{
 			if (length < 0)
 			{
@@ -3439,7 +3446,7 @@ namespace Towel
 			ReadOnlySpan<T> a,
 			ReadOnlySpan<T> b,
 			Equals equals = default)
-			where Equals : IFunc<T, T, bool>
+			where Equals : struct, IFunc<T, T, bool>
 		{
 			if (a.Length != b.Length)
 			{
@@ -3477,9 +3484,9 @@ namespace Towel
 			GetA a = default,
 			GetB b = default,
 			Equals equals = default)
-			where GetA : IFunc<int, T>
-			where GetB : IFunc<int, T>
-			where Equals : IFunc<T, T, bool>
+			where GetA : struct, IFunc<int, T>
+			where GetB : struct, IFunc<int, T>
+			where Equals : struct, IFunc<T, T, bool>
 		{
 			if (a_length < 0)
 			{
@@ -3522,7 +3529,7 @@ namespace Towel
 			ReadOnlySpan<T> a,
 			ReadOnlySpan<T> b,
 			Equals equals = default)
-			where Equals : IFunc<T, T, bool>
+			where Equals : struct, IFunc<T, T, bool>
 		{
 			int LDR(
 				ReadOnlySpan<T> a,
@@ -3559,9 +3566,9 @@ namespace Towel
 			GetA a = default,
 			GetB b = default,
 			Equals equals = default)
-			where GetA : IFunc<int, T>
-			where GetB : IFunc<int, T>
-			where Equals : IFunc<T, T, bool>
+			where GetA : struct, IFunc<int, T>
+			where GetB : struct, IFunc<int, T>
+			where Equals : struct, IFunc<T, T, bool>
 		{
 			if (a_length < 0)
 			{
@@ -3615,7 +3622,7 @@ namespace Towel
 			ReadOnlySpan<T> a,
 			ReadOnlySpan<T> b,
 			Equals equals = default)
-			where Equals : IFunc<T, T, bool>
+			where Equals : struct, IFunc<T, T, bool>
 		{
 			int a_length = a.Length + 1;
 			int b_length = b.Length + 1;
@@ -3730,7 +3737,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T>(Span<T> span, Action action = default) =>
+		public static void PermuteRecursive<T>(Span<T> span, Action action) =>
 			PermuteRecursive<T, ActionRuntime, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
@@ -3739,7 +3746,7 @@ namespace Towel
 			PermuteRecursive<T, Action, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Status>(Span<T> span, Action action = default, Status status = default)
+		public static void PermuteRecursive<T, Status>(Span<T> span, Action action, Status status = default)
 			where Status : struct, IFunc<StepStatus> =>
 			PermuteRecursive<T, ActionRuntime, Status>(span, action);
 
@@ -3821,7 +3828,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T>(Span<T> span, Action action = default) =>
+		public static void PermuteIterative<T>(Span<T> span, Action action) =>
 			PermuteIterative<T, ActionRuntime, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
@@ -3830,7 +3837,7 @@ namespace Towel
 			PermuteIterative<T, Action, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Status>(Span<T> span, Action action = default, Status status = default)
+		public static void PermuteIterative<T, Status>(Span<T> span, Action action, Status status = default)
 			where Status : struct, IFunc<StepStatus> =>
 			PermuteIterative<T, ActionRuntime, Status>(span, action, status);
 
@@ -3931,7 +3938,7 @@ namespace Towel
 		#endif
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
+		public static (bool Found, int Index, T? Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
@@ -3939,7 +3946,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
+		public static (bool Found, int Index, T? Value) SearchBinary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
 			where Get : IFunc<int, T>
 			where Sift : IFunc<T, CompareResult>
 		{
@@ -3977,23 +3984,23 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult> compare = default) =>
+		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult> compare = default) =>
 			SearchBinary<T, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T>(ReadOnlySpan<T> span, Func<T, CompareResult> sift)
+		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, Func<T, CompareResult> sift)
 		{
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
 			return SearchBinary<T, FuncRuntime<T, CompareResult>>(span, sift);
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T, Compare>(ReadOnlySpan<T> span, T element, Compare compare = default)
+		public static (bool Found, int Index, T? Value) SearchBinary<T, Compare>(ReadOnlySpan<T> span, T element, Compare compare = default)
 			where Compare : IFunc<T, T, CompareResult> =>
 			SearchBinary<T, SiftFromCompareAndValue<T, Compare>>(span, new SiftFromCompareAndValue<T, Compare>(element, compare));
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
+		public static (bool Found, int Index, T? Value) SearchBinary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
 			where Sift : IFunc<T, CompareResult>
 		{
 			if (span.IsEmpty)
@@ -4096,7 +4103,7 @@ namespace Towel
 		internal abstract class BaseAlgorithmNode<AlgorithmNode, Node>
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
 		{
-			internal AlgorithmNode Previous;
+			internal AlgorithmNode? Previous;
 			internal Node Value;
 		}
 
@@ -4116,16 +4123,16 @@ namespace Towel
 		internal class PathNode<Node>
 		{
 			internal Node Value;
-			internal PathNode<Node> Next;
+			internal PathNode<Node>? Next;
 		}
 
 		internal static Action<Action<Node>> BuildPath<AlgorithmNode, Node>(BaseAlgorithmNode<AlgorithmNode, Node> node)
 			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
 		{
-			PathNode<Node> start = null;
-			for (BaseAlgorithmNode<AlgorithmNode, Node> current = node; !(current is null); current = current.Previous)
+			PathNode<Node>? start = null;
+			for (BaseAlgorithmNode<AlgorithmNode, Node>? current = node; current is not null; current = current.Previous)
 			{
-				PathNode<Node> temp = start;
+				PathNode<Node>? temp = start;
 				start = new PathNode<Node>()
 				{
 					Value = current.Value,
@@ -4134,7 +4141,7 @@ namespace Towel
 			}
 			return step =>
 			{
-				PathNode<Node> current = start;
+				PathNode<Node>? current = start;
 				while (!(current is null))
 				{
 					step(current.Value);
@@ -4189,31 +4196,31 @@ namespace Towel
 		internal static void Graph_Astar_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, goal, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
 			SearchGraph(start, graph, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchCheck<Node> check, out Numeric totalCost)
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchCheck<Node> check, out Numeric totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
 			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>, AStarPriorityCompare<Node, Numeric>>();
@@ -4273,31 +4280,31 @@ namespace Towel
 		internal static void Graph_Dijkstra_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
 			SearchGraph(start, neighbors, heuristic, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
 			SearchGraph(start, neighbors, heuristic, goal, Equate);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, neighbors, heuristic, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
 			SearchGraph(start, graph, heuristic, goal, Equate);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, graph.Neighbors, heuristic, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
 			SearchGraph(start, graph.Neighbors, heuristic, goal);
 
 		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCheck<Node> check)
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCheck<Node> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
 			IHeap<DijkstraNode<Node, Numeric>> fringe = new HeapArray<DijkstraNode<Node, Numeric>, DijkstraPriorityCompare<Node, Numeric>>();
@@ -4352,31 +4359,31 @@ namespace Towel
 		internal static void Graph_BreadthFirstSearch_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchGoal<Node> goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchGoal<Node> goal) =>
 			SearchGraph(start, neighbors, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal) =>
 			SearchGraph(start, neighbors, goal, Equate);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, neighbors, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal) =>
 			SearchGraph(start, graph, goal, Equate);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, graph.Neighbors, node => equate(node, goal));
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node>(Node start, IGraph<Node> graph, SearchGoal<Node> goal) =>
+		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, SearchGoal<Node> goal) =>
 			SearchGraph(start, graph.Neighbors, goal);
 
 		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
-		public static Action<Action<Node>> SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchCheck<Node> check)
+		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchCheck<Node> check)
 		{
 			IQueue<BreadthFirstSearch<Node>> fringe = new QueueLinked<BreadthFirstSearch<Node>>();
 
@@ -4457,7 +4464,7 @@ namespace Towel
 		internal static void SortBubble_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubble<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortBubble<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortBubble<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
@@ -4482,7 +4489,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubble<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortBubble<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortBubble<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
@@ -4516,7 +4523,7 @@ namespace Towel
 		internal static void SortSelection_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortSelection_XML"/>
-		public static void SortSelection<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortSelection<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortSelection<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortSelection_XML"/>
@@ -4543,7 +4550,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortSelection_XML"/>
-		public static void SortSelection<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortSelection<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortSelection<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortSelection_XML"/>
@@ -4579,7 +4586,7 @@ namespace Towel
 		internal static void SortInsertion_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
-		public static void SortInsertion<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortInsertion<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortInsertion<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
@@ -4601,7 +4608,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
-		public static void SortInsertion<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortInsertion<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortInsertion<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
@@ -4635,7 +4642,7 @@ namespace Towel
 		internal static void SortQuick_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortQuick_XML"/>
-		public static void SortQuick<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortQuick<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortQuick<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortQuick_XML"/>
@@ -4682,7 +4689,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortQuick_XML"/>
-		public static void SortQuick<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortQuick<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortQuick<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortQuick_XML"/>
@@ -4735,7 +4742,7 @@ namespace Towel
 		internal static void SortMerge_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortMerge_XML"/>
-		public static void SortMerge<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortMerge<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortMerge<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
@@ -4785,7 +4792,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortMerge_XML"/>
-		public static void SortMerge<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortMerge<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortMerge<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
@@ -4847,7 +4854,7 @@ namespace Towel
 		internal static void SortHeap_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortHeap_XML"/>
-		public static void SortHeap<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortHeap<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortHeap<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortHeap_XML"/>
@@ -4896,7 +4903,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortHeap_XML"/>
-		public static void SortHeap<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortHeap<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortHeap<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortHeap_XML"/>
@@ -4953,7 +4960,7 @@ namespace Towel
 		internal static void SortOddEven_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
-		public static void SortOddEven<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortOddEven<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortOddEven<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
@@ -4992,7 +4999,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
-		public static void SortOddEven<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortOddEven<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortOddEven<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
@@ -5113,11 +5120,11 @@ namespace Towel
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Shuffle_XML"/>
-		public static void Shuffle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Random random = null) =>
+		public static void Shuffle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Random? random = null) =>
 			Shuffle<T, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, get, set, random);
 
 		/// <inheritdoc cref="Shuffle_XML"/>
-		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random random = null)
+		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random? random = null)
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T> =>
 			Shuffle<T, Get, Set, RandomNextIntMinValueIntMaxValue>(start, end, get, set, random ?? new Random());
@@ -5139,7 +5146,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="Shuffle_XML"/>
-		public static void Shuffle<T>(Span<T> span, Random random = null) =>
+		public static void Shuffle<T>(Span<T> span, Random? random = null) =>
 			Shuffle<T, RandomNextIntMinValueIntMaxValue>(span, random ?? new Random());
 
 		/// <inheritdoc cref="Shuffle_XML"/>
@@ -5168,11 +5175,11 @@ namespace Towel
 		internal static void SortBogo_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null, Random random = null) =>
+		public static void SortBogo<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null, Random? random = null) =>
 			SortBogo<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set, random);
 
 		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random random = null)
+		public static void SortBogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random? random = null)
 			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T> =>
@@ -5203,11 +5210,11 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T>(Span<T> span, Func<T, T, CompareResult> compare = null, Random random = null) =>
+		public static void SortBogo<T>(Span<T> span, Func<T, T, CompareResult>? compare = null, Random? random = null) =>
 			SortBogo<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare, random ?? new Random());
 
 		/// <inheritdoc cref="SortBogo_XML"/>
-		public static void SortBogo<T, Compare>(Span<T> span, Compare compare = default, Random random = null)
+		public static void SortBogo<T, Compare>(Span<T> span, Compare compare = default, Random? random = null)
 			where Compare : struct, IFunc<T, T, CompareResult> =>
 			SortBogo<T, Compare, RandomNextIntMinValueIntMaxValue>(span, compare, random ?? new Random());
 
@@ -5243,7 +5250,7 @@ namespace Towel
 		internal static void SortSlow_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortSlow_XML"/>
-		public static void SortSlow<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortSlow<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortSlow<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortSlow_XML"/>
@@ -5274,7 +5281,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortSlow_XML"/>
-		public static void SortSlow<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortSlow<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortSlow<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortSlow_XML"/>
@@ -5309,7 +5316,7 @@ namespace Towel
 		internal static void SortGnome_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortGnome_XML"/>
-		public static void SortGnome<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortGnome<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortGnome<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortGnome_XML"/>
@@ -5337,7 +5344,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortGnome_XML"/>
-		public static void SortGnome<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortGnome<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortGnome<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortGnome_XML"/>
@@ -5369,7 +5376,7 @@ namespace Towel
 		internal static void SortComb_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortComb_XML"/>
-		public static void SortComb<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortComb<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortComb<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortComb_XML"/>
@@ -5403,7 +5410,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortComb_XML"/>
-		public static void SortComb<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortComb<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortComb<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortComb_XML"/>
@@ -5442,7 +5449,7 @@ namespace Towel
 		internal static void SortShell_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortShell_XML"/>
-		public static void SortShell<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortShell<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortShell<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortShell_XML"/>
@@ -5468,7 +5475,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortShell_XML"/>
-		public static void SortShell<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortShell<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortShell<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortShell_XML"/>
@@ -5501,7 +5508,7 @@ namespace Towel
 		internal static void SortCocktail_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
-		public static void SortCocktail<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult> compare = null) =>
+		public static void SortCocktail<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
 			SortCocktail<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
@@ -5546,7 +5553,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
-		public static void SortCocktail<T>(Span<T> span, Func<T, T, CompareResult> compare = null) =>
+		public static void SortCocktail<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
 			SortCocktail<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>

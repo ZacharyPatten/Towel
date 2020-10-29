@@ -30,7 +30,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occured if not found.</param>
 		/// <returns>True if the key was found or false if not.</returns>
-		bool TryGet(K key, out T value, out Exception? exception);
+		bool TryGet(K key, out T? value, out Exception? exception);
 		/// <summary>Sets value in the map.</summary>
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be set.</param>
@@ -41,11 +41,6 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occured if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
 		bool TryAdd(K key, T value, out Exception? exception);
-		///// <summary>Tries to remove a key-value pair from the map.</summary>
-		///// <param name="key">The key of the key-value pair to remove.</param>
-		///// <param name="exception">The exception that occurred if the removal failed.</param>
-		///// <returns>True if the key-value pair was removed. False if the key-value pair was not found.</returns>
-		//bool TryRemove(K key, out Exception exception);
 		/// <summary>Steps through all the values in the map.</summary>
 		/// <param name="step">The action to perform on all the values.</param>
 		void Stepper(StepRef<T> step);
@@ -99,7 +94,7 @@ namespace Towel.DataStructures
 		{
 			if (!map.TryAdd(key, value, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 
@@ -115,7 +110,7 @@ namespace Towel.DataStructures
 		/// <param name="default">The default value to return if the value is not found.</param>
 		/// <returns>The value if found or the defautl value.</returns>
 		public static T TryGet<T, K>(this IMap<T, K> map, K key, T @default) =>
-			map.TryGet(key, out T value, out _) ? value : @default;
+			map.TryGet(key, out T? value, out _) ? value! : @default;
 
 		/// <summary>Tries to get a value in a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
@@ -124,7 +119,7 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to get.</param>
 		/// <param name="value">The value of the provided key in the map or default.</param>
 		/// <returns>True if the key was found or false if not found.</returns>
-		public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T value) =>
+		public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T? value) =>
 			map.TryGet(key, out value, out _);
 
 		/// <summary>Gets a value in a map by key.</summary>
@@ -135,11 +130,11 @@ namespace Towel.DataStructures
 		/// <returns>The value of the provided key in the map.</returns>
 		public static T Get<T, K>(this IMap<T, K> map, K key)
 		{
-			if (!map.TryGet(key, out T value, out Exception? exception))
+			if (!map.TryGet(key, out T? value, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Get)} failed but the {nameof(exception)} is null"); ; ;
 			}
-			return value;
+			return value!;
 		}
 
 		#endregion
@@ -284,7 +279,8 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Add
+		internal int GetLocation(K key) =>
+			(_hash.Do(key) & int.MaxValue) % _table.Length;
 
 		/// <summary>
 		/// Tries to add a value to the map.
@@ -296,15 +292,12 @@ namespace Towel.DataStructures
 		/// <returns>True if the value was added or false if not.</returns>
 		public bool TryAdd(K key, T value, out Exception? exception)
 		{
-			_ = key ?? throw new ArgumentNullException(nameof(key));
-			_ = value ?? throw new ArgumentNullException(nameof(value));
-			int hashCode = _hash.Do(key);
-			int location = (hashCode & int.MaxValue) % _table.Length;
+			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
 				{
-					exception = new ArgumentException("Attempting to add a duplicate keyed value to a map.", nameof(value));
+					exception = new ArgumentException("Attempting to add a duplicate key to a map.", nameof(key));
 					return false;
 				}
 			}
@@ -330,22 +323,14 @@ namespace Towel.DataStructures
 			return true;
 		}
 
-		#endregion
-
-		#region Get
-
 		/// <summary>Tries to get a value by key.</summary>
 		/// <param name="key">The key of the value to get.</param>
 		/// <param name="value">The value if found or default.</param>
 		/// <param name="exception">The exception that occured if not found.</param>
 		/// <returns>True if the key was found or false if not.</returns>
-		public bool TryGet(K key, out T value, out Exception? exception)
+		public bool TryGet(K key, out T? value, out Exception? exception)
 		{
-			_ = key ?? throw new ArgumentNullException(nameof(key));
-
-			int hashCode = _hash.Do(key);
-			int location = (hashCode & int.MaxValue) % _table.Length;
-
+			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
@@ -355,15 +340,10 @@ namespace Towel.DataStructures
 					return true;
 				}
 			}
-
 			value = default;
 			exception = new ArgumentException("Attempting to get a value from the map that has not been added.", nameof(key));
 			return false;
 		}
-
-		#endregion
-
-		#region Set
 
 		/// <summary>
 		/// Sets value in the map.
@@ -373,10 +353,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to be set.</param>
 		public void Set(K key, T value)
 		{
-			_ = key ?? throw new ArgumentNullException(nameof(key));
-			_ = value ?? throw new ArgumentNullException(nameof(value));
-			int hashCode = _hash.Do(key);
-			int location = (hashCode & int.MaxValue) % _table.Length;
+			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
@@ -404,10 +381,6 @@ namespace Towel.DataStructures
 				}
 			}
 		}
-
-		#endregion
-
-		#region Remove
 
 		/// <summary>Tries to remove a keyed value.</summary>
 		/// <param name="key">The key of the value to remove.</param>
@@ -437,39 +410,28 @@ namespace Towel.DataStructures
 		/// <returns>True if the removal was successful for false if not.</returns>
 		public bool TryRemoveWithoutTrim(K key, out Exception? exception)
 		{
-			_ = key ?? throw new ArgumentNullException(nameof(key));
-			int hashCode = _hash.Do(key);
-			int location = (hashCode & int.MaxValue) % _table.Length;
-			if (_equate.Do(_table[location].Key, key))
+			int location = GetLocation(key);
+			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
 			{
-				_table[location] = _table[location].Next;
-				_count--;
-				exception = null;
-				return true;
-			}
-			else
-			{
-				for (Node? node = _table[location]; node.Next is not null; node = node.Next)
+				if (_equate.Do(node.Key, key))
 				{
-					if (_equate.Do(node.Next.Key, key))
+					if (previous is null)
 					{
-						node.Next = node.Next.Next;
-						_count--;
-						exception = null;
-						return true;
+						_table[location] = node.Next;
 					}
+					else
+					{
+						previous.Next = node.Next;
+					}
+					_count--;
+					exception = null;
+					return true;
 				}
-				exception = new ArgumentException("Attempting to remove a keyed value that is no in a value.", nameof(key));
-				return false;
 			}
+			exception = new ArgumentException("Attempting to remove a key that is no in a map.", nameof(key));
+			return false;
 		}
 
-		#endregion
-
-		#region Resize
-
-		/// <summary>Resizes the table.</summary>
-		/// <param name="tableSize">The desired size of the table.</param>
 		internal void Resize(int tableSize)
 		{
 			if (tableSize == _table.Length)
@@ -495,10 +457,6 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region Trim
-
 		/// <summary>
 		/// Trims the table to an appropriate size based on the current count.
 		/// <para>Runtime: O(n), Ω(1)</para>
@@ -513,20 +471,12 @@ namespace Towel.DataStructures
 			Resize(tableSize);
 		}
 
-		#endregion
-
-		#region Clone
-
 		/// <summary>
 		/// Creates a shallow clone of this map.
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this map.</returns>
 		public MapHashLinked<T, K, Equate, Hash> Clone() => new MapHashLinked<T, K, Equate, Hash>(this);
-
-		#endregion
-
-		#region Contains
 
 		/// <summary>
 		/// Determines if a value has been added to a map.
@@ -536,8 +486,7 @@ namespace Towel.DataStructures
 		/// <returns>True if the value has been added to the map or false if not.</returns>
 		public bool Contains(K key)
 		{
-			int hashCode = _hash.Do(key);
-			int location = (hashCode & int.MaxValue) % _table.Length;
+			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Do(node.Key, key))
@@ -548,10 +497,6 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		#endregion
-
-		#region Clear
-
 		/// <summary>
 		/// Removes all the values in the map.
 		/// <para>Runtime: O(1)</para>
@@ -561,10 +506,6 @@ namespace Towel.DataStructures
 			_table = new Node[2];
 			_count = 0;
 		}
-
-		#endregion
-
-		#region Stepper And IEnumerable
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step)
@@ -693,10 +634,6 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region ToArray
-
 		/// <summary>
 		/// Puts all the values in this map into an array.
 		/// <para>Runtime: Θ(n)</para>
@@ -714,8 +651,6 @@ namespace Towel.DataStructures
 			}
 			return array;
 		}
-
-		#endregion
 
 		#endregion
 	}
