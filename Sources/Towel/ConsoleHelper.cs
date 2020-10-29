@@ -66,7 +66,7 @@ namespace Towel
 			}
 			prompt ??= $"Choose an option (1-{options.Length}): ";
 			invalidMessage ??= "Invalid Input. Try Again...";
-			if (!(title is null))
+			if (title is not null)
 			{
 				Console.WriteLine(title);
 			}
@@ -94,8 +94,8 @@ namespace Towel
 		public static T GetInput<T>(
 			string? prompt = null,
 			string? invalidMessage = null,
-			Func<string, (bool Success, T Value)>? tryParse = null,
-			Predicate<T>? validation = null)
+			Func<string, (bool Success, T? Value)>? tryParse = null,
+			Predicate<T?>? validation = null)
 		{
 			if (tryParse is null && (typeof(T) != typeof(string) && !typeof(T).IsEnum && Meta.GetTryParseMethod<T>() is null))
 			{
@@ -103,11 +103,16 @@ namespace Towel
 			}
 			tryParse ??= typeof(T) == typeof(string)
 				? s => (true, (T)(object)s)
-				: (Func<string, (bool, T)>)TryParse<T>;
+				: (Func<string, (bool, T?)>)TryParse<T>;
 			validation ??= v => true;
 			GetInput:
 			Console.Write(prompt ?? $"Input a {typeof(T).Name} value: ");
-			var (success, value) = tryParse(Console.ReadLine());
+			string? readLine = Console.ReadLine();
+			if (readLine is null)
+			{
+				throw new ArgumentException($"{nameof(System)}.{nameof(Console)}.{nameof(Console.ReadLine)} returned null");
+			}
+			var (success, value) = tryParse(readLine);
 			if (!success || !validation(value))
 			{
 				Console.WriteLine(invalidMessage ?? $"Invalid input. Try again...");

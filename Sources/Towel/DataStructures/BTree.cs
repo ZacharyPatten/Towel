@@ -538,7 +538,7 @@ namespace Towel.DataStructures
 				int rightIndex = subtreeIndexInNode + 1;
 				Node rightSibling = subtreeIndexInNode < parentNode.ChildCount - 1 ? parentNode.Children[rightIndex] : null;
 
-				if (!(leftSibling is null) && leftSibling.ItemCount > _node_size - 1)
+				if (leftSibling is not null && leftSibling.ItemCount > _node_size - 1)
 				{
 					for (int i = childNode.ChildCount; i > -1; i--)
 						childNode.Items[i] = childNode.Items[i - 1];
@@ -555,7 +555,7 @@ namespace Towel.DataStructures
 						leftSibling.ChildCount--;
 					}
 				}
-				else if (!(rightSibling is null) && rightSibling.ItemCount > _node_size - 1)
+				else if (rightSibling is not null && rightSibling.ItemCount > _node_size - 1)
 				{
 					childNode.Items[childNode.ItemCount] = parentNode.Items[subtreeIndexInNode];
 					childNode.ItemCount++;
@@ -575,7 +575,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					if (!(leftSibling is null))
+					if (leftSibling is not null)
 					{
 						for (int i = childNode.ItemCount; i > 0; i--)
 							childNode.Items[i] = childNode.Items[i - 1];

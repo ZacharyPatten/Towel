@@ -234,7 +234,7 @@ namespace Towel.DataStructures
 				}
 				pathStack.Push((finalKey, finalMap, node));
 			});
-			if (!(capturedException is null))
+			if (capturedException is not null)
 			{
 				exception = capturedException;
 				return false;
@@ -628,7 +628,7 @@ namespace Towel.DataStructures
 				}
 				pathStack.Push((finalKey, finalMap, node));
 			});
-			if (!(capturedException is null))
+			if (capturedException is not null)
 			{
 				exception = capturedException;
 				return false;

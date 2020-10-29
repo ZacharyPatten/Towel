@@ -104,7 +104,7 @@ namespace Towel
 				}
 				else
 				{
-					MethodInfo tryParse;
+					MethodInfo? tryParse;
 					ConstructorInfo? constuctor;
 					if ((tryParse = Meta.GetTryParseMethod(parameterType)) is not null)
 					{

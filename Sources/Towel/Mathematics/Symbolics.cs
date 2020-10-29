@@ -3034,7 +3034,7 @@ namespace Towel.Mathematics
 					}
 					ParsableUnaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
-					if (!(operationAttribute is null))
+					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
 						{
@@ -3073,7 +3073,7 @@ namespace Towel.Mathematics
 					}
 					ParsableBinaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
-					if (!(operationAttribute is null))
+					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
 						{
@@ -3106,7 +3106,7 @@ namespace Towel.Mathematics
 					}
 					ParsableTernaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
-					if (!(operationAttribute is null))
+					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
 						{
@@ -3131,7 +3131,7 @@ namespace Towel.Mathematics
 					}
 					ParsableMultinaryOperations.Add(operationName.ToLower(), newFunction);
 					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
-					if (!(operationAttribute is null))
+					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
 						{
@@ -3155,7 +3155,7 @@ namespace Towel.Mathematics
 					//}
 					//ParsableKnownConstants.Add(knownConstant.ToLower(), newFunction);
 					KnownConstantAttribute knownConstantAttribute = type.GetCustomAttribute<KnownConstantAttribute>();
-					if (!(knownConstantAttribute is null))
+					if (knownConstantAttribute is not null)
 					{
 						foreach (string representation in knownConstantAttribute.Representations)
 						{
@@ -3237,7 +3237,7 @@ namespace Towel.Mathematics
 						}
 
 						Expression[] arguments = null;
-						if (!(methodCallExpression.Arguments is null))
+						if (methodCallExpression.Arguments is not null)
 						{
 							arguments = new Expression[methodCallExpression.Arguments.Count];
 							for (int i = 0; i < arguments.Length; i++)
@@ -3472,7 +3472,7 @@ namespace Towel.Mathematics
 							if (IsUnaryLeftOperator())// first character in the expression
 													  //currentMatch.Index == 0 ||
 													  //// nothing but white space to the left
-													  //(!(previousMatch is null) &&
+													  //(previousMatch is not null &&
 
 							//string.IsNullOrWhiteSpace(
 							//    @string.Substring(
@@ -3498,7 +3498,7 @@ namespace Towel.Mathematics
 							//// last character(s) in the expression
 							//(currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
 							//// nothing but white space until the next operator
-							//(!(nextMatch is null) &&
+							//(nextMatch is not null &&
 							//string.IsNullOrWhiteSpace(
 							//    @string.Substring(
 							//        currentMatch.Index + currentMatch.Length,
@@ -3668,7 +3668,7 @@ namespace Towel.Mathematics
 					expression *= A;
 				}
 
-				if (!(expression is null))
+				if (expression is not null)
 				{
 					return true;
 				}

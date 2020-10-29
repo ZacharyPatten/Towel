@@ -15758,6 +15758,294 @@
             <param name="stepper">The stepper to concatenate the values into a string.</param>
             <returns>The string of the concatenated chars.</returns>
         </member>
+        <member name="T:Towel.IAction">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction.Do">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IAction`1">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction`1.Do(`0)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IAction`2">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction`2.Do(`0,`1)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IAction`3">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction`3.Do(`0,`1,`2)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IAction`4">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction`4.Do(`0,`1,`2,`3)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IAction`5">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction`5.Do(`0,`1,`2,`3,`4)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IAction`6">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction`6.Do(`0,`1,`2,`3,`4,`5)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IAction`7">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IAction`7.Do(`0,`1,`2,`3,`4,`5,`6)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`1">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`1.Do">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`2">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`2.Do(`0)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`3">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`3.Do(`0,`1)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`4">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`4.Do(`0,`1,`2)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`5">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`5.Do(`0,`1,`2,`3)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`6">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`6.Do(`0,`1,`2,`3,`4)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`7">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`7.Do(`0,`1,`2,`3,`4,`5)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.IFunc`8">
+            <summary>Encapsulates a method.</summary>
+        </member>
+        <member name="M:Towel.IFunc`8.Do(`0,`1,`2,`3,`4,`5,`6)">
+            <summary>Inocation of the method.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime.Do">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime.op_Implicit(System.Action)~Towel.ActionRuntime">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime`1">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime`1._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`1.Do(`0)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`1.op_Implicit(System.Action{`0})~Towel.ActionRuntime{`0}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime`2">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime`2._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`2.Do(`0,`1)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`2.op_Implicit(System.Action{`0,`1})~Towel.ActionRuntime{`0,`1}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime`3">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime`3._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`3.Do(`0,`1,`2)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`3.op_Implicit(System.Action{`0,`1,`2})~Towel.ActionRuntime{`0,`1,`2}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime`4">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime`4._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`4.Do(`0,`1,`2,`3)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`4.op_Implicit(System.Action{`0,`1,`2,`3})~Towel.ActionRuntime{`0,`1,`2,`3}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime`5">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime`5._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`5.Do(`0,`1,`2,`3,`4)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`5.op_Implicit(System.Action{`0,`1,`2,`3,`4})~Towel.ActionRuntime{`0,`1,`2,`3,`4}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime`6">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime`6._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`6.Do(`0,`1,`2,`3,`4,`5)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`6.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5})~Towel.ActionRuntime{`0,`1,`2,`3,`4,`5}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.ActionRuntime`7">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.ActionRuntime`7._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`7.Do(`0,`1,`2,`3,`4,`5,`6)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.ActionRuntime`7.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5,`6})~Towel.ActionRuntime{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`1">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`1._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`1.Do">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`1.op_Implicit(System.Func{`0})~Towel.FuncRuntime{`0}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`2">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`2._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`2.Do(`0)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`2.op_Implicit(System.Func{`0,`1})~Towel.FuncRuntime{`0,`1}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`3">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`3._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`3.Do(`0,`1)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`3.op_Implicit(System.Func{`0,`1,`2})~Towel.FuncRuntime{`0,`1,`2}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`4">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`4._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`4.Do(`0,`1,`2)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`4.op_Implicit(System.Func{`0,`1,`2,`3})~Towel.FuncRuntime{`0,`1,`2,`3}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`5">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`5._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`5.Do(`0,`1,`2,`3)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`5.op_Implicit(System.Func{`0,`1,`2,`3,`4})~Towel.FuncRuntime{`0,`1,`2,`3,`4}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`6">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`6._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`6.Do(`0,`1,`2,`3,`4)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`6.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`7">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`7._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`7.Do(`0,`1,`2,`3,`4,`5)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`7.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
+        <member name="T:Towel.FuncRuntime`8">
+            <summary>Encapsulates a delegate.</summary>
+        </member>
+        <member name="F:Towel.FuncRuntime`8._delegate">
+            <summary>The delegate instance.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`8.Do(`0,`1,`2,`3,`4,`5,`6)">
+            <summary>Inocation of the delegate.</summary>
+        </member>
+        <member name="M:Towel.FuncRuntime`8.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6,`7})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5,`6,`7}">
+            <summary>Implicit caster from a delegate.</summary>
+        </member>
         <member name="T:Towel.Mathematics.Fraction`1">
             <summary>Represents a rational value with a numerator and a denominator.</summary>
             <typeparam name="T">The type of the numerator and denominator.</typeparam>
@@ -29767,6 +30055,36 @@
             <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
             <typeparam name="T">The generic type of the Switch condition for equality checks.</typeparam>
         </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition`1.Resolve(`0)">
+            <summary>Resolves the condition to a bool.</summary>
+        </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition`1.op_Implicit(`0)~Towel.Statics.SwitchSyntax.Condition{`0}">
+            <summary>Casts a <typeparamref name="T"/> to a bool using an equality check.</summary>
+        </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition`1.op_Implicit(System.Boolean)~Towel.Statics.SwitchSyntax.Condition{`0}">
+            <summary>Uses the bool as the condition result.</summary>
+        </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition`1.op_Implicit(Towel.Statics.SwitchSyntax.Keyword)~Towel.Statics.SwitchSyntax.Condition{`0}">
+            <summary>Converts a keyword to a condition result (for "Default" case).</summary>
+        </member>
+        <member name="F:Towel.Statics.SwitchSyntax.Value`1.A">
+            <summary>The value of this condition for an equality check.</summary>
+        </member>
+        <member name="T:Towel.Statics.SwitchSyntax.Condition">
+            <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
+        </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition.Resolve">
+            <summary>Resolves the condition to a bool.</summary>
+        </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition.op_Implicit(System.Boolean)~Towel.Statics.SwitchSyntax.Condition">
+            <summary>Uses the bool as the condition result.</summary>
+        </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition.op_Implicit(Towel.Statics.SwitchSyntax.Keyword)~Towel.Statics.SwitchSyntax.Condition">
+            <summary>Converts a keyword to a condition result (for "Default" case).</summary>
+        </member>
+        <member name="M:Towel.Statics.SwitchSyntax.Condition.op_Implicit(Towel.Statics.SwitchSyntax.Condition)~System.Boolean">
+            <summary>Converts a condition to a bool using the Resolve method.</summary>
+        </member>
         <member name="P:Towel.Statics.Chance">
             <summary>Allows chance syntax with "using static Towel.Syntax;".</summary>
             <example>25% Chance</example>
@@ -29938,6 +30256,27 @@
         <member name="M:Towel.Statics.UniversalQuantification`1.Add(`0)">
             <summary>Adds an item to this universal quantifier.</summary>
             <param name="item">The item to add to this universal quantifier.</param>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.Clear">
+            <summary>Not intended to be invoked directly.</summary>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.Contains(`0)">
+            <summary>Not intended to be invoked directly.</summary>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.CopyTo(`0[],System.Int32)">
+            <summary>Not intended to be invoked directly.</summary>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.IndexOf(`0)">
+            <summary>Not intended to be invoked directly.</summary>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.Insert(System.Int32,`0)">
+            <summary>Not intended to be invoked directly.</summary>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.Remove(`0)">
+            <summary>Not intended to be invoked directly.</summary>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.RemoveAt(System.Int32)">
+            <summary>Not intended to be invoked directly.</summary>
         </member>
         <member name="M:Towel.Statics.UniversalQuantification`1.GetEnumerator">
             <summary>Gets the <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</summary>
@@ -31691,6 +32030,15 @@
         <member name="M:Towel.Statics.StepStatusContinue.Do">
             <summary>Returns <see cref="F:Towel.StepStatus.Continue"/>.</summary>
             <returns><see cref="F:Towel.StepStatus.Continue"/></returns>
+        </member>
+        <member name="T:Towel.Statics.RandomNextIntMinValueIntMaxValue">
+            <summary>Struct wrapper for the <see cref="M:System.Random.Next(System.Int32,System.Int32)"/> method as an <see cref="T:Towel.IFunc`3"/>.</summary>
+        </member>
+        <member name="M:Towel.Statics.RandomNextIntMinValueIntMaxValue.Do(System.Int32,System.Int32)">
+            <inheritdoc cref="M:System.Random.Next(System.Int32,System.Int32)"/>
+        </member>
+        <member name="M:Towel.Statics.RandomNextIntMinValueIntMaxValue.op_Implicit(System.Random)~Towel.Statics.RandomNextIntMinValueIntMaxValue">
+            <summary>Casts a <see cref="T:System.Random"/> to a struct wrapper.</summary>
         </member>
         <member name="T:Towel.StepStatus">
             <summary>Status of iteration.</summary>

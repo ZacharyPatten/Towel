@@ -317,16 +317,27 @@ namespace Towel
 			/// <typeparam name="T">The generic type of the Switch condition for equality checks.</typeparam>
 			public abstract class Condition<T>
 			{
+				/// <summary>Resolves the condition to a bool.</summary>
 				public abstract bool Resolve(T b);
-				public static implicit operator Condition<T>(T value) => new Value<T> { A = value, };
+				/// <summary>Casts a <typeparamref name="T"/> to a bool using an equality check.</summary>
+				public static implicit operator Condition<T>(T value) => new Value<T>(a: value);
+				/// <summary>Uses the bool as the condition result.</summary>
 				public static implicit operator Condition<T>(bool result) => new Bool<T> { Result = result, };
+				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
+#pragma warning disable IDE0060 // Remove unused parameter
 				public static implicit operator Condition<T>(Keyword keyword) => new Default<T>();
+#pragma warning restore IDE0060 // Remove unused parameter
 			}
 
 			internal class Value<T> : Condition<T>
 			{
+				/// <summary>The value of this condition for an equality check.</summary>
 				internal T A;
-				public override bool Resolve(T b) => A.Equals(b);
+				public override bool Resolve(T b) => Equate(A, b);
+				public Value(T a)
+				{
+					A = a;
+				}
 			}
 
 			internal class Bool<T> : Condition<T>
@@ -340,13 +351,18 @@ namespace Towel
 				public override bool Resolve(T b) => true;
 			}
 
+			/// <summary>Represents the result of a conditional expression inside Switch syntax.</summary>
 			public abstract class Condition
 			{
+				/// <summary>Resolves the condition to a bool.</summary>
 				public abstract bool Resolve();
+				/// <summary>Uses the bool as the condition result.</summary>
 				public static implicit operator Condition(bool result) => new Bool { Result = result, };
 //#pragma warning disable IDE0060 // Remove unused parameter
+				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
 				public static implicit operator Condition(Keyword keyword) => new Default();
 //#pragma warning restore IDE0060 // Remove unused parameter
+				/// <summary>Converts a condition to a bool using the Resolve method.</summary>
 				public static implicit operator bool(Condition condition) => condition.Resolve();
 			}
 
@@ -366,6 +382,11 @@ namespace Towel
 
 		#region Chance
 
+#pragma warning disable CA2211 // Non-constant fields should not be visible
+#pragma warning disable IDE0079 // Remove unnecessary suppression
+#pragma warning disable IDE0075 // Simplify conditional expression
+#pragma warning disable IDE0060 // Remove unused parameter
+
 		/// <summary>Allows chance syntax with "using static Towel.Syntax;".</summary>
 		/// <example>25% Chance</example>
 		public static ChanceSyntax Chance => default;
@@ -374,12 +395,7 @@ namespace Towel
 		public struct ChanceSyntax
 		{
 			/// <summary>The random algorithm currently being used by chance syntax.</summary>
-#pragma warning disable CA2211 // Non-constant fields should not be visible
 			public static Random Algorithm = new Random();
-#pragma warning restore CA2211 // Non-constant fields should not be visible
-
-#pragma warning disable IDE0075 // Simplify conditional expression
-#pragma warning disable IDE0060 // Remove unused parameter
 
 			/// <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
 			/// <param name="percentage">The value of the percentage.</param>
@@ -391,10 +407,12 @@ namespace Towel
 				percentage is 100d ? true :
 				percentage is 0d ? false :
 				Algorithm.NextDouble() < percentage / 100d;
+		}
 
 #pragma warning restore IDE0060 // Remove unused parameter
 #pragma warning restore IDE0075 // Simplify conditional expression
-		}
+#pragma warning restore IDE0079 // Remove unnecessary suppression
+#pragma warning restore CA2211 // Non-constant fields should not be visible
 
 		#endregion
 
@@ -607,15 +625,20 @@ namespace Towel
 				newValue[Value.Length] = item;
 				Value = newValue;
 			}
+			/// <summary>Not intended to be invoked directly.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public void Clear() => Value = Array.Empty<T>();
+			/// <summary>Not intended to be invoked directly.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public bool Contains(T item) => Value.Contains(item);
+			/// <summary>Not intended to be invoked directly.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public void CopyTo(T[] array, int arrayIndex) =>
 				Array.Copy(Value, 0, array, arrayIndex, Value.Length);
+			/// <summary>Not intended to be invoked directly.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public int IndexOf(T item) => Array.IndexOf(Value, item);
+			/// <summary>Not intended to be invoked directly.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public void Insert(int index, T item)
 			{
@@ -630,6 +653,7 @@ namespace Towel
 				}
 				Value = newValue;
 			}
+			/// <summary>Not intended to be invoked directly.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public bool Remove(T item)
 			{
@@ -637,7 +661,7 @@ namespace Towel
 				bool found = false;
 				for (int i = 0; i < Value.Length; i++)
 				{
-					if (Value[i].Equals(item))
+					if (Equate(Value[i], item))
 					{
 						found = true;
 					}
@@ -657,6 +681,7 @@ namespace Towel
 				Value = newValue;
 				return true;
 			}
+			/// <summary>Not intended to be invoked directly.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public void RemoveAt(int index)
 			{
@@ -1123,18 +1148,18 @@ namespace Towel
 						Expression? lessThanPredicate =
 							typeof(A).IsPrimitive && typeof(B).IsPrimitive
 							? Expression.LessThan(A, B)
-							: !(Meta.GetLessThanMethod<A, B, bool>() is null)
+							: Meta.GetLessThanMethod<A, B, bool>() is not null
 								? Expression.LessThan(A, B)
-								: !(Meta.GetGreaterThanMethod<B, A, bool>() is null)
+								: Meta.GetGreaterThanMethod<B, A, bool>() is not null
 									? Expression.GreaterThan(B, A)
 									: null;
 
 						Expression? greaterThanPredicate =
 							typeof(A).IsPrimitive && typeof(B).IsPrimitive
 							? Expression.GreaterThan(A, B)
-							: !(Meta.GetGreaterThanMethod<A, B, bool>() is null)
+							: Meta.GetGreaterThanMethod<A, B, bool>() is not null
 								? Expression.GreaterThan(A, B)
-								: !(Meta.GetLessThanMethod<B, A, bool>() is null)
+								: Meta.GetLessThanMethod<B, A, bool>() is not null
 									? Expression.LessThan(B, A)
 									: null;
 
@@ -1497,29 +1522,33 @@ namespace Towel
 				{
 					ParameterExpression A = Expression.Parameter(typeof(T));
 					ParameterExpression B = Expression.Parameter(typeof(T));
-					Expression BODY = Expression.Convert(Expression.Call(typeof(Math).GetMethod(nameof(Math.Pow)), Expression.Convert(A, typeof(double)), Expression.Convert(B, typeof(double))), typeof(T));
-					Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				}
-				else
-				{
-					Function = (A, B) =>
+					MethodInfo? Math_Pow = typeof(Math).GetMethod(nameof(Math.Pow));
+					if (Math_Pow is not null)
 					{
-						if (IsInteger(B) && IsPositive(B))
-						{
-							T result = A;
-							int power = Convert<T, int>(B);
-							for (int i = 0; i < power; i++)
-							{
-								result = Multiplication(result, A);
-							}
-							return result;
-						}
-						else
-						{
-							throw new NotImplementedException("This feature is still in development.");
-						}
-					};
+						Expression BODY = Expression.Convert(Expression.Call(Math_Pow, Expression.Convert(A, typeof(double)), Expression.Convert(B, typeof(double))), typeof(T));
+						Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
+						return Function(a, b);
+					}
 				}
+				
+				Function = (A, B) =>
+				{
+					if (IsInteger(B) && IsPositive(B) && LessThan(B, Convert<int, T>(int.MaxValue)))
+					{
+						T result = A;
+						int power = Convert<T, int>(B);
+						for (int i = 0; i < power; i++)
+						{
+							result = Multiplication(result, A);
+						}
+						return result;
+					}
+					else
+					{
+						throw new NotImplementedException("This feature is still in development.");
+					}
+				};
+
 				return Function(a, b);
 			};
 		}
@@ -2128,13 +2157,13 @@ namespace Towel
 				GreaterThan(x, x1) ||
 				LessThan(x, x0))
 			{
-				throw new MathematicsException("Arguments out of range !(" + nameof(x0) + " <= " + nameof(x) + " <= " + nameof(x1) + ") [" + x0 + " <= " + x + " <= " + x1 + "].");
+				throw new MathematicsException($"!({nameof(x0)}[{x0}] <= {nameof(x)}[{x}] <= {nameof(x1)}[{x1}])");
 			}
 			if (Equate(x0, x1))
 			{
 				if (Inequate(y0, y1))
 				{
-					throw new MathematicsException("Arguments out of range (" + nameof(x0) + " == " + nameof(x1) + ") but !(" + nameof(y0) + " != " + nameof(y1) + ") [" + y0 + " != " + y1 + "].");
+					throw new MathematicsException($"{nameof(x0)}[{x0}] == {nameof(x1)}[{x1}] && {nameof(y0)}[{y0}] != {nameof(y1)}[{y1}]");
 				}
 				else
 				{
@@ -2172,11 +2201,11 @@ namespace Towel
 				{
 					if (!IsInteger(A))
 					{
-						throw new ArgumentOutOfRangeException(nameof(A), A, "!" + nameof(A) + "." + nameof(IsInteger));
+						throw new ArgumentOutOfRangeException(nameof(A), A, $"!{nameof(A)}[{A}].{nameof(IsInteger)}()");
 					}
 					if (LessThan(A, Constant<T>.Zero))
 					{
-						throw new ArgumentOutOfRangeException(nameof(A), A, "!(" + nameof(A) + " >= 0)");
+						throw new ArgumentOutOfRangeException(nameof(A), A, $"!({nameof(A)}[{A}] >= 0)");
 					}
 					T result = Constant<T>.One;
 					for (; GreaterThan(A, Constant<T>.One); A = Subtraction(A, Constant<T>.One))
@@ -2200,7 +2229,7 @@ namespace Towel
 		{
 			if (!IsInteger(N))
 			{
-				throw new ArgumentOutOfRangeException(nameof(N), N, "!(" + nameof(N) + "." + nameof(IsInteger) + ")");
+				throw new ArgumentOutOfRangeException(nameof(N), N, $"!({nameof(N)}.{nameof(IsInteger)})");
 			}
 			T result = Factorial(N);
 			T sum = Constant<T>.Zero;
@@ -2481,7 +2510,7 @@ namespace Towel
 		//public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
 		//{
 		//    // this is an optimized median algorithm, but it only works on odd sets without duplicates
-		//    if (!(hash is null) && !(equate is null) && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
+		//    if (hash is not null && equate is not null && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
 		//    {
 		//        int medianIndex = 0;
 		//        OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
@@ -2774,9 +2803,13 @@ namespace Towel
 				if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
 				{
 					ParameterExpression A = Expression.Parameter(typeof(T));
-					Expression BODY = Expression.Call(typeof(Math).GetMethod("Log"), A);
-					Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
-					return Function(a);
+					MethodInfo? Math_Log = typeof(Math).GetMethod("Log");
+					if (Math_Log is not null)
+					{
+						Expression BODY = Expression.Call(Math_Log, A);
+						Function = Expression.Lambda<Func<T, T>>(BODY, A).Compile();
+						return Function(a);
+					}
 				}
 				throw new NotImplementedException();
 			};
@@ -2793,7 +2826,7 @@ namespace Towel
 		/// <param name="a">The angle to compute the sine ratio of.</param>
 		/// <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
 		/// <returns>The taylor series computed sine ratio of the provided angle.</returns>
-		public static T SineTaylorSeries<T>(Angle<T> a, Predicate<T> predicate = null)
+		public static T SineTaylorSeries<T>(Angle<T> a, Predicate<T>? predicate = null)
 		{
 			// Series: sine(x) = x - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!) + (x^9 / 9!) + ...
 			// more terms in computation inproves accuracy
@@ -3947,8 +3980,8 @@ namespace Towel
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
-			where Get : IFunc<int, T>
-			where Sift : IFunc<T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Sift : struct, IFunc<T, CompareResult>
 		{
 			if (length <= 0)
 			{
@@ -3984,7 +4017,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult> compare = default) =>
+		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult>? compare = default) =>
 			SearchBinary<T, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
@@ -3996,12 +4029,12 @@ namespace Towel
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T, Compare>(ReadOnlySpan<T> span, T element, Compare compare = default)
-			where Compare : IFunc<T, T, CompareResult> =>
+			where Compare : struct, IFunc<T, T, CompareResult> =>
 			SearchBinary<T, SiftFromCompareAndValue<T, Compare>>(span, new SiftFromCompareAndValue<T, Compare>(element, compare));
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
-			where Sift : IFunc<T, CompareResult>
+			where Sift : struct, IFunc<T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -4105,25 +4138,54 @@ namespace Towel
 		{
 			internal AlgorithmNode? Previous;
 			internal Node Value;
+
+			internal BaseAlgorithmNode(Node value, AlgorithmNode? previous = null)
+			{
+				Value = value;
+				Previous = previous;
+			}
 		}
 
-		internal class BreadthFirstSearch<Node> : BaseAlgorithmNode<BreadthFirstSearch<Node>, Node> { }
+		internal class BreadthFirstSearch<Node> : BaseAlgorithmNode<BreadthFirstSearch<Node>, Node>
+		{
+			internal BreadthFirstSearch(Node value, BreadthFirstSearch<Node>? previous = null)
+				: base(value: value, previous: previous) { }
+		}
 
 		internal class DijkstraNode<Node, Numeric> : BaseAlgorithmNode<DijkstraNode<Node, Numeric>, Node>
 		{
 			internal Numeric Priority;
+
+			internal DijkstraNode(Node value, Numeric priority, DijkstraNode<Node, Numeric>? previous = null)
+				: base(value: value, previous: previous)
+			{
+				Priority = priority;
+			}
 		}
 
 		internal class AstarNode<Node, Numeric> : BaseAlgorithmNode<AstarNode<Node, Numeric>, Node>
 		{
 			internal Numeric Priority;
 			internal Numeric Cost;
+
+			internal AstarNode(Node value, Numeric priority, Numeric cost, AstarNode<Node, Numeric>? previous = null)
+				: base(value: value, previous: previous)
+			{
+				Priority = priority;
+				Cost = cost;
+			}
 		}
 
 		internal class PathNode<Node>
 		{
 			internal Node Value;
 			internal PathNode<Node>? Next;
+
+			internal PathNode(Node value, PathNode<Node>? next = null)
+			{
+				Value = value;
+				Next = next;
+			}
 		}
 
 		internal static Action<Action<Node>> BuildPath<AlgorithmNode, Node>(BaseAlgorithmNode<AlgorithmNode, Node> node)
@@ -4133,16 +4195,14 @@ namespace Towel
 			for (BaseAlgorithmNode<AlgorithmNode, Node>? current = node; current is not null; current = current.Previous)
 			{
 				PathNode<Node>? temp = start;
-				start = new PathNode<Node>()
-				{
-					Value = current.Value,
-					Next = temp,
-				};
+				start = new PathNode<Node>(
+					value: current.Value,
+					next: temp);
 			}
 			return step =>
 			{
 				PathNode<Node>? current = start;
-				while (!(current is null))
+				while (current is not null)
 				{
 					step(current.Value);
 					current = current.Next;
@@ -4196,44 +4256,42 @@ namespace Towel
 		internal static void Graph_Astar_XML() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric? totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, goal, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric? totalCost) =>
 			SearchGraph(start, graph, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric totalCost) =>
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric? totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="Graph_Astar_XML"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchCheck<Node> check, out Numeric totalCost)
+		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchCheck<Node> check, out Numeric? totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
 			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>, AStarPriorityCompare<Node, Numeric>>();
 
 			// push starting node
 			fringe.Enqueue(
-				new AstarNode<Node, Numeric>()
-				{
-					Previous = null,
-					Value = start,
-					Priority = default,
-					Cost = Constant<Numeric>.Zero,
-				});
+				new AstarNode<Node, Numeric>(
+					value: start,
+					priority: Constant<Numeric>.Zero,
+					cost: Constant<Numeric>.Zero,
+					previous: null));
 
 			// run the algorithm
 			while (fringe.Count != 0)
@@ -4256,13 +4314,11 @@ namespace Towel
 						{
 							Numeric costValue = Addition(current.Cost, cost(current.Value, neighbor));
 							fringe.Enqueue(
-								new AstarNode<Node, Numeric>()
-								{
-									Previous = current,
-									Value = neighbor,
-									Priority = Addition(heuristic(neighbor), costValue),
-									Cost = costValue,
-								});
+								new AstarNode<Node, Numeric>(
+									value: neighbor,
+									priority: Addition(heuristic(neighbor), costValue),
+									cost: costValue,
+									previous: current));
 						});
 				}
 			}
@@ -4311,12 +4367,10 @@ namespace Towel
 
 			// push starting node
 			fringe.Enqueue(
-				new DijkstraNode<Node, Numeric>()
-				{
-					Previous = null,
-					Value = start,
-					Priority = default,
-				});
+				new DijkstraNode<Node, Numeric>(
+					value: start,
+					priority: Constant<Numeric>.Zero,
+					previous: null));
 
 			// run the algorithm
 			while (fringe.Count != 0)
@@ -4337,12 +4391,10 @@ namespace Towel
 						neighbor =>
 						{
 							fringe.Enqueue(
-								new DijkstraNode<Node, Numeric>()
-								{
-									Previous = current,
-									Value = neighbor,
-									Priority = heuristic(neighbor),
-								});
+								new DijkstraNode<Node, Numeric>(
+									value: neighbor,
+									priority: heuristic(neighbor),
+									previous: current));
 						});
 				}
 			}
@@ -4389,11 +4441,9 @@ namespace Towel
 
 			// push starting node
 			fringe.Enqueue(
-				new BreadthFirstSearch<Node>()
-				{
-					Previous = null,
-					Value = start,
-				});
+				new BreadthFirstSearch<Node>(
+					value: start,
+					previous: null));
 
 			// run the algorithm
 			while (fringe.Count != 0)
@@ -4414,11 +4464,9 @@ namespace Towel
 						neighbor =>
 						{
 							fringe.Enqueue(
-								new BreadthFirstSearch<Node>()
-								{
-									Previous = current,
-									Value = neighbor,
-								});
+								new BreadthFirstSearch<Node>(
+									value: neighbor,
+									previous: current));
 						});
 				}
 			}
@@ -5655,7 +5703,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
 			// Algorithm B: O(.5*count^2), Ω(count), ε(.5*count^2)
-			Node head = null;
+			Node? head = null;
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
 				int roll = random.Do(minValue, maxValue - i);
@@ -5663,9 +5711,9 @@ namespace Towel
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
-				Node node = head;
-				Node previous = null;
-				while (!(node is null) && !(node.Value > roll)) // O(count / 2), Ω(0), ε(count / 2)
+				Node? node = head;
+				Node? previous = null;
+				while (node is not null && node.Value <= roll) // O(count / 2), Ω(0), ε(count / 2)
 				{
 					roll++;
 					previous = node;
@@ -5685,7 +5733,7 @@ namespace Towel
 		internal class Node
 		{
 			internal int Value;
-			internal Node Next;
+			internal Node? Next;
 		}
 
 		/// <summary>
@@ -5783,7 +5831,7 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T>(int start, int end, Func<int, T> get, Func<T, T, bool> equate = default) =>
+		public static bool IsPalindrome<T>(int start, int end, Func<int, T> get, Func<T, T, bool>? equate = default) =>
 			IsPalindrome<T, FuncRuntime<int, T> , FuncRuntime<T, T, bool>>(start, end, get, equate ?? Equate);
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
@@ -5794,7 +5842,7 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, Get>(int start, int end, Get get = default, Func<T, T, bool> equate = default)
+		public static bool IsPalindrome<T, Get>(int start, int end, Get get = default, Func<T, T, bool>? equate = default)
 			where Get : struct, IFunc<int, T> =>
 			IsPalindrome<T, Get, FuncRuntime<T, T, bool>>(start, end, get, equate ?? Equate);
 
@@ -5833,7 +5881,7 @@ namespace Towel
 		/// <param name="span">The span to check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T>(ReadOnlySpan<T> span, Func<T, T, bool> equate = default) =>
+		public static bool IsPalindrome<T>(ReadOnlySpan<T> span, Func<T, T, bool>? equate = default) =>
 			IsPalindrome<T, FuncRuntime<T, T, bool>>(span, equate ?? Equate);
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
@@ -5865,6 +5913,7 @@ namespace Towel
 #pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
+#pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
 		/// <param name="a">The first sequence to determine if <paramref name="c"/> is interleaved of.</param>
@@ -5903,6 +5952,7 @@ namespace Towel
 		/// <inheritdoc cref="IsInterleaved_XML"/>
 		internal static void IsInterleavedIterative_XML() => throw new DocumentationMethodException();
 
+#pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 #pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -5910,7 +5960,7 @@ namespace Towel
 		#endregion
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
-		public static bool IsInterleavedRecursive<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool> equate = default) =>
+		public static bool IsInterleavedRecursive<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool>? equate = default) =>
 			IsInterleavedRecursive<T, FuncRuntime<T, T, bool>>(a, b, c, equate ?? Equate);
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
@@ -5919,7 +5969,7 @@ namespace Towel
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
 		public static bool IsInterleavedRecursive<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
-			where Equate : IFunc<T, T, bool>
+			where Equate : struct, IFunc<T, T, bool>
 		{
 			if (a.Length + b.Length != c.Length)
 			{
@@ -5940,7 +5990,7 @@ namespace Towel
 		}
 
 		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
-		public static bool IsInterleavedIterative<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool> equate = default) =>
+		public static bool IsInterleavedIterative<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool>? equate = default) =>
 			IsInterleavedIterative<T, FuncRuntime<T, T, bool>>(a, b, c, equate ?? Equate);
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
@@ -5949,7 +5999,7 @@ namespace Towel
 
 		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
 		public static bool IsInterleavedIterative<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
-			where Equate : IFunc<T, T, bool>
+			where Equate : struct, IFunc<T, T, bool>
 		{
 			if (a.Length + b.Length != c.Length)
 			{
@@ -6037,7 +6087,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the values to compare.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
 		public struct SiftFromCompareAndValue<T, Compare> : IFunc<T, CompareResult>
-			where Compare : IFunc<T, T, CompareResult>
+			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			internal Compare CompareFunction;
 			internal T Value;
@@ -6063,13 +6113,14 @@ namespace Towel
 			public StepStatus Do() => Continue;
 		}
 
+		/// <summary>Struct wrapper for the <see cref="Random.Next(int, int)"/> method as an <see cref="IFunc{T1, T2, TResult}"/>.</summary>
 		public struct RandomNextIntMinValueIntMaxValue : IFunc<int, int, int>
 		{
 			internal Random _random;
-			public int Do(int a, int b) => _random.Next(a, b);
-
-			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) =>
-				new RandomNextIntMinValueIntMaxValue() { _random = random, };
+			/// <inheritdoc cref="Random.Next(int, int)"/>
+			public int Do(int minValue, int maxValue) => _random.Next(minValue, maxValue);
+			/// <summary>Casts a <see cref="Random"/> to a struct wrapper.</summary>
+			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) => new RandomNextIntMinValueIntMaxValue() { _random = random, };
 		}
 
 		#endregion

@@ -408,7 +408,7 @@ namespace Towel
 		/// <summary>Computes the value of pi for the provided generic type.</summary>
 		/// <param name="predicate">The cancellation token for cutting off computation.</param>
 		/// <returns>The computed value of pi.</returns>
-		public static T ComputePi(Predicate<T> predicate = null)
+		public static T ComputePi(Predicate<T>? predicate = null)
 		{
 			// Series: PI = 2 * (1 + 1/3 * (1 + 2/5 * (1 + 3/7 * (...))))
 			// more terms in computation inproves accuracy

@@ -371,7 +371,7 @@ namespace Towel.DataStructures
 				x = temp.RightChild;
 			}
 			x.Parent = temp.Parent;
-			if (!(temp.Parent is null))
+			if (temp.Parent is not null)
 			{
 				if (temp == temp.Parent.LeftChild)
 				{
@@ -659,7 +659,7 @@ namespace Towel.DataStructures
 		{
 			Node? GetNextNode(Node current)
 			{
-				if (!(current.RightChild is null) && current.RightChild != _sentinelNode)
+				if (current.RightChild is not null && current.RightChild != _sentinelNode)
 				{
 					return GetLeftMostNode(current.RightChild);
 				}
@@ -745,7 +745,7 @@ namespace Towel.DataStructures
 				temp.LeftChild.Parent = redBlackTree;
 			if (temp != _sentinelNode)
 				temp.Parent = redBlackTree.Parent;
-			if (!(redBlackTree.Parent is null))
+			if (redBlackTree.Parent is not null)
 			{
 				if (redBlackTree == redBlackTree.Parent.LeftChild)
 					redBlackTree.Parent.LeftChild = temp;
@@ -767,7 +767,7 @@ namespace Towel.DataStructures
 				temp.RightChild.Parent = redBlacktree;
 			if (temp != _sentinelNode)
 				temp.Parent = redBlacktree.Parent;
-			if (!(redBlacktree.Parent is null))
+			if (redBlacktree.Parent is not null)
 			{
 				if (redBlacktree == redBlacktree.Parent.RightChild)
 					redBlacktree.Parent.RightChild = temp;
@@ -854,7 +854,7 @@ namespace Towel.DataStructures
 
 		internal Node GetLeftMostNode(Node node)
 		{
-			while (!(node.LeftChild is null) && node.LeftChild != _sentinelNode)
+			while (node.LeftChild is not null && node.LeftChild != _sentinelNode)
 			{
 				node = node.LeftChild;
 			}

@@ -43,6 +43,11 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Link.tt</DependentUpon>
 		</Compile>
+		<Compile Update="Functional.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Functional.tt</DependentUpon>
+		</Compile>
 		<None Update="DataStructures\Omnitree.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>Omnitree.cs</LastGenOutput>

@@ -157,7 +157,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Action<T> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				step(current.Value);
 			}
@@ -167,7 +167,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(StepRef<T> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				step(ref current.Value);
 			}
@@ -178,7 +178,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				if (step(current.Value) is Break)
 				{
@@ -193,7 +193,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				if (step(ref current.Value) is Break)
 				{
@@ -209,7 +209,7 @@ namespace Towel.DataStructures
 		/// <returns>The enumerator for this dequeue.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				yield return current.Value;
 			}

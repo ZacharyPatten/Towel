@@ -173,7 +173,7 @@ namespace Towel.Measurements
 				string matchValue = match.Value;
 				if (matchValue.Equals("*") || matchValue.Equals("/"))
 				{
-					if (!(numerator is null))
+					if (numerator is not null)
 					{
 						measurement = default;
 						return false;
@@ -193,7 +193,7 @@ namespace Towel.Measurements
 				}
 				if (!AtLeastOneUnit)
 				{
-					if (!(numerator is null))
+					if (numerator is not null)
 					{
 						measurement = default;
 						return false;
@@ -222,7 +222,7 @@ namespace Towel.Measurements
 				}
 				numerator = null;
 			}
-			if (!(numerator is null))
+			if (numerator is not null)
 			{
 				measurement = default;
 				return false;

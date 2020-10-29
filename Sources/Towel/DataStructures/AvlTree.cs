@@ -321,14 +321,14 @@ namespace Towel.DataStructures
 						case Less:    node.RightChild = Remove(node.RightChild); break;
 						case Greater: node.LeftChild  = Remove(node.LeftChild);  break;
 						case Equal:
-							if (!(node.RightChild is null))
+							if (node.RightChild is not null)
 							{
 								node.RightChild = RemoveLeftMost(node.RightChild, out Node leftMostOfRight);
 								leftMostOfRight.RightChild = node.RightChild;
 								leftMostOfRight.LeftChild = node.LeftChild;
 								node = leftMostOfRight;
 							}
-							else if (!(node.LeftChild is null))
+							else if (node.LeftChild is not null)
 							{
 								node.LeftChild = RemoveRightMost(node.LeftChild, out Node rightMostOfLeft);
 								rightMostOfLeft.RightChild = node.RightChild;

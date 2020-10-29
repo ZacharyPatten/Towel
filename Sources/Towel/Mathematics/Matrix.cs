@@ -596,7 +596,7 @@ namespace Towel.Mathematics
 			int Length = a._matrix.Length;
 			T[] A = a._matrix;
 			T[] B;
-			if (!(b is null) && b._matrix.Length == Length)
+			if (b is not null && b._matrix.Length == Length)
 			{
 				B = b._matrix;
 				b._rows = a._rows;
@@ -667,7 +667,7 @@ namespace Towel.Mathematics
 			T[] A = a._matrix;
 			T[] B = b._matrix;
 			T[] C;
-			if (!(c is null) && c._matrix.Length == Length)
+			if (c is not null && c._matrix.Length == Length)
 			{
 				C = c._matrix;
 				c._rows = a._rows;
@@ -742,7 +742,7 @@ namespace Towel.Mathematics
 			T[] B = b._matrix;
 			int Length = A.Length;
 			T[] C;
-			if (!(c is null) && c._matrix.Length == Length)
+			if (c is not null && c._matrix.Length == Length)
 			{
 				C = c._matrix;
 				c._rows = a._rows;
@@ -832,7 +832,7 @@ namespace Towel.Mathematics
 			T[] A = a._matrix;
 			T[] B = b._matrix;
 			T[] C;
-			if (!(c is null) && c._matrix.Length == c_Rows * c_Columns)
+			if (c is not null && c._matrix.Length == c_Rows * c_Columns)
 			{
 				C = c._matrix;
 				c._rows = c_Rows;
@@ -917,7 +917,7 @@ namespace Towel.Mathematics
 			T[] A = a._matrix;
 			T[] B = b._vector;
 			T[] C;
-			if (!(c is null) && c.Dimensions == columns)
+			if (c is not null && c.Dimensions == columns)
 			{
 				C = c._vector;
 			}
@@ -988,7 +988,7 @@ namespace Towel.Mathematics
 			T[] A = a._matrix;
 			int Length = A.Length;
 			T[] C;
-			if (!(c is null) && c._matrix.Length == Length)
+			if (c is not null && c._matrix.Length == Length)
 			{
 				C = c._matrix;
 				c._rows = a._rows;
@@ -1073,7 +1073,7 @@ namespace Towel.Mathematics
 			T[] A = a._matrix;
 			int Length = A.Length;
 			T[] C;
-			if (!(c is null) && c._matrix.Length == Length)
+			if (c is not null && c._matrix.Length == Length)
 			{
 				C = c._matrix;
 				c._rows = a._rows;
@@ -1148,7 +1148,7 @@ namespace Towel.Mathematics
 			}
 			if (b == 0)
 			{
-				if (!(c is null) && c._matrix.Length == a._matrix.Length)
+				if (c is not null && c._matrix.Length == a._matrix.Length)
 				{
 					c._rows = a._rows;
 					c._columns = a._columns;
@@ -1160,7 +1160,7 @@ namespace Towel.Mathematics
 				}
 				return;
 			}
-			if (!(c is null) && c._matrix.Length == a._matrix.Length)
+			if (c is not null && c._matrix.Length == a._matrix.Length)
 			{
 				c._rows = a._rows;
 				c._columns = a._columns;
@@ -1560,7 +1560,7 @@ namespace Towel.Mathematics
 				a = a.Clone();
 			}
 			int Rows = a.Rows;
-			if (!(b is null) && b._matrix.Length == a._matrix.Length)
+			if (b is not null && b._matrix.Length == a._matrix.Length)
 			{
 				b._rows = Rows;
 				b._columns = a._columns;
@@ -1648,7 +1648,7 @@ namespace Towel.Mathematics
 			{
 				b = a.Clone();
 			}
-			else if (!(b is null) && b._matrix.Length == a._matrix.Length)
+			else if (b is not null && b._matrix.Length == a._matrix.Length)
 			{
 				b._rows = Rows;
 				b._columns = a._columns;
@@ -1716,7 +1716,7 @@ namespace Towel.Mathematics
 			//    a = a.Clone();
 			//}
 			//int Rows = a.Rows;
-			//if (!(b is null) && b._matrix.Length == a._matrix.Length)
+			//if (b is not null && b._matrix.Length == a._matrix.Length)
 			//{
 			//    b._rows = Rows;
 			//    b._columns = a._columns;
@@ -1819,7 +1819,7 @@ namespace Towel.Mathematics
 			{
 				b = a.Clone();
 			}
-			else if (!(b is null) && b.Length == Length)
+			else if (b is not null && b.Length == Length)
 			{
 				b._rows = dimension;
 				b._columns = dimension;
@@ -1949,7 +1949,7 @@ namespace Towel.Mathematics
 			{
 				b = a.Clone();
 			}
-			else if (!(b is null) && b.Length == Length)
+			else if (b is not null && b.Length == Length)
 			{
 				b._rows = dimension;
 				b._columns = dimension;
@@ -1991,7 +1991,7 @@ namespace Towel.Mathematics
 			//int Length = a.Length;
 			//int Rows = a.Rows;
 			//int Columns = a.Columns;
-			//if (!(b is null) && b.Length == Length)
+			//if (b is not null && b.Length == Length)
 			//{
 			//    b._rows = Rows;
 			//    b._columns = Columns;
@@ -2063,7 +2063,7 @@ namespace Towel.Mathematics
 			int Length = a.Length;
 			int Rows = a.Columns;
 			int Columns = a.Rows;
-			if (!(b is null) && b.Length == a.Length && !ReferenceEquals(a, b))
+			if (b is not null && b.Length == a.Length && !ReferenceEquals(a, b))
 			{
 				b._rows = Rows;
 				b._columns = Columns;

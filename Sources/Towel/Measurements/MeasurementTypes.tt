@@ -572,7 +572,7 @@ foreach (var aDenominator in aDenominators.ToArray())
 for (int i = 0; i < aBaseUnits.Count; i++)
 {
 	var unit = aBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, true, i + 1));
 	}
@@ -581,7 +581,7 @@ for (int i = 0; i < aBaseUnits.Count; i++)
 for (int i = 0; i < bBaseUnits.Count; i++)
 {
 	var unit = bBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, false, i + 1));
 	}
@@ -819,7 +819,7 @@ foreach (var aDenominator in aDenominators.ToArray())
 for (int i = 0; i < aBaseUnits.Count; i++)
 {
 	var unit = aBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, true, i + 1));
 	}
@@ -828,7 +828,7 @@ for (int i = 0; i < aBaseUnits.Count; i++)
 for (int i = 0; i < bBaseUnits.Count; i++)
 {
 	var unit = bBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, false, i + 1));
 	}
@@ -1258,7 +1258,7 @@ foreach (var aDenominator in aDenominators.ToArray())
 for (int i = 0; i < aBaseUnits.Count; i++)
 {
 	var unit = aBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, true, i + 1));
 	}
@@ -1267,7 +1267,7 @@ for (int i = 0; i < aBaseUnits.Count; i++)
 for (int i = 0; i < bBaseUnits.Count; i++)
 {
 	var unit = bBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, false, i + 1));
 	}
@@ -1346,7 +1346,7 @@ foreach (var aDenominator in aDenominators.ToArray())
 for (int i = 0; i < aBaseUnits.Count; i++)
 {
 	var unit = aBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, true, i + 1));
 	}
@@ -1355,7 +1355,7 @@ for (int i = 0; i < aBaseUnits.Count; i++)
 for (int i = 0; i < bBaseUnits.Count; i++)
 {
 	var unit = bBaseUnits[i];
-	if (!(unit is null))
+	if (unit is not null)
 	{
 		unitNoncollisions.Add((unit, false, i + 1));
 	}

@@ -3030,7 +3030,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -3168,7 +3168,7 @@ namespace Towel.DataStructures
 				Head = new Node(leaf.Head.Value, null);
 				Node a = Head;
 				Node b = leaf.Head;
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new Node(b.Next.Value, null);
 					a = a.Next;
@@ -3397,7 +3397,7 @@ namespace Towel.DataStructures
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -3425,7 +3425,7 @@ namespace Towel.DataStructures
 					int child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Vector<Axis1> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -3471,7 +3471,7 @@ namespace Towel.DataStructures
 			{
 				division1 = _subdivisionOverride1(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -3590,7 +3590,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -3602,7 +3602,7 @@ namespace Towel.DataStructures
 					int child_index = DetermineChildIndex(branch.PointOfDivision, new Omnitree.Vector<Axis1>(bounds.Min1.Value
 						));
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -3638,7 +3638,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -3730,7 +3730,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -3802,15 +3802,15 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (!(leaf.Head is null) && where(leaf.Head.Value))
+				while (leaf.Head is not null && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (!(leaf.Head is null))
+				if (leaf.Head is not null)
 				{
 					Leaf.Node list = leaf.Head;
-					while (!(list.Next is null))
+					while (list.Next is not null)
 					{
 						if (where(list.Next.Value))
 						{
@@ -3950,7 +3950,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
@@ -4128,7 +4128,7 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (!(list is null))
+				while (list is not null)
 				{
 					step(list.Value);
 					list = list.Next;
@@ -4151,7 +4151,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -4182,7 +4182,7 @@ namespace Towel.DataStructures
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -4216,7 +4216,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -4244,11 +4244,11 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -4271,11 +4271,11 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -4361,7 +4361,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -4402,7 +4402,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1> vector)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
+			while (node is not null && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -4560,7 +4560,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -4698,7 +4698,7 @@ namespace Towel.DataStructures
 				Head = new Node(leaf.Head.Value, null);
 				Node a = Head;
 				Node b = leaf.Head;
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new Node(b.Next.Value, null);
 					a = a.Next;
@@ -4956,7 +4956,7 @@ namespace Towel.DataStructures
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -4984,7 +4984,7 @@ namespace Towel.DataStructures
 					int child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Vector<Axis1, Axis2> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -5030,7 +5030,7 @@ namespace Towel.DataStructures
 			{
 				division1 = _subdivisionOverride1(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -5056,7 +5056,7 @@ namespace Towel.DataStructures
 			{
 				division2 = _subdivisionOverride2(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -5197,7 +5197,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -5210,7 +5210,7 @@ namespace Towel.DataStructures
 						, bounds.Min2.Value
 						));
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -5246,7 +5246,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -5344,7 +5344,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -5416,15 +5416,15 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (!(leaf.Head is null) && where(leaf.Head.Value))
+				while (leaf.Head is not null && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (!(leaf.Head is null))
+				if (leaf.Head is not null)
 				{
 					Leaf.Node list = leaf.Head;
-					while (!(list.Next is null))
+					while (list.Next is not null)
 					{
 						if (where(list.Next.Value))
 						{
@@ -5572,7 +5572,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
@@ -5754,7 +5754,7 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (!(list is null))
+				while (list is not null)
 				{
 					step(list.Value);
 					list = list.Next;
@@ -5777,7 +5777,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -5812,7 +5812,7 @@ namespace Towel.DataStructures
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -5850,7 +5850,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -5879,11 +5879,11 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -5907,11 +5907,11 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -6000,7 +6000,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -6045,7 +6045,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2> vector)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
+			while (node is not null && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -6229,7 +6229,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -6367,7 +6367,7 @@ namespace Towel.DataStructures
 				Head = new Node(leaf.Head.Value, null);
 				Node a = Head;
 				Node b = leaf.Head;
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new Node(b.Next.Value, null);
 					a = a.Next;
@@ -6654,7 +6654,7 @@ namespace Towel.DataStructures
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -6682,7 +6682,7 @@ namespace Towel.DataStructures
 					int child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Vector<Axis1, Axis2, Axis3> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -6728,7 +6728,7 @@ namespace Towel.DataStructures
 			{
 				division1 = _subdivisionOverride1(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -6755,7 +6755,7 @@ namespace Towel.DataStructures
 			{
 				division2 = _subdivisionOverride2(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -6782,7 +6782,7 @@ namespace Towel.DataStructures
 			{
 				division3 = _subdivisionOverride3(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -6945,7 +6945,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -6959,7 +6959,7 @@ namespace Towel.DataStructures
 						, bounds.Min3.Value
 						));
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -6995,7 +6995,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -7099,7 +7099,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -7171,15 +7171,15 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (!(leaf.Head is null) && where(leaf.Head.Value))
+				while (leaf.Head is not null && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (!(leaf.Head is null))
+				if (leaf.Head is not null)
 				{
 					Leaf.Node list = leaf.Head;
-					while (!(list.Next is null))
+					while (list.Next is not null)
 					{
 						if (where(list.Next.Value))
 						{
@@ -7335,7 +7335,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
@@ -7521,7 +7521,7 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (!(list is null))
+				while (list is not null)
 				{
 					step(list.Value);
 					list = list.Next;
@@ -7544,7 +7544,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -7583,7 +7583,7 @@ namespace Towel.DataStructures
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -7625,7 +7625,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -7655,11 +7655,11 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -7684,11 +7684,11 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -7780,7 +7780,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -7829,7 +7829,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
+			while (node is not null && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -8039,7 +8039,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -8177,7 +8177,7 @@ namespace Towel.DataStructures
 				Head = new Node(leaf.Head.Value, null);
 				Node a = Head;
 				Node b = leaf.Head;
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new Node(b.Next.Value, null);
 					a = a.Next;
@@ -8493,7 +8493,7 @@ namespace Towel.DataStructures
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -8521,7 +8521,7 @@ namespace Towel.DataStructures
 					int child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -8567,7 +8567,7 @@ namespace Towel.DataStructures
 			{
 				division1 = _subdivisionOverride1(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -8595,7 +8595,7 @@ namespace Towel.DataStructures
 			{
 				division2 = _subdivisionOverride2(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -8623,7 +8623,7 @@ namespace Towel.DataStructures
 			{
 				division3 = _subdivisionOverride3(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -8651,7 +8651,7 @@ namespace Towel.DataStructures
 			{
 				division4 = _subdivisionOverride4(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -8836,7 +8836,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -8851,7 +8851,7 @@ namespace Towel.DataStructures
 						, bounds.Min4.Value
 						));
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -8887,7 +8887,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -8997,7 +8997,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -9069,15 +9069,15 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (!(leaf.Head is null) && where(leaf.Head.Value))
+				while (leaf.Head is not null && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (!(leaf.Head is null))
+				if (leaf.Head is not null)
 				{
 					Leaf.Node list = leaf.Head;
-					while (!(list.Next is null))
+					while (list.Next is not null)
 					{
 						if (where(list.Next.Value))
 						{
@@ -9241,7 +9241,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
@@ -9431,7 +9431,7 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (!(list is null))
+				while (list is not null)
 				{
 					step(list.Value);
 					list = list.Next;
@@ -9454,7 +9454,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -9497,7 +9497,7 @@ namespace Towel.DataStructures
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -9543,7 +9543,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -9574,11 +9574,11 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -9604,11 +9604,11 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -9703,7 +9703,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -9756,7 +9756,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
+			while (node is not null && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -9992,7 +9992,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -10130,7 +10130,7 @@ namespace Towel.DataStructures
 				Head = new Node(leaf.Head.Value, null);
 				Node a = Head;
 				Node b = leaf.Head;
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new Node(b.Next.Value, null);
 					a = a.Next;
@@ -10475,7 +10475,7 @@ namespace Towel.DataStructures
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -10503,7 +10503,7 @@ namespace Towel.DataStructures
 					int child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -10549,7 +10549,7 @@ namespace Towel.DataStructures
 			{
 				division1 = _subdivisionOverride1(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -10578,7 +10578,7 @@ namespace Towel.DataStructures
 			{
 				division2 = _subdivisionOverride2(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -10607,7 +10607,7 @@ namespace Towel.DataStructures
 			{
 				division3 = _subdivisionOverride3(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -10636,7 +10636,7 @@ namespace Towel.DataStructures
 			{
 				division4 = _subdivisionOverride4(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -10665,7 +10665,7 @@ namespace Towel.DataStructures
 			{
 				division5 = _subdivisionOverride5(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -10872,7 +10872,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -10888,7 +10888,7 @@ namespace Towel.DataStructures
 						, bounds.Min5.Value
 						));
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -10924,7 +10924,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -11040,7 +11040,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -11112,15 +11112,15 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (!(leaf.Head is null) && where(leaf.Head.Value))
+				while (leaf.Head is not null && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (!(leaf.Head is null))
+				if (leaf.Head is not null)
 				{
 					Leaf.Node list = leaf.Head;
-					while (!(list.Next is null))
+					while (list.Next is not null)
 					{
 						if (where(list.Next.Value))
 						{
@@ -11292,7 +11292,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
@@ -11486,7 +11486,7 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (!(list is null))
+				while (list is not null)
 				{
 					step(list.Value);
 					list = list.Next;
@@ -11509,7 +11509,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -11556,7 +11556,7 @@ namespace Towel.DataStructures
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -11606,7 +11606,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -11638,11 +11638,11 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -11669,11 +11669,11 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -11771,7 +11771,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -11828,7 +11828,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
+			while (node is not null && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -12090,7 +12090,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -12228,7 +12228,7 @@ namespace Towel.DataStructures
 				Head = new Node(leaf.Head.Value, null);
 				Node a = Head;
 				Node b = leaf.Head;
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new Node(b.Next.Value, null);
 					a = a.Next;
@@ -12602,7 +12602,7 @@ namespace Towel.DataStructures
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -12630,7 +12630,7 @@ namespace Towel.DataStructures
 					int child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -12676,7 +12676,7 @@ namespace Towel.DataStructures
 			{
 				division1 = _subdivisionOverride1(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -12706,7 +12706,7 @@ namespace Towel.DataStructures
 			{
 				division2 = _subdivisionOverride2(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -12736,7 +12736,7 @@ namespace Towel.DataStructures
 			{
 				division3 = _subdivisionOverride3(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -12766,7 +12766,7 @@ namespace Towel.DataStructures
 			{
 				division4 = _subdivisionOverride4(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -12796,7 +12796,7 @@ namespace Towel.DataStructures
 			{
 				division5 = _subdivisionOverride5(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -12826,7 +12826,7 @@ namespace Towel.DataStructures
 			{
 				division6 = _subdivisionOverride6(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -13055,7 +13055,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -13072,7 +13072,7 @@ namespace Towel.DataStructures
 						, bounds.Min6.Value
 						));
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -13108,7 +13108,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -13230,7 +13230,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -13302,15 +13302,15 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (!(leaf.Head is null) && where(leaf.Head.Value))
+				while (leaf.Head is not null && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (!(leaf.Head is null))
+				if (leaf.Head is not null)
 				{
 					Leaf.Node list = leaf.Head;
-					while (!(list.Next is null))
+					while (list.Next is not null)
 					{
 						if (where(list.Next.Value))
 						{
@@ -13490,7 +13490,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
@@ -13688,7 +13688,7 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (!(list is null))
+				while (list is not null)
 				{
 					step(list.Value);
 					list = list.Next;
@@ -13711,7 +13711,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -13762,7 +13762,7 @@ namespace Towel.DataStructures
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -13816,7 +13816,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -13849,11 +13849,11 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -13881,11 +13881,11 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -13986,7 +13986,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -14047,7 +14047,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
+			while (node is not null && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -14335,7 +14335,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -14473,7 +14473,7 @@ namespace Towel.DataStructures
 				Head = new Node(leaf.Head.Value, null);
 				Node a = Head;
 				Node b = leaf.Head;
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new Node(b.Next.Value, null);
 					a = a.Next;
@@ -14876,7 +14876,7 @@ namespace Towel.DataStructures
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Leaf.Node list = top.Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
 
@@ -14904,7 +14904,7 @@ namespace Towel.DataStructures
 					int child_index = this.DetermineChildIndex(parent.PointOfDivision, location);
 					Branch growth = new Branch(DetermineMedians(leaf), leaf.Bounds, parent, child_index);
 					parent[child_index] = growth;
-					for (Leaf.Node list = leaf.Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> temp_location = LocateVector(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_location))
@@ -14950,7 +14950,7 @@ namespace Towel.DataStructures
 			{
 				division1 = _subdivisionOverride1(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -14981,7 +14981,7 @@ namespace Towel.DataStructures
 			{
 				division2 = _subdivisionOverride2(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -15012,7 +15012,7 @@ namespace Towel.DataStructures
 			{
 				division3 = _subdivisionOverride3(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -15043,7 +15043,7 @@ namespace Towel.DataStructures
 			{
 				division4 = _subdivisionOverride4(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -15074,7 +15074,7 @@ namespace Towel.DataStructures
 			{
 				division5 = _subdivisionOverride5(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -15105,7 +15105,7 @@ namespace Towel.DataStructures
 			{
 				division6 = _subdivisionOverride6(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -15136,7 +15136,7 @@ namespace Towel.DataStructures
 			{
 				division7 = _subdivisionOverride7(leaf.Bounds, x =>
 					{
-						for (Leaf.Node node = leaf.Head; !(node is null); node = node.Next)
+						for (Leaf.Node node = leaf.Head; node is not null; node = node.Next)
 						{
 							x(node.Value);
 						}
@@ -15387,7 +15387,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						count++;
 			}
@@ -15405,7 +15405,7 @@ namespace Towel.DataStructures
 						, bounds.Min7.Value
 						));
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					{
 						count += this.CountSubSpace(child, bounds);
 					}
@@ -15441,7 +15441,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -15569,7 +15569,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> location = LocateVector(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, location))
@@ -15641,15 +15641,15 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf leaf = node as Leaf;
-				while (!(leaf.Head is null) && where(leaf.Head.Value))
+				while (leaf.Head is not null && where(leaf.Head.Value))
 				{
 					leaf.Head = leaf.Head.Next;
 					removals++;
 				}
-				if (!(leaf.Head is null))
+				if (leaf.Head is not null)
 				{
 					Leaf.Node list = leaf.Head;
-					while (!(list.Next is null))
+					while (list.Next is not null)
 					{
 						if (where(list.Next.Value))
 						{
@@ -15837,7 +15837,7 @@ namespace Towel.DataStructures
 				Leaf leaf = node as Leaf;
 				Leaf.Node current = leaf.Head;
 				Leaf.Node previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					if (this.EncapsulationCheck(bounds, LocateVector(current.Value)) && where(current.Value))
 					{
@@ -16039,7 +16039,7 @@ namespace Towel.DataStructures
 			if (node is Leaf)
 			{
 				Leaf.Node list = (node as Leaf).Head;
-				while (!(list is null))
+				while (list is not null)
 				{
 					step(list.Value);
 					list = list.Next;
@@ -16062,7 +16062,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if ((status = step(list.Value)) != StepStatus.Continue)
 						break;
 			}
@@ -16117,7 +16117,7 @@ namespace Towel.DataStructures
 		{
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)))
 						step(list.Value);
 			}
@@ -16175,7 +16175,7 @@ namespace Towel.DataStructures
 			StepStatus status = StepStatus.Continue;
 			if (node is Leaf)
 			{
-				for (Leaf.Node list = (node as Leaf).Head; !(list is null); list = list.Next)
+				for (Leaf.Node list = (node as Leaf).Head; list is not null; list = list.Next)
 					if (EncapsulationCheck(bounds, LocateVector(list.Value)) &&
 						(status = step(list.Value)) != StepStatus.Continue)
 						break;
@@ -16209,11 +16209,11 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node leaf_node = (current as Leaf).Head; !(leaf_node is null); leaf_node = leaf_node.Next)
+					for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
 						if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
 							step(leaf_node.Value);
 					break;
@@ -16242,11 +16242,11 @@ namespace Towel.DataStructures
 		internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
 			Node current = node;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (current is Leaf)
 				{
-					for (Leaf.Node list = (current as Leaf).Head; !(list is null); list = list.Next)
+					for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
 					{
 						StepStatus status = StepStatus.Continue;
 						if (EqualsCheck(vector, LocateVector(list.Value)) &&
@@ -16350,7 +16350,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -16415,7 +16415,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, vector))
+			while (node is not null && !EncapsulationCheck(node.Bounds, vector))
 			{
 				node = node.Parent;
 			}
@@ -16682,7 +16682,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -16718,7 +16718,7 @@ namespace Towel.DataStructures
 				ValueNode a = this.Head;
 				ValueNode b = nodeToClone.Head;
 
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new ValueNode(b.Next.Value, null);
 					a = a.Next;
@@ -16910,7 +16910,7 @@ namespace Towel.DataStructures
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -16942,7 +16942,7 @@ namespace Towel.DataStructures
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+					for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Bounds<Axis1> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -17158,7 +17158,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -17169,7 +17169,7 @@ namespace Towel.DataStructures
 				{
 					int child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -17220,7 +17220,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
@@ -17307,7 +17307,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
@@ -17356,7 +17356,7 @@ namespace Towel.DataStructures
 			int removals = 0;
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -17376,15 +17376,15 @@ namespace Towel.DataStructures
 			}
 
 			// items
-			while (!(node.Head is null) && where(node.Head.Value))
+			while (node.Head is not null && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (!(node.Head is null))
+			if (node.Head is not null)
 			{
 				Node.ValueNode list = node.Head;
-				while (!(list.Next is null))
+				while (list.Next is not null)
 				{
 					if (where(list.Next.Value))
 					{
@@ -17480,7 +17480,7 @@ namespace Towel.DataStructures
 				}
 
 				// children
-				if (!(node.Children is null))
+				if (node.Children is not null)
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -17565,7 +17565,7 @@ namespace Towel.DataStructures
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
@@ -17584,7 +17584,7 @@ namespace Towel.DataStructures
 			}
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -17657,12 +17657,12 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (!(list is null))
+			while (list is not null)
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -17676,11 +17676,11 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -17728,11 +17728,11 @@ namespace Towel.DataStructures
 			Omnitree.Bounds<Axis1> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1>, Omnitree.Bounds<Axis1>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -17785,12 +17785,12 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -17891,7 +17891,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -17932,7 +17932,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<Axis1> bounds)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
+			while (node is not null && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}
@@ -18227,7 +18227,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -18263,7 +18263,7 @@ namespace Towel.DataStructures
 				ValueNode a = this.Head;
 				ValueNode b = nodeToClone.Head;
 
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new ValueNode(b.Next.Value, null);
 					a = a.Next;
@@ -18492,7 +18492,7 @@ namespace Towel.DataStructures
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -18524,7 +18524,7 @@ namespace Towel.DataStructures
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+					for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Bounds<Axis1, Axis2> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -18776,7 +18776,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -18787,7 +18787,7 @@ namespace Towel.DataStructures
 				{
 					int child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -18838,7 +18838,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
@@ -18931,7 +18931,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
@@ -18980,7 +18980,7 @@ namespace Towel.DataStructures
 			int removals = 0;
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -19000,15 +19000,15 @@ namespace Towel.DataStructures
 			}
 
 			// items
-			while (!(node.Head is null) && where(node.Head.Value))
+			while (node.Head is not null && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (!(node.Head is null))
+			if (node.Head is not null)
 			{
 				Node.ValueNode list = node.Head;
-				while (!(list.Next is null))
+				while (list.Next is not null)
 				{
 					if (where(list.Next.Value))
 					{
@@ -19113,7 +19113,7 @@ namespace Towel.DataStructures
 				}
 
 				// children
-				if (!(node.Children is null))
+				if (node.Children is not null)
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -19206,7 +19206,7 @@ namespace Towel.DataStructures
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
@@ -19225,7 +19225,7 @@ namespace Towel.DataStructures
 			}
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -19303,12 +19303,12 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (!(list is null))
+			while (list is not null)
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -19322,11 +19322,11 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -19382,11 +19382,11 @@ namespace Towel.DataStructures
 			Omnitree.Bounds<Axis1, Axis2> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2>, Omnitree.Bounds<Axis1, Axis2>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -19447,12 +19447,12 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -19560,7 +19560,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -19605,7 +19605,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<Axis1, Axis2> bounds)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
+			while (node is not null && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}
@@ -19946,7 +19946,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -19982,7 +19982,7 @@ namespace Towel.DataStructures
 				ValueNode a = this.Head;
 				ValueNode b = nodeToClone.Head;
 
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new ValueNode(b.Next.Value, null);
 					a = a.Next;
@@ -20248,7 +20248,7 @@ namespace Towel.DataStructures
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -20280,7 +20280,7 @@ namespace Towel.DataStructures
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+					for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Bounds<Axis1, Axis2, Axis3> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -20568,7 +20568,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -20579,7 +20579,7 @@ namespace Towel.DataStructures
 				{
 					int child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -20630,7 +20630,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
@@ -20729,7 +20729,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
@@ -20778,7 +20778,7 @@ namespace Towel.DataStructures
 			int removals = 0;
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -20798,15 +20798,15 @@ namespace Towel.DataStructures
 			}
 
 			// items
-			while (!(node.Head is null) && where(node.Head.Value))
+			while (node.Head is not null && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (!(node.Head is null))
+			if (node.Head is not null)
 			{
 				Node.ValueNode list = node.Head;
-				while (!(list.Next is null))
+				while (list.Next is not null)
 				{
 					if (where(list.Next.Value))
 					{
@@ -20920,7 +20920,7 @@ namespace Towel.DataStructures
 				}
 
 				// children
-				if (!(node.Children is null))
+				if (node.Children is not null)
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -21021,7 +21021,7 @@ namespace Towel.DataStructures
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
@@ -21040,7 +21040,7 @@ namespace Towel.DataStructures
 			}
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -21123,12 +21123,12 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (!(list is null))
+			while (list is not null)
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -21142,11 +21142,11 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -21210,11 +21210,11 @@ namespace Towel.DataStructures
 			Omnitree.Bounds<Axis1, Axis2, Axis3> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3>, Omnitree.Bounds<Axis1, Axis2, Axis3>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -21283,12 +21283,12 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -21403,7 +21403,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -21452,7 +21452,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3> bounds)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
+			while (node is not null && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}
@@ -21839,7 +21839,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -21875,7 +21875,7 @@ namespace Towel.DataStructures
 				ValueNode a = this.Head;
 				ValueNode b = nodeToClone.Head;
 
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new ValueNode(b.Next.Value, null);
 					a = a.Next;
@@ -22178,7 +22178,7 @@ namespace Towel.DataStructures
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -22210,7 +22210,7 @@ namespace Towel.DataStructures
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+					for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -22534,7 +22534,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -22545,7 +22545,7 @@ namespace Towel.DataStructures
 				{
 					int child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -22596,7 +22596,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
@@ -22701,7 +22701,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
@@ -22750,7 +22750,7 @@ namespace Towel.DataStructures
 			int removals = 0;
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -22770,15 +22770,15 @@ namespace Towel.DataStructures
 			}
 
 			// items
-			while (!(node.Head is null) && where(node.Head.Value))
+			while (node.Head is not null && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (!(node.Head is null))
+			if (node.Head is not null)
 			{
 				Node.ValueNode list = node.Head;
-				while (!(list.Next is null))
+				while (list.Next is not null)
 				{
 					if (where(list.Next.Value))
 					{
@@ -22901,7 +22901,7 @@ namespace Towel.DataStructures
 				}
 
 				// children
-				if (!(node.Children is null))
+				if (node.Children is not null)
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -23010,7 +23010,7 @@ namespace Towel.DataStructures
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
@@ -23029,7 +23029,7 @@ namespace Towel.DataStructures
 			}
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -23117,12 +23117,12 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (!(list is null))
+			while (list is not null)
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -23136,11 +23136,11 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -23212,11 +23212,11 @@ namespace Towel.DataStructures
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -23293,12 +23293,12 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -23420,7 +23420,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -23473,7 +23473,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
+			while (node is not null && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}
@@ -23906,7 +23906,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -23942,7 +23942,7 @@ namespace Towel.DataStructures
 				ValueNode a = this.Head;
 				ValueNode b = nodeToClone.Head;
 
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new ValueNode(b.Next.Value, null);
 					a = a.Next;
@@ -24282,7 +24282,7 @@ namespace Towel.DataStructures
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -24314,7 +24314,7 @@ namespace Towel.DataStructures
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+					for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -24674,7 +24674,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -24685,7 +24685,7 @@ namespace Towel.DataStructures
 				{
 					int child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -24736,7 +24736,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
@@ -24847,7 +24847,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
@@ -24896,7 +24896,7 @@ namespace Towel.DataStructures
 			int removals = 0;
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -24916,15 +24916,15 @@ namespace Towel.DataStructures
 			}
 
 			// items
-			while (!(node.Head is null) && where(node.Head.Value))
+			while (node.Head is not null && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (!(node.Head is null))
+			if (node.Head is not null)
 			{
 				Node.ValueNode list = node.Head;
-				while (!(list.Next is null))
+				while (list.Next is not null)
 				{
 					if (where(list.Next.Value))
 					{
@@ -25056,7 +25056,7 @@ namespace Towel.DataStructures
 				}
 
 				// children
-				if (!(node.Children is null))
+				if (node.Children is not null)
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -25173,7 +25173,7 @@ namespace Towel.DataStructures
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
@@ -25192,7 +25192,7 @@ namespace Towel.DataStructures
 			}
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -25285,12 +25285,12 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (!(list is null))
+			while (list is not null)
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -25304,11 +25304,11 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -25388,11 +25388,11 @@ namespace Towel.DataStructures
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -25477,12 +25477,12 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -25611,7 +25611,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -25668,7 +25668,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
+			while (node is not null && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}
@@ -26147,7 +26147,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -26183,7 +26183,7 @@ namespace Towel.DataStructures
 				ValueNode a = this.Head;
 				ValueNode b = nodeToClone.Head;
 
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new ValueNode(b.Next.Value, null);
 					a = a.Next;
@@ -26560,7 +26560,7 @@ namespace Towel.DataStructures
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -26592,7 +26592,7 @@ namespace Towel.DataStructures
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+					for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -26988,7 +26988,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -26999,7 +26999,7 @@ namespace Towel.DataStructures
 				{
 					int child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -27050,7 +27050,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
@@ -27167,7 +27167,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
@@ -27216,7 +27216,7 @@ namespace Towel.DataStructures
 			int removals = 0;
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -27236,15 +27236,15 @@ namespace Towel.DataStructures
 			}
 
 			// items
-			while (!(node.Head is null) && where(node.Head.Value))
+			while (node.Head is not null && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (!(node.Head is null))
+			if (node.Head is not null)
 			{
 				Node.ValueNode list = node.Head;
-				while (!(list.Next is null))
+				while (list.Next is not null)
 				{
 					if (where(list.Next.Value))
 					{
@@ -27385,7 +27385,7 @@ namespace Towel.DataStructures
 				}
 
 				// children
-				if (!(node.Children is null))
+				if (node.Children is not null)
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -27510,7 +27510,7 @@ namespace Towel.DataStructures
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
@@ -27529,7 +27529,7 @@ namespace Towel.DataStructures
 			}
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -27627,12 +27627,12 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (!(list is null))
+			while (list is not null)
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -27646,11 +27646,11 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -27738,11 +27738,11 @@ namespace Towel.DataStructures
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -27835,12 +27835,12 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -27976,7 +27976,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -28037,7 +28037,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
+			while (node is not null && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}
@@ -28562,7 +28562,7 @@ namespace Towel.DataStructures
 				get
 				{
 					int depth = -1;
-					for (Node node = this; !(node is null); node = node.Parent)
+					for (Node node = this; node is not null; node = node.Parent)
 						depth++;
 					return depth;
 				}
@@ -28598,7 +28598,7 @@ namespace Towel.DataStructures
 				ValueNode a = this.Head;
 				ValueNode b = nodeToClone.Head;
 
-				while (!(b is null))
+				while (b is not null)
 				{
 					a.Next = new ValueNode(b.Next.Value, null);
 					a = a.Next;
@@ -29012,7 +29012,7 @@ namespace Towel.DataStructures
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.None, null, -1);
 
 				// iterate through the elements and add them to the appropriate children
-				for (Node.ValueNode list = top.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
 
@@ -29044,7 +29044,7 @@ namespace Towel.DataStructures
 					Node growth = new Node(DetermineMedians(node), node.Bounds, node.Parent, node.Index);
 					node.Parent[node.Index] = growth;
 
-					for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+					for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					{
 						Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> temp_bounds = GetBoundings(list.Value);
 						if (EncapsulationCheck(growth.Bounds, temp_bounds))
@@ -29476,7 +29476,7 @@ namespace Towel.DataStructures
 				count += node.Count;
 			else if (!node.PointOfDivision.HasValue)
 			{
-				for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+				for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 					if (spatialCheck(bounds, GetBoundings(list.Value)))
 						count++;
 			}
@@ -29487,7 +29487,7 @@ namespace Towel.DataStructures
 				{
 					int child_index = DetermineChildIndex(branch.PointOfDivision.Value, bounds);
 					Node child = branch[child_index];
-					if (!(child is null))
+					if (child is not null)
 					  count += this.CountSubSpaceBase(child, bounds, spatialCheck);
 				}
 				else
@@ -29538,7 +29538,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, bounds))
@@ -29661,7 +29661,7 @@ namespace Towel.DataStructures
 			{
 				Node.ValueNode current = node.Head;
 				Node.ValueNode previous = null;
-				while (!(current is null))
+				while (current is not null)
 				{
 					Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> item_bounds = GetBoundings(current.Value);
 					if (!this.EncapsulationCheck(node.Bounds, item_bounds))
@@ -29710,7 +29710,7 @@ namespace Towel.DataStructures
 			int removals = 0;
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -29730,15 +29730,15 @@ namespace Towel.DataStructures
 			}
 
 			// items
-			while (!(node.Head is null) && where(node.Head.Value))
+			while (node.Head is not null && where(node.Head.Value))
 			{
 				node.Head = node.Head.Next;
 				removals++;
 			}
-			if (!(node.Head is null))
+			if (node.Head is not null)
 			{
 				Node.ValueNode list = node.Head;
-				while (!(list.Next is null))
+				while (list.Next is not null)
 				{
 					if (where(list.Next.Value))
 					{
@@ -29888,7 +29888,7 @@ namespace Towel.DataStructures
 				}
 
 				// children
-				if (!(node.Children is null))
+				if (node.Children is not null)
 				{
 					int skipped = 0;
 					for (int i = 0; i + skipped < node.Children.Length; )
@@ -30021,7 +30021,7 @@ namespace Towel.DataStructures
 			// items
 			Node.ValueNode current = node.Head;
 			Node.ValueNode previous = null;
-			while (!(current is null))
+			while (current is not null)
 			{
 				if (spatialCheck(bounds, GetBoundings(current.Value)) && where(current.Value))
 				{
@@ -30040,7 +30040,7 @@ namespace Towel.DataStructures
 			}
 
 			// children
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				int skipped = 0;
 				for (int i = 0; i + skipped < node.Children.Length; )
@@ -30143,12 +30143,12 @@ namespace Towel.DataStructures
 		internal void Stepper(Action<T> step, Node node)
 		{
 			Node.ValueNode list = node.Head;
-			while (!(list is null))
+			while (list is not null)
 			{
 				step(list.Value);
 				list = list.Next;
 			}
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
 		}
@@ -30162,11 +30162,11 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 			
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if ((status = step(list.Value)) != StepStatus.Continue)
 					break;
 			
-			if (!(node.Children is null))
+			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					if ((status = Stepper(step, child)) != StepStatus.Continue)
 						break;
@@ -30262,11 +30262,11 @@ namespace Towel.DataStructures
 			Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds,
 			Omnitree.SpatialCheck<Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>> spatialCheck)
 		{
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)))
 					step(list.Value);
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -30367,12 +30367,12 @@ namespace Towel.DataStructures
 		{
 			StepStatus status = StepStatus.Continue;
 
-			for (Node.ValueNode list = node.Head; !(list is null); list = list.Next)
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 				if (spatialCheck(bounds, GetBoundings(list.Value)) &&
 					(status = step(list.Value)) != StepStatus.Continue)
 					break;
 
-			if (!(node.Children is null))
+			if (node.Children is not null)
 			{
 				foreach (Node child in node.Children)
 					// optimization: stop bounds checking if space encapsulates node
@@ -30515,7 +30515,7 @@ namespace Towel.DataStructures
 		internal void IncreaseParentCounts(Node parent, int increase)
 		{
 			Node node = parent;
-			while (!(node is null))
+			while (node is not null)
 			{
 				node.Count += increase;
 				node = node.Parent;
@@ -30580,7 +30580,7 @@ namespace Towel.DataStructures
 		/// <returns>The nearest node that encapsulates the given location.</returns>
 		internal Node GetEncapsulationParent(Node node, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds)
 		{
-			while (!(node is null) && !EncapsulationCheck(node.Bounds, bounds))
+			while (node is not null && !EncapsulationCheck(node.Bounds, bounds))
 			{
 				node = node.Parent;
 			}

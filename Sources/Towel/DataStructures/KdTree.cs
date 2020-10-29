@@ -205,10 +205,10 @@ namespace Towel.DataStructures
 
 			var nodesToReaddQueue = new System.Collections.Generic.Queue<Node>();
 
-			if (!(removedNode.LeftChild is null))
+			if (removedNode.LeftChild is not null)
 				nodesToReaddQueue.Enqueue(removedNode.LeftChild);
 
-			if (!(removedNode.RightChild is null))
+			if (removedNode.RightChild is not null)
 				nodesToReaddQueue.Enqueue(removedNode.RightChild);
 
 			while (nodesToReaddQueue.Count > 0)
@@ -217,13 +217,13 @@ namespace Towel.DataStructures
 
 				nodesToReadd.Enqueue(nodeToReadd);
 
-				if (!(nodeToReadd.LeftChild is null))
+				if (nodeToReadd.LeftChild is not null)
 				{
 					nodesToReaddQueue.Enqueue(nodeToReadd.LeftChild);
 					nodeToReadd.LeftChild = null;
 				}
 
-				if (!(nodeToReadd.RightChild is null))
+				if (nodeToReadd.RightChild is not null)
 				{
 					nodesToReaddQueue.Enqueue(nodeToReadd.RightChild);
 					nodeToReadd.RightChild = null;
@@ -312,7 +312,7 @@ namespace Towel.DataStructures
 						throw new System.NotImplementedException();
 				}
 			}
-			while (!(node is null));
+			while (node is not null);
 		}
 		#endregion
 		#region public Node[] GetNearestNeighbours(Get<K> point, int count)
@@ -395,7 +395,7 @@ namespace Towel.DataStructures
 			var furtherNode = compareTargetPoint_as_int <= 0 ? node.RightChild : node.LeftChild;
 
 			// Let's walk down into the nearer branch
-			if (!(nearerNode is null))
+			if (nearerNode is not null)
 			{
 				AddNearestNeighbours(
 					nearerNode,
@@ -549,9 +549,9 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					if (!(nodeToSearch.LeftChild is null))
+					if (nodeToSearch.LeftChild is not null)
 						nodesToSearch.Enqueue(nodeToSearch.LeftChild);
-					if (!(nodeToSearch.RightChild is null))
+					if (nodeToSearch.RightChild is not null)
 						nodesToSearch.Enqueue(nodeToSearch.RightChild);
 				}
 			}
@@ -577,12 +577,12 @@ namespace Towel.DataStructures
 
 			nodes.Add(node);
 
-			if (!(node.LeftChild is null))
+			if (node.LeftChild is not null)
 			{
 				AddNodesToList(node.LeftChild, nodes);
 				node.LeftChild = null;
 			}
-			if (!(node.RightChild is null))
+			if (node.RightChild is not null)
 			{
 				AddNodesToList(node.RightChild, nodes);
 				node.RightChild = null;
@@ -655,12 +655,12 @@ namespace Towel.DataStructures
 		#region internal void RemoveChildNodes(Node node)
 		internal void RemoveChildNodes(Node node)
 		{
-			if (!(node.LeftChild is null))
+			if (node.LeftChild is not null)
 			{
 				RemoveChildNodes(node.LeftChild);
 				node.LeftChild = null;
 			}
-			if (!(node.RightChild is null))
+			if (node.RightChild is not null)
 			{
 				RemoveChildNodes(node.RightChild);
 				node.RightChild = null;
@@ -791,7 +791,7 @@ namespace Towel.DataStructures
 			this.capacity = capacity;
 			queue = new ItemPriority<TItem, TPriority>[capacity];
 
-			//if (!(priorityMath is null))
+			//if (priorityMath is not null)
 			//	this.priorityMath = priorityMath;
 			//else
 			//	this.priorityMath = TypeMath<TPriority>.GetMath();

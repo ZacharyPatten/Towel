@@ -442,7 +442,7 @@ namespace Towel
 					null,
 					Ɐ(a, b),
 					null);
-				return !(methodInfo is null)
+				return methodInfo is not null
 					&& methodInfo.ReturnType == c
 					&& methodInfo.IsSpecialName
 						? methodInfo
@@ -500,7 +500,7 @@ namespace Towel
 					null,
 					Ɐ(fromType),
 					null);
-				return !(methodInfo is null)
+				return methodInfo is not null
 					&& methodInfo.ReturnType == toType
 					&& methodInfo.IsSpecialName;
 			}
@@ -1028,7 +1028,7 @@ namespace Towel
 		internal static string XmlDocumentationKeyHelper(string typeFullNameString, string memberNameString)
 		{
 			string key = Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
-			if (!(memberNameString is null))
+			if (memberNameString is not null)
 			{
 				key += "." + memberNameString;
 			}
@@ -1091,7 +1091,7 @@ namespace Towel
 		public static string GetDocumentation(this ParameterInfo parameterInfo)
 		{
 			string memberDocumentation = parameterInfo.Member.GetDocumentation();
-			if (!(memberDocumentation is null))
+			if (memberDocumentation is not null)
 			{
 				string regexPattern =
 					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
