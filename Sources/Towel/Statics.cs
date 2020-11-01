@@ -55,7 +55,7 @@ namespace Towel
 			{
 				if (assigned)
 				{
-					result = operation(result, a);
+					result = operation(result!, a);
 				}
 				else
 				{
@@ -64,7 +64,7 @@ namespace Towel
 				}
 			});
 			return assigned
-				? result
+				? result!
 				: throw new ArgumentException($"{nameof(stepper)} is empty.", nameof(stepper));
 		}
 
@@ -360,10 +360,12 @@ namespace Towel
 				public abstract bool Resolve();
 				/// <summary>Uses the bool as the condition result.</summary>
 				public static implicit operator Condition(bool result) => new Bool { Result = result, };
+#pragma warning disable IDE0079 // Remove unnecessary suppression
 #pragma warning disable IDE0060 // Remove unused parameter
 				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
 				public static implicit operator Condition(Keyword keyword) => new Default();
 #pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 				/// <summary>Converts a condition to a bool using the Resolve method.</summary>
 				public static implicit operator bool(Condition condition) => condition.Resolve();
 			}
@@ -832,7 +834,7 @@ namespace Towel
 				if (typeof(C) == typeof(bool))
 				{
 					EquateImplementation<A, B, bool>.Function = (_A, _B) => _A.Equals(_B);
-					return Function(a, b);
+					return Function!(a, b);
 				}
 
 				throw new NotImplementedException();
@@ -1183,7 +1185,7 @@ namespace Towel
 								Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
 						CompareImplementation<A, B, CompareResult>.Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
 					}
-					return Function(a, b);
+					return Function!(a, b);
 				}
 				throw new NotImplementedException();
 			};
@@ -1602,7 +1604,7 @@ namespace Towel
 						return ans;
 					}
 					SquareRootImplementation<int>.Function = SquareRoot;
-					return Function(a);
+					return Function!(a);
 				}
 
 				#endregion
@@ -2139,7 +2141,7 @@ namespace Towel
 			{
 				throw new ArgumentException(nameof(stepper) + " is empty.", nameof(stepper));
 			}
-			return answer;
+			return answer!;
 		}
 
 		#endregion
@@ -2681,8 +2683,8 @@ namespace Towel
 			{
 				throw new ArgumentException("The argument is empty.", nameof(stepper));
 			}
-			minimum = min;
-			maximum = max;
+			minimum = min!;
+			maximum = max!;
 		}
 
 		#endregion
