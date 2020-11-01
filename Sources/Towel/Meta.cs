@@ -535,7 +535,7 @@ namespace Towel
 			{
 				_ = type ?? throw new ArgumentNullException(nameof(type));
 				string result = type.IsNested
-					? ConvertToCsharpSource(type.DeclaringType) + "."
+					? ConvertToCsharpSource(type.DeclaringType ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.DeclaringType)} is null", nameof(type))) + "."
 					: type.Namespace + ".";
 				result += Regex.Replace(type.Name, "`.*", string.Empty);
 				if (type.IsGenericType)
@@ -569,7 +569,7 @@ namespace Towel
 		/// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
 		/// <param name="enum">The enum value to get the attribute of.</param>
 		/// <returns>The attribute on the enum value of the provided type.</returns>
-		public static AttributeType GetEnumAttribute<AttributeType>(this Enum @enum)
+		public static AttributeType? GetEnumAttribute<AttributeType>(this Enum @enum)
 			where AttributeType : Attribute
 		{
 			Type type = @enum.GetType();
@@ -755,16 +755,17 @@ namespace Towel
 		{
 			string codeBase = assembly.Location;
 			UriBuilder uri = new UriBuilder(codeBase);
-			string path = Uri.UnescapeDataString(uri.Path);
-			return Path.GetDirectoryName(path);
+			string assemblyPath = Uri.UnescapeDataString(uri.Path);
+			string? directoryPath = Path.GetDirectoryName(assemblyPath);
+			return directoryPath == string.Empty ? null : directoryPath;
 		}
 
 		#endregion
 
 		#region XML Code Documentation
 
-		internal static System.Collections.Generic.HashSet<Assembly> loadedAssemblies = new System.Collections.Generic.HashSet<Assembly>();
-		internal static System.Collections.Generic.Dictionary<string, string> loadedXmlDocumentation = new System.Collections.Generic.Dictionary<string, string>();
+		internal static SetHashLinked<Assembly> loadedAssemblies = new();
+		internal static MapHashLinked<string, string> loadedXmlDocumentation = new();
 
 		internal static void LoadXmlDocumentation(Assembly assembly)
 		{
@@ -772,15 +773,16 @@ namespace Towel
 			{
 				return;
 			}
-			string directoryPath = assembly.GetDirectoryPath();
-			string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
-			if (File.Exists(xmlFilePath))
+			string? directoryPath = assembly.GetDirectoryPath();
+			if (directoryPath is not null)
 			{
-				using StreamReader streamReader = new StreamReader(xmlFilePath);
-				LoadXmlDocumentation(streamReader);
+				string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
+				if (File.Exists(xmlFilePath))
+				{
+					using StreamReader streamReader = new StreamReader(xmlFilePath);
+					LoadXmlDocumentation(streamReader);
+				}
 			}
-			// currently marking assembly as loaded even if the XML file was not found
-			// may want to adjust in future, but I think this is good for now
 			loadedAssemblies.Add(assembly);
 		}
 
@@ -801,10 +803,10 @@ namespace Towel
 			{
 				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
 				{
-					string? raw_name = xmlReader["name"];
-					if (!string.IsNullOrWhiteSpace(raw_name))
+					string? rawName = xmlReader["name"];
+					if (!string.IsNullOrWhiteSpace(rawName))
 					{
-						loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
+						loadedXmlDocumentation[rawName] = xmlReader.ReadInnerXml();
 					}
 				}
 			}
@@ -821,11 +823,13 @@ namespace Towel
 		/// <param name="type">The type to get the XML documentation of.</param>
 		/// <returns>The XML documentation on the type.</returns>
 		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this Type type)
+		public static string? GetDocumentation(this Type type)
 		{
+			_ = type ?? throw new ArgumentNullException(nameof(type));
+			_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
 			LoadXmlDocumentation(type.Assembly);
-			string key = "T:" + XmlDocumentationKeyHelper(type.FullName, null);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
+			string key = "T:" + GetXmlNameTypeSegment(type.FullName);
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
 			return documentation;
 		}
 
@@ -833,30 +837,167 @@ namespace Towel
 		/// <param name="methodInfo">The method to get the XML documentation of.</param>
 		/// <returns>The XML documentation on the method.</returns>
 		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this MethodInfo methodInfo)
+		public static string? GetDocumentation(this MethodInfo methodInfo)
 		{
-			LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
+			_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
+			_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
+			return GetDocumentationMethodBase(methodInfo: methodInfo);
+		}
 
-			System.Collections.Generic.Dictionary<string, int> typeGenericMap = new System.Collections.Generic.Dictionary<string, int>();
+		/// <summary>Gets the XML documentation on a constructor.</summary>
+		/// <param name="constructorInfo">The constructor to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the constructor.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this ConstructorInfo constructorInfo)
+		{
+			_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
+			_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
+			return GetDocumentationMethodBase(constructorInfo: constructorInfo);
+		}
+
+		/// <summary>Gets the XML documentation on a property.</summary>
+		/// <param name="propertyInfo">The property to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the property.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this PropertyInfo propertyInfo)
+		{
+			_ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
+			_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
+			_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
+			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
+			string key = "P:" + GetXmlNameTypeSegment(propertyInfo.DeclaringType.FullName) + "." + propertyInfo.Name;
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a field.</summary>
+		/// <param name="fieldInfo">The field to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the field.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this FieldInfo fieldInfo)
+		{
+			_ = fieldInfo ?? throw new ArgumentNullException(nameof(fieldInfo));
+			_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
+			_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
+			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
+			string key = "F:" + GetXmlNameTypeSegment(fieldInfo.DeclaringType.FullName) + "." + fieldInfo.Name;
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on an event.</summary>
+		/// <param name="eventInfo">The event to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the event.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this EventInfo eventInfo)
+		{
+			_ = eventInfo ?? throw new ArgumentNullException(nameof(eventInfo));
+			_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
+			_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
+			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
+			string key = "E:" + GetXmlNameTypeSegment(eventInfo.DeclaringType.FullName) + "." + eventInfo.Name;
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a member.</summary>
+		/// <param name="memberInfo">The member to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the member.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this MemberInfo memberInfo)
+		{
+			switch (memberInfo)
+			{
+				case FieldInfo fieldInfo:
+					_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return fieldInfo.GetDocumentation();
+				case PropertyInfo propertyInfo:
+					_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return propertyInfo.GetDocumentation();
+				case EventInfo eventInfo:
+					_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return eventInfo.GetDocumentation();
+				case ConstructorInfo constructorInfo:
+					_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					return constructorInfo.GetDocumentation();
+				case MethodInfo methodInfo:
+					_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					return methodInfo.GetDocumentation();
+				case Type type:
+					_ = type.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return type.GetDocumentation();
+				case null:
+					throw new ArgumentNullException(nameof(memberInfo));
+				default:
+					throw new TowelBugException($"{nameof(GetDocumentation)} encountered an unhandled {nameof(MemberInfo)} type: {memberInfo}");
+			};
+		}
+
+		/// <summary>Gets the XML documentation for a parameter.</summary>
+		/// <param name="parameterInfo">The parameter to get the XML documentation for.</param>
+		/// <returns>The XML documenation of the parameter.</returns>
+		public static string? GetDocumentation(this ParameterInfo parameterInfo)
+		{
+			_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
+			string? memberDocumentation = parameterInfo.Member.GetDocumentation();
+			if (memberDocumentation is not null)
+			{
+				string regexPattern =
+					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
+					".*?" +
+					Regex.Escape(@"</param>");
+
+				Match match = Regex.Match(memberDocumentation, regexPattern);
+				if (match.Success)
+				{
+					return match.Value;
+				}
+			}
+			return null;
+		}
+
+		internal static string? GetDocumentationMethodBase(MethodInfo? methodInfo = null, ConstructorInfo? constructorInfo = null)
+		{
+			if (methodInfo is not null && constructorInfo is not null)
+			{
+				throw new TowelBugException($"{nameof(GetDocumentation)} {nameof(methodInfo)} is not null && {nameof(constructorInfo)} is not null");
+			}
+
+			MethodBase? methodBase = methodInfo ?? (MethodBase?)constructorInfo;
+			_ = methodBase ?? throw new TowelBugException($"{nameof(GetDocumentation)} {nameof(methodInfo)} is null && {nameof(constructorInfo)} is null");
+			_ = methodBase.DeclaringType ?? throw new ArgumentException($"{nameof(methodBase)}.{nameof(Type.DeclaringType)} is null");
+
+			LoadXmlDocumentation(methodBase.DeclaringType.Assembly);
+
+			MapHashLinked<int, string> typeGenericMap = new();
 			int tempTypeGeneric = 0;
-			Array.ForEach(methodInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
+			Array.ForEach(methodBase.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
 
-			System.Collections.Generic.Dictionary<string, int> methodGenericMap = new System.Collections.Generic.Dictionary<string, int>();
-			int tempMethodGeneric = 0;
-			Array.ForEach(methodInfo.GetGenericArguments(), x => methodGenericMap.Add(x.Name, tempMethodGeneric++));
+			MapHashLinked<int, string> methodGenericMap = new();
+			
+			if (constructorInfo is null)
+			{
+				int tempMethodGeneric = 0;
+				Array.ForEach(methodBase.GetGenericArguments(), x => methodGenericMap.Add(x.Name, tempMethodGeneric++));
+			}
 
-			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+			ParameterInfo[] parameterInfos = methodBase.GetParameters();
 
 			string memberTypePrefix = "M:";
-			string declarationTypeString = GetXmlDocumenationFormattedString(methodInfo.DeclaringType, false, typeGenericMap, methodGenericMap);
-			string memberNameString = methodInfo.Name;
+			string declarationTypeString = GetXmlDocumenationFormattedString(methodBase.DeclaringType, false, typeGenericMap, methodGenericMap);
+			string memberNameString =
+				constructorInfo is not null ? "#ctor" :
+				methodBase.Name;
 			string methodGenericArgumentsString =
 				methodGenericMap.Count > 0 ?
 				"``" + methodGenericMap.Count :
 				string.Empty;
 			string parametersString =
 				parameterInfos.Length > 0 ?
-				"(" + string.Join(",", methodInfo.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
+				"(" + string.Join(",", methodBase.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
 				string.Empty;
 
 			string key =
@@ -867,104 +1008,61 @@ namespace Towel
 				methodGenericArgumentsString +
 				parametersString;
 
-			if (methodInfo.Name == "op_Implicit" ||
-				methodInfo.Name == "op_Explicit")
+			if (methodInfo is not null &&
+				(methodBase.Name == "op_Implicit" ||
+				methodBase.Name == "op_Explicit"))
 			{
 				key += "~" + GetXmlDocumenationFormattedString(methodInfo.ReturnType, true, typeGenericMap, methodGenericMap);
 			}
 
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		/// <summary>Gets the XML documentation on a constructor.</summary>
-		/// <param name="constructorInfo">The constructor to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the constructor.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this ConstructorInfo constructorInfo)
-		{
-			LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
-
-			System.Collections.Generic.Dictionary<string, int> typeGenericMap = new System.Collections.Generic.Dictionary<string, int>();
-			int tempTypeGeneric = 0;
-			Array.ForEach(constructorInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
-
-			// constructors don't support generic types so this will always be empty
-			System.Collections.Generic.Dictionary<string, int> methodGenericMap = new System.Collections.Generic.Dictionary<string, int>();
-
-			ParameterInfo[] parameterInfos = constructorInfo.GetParameters();
-
-			string memberTypePrefix = "M:";
-			string declarationTypeString = GetXmlDocumenationFormattedString(constructorInfo.DeclaringType, false, typeGenericMap, methodGenericMap);
-			string memberNameString = "#ctor";
-			string parametersString =
-				parameterInfos.Length > 0 ?
-				"(" + string.Join(",", constructorInfo.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
-				string.Empty;
-
-			string key =
-				memberTypePrefix +
-				declarationTypeString +
-				"." +
-				memberNameString +
-				parametersString;
-
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
 			return documentation;
 		}
 
 		internal static string GetXmlDocumenationFormattedString(
 			Type type,
 			bool isMethodParameter,
-			System.Collections.Generic.Dictionary<string, int> typeGenericMap,
-			System.Collections.Generic.Dictionary<string, int> methodGenericMap)
+			MapHashLinked<int, string> typeGenericMap,
+			MapHashLinked<int, string> methodGenericMap)
 		{
 			if (type.IsGenericParameter)
 			{
-				return methodGenericMap.TryGetValue(type.Name, out int methodIndex)
+				return methodGenericMap.TryGet(type.Name, out int methodIndex)
 					? "``" + methodIndex
 					: "`" + typeGenericMap[type.Name];
 			}
 			else if (type.HasElementType)
 			{
 				string elementTypeString = GetXmlDocumenationFormattedString(
-					type.GetElementType(),
+					type.GetElementType() ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.HasElementType)} && {nameof(type)}.{nameof(Type.GetElementType)}() is null", nameof(type)),
 					isMethodParameter,
 					typeGenericMap,
 					methodGenericMap);
 
-				if (type.IsPointer)
+				switch (type)
 				{
-					return elementTypeString + "*";
-				}
-				else if (type.IsArray)
-				{
-					int rank = type.GetArrayRank();
-					string arrayDimensionsString = rank > 1
-						? "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]"
-						: "[]";
-					return elementTypeString + arrayDimensionsString;
-				}
-				else if (type.IsByRef)
-				{
-					return elementTypeString + "@";
-				}
-				else
-				{
-					// Hopefully this will never hit. At the time of writing
-					// this code, type.HasElementType is only true if the type
-					// is a pointer, array, or by reference.
-					throw new TowelBugException(nameof(GetXmlDocumenationFormattedString) + 
-						" encountered an unhandled element type. " +
-						"Please submit this issue to the Towel GitHub repository. " +
-						"https://github.com/ZacharyPatten/Towel/issues/new/choose");
+					case Type when type.IsPointer:
+						return elementTypeString + "*";
+
+					case Type when type.IsByRef:
+						return elementTypeString + "@";
+
+					case Type when type.IsArray:
+						int rank = type.GetArrayRank();
+						string arrayDimensionsString = rank > 1
+							? "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]"
+							: "[]";
+						return elementTypeString + arrayDimensionsString;
+
+					default:
+						throw new TowelBugException($"{nameof(GetXmlDocumenationFormattedString)} encountered an unhandled element type: {type}");
 				}
 			}
 			else
 			{
 				string prefaceString = type.IsNested
 					? GetXmlDocumenationFormattedString(
-						type.DeclaringType,
+						type.DeclaringType ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.IsNested)} && {nameof(type)}.{nameof(Type.DeclaringType)} is null", nameof(type)),
 						isMethodParameter,
 						typeGenericMap,
 						methodGenericMap) + "."
@@ -989,123 +1087,8 @@ namespace Towel
 			}
 		}
 
-		/// <summary>Gets the XML documentation on a property.</summary>
-		/// <param name="propertyInfo">The property to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the property.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this PropertyInfo propertyInfo)
-		{
-			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
-			string key = "P:" + XmlDocumentationKeyHelper(propertyInfo.DeclaringType.FullName, propertyInfo.Name);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		/// <summary>Gets the XML documentation on a field.</summary>
-		/// <param name="fieldInfo">The field to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the field.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this FieldInfo fieldInfo)
-		{
-			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
-			string key = "F:" + XmlDocumentationKeyHelper(fieldInfo.DeclaringType.FullName, fieldInfo.Name);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		/// <summary>Gets the XML documentation on an event.</summary>
-		/// <param name="eventInfo">The event to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the event.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this EventInfo eventInfo)
-		{
-			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
-			string key = "E:" + XmlDocumentationKeyHelper(eventInfo.DeclaringType.FullName, eventInfo.Name);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		internal static string XmlDocumentationKeyHelper(string typeFullNameString, string memberNameString)
-		{
-			string key = Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
-			if (memberNameString is not null)
-			{
-				key += "." + memberNameString;
-			}
-			return key;
-		}
-
-		/// <summary>Gets the XML documentation on a member.</summary>
-		/// <param name="memberInfo">The member to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the member.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this MemberInfo memberInfo)
-		{
-			if (memberInfo is FieldInfo fieldInfo)
-			{
-				return fieldInfo.GetDocumentation();
-			}
-			else if (memberInfo is PropertyInfo propertyInfo)
-			{
-				return propertyInfo.GetDocumentation();
-			}
-			else if (memberInfo is EventInfo eventInfo)
-			{
-				return eventInfo.GetDocumentation();
-			}
-			else if (memberInfo is ConstructorInfo constructorInfo)
-			{
-				return constructorInfo.GetDocumentation();
-			}
-			else if (memberInfo is MethodInfo methodInfo)
-			{
-				return methodInfo.GetDocumentation();
-			}
-			else if (memberInfo is Type type) // + TypeInfo
-			{
-				return type.GetDocumentation();
-			}
-			else if (memberInfo.MemberType.HasFlag(MemberTypes.Custom))
-			{
-				// This represents a cutom type that is not part of
-				// the standard .NET languages as far as I'm aware.
-				// This will never be supported so return null.
-				return null;
-			}
-			else
-			{
-				// Hopefully this will never hit. At the time of writing
-				// this code, I am only aware of the following Member types:
-				// FieldInfo, PropertyInfo, EventInfo, ConstructorInfo,
-				// MethodInfo, and Type.
-				throw new TowelBugException(nameof(GetDocumentation) +
-					" encountered an unhandled type [" + memberInfo.GetType().FullName + "]. " +
-					"Please submit this issue to the Towel GitHub repository. " +
-					"https://github.com/ZacharyPatten/Towel/issues/new/choose");
-			}
-		}
-
-		/// <summary>Gets the XML documentation for a parameter.</summary>
-		/// <param name="parameterInfo">The parameter to get the XML documentation for.</param>
-		/// <returns>The XML documenation of the parameter.</returns>
-		public static string GetDocumentation(this ParameterInfo parameterInfo)
-		{
-			string memberDocumentation = parameterInfo.Member.GetDocumentation();
-			if (memberDocumentation is not null)
-			{
-				string regexPattern =
-					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
-					".*?" +
-					Regex.Escape(@"</param>");
-
-				Match match = Regex.Match(memberDocumentation, regexPattern);
-				if (match.Success)
-				{
-					return match.Value;
-				}
-			}
-			return null;
-		}
+		internal static string GetXmlNameTypeSegment(string typeFullNameString) =>
+			Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
 
 		#endregion
 
