@@ -560,10 +560,11 @@ namespace Towel_Testing
 			Assert.IsFalse(Equate(3, 2, 2));
 
 			// nulls
-			Assert.IsFalse(Equate<string>(null, null));
+
+			Assert.IsTrue(Equate<string>(null, null));
 			Assert.IsFalse(Equate(null, ""));
 			Assert.IsFalse(Equate("", null));
-			Assert.IsFalse(Equate("", ""));
+			Assert.IsTrue(Equate("", ""));
 		}
 
 		#endregion

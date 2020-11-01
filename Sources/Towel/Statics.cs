@@ -816,7 +816,7 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				// todo: add null equality checks
+				// todo: add a type safe meethodinfo look up
 				// todo: I need to kill this try-catch...
 				try
 				{
@@ -833,7 +833,22 @@ namespace Towel
 
 				if (typeof(C) == typeof(bool))
 				{
-					EquateImplementation<A, B, bool>.Function = (_A, _B) => _A.Equals(_B);
+					EquateImplementation<A, B, bool>.Function = 
+						(typeof(A).IsValueType, typeof(B).IsValueType) switch
+						{
+							(true, true)   => (A, B) => A.Equals(B),
+							(true, false)  => (A, B) => A.Equals(B),
+							(false, true)  => (A, B) => B.Equals(A),
+							(false, false) =>
+								(A, B) =>
+									(A, B) switch
+									{
+										(null, null) => true,
+										(_, null) => false,
+										(null, _) => false,
+										_ => A.Equals(B),
+									},
+						};
 					return Function!(a, b);
 				}
 
