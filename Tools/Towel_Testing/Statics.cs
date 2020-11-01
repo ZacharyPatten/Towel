@@ -517,9 +517,9 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region EqualTo_Testing
+		#region Equate_Testing
 
-		[TestMethod] public void EqualTo_Testing()
+		[TestMethod] public void Equate_Testing()
 		{
 			Assert.IsTrue(Equate(0, 0));
 			Assert.IsTrue(Equate(1, 1));
@@ -558,6 +558,12 @@ namespace Towel_Testing
 			Assert.IsFalse(Equate(1, 0, 0));
 			Assert.IsFalse(Equate(2, 1, 1));
 			Assert.IsFalse(Equate(3, 2, 2));
+
+			// nulls
+			Assert.IsFalse(Equate<string>(null, null));
+			Assert.IsFalse(Equate(null, ""));
+			Assert.IsFalse(Equate("", null));
+			Assert.IsFalse(Equate("", ""));
 		}
 
 		#endregion
@@ -1596,8 +1602,6 @@ namespace Towel_Testing
 			return true;
 		}
 
-		public static int[] watchArray;
-
 		public static void TestAlgorithm(
 			Action<int[], Func<int, int, CompareResult>> algorithm,
 			Action<int[], int, int, Func<int, int, CompareResult>> algorithmPartial,
@@ -1620,7 +1624,6 @@ namespace Towel_Testing
 
 			{ // Partial Array Sort
 				int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-				watchArray = array;
 				algorithmPartial(array, 3, 7, Compare);
 				int[] expected = { 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0 };
 				for (int i = 0; i < SortSize; i++)

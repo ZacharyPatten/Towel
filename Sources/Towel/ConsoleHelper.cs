@@ -91,7 +91,7 @@ namespace Towel
 		/// <param name="tryParse">The <see cref="TryParse"/> method for converting <see cref="string"/> into a <typeparamref name="T"/> value.</param>
 		/// <param name="validation">The predicate for validating the value of the input.</param>
 		/// <returns>The validated value of the console input provided by the user.</returns>
-		public static T GetInput<T>(
+		public static T? GetInput<T>(
 			string? prompt = null,
 			string? invalidMessage = null,
 			Func<string, (bool Success, T? Value)>? tryParse = null,
@@ -103,7 +103,7 @@ namespace Towel
 			}
 			tryParse ??= typeof(T) == typeof(string)
 				? s => (true, (T)(object)s)
-				: (Func<string, (bool, T?)>)TryParse<T>;
+				: TryParse<T>;
 			validation ??= v => true;
 			GetInput:
 			Console.Write(prompt ?? $"Input a {typeof(T).Name} value: ");

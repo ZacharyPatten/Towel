@@ -193,7 +193,7 @@ namespace Towel
 				else
 				{
 					MethodInfo methodInfo = commandMatches[0];
-					string documentation = Meta.GetDocumentation(methodInfo);
+					string? documentation = Meta.GetDocumentation(methodInfo);
 					if (documentation is null)
 					{
 						Console.WriteLine("Parameters:");

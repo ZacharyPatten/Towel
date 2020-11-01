@@ -324,9 +324,11 @@ namespace Towel
 				/// <summary>Uses the bool as the condition result.</summary>
 				public static implicit operator Condition<T>(bool result) => new Bool<T> { Result = result, };
 				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
+#pragma warning disable IDE0079 // Remove unnecessary suppression
 #pragma warning disable IDE0060 // Remove unused parameter
 				public static implicit operator Condition<T>(Keyword keyword) => new Default<T>();
 #pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0079 // Remove unnecessary suppression
 			}
 
 			internal class Value<T> : Condition<T>
@@ -358,10 +360,10 @@ namespace Towel
 				public abstract bool Resolve();
 				/// <summary>Uses the bool as the condition result.</summary>
 				public static implicit operator Condition(bool result) => new Bool { Result = result, };
-//#pragma warning disable IDE0060 // Remove unused parameter
+#pragma warning disable IDE0060 // Remove unused parameter
 				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
 				public static implicit operator Condition(Keyword keyword) => new Default();
-//#pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0060 // Remove unused parameter
 				/// <summary>Converts a condition to a bool using the Resolve method.</summary>
 				public static implicit operator bool(Condition condition) => condition.Resolve();
 			}
@@ -812,6 +814,7 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
+				// todo: add null equality checks
 				// todo: I need to kill this try-catch...
 				try
 				{
@@ -2912,7 +2915,7 @@ namespace Towel
 		/// <param name="a">The angle to compute the cosine ratio of.</param>
 		/// <param name="predicate">Determines if coputation should continue or is accurate enough.</param>
 		/// <returns>The taylor series computed cosine ratio of the provided angle.</returns>
-		public static T CosineTaylorSeries<T>(Angle<T> a, Predicate<T> predicate = null)
+		public static T CosineTaylorSeries<T>(Angle<T> a, Predicate<T>? predicate = null)
 		{
 			// Series: cosine(x) = 1 - (x^2 / 2!) + (x^4 / 4!) - (x^6 / 6!) + (x^8 / 8!) - ...
 			// more terms in computation inproves accuracy
@@ -3781,7 +3784,7 @@ namespace Towel
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T, Status>(Span<T> span, Action action, Status status = default)
 			where Status : struct, IFunc<StepStatus> =>
-			PermuteRecursive<T, ActionRuntime, Status>(span, action);
+			PermuteRecursive<T, ActionRuntime, Status>(span, action, status);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T, Action, Status>(Span<T> span, Action action = default, Status status = default)

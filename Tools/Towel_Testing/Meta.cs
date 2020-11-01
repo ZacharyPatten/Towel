@@ -254,8 +254,6 @@ namespace Towel_Testing
 
 		#region MethodInfo Testing
 
-#pragma warning disable IDE0062 // Make local function 'static'
-
 		[TestMethod] public void MethodInfo_IsLocalFunction()
 		{
 			void a() { }
@@ -294,8 +292,6 @@ namespace Towel_Testing
 
 			Assert.IsFalse(new Action(MethodInfo_IsLocalFunction).Method.IsLocalFunction());
 		}
-
-#pragma warning restore IDE0062 // Make local function 'static'
 
 		#endregion
 
@@ -358,11 +354,15 @@ namespace Towel_Testing
 
 	#region XML Documentation Types
 
+
+#pragma warning disable CA1822 // Mark members as static
 #pragma warning disable CS0067 // The event is never used
 #pragma warning disable IDE0060 // Remove unused parameter
+#pragma warning disable CA2211 // Non-constant fields should not be visible
 
 	#region XML Documentation From MethodInfo
 
+	[AttributeUsage(AttributeTargets.Method)]
 	public class XmlDocumentationFromMethodAttribute : Attribute { }
 
 	public class XmlDocumentationFromMethod
@@ -639,6 +639,7 @@ namespace Towel_Testing
 
 	#region XML Documentation From Type Types
 
+	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Delegate | AttributeTargets.Enum)]
 	public class XmlDocumentationFromTypeAttribute : Attribute { }
 
 	/// <summary>Test A</summary>
@@ -749,6 +750,7 @@ namespace Towel_Testing
 
 	#region XML Documentation From FieldInfo
 
+	[AttributeUsage(AttributeTargets.Field)]
 	public class XmlDocumentationFromFieldAttribute : Attribute { }
 
 	public class XmlDocumentationFromField
@@ -836,6 +838,7 @@ namespace Towel_Testing
 
 	#region XML Documentation From PropertyInfo
 
+	[AttributeUsage(AttributeTargets.Property)]
 	public class XmlDocumentationFromPropertyAttribute : Attribute { }
 
 	public class XmlDocumentationFromProperty
@@ -923,6 +926,7 @@ namespace Towel_Testing
 
 	#region XML Documentation From ConstructorInfo
 
+	[AttributeUsage(AttributeTargets.Constructor)]
 	public class XmlDocumentationFromConstructorAttribute : Attribute { }
 
 	public class XmlDocumentationFromConstructor
@@ -1015,6 +1019,7 @@ namespace Towel_Testing
 
 	#region XML Documentation From EventInfo
 
+	[AttributeUsage(AttributeTargets.Event)]
 	public class XmlDocumentationFromEventAttribute : Attribute { }
 
 	public class XmlDocumentationFromEvent
@@ -1066,6 +1071,7 @@ namespace Towel_Testing
 
 	#region XML Documentation From ParameterInfo
 
+	[AttributeUsage(AttributeTargets.Parameter)]
 	public class XmlDocumentationFromParameterAttribute : Attribute { }
 
 	public class XmlDocumentationFromParameter
@@ -1077,6 +1083,8 @@ namespace Towel_Testing
 
 	#endregion
 
+#pragma warning restore CA2211 // Non-constant fields should not be visible
+#pragma warning restore CA1822 // Mark members as static
 #pragma warning restore CS0067 // The event is never used
 #pragma warning restore IDE0060 // Remove unused parameter
 
