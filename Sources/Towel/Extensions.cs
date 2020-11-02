@@ -1191,9 +1191,6 @@ namespace Towel
 			};
 		}
 
-		internal static string ToEnglishWords(string number) =>
-			ToEnglishWords(number.AsSpan());
-
 		internal static string ToEnglishWords(ReadOnlySpan<char> number)
 		{
 			if (number.Length == 1 && number[0] == '0')
@@ -1282,9 +1279,9 @@ namespace Towel
 
 			void DigitGroup(char hundredsDigit, char tensDigit, char onesDigit)
 			{
-				int hundred = hundredsDigit - '0',
-					ten = tensDigit - '0',
-					one = onesDigit - '0';
+				int hundred = hundredsDigit - '0';
+				int ten = tensDigit - '0';
+				int one = onesDigit - '0';
 				if (hundred > 0)
 				{
 					AppendLeadingSpace();
@@ -1398,7 +1395,7 @@ namespace Towel
 		/// <param name="iEnumerable">The IEnumerable to try to get the first value of.</param>
 		/// <param name="first">The first value of the <see cref="System.Collections.Generic.IEnumerable{T}"/> or default if empty.</param>
 		/// <returns>True if the <see cref="System.Collections.Generic.IEnumerable{T}"/> has a first value or false if it is empty.</returns>
-		public static bool TryFirst<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable, out T first)
+		public static bool TryFirst<T>(this System.Collections.Generic.IEnumerable<T> iEnumerable, out T? first)
 		{
 			foreach (T value in iEnumerable)
 			{

@@ -98,7 +98,7 @@ namespace Towel.Mathematics
 
 		#region Debugger Properties
 
-		internal string DebuggerString
+		internal string? DebuggerString
 		{
 			get
 			{
@@ -196,14 +196,14 @@ namespace Towel.Mathematics
 		{
 			_rows = matrix._rows;
 			_columns = matrix.Columns;
-			_matrix = (matrix._matrix).Clone() as T[];
+			_matrix = (T[])matrix._matrix.Clone();
 		}
 
 		internal Matrix(Vector<T> vector)
 		{
 			_rows = vector.Dimensions;
 			_columns = 1;
-			_matrix = vector._vector.Clone() as T[];
+			_matrix = (T[])vector._vector.Clone();
 		}
 
 		#endregion
@@ -590,7 +590,7 @@ namespace Towel.Mathematics
 		/// <summary>Negates all the values in a matrix.</summary>
 		/// <param name="a">The matrix to have its values negated.</param>
 		/// <param name="b">The resulting matrix after the negation.</param>
-		public static void Negate(Matrix<T> a, ref Matrix<T> b)
+		public static void Negate(Matrix<T> a, ref Matrix<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int Length = a._matrix.Length;
@@ -618,9 +618,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the negation.</returns>
 		public static Matrix<T> Negate(Matrix<T> a)
 		{
-			Matrix<T> b = null;
+			Matrix<T>? b = null;
 			Negate(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Negates all the values in a matrix.</summary>
@@ -633,7 +633,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Negates all the values in a matrix.</summary>
 		/// <param name="b">The resulting matrix after the negation.</param>
-		public void Negate(ref Matrix<T> b)
+		public void Negate(ref Matrix<T>? b)
 		{
 			Negate(this, ref b);
 		}
@@ -653,7 +653,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the addition.</param>
 		/// <param name="b">The right matrix of the addition.</param>
 		/// <param name="c">The resulting matrix after the addition.</param>
-		public static void Add(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+		public static void Add(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -690,9 +690,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the addition.</returns>
 		public static Matrix<T> Add(Matrix<T> a, Matrix<T> b)
 		{
-			Matrix<T> c = null;
+			Matrix<T>? c = null;
 			Add(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Does a standard matrix addition.</summary>
@@ -707,7 +707,7 @@ namespace Towel.Mathematics
 		/// <summary>Does standard addition of two matrices.</summary>
 		/// <param name="b">The right matrix of the addition.</param>
 		/// <param name="c">The resulting matrix after the addition.</param>
-		public void Add(Matrix<T> b, ref Matrix<T> c)
+		public void Add(Matrix<T> b, ref Matrix<T>? c)
 		{
 			Add(this, b, ref c);
 		}
@@ -728,7 +728,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the subtraction.</param>
 		/// <param name="b">The right matrix of the subtraction.</param>
 		/// <param name="c">The resulting matrix after the subtraction.</param>
-		public static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+		public static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -765,9 +765,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the subtraction.</returns>
 		public static Matrix<T> Subtract(Matrix<T> a, Matrix<T> b)
 		{
-			Matrix<T> c = null;
+			Matrix<T>? c = null;
 			Subtract(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Does a standard matrix subtraction.</summary>
@@ -782,7 +782,7 @@ namespace Towel.Mathematics
 		/// <summary>Does a standard matrix subtraction.</summary>
 		/// <param name="b">The right matrix of the subtraction.</param>
 		/// <param name="c">The resulting matrix after the subtraction.</param>
-		public void Subtract(Matrix<T> b, ref Matrix<T> c)
+		public void Subtract(Matrix<T> b, ref Matrix<T>? c)
 		{
 			Subtract(this, b, ref c);
 		}
@@ -803,7 +803,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the multiplication.</param>
 		/// <param name="b">The right matrix of the multiplication.</param>
 		/// <param name="c">The resulting matrix of the multiplication.</param>
-		public static void Multiply(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+		public static void Multiply(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -812,17 +812,17 @@ namespace Towel.Mathematics
 				throw new MathematicsException("Arguments invalid !(" +
 					nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Rows) + ")");
 			}
-			if (object.ReferenceEquals(a, b) && object.ReferenceEquals(a, c))
+			if (ReferenceEquals(a, b) && ReferenceEquals(a, c))
 			{
 				Matrix<T> clone = a.Clone();
 				a = clone;
 				b = clone;
 			}
-			else if (object.ReferenceEquals(a, c))
+			else if (ReferenceEquals(a, c))
 			{
 				a = a.Clone();
 			}
-			else if (object.ReferenceEquals(b, c))
+			else if (ReferenceEquals(b, c))
 			{
 				b = b.Clone();
 			}
@@ -865,9 +865,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the multiplication.</returns>
 		public static Matrix<T> Multiply(Matrix<T> a, Matrix<T> b)
 		{
-			Matrix<T> c = null;
+			Matrix<T>? c = null;
 			Multiply(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
@@ -882,7 +882,7 @@ namespace Towel.Mathematics
 		/// <summary>Does a standard (triple for looped) multiplication between matrices.</summary>
 		/// <param name="b">The right matrix of the multiplication.</param>
 		/// <param name="c">The resulting matrix of the multiplication.</param>
-		public void Multiply(Matrix<T> b, ref Matrix<T> c)
+		public void Multiply(Matrix<T> b, ref Matrix<T>? c)
 		{
 			Multiply(this, b, ref c);
 		}
@@ -903,7 +903,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the multiplication.</param>
 		/// <param name="b">The right vector of the multiplication.</param>
 		/// <param name="c">The resulting vector of the multiplication.</param>
-		public static void Multiply(Matrix<T> a, Vector<T> b, ref Vector<T> c)
+		public static void Multiply(Matrix<T> a, Vector<T> b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -944,9 +944,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting vector of the multiplication.</returns>
 		public static Vector<T> Multiply(Matrix<T> a, Vector<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Multiply(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Does a matrix-vector multiplication.</summary>
@@ -961,7 +961,7 @@ namespace Towel.Mathematics
 		/// <summary>Does a matrix-vector multiplication.</summary>
 		/// <param name="b">The right vector of the multiplication.</param>
 		/// <param name="c">The resulting vector of the multiplication.</param>
-		public void Multiply(Vector<T> b, ref Vector<T> c)
+		public void Multiply(Vector<T> b, ref Vector<T>? c)
 		{
 			Multiply(this, b, ref c);
 		}
@@ -982,7 +982,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to have the values multiplied.</param>
 		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <param name="c">The resulting matrix after the multiplications.</param>
-		public static void Multiply(Matrix<T> a, T b, ref Matrix<T> c)
+		public static void Multiply(Matrix<T> a, T b, ref Matrix<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._matrix;
@@ -1011,9 +1011,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the multiplications.</returns>
 		public static Matrix<T> Multiply(Matrix<T> a, T b)
 		{
-			Matrix<T> c = null;
+			Matrix<T>? c = null;
 			Multiply(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
@@ -1046,7 +1046,7 @@ namespace Towel.Mathematics
 		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
 		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <param name="c">The resulting matrix after the multiplications.</param>
-		public void Multiply(T b, ref Matrix<T> c)
+		public void Multiply(T b, ref Matrix<T>? c)
 		{
 			Multiply(this, b, ref c);
 		}
@@ -1067,7 +1067,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to divide the values of.</param>
 		/// <param name="b">The scalar to divide all the matrix values by.</param>
 		/// <param name="c">The resulting matrix after the division.</param>
-		public static void Divide(Matrix<T> a, T b, ref Matrix<T> c)
+		public static void Divide(Matrix<T> a, T b, ref Matrix<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._matrix;
@@ -1097,9 +1097,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix after the division.</returns>
 		public static Matrix<T> Divide(Matrix<T> a, T b)
 		{
-			Matrix<T> c = null;
+			Matrix<T>? c = null;
 			Divide(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Divides all the values in the matrix by a scalar.</summary>
@@ -1114,7 +1114,7 @@ namespace Towel.Mathematics
 		/// <summary>Divides all the values in the matrix by a scalar.</summary>
 		/// <param name="b">The scalar to divide all the matrix values by.</param>
 		/// <param name="c">The resulting matrix after the division.</param>
-		public void Divide(T b, ref Matrix<T> c)
+		public void Divide(T b, ref Matrix<T>? c)
 		{
 			Divide(this, b, ref c);
 		}
@@ -1135,7 +1135,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The matrix to be powered by.</param>
 		/// <param name="b">The power to apply to the matrix.</param>
 		/// <param name="c">The resulting matrix of the power operation.</param>
-		public static void Power(Matrix<T> a, int b, ref Matrix<T> c)
+		public static void Power(Matrix<T> a, int b, ref Matrix<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
@@ -1175,11 +1175,11 @@ namespace Towel.Mathematics
 			{
 				c = a.Clone();
 			}
-			Matrix<T> d = new Matrix<T>(a._rows, a._columns, a._matrix.Length);
+			Matrix<T>? d = new Matrix<T>(a._rows, a._columns, a._matrix.Length);
 			for (int i = 0; i < b; i++)
 			{
 				Multiply(c, a, ref d);
-				Matrix<T> temp = d;
+				Matrix<T>? temp = d;
 				d = c;
 				c = d;
 			}
@@ -1191,9 +1191,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the power operation.</returns>
 		public static Matrix<T> Power(Matrix<T> a, int b)
 		{
-			Matrix<T> c = null;
+			Matrix<T>? c = null;
 			Power(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Applies a power to a square matrix.</summary>
@@ -1209,7 +1209,7 @@ namespace Towel.Mathematics
 		/// <summary>Applies a power to a square matrix.</summary>
 		/// <param name="b">The power to apply to the matrix.</param>
 		/// <param name="c">The resulting matrix of the power operation.</param>
-		public void Power(int b, ref Matrix<T> c)
+		public void Power(int b, ref Matrix<T>? c)
 		{
 			Power(this, b, ref c);
 		}
@@ -1389,17 +1389,17 @@ namespace Towel.Mathematics
 		/// <inheritdoc cref="Minor_XML"/>
 		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
 		{
-			Matrix<T> b = null;
+			Matrix<T>? b = null;
 			Minor(a, row, column, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <inheritdoc cref="Minor_XML"/>
-		public void Minor(int row, int column, ref Matrix<T> b) =>
+		public void Minor(int row, int column, ref Matrix<T>? b) =>
 			Minor(this, row, column, ref b);
 
 		/// <inheritdoc cref="Minor_XML"/>
-		public static void Minor(Matrix<T> a, int row, int column, ref Matrix<T> b)
+		public static void Minor(Matrix<T> a, int row, int column, ref Matrix<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (a._rows < 2 || a._columns < 2)
@@ -1465,7 +1465,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left matrix of the concatenation.</param>
 		/// <param name="b">The right matrix of the concatenation.</param>
 		/// <param name="c">The resulting matrix of the concatenation.</param>
-		public static void ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T> c)
+		public static void ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -1519,16 +1519,16 @@ namespace Towel.Mathematics
 		/// <returns>The resulting matrix of the concatenation.</returns>
 		public static Matrix<T> ConcatenateRowWise(Matrix<T> a, Matrix<T> b)
 		{
-			Matrix<T> c = null;
+			Matrix<T>? c = null;
 			ConcatenateRowWise(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Combines two matrices from left to right 
 		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="b">The right matrix of the concatenation.</param>
 		/// <param name="c">The resulting matrix of the concatenation.</param>
-		public void ConcatenateRowWise(Matrix<T> b, ref Matrix<T> c)
+		public void ConcatenateRowWise(Matrix<T> b, ref Matrix<T>? c)
 		{
 			ConcatenateRowWise(this, b, ref c);
 		}
@@ -1639,7 +1639,7 @@ namespace Towel.Mathematics
 		/// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
 		/// <param name="a">The matrix matrix to calculate the reduced echelon of (aka RREF).</param>
 		/// <param name="b">The reduced echelon of the matrix (aka RREF).</param>
-		public static void ReducedEchelon(Matrix<T> a, ref Matrix<T> b)
+		public static void ReducedEchelon(Matrix<T> a, ref Matrix<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int Rows = a.Rows;
@@ -1774,14 +1774,14 @@ namespace Towel.Mathematics
 		/// <returns>The reduced echelon of the matrix (aka RREF).</returns>
 		public static Matrix<T> ReducedEchelon(Matrix<T> a)
 		{
-			Matrix<T> b = null;
+			Matrix<T>? b = null;
 			ReducedEchelon(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Calculates the echelon of a matrix and reduces it (aka RREF).</summary>
 		/// <param name="b">The reduced echelon of the matrix (aka RREF).</param>
-		public void ReducedEchelon(ref Matrix<T> b)
+		public void ReducedEchelon(ref Matrix<T>? b)
 		{
 			ReducedEchelon(this, ref b);
 		}
@@ -1800,7 +1800,7 @@ namespace Towel.Mathematics
 		/// <summary>Calculates the inverse of a matrix.</summary>
 		/// <param name="a">The matrix to calculate the inverse of.</param>
 		/// <param name="b">The inverse of the matrix.</param>
-		public static void Inverse(Matrix<T> a, ref Matrix<T> b)
+		public static void Inverse(Matrix<T> a, ref Matrix<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
@@ -1917,9 +1917,9 @@ namespace Towel.Mathematics
 		/// <returns>The inverse of the matrix.</returns>
 		public static Matrix<T> Inverse(Matrix<T> a)
 		{
-			Matrix<T> b = null;
+			Matrix<T>? b = null;
 			Inverse(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Matrixs the inverse of this matrix.</summary>
@@ -1936,7 +1936,7 @@ namespace Towel.Mathematics
 		/// <summary>Calculates the adjoint of a matrix.</summary>
 		/// <param name="a">The matrix to calculate the adjoint of.</param>
 		/// <param name="b">The adjoint of the matrix.</param>
-		public static void Adjoint(Matrix<T> a, ref Matrix<T> b)
+		public static void Adjoint(Matrix<T> a, ref Matrix<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (!a.IsSquare)
@@ -2023,14 +2023,14 @@ namespace Towel.Mathematics
 		/// <returns>The adjoint of the matrix.</returns>
 		public static Matrix<T> Adjoint(Matrix<T> a)
 		{
-			Matrix<T> b = null;
+			Matrix<T>? b = null;
 			Adjoint(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Calculates the adjoint of a matrix.</summary>
 		/// <param name="b">The adjoint of the matrix.</param>
-		public void Adjoint(ref Matrix<T> b)
+		public void Adjoint(ref Matrix<T>? b)
 		{
 			Adjoint(this, ref b);
 		}
@@ -2049,7 +2049,7 @@ namespace Towel.Mathematics
 		/// <summary>Returns the transpose of a matrix.</summary>
 		/// <param name="a">The matrix to transpose.</param>
 		/// <param name="b">The transpose of the matrix.</param>
-		public static void Transpose(Matrix<T> a, ref Matrix<T> b)
+		public static void Transpose(Matrix<T> a, ref Matrix<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			if (ReferenceEquals(a, b))
@@ -2086,14 +2086,14 @@ namespace Towel.Mathematics
 		/// <returns>The transpose of the matrix.</returns>
 		public static Matrix<T> Transpose(Matrix<T> a)
 		{
-			Matrix<T> b = null;
+			Matrix<T>? b = null;
 			Transpose(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Returns the transpose of a matrix.</summary>
 		/// <param name="b">The transpose of the matrix.</param>
-		public void Transpose(ref Matrix<T> b)
+		public void Transpose(ref Matrix<T>? b)
 		{
 			Transpose(this, ref b);
 		}
@@ -2607,18 +2607,27 @@ namespace Towel.Mathematics
 
 		#region Overrides
 
-		/// <summary>Prints out a string representation of this matrix.</summary>
-		/// <returns>A string representing this matrix.</returns>
-		public override string ToString() => base.ToString();
+		///// <summary>Prints out a string representation of this matrix.</summary>
+		///// <returns>A string representing this matrix.</returns>
+		//public override string? ToString() => base.ToString();
 
 		/// <summary>Matrixs a hash code from the values of this matrix.</summary>
 		/// <returns>A hash code for the matrix.</returns>
-		public override int GetHashCode() => _matrix.GetHashCode() ^ _rows ^ _columns;
+		public override int GetHashCode()
+		{
+			//return _matrix.GetHashCode() ^ _rows ^ _columns;
+			int hashCode = HashCode.Combine(_rows, _columns);
+			foreach (T value in _matrix)
+			{
+				hashCode = HashCode.Combine(hashCode, DefaultHash(value));
+			}
+			return hashCode;
+		}
 
 		/// <summary>Does an equality check by value.</summary>
 		/// <param name="b">The object to compare to.</param>
 		/// <returns>True if the references are equal, false if not.</returns>
-		public override bool Equals(object b) => b is Matrix<T> B && Equal(this, B);
+		public override bool Equals(object? b) => b is Matrix<T> B && Equal(this, B);
 
 		#endregion
 	}

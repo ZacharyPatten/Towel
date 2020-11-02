@@ -17017,10 +17017,6 @@
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Matrix`1.ToString">
-            <summary>Prints out a string representation of this matrix.</summary>
-            <returns>A string representing this matrix.</returns>
-        </member>
         <member name="M:Towel.Mathematics.Matrix`1.GetHashCode">
             <summary>Matrixs a hash code from the values of this matrix.</summary>
             <returns>A hash code for the matrix.</returns>

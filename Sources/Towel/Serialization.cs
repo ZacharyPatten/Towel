@@ -172,6 +172,10 @@ namespace Towel
 			{
 				throw new NotSupportedException("delegates assigned to non-static methods are not supported");
 			}
+			if (methodInfo.DeclaringType is null)
+			{
+				throw new ArgumentException($"{nameof(@delegate)}.{nameof(Delegate.Method)}.{nameof(MethodInfo.DeclaringType)} is null", nameof(@delegate));
+			}
 			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 			xmlWriter.WriteStartElement(StaticDelegateConstants.Name);
 			{
@@ -245,10 +249,10 @@ namespace Towel
 		{
 			try
 			{
-				string declaringTypeString = null;
-				string methodNameString = null;
+				string? declaringTypeString = null;
+				string? methodNameString = null;
 				IList<string> parameterTypeStrings = new ListArray<string>();
-				string returnTypeString = null;
+				string? returnTypeString = null;
 				using (XmlReader xmlReader = XmlReader.Create(textReader))
 				{
 					while (xmlReader.Read())
@@ -274,9 +278,17 @@ namespace Towel
 						}
 					}
 				}
-				Type declaringType = Type.GetType(declaringTypeString);
-				Type returnType = Type.GetType(returnTypeString);
-				MethodInfo methodInfo = null;
+				if (declaringTypeString is null)
+				{
+					goto ThrowMissingType;
+				}
+				if (returnTypeString is null)
+				{
+					goto ThrowMissingReturnType;
+				}
+				Type? declaringType = Type.GetType(declaringTypeString);
+				Type? returnType = Type.GetType(returnTypeString);
+				MethodInfo? methodInfo = null;
 				if (parameterTypeStrings.Count > 0)
 				{
 					Type[] parameterTypes = parameterTypeStrings.Select(x => Type.GetType(x)).ToArray();
@@ -285,6 +297,10 @@ namespace Towel
 				else
 				{
 					methodInfo = declaringType.GetMethod(methodNameString);
+				}
+				if (methodInfo is null)
+				{
+					goto ThrowMethodNotFound;
 				}
 				if (methodInfo.IsLocalFunction())
 				{
@@ -304,6 +320,12 @@ namespace Towel
 			{
 				throw new Exception("Deserialization failed.", exception);
 			}
+			ThrowMethodNotFound:
+			throw new Exception("The method of the deserialization was not found.");
+			ThrowMissingReturnType:
+			throw new ArgumentException("Deserialization failed due to missing return type.");
+			ThrowMissingType:
+			throw new ArgumentException("Deserialization failed due to missing type.");
 			ThrowNonStaticException:
 			throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
 			ThrowLocalFunctionException:
