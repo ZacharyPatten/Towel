@@ -106,7 +106,7 @@ namespace Towel
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
 			}
 
-			ISet<char> set = new SetHashLinked<char>();
+			SetHashLinked<char> set = new SetHashLinked<char>();
 			foreach (char c in chars)
 			{
 				set.Add(c);
