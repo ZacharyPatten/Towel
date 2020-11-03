@@ -970,15 +970,22 @@ namespace Towel
 			LoadXmlDocumentation(methodBase.DeclaringType.Assembly);
 
 			MapHashLinked<int, string> typeGenericMap = new();
-			int tempTypeGeneric = 0;
-			Array.ForEach(methodBase.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
+			Type[] typeGenericArguments = methodBase.DeclaringType.GetGenericArguments();
+			for (int i = 0; i < typeGenericArguments.Length; i++)
+			{
+				Type typeGeneric = typeGenericArguments[i];
+				typeGenericMap[typeGeneric.Name] = i;
+			}
 
 			MapHashLinked<int, string> methodGenericMap = new();
-			
 			if (constructorInfo is null)
 			{
-				int tempMethodGeneric = 0;
-				Array.ForEach(methodBase.GetGenericArguments(), x => methodGenericMap.Add(x.Name, tempMethodGeneric++));
+				Type[] methodGenericArguments = methodBase.GetGenericArguments();
+				for (int i = 0; i < methodGenericArguments.Length; i++)
+				{
+					Type methodGeneric = methodGenericArguments[i];
+					methodGenericMap[methodGeneric.Name] = i;
+				}
 			}
 
 			ParameterInfo[] parameterInfos = methodBase.GetParameters();
