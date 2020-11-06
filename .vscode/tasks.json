@@ -366,5 +366,19 @@
 			],
 			"problemMatcher": "$msCompile"
 		},
+		{
+			"label": "dotnet run Towel_Generating",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"run",
+				"--configuration", "Release",
+				"${workspaceFolder}/Tools/Towel_Generating/Towel_Generating.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
 	]
 }

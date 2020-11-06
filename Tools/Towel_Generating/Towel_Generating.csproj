@@ -5,6 +5,6 @@
 		<TargetFramework>net5.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Sources\Towel\Towel.csproj" />
+	  <PackageReference Include="Towel" Version="1.0.19-alpha" />
 	</ItemGroup>
 </Project>
