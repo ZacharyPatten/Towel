@@ -253,8 +253,30 @@ namespace Towel_Generating
 				file.AppendLine($@"		// todo");
 				file.AppendLine($@"	}}");
 				file.AppendLine($@"");
-				file.AppendLine($@"	public interface OmnitreePoints<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}> : IOmnitree<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}>");
+				file.AppendLine($@"	public class OmnitreePoints<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}, Locate> : IOmnitree<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}>");
+				for (int j = 1; j <= i; j++)
+				{
+					file.AppendLine($@"		where Compare{j} : struct, IFunc<A{j}, A{j}, CompareResult>");
+				}
+				file.AppendLine($@"		where Locate : struct, IFunc<T, {(i is 1 ? "" : "(")}{Join(1..(i + 1), n => $"A{n}", ", ")}{(i is 1 ? "" : ")")}>");
 				file.AppendLine($@"	{{");
+				file.AppendLine($@"		internal readonly static {(i > 30 ? "BigInteger" : "int")} ChildrenPerNode = {(i > 30 ? $"BigInteger.Pow(2, {i})" : $"{Math.Pow(2, i)}")};");
+				file.AppendLine($@"");
+				file.AppendLine($@"		internal Node _top;");
+				file.AppendLine($@"		/// <summary>Caches the next time to calculate loads (lower count).</summary>");
+				file.AppendLine($@"		internal int _naturalLogLower = 1;");
+				file.AppendLine($@"		/// <summary>Caches the next time to calculate loads (upper count).</summary>");
+				file.AppendLine($@"		internal int _naturalLogUpper = 1;");
+				file.AppendLine($@"		/// <summary>ln(count); min = _defaultLoad.</summary>");
+				file.AppendLine($@"		internal int _load = 1;");
+				for (int j = 1; j <= i; j++)
+				{
+					file.AppendLine($@"		internal Compare{j} _compare{j};");
+				}
+				file.AppendLine($@"		internal Locate _locate;");
+
+
+
 				file.AppendLine($@"	}}");
 				file.AppendLine($@"");
 				file.AppendLine($@"	#endregion OmnitreePoints");
