@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Towel;
+using static Towel.Statics;
 using Towel.DataStructures;
+using System.Linq;
 
 namespace Towel_Testing
 {
@@ -228,6 +230,26 @@ namespace Towel_Testing
 		}
 
 		#endregion
+
+		#region System.Range
+
+		[TestMethod] public void GetEnumerator_Range()
+		{
+			Assert.IsTrue(Equate<int>((0..4).ToIEnumerable().ToArray(), new[] { 0, 1, 2, 3 }));
+			Assert.IsTrue(Equate<int>((4..0).ToIEnumerable().ToArray(), new[] { 4, 3, 2, 1 }));
+
+			Assert.IsTrue(Equate<int>((11..14).ToIEnumerable().ToArray(), new[] { 11, 12, 13 }));
+			Assert.IsTrue(Equate<int>((14..11).ToIEnumerable().ToArray(), new[] { 14, 13, 12 }));
+
+			//// unfortuntately System.Range syntax does not support negative values
+			//Assert.IsTrue(Equate<int>((0..-3).ToIEnumerable().ToArray(), new[] {  0, -1, -2 }));
+			//Assert.IsTrue(Equate<int>((-3..0).ToIEnumerable().ToArray(), new[] { -3, -2, -1 }));
+
+			Assert.ThrowsException<ArgumentException>(() => (^0..4).ToIEnumerable().ToArray());
+			Assert.ThrowsException<ArgumentException>(() => (0..^4).ToIEnumerable().ToArray());
+			Assert.ThrowsException<ArgumentException>(() => (^0..^4).ToIEnumerable().ToArray());
+		}
+
+		#endregion
 	}
 }
-

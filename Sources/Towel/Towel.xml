@@ -15618,6 +15618,13 @@
             <summary>Converts a <see cref="T:System.Range"/> to an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</summary>
             <param name="range">The <see cref="T:System.Range"/> to convert int a <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</param>
             <returns>The resulting <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the conversion.</returns>
+            <exception cref="T:System.ArgumentException">range.Start.IsFromEnd</exception>
+            <exception cref="T:System.ArgumentException">range.End.IsFromEnd</exception>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator(System.Range)">
+            <summary>Returns an <see cref="T:System.Collections.Generic.IEnumerator`1"/> that iterates through the <paramref name="range"/>.</summary>
+            <param name="range">The range to get the <see cref="T:System.Collections.Generic.IEnumerator`1"/> of.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerator`1"/> that iterates through the <paramref name="range"/>.</returns>
         </member>
         <member name="M:Towel.Extensions.Gaps``1(System.Action{``0},System.Action{``0})">
             <summary>Adds a step to the gaps (in-betweens) of another step funtion.</summary>

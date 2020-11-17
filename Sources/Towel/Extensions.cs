@@ -1437,15 +1437,38 @@ namespace Towel
 		/// <summary>Converts a <see cref="System.Range"/> to an <see cref="System.Collections.Generic.IEnumerable{T}"/>.</summary>
 		/// <param name="range">The <see cref="System.Range"/> to convert int a <see cref="System.Collections.Generic.IEnumerable{T}"/>.</param>
 		/// <returns>The resulting <see cref="System.Collections.Generic.IEnumerable{T}"/> of the conversion.</returns>
+		/// <exception cref="ArgumentException">range.Start.IsFromEnd</exception>
+		/// <exception cref="ArgumentException">range.End.IsFromEnd</exception>
 		internal static System.Collections.Generic.IEnumerable<int> ToIEnumerable(this Range range)
 		{
-			int a = range.Start.Value < range.End.Value ? range.Start.Value : range.End.Value;
-			int b = range.Start.Value > range.End.Value ? range.Start.Value : range.End.Value;
-			for (int i = a; i < b; i++)
+			if (range.Start.IsFromEnd)
 			{
-				yield return i;
+				throw new ArgumentException($"{nameof(range)}.{nameof(range.Start)}.{nameof(range.Start.IsFromEnd)}", nameof(range));
+			}
+			if (range.End.IsFromEnd)
+			{
+				throw new ArgumentException($"{nameof(range)}.{nameof(range.End)}.{nameof(range.End.IsFromEnd)}", nameof(range));
+			}
+			if (range.End.Value < range.Start.Value)
+			{
+				for (int i = range.Start.Value; i > range.End.Value; i--)
+				{
+					yield return i;
+				}
+			}
+			else
+			{
+				for (int i = range.Start.Value; i < range.End.Value; i++)
+				{
+					yield return i;
+				}
 			}
 		}
+
+		/// <summary>Returns an <see cref="System.Collections.Generic.IEnumerator{T}"/> that iterates through the <paramref name="range"/>.</summary>
+		/// <param name="range">The range to get the <see cref="System.Collections.Generic.IEnumerator{T}"/> of.</param>
+		/// <returns>An <see cref="System.Collections.Generic.IEnumerator{T}"/> that iterates through the <paramref name="range"/>.</returns>
+		public static System.Collections.Generic.IEnumerator<int> GetEnumerator(this Range range) => ToIEnumerable(range).GetEnumerator();
 
 		#endregion
 
