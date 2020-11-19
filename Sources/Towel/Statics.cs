@@ -4625,10 +4625,10 @@ namespace Towel
 		public static void SortSelection<T, Compare>(Span<T> span, Compare compare = default)
 			where Compare : struct, IFunc<T, T, CompareResult>
 		{
-			for (int i = 0; i <= span.Length - 1; i++)
+			for (int i = 0; i < span.Length; i++)
 			{
 				int min = i;
-				for (int j = i + 1; j <= span.Length - 2; j++)
+				for (int j = i + 1; j < span.Length; j++)
 				{
 					if (compare.Do(span[j], span[min]) is Less)
 					{
@@ -5260,20 +5260,9 @@ namespace Towel
 			where Set : struct, IAction<int, T>
 			where Random : struct, IFunc<int, int, int>
 		{
-			while (!SortBogoCheck(start, end))
+			while (!IsOrdered<T, Compare, Get>(start, end, compare, get))
 			{
 				Shuffle<T, Get, Set, Random>(start, end, get, set, random);
-			}
-			bool SortBogoCheck(int start, int end)
-			{
-				for (int i = start; i <= end - 1; i++)
-				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
-					{
-						return false;
-					}
-				}
-				return true;
 			}
 		}
 
@@ -5291,20 +5280,9 @@ namespace Towel
 			where Compare : struct, IFunc<T, T, CompareResult>
 			where Random : struct, IFunc<int, int, int>
 		{
-			while (!SortBogoCheck(span))
+			while (!IsOrdered<T, Compare>(span, compare))
 			{
-				Shuffle<T, Random>(span, random);
-			}
-			bool SortBogoCheck(Span<T> span)
-			{
-				for (int i = 1; i < span.Length; i++)
-				{
-					if (compare.Do(span[i - 1], span[i]) is Greater)
-					{
-						return false;
-					}
-				}
-				return true;
+				Shuffle(span, random);
 			}
 		}
 
@@ -5570,7 +5548,7 @@ namespace Towel
 
 		#region SortCocktail
 
-		/// <summary>Sorts values using the shell sort algorithm.</summary>
+		/// <summary>Sorts values using the cocktail sort algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortCocktail_XML() => throw new DocumentationMethodException();
@@ -5660,6 +5638,249 @@ namespace Towel
 		}
 
 		#endregion
+
+		#region SortCycle
+
+		/// <summary>Sorts values using the shell cycle algorithm.</summary>
+		/// <inheritdoc cref="Sort_XML"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void SortCycle_XML() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="SortCycle_XML"/>
+		public static void SortCycle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
+			SortCycle<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+
+		/// <inheritdoc cref="SortCycle_XML"/>
+		public static void SortCycle<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+			where Set : struct, IAction<int, T>
+		{
+			for (int i = start; i < end; i++)
+			{
+				T pivot = get.Do(i);
+				int index = i;
+				for (int j = i + 1; j <= end; j++)
+				{
+					if (compare.Do(get.Do(j), pivot) is Less)
+					{
+						index++;
+					}
+				}
+				if (index == i)
+				{
+					continue;
+				}
+				while (compare.Do(pivot, get.Do(index)) is Equal)
+				{
+					index++;
+				}
+				if (index != i)
+				{
+					T temp = pivot;
+					pivot = get.Do(index);
+					set.Do(index, temp);
+				}
+				while (index != i)
+				{
+					index = i;
+					for (int j = i + 1; j <= end; j++)
+					{
+						if (compare.Do(get.Do(j), pivot) is Less)
+						{
+							index++;
+						}
+					}
+					while (compare.Do(pivot, get.Do(index)) is Equal)
+					{
+						index += 1;
+					}
+					if (compare.Do(pivot, get.Do(index)) is not Equal)
+					{
+						T temp = pivot;
+						pivot = get.Do(index);
+						set.Do(index, temp);
+					}
+				}
+			}
+		}
+
+		/// <inheritdoc cref="SortCycle_XML"/>
+		public static void SortCycle<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
+			SortCycle<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		/// <inheritdoc cref="SortCycle_XML"/>
+		public static void SortCycle<T, Compare>(Span<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			for (int i = 0; i < span.Length - 1; i++)
+			{
+				T pivot = span[i];
+				int index = i;
+				for (int j = i + 1; j < span.Length; j++)
+				{
+					if (compare.Do(span[j], pivot) is Less)
+					{
+						index++;
+					}
+				}
+				if (index == i)
+				{
+					continue;
+				}
+				while (compare.Do(pivot, span[index]) is Equal)
+				{
+					index++;
+				}
+				if (index != i)
+				{
+					Swap(ref span[index], ref pivot);
+				}
+				while (index != i)
+				{
+					index = i;
+					for (int j = i + 1; j < span.Length; j++)
+					{
+						if (compare.Do(span[j], pivot) is Less)
+						{
+							index++;
+						}
+					}
+					while (compare.Do(pivot, span[index]) is Equal)
+					{
+						index += 1;
+					}
+					if (compare.Do(pivot, span[index]) is not Equal)
+					{
+						Swap(ref span[index], ref pivot);
+					}
+				}
+			}
+		}
+
+		#endregion
+
+		#endregion
+
+		#region FilterOrdered
+
+		public static void FilterOrdered<T>(int start, int end, Func<int, T> get, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
+			FilterOrdered<T, FuncRuntime<int, T>, ActionRuntime<T>, FuncRuntime<T, T, CompareResult>>(start, end, get, step, compare ?? Compare);
+
+		public static void FilterOrdered<T, Get, Step, Compare>(int start, int end, Get get = default, Step step = default, Compare compare = default)
+			where Get : struct, IFunc<int, T>
+			where Step : struct, IAction<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (start <= end)
+			{
+				step.Do(get.Do(start));
+			}
+			for (int i = start; i <= end; i++)
+			{
+				if (compare.Do(get.Do(i - 1), get.Do(i)) is not Greater)
+				{
+					step.Do(get.Do(i));
+				}
+			}
+		}
+
+		public static void FilterOrdered<T>(ReadOnlySpan<T> span, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
+			FilterOrdered<T, ActionRuntime<T>, FuncRuntime<T, T, CompareResult>>(span, step, compare ?? Compare);
+
+		public static void FilterOrdered<T, Step, Compare>(ReadOnlySpan<T> span, Step step = default, Compare compare = default)
+			where Step : struct, IAction<T>
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (!span.IsEmpty)
+			{
+				step.Do(span[0]);
+			}
+			for (int i = 1; i < span.Length; i++)
+			{
+				if (compare.Do(span[i - 1], span[i]) is not Greater)
+				{
+					step.Do(span[i]);
+				}
+			}
+		}
+
+		#endregion
+
+		#region IsOrdered
+
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="Get">The get function.</typeparam>
+		/// <param name="compare">The compare function.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="span">The span to be sorted.</param>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		internal static void IsOrdered_XML() => throw new DocumentationMethodException();
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="IsOrdered_XML"/>
+		public static bool IsOrdered<T>(int start, int end, Func<int, T> get, Func<T, T, CompareResult>? compare = null) =>
+			IsOrdered<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>>(start, end, compare ?? Compare, get);
+
+		/// <inheritdoc cref="IsOrdered_XML"/>
+		public static bool IsOrdered<T, Compare, Get>(int start, int end, Compare compare = default, Get get = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+			where Get : struct, IFunc<int, T>
+		{
+			for (int i = start + 1; i <= end; i++)
+			{
+				if (compare.Do(get.Do(i - 1), get.Do(i)) is Greater)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/// <inheritdoc cref="IsOrdered_XML"/>
+		public static bool IsOrdered<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
+			IsOrdered<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		/// <inheritdoc cref="IsOrdered_XML"/>
+		public static bool IsOrdered<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			for (int i = 1; i < span.Length; i++)
+			{
+				if (compare.Do(span[i - 1], span[i]) is Greater)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/// <inheritdoc cref="IsOrdered_XML"/>
+		public static bool IsOrdered<T>(this System.Collections.Generic.IEnumerable<T> enumerable, Func<T, T, CompareResult>? compare = null) =>
+			IsOrdered<T, FuncRuntime<T, T, CompareResult>>(enumerable, compare ?? Compare);
+
+		/// <inheritdoc cref="IsOrdered_XML"/>
+		public static bool IsOrdered<T, Compare>(this System.Collections.Generic.IEnumerable<T> enumerable, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			System.Collections.Generic.IEnumerator<T> enumerator = enumerable.GetEnumerator();
+			T previous = enumerator.Current;
+			while (enumerator.MoveNext())
+			{
+				if (compare.Do(previous, enumerator.Current) is Greater)
+				{
+					return false;
+				}
+				previous = enumerator.Current;
+			}
+			return true;
+		}
 
 		#endregion
 

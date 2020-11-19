@@ -95,6 +95,12 @@ namespace Towel_Benchmarking
 		[Benchmark] public void CocktailCompileTime() =>
 			SortCocktail<int, IntCompare>(Values);
 
+		[Benchmark] public void CycleRunTime() =>
+			SortCycle<int>(Values);
+
+		[Benchmark] public void CycleCompileTime() =>
+			SortCycle<int, IntCompare>(Values);
+
 		[Benchmark] public void SlowRunTime()
 		{
 			if (Values.Length > 10)

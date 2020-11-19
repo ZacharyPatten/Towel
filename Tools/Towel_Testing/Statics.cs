@@ -1591,18 +1591,6 @@ namespace Towel_Testing
 		public const int SortSize = 10;
 		public const int SortRandomSeed = 7;
 
-		public static bool IsLeastToGreatest<T>(T[] array)
-		{
-			for (int i = 0; i < array.Length - 1; i++)
-			{
-				if (Compare(array[i], array[i + 1]) is Greater)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
 		public static void TestAlgorithm(
 			Action<int[], Func<int, int, CompareResult>> algorithm,
 			Action<int[], int, int, Func<int, int, CompareResult>> algorithmPartial,
@@ -1614,9 +1602,9 @@ namespace Towel_Testing
 				int[] array = new int[sizeAdjusted];
 				Extensions.Iterate(sizeAdjusted, i => array[i] = i);
 				Shuffle<int>(array, random);
-				Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
+				Assert.IsFalse(IsOrdered<int>(array), "Test failed (invalid randomization).");
 				algorithm(array, Compare);
-				Assert.IsTrue(IsLeastToGreatest(array), "Sorting algorithm failed.");
+				Assert.IsTrue(IsOrdered<int>(array), "Sorting algorithm failed.");
 			}
 
 			Test(sizeOverride ?? SortSize); // Even Data Set
@@ -1641,7 +1629,7 @@ namespace Towel_Testing
 			int[] array = new int[SortSize];
 			Extensions.Iterate(SortSize, i => array[i] = i);
 			Shuffle<int>(array, random);
-			Assert.IsFalse(IsLeastToGreatest(array));
+			Assert.IsFalse(IsOrdered<int>(array));
 		}
 
 		[TestMethod]
@@ -1706,21 +1694,22 @@ namespace Towel_Testing
 			(array, start, end, compare) => SortCocktail<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
+		public void Cycle_Testing() => TestAlgorithm(
+			(array, compare) => SortCycle<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortCycle<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
 		public void Bogo_Testing() => TestAlgorithm(
 			(array, compare) => SortBogo(array, compare),
 			(array, start, end, compare) => SortBogo<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
 			6);
-
 
 		[TestMethod]
 		public void BubbleSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortBubble<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1728,10 +1717,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortInsertion<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1739,10 +1725,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortInsertion<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1750,10 +1733,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortMerge<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1761,10 +1741,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortQuick<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1772,10 +1749,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortHeap<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1783,10 +1757,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortOddEven<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1794,10 +1765,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortSlow<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1805,10 +1773,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortGnome<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1816,10 +1781,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortComb<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1827,10 +1789,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortShell<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1838,10 +1797,14 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortCocktail<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
+		}
+
+		[TestMethod] public void CycleSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortCycle<int, IntCompare>(span);
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1849,10 +1812,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
 			SortBogo<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		#endregion

@@ -31809,7 +31809,7 @@
             <inheritdoc cref="M:Towel.Statics.SortShell_XML"/>
         </member>
         <member name="M:Towel.Statics.SortCocktail_XML">
-            <summary>Sorts values using the shell sort algorithm.</summary>
+            <summary>Sorts values using the cocktail sort algorithm.</summary>
             <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
         </member>
         <member name="M:Towel.Statics.SortCocktail``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
@@ -31823,6 +31823,50 @@
         </member>
         <member name="M:Towel.Statics.SortCocktail``2(System.Span{``0},``1)">
             <inheritdoc cref="M:Towel.Statics.SortCocktail_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortCycle_XML">
+            <summary>Sorts values using the shell cycle algorithm.</summary>
+            <inheritdoc cref="M:Towel.Statics.Sort_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortCycle``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Action{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortCycle_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortCycle``4(System.Int32,System.Int32,``1,``2,``3)">
+            <inheritdoc cref="M:Towel.Statics.SortCycle_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortCycle``1(System.Span{``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.SortCycle_XML"/>
+        </member>
+        <member name="M:Towel.Statics.SortCycle``2(System.Span{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.SortCycle_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsOrdered_XML">
+            <typeparam name="T">The type of values to sort.</typeparam>
+            <typeparam name="Compare">The compare function.</typeparam>
+            <typeparam name="Get">The get function.</typeparam>
+            <param name="compare">The compare function.</param>
+            <param name="get">The get function.</param>
+            <param name="start">The starting index of the sort.</param>
+            <param name="end">The ending index of the sort.</param>
+            <param name="span">The span to be sorted.</param>
+        </member>
+        <member name="M:Towel.Statics.IsOrdered``1(System.Int32,System.Int32,System.Func{System.Int32,``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.IsOrdered_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsOrdered``3(System.Int32,System.Int32,``1,``2)">
+            <inheritdoc cref="M:Towel.Statics.IsOrdered_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsOrdered``1(System.ReadOnlySpan{``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.IsOrdered_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsOrdered``2(System.ReadOnlySpan{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.IsOrdered_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsOrdered``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``0,Towel.CompareResult})">
+            <inheritdoc cref="M:Towel.Statics.IsOrdered_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsOrdered``2(System.Collections.Generic.IEnumerable{``0},``1)">
+            <inheritdoc cref="M:Towel.Statics.IsOrdered_XML"/>
         </member>
         <member name="M:Towel.Statics.NextUnique``2(System.Int32,System.Int32,System.Int32,``1,``0)">
             <summary>
