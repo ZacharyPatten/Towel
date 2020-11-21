@@ -1699,6 +1699,16 @@ namespace Towel_Testing
 			(array, start, end, compare) => SortCycle<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
+		public void Pancake_Testing() => TestAlgorithm(
+			(array, compare) => SortPancake(array, compare),
+			(array, start, end, compare) => Assert.Inconclusive());
+
+		[TestMethod]
+		public void Stooge_Testing() => TestAlgorithm(
+			(array, compare) => SortStooge(array, compare),
+			(array, start, end, compare) => Assert.Inconclusive());
+
+		[TestMethod]
 		public void Bogo_Testing() => TestAlgorithm(
 			(array, compare) => SortBogo(array, compare),
 			(array, start, end, compare) => SortBogo<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
@@ -2008,6 +2018,5 @@ namespace Towel_Testing
 		}
 
 		#endregion
-
 	}
 }

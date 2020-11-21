@@ -101,6 +101,18 @@ namespace Towel_Benchmarking
 		[Benchmark] public void CycleCompileTime() =>
 			SortCycle<int, IntCompare>(Values);
 
+		[Benchmark] public void PancakeRunTime() =>
+			SortPancake<int>(Values);
+
+		[Benchmark] public void PancakeCompileTime() =>
+			SortPancake<int, IntCompare>(Values);
+
+		[Benchmark] public void StoogeRunTime() =>
+			SortStooge<int>(Values);
+
+		[Benchmark] public void StoogeCompileTime() =>
+			SortStooge<int, IntCompare>(Values);
+
 		[Benchmark] public void SlowRunTime()
 		{
 			if (Values.Length > 10)

@@ -124,6 +124,125 @@ namespace GraphSearch
 			}
 			#endregion
 
+			#region char[][] 2D Example
+			{
+				Console.WriteLine("  Graph Searching (char[][] 2D Example)---------------------");
+				Console.WriteLine();
+				Console.WriteLine("    Board: ");
+
+				// Set Up Map (not necessarily required, but we need something to path find)
+
+				char[][] board =
+				{
+					"███████████".ToCharArray(),
+					"█         █".ToCharArray(),
+					"█  █   █  █".ToCharArray(),
+					"█  █   █  █".ToCharArray(),
+					"█E █   P  █".ToCharArray(),
+					"███████████".ToCharArray(),
+				};
+
+				int columns = 11;
+				int rows = 6;
+
+				Vector2 enemyLocation = default;
+				Vector2 playerLocation = default;
+
+				for (int i = 0; i < rows; i++)
+				{
+					for (int j = 0; j < columns; j++)
+					{
+						if (board[i][j] is 'E')
+						{
+							enemyLocation = new Vector2(i, j);
+						}
+						if (board[i][j] is 'P')
+						{
+							playerLocation = new Vector2(i, j);
+						}
+					}
+				}
+
+				// Write Board To Console
+
+				for (int i = 0; i < rows; i++)
+				{
+					Console.Write("      ");
+					for (int j = 0; j < columns; j++)
+					{
+						Console.Write(board[i][j]);
+					}
+					Console.WriteLine();
+				}
+				Console.WriteLine();
+
+				// Make Path Finding Functions
+
+				SetHashLinked<Vector2> alreadyUsed = new SetHashLinked<Vector2>();
+
+				void Neighbors(Vector2 currentLocation, Action<Vector2> neighbors)
+				{
+					float x = currentLocation.X;
+					float y = currentLocation.Y;
+
+					void HandleNeighbor(Vector2 neighbor)
+					{
+						if (!alreadyUsed.Contains(neighbor) && board[(int)neighbor.X][(int)neighbor.Y] is not '█')
+						{
+							alreadyUsed.Add(neighbor);
+							neighbors(neighbor);
+						}
+					}
+
+					HandleNeighbor(new Vector2(x - 1, y)); // north
+					HandleNeighbor(new Vector2(x, y + 1)); // east
+					HandleNeighbor(new Vector2(x + 1, y)); // south
+					HandleNeighbor(new Vector2(x, y - 1)); // west
+				}
+
+				float Heuristic(Vector2 node) => Vector2.Distance(node, playerLocation);
+
+				bool Goal(Vector2 node) => Vector2.Distance(node, playerLocation) < 1;
+
+				// Run The Path Finding Algorithm
+
+				Action<Action<Vector2>> path =
+					SearchGraph(
+						enemyLocation,
+						Neighbors,
+						Heuristic,
+						Goal);
+
+				// Print Path To Console
+
+				Vector2[] pathAsArray = path.ToArray();
+				Console.WriteLine("    Path:");
+				foreach (Vector2 node in pathAsArray)
+				{
+					Console.WriteLine("      " + node);
+				}
+				Console.WriteLine();
+				Console.WriteLine("    Board (with path):");
+
+				// Print Map With Path To Console
+
+				foreach (Vector2 node in pathAsArray)
+				{
+					board[(int)node.X][(int)node.Y] = ':';
+				}
+				for (int i = 0; i < rows; i++)
+				{
+					Console.Write("      ");
+					for (int j = 0; j < columns; j++)
+					{
+						Console.Write(board[i][j]);
+					}
+					Console.WriteLine();
+				}
+			}
+			Console.WriteLine();
+			#endregion
+
 			#region Vector Game-Style Example
 			{
 				Console.WriteLine("  Graph Searching (Vector Game-Style Example)-------------------");
@@ -313,124 +432,6 @@ namespace GraphSearch
 				// meaning that it is faster. The DijkstraPath path went through the mud, but the A* path
 				// took the longer route around the other side of the rock, which ended up being faster
 				// than running through the mud.
-			}
-			#endregion
-
-			#region char[][] 2D Example
-			{
-				Console.WriteLine("  Graph Searching (char[][] 2D Example)---------------------");
-				Console.WriteLine();
-				Console.WriteLine("    Board: ");
-
-				// Set Up Map (not necessarily required, but we need something to path find)
-
-				char[][] board =
-				{
-					"███████████".ToCharArray(),
-					"█         █".ToCharArray(),
-					"█  █   █  █".ToCharArray(),
-					"█  █   █  █".ToCharArray(),
-					"█E █   P  █".ToCharArray(),
-					"███████████".ToCharArray(),
-				};
-
-				int columns = 11;
-				int rows = 6;
-
-				Vector2 enemyLocation = default;
-				Vector2 playerLocation = default;
-
-				for (int i = 0; i < rows; i++)
-				{
-					for (int j = 0; j < columns; j++)
-					{
-						if (board[i][j] is 'E')
-						{
-							enemyLocation = new Vector2(i, j);
-						}
-						if (board[i][j] is 'P')
-						{
-							playerLocation = new Vector2(i, j);
-						}
-					}
-				}
-
-				// Write Board To Console
-
-				for (int i = 0; i < rows; i++)
-				{
-					Console.Write("      ");
-					for (int j = 0; j < columns; j++)
-					{
-						Console.Write(board[i][j]);
-					}
-					Console.WriteLine();
-				}
-				Console.WriteLine();
-
-				// Make Path Finding Functions
-
-				SetHashLinked<Vector2> alreadyUsed = new SetHashLinked<Vector2>();
-
-				void Neighbors(Vector2 currentLocation, Action<Vector2> neighbors)
-				{
-					float x = currentLocation.X;
-					float y = currentLocation.Y;
-
-					void HandleNeighbor(Vector2 neighbor)
-					{
-						if (!alreadyUsed.Contains(neighbor) && board[(int)neighbor.X][(int)neighbor.Y] is not '█')
-						{
-							alreadyUsed.Add(neighbor);
-							neighbors(neighbor);
-						}
-					}
-
-					HandleNeighbor(new Vector2(x - 1, y)); // north
-					HandleNeighbor(new Vector2(x, y + 1)); // east
-					HandleNeighbor(new Vector2(x + 1, y)); // south
-					HandleNeighbor(new Vector2(x, y - 1)); // west
-				}
-
-				float Heuristic(Vector2 node) => Vector2.Distance(node, playerLocation);
-
-				bool Goal(Vector2 node) => Vector2.Distance(node, playerLocation) < 1;
-
-				// Run The Path Finding Algorithm
-
-				Action<Action<Vector2>> path =
-					SearchGraph(
-						enemyLocation,
-						Neighbors,
-						Heuristic,
-						Goal);
-
-				// Print Path To Console
-
-				Vector2[] pathAsArray = path.ToArray();
-				Console.WriteLine("    Path:");
-				foreach (Vector2 node in pathAsArray)
-				{
-					Console.WriteLine("      " + node);
-				}
-				Console.WriteLine();
-				Console.WriteLine("    Board (with path):");
-
-				// Print Map With Path To Console
-
-				foreach (Vector2 node in pathAsArray)
-				{
-					board[(int)node.X][(int)node.Y] = ':';
-				}
-				for (int i = 0; i < rows; i++)
-				{
-					Console.Write("      ");
-					for (int j = 0; j < columns; j++)
-					{
-						Console.Write(board[i][j]);
-					}
-					Console.WriteLine();
-				}
 			}
 			#endregion
 
