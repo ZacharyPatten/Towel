@@ -802,6 +802,9 @@ SortGnome<T>(...);
 SortShell<T>(...);
 SortBogo<T>(...);
 SortSlow<T>(...);
+SortCycle<T>(...);
+SortPancake<T>(...);
+SortStooge<T>(...);
 
 // Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
 SearchBinary<T>(...);
@@ -845,6 +848,9 @@ string ConvertToCSharpSourceDefinition(this Type type);
 
 string ToEnglishWords(this decimal @decimal);
 // Example: 12 -> "Twelve"
+
+int TryParseRomanNumeral(string @string);
+// Example: "IX" -> 9
 
 // Reflection Extensions To Access XML Documentation
 string GetDocumentation(this Type type);
