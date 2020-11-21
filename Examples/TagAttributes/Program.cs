@@ -27,7 +27,7 @@ namespace Example
 				BindingFlags.Static |
 				BindingFlags.Instance);
 			EventInfo eventInfo = typeof(Program).GetEvent(nameof(Event));
-			ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { });
+			ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>());
 			FieldInfo fieldInfo = typeof(A).GetField(nameof(A.Field),
 				BindingFlags.Public |
 				BindingFlags.NonPublic |
@@ -44,7 +44,7 @@ namespace Example
 			Console.WriteLine($@"  type of code member:");
 			Console.WriteLine();
 
-			// Looking Up MyAttributeA
+			// Looking Up MyTagA
 			Console.WriteLine($"  - type: {type.GetTag(MyTagA).Value}");
 			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagA).Value}");
 			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagA).Value}");
@@ -59,7 +59,7 @@ namespace Example
 			Console.WriteLine($@"  on the same code members:");
 			Console.WriteLine();
 
-			// Looking Up MyAttributeB
+			// Looking Up MyTagB
 			Console.WriteLine($"  - type: {type.GetTag(MyTagB).Value}");
 			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagB).Value}");
 			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagB).Value}");
@@ -81,7 +81,7 @@ namespace Example
 		{
 			[Tag(MyTagA, "works :3")]
 			[Tag(MyTagB, "E")]
-			public object Field;
+			public object Field = new object();
 
 			[Tag(MyTagA, "works :b")]
 			[Tag(MyTagB, "F")]
@@ -97,7 +97,7 @@ namespace Example
 		public static void Method(
 			[Tag(MyTagA, "works ;)")]
 			[Tag(MyTagB, "G")]
-			object a) { }
+			object a) => a.ToString();
 
 		[Tag(MyTagA, "works :D")]
 		[Tag(MyTagB, "C")]

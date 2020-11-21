@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
 		<DocumentationFile>Towel.xml</DocumentationFile>
 		<PackageId>Towel</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
@@ -14,25 +15,19 @@
 		<RepositoryUrl>https://github.com/ZacharyPatten/Towel</RepositoryUrl>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Update="Functional.tt">
-			<Generator>TextTemplatingFileGenerator</Generator>
-			<LastGenOutput>Functional.cs</LastGenOutput>
-		</None>
-		<None Include="Functional.cs">
-		  <DesignTime>True</DesignTime>
-		  <AutoGen>True</AutoGen>
-		  <DependentUpon>Functional.tt</DependentUpon>
-		</None>
-		<None Remove="Measurements\MeasurementGeneration.tt" />
 		<None Include="..\..\.github\Resources\icon.png">
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-		<None Include="Measurements\MeasurementTypes.cs">
+		<None Update="Functional.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>Functional.cs</LastGenOutput>
+		</None>
+		<Compile Update="Functional.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
-			<DependentUpon>MeasurementTypes.tt</DependentUpon>
-		</None>
+			<DependentUpon>Functional.tt</DependentUpon>
+		</Compile>
 		<None Update="DataStructures\Link.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>Link.cs</LastGenOutput>
@@ -42,15 +37,6 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Link.tt</DependentUpon>
 		</Compile>
-		<None Update="DataStructures\Omnitree.tt">
-			<Generator>TextTemplatingFileGenerator</Generator>
-			<LastGenOutput>Omnitree.cs</LastGenOutput>
-		</None>
-		<Compile Update="DataStructures\Omnitree.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Omnitree.tt</DependentUpon>
-		</Compile>
 		<None Update="Measurements\MeasurementTypes.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>MeasurementTypes.cs</LastGenOutput>
@@ -59,6 +45,15 @@
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
 			<DependentUpon>MeasurementTypes.tt</DependentUpon>
+		</Compile>
+		<None Update="DataStructures\Omnitree.tt">
+			<Generator>TextTemplatingFileGenerator</Generator>
+			<LastGenOutput>Omnitree.cs</LastGenOutput>
+		</None>
+		<Compile Update="DataStructures\Omnitree.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Omnitree.tt</DependentUpon>
 		</Compile>
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>Towel_Testing</_Parameter1>

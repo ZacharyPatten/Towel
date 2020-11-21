@@ -84,30 +84,29 @@ namespace Towel
 		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetTryParseMethod<A>() => GetTryParseMethodCache<A>.Value;
+		public static MethodInfo? GetTryParseMethod<A>() => GetTryParseMethodCache<A>.Value;
 
 		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetTryParseMethod(Type a)
+		public static MethodInfo? GetTryParseMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("TryParse",
+			MethodInfo? methodInfo = a.GetMethod("TryParse",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(typeof(string), a.MakeByRefType()),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
-					? methodInfo
-					: null;
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
+				? methodInfo
+				: null;
 		}
 
 		internal static class GetTryParseMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetTryParseMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetTryParseMethod(typeof(A));
 		}
 
 		#endregion
@@ -117,30 +116,29 @@ namespace Towel
 		/// <summary>Gets the Factorial <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> Factorial(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsPrime <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetFactorialMethod<A>() => GetFactorialMethodCache<A>.Value;
+		public static MethodInfo? GetFactorialMethod<A>() => GetFactorialMethodCache<A>.Value;
 
 		/// <summary>Gets the Factorial <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> Factorial(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetFactorialMethod(Type a)
+		public static MethodInfo? GetFactorialMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("Factorial",
+			MethodInfo? methodInfo = a.GetMethod("Factorial",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetFactorialMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetFactorialMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetFactorialMethod(typeof(A));
 		}
 
 		#endregion
@@ -150,30 +148,29 @@ namespace Towel
 		/// <summary>Gets the IsPrime <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPrime(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsPrime <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPrimeMethod<A>() => GetIsPrimeMethodCache<A>.Value;
+		public static MethodInfo? GetIsPrimeMethod<A>() => GetIsPrimeMethodCache<A>.Value;
 
 		/// <summary>Gets the IsPrime <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPrime(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPrimeMethod(Type a)
+		public static MethodInfo? GetIsPrimeMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsPrime",
+			MethodInfo? methodInfo = a.GetMethod("IsPrime",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
-					? methodInfo
-					: null;
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
+				? methodInfo
+				: null;
 		}
 
 		internal static class GetIsPrimeMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsPrimeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsPrimeMethod(typeof(A));
 		}
 
 		#endregion
@@ -183,30 +180,29 @@ namespace Towel
 		/// <summary>Gets the IsNonNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNonNegative(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNonNegativeMethod<A>() => GetIsNonNegativeMethodCache<A>.Value;
+		public static MethodInfo? GetIsNonNegativeMethod<A>() => GetIsNonNegativeMethodCache<A>.Value;
 
 		/// <summary>Gets the IsNonNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNonNegative(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNonNegativeMethod(Type a)
+		public static MethodInfo? GetIsNonNegativeMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsNonNegative",
+			MethodInfo? methodInfo = a.GetMethod("IsNonNegative",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
-					? methodInfo
-					: null;
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
+				? methodInfo
+				: null;
 		}
 
 		internal static class GetIsNonNegativeMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsNonNegativeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsNonNegativeMethod(typeof(A));
 		}
 
 		#endregion
@@ -216,30 +212,29 @@ namespace Towel
 		/// <summary>Gets the IsNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNegative(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNegativeMethod<A>() => GetIsNegativeMethodCache<A>.Value;
+		public static MethodInfo? GetIsNegativeMethod<A>() => GetIsNegativeMethodCache<A>.Value;
 
 		/// <summary>Gets the IsNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNegative(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsNegativeMethod(Type a)
+		public static MethodInfo? GetIsNegativeMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsNegative",
+			MethodInfo? methodInfo = a.GetMethod("IsNegative",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsNegativeMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsNegativeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsNegativeMethod(typeof(A));
 		}
 
 		#endregion
@@ -249,30 +244,29 @@ namespace Towel
 		/// <summary>Gets the IsPositive <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPositive(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsPositive <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPositiveMethod<A>() => GetIsPositiveMethodCache<A>.Value;
+		public static MethodInfo? GetIsPositiveMethod<A>() => GetIsPositiveMethodCache<A>.Value;
 
 		/// <summary>Gets the IsPositive <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPositive(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsPositive <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsPositiveMethod(Type a)
+		public static MethodInfo? GetIsPositiveMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod("IsPositive",
+			MethodInfo? methodInfo = a.GetMethod("IsPositive",
 				BindingFlags.Static |
 				BindingFlags.Public |
 				BindingFlags.NonPublic,
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsPositiveMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsPositiveMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsPositiveMethod(typeof(A));
 		}
 
 		#endregion
@@ -282,15 +276,15 @@ namespace Towel
 		/// <summary>Gets the IsEven <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsEven(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsEven <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsEvenMethod<A>() => GetIsEvenMethodCache<A>.Value;
+		public static MethodInfo? GetIsEvenMethod<A>() => GetIsEvenMethodCache<A>.Value;
 
 		/// <summary>Gets the IsEven <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsEven(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsEven <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsEvenMethod(Type a)
+		public static MethodInfo? GetIsEvenMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod(
+			MethodInfo? methodInfo = a.GetMethod(
 				"IsOdd",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -298,15 +292,14 @@ namespace Towel
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsEvenMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsEvenMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsEvenMethod(typeof(A));
 		}
 
 		#endregion
@@ -316,15 +309,15 @@ namespace Towel
 		/// <summary>Gets the IsOdd <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsOdd(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The IsOdd <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsOddMethod<A>() => GetIsOddMethodCache<A>.Value;
+		public static MethodInfo? GetIsOddMethod<A>() => GetIsOddMethodCache<A>.Value;
 
 		/// <summary>Gets the IsOdd <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsOdd(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The IsOdd <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsOddMethod(Type a)
+		public static MethodInfo? GetIsOddMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod(
+			MethodInfo? methodInfo = a.GetMethod(
 				"IsOdd",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -332,15 +325,14 @@ namespace Towel
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsOddMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsOddMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsOddMethod(typeof(A));
 		}
 
 		#endregion
@@ -350,15 +342,15 @@ namespace Towel
 		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<typeparamref name="A"/>)].</summary>
 		/// <typeparam name="A">The type of the out parameter.</typeparam>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsIntegerMethod<A>() => GetIsIntegerMethodCache<A>.Value;
+		public static MethodInfo? GetIsIntegerMethod<A>() => GetIsIntegerMethodCache<A>.Value;
 
 		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo GetIsIntegerMethod(Type a)
+		public static MethodInfo? GetIsIntegerMethod(Type a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			MethodInfo methodInfo = a.GetMethod(
+			MethodInfo? methodInfo = a.GetMethod(
 				"IsInteger",
 				BindingFlags.Static |
 				BindingFlags.Public |
@@ -366,15 +358,14 @@ namespace Towel
 				null,
 				Ɐ(a),
 				null);
-			return !(methodInfo is null)
-				&& methodInfo.ReturnType == typeof(bool)
+			return methodInfo is not null && methodInfo.ReturnType == typeof(bool)
 					? methodInfo
 					: null;
 		}
 
 		internal static class GetIsIntegerMethodCache<A>
 		{
-			internal static readonly MethodInfo Value = GetIsIntegerMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsIntegerMethod(typeof(A));
 		}
 
 		#endregion
@@ -386,20 +377,20 @@ namespace Towel
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <returns>True if the op_LessThan member exists or false if not.</returns>
-		public static MethodInfo GetLessThanMethod<A, B, C>() => GetLessThanMethodCache<A, B, C>.Value;
+		public static MethodInfo? GetLessThanMethod<A, B, C>() => GetLessThanMethodCache<A, B, C>.Value;
 
 		/// <summary>Determines if an op_LessThan member exists.</summary>
 		/// <param name="a">The type of the left operand.</param>
 		/// <param name="b">The type of the right operand.</param>
 		/// <param name="c">The type of the return.</param>
 		/// <returns>True if the op_LessThan member exists or false if not.</returns>
-		internal static MethodInfo GetLessThanMethod(Type a, Type b, Type c)
+		internal static MethodInfo? GetLessThanMethod(Type a, Type b, Type c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
-			MethodInfo CheckType(Type type)
+			MethodInfo? CheckType(Type type)
 			{
-				MethodInfo methodInfo = type.GetMethod(
+				MethodInfo? methodInfo = type.GetMethod(
 					"op_LessThan",
 					BindingFlags.Static |
 					BindingFlags.Public |
@@ -407,7 +398,7 @@ namespace Towel
 					null,
 					Ɐ(a, b),
 					null);
-				return !(methodInfo is null)
+				return methodInfo is not null
 					&& methodInfo.ReturnType == c
 					&& methodInfo.IsSpecialName
 						? methodInfo
@@ -418,7 +409,7 @@ namespace Towel
 
 		internal static class GetLessThanMethodCache<A, B, C>
 		{
-			internal static readonly MethodInfo Value = GetLessThanMethod(typeof(A), typeof(B), typeof(C));
+			internal static readonly MethodInfo? Value = GetLessThanMethod(typeof(A), typeof(B), typeof(C));
 		}
 
 		#endregion
@@ -430,20 +421,20 @@ namespace Towel
 		/// <typeparam name="B">The type of the right operand.</typeparam>
 		/// <typeparam name="C">The type of the return.</typeparam>
 		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
-		public static MethodInfo GetGreaterThanMethod<A, B, C>() => GetGreaterThanMethodCache<A, B, C>.Value;
+		public static MethodInfo? GetGreaterThanMethod<A, B, C>() => GetGreaterThanMethodCache<A, B, C>.Value;
 
 		/// <summary>Determines if an op_GreaterThan member exists.</summary>
 		/// <param name="a">The type of the left operand.</param>
 		/// <param name="b">The type of the right operand.</param>
 		/// <param name="c">The type of the return.</param>
 		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
-		internal static MethodInfo GetGreaterThanMethod(Type a, Type b, Type c)
+		internal static MethodInfo? GetGreaterThanMethod(Type a, Type b, Type c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
-			MethodInfo CheckType(Type type)
+			MethodInfo? CheckType(Type type)
 			{
-				MethodInfo methodInfo = type.GetMethod(
+				MethodInfo? methodInfo = type.GetMethod(
 					"op_GreaterThan",
 					BindingFlags.Static |
 					BindingFlags.Public |
@@ -451,7 +442,7 @@ namespace Towel
 					null,
 					Ɐ(a, b),
 					null);
-				return !(methodInfo is null)
+				return methodInfo is not null
 					&& methodInfo.ReturnType == c
 					&& methodInfo.IsSpecialName
 						? methodInfo
@@ -462,7 +453,7 @@ namespace Towel
 
 		internal static class GetGreaterThanMethodCache<A, B, C>
 		{
-			internal static readonly MethodInfo Value = GetGreaterThanMethod(typeof(A), typeof(B), typeof(C));
+			internal static readonly MethodInfo? Value = GetGreaterThanMethod(typeof(A), typeof(B), typeof(C));
 		}
 
 		#endregion
@@ -501,7 +492,7 @@ namespace Towel
 				: "op_Explicit";
 			bool CheckType(Type type)
 			{
-				MethodInfo methodInfo = type.GetMethod(
+				MethodInfo? methodInfo = type.GetMethod(
 					methodName,
 					BindingFlags.Static |
 					BindingFlags.Public |
@@ -509,7 +500,7 @@ namespace Towel
 					null,
 					Ɐ(fromType),
 					null);
-				return !(methodInfo is null)
+				return methodInfo is not null
 					&& methodInfo.ReturnType == toType
 					&& methodInfo.IsSpecialName;
 			}
@@ -544,7 +535,7 @@ namespace Towel
 			{
 				_ = type ?? throw new ArgumentNullException(nameof(type));
 				string result = type.IsNested
-					? ConvertToCsharpSource(type.DeclaringType) + "."
+					? ConvertToCsharpSource(type.DeclaringType ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.DeclaringType)} is null", nameof(type))) + "."
 					: type.Namespace + ".";
 				result += Regex.Replace(type.Name, "`.*", string.Empty);
 				if (type.IsGenericType)
@@ -560,8 +551,8 @@ namespace Towel
 						Type correctGeneric = genericParameters.Dequeue();
 						result += (firstIteration ? string.Empty : ",") +
 							(correctGeneric.IsGenericParameter
-							? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
-							: (firstIteration ? string.Empty : " ") + ConvertToCSharpSource(correctGeneric));
+								? (showGenericParameters ? (firstIteration ? string.Empty : " ") + correctGeneric.Name : string.Empty)
+								: (firstIteration ? string.Empty : " ") + ConvertToCSharpSource(correctGeneric));
 						firstIteration = false;
 					}
 					result += ">";
@@ -578,7 +569,7 @@ namespace Towel
 		/// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
 		/// <param name="enum">The enum value to get the attribute of.</param>
 		/// <returns>The attribute on the enum value of the provided type.</returns>
-		public static AttributeType GetEnumAttribute<AttributeType>(this Enum @enum)
+		public static AttributeType? GetEnumAttribute<AttributeType>(this Enum @enum)
 			where AttributeType : Attribute
 		{
 			Type type = @enum.GetType();
@@ -760,20 +751,18 @@ namespace Towel
 		/// <summary>Gets the file path of an assembly.</summary>
 		/// <param name="assembly">The assembly to get the file path of.</param>
 		/// <returns>The file path of the assembly.</returns>
-		public static string GetDirectoryPath(this Assembly assembly)
+		public static string? GetDirectoryPath(this Assembly assembly)
 		{
-			string codeBase = assembly.CodeBase;
-			UriBuilder uri = new UriBuilder(codeBase);
-			string path = Uri.UnescapeDataString(uri.Path);
-			return Path.GetDirectoryName(path);
+			string? directoryPath = Path.GetDirectoryName(assembly.Location);
+			return directoryPath == string.Empty ? null : directoryPath;
 		}
 
 		#endregion
 
 		#region XML Code Documentation
 
-		internal static System.Collections.Generic.HashSet<Assembly> loadedAssemblies = new System.Collections.Generic.HashSet<Assembly>();
-		internal static System.Collections.Generic.Dictionary<string, string> loadedXmlDocumentation = new System.Collections.Generic.Dictionary<string, string>();
+		internal static SetHashLinked<Assembly> loadedAssemblies = new();
+		internal static MapHashLinked<string, string> loadedXmlDocumentation = new();
 
 		internal static void LoadXmlDocumentation(Assembly assembly)
 		{
@@ -781,15 +770,16 @@ namespace Towel
 			{
 				return;
 			}
-			string directoryPath = assembly.GetDirectoryPath();
-			string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
-			if (File.Exists(xmlFilePath))
+			string? directoryPath = assembly.GetDirectoryPath();
+			if (directoryPath is not null)
 			{
-				using StreamReader streamReader = new StreamReader(xmlFilePath);
-				LoadXmlDocumentation(streamReader);
+				string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
+				if (File.Exists(xmlFilePath))
+				{
+					using StreamReader streamReader = new StreamReader(xmlFilePath);
+					LoadXmlDocumentation(streamReader);
+				}
 			}
-			// currently marking assembly as loaded even if the XML file was not found
-			// may want to adjust in future, but I think this is good for now
 			loadedAssemblies.Add(assembly);
 		}
 
@@ -810,8 +800,11 @@ namespace Towel
 			{
 				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
 				{
-					string raw_name = xmlReader["name"];
-					loadedXmlDocumentation[raw_name] = xmlReader.ReadInnerXml();
+					string? rawName = xmlReader["name"];
+					if (!string.IsNullOrWhiteSpace(rawName))
+					{
+						loadedXmlDocumentation[rawName] = xmlReader.ReadInnerXml();
+					}
 				}
 			}
 		}
@@ -827,11 +820,13 @@ namespace Towel
 		/// <param name="type">The type to get the XML documentation of.</param>
 		/// <returns>The XML documentation on the type.</returns>
 		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this Type type)
+		public static string? GetDocumentation(this Type type)
 		{
+			_ = type ?? throw new ArgumentNullException(nameof(type));
+			_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
 			LoadXmlDocumentation(type.Assembly);
-			string key = "T:" + XmlDocumentationKeyHelper(type.FullName, null);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
+			string key = "T:" + GetXmlNameTypeSegment(type.FullName);
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
 			return documentation;
 		}
 
@@ -839,30 +834,174 @@ namespace Towel
 		/// <param name="methodInfo">The method to get the XML documentation of.</param>
 		/// <returns>The XML documentation on the method.</returns>
 		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this MethodInfo methodInfo)
+		public static string? GetDocumentation(this MethodInfo methodInfo)
 		{
-			LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
+			_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
+			_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
+			return GetDocumentationMethodBase(methodInfo: methodInfo);
+		}
 
-			System.Collections.Generic.Dictionary<string, int> typeGenericMap = new System.Collections.Generic.Dictionary<string, int>();
-			int tempTypeGeneric = 0;
-			Array.ForEach(methodInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
+		/// <summary>Gets the XML documentation on a constructor.</summary>
+		/// <param name="constructorInfo">The constructor to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the constructor.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this ConstructorInfo constructorInfo)
+		{
+			_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
+			_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
+			return GetDocumentationMethodBase(constructorInfo: constructorInfo);
+		}
 
-			System.Collections.Generic.Dictionary<string, int> methodGenericMap = new System.Collections.Generic.Dictionary<string, int>();
-			int tempMethodGeneric = 0;
-			Array.ForEach(methodInfo.GetGenericArguments(), x => methodGenericMap.Add(x.Name, tempMethodGeneric++));
+		/// <summary>Gets the XML documentation on a property.</summary>
+		/// <param name="propertyInfo">The property to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the property.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this PropertyInfo propertyInfo)
+		{
+			_ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
+			_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
+			_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
+			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
+			string key = "P:" + GetXmlNameTypeSegment(propertyInfo.DeclaringType.FullName) + "." + propertyInfo.Name;
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
+			return documentation;
+		}
 
-			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+		/// <summary>Gets the XML documentation on a field.</summary>
+		/// <param name="fieldInfo">The field to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the field.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this FieldInfo fieldInfo)
+		{
+			_ = fieldInfo ?? throw new ArgumentNullException(nameof(fieldInfo));
+			_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
+			_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
+			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
+			string key = "F:" + GetXmlNameTypeSegment(fieldInfo.DeclaringType.FullName) + "." + fieldInfo.Name;
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on an event.</summary>
+		/// <param name="eventInfo">The event to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the event.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this EventInfo eventInfo)
+		{
+			_ = eventInfo ?? throw new ArgumentNullException(nameof(eventInfo));
+			_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
+			_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
+			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
+			string key = "E:" + GetXmlNameTypeSegment(eventInfo.DeclaringType.FullName) + "." + eventInfo.Name;
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a member.</summary>
+		/// <param name="memberInfo">The member to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the member.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this MemberInfo memberInfo)
+		{
+			switch (memberInfo)
+			{
+				case FieldInfo fieldInfo:
+					_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return fieldInfo.GetDocumentation();
+				case PropertyInfo propertyInfo:
+					_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return propertyInfo.GetDocumentation();
+				case EventInfo eventInfo:
+					_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return eventInfo.GetDocumentation();
+				case ConstructorInfo constructorInfo:
+					_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					return constructorInfo.GetDocumentation();
+				case MethodInfo methodInfo:
+					_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					return methodInfo.GetDocumentation();
+				case Type type:
+					_ = type.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return type.GetDocumentation();
+				case null:
+					throw new ArgumentNullException(nameof(memberInfo));
+				default:
+					throw new TowelBugException($"{nameof(GetDocumentation)} encountered an unhandled {nameof(MemberInfo)} type: {memberInfo}");
+			};
+		}
+
+		/// <summary>Gets the XML documentation for a parameter.</summary>
+		/// <param name="parameterInfo">The parameter to get the XML documentation for.</param>
+		/// <returns>The XML documenation of the parameter.</returns>
+		public static string? GetDocumentation(this ParameterInfo parameterInfo)
+		{
+			_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
+			string? memberDocumentation = parameterInfo.Member.GetDocumentation();
+			if (memberDocumentation is not null)
+			{
+				string regexPattern =
+					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
+					".*?" +
+					Regex.Escape(@"</param>");
+
+				Match match = Regex.Match(memberDocumentation, regexPattern);
+				if (match.Success)
+				{
+					return match.Value;
+				}
+			}
+			return null;
+		}
+
+		internal static string? GetDocumentationMethodBase(MethodInfo? methodInfo = null, ConstructorInfo? constructorInfo = null)
+		{
+			if (methodInfo is not null && constructorInfo is not null)
+			{
+				throw new TowelBugException($"{nameof(GetDocumentation)} {nameof(methodInfo)} is not null && {nameof(constructorInfo)} is not null");
+			}
+
+			MethodBase? methodBase = methodInfo ?? (MethodBase?)constructorInfo;
+			_ = methodBase ?? throw new TowelBugException($"{nameof(GetDocumentation)} {nameof(methodInfo)} is null && {nameof(constructorInfo)} is null");
+			_ = methodBase.DeclaringType ?? throw new ArgumentException($"{nameof(methodBase)}.{nameof(Type.DeclaringType)} is null");
+
+			LoadXmlDocumentation(methodBase.DeclaringType.Assembly);
+
+			MapHashLinked<int, string> typeGenericMap = new();
+			Type[] typeGenericArguments = methodBase.DeclaringType.GetGenericArguments();
+			for (int i = 0; i < typeGenericArguments.Length; i++)
+			{
+				Type typeGeneric = typeGenericArguments[i];
+				typeGenericMap[typeGeneric.Name] = i;
+			}
+
+			MapHashLinked<int, string> methodGenericMap = new();
+			if (constructorInfo is null)
+			{
+				Type[] methodGenericArguments = methodBase.GetGenericArguments();
+				for (int i = 0; i < methodGenericArguments.Length; i++)
+				{
+					Type methodGeneric = methodGenericArguments[i];
+					methodGenericMap[methodGeneric.Name] = i;
+				}
+			}
+
+			ParameterInfo[] parameterInfos = methodBase.GetParameters();
 
 			string memberTypePrefix = "M:";
-			string declarationTypeString = GetXmlDocumenationFormattedString(methodInfo.DeclaringType, false, typeGenericMap, methodGenericMap);
-			string memberNameString = methodInfo.Name;
+			string declarationTypeString = GetXmlDocumenationFormattedString(methodBase.DeclaringType, false, typeGenericMap, methodGenericMap);
+			string memberNameString =
+				constructorInfo is not null ? "#ctor" :
+				methodBase.Name;
 			string methodGenericArgumentsString =
 				methodGenericMap.Count > 0 ?
 				"``" + methodGenericMap.Count :
 				string.Empty;
 			string parametersString =
 				parameterInfos.Length > 0 ?
-				"(" + string.Join(",", methodInfo.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
+				"(" + string.Join(",", methodBase.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
 				string.Empty;
 
 			string key =
@@ -873,104 +1012,61 @@ namespace Towel
 				methodGenericArgumentsString +
 				parametersString;
 
-			if (methodInfo.Name == "op_Implicit" ||
-				methodInfo.Name == "op_Explicit")
+			if (methodInfo is not null &&
+				(methodBase.Name == "op_Implicit" ||
+				methodBase.Name == "op_Explicit"))
 			{
 				key += "~" + GetXmlDocumenationFormattedString(methodInfo.ReturnType, true, typeGenericMap, methodGenericMap);
 			}
 
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		/// <summary>Gets the XML documentation on a constructor.</summary>
-		/// <param name="constructorInfo">The constructor to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the constructor.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this ConstructorInfo constructorInfo)
-		{
-			LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
-
-			System.Collections.Generic.Dictionary<string, int> typeGenericMap = new System.Collections.Generic.Dictionary<string, int>();
-			int tempTypeGeneric = 0;
-			Array.ForEach(constructorInfo.DeclaringType.GetGenericArguments(), x => typeGenericMap[x.Name] = tempTypeGeneric++);
-
-			// constructors don't support generic types so this will always be empty
-			System.Collections.Generic.Dictionary<string, int> methodGenericMap = new System.Collections.Generic.Dictionary<string, int>();
-
-			ParameterInfo[] parameterInfos = constructorInfo.GetParameters();
-
-			string memberTypePrefix = "M:";
-			string declarationTypeString = GetXmlDocumenationFormattedString(constructorInfo.DeclaringType, false, typeGenericMap, methodGenericMap);
-			string memberNameString = "#ctor";
-			string parametersString =
-				parameterInfos.Length > 0 ?
-				"(" + string.Join(",", constructorInfo.GetParameters().Select(x => GetXmlDocumenationFormattedString(x.ParameterType, true, typeGenericMap, methodGenericMap))) + ")" :
-				string.Empty;
-
-			string key =
-				memberTypePrefix +
-				declarationTypeString +
-				"." +
-				memberNameString +
-				parametersString;
-
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
+			loadedXmlDocumentation.TryGet(key, out string? documentation);
 			return documentation;
 		}
 
 		internal static string GetXmlDocumenationFormattedString(
 			Type type,
 			bool isMethodParameter,
-			System.Collections.Generic.Dictionary<string, int> typeGenericMap,
-			System.Collections.Generic.Dictionary<string, int> methodGenericMap)
+			MapHashLinked<int, string> typeGenericMap,
+			MapHashLinked<int, string> methodGenericMap)
 		{
 			if (type.IsGenericParameter)
 			{
-				return methodGenericMap.TryGetValue(type.Name, out int methodIndex)
+				return methodGenericMap.TryGet(type.Name, out int methodIndex)
 					? "``" + methodIndex
 					: "`" + typeGenericMap[type.Name];
 			}
 			else if (type.HasElementType)
 			{
 				string elementTypeString = GetXmlDocumenationFormattedString(
-					type.GetElementType(),
+					type.GetElementType() ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.HasElementType)} && {nameof(type)}.{nameof(Type.GetElementType)}() is null", nameof(type)),
 					isMethodParameter,
 					typeGenericMap,
 					methodGenericMap);
 
-				if (type.IsPointer)
+				switch (type)
 				{
-					return elementTypeString + "*";
-				}
-				else if (type.IsArray)
-				{
-					int rank = type.GetArrayRank();
-					string arrayDimensionsString = rank > 1
-						? "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]"
-						: "[]";
-					return elementTypeString + arrayDimensionsString;
-				}
-				else if (type.IsByRef)
-				{
-					return elementTypeString + "@";
-				}
-				else
-				{
-					// Hopefully this will never hit. At the time of writing
-					// this code, type.HasElementType is only true if the type
-					// is a pointer, array, or by reference.
-					throw new TowelBugException(nameof(GetXmlDocumenationFormattedString) + 
-						" encountered an unhandled element type. " +
-						"Please submit this issue to the Towel GitHub repository. " +
-						"https://github.com/ZacharyPatten/Towel/issues/new/choose");
+					case Type when type.IsPointer:
+						return elementTypeString + "*";
+
+					case Type when type.IsByRef:
+						return elementTypeString + "@";
+
+					case Type when type.IsArray:
+						int rank = type.GetArrayRank();
+						string arrayDimensionsString = rank > 1
+							? "[" + string.Join(",", Enumerable.Repeat("0:", rank)) + "]"
+							: "[]";
+						return elementTypeString + arrayDimensionsString;
+
+					default:
+						throw new TowelBugException($"{nameof(GetXmlDocumenationFormattedString)} encountered an unhandled element type: {type}");
 				}
 			}
 			else
 			{
 				string prefaceString = type.IsNested
 					? GetXmlDocumenationFormattedString(
-						type.DeclaringType,
+						type.DeclaringType ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.IsNested)} && {nameof(type)}.{nameof(Type.DeclaringType)} is null", nameof(type)),
 						isMethodParameter,
 						typeGenericMap,
 						methodGenericMap) + "."
@@ -995,123 +1091,8 @@ namespace Towel
 			}
 		}
 
-		/// <summary>Gets the XML documentation on a property.</summary>
-		/// <param name="propertyInfo">The property to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the property.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this PropertyInfo propertyInfo)
-		{
-			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
-			string key = "P:" + XmlDocumentationKeyHelper(propertyInfo.DeclaringType.FullName, propertyInfo.Name);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		/// <summary>Gets the XML documentation on a field.</summary>
-		/// <param name="fieldInfo">The field to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the field.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this FieldInfo fieldInfo)
-		{
-			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
-			string key = "F:" + XmlDocumentationKeyHelper(fieldInfo.DeclaringType.FullName, fieldInfo.Name);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		/// <summary>Gets the XML documentation on an event.</summary>
-		/// <param name="eventInfo">The event to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the event.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this EventInfo eventInfo)
-		{
-			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
-			string key = "E:" + XmlDocumentationKeyHelper(eventInfo.DeclaringType.FullName, eventInfo.Name);
-			loadedXmlDocumentation.TryGetValue(key, out string documentation);
-			return documentation;
-		}
-
-		internal static string XmlDocumentationKeyHelper(string typeFullNameString, string memberNameString)
-		{
-			string key = Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
-			if (!(memberNameString is null))
-			{
-				key += "." + memberNameString;
-			}
-			return key;
-		}
-
-		/// <summary>Gets the XML documentation on a member.</summary>
-		/// <param name="memberInfo">The member to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the member.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string GetDocumentation(this MemberInfo memberInfo)
-		{
-			if (memberInfo is FieldInfo fieldInfo)
-			{
-				return fieldInfo.GetDocumentation();
-			}
-			else if (memberInfo is PropertyInfo propertyInfo)
-			{
-				return propertyInfo.GetDocumentation();
-			}
-			else if (memberInfo is EventInfo eventInfo)
-			{
-				return eventInfo.GetDocumentation();
-			}
-			else if (memberInfo is ConstructorInfo constructorInfo)
-			{
-				return constructorInfo.GetDocumentation();
-			}
-			else if (memberInfo is MethodInfo methodInfo)
-			{
-				return methodInfo.GetDocumentation();
-			}
-			else if (memberInfo is Type type) // + TypeInfo
-			{
-				return type.GetDocumentation();
-			}
-			else if (memberInfo.MemberType.HasFlag(MemberTypes.Custom))
-			{
-				// This represents a cutom type that is not part of
-				// the standard .NET languages as far as I'm aware.
-				// This will never be supported so return null.
-				return null;
-			}
-			else
-			{
-				// Hopefully this will never hit. At the time of writing
-				// this code, I am only aware of the following Member types:
-				// FieldInfo, PropertyInfo, EventInfo, ConstructorInfo,
-				// MethodInfo, and Type.
-				throw new TowelBugException(nameof(GetDocumentation) +
-					" encountered an unhandled type [" + memberInfo.GetType().FullName + "]. " +
-					"Please submit this issue to the Towel GitHub repository. " +
-					"https://github.com/ZacharyPatten/Towel/issues/new/choose");
-			}
-		}
-
-		/// <summary>Gets the XML documentation for a parameter.</summary>
-		/// <param name="parameterInfo">The parameter to get the XML documentation for.</param>
-		/// <returns>The XML documenation of the parameter.</returns>
-		public static string GetDocumentation(this ParameterInfo parameterInfo)
-		{
-			string memberDocumentation = parameterInfo.Member.GetDocumentation();
-			if (!(memberDocumentation is null))
-			{
-				string regexPattern =
-					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
-					".*?" +
-					Regex.Escape(@"</param>");
-
-				Match match = Regex.Match(memberDocumentation, regexPattern);
-				if (match.Success)
-				{
-					return match.Value;
-				}
-			}
-			return null;
-		}
+		internal static string GetXmlNameTypeSegment(string typeFullNameString) =>
+			Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
 
 		#endregion
 

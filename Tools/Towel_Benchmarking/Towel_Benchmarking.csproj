@@ -2,10 +2,10 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<IsPackable>false</IsPackable>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
+		<PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
 		<ProjectReference Include="..\..\Sources\Towel\Towel.csproj" />
 	</ItemGroup>
 </Project>

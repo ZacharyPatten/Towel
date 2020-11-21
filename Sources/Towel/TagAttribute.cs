@@ -31,11 +31,11 @@ namespace Towel
 		/// <para>- <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
 		/// <para>- <see cref="object"/> Value: The value if found or default if not.</para>
 		/// </returns>
-		public static (bool Found, object Value) GetTag(this MemberInfo memberInfo, object tag)
+		public static (bool Found, object? Value) GetTag(this MemberInfo memberInfo, object tag)
 		{
 			_ = memberInfo ?? throw new ArgumentNullException(nameof(memberInfo));
 			bool found = false;
-			object value = default;
+			object? value = default;
 			foreach (TagAttribute valueAttribute in memberInfo.GetCustomAttributes<TagAttribute>())
 			{
 				if (ReferenceEquals(tag, valueAttribute.Tag) || tag.Equals(valueAttribute.Tag))
@@ -59,11 +59,11 @@ namespace Towel
 		/// <para>- <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
 		/// <para>- <see cref="object"/> Value: The value if found or default if not.</para>
 		/// </returns>
-		public static (bool Found, object Value) GetTag(this ParameterInfo parameterInfo, object tag)
+		public static (bool Found, object? Value) GetTag(this ParameterInfo parameterInfo, object tag)
 		{
 			_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
 			bool found = false;
-			object value = default;
+			object? value = default;
 			foreach (TagAttribute valueAttribute in parameterInfo.GetCustomAttributes<TagAttribute>())
 			{
 				if (ReferenceEquals(tag, valueAttribute.Tag) || tag.Equals(valueAttribute.Tag))

@@ -20,6 +20,25 @@ namespace Towel.DataStructures
 	/// <summary>Contains extension methods for the Structure interface.</summary>
 	public static class DataStructure
 	{
+		#region XML
+
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>
+		/// Invokes a method for each entry in the data structure.
+		/// <para>Runtime: O(n * step)</para>
+		/// </summary>
+		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The method to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		internal static void Stepper_O_n_step_XML() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		#endregion
+
 		#region Interfaces
 
 		/// <summary>Property of a data structure (does it have a contains method).</summary>
@@ -56,7 +75,7 @@ namespace Towel.DataStructures
 			/// <param name="value">The value to add to the data structure.</param>
 			/// <param name="exception">The exception that occurred if the add failed.</param>
 			/// <returns>True if the value was added or false if not.</returns>
-			bool TryAdd(T value, out Exception exception);
+			bool TryAdd(T value, out Exception? exception);
 		}
 
 		/// <summary>Property of a data structure (does it have a Romove method).</summary>
@@ -67,7 +86,7 @@ namespace Towel.DataStructures
 			/// <param name="value">The value to remove.</param>
 			/// <param name="exception">The exception that occurred if the remove failed.</param>
 			/// <returns>True if the value was removed or false if not.</returns>
-			bool TryRemove(T value, out Exception exception);
+			bool TryRemove(T value, out Exception? exception);
 		}
 
 		/// <summary>Property of a data structure (does it have a Count method).</summary>
@@ -133,9 +152,9 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to be added.</param>
 		public static void Add<T>(this IAddable<T> structure, T value)
 		{
-			if (!structure.TryAdd(value, out Exception exception))
+			if (!structure.TryAdd(value, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 
@@ -153,9 +172,9 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to be removed.</param>
 		public static void Remove<T>(this IRemovable<T> structure, T value)
 		{
-			if (!structure.TryRemove(value, out Exception exception))
+			if (!structure.TryRemove(value, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Remove)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 

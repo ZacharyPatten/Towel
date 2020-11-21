@@ -41,7 +41,7 @@ namespace Towel.DataStructures
 		void Remove(T start, T end);
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void Stepper(Action<T, T> step);
+		void Stepper(Action<T?, T?> step);
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
@@ -63,18 +63,9 @@ namespace Towel.DataStructures
 		public class Edge
 		{
 			/// <summary>The starting node of the edge.</summary>
-			public readonly T Start;
-			/// <summary>The ending node of hte edge.</summary>
-			public readonly T End;
-
-			/// <summary>Constructs a new Edge.</summary>
-			/// <param name="start">The starting point of the Edge.</param>
-			/// <param name="end">The ending point of the Edge.</param>
-			public Edge(T start, T end)
-			{
-				Start = start;
-				End = end;
-			}
+			public T Start { get; internal set; }
+			/// <summary>The ending node of the edge.</summary>
+			public T End { get; internal set; }
 		}
 
 		#endregion
@@ -94,11 +85,11 @@ namespace Towel.DataStructures
 		/// <param name="compare">The compare delegate for the data structure to use.</param>
 		/// <param name="hash">The hash delegate for the datastructure to use.</param>
 		public GraphSetOmnitree(
-			Func<T, T, bool> equate = null,
-			Func<T, T, CompareResult> compare = null,
-			Func<T, int> hash = null)
+			Func<T, T, bool>? equate = null,
+			Func<T, T, CompareResult>? compare = null,
+			Func<T, int>? hash = null)
 		{
-			equate ??= Statics.Equate;
+			equate ??= Equate;
 			compare ??= Compare;
 			hash ??= DefaultHash;
 
@@ -129,7 +120,7 @@ namespace Towel.DataStructures
 		/// <summary>Tries to add a node to the graph.</summary>
 		/// <param name="node">The node to add to the graph.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
-		public bool TryAdd(T node, out Exception exception)
+		public bool TryAdd(T node, out Exception? exception)
 		{
 			return _nodes.TryAdd(node, out exception);
 		}
@@ -151,14 +142,14 @@ namespace Towel.DataStructures
 				(Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
 				start, start, end, end);
 
-			_edges.Add(new Edge(start, end));
+			_edges.Add(new Edge() { Start = start, End = end });
 		}
 
 		/// <summary>Removes a node from the graph and all attached edges.</summary>
 		/// <param name="node">The edge to remove from the graph.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove succeeded or false if not.</returns>
-		public bool TryRemove(T node, out Exception exception)
+		public bool TryRemove(T node, out Exception? exception)
 		{
 			if (!_nodes.TryRemove(node, out exception))
 			{
@@ -263,32 +254,10 @@ namespace Towel.DataStructures
 		internal MapHashLinked<SetHashLinked<T>, T> _map;
 		internal int _edges;
 
-		#region Edge
-
-		/// <summary>Represents an edge in a graph.</summary>
-		public class Edge
-		{
-			/// <summary>The starting point of the edge.</summary>
-			public readonly T Start;
-			/// <summary>The ending point of the edge.</summary>
-			public readonly T End;
-
-			/// <summary>Constructs a new Edge.</summary>
-			/// <param name="start">The starting point of the edge.</param>
-			/// <param name="end">The ending point of the edge.</param>
-			public Edge(T start, T end)
-			{
-				Start = start;
-				End = end;
-			}
-		}
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>Constructs a new GraphMap.</summary>
-		public GraphMap() : this(Statics.Equate, DefaultHash) { }
+		public GraphMap() : this(Equate, DefaultHash) { }
 
 		/// <summary>Constructs a new GraphMap.</summary>
 		/// <param name="equate">The equate delegate for the data structure to use.</param>
@@ -386,7 +355,7 @@ namespace Towel.DataStructures
 		/// <summary>Steps through all the neighbors of a node.</summary>
 		/// <param name="a">The node to step through the children of.</param>
 		/// <param name="step">The action to perform on all the neighbors of the provided node.</param>
-		public void Neighbors(T a, Action<T> step)
+		public void Neighbors(T a, Action<T?> step)
 		{
 			if (_map.TryGet(a, out SetHashLinked<T> map))
 			{
@@ -407,14 +376,14 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
-		public void Stepper(Action<T, T> step) =>
+		public void Stepper(Action<T?, T?> step) =>
 			_map.Stepper((edges, a) =>
 				edges.Stepper(b => step(a, b)));
 
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
 		/// <returns>The status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, T, StepStatus> step) =>
+		public StepStatus Stepper(Func<T?, T?, StepStatus> step) =>
 			_map.Stepper((edges, a) =>
 				edges.Stepper(b => step(a, b)));
 
@@ -439,8 +408,8 @@ namespace Towel.DataStructures
 			throw new NotImplementedException();
 		}
 
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+		System.Collections.Generic.IEnumerator<T?>
+			System.Collections.Generic.IEnumerable<T?>.GetEnumerator()
 		{
 			throw new NotImplementedException();
 		}

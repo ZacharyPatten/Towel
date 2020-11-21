@@ -339,28 +339,42 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build ValueAttributes Example [Debug]",
+			"label": "Build TagAttributes Example [Debug]",
 			"command": "dotnet",
 			"type": "process",
 			"args":
 			[
 				"build",
 				"--configuration", "Debug",
-				"${workspaceFolder}/Examples/ValueAttributes/ValueAttributes.csproj",
+				"${workspaceFolder}/Examples/TagAttributes/TagAttributes.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],
 			"problemMatcher": "$msCompile"
 		},
 		{
-			"label": "Build ValueAttributes Example [Release]",
+			"label": "Build TagAttributes Example [Release]",
 			"command": "dotnet",
 			"type": "process",
 			"args":
 			[
 				"build",
 				"--configuration", "Release",
-				"${workspaceFolder}/Examples/ValueAttributes/ValueAttributes.csproj",
+				"${workspaceFolder}/Examples/TagAttributes/TagAttributes.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "dotnet run Towel_Generating",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"run",
+				"--configuration", "Release",
+				"${workspaceFolder}/Tools/Towel_Generating/Towel_Generating.csproj",
 				"/property:GenerateFullPaths=true",
 				"/consoleloggerparameters:NoSummary",
 			],

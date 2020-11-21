@@ -46,8 +46,10 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Creates an instance of a queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Creates an instance of a queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public DoubleEndedQueueLinked()
 		{
 			_head = _tail = null;
@@ -58,17 +60,21 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Returns the number of items in the queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Returns the number of items in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
 		#endregion
 
 		#region Methods
 
-		/// <summary>Adds an item to the back of the queue.</summary>
+		/// <summary>
+		/// Adds an item to the back of the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="enqueue">The item to add to the queue.</param>
-		/// <runtime>O(1)</runtime>
 		public void EnqueueBack(T enqueue)
 		{
 			if (_tail is null)
@@ -82,8 +88,10 @@ namespace Towel.DataStructures
 			_count++;
 		}
 
-		/// <summary>Removes the oldest item in the queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Removes the oldest item in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public T DequeueFront()
 		{
 			if (_head is null)
@@ -112,17 +120,21 @@ namespace Towel.DataStructures
 			return returnValue;
 		}
 
-		/// <summary>Resets the queue to an empty state.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Resets the queue to an empty state.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
 			_head = _tail = null;
 			_count = 0;
 		}
 
-		/// <summary>Converts the list into a standard array.</summary>
+		/// <summary>
+		/// Converts the list into a standard array.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <returns>A standard array of all the items.</returns>
-		/// <runtime>O(n)</runtime>
 		public T[] ToArray()
 		{
 			if (_count == 0)
@@ -145,7 +157,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Action<T> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				step(current.Value);
 			}
@@ -155,7 +167,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(StepRef<T> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				step(ref current.Value);
 			}
@@ -166,7 +178,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				if (step(current.Value) is Break)
 				{
@@ -181,7 +193,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepRefBreak<T> step)
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				if (step(ref current.Value) is Break)
 				{
@@ -197,7 +209,7 @@ namespace Towel.DataStructures
 		/// <returns>The enumerator for this dequeue.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node current = _head; current is not null; current = current.Next)
 			{
 				yield return current.Value;
 			}

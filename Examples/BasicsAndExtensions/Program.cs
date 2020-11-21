@@ -241,103 +241,108 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  Sorting Algorithms----------------------");
 				Console.WriteLine();
+
 				int[] dataSet = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-				Console.Write($"    Data Set: {string.Join(", ", dataSet.Select(x => x.ToString()))}");
-				Console.WriteLine();
-
-				// Shuffling (Randomizing)
-				Shuffle<int>(dataSet);
-				Console.Write($"    Shuffle (Randomizing): {string.Join(", ", dataSet.Select(x => x.ToString()))}");
-				Console.WriteLine();
-
-				void ShuffleDataSet()
-				{
-					Console.WriteLine("    shuffling dataSet...");
-					Shuffle<int>(dataSet);
-				}
 
 				string DataSetToString() => string.Join(", ", dataSet.Select(x => x.ToString()));
 
-				Console.WriteLine();
+				Console.WriteLine($"    Data Set:  {DataSetToString()}");
 
-				// Bubble
+				Shuffle<int>(dataSet);
+				Console.WriteLine($"    Shuffle:   {DataSetToString()}");
+
 				SortBubble<int>(dataSet);
-				Console.Write($"    Bubble:    {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Bubble:    {DataSetToString()}");
 
-				// Selection
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortSelection<int>(dataSet);
-				Console.Write($"    Selection: {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Selection: {DataSetToString()}");
 
-				// Insertion
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortInsertion<int>(dataSet);
-				Console.Write($"    Insertion: {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Insertion: {DataSetToString()}");
 
-				// Quick
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortQuick<int>(dataSet);
-				Console.Write($"    Quick:     {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Quick:     {DataSetToString()}");
 
-				// Merge
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortMerge<int>(dataSet);
-				Console.Write($"    Merge:     {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Merge:     {DataSetToString()}");
 
-				// Heap
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortHeap<int>(dataSet);
-				Console.Write($"    Heap:      {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Heap:      {DataSetToString()}");
 
-				// OddEven
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortOddEven<int>(dataSet);
-				Console.Write($"    OddEven:   {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    OddEven:   {DataSetToString()}");
 
-				// Slow
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortSlow<int>(dataSet);
-				Console.Write($"    Slow:      {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Slow:      {DataSetToString()}");
 
-				// Cocktail
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortCocktail<int>(dataSet);
-				Console.Write($"    Cocktail:  {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Cocktail:  {DataSetToString()}");
 
-				// Shell
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortShell<int>(dataSet);
-				Console.Write($"    Shell:     {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Shell:     {DataSetToString()}");
 
-				// Gnome
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortGnome<int>(dataSet);
-				Console.Write($"    Gnome:     {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Gnome:     {DataSetToString()}");
 
-				// Comb
-				ShuffleDataSet();
+				Shuffle<int>(dataSet);
 				SortComb<int>(dataSet);
-				Console.Write($"    Comb:      {DataSetToString()}");
-				Console.WriteLine();
+				Console.WriteLine($"    Comb:      {DataSetToString()}");
 
-				// Bogo
-				ShuffleDataSet();
-				Console.Write("    Bogo:      Disabled (usually very slow...)");
-				//Sort.Bogo(dataSet);
-				//Console.Write("    Bogo:    " + string.Join(", ", dataSet.Select(x => x.ToString())));
-				Console.WriteLine();
+				Shuffle<int>(dataSet);
+				SortCycle<int>(dataSet);
+				Console.WriteLine($"    Cycle:     {DataSetToString()}");
 
+				Shuffle<int>(dataSet);
+				Console.WriteLine("    Bogo:      Disabled (usually very slow...)");
+				//SortBogo<int>(dataSet);
+				//Console.WriteLine($"    Bogo:      {DataSetToString()}");
+
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region IsOrdered
+			{
+				int[] a = { 1, 2, 3, 4, 5 }; // least to greatest
+				int[] b = { 5, 4, 3, 2, 1 }; // greatest to least
+				int[] c = { 1, 5, 3, 4, 2 }; // unordered
+				string[] d = { "a", "ba", "cba", "dcba", }; // least to greatest (strings)
+
+				Console.WriteLine("  IsOrdered------------------------------------");
+				Console.WriteLine();
+				Console.WriteLine($"    IsOrdered({string.Join(", ", a)}) := {IsOrdered<int>(a)}");
+				Console.WriteLine($"    IsOrdered({string.Join(", ", b)}, (a, b) => Compare(b, a)) := {IsOrdered<int>(b, (a, b) => Compare(b, a))}");
+				Console.WriteLine($"    IsOrdered({string.Join(", ", c)}) := {IsOrdered<int>(c)}");
+				Console.WriteLine($"    IsOrdered({string.Join(", ", d)}) := {IsOrdered<string>(d)}");
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region FilterOrdered
+			{
+				int[] a = { 1, 2, 3 };
+				int[] b = { 1, -1, 2, -2, 3, -3 };
+
+				Console.WriteLine("  FilterOrdered------------------------------------");
+				Console.WriteLine();
+				Console.WriteLine("    Filters out values that are not in order.");
+				Console.WriteLine();
+				Console.Write($"    FilterOrdered({string.Join(", ", a)}) :=");
+				FilterOrdered<int>(a, i => Console.Write(" " + i));
+				Console.WriteLine();
+				Console.Write($"    FilterOrdered({string.Join(", ", b)}) :=");
+				FilterOrdered<int>(b, i => Console.Write(" " + i));
+				Console.WriteLine();
 				Console.WriteLine();
 			}
 			#endregion
@@ -405,7 +410,7 @@ namespace BasicsAndExtensions
 				{
 					string a = "book";
 					string b = "barf";
-					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {HammingDistance(a, b)}");
+					Console.WriteLine($@"    HammingDistance(""{a}"", ""{b}""): {HammingDistance(a, b)}");
 				}
 				Console.WriteLine();
 			}

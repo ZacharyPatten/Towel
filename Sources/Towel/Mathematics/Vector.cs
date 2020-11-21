@@ -1347,28 +1347,18 @@ namespace Towel.Mathematics
 		/// <returns>A hash code for the matrix.</returns>
 		public override int GetHashCode()
 		{
-			int hash = this._vector[0].GetHashCode();
-			for (int i = 1; i < this._vector.Length; i++)
+			int hashCode = default;
+			for (int i = 1; i < _vector.Length; i++)
 			{
-				hash ^= this._vector[i].GetHashCode();
+				hashCode = HashCode.Combine(hashCode, _vector[i]);
 			}
-			return hash;
+			return hashCode;
 		}
 
 		/// <summary>Does an equality check by reference.</summary>
 		/// <param name="right">The object to compare to.</param>
 		/// <returns>True if the references are equal, false if not.</returns>
-		public override bool Equals(object right)
-		{
-			if (!(right is Vector<T> vector))
-			{
-				return false;
-			}
-			else
-			{
-				return Equal(this, vector);
-			}
-		}
+		public override bool Equals(object? right) => right is Vector<T> vector && Equal(this, vector);
 
 		#endregion
 	}

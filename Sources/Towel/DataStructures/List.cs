@@ -18,7 +18,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
+		bool TryRemoveFirst<Predicate>(out Exception? exception, Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>;
 
 		/// <summary>Removes all occurences of predicated values from the list.</summary>
@@ -56,7 +56,7 @@ namespace Towel.DataStructures
 		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
 		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <returns>True if the predicated element was found and removed. False if not.</returns>
-		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate, out Exception exception) =>
+		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate, out Exception? exception) =>
 			iList.TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
 
 		/// <summary>Removes the first equality by object reference.</summary>
@@ -64,9 +64,9 @@ namespace Towel.DataStructures
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public static void RemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate)
 		{
-			if (!iList.TryRemoveFirst<FuncRuntime<T, bool>>(out Exception exception, predicate))
+			if (!iList.TryRemoveFirst<FuncRuntime<T, bool>>(out Exception? exception, predicate))
 			{
-				throw exception;
+				throw exception ?? new ArgumentNullException(nameof(exception), $"{nameof(TryRemoveFirst)} failed but the {nameof(exception)} is null");
 			}
 		}
 
@@ -118,7 +118,7 @@ namespace Towel.DataStructures
 		/// <param name="iList">The list to remove the values from.</param>
 		/// <param name="value">The value to remove all occurences of.</param>
 		/// <param name="equate">The delegate for performing equality checks.</param>
-		public static void RemoveAll<T>(this IList<T> iList, T value, Func<T, T, bool> equate)
+		public static void RemoveAll<T>(this IList<T> iList, T value, Func<T?, T, bool> equate)
 		{
 			iList.RemoveAll(x => equate(x, value));
 		}
@@ -131,20 +131,20 @@ namespace Towel.DataStructures
 	public class ListLinked<T> : IList<T>
 	{
 		internal int _count;
-		internal Node _head;
-		internal Node _tail;
+		internal Node? _head;
+		internal Node? _tail;
 
 		#region Node
 
-		/// <summary>This class just holds the data for each individual node of the list.</summary>
 		internal class Node
 		{
-			internal Node Next;
 			internal T Value;
+			internal Node? Next;
 
-			internal Node(T data)
+			internal Node(T value, Node? next = null)
 			{
-				Value = data;
+				Value = value;
+				Next = next;
 			}
 		}
 
@@ -152,24 +152,28 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		internal ListLinked(ListLinked<T> listLinked)
+		internal ListLinked(ListLinked<T> list)
 		{
-			Node head = new Node(listLinked._head.Value);
-			Node current = listLinked._head.Next;
-			Node current_clone = head;
-			while (!(current is null))
+			if (list._head is not null)
 			{
-				current_clone.Next = new Node(current.Value);
-				current_clone = current_clone.Next;
-				current = current.Next;
+				_head = new Node(value: list._head.Value);
+				Node? a = list._head.Next;
+				Node? b = _head;
+				while (a is not null)
+				{
+					b.Next = new Node(value: a.Value);
+					b = b.Next;
+					a = a.Next;
+				}
+				_tail = b;
+				_count = list._count;
 			}
-			_head = head;
-			_tail = current_clone;
-			_count = listLinked._count;
 		}
 
-		/// <summary>Creates an instance of a AddableLinked.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// Creates an instance of a AddableLinked.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public ListLinked()
 		{
 			_head = _tail = null;
@@ -180,76 +184,73 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Returns the number of items in the list.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// Returns the number of items in the list.
+		/// <para>Runitme: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
 		#endregion
 
 		#region Methods
 
-		#region Add
-
-		/// <summary>Adds an item to the list.</summary>
+		/// <summary>
+		/// Adds an item to the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="value">The item to add to the list.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the add succeeded or false if not.</returns>
-		/// <runtime>O(1)</runtime>
-		public bool TryAdd(T value, out Exception exception)
+		public bool TryAdd(T value, out Exception? exception)
 		{
 			Add(value);
 			exception = null;
 			return true;
 		}
 
-		/// <summary>Adds an item to the list.</summary>
+		/// <summary>
+		/// Adds an item to the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="addition">The item to add to the list.</param>
-		/// <runtime>O(1)</runtime>
 		public void Add(T addition)
 		{
 			if (_tail is null)
 			{
-				_head = _tail = new Node(addition);
+				_head = _tail = new Node(value: addition);
 			}
 			else
 			{
-				_tail = _tail.Next = new Node(addition);
+				_tail = _tail.Next = new Node(value: addition);
 			}
 			_count++;
 		}
 
-		#endregion
-
-		#region Clear
-
-		/// <summary>Resets the list to an empty state.</summary>
-		/// <runtime>θ(1)</runtime>
+		/// <summary>
+		/// Resets the list to an empty state.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
-			_head = _tail = null;
+			_head = null;
+			_tail = null;
 			_count = 0;
 		}
 
-		#endregion
-
-		#region Clone
-
-		/// <summary>Creates a shallow clone of this data structure.</summary>
+		/// <summary>
+		/// Creates a shallow clone of this data structure.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		/// <runtime>θ(n)</runtime>
 		public ListLinked<T> Clone() => new ListLinked<T>(this);
-
-		#endregion
-
-		#region Remove
 
 		/// <summary>Removes the first equality by object reference.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public void RemoveFirst(Func<T, bool> predicate)
 		{
-			if (!TryRemoveFirst(predicate, out Exception exception))
+			if (!TryRemoveFirst(predicate, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new TowelBugException($"{nameof(TryRemoveFirst)} failed but the {nameof(exception)} is null");
 			}
 		}
 
@@ -258,33 +259,32 @@ namespace Towel.DataStructures
 		public void RemoveAll<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
-			if (_head is null)
+			if (_head is not null)
 			{
-				return;
-			}
-			while (predicate.Do(_head.Value))
-			{
-				_head = _head.Next;
-				_count--;
-			}
-			Node tail = null;
-			for (Node node = _head; !(node.Next is null); node = node.Next)
-			{
-				if (predicate.Do(node.Next.Value))
+				while (predicate.Do(_head!.Value))
 				{
-					if (node.Next.Equals(_tail))
-					{
-						_tail = node;
-					}
-					node.Next = node.Next.Next;
+					_head = _head.Next;
 					_count--;
 				}
-				else
+				Node? tail = null;
+				for (Node? node = _head; node!.Next is not null; node = node.Next)
 				{
-					tail = node;
+					if (predicate.Do(node.Next.Value))
+					{
+						if (node.Next.Equals(_tail))
+						{
+							_tail = node;
+						}
+						node.Next = node.Next.Next;
+						_count--;
+					}
+					else
+					{
+						tail = node;
+					}
 				}
+				_tail = tail;
 			}
-			_tail = tail;
 		}
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
@@ -297,7 +297,7 @@ namespace Towel.DataStructures
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception exception) =>
+		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception? exception) =>
 			TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
@@ -305,110 +305,65 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
+		public bool TryRemoveFirst<Predicate>(out Exception? exception, Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
-			if (_head is null)
+			for (Node? node = _head, previous = null; node is not null; previous = node, node = node.Next)
 			{
-				goto NonExistingValue;
-			}
-			if (predicate.Do(_head.Value))
-			{
-				_head = _head.Next;
-				_count--;
-				exception = null;
-				return true;
-			}
-			Node listNode = _head;
-			while (!(listNode is null))
-			{
-				if (listNode.Next is null)
+				if (predicate.Do(node.Value))
 				{
-					goto NonExistingValue;
-				}
-				else if (predicate.Do(listNode.Next.Value))
-				{
-					if (listNode.Next.Equals(_tail))
+					if (previous is null)
 					{
-						_tail = listNode;
+						_head = node.Next;
 					}
-					listNode.Next = listNode.Next.Next;
+					else
+					{
+						previous.Next = node.Next;
+					}
 					_count--;
 					exception = null;
 					return true;
 				}
-				else
-				{
-					listNode = listNode.Next;
-				}
 			}
-		NonExistingValue:
 			exception = new ArgumentException("Attempting to remove a non-existing value from a list.");
 			return false;
 		}
 
-		#endregion
-
-		#region Stepper
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
 			Stepper<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
+			StepperBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			for (Node node = _head; !(node is null); node = node.Next)
+			for (Node? node = _head; node is not null; node = node.Next)
 			{
 				T temp = node.Value;
 				if (step.Do(ref temp) is Break)
@@ -421,46 +376,36 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		#endregion
-
-		#region IEnumerable
-
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator for this list.</summary>
 		/// <returns>The enumerator for this list.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node node = _head; !(node is null); node = node.Next)
+			for (Node? node = _head; node is not null; node = node.Next)
 			{
 				yield return node.Value;
 			}
 		}
 
-		#endregion
-
-		#region ToArray
-
-		/// <summary>Converts the list into a standard array.</summary>
+		/// <summary>
+		/// Converts the list into a standard array.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <returns>A standard array of all the items.</returns>
-		/// <runtime>Θ(n)</runtime>
 		public T[] ToArray()
 		{
 			if (_count == 0)
 			{
-				return new T[0];
+				return Array.Empty<T>();
 			}
 			T[] array = new T[_count];
-			Node node = _head;
-			for (int i = 0; i < _count; i++)
+			for (var (i, node) = (0, _head); node is not null; node = node.Next, i++)
 			{
 				array[i] = node.Value;
-				node = node.Next;
 			}
 			return array;
 		}
-
-		#endregion
 
 		#endregion
 	}
@@ -469,41 +414,41 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
 	public class ListArray<T> : IList<T>
 	{
-		internal T[] _list;
+		internal T[] _array;
 		internal int _count;
 
 		#region Constructor
 
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Creates an instance of a ListArray, and sets it's minimum capacity.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public ListArray() : this(1) { }
 
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
+		/// <summary>
+		/// Creates an instance of a ListArray, and sets it's minimum capacity.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
-		/// <runtime>O(1)</runtime>
 		public ListArray(int expectedCount)
 		{
 			if (expectedCount < 1)
 			{
-				throw new ArgumentOutOfRangeException(nameof(expectedCount), expectedCount, "!(0 < " + nameof(expectedCount) + ")");
+				throw new ArgumentOutOfRangeException(nameof(expectedCount), expectedCount, $"{nameof(expectedCount)} < 1");
 			}
-			_list = new T[expectedCount];
+			_array = new T[expectedCount];
 			_count = 0;
 		}
 
-		internal ListArray(ListArray<T> listArray)
+		internal ListArray(ListArray<T> list)
 		{
-			_list = new T[listArray._list.Length];
-			for (int i = 0; i < _list.Length; i++)
-			{
-				_list[i] = listArray._list[i];
-			}
-			_count = listArray._count;
+			_array = (T[])list._array.Clone();
+			_count = list._count;
 		}
 
-		internal ListArray(T[] list, int count)
+		internal ListArray(T[] array, int count)
 		{
-			_list = list;
+			_array = array;
 			_count = count;
 		}
 
@@ -520,54 +465,58 @@ namespace Towel.DataStructures
 			{
 				if (index < 0 || index > _count)
 				{
-					throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Count) + "[" + _count + "])");
+					throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)}[{index}] < 0 || {nameof(index)}[{index}] > {nameof(Count)}[{_count}]");
 				}
-				T returnValue = _list[index];
-				return returnValue;
+				return _array[index];
 			}
 			set
 			{
 				if (index < 0 || index > _count)
 				{
-					throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Count) + "[" + _count + "])");
+					throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)}[{index}] < 0 || {nameof(index)}[{index}] > {nameof(Count)}[{_count}]");
 				}
-				_list[index] = value;
+				_array[index] = value;
 			}
 		}
 
-		/// <summary>Gets the number of items in the list.</summary>
-		/// <runtime>O(1)</runtime>
-		public int Count { get { return this._count; } }
+		/// <summary>
+		/// Gets the number of items in the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		public int Count => _count;
 
-		/// <summary>Gets the current capacity of the list.</summary>
-		/// <runtime>O(1)</runtime>
-		public int CurrentCapacity => _list.Length;
+		/// <summary>
+		/// Gets the current capacity of the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		public int CurrentCapacity => _array.Length;
 
 		#endregion
 
 		#region Methods
 
-		#region Add
-
-		/// <summary>Tries to add a value.</summary>
+		/// <summary>
+		/// Tries to add a value.
+		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
+		/// </summary>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="exception">The exception that occurrs if the add fails.</param>
 		/// <returns>True if the add succeds or false if not.</returns>
-		/// <runtime>O(n), Ω(1), ε(1)</runtime>
-		public bool TryAdd(T value, out Exception exception)
+		/// <exception cref="InvalidOperationException"><see cref="Count"/> == <see cref="CurrentCapacity"/> &amp;&amp; <see cref="CurrentCapacity"/> &gt; <see cref="int.MaxValue"/> / 2</exception>
+		public bool TryAdd(T value, out Exception? exception)
 		{
-			if (_count == _list.Length)
+			if (_count == _array.Length)
 			{
-				if (_list.Length > int.MaxValue / 2)
+				if (_array.Length > int.MaxValue / 2)
 				{
-					exception = new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+					exception = new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2");
 					return false;
 				}
-				T[] newList = new T[_list.Length * 2];
-				_list.CopyTo(newList, 0);
-				_list = newList;
+				T[] newList = new T[_array.Length * 2];
+				_array.CopyTo(newList, 0);
+				_array = newList;
 			}
-			_list[_count++] = value;
+			_array[_count++] = value;
 			exception = null;
 			return true;
 		}
@@ -575,107 +524,109 @@ namespace Towel.DataStructures
 		/// <summary>Adds an item at a given index.</summary>
 		/// <param name="addition">The item to be added.</param>
 		/// <param name="index">The index to add the item at.</param>
+		/// <exception cref="ArgumentOutOfRangeException">index &lt; 0 || index &gt; <see cref="CurrentCapacity"/></exception>
+		/// <exception cref="InvalidOperationException"><see cref="Count"/> == <see cref="CurrentCapacity"/> &amp;&amp; <see cref="CurrentCapacity"/> &gt; <see cref="int.MaxValue"/> / 2</exception>
 		public void Add(T addition, int index)
 		{
-			if (_count == _list.Length)
+			if (index < 0 || index > _array.Length)
 			{
-				if (_list.Length > int.MaxValue / 2)
+				throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} < 0 || {nameof(index)} > {nameof(Count)}");
+			}
+			if (_count == _array.Length)
+			{
+				if (_array.Length > int.MaxValue / 2)
 				{
-					throw new InvalidOperationException("Your list is so large that it can no longer double itself (int.MaxValue barrier reached).");
+					throw new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2");
 				}
-				T[] newList = new T[_list.Length * 2];
-				_list.CopyTo(newList, 0);
-				_list = newList;
+				T[] array = new T[_array.Length * 2];
+				_array.CopyTo(array, 0);
+				_array = array;
 			}
 			for (int i = _count; i > index; i--)
 			{
-				_list[i] = _list[i - 1];
+				_array[i] = _array[i - 1];
 			}
-			_list[index] = addition;
+			_array[index] = addition;
 			_count++;
 		}
 
-		#endregion
-
-		#region Clear
-
-		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Empties the list back and reduces it back to its original capacity.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
-			_list = new T[1];
+			_array = new T[1];
 			_count = 0;
 		}
 
-		#endregion
-
-		#region Clone
-
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public ListArray<T> Clone()
-		{
-			return new ListArray<T>(this);
-		}
+		public ListArray<T> Clone() => new ListArray<T>(this);
 
-		#endregion
-
-		#region Remove
-
-		/// <summary>Removes the item at a specific index.</summary>
+		/// <summary>
+		/// Removes the item at a specific index.
+		/// <para>Runtime: O(n), Ω(n - index), ε(n - index)</para>
+		/// </summary>
 		/// <param name="index">The index of the item to be removed.</param>
-		/// <runtime>O(n), Ω(n - index), ε(n - index)</runtime>
 		public void Remove(int index)
 		{
 			RemoveWithoutShrink(index);
-			if (_count < _list.Length / 2)
+			if (_count < _array.Length / 2)
 			{
-				T[] newList = new T[_list.Length / 2];
+				T[] newList = new T[_array.Length / 2];
 				for (int i = 0; i < _count; i++)
 				{
-					newList[i] = _list[i];
+					newList[i] = _array[i];
 				}
-				_list = newList;
+				_array = newList;
 			}
 		}
 
-		/// <summary>Removes the item at a specific index.</summary>
+		/// <summary>
+		/// Removes the item at a specific index.
+		/// <para>Runtime: Θ(n - index)</para>
+		/// </summary>
 		/// <param name="index">The index of the item to be removed.</param>
-		/// <runtime>Θ(n - index)</runtime>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when: index &lt; 0 || index &gt;= _count</exception>
 		public void RemoveWithoutShrink(int index)
 		{
 			if (index < 0 || index >= _count)
 			{
-				throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(ListArray<T>) + "." + nameof(Count) + ")");
+				throw new ArgumentOutOfRangeException(nameof(index), index, $"{nameof(index)} < 0 || {nameof(index)} >= {nameof(Count)}");
 			}
 			for (int i = index; i < _count - 1; i++)
 			{
-				_list[i] = _list[i + 1];
+				_array[i] = _array[i + 1];
 			}
 			_count--;
 		}
 
-		/// <summary>Removes all predicated items from the list.</summary>
+		/// <summary>
+		/// Removes all predicated items from the list.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <runtime>Θ(n)</runtime>
 		public void RemoveAll<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
 			RemoveAllWithoutShrink(predicate);
-			if (_count < _list.Length / 2)
+			if (_count < _array.Length / 2)
 			{
-				T[] newList = new T[_list.Length / 2];
+				T[] newList = new T[_array.Length / 2];
 				for (int i = 0; i < _count; i++)
 				{
-					newList[i] = _list[i];
+					newList[i] = _array[i];
 				}
-				_list = newList;
+				_array = newList;
 			}
 		}
 
-		/// <summary>Removes all predicated items from the list.</summary>
+		/// <summary>
+		/// Removes all predicated items from the list.
+		/// <para>Runtime: Θ(n)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <runtime>Θ(n)</runtime>
 		public void RemoveAllWithoutShrink<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
@@ -686,55 +637,56 @@ namespace Towel.DataStructures
 			int removed = 0;
 			for (int i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_list[i]))
+				if (predicate.Do(_array[i]))
 				{
 					removed++;
 				}
 				else
 				{
-					_list[i - removed] = _list[i];
+					_array[i - removed] = _array[i];
 				}
 			}
 			_count -= removed;
 		}
 
-		/// <summary>Removes the first predicated value from the list.</summary>
+		/// <summary>
+		/// Removes the first predicated value from the list.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
+		/// <exception cref="ArgumentException">Thrown when <paramref name="predicate"/> does not find a <typeparamref name="T"/> in the list.</exception>
 		public void RemoveFirst(Func<T, bool> predicate)
 		{
-			if (!TryRemoveFirst(predicate, out Exception exception))
+			if (!TryRemoveFirst(predicate, out Exception? exception))
 			{
-				throw exception;
+				throw exception ?? new TowelBugException($"{nameof(TryRemoveFirst)} failed but the {nameof(exception)} is null");
 			}
 		}
 
-		/// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
-		/// <param name="value">The value to remove.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirstWithoutShrink(T value)
-		{
-			RemoveFirstWithoutShrink(value, Equate);
-		}
-
-		/// <summary>Removes the first occurence of a value from the list without causing the list to shrink.</summary>
+		/// <summary>
+		/// Removes the first occurence of a value from the list without causing the list to shrink.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="equate">The delegate providing the equality check.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirstWithoutShrink(T value, Func<T, T, bool> equate)
+		/// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not found in the list.</exception>
+		public void RemoveFirstWithoutShrink(T value, Func<T, T, bool>? equate = null)
 		{
-			RemoveFirstWithoutShrink(x => equate(x, value), out _);
+			equate ??= Equate;
+			RemoveFirstWithoutShrink(x => equate(x, value));
 		}
 
-		/// <summary>Removes the first predicated value from the list wihtout shrinking the list.</summary>
+		/// <summary>
+		/// Removes the first predicated value from the list wihtout shrinking the list.
+		/// <para>Runtime: O(n), Ω(1)</para>
+		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		/// <param name="exception">The exception that occured if the removal failed.</param>
-		/// <runtime>O(n), Ω(1)</runtime>
-		public void RemoveFirstWithoutShrink(Func<T, bool> predicate, out Exception exception)
+		/// <exception cref="ArgumentException">Thrown when <paramref name="predicate"/> does not find a <typeparamref name="T"/> in the list.</exception>
+		public void RemoveFirstWithoutShrink(Func<T, bool> predicate)
 		{
-			if (!TryRemoveFirst(predicate, out exception))
+			if (!TryRemoveFirst(predicate, out Exception? exception))
 			{
-				throw new ArgumentException("Attempting to remove a non-existing item from this list.");
+				throw exception ?? new TowelBugException($"{nameof(TryRemoveFirst)} failed but the {nameof(exception)} is null");
 			}
 		}
 
@@ -742,7 +694,7 @@ namespace Towel.DataStructures
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <returns>True if the item was found and removed. False if not.</returns>
-		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception exception) =>
+		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception? exception) =>
 			TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
@@ -750,92 +702,56 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst<Predicate>(out Exception exception, Predicate predicate = default)
+		public bool TryRemoveFirst<Predicate>(out Exception? exception, Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
 			int i;
 			for (i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_list[i]))
+				if (predicate.Do(_array[i]))
 				{
-					break;
+					Remove(i);
+					exception = null;
+					return true;
 				}
 			}
-			if (i == _count)
-			{
-				exception = new ArgumentException("Attempting to remove a non-existing item from this list.");
-				return false;
-			}
-			Remove(i);
-			exception = null;
-			return true;
+			exception = new ArgumentException("Attempting to remove a non-existing item from this list.");
+			return false;
 		}
 
-		#endregion
-
-		#region Stepper
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
 			Stepper<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T> =>
-			_list.StepperRefBreak(0, _count, step);
-
-		#endregion
-
-		#region IEnumerable
+			_array.StepperRefBreak(0, _count, step);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -845,39 +761,21 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0; i < _count; i++)
 			{
-				yield return _list[i];
+				yield return _array[i];
 			}
 		}
-
-		#endregion
-
-		#region ToArray
 
 		/// <summary>Converts the list array into a standard array.</summary>
 		/// <returns>A standard array of all the elements.</returns>
-		public T[] ToArray()
-		{
-			T[] array = new T[_count];
-			Array.Copy(_list, array, _count);
-			return array;
-		}
-
-		#endregion
-
-		#region Trim
+		public T[] ToArray() =>
+			_count is 0 ? Array.Empty<T>() :
+			_array.AsSpan(0, _count).ToArray();
 
 		/// <summary>Resizes this allocation to the current count.</summary>
-		public void Trim()
-		{
-			T[] newList = new T[_count];
-			for (int i = 0; i < _count; i++)
-			{
-				newList[i] = _list[i];
-			}
-			_list = newList;
-		}
-
-		#endregion
+		public void Trim() =>
+			_array = 
+				_count is 0 ? new T[1] :
+				_array.AsSpan(0, _count).ToArray();
 
 		#endregion
 	}

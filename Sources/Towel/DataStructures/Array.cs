@@ -43,7 +43,7 @@ namespace Towel.DataStructures
 		{
 			if (size < 1)
 			{
-				throw new ArgumentOutOfRangeException("size of the array must be at least 1.");
+				throw new ArgumentOutOfRangeException(nameof(size), "size of the array must be at least 1.");
 			}
 			_array = new T[size];
 		}
@@ -65,7 +65,7 @@ namespace Towel.DataStructures
 			{
 				if (!(0 <= index || index < _array.Length))
 				{
-					throw new ArgumentOutOfRangeException("!(0 <= " + nameof(index) + " < this." + nameof(_array.Length) + ")");
+					throw new ArgumentOutOfRangeException(nameof(index), $"!(0 <= {nameof(index)} < this.{nameof(_array.Length)})");
 				}
 				return _array[index];
 			}
@@ -73,7 +73,7 @@ namespace Towel.DataStructures
 			{
 				if (!(0 <= index || index < _array.Length))
 				{
-					throw new ArgumentOutOfRangeException("!(0 <= " + nameof(index) + " < this." + nameof(_array.Length) + ")");
+					throw new ArgumentOutOfRangeException(nameof(index), $"!(0 <= {nameof(index)} < this.{nameof(_array.Length)})");
 				}
 				_array[index] = value;
 			}

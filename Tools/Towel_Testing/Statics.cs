@@ -517,9 +517,9 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region EqualTo_Testing
+		#region Equate_Testing
 
-		[TestMethod] public void EqualTo_Testing()
+		[TestMethod] public void Equate_Testing()
 		{
 			Assert.IsTrue(Equate(0, 0));
 			Assert.IsTrue(Equate(1, 1));
@@ -558,6 +558,13 @@ namespace Towel_Testing
 			Assert.IsFalse(Equate(1, 0, 0));
 			Assert.IsFalse(Equate(2, 1, 1));
 			Assert.IsFalse(Equate(3, 2, 2));
+
+			// nulls
+
+			Assert.IsTrue(Equate<string>(null, null));
+			Assert.IsFalse(Equate(null, ""));
+			Assert.IsFalse(Equate("", null));
+			Assert.IsTrue(Equate("", ""));
 		}
 
 		#endregion
@@ -1584,20 +1591,6 @@ namespace Towel_Testing
 		public const int SortSize = 10;
 		public const int SortRandomSeed = 7;
 
-		public static bool IsLeastToGreatest<T>(T[] array)
-		{
-			for (int i = 0; i < array.Length - 1; i++)
-			{
-				if (Compare(array[i], array[i + 1]) is Greater)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
-		public static int[] watchArray;
-
 		public static void TestAlgorithm(
 			Action<int[], Func<int, int, CompareResult>> algorithm,
 			Action<int[], int, int, Func<int, int, CompareResult>> algorithmPartial,
@@ -1609,9 +1602,9 @@ namespace Towel_Testing
 				int[] array = new int[sizeAdjusted];
 				Extensions.Iterate(sizeAdjusted, i => array[i] = i);
 				Shuffle<int>(array, random);
-				Assert.IsFalse(IsLeastToGreatest(array), "Test failed (invalid randomization).");
+				Assert.IsFalse(IsOrdered<int>(array), "Test failed (invalid randomization).");
 				algorithm(array, Compare);
-				Assert.IsTrue(IsLeastToGreatest(array), "Sorting algorithm failed.");
+				Assert.IsTrue(IsOrdered<int>(array), "Sorting algorithm failed.");
 			}
 
 			Test(sizeOverride ?? SortSize); // Even Data Set
@@ -1620,7 +1613,6 @@ namespace Towel_Testing
 
 			{ // Partial Array Sort
 				int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-				watchArray = array;
 				algorithmPartial(array, 3, 7, Compare);
 				int[] expected = { 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0 };
 				for (int i = 0; i < SortSize; i++)
@@ -1637,7 +1629,7 @@ namespace Towel_Testing
 			int[] array = new int[SortSize];
 			Extensions.Iterate(SortSize, i => array[i] = i);
 			Shuffle<int>(array, random);
-			Assert.IsFalse(IsLeastToGreatest(array));
+			Assert.IsFalse(IsOrdered<int>(array));
 		}
 
 		[TestMethod]
@@ -1702,21 +1694,32 @@ namespace Towel_Testing
 			(array, start, end, compare) => SortCocktail<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
+		public void Cycle_Testing() => TestAlgorithm(
+			(array, compare) => SortCycle<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortCycle<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
+
+		[TestMethod]
+		public void Pancake_Testing() => TestAlgorithm(
+			(array, compare) => SortPancake(array, compare),
+			(array, start, end, compare) => Assert.Inconclusive());
+
+		[TestMethod]
+		public void Stooge_Testing() => TestAlgorithm(
+			(array, compare) => SortStooge(array, compare),
+			(array, start, end, compare) => Assert.Inconclusive());
+
+		[TestMethod]
 		public void Bogo_Testing() => TestAlgorithm(
 			(array, compare) => SortBogo(array, compare),
 			(array, start, end, compare) => SortBogo<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
 			6);
-
 
 		[TestMethod]
 		public void BubbleSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortBubble<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1724,10 +1727,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortInsertion<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1735,10 +1735,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortInsertion<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1746,10 +1743,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortMerge<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1757,10 +1751,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortQuick<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1768,10 +1759,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortHeap<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1779,10 +1767,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortOddEven<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1790,10 +1775,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortSlow<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1801,10 +1783,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortGnome<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1812,10 +1791,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortComb<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1823,10 +1799,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortShell<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1834,10 +1807,14 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 			SortCocktail<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
+		}
+
+		[TestMethod] public void CycleSpan_Test()
+		{
+			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+			SortCycle<int, IntCompare>(span);
+			IsOrdered<int>(span);
 		}
 
 		[TestMethod]
@@ -1845,10 +1822,7 @@ namespace Towel_Testing
 		{
 			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
 			SortBogo<int, IntCompare>(span);
-			for (int i = 1; i < span.Length; i++)
-			{
-				Assert.IsTrue(span[i - 1] <= span[i]);
-			}
+			IsOrdered<int>(span);
 		}
 
 		#endregion
@@ -2044,6 +2018,5 @@ namespace Towel_Testing
 		}
 
 		#endregion
-
 	}
 }

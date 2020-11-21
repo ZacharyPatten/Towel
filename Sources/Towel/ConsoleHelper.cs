@@ -32,7 +32,7 @@ namespace Towel
 		/// <summary>Prompts the user to press [enter] in the console before continuing.</summary>
 		/// <param name="key">The key to wait for the user to press before continuing.</param>
 		/// <param name="prompt">The prompt to display to the user. Default: "Press [enter] to continue...".</param>
-		public static void PromptPressToContinue(string prompt = null, ConsoleKey key = ConsoleKey.Enter)
+		public static void PromptPressToContinue(string? prompt = null, ConsoleKey key = ConsoleKey.Enter)
 		{
 			if (!key.IsDefined())
 			{
@@ -54,9 +54,9 @@ namespace Towel
 		/// <param name="invalidMessage">The message to display if invalid input is detected.</param>
 		/// <param name="options">The options of the menu.</param>
 		public static void IntMenu(
-			string title = null,
-			string prompt = null,
-			string invalidMessage = null,
+			string? title = null,
+			string? prompt = null,
+			string? invalidMessage = null,
 			params (string DisplayName, Action Action)[] options)
 		{
 			_ = options ?? throw new ArgumentNullException(nameof(options));
@@ -66,7 +66,7 @@ namespace Towel
 			}
 			prompt ??= $"Choose an option (1-{options.Length}): ";
 			invalidMessage ??= "Invalid Input. Try Again...";
-			if (!(title is null))
+			if (title is not null)
 			{
 				Console.WriteLine(title);
 			}
@@ -91,11 +91,11 @@ namespace Towel
 		/// <param name="tryParse">The <see cref="TryParse"/> method for converting <see cref="string"/> into a <typeparamref name="T"/> value.</param>
 		/// <param name="validation">The predicate for validating the value of the input.</param>
 		/// <returns>The validated value of the console input provided by the user.</returns>
-		public static T GetInput<T>(
-			string prompt = null,
-			string invalidMessage = null,
-			Func<string, (bool Success, T Value)> tryParse = null,
-			Predicate<T> validation = null)
+		public static T? GetInput<T>(
+			string? prompt = null,
+			string? invalidMessage = null,
+			Func<string, (bool Success, T? Value)>? tryParse = null,
+			Predicate<T?>? validation = null)
 		{
 			if (tryParse is null && (typeof(T) != typeof(string) && !typeof(T).IsEnum && Meta.GetTryParseMethod<T>() is null))
 			{
@@ -103,11 +103,16 @@ namespace Towel
 			}
 			tryParse ??= typeof(T) == typeof(string)
 				? s => (true, (T)(object)s)
-				: (Func<string, (bool, T)>)TryParse<T>;
+				: TryParse<T>;
 			validation ??= v => true;
 			GetInput:
 			Console.Write(prompt ?? $"Input a {typeof(T).Name} value: ");
-			var (success, value) = tryParse(Console.ReadLine());
+			string? readLine = Console.ReadLine();
+			if (readLine is null)
+			{
+				throw new ArgumentException($"{nameof(System)}.{nameof(Console)}.{nameof(Console.ReadLine)} returned null");
+			}
+			var (success, value) = tryParse(readLine);
 			if (!success || !validation(value))
 			{
 				Console.WriteLine(invalidMessage ?? $"Invalid input. Try again...");
@@ -139,8 +144,8 @@ namespace Towel
 			Action<char> Append,
 			Action<int, char> InsertAt,
 			Action<int> RemoveAt,
-			Action<int, int> RemoveRange = null,
-			Action Clear = null)
+			Action<int, int>? RemoveRange = null,
+			Action? Clear = null)
 		{
 			int position = 0;
 

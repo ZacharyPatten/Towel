@@ -172,11 +172,11 @@ namespace ConsoleHelpers
 				}
 				if (cursorVisible.HasValue)
 				{
-					try
+					if (OperatingSystem.IsWindows())
 					{
 						cursorVisibleRevert = Console.CursorVisible;
 					}
-					catch (PlatformNotSupportedException)
+					else
 					{
 						cursorVisibleRevert = true;
 					}

@@ -18,14 +18,21 @@ namespace Towel
 	/// <summary>Represents a bug in the Towel project. Please report it.</summary>
 	public class TowelBugException : Exception
 	{
+		static readonly string reportMessage =
+			Environment.NewLine +
+			Environment.NewLine +
+			"Please submit this issue to the Towel GitHub repository. " +
+			Environment.NewLine +
+			"https://github.com/ZacharyPatten/Towel/issues/new/choose";
+
 		/// <summary>Represents a bug in the Towel project. Please report it.</summary>
 		/// <param name="message">The message of the exception.</param>
-		public TowelBugException(string message) : base(message) { }
+		public TowelBugException(string message) : base(message + reportMessage) { }
 
 		/// <summary>Represents a bug in the Towel project. Please report it.</summary>
 		/// <param name="message">The message of the exception.</param>
 		/// <param name="innerException">The inner exception.</param>
-		public TowelBugException(string message, Exception innerException) : base(message, innerException) { }
+		public TowelBugException(string message, Exception innerException) : base(message + reportMessage, innerException) { }
 	}
 
 	/// <summary>Thrown when a data structure operation fails due to external corruption.</summary>

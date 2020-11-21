@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -12,9 +13,9 @@ namespace Towel.DataStructures
 	{
 		#region Properties
 
-		/// <summary>The newest item currently in the queue.</summary>
+		/// <summary>The current newest element in the queue.</summary>
 		T Newest { get; }
-		/// <summary>The oldest item currently in the queue.</summary>
+		/// <summary>The current oldest element in the queue.</summary>
 		T Oldest { get; }
 
 		#endregion
@@ -38,8 +39,8 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public class QueueLinked<T> : IQueue<T>
 	{
-		internal Node _head;
-		internal Node _tail;
+		internal Node? _head;
+		internal Node? _tail;
 		internal int _count;
 
 		#region Node
@@ -47,11 +48,12 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal T Value;
-			internal Node Next;
+			internal Node? Next;
 
-			internal Node(T data)
+			internal Node(T value, Node? next = null)
 			{
-				Value = data;
+				Value = value;
+				Next = next;
 			}
 		}
 
@@ -59,109 +61,112 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Creates an instance of a queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Creates an instance of a queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public QueueLinked()
 		{
 			_head = _tail = null;
 			_count = 0;
 		}
 
+		internal QueueLinked(QueueLinked<T> queue)
+		{
+			if (queue._head is not null)
+			{
+				_head = new Node(value: queue._head.Value);
+				Node? a = queue._head.Next;
+				Node? b = _head;
+				while (a is not null)
+				{
+					b.Next = new Node(value: a.Value);
+					b = b.Next;
+					a = a.Next;
+				}
+				_tail = b;
+				_count = queue._count;
+			}
+		}
+
 		#endregion
 
 		#region Properties
 
-		/// <summary>The newest item currently in the queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current newest element in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public T Newest =>
-			_count > 0
-			? _tail.Value
-			: throw new InvalidOperationException("attempting to get the newest item in an empty queue");
+			_count <= 0 ? throw new InvalidOperationException("attempting to get the newest item in an empty queue") :
+			_tail is null ? throw new TowelBugException($"{nameof(Count)} is greater than 0 but {nameof(_tail)} is null") :
+			_tail.Value;
 
-		/// <summary>The oldest item currently in the queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// The current oldest element in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public T Oldest =>
-			_count > 0
-			? _head.Value
-			: throw new InvalidOperationException("attempting to get the oldet item in an empty queue");
+			_count <= 0 ? throw new InvalidOperationException("attempting to get the oldet item in an empty queue") :
+			_head is null ? throw new TowelBugException($"{nameof(Count)} is greater than 0 but {nameof(_head)} is null") :
+			_head.Value;
 
-		/// <summary>Returns the number of items in the queue.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Returns the number of items in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public int Count => _count;
 
 		#endregion
 
 		#region Methods
 
-		#region ToArray
-
-		/// <summary>Converts the list into a standard array.</summary>
+		/// <summary>
+		/// Converts the list into a standard array.
+		/// <para>Runtime: O(n)</para>
+		/// </summary>
 		/// <returns>A standard array of all the items.</returns>
-		/// <runtime>O(n)</runtime>
 		public T[] ToArray()
 		{
-			T[] array = new T[_count];
-			int index = 0;
-			for (Node current = _head; !(current is null); current = current.Next)
+			if (_count == 0)
 			{
-				array[index++] = current.Value;
+				return Array.Empty<T>();
+			}
+			T[] array = new T[_count];
+			for (var (i, node) = (0, _head); node is not null; node = node.Next, i++)
+			{
+				array[i] = node.Value;
 			}
 			return array;
 		}
 
-		#endregion
-
-		#region Clone
-
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public QueueLinked<T> Clone()
-		{
-			Node head = new Node(_head.Value);
-			Node current = _head.Next;
-			Node current_clone = head;
-			while (!(current is null))
-			{
-				current_clone.Next = new Node(current.Value);
-				current_clone = current_clone.Next;
-				current = current.Next;
-			}
-			QueueLinked<T> clone = new QueueLinked<T>
-			{
-				_head = head,
-				_tail = current_clone,
-				_count = _count
-			};
-			return clone;
-		}
+		public QueueLinked<T> Clone() => new QueueLinked<T>(this);
 
-		#endregion
-
-		#region Enqueue
-
-		/// <summary>Adds an item to the back of the queue.</summary>
+		/// <summary>
+		/// Adds an item to the back of the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="enqueue">The item to add to the queue.</param>
-		/// <runtime>O(1)</runtime>
 		public void Enqueue(T enqueue)
 		{
 			if (_tail is null)
 			{
-				_head = _tail = new Node(enqueue);
+				_head = _tail = new Node(value: enqueue);
 			}
 			else
 			{
-				_tail = _tail.Next = new Node(enqueue);
+				_tail = _tail.Next = new Node(value: enqueue);
 			}
 			_count++;
 		}
 
-		#endregion
-
-		#region Dequeue
-
-		/// <summary>Removes the oldest item in the queue.</summary>
+		/// <summary>
+		/// Removes the oldest item in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <returns>The next item in the queue.</returns>
-		/// <runtime>O(1)</runtime>
 		public T Dequeue()
 		{
 			if (_head is null)
@@ -178,90 +183,63 @@ namespace Towel.DataStructures
 			return value;
 		}
 
-		#endregion
-
-		#region Peek
-
-		/// <summary>Gets the next item in the queue without removing it.</summary>
+		/// <summary>
+		/// Gets the next item in the queue without removing it.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <returns>The next item in the queue.</returns>
-		public T Peek()
-		{
-			if (_head is null)
-			{
-				throw new InvalidOperationException("peek from an empty queue");
-			}
-			T returnValue = _head.Value;
-			return returnValue;
-		}
+		public T Peek() =>
+			_count <= 0 ? throw new InvalidOperationException("attempting to peek an empty queue") :
+			_head is null ? throw new TowelBugException($"{nameof(Count)} is greater than 0 but {nameof(_head)} is null") :
+			_head.Value;
 
-		#endregion
-
-		#region Clear
-
-		/// <summary>Resets the queue to an empty state.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Resets the queue to an empty state.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
-			_head = _tail = null;
+			_head = null;
+			_tail = null;
 			_count = 0;
 		}
 
-		#endregion
-
-		#region Stepper
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
 			Stepper<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
+			StepperBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(StepRefBreak<T> step) =>
+			StepperRefBreak<StepRefBreakRuntime<T>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node? current = _head; current is not null; current = current.Next)
 			{
 				if (step.Do(ref current.Value) is Break)
 				{
@@ -271,29 +249,20 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		#endregion
-
-		#region IEnumerable
-
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for this queue.</summary>
+		/// <summary>
+		/// Gets the enumerator for this queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <returns>The enumerator for the queue.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node current = _head; !(current is null); current = current.Next)
+			for (Node? current = _head; current is not null; current = current.Next)
 			{
 				yield return current.Value;
 			}
 		}
-
-		#endregion
 
 		#endregion
 	}
@@ -302,107 +271,113 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public class QueueArray<T> : IQueue<T>
 	{
-		internal T[] _queue;
+		internal T[] _array;
 		internal int _start;
 		internal int _count;
 		internal int _minimumCapacity;
 
 		#region Constructors
 
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
-		/// <runtime>θ(1)</runtime>
-		public QueueArray()
-		{
-			_queue = new T[1];
-			_count = 0;
-			_minimumCapacity = 1;
-		}
+		/// <summary>
+		/// Constructs a new queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		public QueueArray() : this(1) { }
 
-		/// <summary>Creates an instance of a ListArray, and sets it's minimum capacity.</summary>
+		/// <summary>
+		/// Constructs a new queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
-		/// <runtime>θ(1)</runtime>
 		public QueueArray(int minimumCapacity)
 		{
-			_queue = new T[minimumCapacity];
+			_array = new T[minimumCapacity];
 			_count = 0;
 			_minimumCapacity = minimumCapacity;
+		}
+
+		internal QueueArray(QueueArray<T> queue)
+		{
+			_minimumCapacity = queue._minimumCapacity;
+			_start = queue._start;
+			_count = queue._count;
+			_array = (T[])queue._array.Clone();
 		}
 
 		#endregion
 
 		#region Properties
 
-		/// <summary>Gets the number of items in the list.</summary>
-		/// <runtime>O(1)</runtime>
-		public int Count
-		{
-			get
-			{
-				return _count;
-			}
-		}
+		/// <summary>
+		/// Gets the number of items in the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		public int Count => _count;
 
-		/// <summary>Gets the current capacity of the list.</summary>
-		/// <runtime>O(1)</runtime>
-		public int CurrentCapacity
-		{
-			get
-			{
-				return _queue.Length;
-			}
-		}
+		/// <summary>
+		/// Gets the current capacity of the list.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		public int CurrentCapacity => _array.Length;
 
-		/// <summary>Allows you to adjust the minimum capacity of this list.</summary>
-		/// <runtime>O(n), Ω(1)</runtime>
+		/// <summary>
+		/// Allows you to adjust the minimum capacity of this list.
+		/// <para>Runtime (Get): O(1)</para>
+		/// <para>Runtime (Set): O(n), Ω(1)</para>
+		/// </summary>
 		public int MinimumCapacity
 		{
-			get
-			{
-				int returnValue = _minimumCapacity;
-				return returnValue;
-			}
+			get => _minimumCapacity;
 			set
 			{
 				if (value < 1)
 				{
-					throw new InvalidOperationException("Attempting to set a minimum capacity to a negative or zero value.");
+					throw new ArgumentOutOfRangeException(nameof(value), value, $"{nameof(value)} < 1");
 				}
-				else if (value > _queue.Length)
+				if (value > _array.Length)
 				{
-					T[] newList = new T[value];
-					_queue.CopyTo(newList, 0);
-					_queue = newList;
+					T[] array = new T[value];
+					_array.CopyTo(array, 0);
+					_array = array;
 				}
-				else
-					_minimumCapacity = value;
+				_minimumCapacity = value;
 			}
 		}
 
-		/// <summary>The newest item currently in the queue.</summary>
-		public T Newest
-		{
-			get
-			{
-				if (this._count > 0)
-					return this._queue[(this._start + this._count) % this._queue.Length];
-				else
-					throw new System.InvalidOperationException("attempting to get the newest item in an empty queue");
-			}
-		}
+		/// <summary>
+		/// The current newest <typeparamref name="T"/> in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		/// <exception cref="InvalidOperationException">Thrown when: _count &lt;= 0</exception>
+		public T Newest =>
+			_count <= 0 ? throw new InvalidOperationException("attempting to get the newest item in an empty queue") :
+			_array[(_start + _count) % _array.Length];
 
-		/// <summary>The oldest item currently in the queue.</summary>
-		public T Oldest
+		/// <summary>
+		/// The current newest <typeparamref name="T"/> in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		/// <exception cref="InvalidOperationException">Thrown when: _count &lt;= 0</exception>
+		public T Oldest =>
+			_count <= 0 ? throw new InvalidOperationException("attempting to get the oldet item in an empty queue") :
+			_array[_start];
+
+		/// <summary>
+		/// Gets or sets the <typeparamref name="T"/> at an index in the queue.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
+		/// <param name="index">The index of the <typeparamref name="T"/> to get or set.</param>
+		/// <returns>The element at the provided index.</returns>
+		/// <exception cref="ArgumentOutOfRangeException">Thrown when: index &lt;= 0 || index &gt; _count</exception>
+		public T this[int index]
 		{
-			get
+			get =>
+				index <= 0 || index > _count ? throw new ArgumentOutOfRangeException(nameof(index), index, $"!(0 <= {nameof(index)} < {nameof(Count)})") :
+				_array[(_start + index) % _array.Length];
+			set
 			{
-				if (_count > 0)
-				{
-					return _queue[_start];
-				}
-				else
-				{
-					throw new InvalidOperationException("attempting to get the oldet item in an empty queue");
-				}
+				if (index <= 0 || index > _count) throw new ArgumentOutOfRangeException(nameof(index), index, $"!(0 <= {nameof(index)} < {nameof(Count)})");
+				_array[(_start + index) % _array.Length] = value;
 			}
 		}
 
@@ -410,202 +385,149 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region ToArray
-
-		/// <summary>Converts the list array into a standard array.</summary>
+		/// <summary>
+		/// Converts the list array into a standard array.
+		/// <para>Runtime: O(<see cref="Count"/>)</para>
+		/// </summary>
 		/// <returns>A standard array of all the elements.</returns>
 		public T[] ToArray()
 		{
-			T[] array = new T[_count];
-			for (int i = 0; i < _count; i++)
+			if (_count <= 0)
 			{
-				array[i] = _queue[i];
+				return Array.Empty<T>();
+			}
+			T[] array = new T[_count];
+			for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
+			{
+				array[i] = _array[index];
 			}
 			return array;
 		}
 
-		#endregion
-
-		#region Clone
-
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public IDataStructure<T> Clone()
-		{
-			QueueArray<T> clone = new QueueArray<T>
-			{
-				_queue = new T[_queue.Length],
-				_count = this._count,
-				_start = this._start,
-				_minimumCapacity = this._minimumCapacity,
-			};
-			T[] array = clone._queue;
-			for (int i = 0; i < _count; i++)
-			{
-				array[i] = _queue[i];
-			}
-			return clone;
-		}
+		public QueueArray<T> Clone() => new QueueArray<T>(this);
 
-		#endregion
-
-		#region Enqueue
-
-		/// <summary>Adds an item to the end of the list.</summary>
+		/// <summary>
+		/// Adds an item to the end of the list.
+		/// <para>Runtime: O(n), ε(1)</para>
+		/// </summary>
 		/// <param name="addition">The item to be added.</param>
-		/// <runtime>O(n), ε(1)</runtime>
 		public void Enqueue(T addition)
 		{
-			if (_count == _queue.Length)
+			if (_count + 1 >= _array.Length)
 			{
-				if (_queue.Length > int.MaxValue / 2)
+				if (_array.Length > int.MaxValue / 2)
 				{
 					throw new InvalidOperationException("your queue is so large that it can no longer double itself (Int32.MaxValue barrier reached).");
 				}
-				T[] newQueue = new T[_queue.Length * 2];
-				for (int i = 0; i < _count; i++)
+				T[] array = new T[_array.Length * 2];
+				for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
 				{
-					newQueue[i] = _queue[(i + _start) % _queue.Length];
+					array[i] = _array[index];
 				}
 				_start = 0;
-				_queue = newQueue;
+				_array = array;
 			}
-			_queue[(_start + _count++) % _queue.Length] = addition;
+			int end = _start + _count;
+			if (end >= _array.Length)
+			{
+				end %= _array.Length;
+			}
+			_array[end] = addition;
+			_count++;
 		}
 
-		#endregion
-
-		#region Dequeue
-
-		/// <summary>Removes the item at a specific index.</summary>
-		/// <runtime>O(n - index)</runtime>
+		/// <summary>
+		/// Removes the item at a specific index.
+		/// <para>Runtime: O(n), ε(1)</para>
+		/// </summary>
 		public T Dequeue()
 		{
 			if (_count == 0)
 			{
 				throw new InvalidOperationException("attempting to queue from an empty queue.");
 			}
-			if (_count < _queue.Length / 4 && _queue.Length / 2 > _minimumCapacity)
+			if (_count < _array.Length / 4 && _array.Length > _minimumCapacity)
 			{
-				T[] newQueue = new T[_queue.Length / 2];
-				for (int i = 0; i < _count; i++)
+				int length = Math.Max(_minimumCapacity, _array.Length / 2);
+				T[] array = new T[length];
+				for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
 				{
-					newQueue[i] = _queue[(i + _start) % _queue.Length];
+					array[i] = _array[index];
 				}
 				_start = 0;
-				_queue = newQueue;
+				_array = array;
 			}
-			T returnValue = _queue[_start++];
-			_count--;
-			if (_count == 0)
+			T element = _array[_start++];
+			if (_start >= _array.Length)
 			{
 				_start = 0;
 			}
-			return returnValue;
+			_count--;
+			return element;
 		}
-
-		#endregion
-
-		#region Peek
 
 		/// <summary>Gets the next item in the queue without removing it.</summary>
 		/// <returns>The next item in the queue.</returns>
-		public T Peek()
-		{
-			T returnValue = _queue[_start];
-			return returnValue;
-		}
+		public T Peek() =>
+			_count <= 0 ? throw new InvalidOperationException("attempting to peek an empty queue") :
+			_array[_start];
 
-		#endregion
-
-		#region Clear
-
-		/// <summary>Empties the list back and reduces it back to its original capacity.</summary>
-		/// <runtime>O(1)</runtime>
+		/// <summary>
+		/// Returns the queue to an empty state.
+		/// <para>Runtime: O(1)</para>
+		/// </summary>
 		public void Clear()
 		{
-			_queue = new T[_minimumCapacity];
 			_count = 0;
+			_start = 0;
 		}
 
-		#endregion
-
-		#region Stepper
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperRef<StepToStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
 			Stepper<ActionRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
 			where Step : struct, IStepRef<T> =>
 			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(StepRef<T> step) =>
 			StepperRef<StepRefRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
 			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
+			StepperBreak<StepBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(StepRefBreak<T> step) =>
+			StepperRefBreak<StepRefBreakRuntime<T>>(step);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The delegate to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		/// <runtime>O(n * step)</runtime>
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public StepStatus StepperRefBreak<Step>(Step step = default)
 			where Step : struct, IStepRefBreak<T>
 		{
-			for (int i = 0, index = _start; i < _count; i++, index++)
+			for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
 			{
-				if (index == _queue.Length)
-				{
-					index = 0;
-				}
-				if (step.Do(ref _queue[index]) is Break)
+				if (step.Do(ref _array[index]) is Break)
 				{
 					return Break;
 				}
 			}
 			return Continue;
 		}
-
-		#endregion
-
-		#region IEnumerable
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -615,15 +537,13 @@ namespace Towel.DataStructures
 		{
 			for (int i = 0, index = _start; i < _count; i++, index++)
 			{
-				if (index == _queue.Length)
+				if (index == _array.Length)
 				{
 					index = 0;
 				}
-				yield return _queue[index];
+				yield return _array[index];
 			}
 		}
-
-		#endregion
 
 		#endregion
 	}
