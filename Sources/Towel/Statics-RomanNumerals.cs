@@ -14,7 +14,7 @@
 			/* 6:M */ 1000,
 		};
 
-		internal readonly static int[] RomanNumeralDigitsAllowsPrefixes =
+		internal readonly static int[] RomanNumeralDigitsAllowedPrefix =
 		{
 			/* 0:I */ default,
 			/* 1:V */ 0,
@@ -71,7 +71,7 @@
 				};
 				if ((c.HasValue && c.Value < a) ||
 					(a == b && a == c && a == d) ||
-					((b.HasValue && b.Value < a && b.Value != RomanNumeralDigitsAllowsPrefixes[a])) ||
+					((b.HasValue && b.Value < a && b.Value != RomanNumeralDigitsAllowedPrefix[a])) ||
 					(b == a && !RomanNumeralDigitsAllowsDuplicates[a]))
 				{
 					return (false, default);
