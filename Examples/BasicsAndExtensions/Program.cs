@@ -410,7 +410,7 @@ namespace BasicsAndExtensions
 				{
 					string a = "book";
 					string b = "barf";
-					Console.WriteLine($@"    Recursive(""{a}"", ""{b}""): {HammingDistance(a, b)}");
+					Console.WriteLine($@"    HammingDistance(""{a}"", ""{b}""): {HammingDistance(a, b)}");
 				}
 				Console.WriteLine();
 			}

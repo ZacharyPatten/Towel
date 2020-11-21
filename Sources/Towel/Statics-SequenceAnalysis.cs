@@ -662,14 +662,14 @@ namespace Towel
 			return distance;
 		}
 
-		/// <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
+		/// <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
 		/// <param name="a">The first sequence of the operation.</param>
 		/// <param name="b">The second sequence of the operation.</param>
 		/// <returns>The computed Hamming distance of the two sequences.</returns>
 		public static int HammingDistance(ReadOnlySpan<char> a, ReadOnlySpan<char> b) =>
 			HammingDistance<char, CharEquate>(a, b);
 
-		/// <summary>Computes the Hamming distance (using an recursive algorithm).</summary>
+		/// <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
 		/// <typeparam name="Equals">The equality check function.</typeparam>
 		/// <param name="a">The first sequence.</param>
