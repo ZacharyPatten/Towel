@@ -48,7 +48,7 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				StringBuilder stringBuilder = new StringBuilder();
+				StringBuilder stringBuilder = new();
 				stringBuilder.Append("[ ");
 				stringBuilder.Append(_x);
 				stringBuilder.Append(", ");

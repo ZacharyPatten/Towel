@@ -184,7 +184,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    Note: there are overloads of these methods");
 				Console.WriteLine();
 
-				Random random = new Random();
+				Random random = new();
 
 				Console.WriteLine($"    Random.NextLong(): {random.NextLong()}");
 				Console.WriteLine($"    Random.NextDateTime(): {random.NextDateTime()}");
@@ -513,7 +513,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				int i = 0;
-				ListArray<int> list = new ListArray<int> { 0, 1, 2, 3, 4 };
+				ListArray<int> list = new() { 0, 1, 2, 3, 4 };
 				void WriteList() => Console.Write(string.Concat(list) + " ");
 
 				i = 0;

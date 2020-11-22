@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Towel.DataStructures;
 using static Towel.Statics;
 
 namespace Towel
@@ -20,7 +21,7 @@ namespace Towel
 				Console.Error.WriteLine("No command provided.");
 				return;
 			}
-			System.Collections.Generic.List<MethodInfo> commandMatches = new System.Collections.Generic.List<MethodInfo>();
+			ListArray<MethodInfo> commandMatches = new();
 			foreach (MethodInfo possibleCommand in assembly.GetMethodInfosWithAttribute<CommandAttribute>())
 			{
 				string command = possibleCommand.Name;
@@ -69,7 +70,7 @@ namespace Towel
 				throw new Exception("syntax error: relative command not static");
 			}
 
-			System.Collections.Generic.Dictionary<string, int> parameterMap = new System.Collections.Generic.Dictionary<string, int>();
+			MapHashLinked<int, string> parameterMap = new();
 			int parameterCount = 0;
 			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 			foreach (ParameterInfo parameterInfo in parameterInfos)
@@ -87,7 +88,7 @@ namespace Towel
 					return;
 				}
 				arg = arg[2..];
-				if (!parameterMap.TryGetValue(arg, out int index))
+				if (!parameterMap.TryGet(arg, out int index))
 				{
 					Console.Error.WriteLine($"Invalid parameter --{arg} in index {i}.");
 					return;
@@ -172,7 +173,7 @@ namespace Towel
 			}
 			else
 			{
-				System.Collections.Generic.List<MethodInfo> commandMatches = new System.Collections.Generic.List<MethodInfo>();
+				ListArray<MethodInfo> commandMatches = new();
 				foreach (MethodInfo methodInfo in assembly.GetMethodInfosWithAttribute<CommandAttribute>())
 				{
 					string methodName = methodInfo.Name;

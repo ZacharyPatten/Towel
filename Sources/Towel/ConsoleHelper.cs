@@ -126,7 +126,7 @@ namespace Towel
 		/// <returns>The <see cref="string"/> input provided by the user.</returns>
 		public static string HiddenReadLine(char shownCharacter = '*')
 		{
-			System.Collections.Generic.List<char> list = new System.Collections.Generic.List<char>();
+			System.Collections.Generic.List<char> list = new();
 			HiddenReadLineBase(
 				shownCharacter: shownCharacter,
 				GetLength: () => list.Count,

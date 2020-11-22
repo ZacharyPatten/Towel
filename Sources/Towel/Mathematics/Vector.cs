@@ -20,7 +20,7 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				if (this.Dimensions < 1)
+				if (Dimensions < 1)
 				{
 					throw new MathematicsException("This vector doesn't have an " + nameof(X) + " component.");
 				}
@@ -28,11 +28,11 @@ namespace Towel.Mathematics
 			}
 			set
 			{
-				if (this.Dimensions < 1)
+				if (Dimensions < 1)
 				{
 					throw new MathematicsException("This vector doesn't have an " + nameof(X) + " component.");
 				}
-				this._vector[0] = value;
+				_vector[0] = value;
 			}
 		}
 
@@ -41,7 +41,7 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				if (this.Dimensions < 2)
+				if (Dimensions < 2)
 				{
 					throw new MathematicsException("This vector doesn't have an " + nameof(Y) + " component.");
 				}
@@ -49,11 +49,11 @@ namespace Towel.Mathematics
 			}
 			set
 			{
-				if (this.Dimensions < 2)
+				if (Dimensions < 2)
 				{
 					throw new MathematicsException("This vector doesn't have an " + nameof(Y) + " component.");
 				}
-				this._vector[1] = value;
+				_vector[1] = value;
 			}
 		}
 
@@ -62,7 +62,7 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				if (this.Dimensions < 3)
+				if (Dimensions < 3)
 				{
 					throw new MathematicsException("This vector doesn't have an " + nameof(Z) + " component.");
 				}
@@ -70,11 +70,11 @@ namespace Towel.Mathematics
 			}
 			set
 			{
-				if (this.Dimensions < 3)
+				if (Dimensions < 3)
 				{
 					throw new MathematicsException("This vector doesn't have an " + nameof(Z) + " component.");
 				}
-				this._vector[2] = value;
+				_vector[2] = value;
 			}
 		}
 
@@ -83,7 +83,7 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				return this._vector is null ? 0 : this._vector.Length;
+				return _vector is null ? 0 : _vector.Length;
 			}
 		}
 
@@ -98,7 +98,7 @@ namespace Towel.Mathematics
 				{
 					throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Dimensions) + ")");
 				}
-				return this._vector[index];
+				return _vector[index];
 			}
 			set
 			{
@@ -106,7 +106,7 @@ namespace Towel.Mathematics
 				{
 					throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Dimensions) + ")");
 				}
-				this._vector[index] = value;
+				_vector[index] = value;
 			}
 		}
 
@@ -118,15 +118,15 @@ namespace Towel.Mathematics
 		{
 			get
 			{
-				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.Append("[");
-				stringBuilder.Append(this._vector[0]);
-				for (int i = 1; i < this._vector.Length; i++)
+				StringBuilder stringBuilder = new();
+				stringBuilder.Append('[');
+				stringBuilder.Append(_vector[0]);
+				for (int i = 1; i < _vector.Length; i++)
 				{
-					stringBuilder.Append(",");
-					stringBuilder.Append(this._vector[i]);
+					stringBuilder.Append(',');
+					stringBuilder.Append(_vector[i]);
 				}
-				stringBuilder.Append("]");
+				stringBuilder.Append(']');
 				return stringBuilder.ToString();
 			}
 		}
@@ -143,14 +143,14 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentOutOfRangeException(nameof(dimensions), dimensions, "!(" + nameof(dimensions) + " >= 0)");
 			}
-			this._vector = new T[dimensions];
+			_vector = new T[dimensions];
 		}
 
 		/// <summary>Creates a vector out of the given values.</summary>
 		/// <param name="vector">The values to initialize the vector to.</param>
 		public Vector(params T[] vector)
 		{
-			this._vector = vector;
+			_vector = vector;
 		}
 
 		/// <summary>Creates a new vector and initializes it via function.</summary>
@@ -160,13 +160,13 @@ namespace Towel.Mathematics
 		{
 			for (int i = 0; i < dimensions; i++)
 			{
-				this._vector[i] = function(i);
+				_vector[i] = function(i);
 			}
 		}
 
 		internal Vector(Vector<T> vector)
 		{
-			this._vector = vector._vector.Clone() as T[];
+			_vector = vector._vector.Clone() as T[];
 		}
 
 		#endregion

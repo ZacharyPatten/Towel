@@ -101,11 +101,11 @@ namespace Towel.DataStructures
 			internal T? Value;
 
 			/// <summary>Represents a null bound meaning it does not exist.</summary>
-			public readonly static Bound<T> None = new Bound<T> { Value = default, Exists = false };
+			public readonly static Bound<T> None = new() { Value = default, Exists = false };
 
 			/// <summary>Converts a value to a bound.</summary>
 			/// <param name="value">The value to convert into a bound.</param>
-			public static implicit operator Bound<T>(T value) => new Bound<T> { Value = value, Exists = true };
+			public static implicit operator Bound<T>(T value) => new() { Value = value, Exists = true };
 
 			/// <summary>Implicitly converts the "None" keyword into a non-existant bound.</summary>
 			/// <param name="keyword">The keyword to convert into a non-existant bound.</param>

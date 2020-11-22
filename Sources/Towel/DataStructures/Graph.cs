@@ -408,8 +408,8 @@ namespace Towel.DataStructures
 			throw new NotImplementedException();
 		}
 
-		System.Collections.Generic.IEnumerator<T?>
-			System.Collections.Generic.IEnumerable<T?>.GetEnumerator()
+		System.Collections.Generic.IEnumerator<T>
+			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
 		{
 			throw new NotImplementedException();
 		}

@@ -104,7 +104,7 @@ namespace Towel.Mathematics
 			{
 				if (Rows < 5 && Columns < 5)
 				{
-					StringBuilder stringBuilder = new StringBuilder();
+					StringBuilder stringBuilder = new();
 					stringBuilder.Append('[');
 					for (int i = 0; i < Rows; i++)
 					{
@@ -237,7 +237,7 @@ namespace Towel.Mathematics
 			{
 				FactoryZeroImplementation = (ROWS, COLUMNS) =>
 				{
-					Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
+					Matrix<T> matrix = new(ROWS, COLUMNS);
 					matrix._matrix.Format(Constant<T>.Zero);
 					return matrix;
 				};
@@ -268,7 +268,7 @@ namespace Towel.Mathematics
 			{
 				FactoryIdentityImplementation = (ROWS, COLUMNS) =>
 				{
-					Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
+					Matrix<T> matrix = new(ROWS, COLUMNS);
 					T[] MATRIX = matrix._matrix;
 					int minimum = Minimum(ROWS, COLUMNS);
 					for (int i = 0; i < minimum; i++)
@@ -282,7 +282,7 @@ namespace Towel.Mathematics
 			{
 				FactoryIdentityImplementation = (ROWS, COLUMNS) =>
 				{
-					Matrix<T> matrix = new Matrix<T>(ROWS, COLUMNS);
+					Matrix<T> matrix = new(ROWS, COLUMNS);
 					Format(matrix, (x, y) => x == y ? Constant<T>.One : Constant<T>.Zero);
 					return matrix;
 				};
@@ -305,7 +305,7 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentOutOfRangeException(nameof(columns), columns, "!(" + nameof(columns) + " > 0)");
 			}
-			Matrix<T> matrix = new Matrix<T>(rows, columns);
+			Matrix<T> matrix = new(rows, columns);
 			matrix._matrix.Format(value);
 			return matrix;
 		}
@@ -474,8 +474,8 @@ namespace Towel.Mathematics
 			{
 				return matrix.Get(0, 0);
 			}
-			MatrixElementFraction<T> determinant = new MatrixElementFraction<T>(Constant<T>.One);
-			Matrix<MatrixElementFraction<T>> fractioned = new Matrix<MatrixElementFraction<T>>(matrix.Rows, matrix.Columns, (r, c) => new MatrixElementFraction<T>(matrix.Get(r, c)));
+			MatrixElementFraction<T> determinant = new(Constant<T>.One);
+			Matrix<MatrixElementFraction<T>> fractioned = new(matrix.Rows, matrix.Columns, (r, c) => new MatrixElementFraction<T>(matrix.Get(r, c)));
 			for (int i = 0; i < n; i++)
 			{
 				var pivotElement = fractioned.Get(i, i);
@@ -529,7 +529,7 @@ namespace Towel.Mathematics
 			{
 				return a.Get(0, 0);
 			}
-			Matrix<T> temp = new Matrix<T>(n, n);
+			Matrix<T> temp = new(n, n);
 			T sign = Constant<T>.One;
 			for (int f = 0; f < n; f++)
 			{
@@ -1175,7 +1175,7 @@ namespace Towel.Mathematics
 			{
 				c = a.Clone();
 			}
-			Matrix<T>? d = new Matrix<T>(a._rows, a._columns, a._matrix.Length);
+			Matrix<T>? d = new(a._rows, a._columns, a._matrix.Length);
 			for (int i = 0; i < b; i++)
 			{
 				Multiply(c, a, ref d);
@@ -1963,7 +1963,7 @@ namespace Towel.Mathematics
 				b.Set(0, 0, Constant<T>.One);
 				return;
 			}
-			Matrix<T> temp = new Matrix<T>(dimension, dimension, Length);
+			Matrix<T> temp = new(dimension, dimension, Length);
 			for (int i = 0; i < dimension; i++)
 			{
 				for (int j = 0; j < dimension; j++)

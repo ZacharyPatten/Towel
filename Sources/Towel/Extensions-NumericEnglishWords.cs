@@ -103,7 +103,7 @@ namespace Towel
 			{
 				return "Zero";
 			}
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new();
 			bool spaceNeeded = false;
 			if (number[0] == '-')
 			{

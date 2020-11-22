@@ -776,7 +776,7 @@ namespace Towel
 				string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
 				if (File.Exists(xmlFilePath))
 				{
-					using StreamReader streamReader = new StreamReader(xmlFilePath);
+					using StreamReader streamReader = new(xmlFilePath);
 					LoadXmlDocumentation(streamReader);
 				}
 			}
@@ -787,7 +787,7 @@ namespace Towel
 		/// <param name="xmlDocumentation">The content of the XML code documentation.</param>
 		public static void LoadXmlDocumentation(string xmlDocumentation)
 		{
-			using StringReader stringReader = new StringReader(xmlDocumentation);
+			using StringReader stringReader = new(xmlDocumentation);
 			LoadXmlDocumentation(stringReader);
 		}
 
