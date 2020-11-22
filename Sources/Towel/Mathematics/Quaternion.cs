@@ -79,7 +79,7 @@ namespace Towel.Mathematics
 
 		///// <summary>Creates a quaternion from an axis and rotation.</summary>
 		///// <param name="axis">The to create the quaternion from.</param>
-		///// <param name="angle">The angle to create teh quaternion from.</param>
+		///// <param name="angle">The angle to create the quaternion from.</param>
 		///// <returns>The newly created quaternion.</returns>
 		//public static Quaternion<T> FactoryFromAxisAngle(Vector axis, T angle)
 		//{

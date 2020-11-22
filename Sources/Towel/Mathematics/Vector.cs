@@ -581,7 +581,7 @@ namespace Towel.Mathematics
 		/// <summary>Divides all the components of a vector by a scalar.</summary>
 		/// <param name="a">The vector to have the components divided by.</param>
 		/// <param name="b">The scalar to divide the vector components by.</param>
-		/// <param name="c">The resulting vector after teh divisions.</param>
+		/// <param name="c">The resulting vector after the divisions.</param>
 		public static void Divide(Vector<T> a, T b, ref Vector<T> c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
@@ -612,7 +612,7 @@ namespace Towel.Mathematics
 		/// <summary>Divides all the components of a vector by a scalar.</summary>
 		/// <param name="a">The vector to have the components divided by.</param>
 		/// <param name="b">The scalar to divide the vector components by.</param>
-		/// <returns>The resulting vector after teh divisions.</returns>
+		/// <returns>The resulting vector after the divisions.</returns>
 		public static Vector<T> Divide(Vector<T> a, T b)
 		{
 			Vector<T> c = null;
@@ -631,7 +631,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Divides all the components of a vector by a scalar.</summary>
 		/// <param name="b">The scalar to divide the vector components by.</param>
-		/// <param name="c">The resulting vector after teh divisions.</param>
+		/// <param name="c">The resulting vector after the divisions.</param>
 		public void Divide(T b, ref Vector<T> c)
 		{
 			Divide(this, b, ref c);
@@ -639,7 +639,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Divides all the values in this vector by a scalar.</summary>
 		/// <param name="b">The scalar to divide the values of the vector by.</param>
-		/// <returns>The resulting vector after teh divisions.</returns>
+		/// <returns>The resulting vector after the divisions.</returns>
 		public Vector<T> Divide(T b)
 		{
 			return this / b;
@@ -684,7 +684,7 @@ namespace Towel.Mathematics
 
 		#region CrossProduct
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="a">The first vector of the cross product operation.</param>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
@@ -712,7 +712,7 @@ namespace Towel.Mathematics
 			C[2] = Statics.Subtraction(Statics.Multiplication(A[0], B[1]), Statics.Multiplication(A[1], B[0]));
 		}
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="a">The first vector of the cross product operation.</param>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <returns>The result of the cross product operation.</returns>
@@ -723,7 +723,7 @@ namespace Towel.Mathematics
 			return c;
 		}
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
 		public void CrossProduct(Vector<T> b, ref Vector<T> c)
@@ -731,7 +731,7 @@ namespace Towel.Mathematics
 			CrossProduct(this, b, ref c);
 		}
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="b">The second vector of the dot product operation.</param>
 		/// <returns>The result of the dot product operation.</returns>
 		public Vector<T> CrossProduct(Vector<T> b)
@@ -829,7 +829,7 @@ namespace Towel.Mathematics
 
 		#region Projection
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="a">The first vector of the cross product operation.</param>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
@@ -856,7 +856,7 @@ namespace Towel.Mathematics
 			a.Multiply(divided, ref c);
 		}
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="a">The first vector of the cross product operation.</param>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <returns>The result of the cross product operation.</returns>
@@ -867,7 +867,7 @@ namespace Towel.Mathematics
 			return c;
 		}
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
 		public void Projection(Vector<T> b, ref Vector<T> c)
@@ -875,7 +875,7 @@ namespace Towel.Mathematics
 			Projection(this, b, ref c);
 		}
 
-		/// <summary>Computes teh cross product of two vectors.</summary>
+		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="b">The second vector of the dot product operation.</param>
 		/// <returns>The result of the dot product operation.</returns>
 		public Vector<T> Projection(Vector<T> b)

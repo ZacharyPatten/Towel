@@ -16586,7 +16586,7 @@
             <summary>Does a standard matrix addition.</summary>
             <param name="a">The left matrix of the addition.</param>
             <param name="b">The right matrix of the addition.</param>
-            <returns>The resulting matrix after teh addition.</returns>
+            <returns>The resulting matrix after the addition.</returns>
         </member>
         <member name="M:Towel.Mathematics.Matrix`1.Add(Towel.Mathematics.Matrix{`0},Towel.Mathematics.Matrix{`0}@)">
             <summary>Does standard addition of two matrices.</summary>
@@ -18922,13 +18922,13 @@
             <summary>Divides all the components of a vector by a scalar.</summary>
             <param name="a">The vector to have the components divided by.</param>
             <param name="b">The scalar to divide the vector components by.</param>
-            <param name="c">The resulting vector after teh divisions.</param>
+            <param name="c">The resulting vector after the divisions.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Divide(Towel.Mathematics.Vector{`0},`0)">
             <summary>Divides all the components of a vector by a scalar.</summary>
             <param name="a">The vector to have the components divided by.</param>
             <param name="b">The scalar to divide the vector components by.</param>
-            <returns>The resulting vector after teh divisions.</returns>
+            <returns>The resulting vector after the divisions.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.op_Division(Towel.Mathematics.Vector{`0},`0)">
             <summary>Divides all the values in the vector by a scalar.</summary>
@@ -18939,12 +18939,12 @@
         <member name="M:Towel.Mathematics.Vector`1.Divide(`0,Towel.Mathematics.Vector{`0}@)">
             <summary>Divides all the components of a vector by a scalar.</summary>
             <param name="b">The scalar to divide the vector components by.</param>
-            <param name="c">The resulting vector after teh divisions.</param>
+            <param name="c">The resulting vector after the divisions.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Divide(`0)">
             <summary>Divides all the values in this vector by a scalar.</summary>
             <param name="b">The scalar to divide the values of the vector by.</param>
-            <returns>The resulting vector after teh divisions.</returns>
+            <returns>The resulting vector after the divisions.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.DotProduct(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0})">
             <summary>Computes the dot product between two vectors.</summary>
@@ -18958,24 +18958,24 @@
             <returns>The result of the dot product.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.CrossProduct(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0}@)">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="a">The first vector of the cross product operation.</param>
             <param name="b">The second vector of the cross product operation.</param>
             <param name="c">The result of the cross product operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.CrossProduct(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0})">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="a">The first vector of the cross product operation.</param>
             <param name="b">The second vector of the cross product operation.</param>
             <returns>The result of the cross product operation.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.CrossProduct(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0}@)">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="b">The second vector of the cross product operation.</param>
             <param name="c">The result of the cross product operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.CrossProduct(Towel.Mathematics.Vector{`0})">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="b">The second vector of the dot product operation.</param>
             <returns>The result of the dot product operation.</returns>
         </member>
@@ -19011,24 +19011,24 @@
             <returns>The angle between the two vectors in radians.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Projection(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0}@)">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="a">The first vector of the cross product operation.</param>
             <param name="b">The second vector of the cross product operation.</param>
             <param name="c">The result of the cross product operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Projection(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0})">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="a">The first vector of the cross product operation.</param>
             <param name="b">The second vector of the cross product operation.</param>
             <returns>The result of the cross product operation.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Projection(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0}@)">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="b">The second vector of the cross product operation.</param>
             <param name="c">The result of the cross product operation.</param>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Projection(Towel.Mathematics.Vector{`0})">
-            <summary>Computes teh cross product of two vectors.</summary>
+            <summary>Computes the cross product of two vectors.</summary>
             <param name="b">The second vector of the dot product operation.</param>
             <returns>The result of the dot product operation.</returns>
         </member>
@@ -31613,7 +31613,7 @@
         <member name="M:Towel.Statics.Convert``2(``0)">
             <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
             <typeparam name="A">The type of the value to convert.</typeparam>
-            <typeparam name="B">The type to convert teh value to.</typeparam>
+            <typeparam name="B">The type to convert the value to.</typeparam>
             <param name="a">The value to convert.</param>
             <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
         </member>

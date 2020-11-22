@@ -299,7 +299,7 @@ namespace Towel.DataStructures
 		void Remove(T removal, Func<T, T, bool> equate);
 	}
 
-	// TODO: this will be teh ND version of the omnitree. It will allow for any number of dimensions without a
+	// TODO: this will be the ND version of the omnitree. It will allow for any number of dimensions without a
 	// compile time generated version of the tree for a given size (the "dimensionsToGenerate" in "OmnitreePoints.tt").
 	// It will have a single generic type, and use object arrays for the vector/bounds values.
 

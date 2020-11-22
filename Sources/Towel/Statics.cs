@@ -211,7 +211,7 @@ namespace Towel
 
 		/// <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
 		/// <typeparam name="A">The type of the value to convert.</typeparam>
-		/// <typeparam name="B">The type to convert teh value to.</typeparam>
+		/// <typeparam name="B">The type to convert the value to.</typeparam>
 		/// <param name="a">The value to convert.</param>
 		/// <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
 		public static B Convert<A, B>(A a) =>

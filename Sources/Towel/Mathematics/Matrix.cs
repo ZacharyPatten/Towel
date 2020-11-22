@@ -698,7 +698,7 @@ namespace Towel.Mathematics
 		/// <summary>Does a standard matrix addition.</summary>
 		/// <param name="a">The left matrix of the addition.</param>
 		/// <param name="b">The right matrix of the addition.</param>
-		/// <returns>The resulting matrix after teh addition.</returns>
+		/// <returns>The resulting matrix after the addition.</returns>
 		public static Matrix<T> operator +(Matrix<T> a, Matrix<T> b)
 		{
 			return Add(a, b);
