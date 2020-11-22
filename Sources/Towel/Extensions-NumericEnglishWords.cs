@@ -6,99 +6,96 @@ namespace Towel
 	/// <summary>Contains Extension methods on common System types.</summary>
 	public static partial class Extensions
 	{
-		internal static class ToEnglishWordsDefinitions
+		internal static string[] ToEnglishWordsDigit =
 		{
-			internal static string[] Digit =
-			{
-				/* 0 */ null!,
-				/* 1 */ "One",
-				/* 2 */ "Two",
-				/* 3 */ "Three",
-				/* 4 */ "Four",
-				/* 5 */ "Five",
-				/* 6 */ "Six",
-				/* 7 */ "Seven",
-				/* 8 */ "Eight",
-				/* 9 */ "Nine",
-			};
+			/* 0 */ null!,
+			/* 1 */ "One",
+			/* 2 */ "Two",
+			/* 3 */ "Three",
+			/* 4 */ "Four",
+			/* 5 */ "Five",
+			/* 6 */ "Six",
+			/* 7 */ "Seven",
+			/* 8 */ "Eight",
+			/* 9 */ "Nine",
+		};
 
-			internal static string[] FractionalSufix =
-			{
-				/*  0 */ null!,
-				/*  1 */ "Tenths",
-				/*  2 */ "Hundredths",
-				/*  3 */ "Thousandths",
-				/*  4 */ "Ten-Thousandths",
-				/*  5 */ "Hundred-Thousandths",
-				/*  6 */ "Millionths",
-				/*  7 */ "Ten-Millionths",
-				/*  8 */ "Hundred-Millionths",
-				/*  9 */ "Billionths",
-				/* 10 */ "Ten-Billionths",
-				/* 11 */ "Hundred-Billionths",
-				/* 12 */ "Trilionths",
-				/* 13 */ "Ten-Trilionths",
-				/* 14 */ "Hundred-Trilionths",
-				/* 15 */ "Quadrillionths",
-				/* 16 */ "Ten-Quadrillionths",
-				/* 17 */ "Hundred-Quadrillionths",
-				/* 18 */ "Quintrillionths",
-				/* 19 */ "Ten-Quintrillionths",
-				/* 20 */ "Hundred-Quintrillionths",
-				/* 21 */ "Sextillionths",
-				/* 22 */ "Ten-Sextillionths",
-				/* 23 */ "Hundred-Sextillionths",
-				/* 24 */ "Septillionths",
-				/* 25 */ "Ten-Septillionths",
-				/* 26 */ "Hundred-Septillionths",
-				/* 27 */ "Octillionths",
-				/* 28 */ "Ten-Octillionths",
-				/* 29 */ "Hundred-Octillionths",
-			};
+		internal static string[] ToEnglishWordsFractionalSufix =
+		{
+			/*  0 */ null!,
+			/*  1 */ "Tenths",
+			/*  2 */ "Hundredths",
+			/*  3 */ "Thousandths",
+			/*  4 */ "Ten-Thousandths",
+			/*  5 */ "Hundred-Thousandths",
+			/*  6 */ "Millionths",
+			/*  7 */ "Ten-Millionths",
+			/*  8 */ "Hundred-Millionths",
+			/*  9 */ "Billionths",
+			/* 10 */ "Ten-Billionths",
+			/* 11 */ "Hundred-Billionths",
+			/* 12 */ "Trilionths",
+			/* 13 */ "Ten-Trilionths",
+			/* 14 */ "Hundred-Trilionths",
+			/* 15 */ "Quadrillionths",
+			/* 16 */ "Ten-Quadrillionths",
+			/* 17 */ "Hundred-Quadrillionths",
+			/* 18 */ "Quintrillionths",
+			/* 19 */ "Ten-Quintrillionths",
+			/* 20 */ "Hundred-Quintrillionths",
+			/* 21 */ "Sextillionths",
+			/* 22 */ "Ten-Sextillionths",
+			/* 23 */ "Hundred-Sextillionths",
+			/* 24 */ "Septillionths",
+			/* 25 */ "Ten-Septillionths",
+			/* 26 */ "Hundred-Septillionths",
+			/* 27 */ "Octillionths",
+			/* 28 */ "Ten-Octillionths",
+			/* 29 */ "Hundred-Octillionths",
+		};
 
-			internal static string[] Ten =
-			{
-				/* 0 */ null!,
-				/* 1 */ "Ten",
-				/* 2 */ "Twenty",
-				/* 3 */ "Thirty",
-				/* 4 */ "Forty",
-				/* 5 */ "Fifty",
-				/* 6 */ "Sixty",
-				/* 7 */ "Seventy",
-				/* 8 */ "Eighty",
-				/* 9 */ "Ninety",
-			};
+		internal static string[] ToEnglishWordsTen =
+		{
+			/* 0 */ null!,
+			/* 1 */ "Ten",
+			/* 2 */ "Twenty",
+			/* 3 */ "Thirty",
+			/* 4 */ "Forty",
+			/* 5 */ "Fifty",
+			/* 6 */ "Sixty",
+			/* 7 */ "Seventy",
+			/* 8 */ "Eighty",
+			/* 9 */ "Ninety",
+		};
 
-			internal static string[] Teen =
-			{
-				/* 0 */ null!,
-				/* 1 */ "Eleven",
-				/* 2 */ "Twelve",
-				/* 3 */ "Thirteen",
-				/* 4 */ "Fourteen",
-				/* 5 */ "Fifteen",
-				/* 6 */ "Sixteen",
-				/* 7 */ "Seventeen",
-				/* 8 */ "Eighteen",
-				/* 9 */ "Nineteen",
-			};
+		internal static string[] ToEnglishWordsTeen =
+		{
+			/* 0 */ null!,
+			/* 1 */ "Eleven",
+			/* 2 */ "Twelve",
+			/* 3 */ "Thirteen",
+			/* 4 */ "Fourteen",
+			/* 5 */ "Fifteen",
+			/* 6 */ "Sixteen",
+			/* 7 */ "Seventeen",
+			/* 8 */ "Eighteen",
+			/* 9 */ "Nineteen",
+		};
 
-			internal static string[] Group =
-			{
-				/*  0 */ null!,
-				/*  1 */ null!,
-				/*  2 */ "Thousand",
-				/*  3 */ "Million",
-				/*  4 */ "Billion",
-				/*  5 */ "Trillion",
-				/*  6 */ "Quadrillion",
-				/*  7 */ "Quintillion",
-				/*  8 */ "Sextillion",
-				/*  9 */ "Septillion",
-				/* 10 */ "Octillion",
-			};
-		}
+		internal static string[] ToEnglishWordsGroup =
+		{
+			/*  0 */ null!,
+			/*  1 */ null!,
+			/*  2 */ "Thousand",
+			/*  3 */ "Million",
+			/*  4 */ "Billion",
+			/*  5 */ "Trillion",
+			/*  6 */ "Quadrillion",
+			/*  7 */ "Quintillion",
+			/*  8 */ "Sextillion",
+			/*  9 */ "Septillion",
+			/* 10 */ "Octillion",
+		};
 
 		internal static string ToEnglishWords(ReadOnlySpan<char> number)
 		{
@@ -136,7 +133,7 @@ namespace Towel
 				ReadOnlySpan<char> fractionalNumber = number[(decimalIndex + 1)..];
 				WholeNumber(fractionalNumber);
 				AppendLeadingSpace();
-				Append(ToEnglishWordsDefinitions.FractionalSufix[fractionalNumber.Length]);
+				Append(ToEnglishWordsFractionalSufix[fractionalNumber.Length]);
 			}
 			string result = stringBuilder.ToString();
 			return result;
@@ -179,7 +176,7 @@ namespace Towel
 						if (digitGroup > 1)
 						{
 							AppendLeadingSpace();
-							Append(ToEnglishWordsDefinitions.Group[digitGroup]);
+							Append(ToEnglishWordsGroup[digitGroup]);
 						}
 					}
 					digitGroup--;
@@ -194,7 +191,7 @@ namespace Towel
 				if (hundred > 0)
 				{
 					AppendLeadingSpace();
-					Append(ToEnglishWordsDefinitions.Digit[hundred]);
+					Append(ToEnglishWordsDigit[hundred]);
 					Append(" Hundred");
 				}
 				if (ten > 0)
@@ -202,23 +199,23 @@ namespace Towel
 					AppendLeadingSpace();
 					if (one == 0)
 					{
-						Append(ToEnglishWordsDefinitions.Ten[ten]);
+						Append(ToEnglishWordsTen[ten]);
 					}
 					else if (ten == 1)
 					{
-						Append(ToEnglishWordsDefinitions.Teen[one]);
+						Append(ToEnglishWordsTeen[one]);
 					}
 					else
 					{
-						Append(ToEnglishWordsDefinitions.Ten[ten]);
+						Append(ToEnglishWordsTen[ten]);
 						Append("-");
-						Append(ToEnglishWordsDefinitions.Digit[one]);
+						Append(ToEnglishWordsDigit[one]);
 					}
 				}
 				else if (one > 0)
 				{
 					AppendLeadingSpace();
-					Append(ToEnglishWordsDefinitions.Digit[one]);
+					Append(ToEnglishWordsDigit[one]);
 				}
 			}
 		}
