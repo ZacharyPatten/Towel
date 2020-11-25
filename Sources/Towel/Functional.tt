@@ -14,7 +14,7 @@ namespace Towel
 	/// <summary>Encapsulates a method.</summary>
 	public interface IAction<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>
 	{
-		/// <summary>Inocation of the method.</summary>
+		/// <summary>Invocation of the method.</summary>
 		void Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>);
 	}
 <# } #>
@@ -23,7 +23,7 @@ namespace Towel
 	/// <summary>Encapsulates a method.</summary>
 	public interface IFunc<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>
 	{
-		/// <summary>Inocation of the method.</summary>
+		/// <summary>Invocation of the method.</summary>
 		TResult Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>);
 	}
 <# } #>
@@ -34,7 +34,7 @@ namespace Towel
 	{
 		/// <summary>The delegate instance.</summary>
 		internal Action<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #> _delegate;
-		/// <summary>Inocation of the delegate.</summary>
+		/// <summary>Invocation of the delegate.</summary>
 		public void Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{j}")) #>);
 		/// <summary>Implicit caster from a delegate.</summary>
 		public static implicit operator ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>(Action<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #> @delegate) => new ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>() { _delegate = @delegate, };
@@ -47,7 +47,7 @@ namespace Towel
 	{
 		/// <summary>The delegate instance.</summary>
 		internal Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult> _delegate;
-		/// <summary>Inocation of the delegate.</summary>
+		/// <summary>Invocation of the delegate.</summary>
 		public TResult Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{j}")) #>);
 		/// <summary>Implicit caster from a delegate.</summary>
 		public static implicit operator FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>(Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult> @delegate) => new FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>() { _delegate = @delegate, };

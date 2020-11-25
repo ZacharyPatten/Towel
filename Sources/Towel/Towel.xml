@@ -15786,97 +15786,97 @@
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction.Do">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IAction`1">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction`1.Do(`0)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IAction`2">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction`2.Do(`0,`1)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IAction`3">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction`3.Do(`0,`1,`2)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IAction`4">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction`4.Do(`0,`1,`2,`3)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IAction`5">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction`5.Do(`0,`1,`2,`3,`4)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IAction`6">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction`6.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IAction`7">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IAction`7.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`1">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`1.Do">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`2">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`2.Do(`0)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`3">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`3.Do(`0,`1)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`4">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`4.Do(`0,`1,`2)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`5">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`5.Do(`0,`1,`2,`3)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`6">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`6.Do(`0,`1,`2,`3,`4)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`7">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`7.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.IFunc`8">
             <summary>Encapsulates a method.</summary>
         </member>
         <member name="M:Towel.IFunc`8.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Inocation of the method.</summary>
+            <summary>Invocation of the method.</summary>
         </member>
         <member name="T:Towel.ActionRuntime">
             <summary>Encapsulates a delegate.</summary>
@@ -15885,7 +15885,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime.Do">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime.op_Implicit(System.Action)~Towel.ActionRuntime">
             <summary>Implicit caster from a delegate.</summary>
@@ -15897,7 +15897,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`1.Do(`0)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`1.op_Implicit(System.Action{`0})~Towel.ActionRuntime{`0}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15909,7 +15909,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`2.Do(`0,`1)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`2.op_Implicit(System.Action{`0,`1})~Towel.ActionRuntime{`0,`1}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15921,7 +15921,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`3.Do(`0,`1,`2)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`3.op_Implicit(System.Action{`0,`1,`2})~Towel.ActionRuntime{`0,`1,`2}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15933,7 +15933,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`4.Do(`0,`1,`2,`3)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`4.op_Implicit(System.Action{`0,`1,`2,`3})~Towel.ActionRuntime{`0,`1,`2,`3}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15945,7 +15945,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`5.Do(`0,`1,`2,`3,`4)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`5.op_Implicit(System.Action{`0,`1,`2,`3,`4})~Towel.ActionRuntime{`0,`1,`2,`3,`4}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15957,7 +15957,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`6.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`6.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5})~Towel.ActionRuntime{`0,`1,`2,`3,`4,`5}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15969,7 +15969,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`7.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.ActionRuntime`7.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5,`6})~Towel.ActionRuntime{`0,`1,`2,`3,`4,`5,`6}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15981,7 +15981,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`1.Do">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`1.op_Implicit(System.Func{`0})~Towel.FuncRuntime{`0}">
             <summary>Implicit caster from a delegate.</summary>
@@ -15993,7 +15993,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`2.Do(`0)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`2.op_Implicit(System.Func{`0,`1})~Towel.FuncRuntime{`0,`1}">
             <summary>Implicit caster from a delegate.</summary>
@@ -16005,7 +16005,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`3.Do(`0,`1)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`3.op_Implicit(System.Func{`0,`1,`2})~Towel.FuncRuntime{`0,`1,`2}">
             <summary>Implicit caster from a delegate.</summary>
@@ -16017,7 +16017,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`4.Do(`0,`1,`2)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`4.op_Implicit(System.Func{`0,`1,`2,`3})~Towel.FuncRuntime{`0,`1,`2,`3}">
             <summary>Implicit caster from a delegate.</summary>
@@ -16029,7 +16029,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`5.Do(`0,`1,`2,`3)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`5.op_Implicit(System.Func{`0,`1,`2,`3,`4})~Towel.FuncRuntime{`0,`1,`2,`3,`4}">
             <summary>Implicit caster from a delegate.</summary>
@@ -16041,7 +16041,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`6.Do(`0,`1,`2,`3,`4)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`6.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5}">
             <summary>Implicit caster from a delegate.</summary>
@@ -16053,7 +16053,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`7.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`7.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5,`6}">
             <summary>Implicit caster from a delegate.</summary>
@@ -16065,7 +16065,7 @@
             <summary>The delegate instance.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`8.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Inocation of the delegate.</summary>
+            <summary>Invocation of the delegate.</summary>
         </member>
         <member name="M:Towel.FuncRuntime`8.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6,`7})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5,`6,`7}">
             <summary>Implicit caster from a delegate.</summary>
