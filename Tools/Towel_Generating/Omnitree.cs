@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using Towel;
 using static Towel.Statics;
@@ -20,6 +21,9 @@ namespace Towel_Generating
 			file.AppendLine(@"// </auto-generated>");
 			file.AppendLine($@"//------------------------------------------------------------------------------");
 			file.AppendLine($@"");
+
+			file.AppendLine($@"#if false");
+
 			file.AppendLine($@"using System;");
 			file.AppendLine($@"using System.Numerics;");
 			file.AppendLine($@"using static Towel.Statics;");
@@ -215,11 +219,11 @@ namespace Towel_Generating
 					file.AppendLine($@"		/// <typeparam name=""Compare{j}"">The method for comparing elements along the {j} dimension.</typeparam>");
 					file.AppendLine($@"		/// <param name=""compare{j}"">The method for comparing elements along the {j} dimension.</param>");
 				}
-				file.AppendLine($@"		public static bool StraddlesLines<{Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}>(");
-				file.AppendLine($@"			Omnitree.Bounds<{Join(1..(i + 1), n => $"A{n}", ", ")}> a, Omnitree.Vector<{Join(1..(i + 1), n => $"A{n}", ", ")}> b, {Join(1..(i + 1), n => $"Compare{n} compare{n} = default", ", ")})");
+				file.AppendLine($@"		public static bool StraddlesLines<{Join(1..(i + 1), n => $"Axis{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}>(");
+				file.AppendLine($@"			Omnitree.Bounds<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> a, Omnitree.Vector<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> b, {Join(1..(i + 1), n => $"Compare{n} compare{n} = default", ", ")})");
 				for (int j = 1; j <= i; j++)
 				{
-					file.AppendLine($@"			where Compare{j} : struct, IFunc<A{j}, A{j}, CompareResult>");
+					file.AppendLine($@"			where Compare{j} : struct, IFunc<Axis{j}, Axis{j}, CompareResult>");
 				}
 				file.AppendLine($@"			=>");
 				for (int j = 1; j <= i; j++)
@@ -242,23 +246,27 @@ namespace Towel_Generating
 				file.AppendLine($@"	/// <typeparam name=""T"">The element type of the omnitree.</typeparam>");
 				for (int j = 1; j <= i; j++)
 				{
-					file.AppendLine($@"	/// <typeparam name=""A{j}"">The type of the {j}D axis.</typeparam>");
+					file.AppendLine($@"	/// <typeparam name=""Axis{j}"">The type of the {j}D axis.</typeparam>");
 				}
-				file.AppendLine($@"	public interface IOmnitree<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}> : IOmnitree<T> {{ }}");
+				file.AppendLine($@"	public interface IOmnitree<T, {Join(1..(i + 1), n => $"Axis{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}, {Join(1..(i + 1), n => $"Subdivide{n}", ", ")}> : IOmnitree<T> {{ }}");
 				file.AppendLine($@"");
 				file.AppendLine($@"	#region OmnitreePoints");
 				file.AppendLine($@"");
-				file.AppendLine($@"	public interface IOmnitreePoints<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}> : IOmnitree<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}>");
+				file.AppendLine($@"	public interface IOmnitreePoints<T, {Join(1..(i + 1), n => $"Axis{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}, {Join(1..(i + 1), n => $"Subdivide{n}", ", ")}> : IOmnitree<T, {Join(1..(i + 1), n => $"Axis{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}, {Join(1..(i + 1), n => $"Subdivide{n}", ", ")}>");
 				file.AppendLine($@"	{{");
 				file.AppendLine($@"		// todo");
 				file.AppendLine($@"	}}");
 				file.AppendLine($@"");
-				file.AppendLine($@"	public class OmnitreePoints<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}, Locate> : IOmnitree<T, {Join(1..(i + 1), n => $"A{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}>");
+				file.AppendLine($@"	public class OmnitreePointsLinked<T, {Join(1..(i + 1), n => $"Axis{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}, {Join(1..(i + 1), n => $"Subdivide{n}", ", ")}, Locate> //: IOmnitree<T, {Join(1..(i + 1), n => $"Axis{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}>");
 				for (int j = 1; j <= i; j++)
 				{
-					file.AppendLine($@"		where Compare{j} : struct, IFunc<A{j}, A{j}, CompareResult>");
+					file.AppendLine($@"		where Compare{j} : struct, IFunc<Axis{j}, Axis{j}, CompareResult>");
 				}
-				file.AppendLine($@"		where Locate : struct, IFunc<T, {(i is 1 ? "" : "(")}{Join(1..(i + 1), n => $"A{n}", ", ")}{(i is 1 ? "" : ")")}>");
+				for (int j = 1; j <= i; j++)
+				{
+					file.AppendLine($@"		where Subdivide{j} : struct, IFunc<T[], Bounds<{Join(1..(i + 1), n => $"Axis{n}", ", ")}>, Axis{j}>");
+				}
+				file.AppendLine($@"		where Locate : struct, IFunc<T, {(i is 1 ? "" : "(")}{Join(1..(i + 1), n => $"Axis{n}", ", ")}{(i is 1 ? "" : ")")}>");
 				file.AppendLine($@"	{{");
 				file.AppendLine($@"		internal readonly static {(i > 30 ? "BigInteger" : "int")} ChildrenPerNode = {(i > 30 ? $"BigInteger.Pow(2, {i})" : $"{Math.Pow(2, i)}")};");
 				file.AppendLine($@"");
@@ -269,12 +277,194 @@ namespace Towel_Generating
 				file.AppendLine($@"		internal int _naturalLogUpper = 1;");
 				file.AppendLine($@"		/// <summary>ln(count); min = _defaultLoad.</summary>");
 				file.AppendLine($@"		internal int _load = 1;");
+				file.AppendLine($@"		internal Locate _locate;");
 				for (int j = 1; j <= i; j++)
 				{
 					file.AppendLine($@"		internal Compare{j} _compare{j};");
 				}
-				file.AppendLine($@"		internal Locate _locate;");
-
+				for (int j = 1; j <= i; j++)
+				{
+					file.AppendLine($@"		internal Subdivide{j} _subdivide{j};");
+				}
+				file.AppendLine($@"");
+				file.AppendLine($@"		#region Nested Types");
+				file.AppendLine($@"");
+				file.AppendLine($@"		/// <summary>Can be a leaf or a branch.</summary>");
+				file.AppendLine($@"		internal abstract class Node");
+				file.AppendLine($@"		{{");
+				file.AppendLine($@"			internal Omnitree.Bounds<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> Bounds;");
+				file.AppendLine($@"			internal Branch Parent;");
+				file.AppendLine($@"			internal {(i < 30 ? "int" : nameof(BigInteger))} Index;");
+				file.AppendLine($@"			internal int Count;");
+				file.AppendLine($@"");
+				file.AppendLine($@"			/// <summary>The depth this node is located in the Omnitree.</summary>");
+				file.AppendLine($@"			internal int Depth");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				get");
+				file.AppendLine($@"				{{");
+				file.AppendLine($@"					int depth = -1;");
+				file.AppendLine($@"					for (Node node = this; node is not null; node = node.Parent)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						depth++;");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					return depth;");
+				file.AppendLine($@"				}}");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			/// <summary>Constructs a node.</summary>");
+				file.AppendLine($@"			/// <param name=""bounds"">The bounds of this node.</param>");
+				file.AppendLine($@"			/// <param name=""parent"">The parent of this node.</param>");
+				file.AppendLine($@"			/// <param name=""index"">The number of elements stored in this node and its children.</param>");
+				file.AppendLine($@"			internal Node(Omnitree.Bounds<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> bounds, Branch parent, {(i < 30 ? "int" : nameof(BigInteger))} index)");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				Bounds = bounds;");
+				file.AppendLine($@"				Parent = parent;");
+				file.AppendLine($@"				Index = index;");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal Node(Node nodeToClone)");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				Bounds = nodeToClone.Bounds;");
+				file.AppendLine($@"				Parent = nodeToClone.Parent;");
+				file.AppendLine($@"				Index = nodeToClone.Index;");
+				file.AppendLine($@"				Count = nodeToClone.Count;");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal abstract Node Clone();");
+				file.AppendLine($@"		}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"		/// <summary>A branch in the tree. Only contains nodes.</summary>");
+				file.AppendLine($@"		internal class Branch : Node");
+				file.AppendLine($@"		{{");
+				file.AppendLine($@"			internal Node[] Children;");
+				file.AppendLine($@"			internal Omnitree.Vector<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> PointOfDivision;");
+				file.AppendLine($@"");
+				file.AppendLine($@"			/// <summary>Gets child by index.</summary>");
+				file.AppendLine($@"			/// <param name=""child_index"">The index of the child to get.</param>");
+				file.AppendLine($@"			/// <returns>The child of the given index or null if non-existent.</returns>");
+				file.AppendLine($@"			internal Node this[{(i < 30 ? "int" : nameof(BigInteger))} child_index]");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				get");
+				file.AppendLine($@"				{{");
+				file.AppendLine($@"					if (Children is null)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						return null;");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					if (Children.Length == ChildrenPerNode)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						return Children[(int)child_index];");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					foreach (Node node in Children)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						if (node.Index == child_index)");
+				file.AppendLine($@"						{{");
+				file.AppendLine($@"							return node;");
+				file.AppendLine($@"						}}");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					return null;");
+				file.AppendLine($@"				}}");
+				file.AppendLine($@"				set");
+				file.AppendLine($@"				{{");
+				file.AppendLine($@"					// This error check should be unnecessary... but fuck it... might as well");
+				file.AppendLine($@"					if (value.Index != child_index)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						throw new System.Exception(""Bug in Omnitree(index / property mis - match when setting a child on a branch)"");");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"					if (Children is null)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						Children = Ɐ(value);");
+				file.AppendLine($@"						return;");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					else if (Children.Length == ChildrenPerNode)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						Children[(int)child_index] = value;");
+				file.AppendLine($@"						return;");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					for (int i = 0; i < Children.Length; i++)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						if (Children[i].Index == child_index)");
+				file.AppendLine($@"						{{");
+				file.AppendLine($@"							Children[i] = value;");
+				file.AppendLine($@"							return;");
+				file.AppendLine($@"						}}");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					Node[] newArray = new Node[Children.Length + 1];");
+				file.AppendLine($@"					if (newArray.Length == ChildrenPerNode)");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						for (int i = 0; i < Children.Length; i++)");
+				file.AppendLine($@"						{{");
+				file.AppendLine($@"							newArray[(int)Children[i].Index] = Children[i];");
+				file.AppendLine($@"						}}");
+				file.AppendLine($@"						newArray[(int)value.Index] = value;");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					else");
+				file.AppendLine($@"					{{");
+				file.AppendLine($@"						Array.Copy(Children, newArray, Children.Length);");
+				file.AppendLine($@"						newArray[newArray.Length - 1] = value;");
+				file.AppendLine($@"					}}");
+				file.AppendLine($@"					Children = newArray;");
+				file.AppendLine($@"				}}");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal Branch(Omnitree.Vector<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> pointOfDivision, Omnitree.Bounds<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> bounds, Branch parent, {(i < 30 ? "int" : nameof(BigInteger))} index)");
+				file.AppendLine($@"				: base(bounds, parent, index)");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				PointOfDivision = pointOfDivision;");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal Branch(Branch branchToClone) : base(branchToClone)");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				Children = branchToClone.Children.Clone() as Node[];");
+				file.AppendLine($@"				PointOfDivision = branchToClone.PointOfDivision;");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal override Node Clone() => new Branch(this);");
+				file.AppendLine($@"		}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"		/// <summary>A branch in the tree. Only contains items.</summary>");
+				file.AppendLine($@"		internal class Leaf : Node");
+				file.AppendLine($@"		{{");
+				file.AppendLine($@"			internal class Node");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				internal T Value;");
+				file.AppendLine($@"				internal Leaf.Node Next;");
+				file.AppendLine($@"");
+				file.AppendLine($@"				internal Node(T value, Leaf.Node next)");
+				file.AppendLine($@"				{{");
+				file.AppendLine($@"					Value = value;");
+				file.AppendLine($@"					Next = next;");
+				file.AppendLine($@"				}}");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal Leaf.Node Head;");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal Leaf(Omnitree.Bounds<{Join(1..(i + 1), n => $"Axis{n}", ", ")}> bounds, Branch parent, {(i < 30 ? "int" : nameof(BigInteger))} index)");
+				file.AppendLine($@"				: base(bounds, parent, index) {{ }}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal Leaf(Leaf leaf) : base(leaf)");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				Head = new Node(leaf.Head.Value, null);");
+				file.AppendLine($@"				Node a = Head;");
+				file.AppendLine($@"				Node b = leaf.Head;");
+				file.AppendLine($@"				while (b is not null)");
+				file.AppendLine($@"				{{");
+				file.AppendLine($@"					a.Next = new Node(b.Next.Value, null);");
+				file.AppendLine($@"					a = a.Next;");
+				file.AppendLine($@"					b = b.Next;");
+				file.AppendLine($@"				}}");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal void Add(T addition)");
+				file.AppendLine($@"			{{");
+				file.AppendLine($@"				Head = new Leaf.Node(addition, Head);");
+				file.AppendLine($@"				Count++;");
+				file.AppendLine($@"			}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"			internal override OmnitreePointsLinked<T, {Join(1..(i + 1), n => $"Axis{n}", ", ")}, {Join(1..(i + 1), n => $"Compare{n}", ", ")}, {Join(1..(i + 1), n => $"Subdivide{n}", ", ")}, Locate>.Node Clone() => new Leaf(this);");
+				file.AppendLine($@"		}}");
+				file.AppendLine($@"");
+				file.AppendLine($@"		#endregion");
 
 
 				file.AppendLine($@"	}}");
@@ -286,6 +476,8 @@ namespace Towel_Generating
 			}
 			file.AppendLine($@"}}");
 
+
+			file.AppendLine($@"#endif");
 
 			File.WriteAllText(Path.GetDirectoryName(sourcefilepath()) + Path.Combine("..", "..","..","Sources","Towel", "DataStructures", "Omnitree2.cs"), file.ToString());
 		}
