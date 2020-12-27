@@ -10,7 +10,7 @@ namespace CommandLine
 	{
 		static void Main(string[] args)
 		{
-			if (args is null && args.Length > 0)
+			if (args is not null && args.Length > 0)
 			{
 				HandleArguments(args);
 				return;
