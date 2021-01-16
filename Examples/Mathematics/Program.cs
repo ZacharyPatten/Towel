@@ -61,8 +61,8 @@ namespace Mathematics
 			Fraction<short> clamp = Clamp(clampA, clampB, clampC);
 			Console.WriteLine("    Clamp(" + clampA + ", " + clampB + ", " + clampC + "): " + clamp);
 
-			int maximum = Maximum(1, 2, 3);
-			Console.WriteLine("    Maximum(1, 2, 3): " + maximum);
+			int maximum = MaximumValue<int>(compare: null, 1, 2, 3);
+			Console.WriteLine("    MaximumValue(compare: null, 1, 2, 3): " + maximum);
 
 			int minimum = Minimum(1, 2, 3);
 			Console.WriteLine("    Minimum(1, 2, 3): " + minimum);

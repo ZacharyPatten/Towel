@@ -4,13 +4,13 @@ namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	public interface ISortedBinaryTree<T> : IDataStructure<T>,
+	public interface ISortedBinaryTree<T, _Compare> : IDataStructure<T>,
 		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.IRemovable<T>,
 		DataStructure.ICountable,
 		DataStructure.IClearable,
-		DataStructure.IComparing<T>,
+		DataStructure.IComparing<T, _Compare>,
 		DataStructure.IAuditable<T>
 	{
 		#region Members
@@ -154,56 +154,56 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> Stepper<T>(this ISortedBinaryTree<T> tree) =>
+		public static Action<Action<T>> Stepper<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.Stepper;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T>(this ISortedBinaryTree<T> tree) =>
+		public static StepperRef<T> StepperRef<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.Stepper;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T>(this ISortedBinaryTree<T> tree) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.Stepper;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T>(this ISortedBinaryTree<T> tree) =>
+		public static StepperRefBreak<T> StepperRefBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.Stepper;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> StepperReverse<T>(this ISortedBinaryTree<T> tree) =>
+		public static Action<Action<T>> StepperReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.StepperReverse;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T>(this ISortedBinaryTree<T> tree) =>
+		public static StepperRef<T> StepperRefReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.StepperReverse;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T>(this ISortedBinaryTree<T> tree) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.StepperReverse;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this ISortedBinaryTree<T> tree) =>
+		public static StepperRefBreak<T> StepperRefBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
 			tree.StepperReverse;
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
@@ -212,7 +212,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> Stepper<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static Action<Action<T>> Stepper<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.Stepper(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
@@ -221,7 +221,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static StepperRef<T> StepperRef<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.Stepper(minimum, maximum, y => x(ref y));
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
@@ -230,7 +230,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.Stepper(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
@@ -239,7 +239,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static StepperRefBreak<T> StepperRefBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.Stepper(minimum, maximum, y => x(ref y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
@@ -248,7 +248,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> StepperReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static Action<Action<T>> StepperReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.StepperReverse(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
@@ -257,7 +257,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static StepperRef<T> StepperRefReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.StepperReverse(minimum, maximum, y => x(ref y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
@@ -266,7 +266,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.StepperReverse(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
@@ -275,7 +275,7 @@ namespace Towel.DataStructures
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T>(this ISortedBinaryTree<T> tree, T minimum, T maximum) =>
+		public static StepperRefBreak<T> StepperRefBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
 			x => tree.StepperReverse(minimum, maximum, y => x(ref y));
 
 		/// <summary>Tries to get a value.</summary>
@@ -284,7 +284,7 @@ namespace Towel.DataStructures
 		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <param name="value">The value if it is found.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		public static bool TryGet<T>(this ISortedBinaryTree<T> tree, out T? value, Func<T, CompareResult> sift) =>
+		public static bool TryGet<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, out T? value, Func<T, CompareResult> sift) =>
 			tree.TryGet(out value, out _, sift);
 
 		/// <summary>Gets a value.</summary>
@@ -292,7 +292,7 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to get the value from.</param>
 		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <returns>The value.</returns>
-		public static T? Get<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift) =>
+		public static T? Get<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, Func<T, CompareResult> sift) =>
 			tree.TryGet(out T value, out Exception? exception, sift)
 			? value
 			: throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Get)} failed but the {nameof(exception)} is null");
@@ -302,14 +302,14 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to remove the value from.</param>
 		/// <param name="sift">The compare delegate.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift) =>
+		public static bool TryRemove<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, Func<T, CompareResult> sift) =>
 			tree.TryRemove(out _, sift);
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
 		/// <param name="tree">The tree to remove the value from.</param>
 		/// <param name="sift">The compare delegate.</param>
-		public static void Remove<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift)
+		public static void Remove<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, Func<T, CompareResult> sift)
 		{
 			if (!tree.TryRemove(out Exception? exception, sift))
 			{

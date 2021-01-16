@@ -485,6 +485,18 @@ namespace Towel
 
 			#region Implicit Casting Operators
 
+			/// <summary>Converts a universal quantification to a memory.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator ReadOnlyMemory<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
+			/// <summary>Converts a universal quantification to a memory.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator Memory<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
+			/// <summary>Converts a universal quantification to a span.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator ReadOnlySpan<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
+			/// <summary>Converts a universal quantification to a span.</summary>
+			/// <param name="universalQuantification">The universal quantification to be converted.</param>
+			public static implicit operator Span<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
 			/// <summary>Converts a universal quantification to an array.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator T[](UniversalQuantification<T> universalQuantification) => universalQuantification.Value;

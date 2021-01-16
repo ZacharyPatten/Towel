@@ -442,7 +442,7 @@ namespace Towel
 				}
 				pi = Multiplication(Constant<T>.Two, pi);
 			}
-			pi = Maximum(pi, Constant<T>.Three);
+			pi = MaximumValue(pi, Constant<T>.Three);
 			return pi;
 		}
 

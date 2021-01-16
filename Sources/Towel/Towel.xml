@@ -282,7 +282,7 @@
             <summary>Gets the enumerator for this array.</summary>
             <returns>The enumerator for this array.</returns>
         </member>
-        <member name="T:Towel.DataStructures.IAvlTree`1">
+        <member name="T:Towel.DataStructures.IAvlTree`2">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
         </member>
@@ -292,7 +292,7 @@
         <member name="T:Towel.DataStructures.AvlTreeLinked`2">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
             <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
-            <typeparam name="Compare">The Compare delegate.</typeparam>
+            <typeparam name="_Compare">The Compare delegate.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`2.#ctor(`1)">
             <summary>
@@ -317,7 +317,7 @@
             <para>Runtime: θ(ln(Count))</para>
             </summary>
         </member>
-        <member name="P:Towel.DataStructures.AvlTreeLinked`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare">
+        <member name="P:Towel.DataStructures.AvlTreeLinked`2.Compare">
             <summary>
             The comparison function being utilized by this structure.
             <para>Runtime: O(1)</para>
@@ -620,11 +620,11 @@
         <member name="P:Towel.DataStructures.DataStructure.IHashing`1.Hash">
             <summary>Gets the hashing function being used by the data structure.</summary>
         </member>
-        <member name="T:Towel.DataStructures.DataStructure.IComparing`1">
+        <member name="T:Towel.DataStructures.DataStructure.IComparing`2">
             <summary>Property of a data structure (does it have a Compare property).</summary>
             <typeparam name="T">The type of value.</typeparam>
         </member>
-        <member name="P:Towel.DataStructures.DataStructure.IComparing`1.Compare">
+        <member name="P:Towel.DataStructures.DataStructure.IComparing`2.Compare">
             <summary>Gets the comparing function of the data structure.</summary>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IAddable`1">
@@ -926,26 +926,26 @@
         <member name="M:Towel.DataStructures.GraphMap`1.Clear">
             <summary>Clears this graph to an empty state.</summary>
         </member>
-        <member name="T:Towel.DataStructures.IHeap`1">
+        <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
             <typeparam name="T">The generic type to be stored within the heap.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.IHeap`1.Enqueue(`0)">
+        <member name="M:Towel.DataStructures.IHeap`2.Enqueue(`0)">
             <summary>Enqueues an item into the heap.</summary>
             <param name="addition"></param>
         </member>
-        <member name="M:Towel.DataStructures.IHeap`1.Dequeue">
+        <member name="M:Towel.DataStructures.IHeap`2.Dequeue">
             <summary>Removes and returns the highest priority item.</summary>
             <returns>The highest priority item from the queue.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IHeap`1.Peek">
+        <member name="M:Towel.DataStructures.IHeap`2.Peek">
             <summary>Returns the highest priority item.</summary>
             <returns>The highest priority item in the queue.</returns>
         </member>
         <member name="T:Towel.DataStructures.HeapArray`2">
             <summary>A heap with static priorities implemented as a array.</summary>
             <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-            <typeparam name="Compare">The Compare delegate.</typeparam>
+            <typeparam name="_Compare">The <see cref="T:Towel.IFunc`3"/> to sort elements.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`2.#ctor(`1,System.Nullable{System.Int32})">
             <summary>
@@ -955,7 +955,7 @@
             <param name="compare">Delegate determining the comparison technique used for sorting.</param>
             <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
         </member>
-        <member name="P:Towel.DataStructures.HeapArray`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare">
+        <member name="P:Towel.DataStructures.HeapArray`2.Compare">
             <summary>
             The comparison function being utilized by this structure.
             <para>Runtime: O(1)</para>
@@ -1035,14 +1035,6 @@
             </summary>
             <param name="index">The index to be down sifted.</param>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`2.ArraySwap(System.Int32,System.Int32)">
-            <summary>
-            Standard array swap method.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="indexOne">The first index of the swap.</param>
-            <param name="indexTwo">The second index of the swap.</param>
-        </member>
         <member name="M:Towel.DataStructures.HeapArray`2.Clear">
             <summary>
             Returns this queue to an empty state.
@@ -1090,9 +1082,6 @@
             </summary>
             <param name="compare">Delegate determining the comparison technique used for sorting.</param>
             <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
-        </member>
-        <member name="P:Towel.DataStructures.HeapArray`1.Compare">
-            <summary>Delegate determining the comparison technique used for sorting.</summary>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -13750,7 +13739,7 @@
             <summary>Gets the enumerator for this queue.</summary>
             <returns>The enumerator for this queue.</returns>
         </member>
-        <member name="T:Towel.DataStructures.IRedBlackTree`1">
+        <member name="T:Towel.DataStructures.IRedBlackTree`2">
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
         </member>
@@ -13760,7 +13749,7 @@
         <member name="T:Towel.DataStructures.RedBlackTreeLinked`2">
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
-            <typeparam name="Compare">The compare delegate.</typeparam>
+            <typeparam name="_Compare">The compare delegate.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.#ctor(`1)">
             <summary>Constructs a new Red Black Tree.</summary>
@@ -13779,11 +13768,8 @@
         <member name="P:Towel.DataStructures.RedBlackTreeLinked`2.Count">
             <summary>The number of items in this data structure.</summary>
         </member>
-        <member name="P:Towel.DataStructures.RedBlackTreeLinked`2.Towel#DataStructures#DataStructure#IComparing{T}#Compare">
-            <summary>
-            The comparison function being utilized by this structure.
-            <para>Runtime: O(1)</para>
-            </summary>
+        <member name="P:Towel.DataStructures.RedBlackTreeLinked`2.Compare">
+            <summary>The comparison function being utilized by this structure.</summary>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.TryAdd(`0,System.Exception@)">
             <summary>Tries to add a value to the Red-Black tree.</summary>
@@ -13973,9 +13959,6 @@
             <summary>Constructor for cloning purposes.</summary>
             <param name="tree">The tree to be cloned.</param>
         </member>
-        <member name="P:Towel.DataStructures.RedBlackTreeLinked`1.Compare">
-            <summary>The sorting technique.</summary>
-        </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
@@ -14137,107 +14120,107 @@
             </summary>
             <returns>A shallow clone of this set.</returns>
         </member>
-        <member name="T:Towel.DataStructures.ISortedBinaryTree`1">
+        <member name="T:Towel.DataStructures.ISortedBinaryTree`2">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
         </member>
-        <member name="P:Towel.DataStructures.ISortedBinaryTree`1.CurrentLeast">
+        <member name="P:Towel.DataStructures.ISortedBinaryTree`2.CurrentLeast">
             <summary>Gets the current least value in the tree.</summary>
         </member>
-        <member name="P:Towel.DataStructures.ISortedBinaryTree`1.CurrentGreatest">
+        <member name="P:Towel.DataStructures.ISortedBinaryTree`2.CurrentGreatest">
             <summary>Gets the current greated value in the tree.</summary>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Contains(System.Func{`0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Contains(System.Func{`0,Towel.CompareResult})">
             <summary>Determines if the tree contains a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <returns>True if the value is in the tree or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryGet(`0@,System.Exception@,System.Func{`0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.TryGet(`0@,System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to get a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="value">The value if found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the value was found or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryRemove(System.Exception@,System.Func{`0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.TryRemove(System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to remove a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove succeeded or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(System.Action{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(System.Action{`0})">
             <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(System.Func{`0,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(System.Func{`0,Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,System.Action{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Towel.StepRef{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,System.Func{`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,System.Func{`0,Towel.StepStatus})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Towel.StepRefBreak{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,System.Action{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Towel.StepRef{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,System.Func{`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,System.Func{`0,Towel.StepStatus})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
@@ -14278,55 +14261,55 @@
             <param name="step">The method to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.Stepper``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.Stepper``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRef``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRef``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreak``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreak``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperReverse``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefReverse``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreakReverse``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreakReverse``1(Towel.DataStructures.ISortedBinaryTree{``0})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.Stepper``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.Stepper``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14334,7 +14317,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRef``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRef``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14342,7 +14325,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreak``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14350,7 +14333,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreak``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14358,7 +14341,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperReverse``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14366,7 +14349,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefReverse``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14374,7 +14357,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreakReverse``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14382,7 +14365,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreakReverse``1(Towel.DataStructures.ISortedBinaryTree{``0},``0,``0)">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
             <param name="tree">The tree to traverse.</param>
@@ -14390,7 +14373,7 @@
             <param name="maximum">The maximum step value.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.TryGet``1(Towel.DataStructures.ISortedBinaryTree{``0},``0@,System.Func{``0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.TryGet``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0@,System.Func{``0,Towel.CompareResult})">
             <summary>Tries to get a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to get the value from.</param>
@@ -14398,21 +14381,21 @@
             <param name="value">The value if it is found.</param>
             <returns>True if the value was found or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.Get``1(Towel.DataStructures.ISortedBinaryTree{``0},System.Func{``0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.Get``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},System.Func{``0,Towel.CompareResult})">
             <summary>Gets a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to get the value from.</param>
             <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
             <returns>The value.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.TryRemove``1(Towel.DataStructures.ISortedBinaryTree{``0},System.Func{``0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.TryRemove``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},System.Func{``0,Towel.CompareResult})">
             <summary>Tries to remove a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to remove the value from.</param>
             <param name="sift">The compare delegate.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.SortedBinaryTree.Remove``1(Towel.DataStructures.ISortedBinaryTree{``0},System.Func{``0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.SortedBinaryTree.Remove``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},System.Func{``0,Towel.CompareResult})">
             <summary>Removes a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
             <param name="tree">The tree to remove the value from.</param>
@@ -29976,6 +29959,39 @@
             <summary>Root type of the static functional methods in Towel.</summary>
             <summary>Root type of the static functional methods in Towel.</summary>
             <summary>Root type of the static functional methods in Towel.</summary>
+            <summary>Root type of the static functional methods in Towel.</summary>
+        </member>
+        <member name="M:Towel.Statics.Combinations``1(``0[][],Towel.Statics.Action_ReadOnlySpan{``0})">
+            <summary>Iterates through all combinations of the provided per-index element values.</summary>
+            <typeparam name="T">The element type of the combinations to iterate.</typeparam>
+            <param name="elementPosibilities">The possible element values at each index.</param>
+            <param name="action">The action to perform on each possible combination.</param>
+        </member>
+        <member name="M:Towel.Statics.Combinations``2(``0[][],``1)">
+            <summary>Iterates through all combinations of the provided per-index element values.</summary>
+            <typeparam name="T">The element type of the combinations to iterate.</typeparam>
+            <typeparam name="Action">The action to perform on each combination.</typeparam>
+            <param name="elementPosibilities">The possible element values at each index.</param>
+            <param name="action">The action to perform on each possible combination.</param>
+        </member>
+        <member name="M:Towel.Statics.Combinations``1(System.Int32,Towel.Statics.Action_ReadOnlySpan{``0},Towel.Statics.Func_int_int,Towel.Statics.Func_int_int_T{``0})">
+            <summary>Iterates through all combinations of the provided per-index element values.</summary>
+            <typeparam name="T">The element type of the combinations to iterate.</typeparam>
+            <param name="length">The length of the spans to iterate.</param>
+            <param name="action">The action to perform on each combination.</param>
+            <param name="indexPossibilities">The possible element values at each index.</param>
+            <param name="valueAt">The action to perform on each possible combination.</param>
+        </member>
+        <member name="M:Towel.Statics.Combinations``4(System.Int32,``1,``2,``3)">
+            <summary>Iterates through all combinations of the provided per-index element values.</summary>
+            <typeparam name="T">The element type of the combinations to iterate.</typeparam>
+            <typeparam name="Action">The action to perform on each combination.</typeparam>
+            <typeparam name="IndexPossibilities">The possible element values at each index.</typeparam>
+            <typeparam name="ValueAt">The action to perform on each possible combination.</typeparam>
+            <param name="length">The length of the spans to iterate.</param>
+            <param name="action">The action to perform on each combination.</param>
+            <param name="indexPossibilities">The possible element values at each index.</param>
+            <param name="valueAt">The action to perform on each possible combination.</param>
         </member>
         <member name="M:Towel.Statics.PermuteXML">
             <typeparam name="T">The generic element type of the indexed collection.</typeparam>
@@ -30319,26 +30335,12 @@
         <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchCheck{``0})">
             <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
         </member>
-        <member name="M:Towel.Statics.Maximum``1(``0,``0)">
+        <member name="M:Towel.Statics.MaximumValue``1(``0,``0,System.Func{``0,``0,Towel.CompareResult})">
             <summary>Computes the maximum of two numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the maximum operation.</param>
             <param name="b">The second operand of the maximum operation.</param>
-            <returns>The computed maximum of the provided values.</returns>
-        </member>
-        <member name="M:Towel.Statics.Maximum``1(``0,``0,``0,``0[])">
-            <summary>Computes the maximum of multiple numeric values.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="a">The first operand of the maximum operation.</param>
-            <param name="b">The second operand of the maximum operation.</param>
-            <param name="c">The third operand of the maximum operation.</param>
-            <param name="d">The remaining operands of the maximum operation.</param>
-            <returns>The computed maximum of the provided values.</returns>
-        </member>
-        <member name="M:Towel.Statics.Maximum``1(System.Action{System.Action{``0}})">
-            <summary>Computes the maximum of multiple numeric values.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="stepper">The set of data to compute the maximum of.</param>
+            <param name="compare">The second operand of the maximum operation.</param>
             <returns>The computed maximum of the provided values.</returns>
         </member>
         <member name="M:Towel.Statics.Minimum``1(``0,``0)">
@@ -31412,6 +31414,22 @@
         <member name="M:Towel.Statics.UniversalQuantification`1.GetEnumerator">
             <summary>Gets the <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</summary>
             <returns>The <see cref="T:System.Collections.Generic.IEnumerator`1"/> for this universal quantification.</returns>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.ReadOnlyMemory{`0}">
+            <summary>Converts a universal quantification to a memory.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Memory{`0}">
+            <summary>Converts a universal quantification to a memory.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.ReadOnlySpan{`0}">
+            <summary>Converts a universal quantification to a span.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
+        </member>
+        <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~System.Span{`0}">
+            <summary>Converts a universal quantification to a span.</summary>
+            <param name="universalQuantification">The universal quantification to be converted.</param>
         </member>
         <member name="M:Towel.Statics.UniversalQuantification`1.op_Implicit(Towel.Statics.UniversalQuantification{`0})~`0[]">
             <summary>Converts a universal quantification to an array.</summary>

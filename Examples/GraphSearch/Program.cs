@@ -198,6 +198,12 @@ namespace GraphSearch
 					HandleNeighbor(new Vector2(x, y + 1)); // east
 					HandleNeighbor(new Vector2(x + 1, y)); // south
 					HandleNeighbor(new Vector2(x, y - 1)); // west
+
+					//// if you want to allow diaganol movement, uncomment the following lines
+					//HandleNeighbor(new Vector2(x + 1, y + 1)); // south-east
+					//HandleNeighbor(new Vector2(x + 1, y - 1)); // north-east
+					//HandleNeighbor(new Vector2(x - 1, y + 1)); // south-west
+					//HandleNeighbor(new Vector2(x - 1, y - 1)); // north-west
 				}
 
 				float Heuristic(Vector2 node) => Vector2.Distance(node, playerLocation);

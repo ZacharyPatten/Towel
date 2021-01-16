@@ -1002,30 +1002,94 @@ namespace Towel_Testing
 
 		#region Maximum_Testing
 
-		[TestMethod] public void Maximum_Testing()
+		[TestMethod]
+		public void Maximum_Testing()
 		{
 			{ // int
-				Assert.IsTrue(Maximum(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) == 5);
-				Assert.IsTrue(Maximum(5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) == 5);
-				Assert.IsTrue(Maximum(0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) == 5);
+				Assert.IsTrue(Maximum(compare: null, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) is (10, 5));
+				Assert.IsTrue(Maximum(compare: null, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) is (0, 5));
+				Assert.IsTrue(Maximum(compare: null, 0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) is (5, 5));
 			}
 			{ // float
-				Assert.IsTrue(Maximum(-5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) == 5f);
-				Assert.IsTrue(Maximum(5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) == 5f);
-				Assert.IsTrue(Maximum(0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) == 5f);
-				Assert.IsTrue(Maximum(-0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) == 3f);
+				Assert.IsTrue(Maximum(compare: null, -5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) is (10, 5f));
+				Assert.IsTrue(Maximum(compare: null, 5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) is (0, 5f));
+				Assert.IsTrue(Maximum(compare: null, 0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) is (5, 5f));
+				Assert.IsTrue(Maximum(compare: null, -0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) is (8, 3f));
 			}
 			{ // double
-				Assert.IsTrue(Maximum(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) == 5d);
-				Assert.IsTrue(Maximum(5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) == 5d);
-				Assert.IsTrue(Maximum(0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) == 5d);
-				Assert.IsTrue(Maximum(-0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) == 3d);
+				Assert.IsTrue(Maximum(compare: null, -5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) is (10, 5d));
+				Assert.IsTrue(Maximum(compare: null, 5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) is (0, 5d));
+				Assert.IsTrue(Maximum(compare: null, 0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) is (5, 5d));
+				Assert.IsTrue(Maximum(compare: null, -0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) is (8, 3d));
 			}
 			{ // decimal
-				Assert.IsTrue(Maximum(-5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) == 5m);
-				Assert.IsTrue(Maximum(5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) == 5m);
-				Assert.IsTrue(Maximum(0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) == 5m);
-				Assert.IsTrue(Maximum(-0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) == 3m);
+				Assert.IsTrue(Maximum(compare: null, -5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) is (10, 5m));
+				Assert.IsTrue(Maximum(compare: null, 5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) is (0, 5m));
+				Assert.IsTrue(Maximum(compare: null, 0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) is (5, 5m));
+				Assert.IsTrue(Maximum(compare: null, -0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) is (8, 3m));
+			}
+		}
+
+		#endregion
+
+		#region MaximumValue_Testing
+
+		[TestMethod] public void MaximumValue_Testing()
+		{
+			{ // int
+				Assert.IsTrue(MaximumValue(compare: null, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) is 5);
+				Assert.IsTrue(MaximumValue(compare: null, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) is 5);
+				Assert.IsTrue(MaximumValue(compare: null, 0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) is 5);
+			}
+			{ // float
+				Assert.IsTrue(MaximumValue(compare: null, -5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) is 5f);
+				Assert.IsTrue(MaximumValue(compare: null, 5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) is 5f);
+				Assert.IsTrue(MaximumValue(compare: null, 0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) is 5f);
+				Assert.IsTrue(MaximumValue(compare: null, -0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) is 3f);
+			}
+			{ // double
+				Assert.IsTrue(MaximumValue(compare: null, -5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) is 5d);
+				Assert.IsTrue(MaximumValue(compare: null, 5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) is 5d);
+				Assert.IsTrue(MaximumValue(compare: null, 0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) is 5d);
+				Assert.IsTrue(MaximumValue(compare: null, -0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) is 3d);
+			}
+			{ // decimal
+				Assert.IsTrue(MaximumValue(compare: null, -5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) is 5m);
+				Assert.IsTrue(MaximumValue(compare: null, 5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) is 5m);
+				Assert.IsTrue(MaximumValue(compare: null, 0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) is 5m);
+				Assert.IsTrue(MaximumValue(compare: null, -0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) is 3m);
+			}
+		}
+
+		#endregion
+
+		#region MaximumIndex_Testing
+
+		[TestMethod]
+		public void MaximumIndex_Testing()
+		{
+			{ // int
+				Assert.IsTrue(MaximumIndex(compare: null, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) is 10);
+				Assert.IsTrue(MaximumIndex(compare: null, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) is 0);
+				Assert.IsTrue(MaximumIndex(compare: null, 0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) is 5);
+			}
+			{ // float
+				Assert.IsTrue(MaximumIndex(compare: null, -5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) is 10);
+				Assert.IsTrue(MaximumIndex(compare: null, 5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) is 0);
+				Assert.IsTrue(MaximumIndex(compare: null, 0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) is 5);
+				Assert.IsTrue(MaximumIndex(compare: null, -0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) is 8);
+			}
+			{ // double
+				Assert.IsTrue(MaximumIndex(compare: null, -5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) is 10);
+				Assert.IsTrue(MaximumIndex(compare: null, 5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) is 0);
+				Assert.IsTrue(MaximumIndex(compare: null, 0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) is 5);
+				Assert.IsTrue(MaximumIndex(compare: null, -0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) is 8);
+			}
+			{ // decimal
+				Assert.IsTrue(MaximumIndex(compare: null, -5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) is 10);
+				Assert.IsTrue(MaximumIndex(compare: null, 5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) is 0);
+				Assert.IsTrue(MaximumIndex(compare: null, 0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) is 5);
+				Assert.IsTrue(MaximumIndex(compare: null, -0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) is 8);
 			}
 		}
 

@@ -14,7 +14,7 @@ namespace Towel_Testing.DataStructures
 			{
 				T[] clonedValues = (T[])values.Clone();
 				Shuffle<T>(clonedValues);
-				IHeap<T> heap = new HeapArray<T>(compare);
+				HeapArray<T> heap = new(compare);
 				clonedValues.Stepper(x => heap.Enqueue(x));
 				foreach (T value in values)
 				{

@@ -385,7 +385,7 @@ namespace Towel
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchCheck<Node> check, out Numeric? totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
-			IHeap<AstarNode<Node, Numeric>> fringe = new HeapArray<AstarNode<Node, Numeric>, AStarPriorityCompare<Node, Numeric>>();
+			HeapArray<AstarNode<Node, Numeric>, AStarPriorityCompare<Node, Numeric>> fringe = new();
 
 			// push starting node
 			fringe.Enqueue(
@@ -465,7 +465,7 @@ namespace Towel
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCheck<Node> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
-			IHeap<DijkstraNode<Node, Numeric>> fringe = new HeapArray<DijkstraNode<Node, Numeric>, DijkstraPriorityCompare<Node, Numeric>>();
+			HeapArray<DijkstraNode<Node, Numeric>, DijkstraPriorityCompare<Node, Numeric>> fringe = new();
 
 			// push starting node
 			fringe.Enqueue(

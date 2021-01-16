@@ -512,9 +512,7 @@ namespace Towel.DataStructures
 					exception = new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2");
 					return false;
 				}
-				T[] newList = new T[_array.Length * 2];
-				_array.CopyTo(newList, 0);
-				_array = newList;
+				Array.Resize<T>(ref _array, _array.Length * 2);
 			}
 			_array[_count++] = value;
 			exception = null;
@@ -538,9 +536,7 @@ namespace Towel.DataStructures
 				{
 					throw new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2");
 				}
-				T[] array = new T[_array.Length * 2];
-				_array.CopyTo(array, 0);
-				_array = array;
+				Array.Resize<T>(ref _array, _array.Length * 2);
 			}
 			for (int i = _count; i > index; i--)
 			{
@@ -574,12 +570,7 @@ namespace Towel.DataStructures
 			RemoveWithoutShrink(index);
 			if (_count < _array.Length / 2)
 			{
-				T[] newList = new T[_array.Length / 2];
-				for (int i = 0; i < _count; i++)
-				{
-					newList[i] = _array[i];
-				}
-				_array = newList;
+				Array.Resize<T>(ref _array, _array.Length / 2);
 			}
 		}
 
@@ -613,12 +604,7 @@ namespace Towel.DataStructures
 			RemoveAllWithoutShrink(predicate);
 			if (_count < _array.Length / 2)
 			{
-				T[] newList = new T[_array.Length / 2];
-				for (int i = 0; i < _count; i++)
-				{
-					newList[i] = _array[i];
-				}
-				_array = newList;
+				Array.Resize<T>(ref _array, _array.Length / 2);
 			}
 		}
 
@@ -767,15 +753,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Converts the list array into a standard array.</summary>
 		/// <returns>A standard array of all the elements.</returns>
-		public T[] ToArray() =>
-			_count is 0 ? Array.Empty<T>() :
-			_array.AsSpan(0, _count).ToArray();
+		public T[] ToArray() => _count is 0 ? Array.Empty<T>() : _array[.._count];
 
 		/// <summary>Resizes this allocation to the current count.</summary>
-		public void Trim() =>
-			_array = 
-				_count is 0 ? new T[1] :
-				_array.AsSpan(0, _count).ToArray();
+		public void Trim() => _array =  _count is 0 ? new T[1] : _array[.._count];
 
 		#endregion
 	}

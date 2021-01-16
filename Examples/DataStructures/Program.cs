@@ -268,7 +268,7 @@ namespace DataStructures
 				}
 				Console.WriteLine();
 
-				IHeap<int> heapArray = new HeapArray<int>(Priority);
+				HeapArray<int> heapArray = new(Priority);
 
 				Console.Write($"    [HeapArray] Enqueuing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -323,7 +323,7 @@ namespace DataStructures
 				Console.WriteLine("    It is very similar to an Red Black tree, but uses a different sorting algorithm.");
 				Console.WriteLine();
 
-				IAvlTree<int> avlTree = new AvlTreeLinked<int>();
+				AvlTreeLinked<int> avlTree = new();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -380,7 +380,7 @@ namespace DataStructures
 				Console.WriteLine("    It is very similar to an AVL tree, but uses a different sorting algorithm.");
 				Console.WriteLine();
 
-				IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
+				RedBlackTreeLinked<int> redBlackTree = new();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -777,7 +777,7 @@ namespace DataStructures
 				for (int i = 0; i < test; i++)
 				{
 					// lets use a heap to randomize the edges using random priorities
-					IHeap<(int, int)> heap = new HeapArray<(int, int)>();
+					HeapArray<(int, int)> heap = new();
 					for (int j = 0; j < test; j++)
 					{
 						if (j != i)

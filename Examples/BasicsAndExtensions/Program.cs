@@ -487,9 +487,9 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
-			#region Permute
+			#region Permutations
 			{
-				Console.WriteLine("  Permute---------------------------");
+				Console.WriteLine("  Permutations---------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    You can iterate all the permutations of an array with the");
 				Console.WriteLine("    Permute methods: PermuteIterative and PermuteRecursive.");
@@ -524,6 +524,58 @@ namespace BasicsAndExtensions
 				i = 0;
 				Console.Write("    Iterative (list):  ");
 				PermuteIterative(0, list.Count - 1, WriteList, () => (++i >= 3 ? Break : Continue), i => list[i], (i, v) => list[i] = v);
+				Console.WriteLine();
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region Combinations
+			{
+				Console.WriteLine("  Combinations---------------------------");
+				Console.WriteLine();
+				Console.WriteLine(@"    You can iterate all the combinations of a data set with");
+				Console.WriteLine(@"    the ""Combinations"" method and overloads.");
+				Console.WriteLine();
+
+				static void ConsoleWrite(ReadOnlySpan<char> readOnlySpan)
+				{
+					for (int i = 0; i < readOnlySpan.Length; i++)
+					{
+						Console.Write(readOnlySpan[i]);
+					}
+					Console.Write(", ");
+				}
+
+				Console.WriteLine($@"    Iterate all possible length 3 strings with chars in ""AB""...");
+				Console.Write($@"    Result: ");
+				Combinations(3, ConsoleWrite, i => "AB".Length, (i, j) => "AB"[j]);
+				Console.WriteLine();
+				Console.WriteLine();
+
+				Console.WriteLine($@"    Iterate all possible length 2 strings with chars in ""0123""...");
+				Console.Write($@"    Result: ");
+				Combinations(2, ConsoleWrite, i => "0123".Length, (i, j) => "0123"[j]);
+				Console.WriteLine();
+				Console.WriteLine();
+
+				Console.WriteLine($@"    Iterate all possible length 3 strings where");
+				Console.WriteLine($@"    - char 0 in ""AB""");
+				Console.WriteLine($@"    - char 1 in ""12""");
+				Console.WriteLine($@"    - char 2 in ""AB12""");
+				Console.Write($@"    Result: ");
+				Combinations(3, ConsoleWrite,
+					i => i switch
+					{
+						0 => "AB".Length,
+						1 => "12".Length,
+						2 => "AB12".Length,
+					},
+					(i, j) => i switch
+					{
+						0 => "AB"[j],
+						1 => "12"[j],
+						2 => "AB12"[j],
+					});
 				Console.WriteLine();
 				Console.WriteLine();
 			}

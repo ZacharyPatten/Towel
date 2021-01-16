@@ -175,7 +175,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void AvlTreeLinked_AddRunTime()
 		{
-			IAvlTree<Person> tree = new AvlTreeLinked<Person>(
+			AvlTreeLinked<Person> tree = new(
 				(a, b) => Compare(a.FirstName, b.FirstName));
 			foreach (Person person in RandomTestData)
 			{
@@ -185,7 +185,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void AvlTreeLinked_AddCompileTime()
 		{
-			IAvlTree<Person> tree = new AvlTreeLinked<Person, ComparePersonFirstName>();
+			AvlTreeLinked<Person, ComparePersonFirstName> tree = new();
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);
@@ -196,8 +196,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void RedBlackTree_AddRunTime()
 		{
-			IRedBlackTree<Person> tree = new RedBlackTreeLinked<Person>(
-				(a, b) => Compare(a.FirstName, b.FirstName));
+			RedBlackTreeLinked<Person> tree = new((a, b) => Compare(a.FirstName, b.FirstName));
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);
@@ -206,7 +205,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void RedBlackTree_AddCompileTime()
 		{
-			IRedBlackTree<Person> tree = new RedBlackTreeLinked<Person, ComparePersonFirstName>();
+			RedBlackTreeLinked<Person, ComparePersonFirstName> tree = new();
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);

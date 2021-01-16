@@ -328,8 +328,18 @@ namespace Towel
 		/// <param name="random">The random algorithm for index generation.</param>
 		/// <param name="values">The values to choose from.</param>
 		/// <returns>A randomly selected value from the supplied options.</returns>
-		public static T Choose<T>(this Random random, params T[] values) =>
-			values[random.Next(values.Length)];
+		public static T Choose<T>(this Random random, params T[] values)
+		{
+			if (values is null)
+			{
+				throw new ArgumentNullException(nameof(values));
+			}
+			if (values.Length < 1)
+			{
+				throw new ArgumentException();
+			}
+			return values[random.Next(values.Length)];
+		}
 
 		/// <summary>Selects a random value from a collection of weighted options.</summary>
 		/// <typeparam name="T">The generic type to select a random instance of.</typeparam>

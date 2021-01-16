@@ -61,10 +61,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Property of a data structure (does it have a Compare property).</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IComparing<T>
+		public interface IComparing<T, _Compare>
 		{
 			/// <summary>Gets the comparing function of the data structure.</summary>
-			Func<T, T, CompareResult> Compare { get; }
+			_Compare Compare { get; }
 		}
 
 		/// <summary>Property of a data structure (does it have a Add method).</summary>

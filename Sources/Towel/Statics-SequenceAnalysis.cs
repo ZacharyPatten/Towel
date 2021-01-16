@@ -12,30 +12,11 @@ namespace Towel
 	{
 		#region Maximum
 
-		/// <summary>Computes the maximum of two numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the maximum operation.</param>
-		/// <param name="b">The second operand of the maximum operation.</param>
-		/// <returns>The computed maximum of the provided values.</returns>
-		public static T Maximum<T>(T a, T b) =>
-			GreaterThanOrEqual(a, b) ? a : b;
+		public static (int Index, T Value) Maximum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
+			Maximum<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
 
-		/// <summary>Computes the maximum of multiple numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the maximum operation.</param>
-		/// <param name="b">The second operand of the maximum operation.</param>
-		/// <param name="c">The third operand of the maximum operation.</param>
-		/// <param name="d">The remaining operands of the maximum operation.</param>
-		/// <returns>The computed maximum of the provided values.</returns>
-		public static T Maximum<T>(T a, T b, T c, params T[] d) =>
-			Maximum<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
-
-		/// <summary>Computes the maximum of multiple numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The set of data to compute the maximum of.</param>
-		/// <returns>The computed maximum of the provided values.</returns>
-		public static T Maximum<T>(Action<Action<T>> stepper) =>
-			OperationOnStepper(stepper, Maximum);
+		public static (int Index, T Value) Maximum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
+			Maximum<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		public static (int Index, T Value) Maximum<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
 			where Compare : struct, IFunc<T, T, CompareResult>
@@ -53,6 +34,75 @@ namespace Towel
 				}
 			}
 			return (index, span[index]);
+		}
+
+		#endregion
+
+		#region MaximumValue
+
+		/// <summary>Computes the maximum of two numeric values.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the maximum operation.</param>
+		/// <param name="b">The second operand of the maximum operation.</param>
+		/// <param name="compare">The second operand of the maximum operation.</param>
+		/// <returns>The computed maximum of the provided values.</returns>
+		public static T MaximumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
+			MaximumValue<T, FuncRuntime<T, T, CompareResult>>(a, b, compare ?? Compare);
+
+		public static T MaximumValue<T, Compare>(T a, T b, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			compare.Do(b, a) is Greater ? b : a;
+
+		public static T MaximumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
+			MaximumValue<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+
+		public static T MaximumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
+			MaximumValue<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		public static T MaximumValue<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (span.IsEmpty)
+			{
+				throw new ArgumentException($"{nameof(span)}.{nameof(span.IsEmpty)}", nameof(span));
+			}
+			T max = span[0];
+			for (int i = 1; i < span.Length; i++)
+			{
+				if (compare.Do(span[i], max) is Greater)
+				{
+					max = span[i];
+				}
+			}
+			return max;
+		}
+
+		#endregion
+
+		#region MaximumIndex
+
+		public static int MaximumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
+			MaximumIndex<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+
+		public static int MaximumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
+			MaximumIndex<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		public static int MaximumIndex<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (span.IsEmpty)
+			{
+				throw new ArgumentException($"{nameof(span)}.{nameof(span.IsEmpty)}", nameof(span));
+			}
+			int max = 0;
+			for (int i = 1; i < span.Length; i++)
+			{
+				if (compare.Do(span[i], span[max]) is Greater)
+				{
+					max = i;
+				}
+			}
+			return max;
 		}
 
 		#endregion
