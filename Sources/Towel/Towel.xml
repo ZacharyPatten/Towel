@@ -13631,7 +13631,6 @@
         <member name="M:Towel.DataStructures.QueueArray`1.#ctor(System.Int32)">
             <summary>
             Constructs a new queue.
-            <para>Runtime: O(1)</para>
             </summary>
             <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
         </member>
@@ -13649,9 +13648,9 @@
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.MinimumCapacity">
             <summary>
-            Allows you to adjust the minimum capacity of this list.
-            <para>Runtime (Get): O(1)</para>
-            <para>Runtime (Set): O(n), Ω(1)</para>
+            Allows you to adjust the minimum capacity of this list.<para/>
+            Runtime (Get): O(1)<para/>
+            Runtime (Set): O(n), Ω(1)<para/>
             </summary>
         </member>
         <member name="P:Towel.DataStructures.QueueArray`1.Newest">

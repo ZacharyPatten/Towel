@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -271,10 +270,12 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public class QueueArray<T> : IQueue<T>
 	{
+		const int DefaultMinimumCapacity = 1;
+
 		internal T[] _array;
 		internal int _start;
 		internal int _count;
-		internal int _minimumCapacity;
+		internal int? _minimumCapacity;
 
 		#region Constructors
 
@@ -282,15 +283,22 @@ namespace Towel.DataStructures
 		/// Constructs a new queue.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		public QueueArray() : this(1) { }
+		public QueueArray()
+		{
+			_array = new T[DefaultMinimumCapacity];
+			_count = 0;
+		}
 
 		/// <summary>
 		/// Constructs a new queue.
-		/// <para>Runtime: O(1)</para>
 		/// </summary>
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
 		public QueueArray(int minimumCapacity)
 		{
+			if (minimumCapacity <= 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(minimumCapacity), minimumCapacity, $"{nameof(minimumCapacity)} <= 0");
+			}
 			_array = new T[minimumCapacity];
 			_count = 0;
 			_minimumCapacity = minimumCapacity;
@@ -321,23 +329,31 @@ namespace Towel.DataStructures
 		public int CurrentCapacity => _array.Length;
 
 		/// <summary>
-		/// Allows you to adjust the minimum capacity of this list.
-		/// <para>Runtime (Get): O(1)</para>
-		/// <para>Runtime (Set): O(n), Ω(1)</para>
+		/// Allows you to adjust the minimum capacity of this list.<para/>
+		/// Runtime (Get): O(1)<para/>
+		/// Runtime (Set): O(n), Ω(1)<para/>
 		/// </summary>
-		public int MinimumCapacity
+		public int? MinimumCapacity
 		{
 			get => _minimumCapacity;
 			set
 			{
-				if (value < 1)
+				if (!value.HasValue)
+				{
+					_minimumCapacity = value;
+				}
+				else if (value < 1)
 				{
 					throw new ArgumentOutOfRangeException(nameof(value), value, $"{nameof(value)} < 1");
 				}
 				if (value > _array.Length)
 				{
-					T[] array = new T[value];
-					_array.CopyTo(array, 0);
+					T[] array = new T[_array.Length * 2];
+					for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
+					{
+						array[i] = _array[index];
+					}
+					_start = 0;
 					_array = array;
 				}
 				_minimumCapacity = value;
@@ -450,7 +466,7 @@ namespace Towel.DataStructures
 			}
 			if (_count < _array.Length / 4 && _array.Length > _minimumCapacity)
 			{
-				int length = Math.Max(_minimumCapacity, _array.Length / 2);
+				int length = Math.Max(_minimumCapacity ?? DefaultMinimumCapacity, _array.Length / 2);
 				T[] array = new T[length];
 				for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
 				{

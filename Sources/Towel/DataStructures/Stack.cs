@@ -1,5 +1,4 @@
 ﻿using System;
-using Towel;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -240,7 +239,7 @@ namespace Towel.DataStructures
 
 		internal T[] _array;
 		internal int _count;
-		internal int _minimumCapacity;
+		internal int? _minimumCapacity;
 
 		#region Constructors
 
@@ -248,7 +247,11 @@ namespace Towel.DataStructures
 		/// Creates an instance of a ListArray, and sets it's minimum capacity.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		public StackArray() : this(DefaultMinimumCapacity) { }
+		public StackArray()
+		{
+			_array = new T[DefaultMinimumCapacity];
+			_count = 0;
+		}
 
 		/// <summary>
 		/// Creates an instance of a ListArray, and sets it's minimum capacity.
@@ -257,12 +260,16 @@ namespace Towel.DataStructures
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
 		public StackArray(int minimumCapacity)
 		{
+			if (minimumCapacity <= 0)
+			{
+				throw new ArgumentOutOfRangeException(nameof(minimumCapacity), minimumCapacity, $"{nameof(minimumCapacity)} <= 0");
+			}
 			_array = new T[minimumCapacity];
 			_count = 0;
 			_minimumCapacity = minimumCapacity;
 		}
 
-		internal StackArray(T[] array, int count, int minimumCapacity = DefaultMinimumCapacity)
+		internal StackArray(T[] array, int count, int? minimumCapacity)
 		{
 			_array = array;
 			_count = count;
@@ -291,20 +298,22 @@ namespace Towel.DataStructures
 		/// <para>Runtime (get): O(1)</para>
 		/// <para>Runtime (set): O(n), Ω(1)</para>
 		/// </summary>
-		public int MinimumCapacity
+		public int? MinimumCapacity
 		{
 			get => _minimumCapacity;
 			set
 			{
-				if (value < 1)
+				if (!value.HasValue)
+				{
+					_minimumCapacity = value;
+				}
+				else if (value < 1)
 				{
 					throw new InvalidOperationException("Attempting to set a minimum capacity to a negative or zero value.");
 				}
 				else if (value > _array.Length)
 				{
-					T[] newList = new T[value];
-					_array.CopyTo(newList, 0);
-					_array = newList;
+					Array.Resize<T>(ref _array, value.Value);
 				}
 				_minimumCapacity = value;
 			}
@@ -341,12 +350,7 @@ namespace Towel.DataStructures
 				{
 					throw new InvalidOperationException("your queue is so large that it can no longer double itself (Int32.MaxValue barrier reached).");
 				}
-				T[] newStack = new T[_array.Length * 2];
-				for (int i = 0; i < _count; i++)
-				{
-					newStack[i] = _array[i];
-				}
-				_array = newStack;
+				Array.Resize<T>(ref _array, _array.Length * 2);
 			}
 			_array[_count++] = addition;
 		}
@@ -363,12 +367,7 @@ namespace Towel.DataStructures
 			}
 			if (_count < _array.Length / 4 && _array.Length / 2 > _minimumCapacity)
 			{
-				T[] newQueue = new T[_array.Length / 2];
-				for (int i = 0; i < _count; i++)
-				{
-					newQueue[i] = _array[i];
-				}
-				_array = newQueue;
+				Array.Resize<T>(ref _array, _array.Length / 2);
 			}
 			T returnValue = _array[--_count];
 			return returnValue;
@@ -387,7 +386,7 @@ namespace Towel.DataStructures
 		/// </summary>
 		public void Clear()
 		{
-			_array = new T[_minimumCapacity];
+			_array = new T[_minimumCapacity ?? DefaultMinimumCapacity];
 			_count = 0;
 		}
 

@@ -538,7 +538,7 @@ namespace Towel
 			public static implicit operator Towel.DataStructures.ListArray<T>(UniversalQuantification<T> universalQuantification) => new ListArray<T>(universalQuantification.Value, universalQuantification.Value.Length);
 			/// <summary>Converts a universal quantification to an <see cref="StackArray{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> universalQuantification) => new StackArray<T>(universalQuantification.Value, universalQuantification.Value.Length);
+			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> universalQuantification) => new StackArray<T>(universalQuantification.Value, universalQuantification.Value.Length, default);
 
 			#endregion
 		}
