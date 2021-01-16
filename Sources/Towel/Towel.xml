@@ -29973,7 +29973,7 @@
             <param name="elementPosibilities">The possible element values at each index.</param>
             <param name="action">The action to perform on each possible combination.</param>
         </member>
-        <member name="M:Towel.Statics.Combinations``1(System.Int32,Towel.Statics.Action_ReadOnlySpan{``0},Towel.Statics.Func_int_int,Towel.Statics.Func_int_int_T{``0})">
+        <member name="M:Towel.Statics.Combinations``1(System.Int32,Towel.Statics.Action_ReadOnlySpan{``0},System.Func{System.Int32,System.Int32},System.Func{System.Int32,System.Int32,``0})">
             <summary>Iterates through all combinations of the provided per-index element values.</summary>
             <typeparam name="T">The element type of the combinations to iterate.</typeparam>
             <param name="length">The length of the spans to iterate.</param>

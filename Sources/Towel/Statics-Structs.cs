@@ -64,5 +64,35 @@ namespace Towel
 			/// <summary>Casts a <see cref="Random"/> to a struct wrapper.</summary>
 			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) => new RandomNextIntMinValueIntMaxValue() { _random = random, };
 		}
+
+		public interface IAction_ReadOnlySpan<T> { void Do(ReadOnlySpan<T> readOnlySpan); }
+
+		public delegate void Action_ReadOnlySpan<T>(ReadOnlySpan<T> readOnlySpan);
+
+		public struct Action_ReadOnlySpan_Runtime<T> : IAction_ReadOnlySpan<T>
+		{
+			Action_ReadOnlySpan<T> Delegate;
+			public void Do(ReadOnlySpan<T> readOnlySpan) => Delegate(readOnlySpan);
+			public static implicit operator Action_ReadOnlySpan_Runtime<T>(Action_ReadOnlySpan<T> @delegate) =>
+				new Action_ReadOnlySpan_Runtime<T>() { Delegate = @delegate, };
+		}
+
+		internal struct Func_int_int_JaggedArray_Length0<T> : IFunc<int, int>
+		{
+			T[][] JaggedArray;
+			public int Do(int index) => JaggedArray[index].Length;
+
+			public static implicit operator Func_int_int_JaggedArray_Length0<T>(T[][] jaggedArray) =>
+				new Func_int_int_JaggedArray_Length0<T>() { JaggedArray = jaggedArray, };
+		}
+
+		internal struct Func_int_int_T_JaggedArray_Get<T> : IFunc<int, int, T>
+		{
+			T[][] JaggedArray;
+			public T Do(int index1, int index2) => JaggedArray[index1][index2];
+
+			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) =>
+				new Func_int_int_T_JaggedArray_Get<T>() { JaggedArray = jaggedArray, };
+		}
 	}
 }

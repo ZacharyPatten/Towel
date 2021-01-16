@@ -226,8 +226,8 @@ namespace BasicsAndExtensions
 				// This function loads in XML documentation so you can access it via reflection.
 				Meta.LoadXmlDocumentation(File.ReadAllText(Path.Combine("..", "..", "..", "..", "..", "Sources", "Towel", "Towel.xml")));
 
-				Console.Write("    XML Documentation On Towel.Statics:");
-				Console.WriteLine(typeof(Towel.Statics).GetDocumentation());
+				Console.Write("    XML Documentation On Towel.TagAttribute:");
+				Console.WriteLine(typeof(Towel.TagAttribute).GetDocumentation());
 				Console.Write("    XML Documentation On Towel.Constant<float>.Pi:");
 				Console.WriteLine(typeof(Constant<float>).GetProperty(nameof(Constant<float>.Pi)).GetDocumentation());
 			}
