@@ -819,6 +819,9 @@ int LevenshteinDistanceIterative<...>(...);
 void PermuteRecursive<...>(...);
 void PermuteIterative<...>(...);
 
+// Combinations of sequences
+void Combinations<...>(...);
+
 // Path Finding (Graph Search)
 // Note: overloads for A*, Dijkstra, and Breadth-First-Search algorithms
 SearchGraph<...>(...);
@@ -897,16 +900,10 @@ ConsoleHelper.FlushInputBuffer();
 using System;
 using Towel;
 
-static class Program
-{
-	static void Main()
-	{
-		var (Found, Value) = typeof(MyClass).GetTag("My Tag");
-		Console.WriteLine("My Tag...");
-		Console.WriteLine("Found: " + Found);
-		Console.WriteLine("Value: " + Value);
-	}
-}
+var (Found, Value) = typeof(MyClass).GetTag("My Tag");
+Console.WriteLine("My Tag...");
+Console.WriteLine("Found: " + Found);
+Console.WriteLine("Value: " + Value);
 
 [Tag("My Tag", "hello world")]
 public class MyClass { }
