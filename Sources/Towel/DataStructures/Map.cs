@@ -323,6 +323,120 @@ namespace Towel.DataStructures
 			return true;
 		}
 
+		/// <summary>Adds or updates the value at the given key.</summary>
+		/// <param name="key">The key of the value to add or update.</param>
+		/// <param name="value">The value to add if not already present.</param>
+		/// <param name="update">The function to update the value if present.</param>
+		public void AddOrUpdate(K key, T value, Func<T, T> update)
+		{
+			if (update is null)
+			{
+				throw new ArgumentNullException(nameof(update));
+			}
+			AddOrUpdate<FuncRuntime<T, T>>(key, value, update);
+		}
+
+		/// <summary>Adds or updates the value at the given key.</summary>
+		/// <typeparam name="Update">The function to update the value if present.</typeparam>
+		/// <param name="key">The key of the value to add or update.</param>
+		/// <param name="value">The value to add if not already present.</param>
+		/// <param name="update">The function to update the value if present.</param>
+		public void AddOrUpdate<Update>(K key, T value, Update update = default)
+			where Update : struct, IFunc<T, T>
+		{
+			int location = GetLocation(key);
+			for (Node? node = _table[location]; node is not null; node = node.Next)
+			{
+				if (_equate.Do(node.Key, key))
+				{
+					node.Value = update.Do(node.Value);
+					return;
+				}
+			}
+			_table[location] = new Node(
+				value: value,
+				key: key,
+				next: _table[location]);
+			_count++;
+			if (_count > _table.Length * _maxLoadFactor)
+			{
+				float tableSizeFloat = (_count * 2) * (1 / _maxLoadFactor);
+				if (tableSizeFloat <= int.MaxValue)
+				{
+					int tableSize = (int)tableSizeFloat;
+					while (!IsPrime(tableSize))
+					{
+						tableSize++;
+					}
+					Resize(tableSize);
+				}
+			}
+		}
+
+		public bool TryUpdate(K key, T value)
+		{
+			int location = GetLocation(key);
+			for (Node? node = _table[location]; node is not null; node = node.Next)
+			{
+				if (_equate.Do(node.Key, key))
+				{
+					node.Value = value;
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public bool TryUpdate(K key, Func<T, T> update)
+		{
+			if (update is null)
+			{
+				throw new ArgumentNullException(nameof(update));
+			}
+			return TryUpdate<FuncRuntime<T, T>>(key, update);
+		}
+
+		public bool TryUpdate<Update>(K key, Update update = default)
+			where Update : struct, IFunc<T, T>
+		{
+			int location = GetLocation(key);
+			for (Node? node = _table[location]; node is not null; node = node.Next)
+			{
+				if (_equate.Do(node.Key, key))
+				{
+					node.Value = update.Do(node.Value);
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public bool TryUpdate(K key, out T? value, Func<T, T> update)
+		{
+			if (update is null)
+			{
+				throw new ArgumentNullException(nameof(update));
+			}
+			return TryUpdate<FuncRuntime<T, T>>(key, out value, update);
+		}
+
+		public bool TryUpdate<Update>(K key, out T? value, Update update = default)
+			where Update : struct, IFunc<T, T>
+		{
+			int location = GetLocation(key);
+			for (Node? node = _table[location]; node is not null; node = node.Next)
+			{
+				if (_equate.Do(node.Key, key))
+				{
+					node.Value = update.Do(node.Value);
+					value = node.Value;
+					return true;
+				}
+			}
+			value = default;
+			return false;
+		}
+
 		/// <summary>Tries to get a value by key.</summary>
 		/// <param name="key">The key of the value to get.</param>
 		/// <param name="value">The value if found or default.</param>

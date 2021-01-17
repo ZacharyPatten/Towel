@@ -2917,6 +2917,19 @@
             <param name="exception">The exception that occured if the add failed.</param>
             <returns>True if the value was added or false if not.</returns>
         </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.AddOrUpdate(`1,`0,System.Func{`0,`0})">
+            <summary>Adds or updates the value at the given key.</summary>
+            <param name="key">The key of the value to add or update.</param>
+            <param name="value">The value to add if not already present.</param>
+            <param name="update">The function to update the value if present.</param>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.AddOrUpdate``1(`1,`0,``0)">
+            <summary>Adds or updates the value at the given key.</summary>
+            <typeparam name="Update">The function to update the value if present.</typeparam>
+            <param name="key">The key of the value to add or update.</param>
+            <param name="value">The value to add if not already present.</param>
+            <param name="update">The function to update the value if present.</param>
+        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.TryGet(`1,`0@,System.Exception@)">
             <summary>Tries to get a value by key.</summary>
             <param name="key">The key of the value to get.</param>
@@ -30755,6 +30768,26 @@
         </member>
         <member name="M:Towel.Statics.IsInterleavedIterative``2(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1)">
             <inheritdoc cref="M:Towel.Statics.IsInterleavedIterative_XML"/>
+        </member>
+        <member name="M:Towel.Statics.IsReorderOf``1(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
+            <typeparam name="T">The element type of each span.</typeparam>
+            <param name="a">The first span.</param>
+            <param name="b">The second span.</param>
+            <param name="equate">The function for determining equality of elements.</param>
+            <param name="hash">The function for hashing the elements.</param>
+            <returns>True if both spans contain the same number of each element.</returns>
+        </member>
+        <member name="M:Towel.Statics.IsReorderOf``3(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1,``2)">
+            <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
+            <typeparam name="T">The element type of each span.</typeparam>
+            <typeparam name="Equate">The function for determining equality of elements.</typeparam>
+            <typeparam name="Hash">The function for hashing the elements.</typeparam>
+            <param name="a">The first span.</param>
+            <param name="b">The second span.</param>
+            <param name="equate">The function for determining equality of elements.</param>
+            <param name="hash">The function for hashing the elements.</param>
+            <returns>True if both spans contain the same number of each element.</returns>
         </member>
         <member name="M:Towel.Statics.Shuffle_XML">
             <summary>

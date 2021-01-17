@@ -2082,5 +2082,59 @@ namespace Towel_Testing
 		}
 
 		#endregion
+
+		#region IsReorderOf
+
+		[TestMethod] public void IsReorderOf_Testing()
+		{
+			Assert.IsTrue(IsReorderOf<char>("a", "a"));
+			Assert.IsTrue(IsReorderOf<char>("ab", "ba"));
+			Assert.IsTrue(IsReorderOf<char>("abc", "cba"));
+
+			Assert.IsTrue(IsReorderOf<char>("aab", "baa"));
+			Assert.IsTrue(IsReorderOf<char>("aab", "aba"));
+			Assert.IsTrue(IsReorderOf<char>("aab", "aab"));
+
+			Assert.IsTrue(IsReorderOf<char>("aabb", "bbaa"));
+			Assert.IsTrue(IsReorderOf<char>("aabb", "abab"));
+			Assert.IsTrue(IsReorderOf<char>("aabb", "abba"));
+			Assert.IsTrue(IsReorderOf<char>("aabb", "aabb"));
+
+			Assert.IsFalse(IsReorderOf<char>("a", "b"));
+			Assert.IsFalse(IsReorderOf<char>("aa", "bb"));
+			Assert.IsFalse(IsReorderOf<char>("ab", "aa"));
+			Assert.IsFalse(IsReorderOf<char>("ab", "bb"));
+
+			Assert.IsFalse(IsReorderOf<char>("aa", "a"));
+			Assert.IsFalse(IsReorderOf<char>("a", "aa"));
+			Assert.IsFalse(IsReorderOf<char>("ab", "aab"));
+			Assert.IsFalse(IsReorderOf<char>("aab", "ab"));
+			Assert.IsFalse(IsReorderOf<char>("aabbcc", "aaabbcc"));
+			Assert.IsFalse(IsReorderOf<char>("aabbcc", "aabbbcc"));
+			Assert.IsFalse(IsReorderOf<char>("aabbcc", "aabbccc"));
+			Assert.IsFalse(IsReorderOf<char>("aaabbcc", "aabbcc"));
+			Assert.IsFalse(IsReorderOf<char>("aabbbcc", "aabbcc"));
+			Assert.IsFalse(IsReorderOf<char>("aabbccc", "aabbcc"));
+
+			Assert.IsFalse(IsReorderOf<char>("aabb", "aaab"));
+			Assert.IsFalse(IsReorderOf<char>("bbaa", "aaab"));
+
+			Assert.IsFalse(IsReorderOf<char>("aabbcc", "aaabcc"));
+			Assert.IsFalse(IsReorderOf<char>("aabbcc", "abbbcc"));
+			Assert.IsFalse(IsReorderOf<char>("aabbcc", "aabccc"));
+			Assert.IsFalse(IsReorderOf<char>("aabbcc", "abbccc"));
+
+			Assert.IsFalse(IsReorderOf<char>("a", ""));
+			Assert.IsFalse(IsReorderOf<char>("", "a"));
+			Assert.IsFalse(IsReorderOf<char>(null, "a"));
+			Assert.IsFalse(IsReorderOf<char>("a", null));
+
+			Assert.IsTrue(IsReorderOf<char>(null, null));
+			Assert.IsTrue(IsReorderOf<char>("", ""));
+			Assert.IsTrue(IsReorderOf<char>(null, ""));
+			Assert.IsTrue(IsReorderOf<char>("", null));
+		}
+
+		#endregion
 	}
 }

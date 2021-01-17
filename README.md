@@ -787,6 +787,8 @@ IsPalindrome<...>(...);
 IsInterleavedRecursive<...>(...);
 IsInterleavedIterative<...>(...);
 
+IsReorderOf<...>(...); // aka "anagrams"
+
 // Note: supports System.Span<T> and any (non ref struct) int-indexed type
 SortShuffle<T>(...);
 SortBubble<T>(...);

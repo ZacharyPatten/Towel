@@ -94,5 +94,15 @@ namespace Towel
 			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) =>
 				new Func_int_int_T_JaggedArray_Get<T>() { JaggedArray = jaggedArray, };
 		}
+
+		internal struct IntIncrement : IFunc<int, int>
+		{
+			public int Do(int a) => a + 1;
+		}
+
+		internal struct IntDecrement : IFunc<int, int>
+		{
+			public int Do(int a) => a - 1;
+		}
 	}
 }

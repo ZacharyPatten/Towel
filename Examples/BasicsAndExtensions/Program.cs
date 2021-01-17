@@ -403,6 +403,25 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region IsReorderOf
+			{
+				Console.WriteLine("  Is IsReorderOf ----------------------");
+				Console.WriteLine();
+				Console.WriteLine(@"    This is commonly called ""anagrams"".");
+				Console.WriteLine();
+
+				string abcdef = "abcdef";
+				string fedcba = "fedcba";
+				Console.WriteLine($@"      IsReorderOf(""{abcdef}"", ""{fedcba}""): {IsReorderOf<char>(abcdef, fedcba)}");
+
+				string aabbcc = "aabbcc";
+				string abbbbc = "abbbbc";
+				Console.WriteLine($@"      IsReorderOf(""{aabbcc}"", ""{abbbbc}""): {IsReorderOf<char>(aabbcc, abbbbc)}");
+
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Hamming Distance
 			{
 				Console.WriteLine("  HammingDistance----------------");

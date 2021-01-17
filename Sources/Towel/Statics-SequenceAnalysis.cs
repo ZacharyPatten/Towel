@@ -1296,5 +1296,58 @@ namespace Towel
 		}
 
 		#endregion
+
+		#region IsReorderOf
+
+		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
+		/// <typeparam name="T">The element type of each span.</typeparam>
+		/// <param name="a">The first span.</param>
+		/// <param name="b">The second span.</param>
+		/// <param name="equate">The function for determining equality of elements.</param>
+		/// <param name="hash">The function for hashing the elements.</param>
+		/// <returns>True if both spans contain the same number of each element.</returns>
+		public static bool IsReorderOf<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
+			IsReorderOf<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
+
+		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
+		/// <typeparam name="T">The element type of each span.</typeparam>
+		/// <typeparam name="Equate">The function for determining equality of elements.</typeparam>
+		/// <typeparam name="Hash">The function for hashing the elements.</typeparam>
+		/// <param name="a">The first span.</param>
+		/// <param name="b">The second span.</param>
+		/// <param name="equate">The function for determining equality of elements.</param>
+		/// <param name="hash">The function for hashing the elements.</param>
+		/// <returns>True if both spans contain the same number of each element.</returns>
+		public static bool IsReorderOf<T, Equate, Hash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Equate equate = default, Hash hash = default)
+			where Equate : struct, IFunc<T, T, bool>
+			where Hash : struct, IFunc<T, int>
+		{
+			if (a.IsEmpty && b.IsEmpty)
+			{
+				return true;
+			}
+			if (a.Length != b.Length)
+			{
+				return false;
+			}
+			MapHashLinked<int, T, Equate, Hash> counts = new(
+				equate: equate,
+				hash: hash,
+				expectedCount: a.Length);
+			foreach (T value in a)
+			{
+				counts.AddOrUpdate<IntIncrement>(value, 1);
+			}
+			foreach (T value in b)
+			{
+				if (!counts.TryUpdate<IntDecrement>(value, out int count) || count is -1)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		#endregion
 	}
 }
