@@ -23,7 +23,7 @@
 	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="License"><img src="https://img.shields.io/badge/license-MIT-green.svg" title="Go To License" alt="License"/></a>
 </p>
 
-> _**Note** This project has a goal of keeping as up-to-date on modern coding practices rather than maintaining backwards compatibility._
+> _**Note** This project has a goal of keeping up-to-date on modern coding practices rather than maintaining backwards compatibility._
 
 ## Getting Started
 
