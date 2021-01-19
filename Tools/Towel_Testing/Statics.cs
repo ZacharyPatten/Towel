@@ -2136,5 +2136,59 @@ namespace Towel_Testing
 		}
 
 		#endregion
+
+		#region SetEquals
+
+		[TestMethod] public void SetEquals_Testing()
+		{
+			Assert.IsTrue(SetEquals<char>("a", "a"));
+			Assert.IsTrue(SetEquals<char>("ab", "ba"));
+			Assert.IsTrue(SetEquals<char>("abc", "cba"));
+
+			Assert.IsTrue(SetEquals<char>("aab", "baa"));
+			Assert.IsTrue(SetEquals<char>("aab", "aba"));
+			Assert.IsTrue(SetEquals<char>("aab", "aab"));
+
+			Assert.IsTrue(SetEquals<char>("aabb", "bbaa"));
+			Assert.IsTrue(SetEquals<char>("aabb", "abab"));
+			Assert.IsTrue(SetEquals<char>("aabb", "abba"));
+			Assert.IsTrue(SetEquals<char>("aabb", "aabb"));
+
+			Assert.IsFalse(SetEquals<char>("a", "b"));
+			Assert.IsFalse(SetEquals<char>("aa", "bb"));
+			Assert.IsFalse(SetEquals<char>("ab", "aa"));
+			Assert.IsFalse(SetEquals<char>("ab", "bb"));
+
+			Assert.IsTrue(SetEquals<char>("aa", "a"));
+			Assert.IsTrue(SetEquals<char>("a", "aa"));
+			Assert.IsTrue(SetEquals<char>("ab", "aab"));
+			Assert.IsTrue(SetEquals<char>("aab", "ab"));
+			Assert.IsTrue(SetEquals<char>("aabbcc", "aaabbcc"));
+			Assert.IsTrue(SetEquals<char>("aabbcc", "aabbbcc"));
+			Assert.IsTrue(SetEquals<char>("aabbcc", "aabbccc"));
+			Assert.IsTrue(SetEquals<char>("aaabbcc", "aabbcc"));
+			Assert.IsTrue(SetEquals<char>("aabbbcc", "aabbcc"));
+			Assert.IsTrue(SetEquals<char>("aabbccc", "aabbcc"));
+
+			Assert.IsTrue(SetEquals<char>("aabb", "aaab"));
+			Assert.IsTrue(SetEquals<char>("bbaa", "aaab"));
+
+			Assert.IsTrue(SetEquals<char>("aabbcc", "aaabcc"));
+			Assert.IsTrue(SetEquals<char>("aabbcc", "abbbcc"));
+			Assert.IsTrue(SetEquals<char>("aabbcc", "aabccc"));
+			Assert.IsTrue(SetEquals<char>("aabbcc", "abbccc"));
+
+			Assert.IsFalse(SetEquals<char>("a", ""));
+			Assert.IsFalse(SetEquals<char>("", "a"));
+			Assert.IsFalse(SetEquals<char>(null, "a"));
+			Assert.IsFalse(SetEquals<char>("a", null));
+
+			Assert.IsTrue(SetEquals<char>(null, null));
+			Assert.IsTrue(SetEquals<char>("", ""));
+			Assert.IsTrue(SetEquals<char>(null, ""));
+			Assert.IsTrue(SetEquals<char>("", null));
+		}
+
+		#endregion
 	}
 }

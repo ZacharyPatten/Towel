@@ -30789,6 +30789,26 @@
             <param name="hash">The function for hashing the elements.</param>
             <returns>True if both spans contain the same number of each element.</returns>
         </member>
+        <member name="M:Towel.Statics.SetEquals``1(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Determines if neither span contains an element the other does not.</summary>
+            <typeparam name="T">The element type of each span.</typeparam>
+            <param name="a">The first span.</param>
+            <param name="b">The second span.</param>
+            <param name="equate">The function for determining equality of elements.</param>
+            <param name="hash">The function for hashing the elements.</param>
+            <returns>True if neither span contains an element the other does not.</returns>
+        </member>
+        <member name="M:Towel.Statics.SetEquals``3(System.ReadOnlySpan{``0},System.ReadOnlySpan{``0},``1,``2)">
+            <summary>Determines if neither span contains an element the other does not.</summary>
+            <typeparam name="T">The element type of each span.</typeparam>
+            <typeparam name="Equate">The function for determining equality of elements.</typeparam>
+            <typeparam name="Hash">The function for hashing the elements.</typeparam>
+            <param name="a">The first span.</param>
+            <param name="b">The second span.</param>
+            <param name="equate">The function for determining equality of elements.</param>
+            <param name="hash">The function for hashing the elements.</param>
+            <returns>True if neither span contains an element the other does not.</returns>
+        </member>
         <member name="M:Towel.Statics.Shuffle_XML">
             <summary>
             Sorts values into a randomized order.
