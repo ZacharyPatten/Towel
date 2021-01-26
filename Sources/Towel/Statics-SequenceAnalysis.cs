@@ -1406,5 +1406,30 @@ namespace Towel
 		}
 
 		#endregion
+
+		#region ContainsDuplicates
+
+		public static bool ContainsDuplicates<T>(Span<T> span, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
+			ContainsDuplicates<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>>(span, equate ?? Statics.Equate, hash ?? DefaultHash);
+
+		public static bool ContainsDuplicates<T, Equate, Hash>(Span<T> span, Equate equate = default, Hash hash = default)
+			where Equate : struct, IFunc<T, T, bool>
+			where Hash : struct, IFunc<T, int>
+		{
+			SetHashLinked<T, Equate, Hash> set = new(
+				equate: equate,
+				hash: hash,
+				expectedCount: span.Length);
+			foreach (T element in span)
+			{
+				if (!set.TryAdd(element))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		#endregion
 	}
 }

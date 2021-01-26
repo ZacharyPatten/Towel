@@ -2190,5 +2190,163 @@ namespace Towel_Testing
 		}
 
 		#endregion
+
+		#region NextUniqueRollTracking
+
+		[TestMethod]
+		public void NextUniqueRollTracking_Testing()
+		{
+			// count > sqrt(max - min)
+			{
+				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+			}
+			{
+				Func<int, int, int> next = (_, max) => -5; // 0, 0, 0, 0, 0
+				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -5, 0, next);
+				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
+			}
+			{
+				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
+				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+			}
+			// count > sqrt(max - min)
+			{
+				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				Assert.IsTrue(output.Length is 5);
+				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!ContainsDuplicates<int>(output));
+			}
+			{
+				Func<int, int, int> next = (_, max) => -500; // 0, 0, 0, 0, 0
+				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
+				Assert.IsTrue(output.Length is 5);
+				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < -500 || i >= 0));
+				Assert.IsTrue(!ContainsDuplicates<int>(output));
+			}
+			{
+				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
+				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				Assert.IsTrue(output.Length is 5);
+				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!ContainsDuplicates<int>(output));
+			}
+			// exceptions
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+		}
+
+		#endregion
+
+		#region NextUniquePoolTracking (with exclusions)
+
+		[TestMethod]
+		public void NextUniquePoolTracking_exclusions_Testing()
+		{
+			// count > sqrt(max - min)
+			{
+				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(
+					count: 5,
+					minValue: 0,
+					maxValue: 10,
+					excluded: new[] { 1, 3, 5, 7, 9, },
+					random: next);
+				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 2, 4, 6, 8, }));
+			}
+			//{
+			//	Func<int, int, int> next = (_, max) => -5; // 0, 0, 0, 0, 0
+			//	int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -5, 0, next);
+			//	Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
+			//}
+			//{
+			//	Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
+			//	int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+			//	Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+			//}
+			//// count > sqrt(max - min)
+			//{
+			//	Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+			//	int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+			//	Assert.IsTrue(output.Length is 5);
+			//	Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+			//	Assert.IsTrue(!ContainsDuplicates<int>(output));
+			//}
+			//{
+			//	Func<int, int, int> next = (_, max) => -500; // 0, 0, 0, 0, 0
+			//	int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
+			//	Assert.IsTrue(output.Length is 5);
+			//	Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < -500 || i >= 0));
+			//	Assert.IsTrue(!ContainsDuplicates<int>(output));
+			//}
+			//{
+			//	Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
+			//	int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+			//	Assert.IsTrue(output.Length is 5);
+			//	Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+			//	Assert.IsTrue(!ContainsDuplicates<int>(output));
+			//}
+			// exceptions
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+		}
+
+		#endregion
+
+		#region NextUniquePoolTracking
+
+		[TestMethod]
+		public void NextUniquePoolTracking_Testing()
+		{
+			// count > sqrt(max - min)
+			{
+				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+			}
+			{
+				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, -5, 0, next);
+				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
+			}
+			{
+				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
+				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+			}
+			// count > sqrt(max - min)
+			{
+				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				Assert.IsTrue(output.Length is 5);
+				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!ContainsDuplicates<int>(output));
+			}
+			{
+				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
+				Assert.IsTrue(output.Length is 5);
+				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < -500 || i >= 0));
+				Assert.IsTrue(!ContainsDuplicates<int>(output));
+			}
+			{
+				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
+				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				Assert.IsTrue(output.Length is 5);
+				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!ContainsDuplicates<int>(output));
+			}
+			// exceptions
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+		}
+
+		#endregion
 	}
 }

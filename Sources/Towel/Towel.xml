@@ -30144,6 +30144,30 @@
             <param name="minValue">Inclusive endpoint of the random generation range.</param>
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
         </member>
+        <member name="M:Towel.Statics.NextUniqueRollTracking``1(System.Int32,System.Int32,System.Int32,``0)">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <typeparam name="Random">The random to generation algorithm.</typeparam>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+        </member>
+        <member name="M:Towel.Statics.NextUniquePoolTracking``1(System.Int32,System.Int32,System.Int32,``0)">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <typeparam name="Random">The random to generation algorithm.</typeparam>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+        </member>
         <member name="M:Towel.Statics.TryParseRomanNumeral(System.String)">
             <summary>Attempts to parse a Roman Numeral <see cref="T:System.String"/> into an <see cref="T:System.Int32"/> value.</summary>
             <param name="string">The Roman Numeral <see cref="T:System.String"/> to parse into an <see cref="T:System.Int32"/> value.</param>
