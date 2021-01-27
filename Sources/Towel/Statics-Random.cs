@@ -117,7 +117,7 @@ namespace Towel
 			else
 			{
 #endif
-			// Algorithm B: O(.5*count^2), Ω(count), ε(.5*count^2)
+			// Algorithm: O(.5*count^2), Ω(count), ε(.5*count^2)
 			Node? head = null;
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
@@ -128,7 +128,7 @@ namespace Towel
 				}
 				Node? node = head;
 				Node? previous = null;
-				while (node is not null && node.Value <= roll) // O(count / 2), Ω(0), ε(count / 2)
+				while (node is not null && node.Value <= roll) // O(.5*count), Ω(0), ε(.5*count)
 				{
 					roll++;
 					previous = node;
@@ -182,7 +182,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
-			// Algorithm B: Θ(range + count)
+			// Algorithm: Θ(range + count)
 			int pool = maxValue - minValue;
 			Span<int> span =
 #if stackalloc
@@ -413,7 +413,8 @@ namespace Towel
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
-			SetHashLinked<int, IntEquate, IntHash> set = new(expectedCount: excluded.Length);
+			// Algorithm: Θ(range + count + 2*excluded.Length)
+			SetHashLinked<int, IntEquate, IntHash> set = new(expectedCount: excluded.Length); // Θ(excluded)
 			foreach (int value in excluded)
 			{
 				if (minValue <= value && value < maxValue)
@@ -437,7 +438,6 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
-			// Algorithm B: Θ(range + count)
 			int pool = maxValue - minValue - set.Count;
 			Span<int> span =
 #if stackalloc
@@ -447,7 +447,7 @@ namespace Towel
 				:
 #endif
 				new int[pool];
-			for (int i = 0, j = minValue; i < pool; j++) // Θ(range)
+			for (int i = 0, j = minValue; i < pool; j++) // Θ(range + excluded.Length)
 			{
 				if (!set.Contains(j))
 				{
@@ -591,16 +591,20 @@ namespace Towel
 			else
 			{
 #endif
-			// Algorithm B: O(.5*count^2), Ω(count), ε(.5*count^2)
+			// Algorithm B: O(.5*(count + excluded.Length)^2 + .5*excluded.Length^2), Ω(count + excluded.Length), ε(.5*(count + excluded.Length)^2 + .5*excluded.Length^2)
 			Node? head = null;
 			int excludeCount = 0;
-			foreach (int i in excluded)
+			foreach (int i in excluded) // Θ(excluded.Length)
 			{
+				if (i < minValue || i >= maxValue)
+				{
+					continue;
+				}
 				Node? node = head;
 				Node? previous = null;
-				while (node is not null && node.Value <= i) // O(count / 2), Ω(0), ε(count / 2)
+				while (node is not null && node.Value <= i) // O(.5*excluded.Length), Ω(0), ε(.5*excluded.Length)
 				{
-					if (node.Value == i || i < minValue || i >= maxValue)
+					if (node.Value == i)
 					{
 						goto Continue;
 					}
@@ -632,7 +636,7 @@ namespace Towel
 				}
 				Node? node = head;
 				Node? previous = null;
-				while (node is not null && node.Value <= roll) // O(count / 2), Ω(0), ε(count / 2)
+				while (node is not null && node.Value <= roll) // O(.5*(count + excluded.Length)), Ω(0), ε(.5*(count + excluded.Length))
 				{
 					roll++;
 					previous = node;
