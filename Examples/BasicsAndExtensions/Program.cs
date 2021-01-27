@@ -193,6 +193,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine($"    Random.NextDecimal(): {random.NextDecimal()}");
 				Console.WriteLine($"    Random.NextTimeSpan(): {random.NextTimeSpan()}");
 				Console.WriteLine($"    Random.NextUnique(5, 0, 100): {string.Join(", ", random.NextUnique(5, 0, 100))}");
+				Console.WriteLine($"    Random.NextUnique(5, 0, 100, excluded: {{ 50, 51, 52, 53 }}): {string.Join(", ", random.NextUnique(5, 0, 100, excluded: new[] { 50, 51, 52, 53 }))}");
 
 				var weightedNames = new (string Name, double Weight)[]
 				{
