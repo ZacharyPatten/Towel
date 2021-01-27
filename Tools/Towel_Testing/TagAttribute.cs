@@ -25,7 +25,7 @@ namespace Towel_Testing
 				BindingFlags.Static |
 				BindingFlags.Instance);
 			EventInfo eventInfo = typeof(ValueAttribute_Testing).GetEvent(nameof(Event));
-			ConstructorInfo constructorInfo = type.GetConstructor(new Type[] { });
+			ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>());
 			FieldInfo fieldInfo = typeof(A).GetField(nameof(A.Field),
 				BindingFlags.Public |
 				BindingFlags.NonPublic |
