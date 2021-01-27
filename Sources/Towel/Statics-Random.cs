@@ -237,7 +237,7 @@ namespace Towel
 		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <returns>The randomly generated values.</returns>
 		public static int[] NextUnique<Random>(int count, int minValue, int maxValue, Random random = default)
 			where Random : struct, IFunc<int, int, int>
@@ -302,7 +302,7 @@ namespace Towel
 		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <returns>The randomly generated values.</returns>
 		public static int[] NextUniqueRollTracking<Random>(int count, int minValue, int maxValue, Random random = default)
 			where Random : struct, IFunc<int, int, int>

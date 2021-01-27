@@ -2191,6 +2191,80 @@ namespace Towel_Testing
 
 		#endregion
 
+		#region ContainsDuplicates
+
+		[TestMethod] public void ContainsDuplicates_Testing()
+		{
+			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { }));
+			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { 0 }));
+			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { 1 }));
+			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { -1 }));
+			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { 0, 1 }));
+			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { -1, 0 }));
+			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { -1, 0, 1 }));
+		}
+
+		#endregion
+
+		#region Contains
+
+		[TestMethod] public void Contains_Testing()
+		{
+			{
+				Span<int> span = stackalloc int[] { };
+				Assert.IsFalse(Contains(span, -1));
+				Assert.IsFalse(Contains(stackalloc int[] { }, 0));
+				Assert.IsFalse(Contains(stackalloc int[] { }, 1));
+			}
+			{
+				Span<int> span = stackalloc int[] { 1, };
+				Assert.IsFalse(Contains(span, -1));
+				Assert.IsFalse(Contains(span, 0));
+				Assert.IsTrue(Contains(span, 1));
+				Assert.IsFalse(Contains(span, 2));
+			}
+			{
+				Span<int> span = stackalloc int[] { 1, 2, };
+				Assert.IsFalse(Contains(span, -1));
+				Assert.IsFalse(Contains(span, 0));
+				Assert.IsTrue(Contains(span, 1));
+				Assert.IsTrue(Contains(span, 2));
+				Assert.IsFalse(Contains(span, 3));
+			}
+			{
+				Span<int> span = stackalloc int[] { 1, 2, 3, };
+				Assert.IsFalse(Contains(span, -1));
+				Assert.IsFalse(Contains(span, 0));
+				Assert.IsTrue(Contains(span, 1));
+				Assert.IsTrue(Contains(span, 2));
+				Assert.IsTrue(Contains(span, 3));
+				Assert.IsFalse(Contains(span, 4));
+			}
+		}
+
+		#endregion
+
+		#region Any
+
+		[TestMethod] public void Any_Testing()
+		{
+			Assert.IsFalse(Any(stackalloc int[] { }, i => true));
+			Assert.IsFalse(Any(stackalloc int[] { }, i => false));
+
+			Assert.IsTrue(Any(stackalloc int[] { 0 }, i => true));
+			Assert.IsFalse(Any(stackalloc int[] { 0 }, i => false));
+			Assert.IsTrue(Any(stackalloc int[] { 0 }, i => i is 0));
+
+			Assert.IsTrue(Any(stackalloc int[] { 0, 1 }, i => true));
+			Assert.IsFalse(Any(stackalloc int[] { 0, 1 }, i => false));
+			Assert.IsFalse(Any(stackalloc int[] { 0, 1 }, i => i is -1));
+			Assert.IsTrue(Any(stackalloc int[] { 0, 1 }, i => i is 0));
+			Assert.IsTrue(Any(stackalloc int[] { 0, 1 }, i => i is 1));
+			Assert.IsFalse(Any(stackalloc int[] { 0, 1 }, i => i is 2));
+		}
+
+		#endregion
+
 		#region NextUniqueRollTracking
 
 		[TestMethod]
@@ -2217,21 +2291,21 @@ namespace Towel_Testing
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
 				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
-				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => -500; // 0, 0, 0, 0, 0
 				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
 				Assert.IsTrue(output.Length is 5);
-				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < -500 || i >= 0));
+				Assert.IsTrue(!Any<int>(output, i => i < -500 || i >= 0));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
 				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
-				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			// exceptions
@@ -2288,7 +2362,9 @@ namespace Towel_Testing
 						excluded: excludes);
 					Assert.IsTrue(output.Length is count);
 					Assert.IsTrue(!ContainsDuplicates<int>(output));
-					Assert.IsTrue(!System.Linq.Enumerable.Any(output, value => value < minValue || value >= maxValue || System.Linq.Enumerable.Contains(excludes, value)));
+					Assert.IsTrue(!Any<int>(output, value => value < minValue));
+					Assert.IsTrue(!Any<int>(output, value => value >= maxValue));
+					Assert.IsTrue(!Any<int>(output, value => Contains(excludes, value)));
 				}
 			}
 			// exceptions
@@ -2346,7 +2422,9 @@ namespace Towel_Testing
 						excluded: excludes);
 					Assert.IsTrue(output.Length is count);
 					Assert.IsTrue(!ContainsDuplicates<int>(output));
-					Assert.IsTrue(!System.Linq.Enumerable.Any(output, value => value < minValue || value >= maxValue || System.Linq.Enumerable.Contains(excludes, value)));
+					Assert.IsTrue(!Any<int>(output, value => value < minValue));
+					Assert.IsTrue(!Any<int>(output, value => value >= maxValue));
+					Assert.IsTrue(!Any<int>(output, value => Contains(excludes, value)));
 				}
 			}
 			// exceptions
@@ -2384,21 +2462,21 @@ namespace Towel_Testing
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
 				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
-				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
 				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
 				Assert.IsTrue(output.Length is 5);
-				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < -500 || i >= 0));
+				Assert.IsTrue(!Any<int>(output, i => i < -500 || i >= 0));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
 				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
-				Assert.IsTrue(!System.Linq.Enumerable.Any(output, i => i < 0 || i >= 500));
+				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			// exceptions

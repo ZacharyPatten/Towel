@@ -1409,9 +1409,23 @@ namespace Towel
 
 		#region ContainsDuplicates
 
+		/// <summary>Determines if the span contains any duplicate elements.</summary>
+		/// <typeparam name="T">The element type of the span.</typeparam>
+		/// <param name="span">The span to look for duplicates in.</param>
+		/// <param name="equate">The function for equating elements.</param>
+		/// <param name="hash">The function for hashing elements.</param>
+		/// <returns>True if the span contains duplicates.</returns>
 		public static bool ContainsDuplicates<T>(Span<T> span, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
 			ContainsDuplicates<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>>(span, equate ?? Statics.Equate, hash ?? DefaultHash);
 
+		/// <summary>Determines if the span contains any duplicate elements.</summary>
+		/// <typeparam name="T">The element type of the span.</typeparam>
+		/// <typeparam name="Equate">The function for equating elements.</typeparam>
+		/// <typeparam name="Hash">The function for hashing elements.</typeparam>
+		/// <param name="span">The span to look for duplicates in.</param>
+		/// <param name="equate">The function for equating elements.</param>
+		/// <param name="hash">The function for hashing elements.</param>
+		/// <returns>True if the span contains duplicates.</returns>
 		public static bool ContainsDuplicates<T, Equate, Hash>(Span<T> span, Equate equate = default, Hash hash = default)
 			where Equate : struct, IFunc<T, T, bool>
 			where Hash : struct, IFunc<T, int>
@@ -1423,6 +1437,76 @@ namespace Towel
 			foreach (T element in span)
 			{
 				if (!set.TryAdd(element))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		#endregion
+
+		#region Contains
+
+		/// <summary>Determines if a span contains a value.</summary>
+		/// <typeparam name="T">The element type of the span.</typeparam>
+		/// <param name="span">The span to check for the value in.</param>
+		/// <param name="value">The value to look for.</param>
+		/// <param name="equate">The function for equating elements.</param>
+		/// <returns>True if the value was found.</returns>
+		public static bool Contains<T>(Span<T> span, T value, Func<T, T, bool>? equate = null) =>
+			Contains<T, FuncRuntime<T, T, bool>>(span, value, equate ?? Statics.Equate);
+
+		/// <summary>Determines if a span contains a value.</summary>
+		/// <typeparam name="T">The element type of the span.</typeparam>
+		/// <typeparam name="Equate">The function for equating elements.</typeparam>
+		/// <param name="span">The span to check for the value in.</param>
+		/// <param name="value">The value to look for.</param>
+		/// <param name="equate">The function for equating elements.</param>
+		/// <returns>True if the value was found.</returns>
+		public static bool Contains<T, Equate>(Span<T> span, T value, Equate equate = default)
+			where Equate : struct, IFunc<T, T, bool>
+		{
+			foreach (T element in span)
+			{
+				if (equate.Do(value, element))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		#endregion
+
+		#region Any
+
+		/// <summary>Determines if a span contains any predicated values.</summary>
+		/// <typeparam name="T">The element type of the span.</typeparam>
+		/// <param name="span">The span to scan for predicated values in.</param>
+		/// <param name="predicate">The predicate of the elements.</param>
+		/// <returns>True if a predicated was found.</returns>
+		public static bool Any<T>(Span<T> span, Func<T, bool> predicate)
+		{
+			if (predicate is null)
+			{
+				throw new ArgumentNullException(nameof(predicate));
+			}
+			return Any<T, FuncRuntime<T, bool>>(span, predicate);
+		}
+
+		/// <summary>Determines if a span contains a value.</summary>
+		/// <typeparam name="T">The element type of the span.</typeparam>
+		/// <typeparam name="Predicate">The function for equating elements.</typeparam>
+		/// <param name="span">The span to check for the value in.</param>
+		/// <param name="predicate">The value to look for.</param>
+		/// <returns>True if a predicated was found.</returns>
+		public static bool Any<T, Predicate>(Span<T> span, Predicate predicate = default)
+			where Predicate : struct, IFunc<T, bool>
+		{
+			foreach (T element in span)
+			{
+				if (predicate.Do(element))
 				{
 					return true;
 				}

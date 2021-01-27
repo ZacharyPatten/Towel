@@ -15182,6 +15182,19 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <returns>The randomly generated values.</returns>
         </member>
+        <member name="M:Towel.Extensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32})">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <param name="excluded">Values that should be excluded during generation.</param>
+            <returns>The randomly generated values.</returns>
+        </member>
         <member name="M:Towel.Extensions.NextUnique``1(System.Random,System.Int32,System.Int32,System.Int32,``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
@@ -30251,6 +30264,21 @@
             <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
             <param name="minValue">Inclusive endpoint of the random generation range.</param>
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <returns>The randomly generated values.</returns>
+        </member>
+        <member name="M:Towel.Statics.NextUnique``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <typeparam name="Random">The random to generation algorithm.</typeparam>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <param name="excluded">Values that should be excluded during generation.</param>
+            <returns>The randomly generated values.</returns>
         </member>
         <member name="M:Towel.Statics.NextUniqueRollTracking``1(System.Int32,System.Int32,System.Int32,``0)">
             <summary>
@@ -30263,6 +30291,7 @@
             <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
             <param name="minValue">Inclusive endpoint of the random generation range.</param>
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <returns>The randomly generated values.</returns>
         </member>
         <member name="M:Towel.Statics.NextUniquePoolTracking``1(System.Int32,System.Int32,System.Int32,``0)">
             <summary>
@@ -30275,6 +30304,65 @@
             <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
             <param name="minValue">Inclusive endpoint of the random generation range.</param>
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <returns>The randomly generated values.</returns>
+        </member>
+        <member name="M:Towel.Statics.NextUniquePoolTracking``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <typeparam name="Random">The random to generation algorithm.</typeparam>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <param name="excluded">Values that should be excluded during generation.</param>
+            <returns>The randomly generated values.</returns>
+        </member>
+        <member name="M:Towel.Statics.NextUniquePoolTracking``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <typeparam name="Step">The function to perform on each generated <see cref="T:System.Int32"/> value.</typeparam>
+            <typeparam name="Random">The random to generation algorithm.</typeparam>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
+            <param name="excluded">Values that should be excluded during generation.</param>
+        </member>
+        <member name="M:Towel.Statics.NextUniqueRollTracking``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <typeparam name="Random">The random to generation algorithm.</typeparam>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <param name="excluded">Values that should be excluded during generation.</param>
+            <returns>The randomly generated values.</returns>
+        </member>
+        <member name="M:Towel.Statics.NextUniqueRollTracking``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+            <summary>
+            Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
+            [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+            inclusive and <paramref name="maxValue"/> is exclusive.
+            </summary>
+            <typeparam name="Step">The function to perform on each generated <see cref="T:System.Int32"/> value.</typeparam>
+            <typeparam name="Random">The random to generation algorithm.</typeparam>
+            <param name="random">The random to generation algorithm.</param>
+            <param name="count">The number of <see cref="T:System.Int32"/> values to generate.</param>
+            <param name="minValue">Inclusive endpoint of the random generation range.</param>
+            <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+            <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
+            <param name="excluded">Values that should be excluded during generation.</param>
         </member>
         <member name="M:Towel.Statics.TryParseRomanNumeral(System.String)">
             <summary>Attempts to parse a Roman Numeral <see cref="T:System.String"/> into an <see cref="T:System.Int32"/> value.</summary>
@@ -30940,6 +31028,56 @@
             <param name="equate">The function for determining equality of elements.</param>
             <param name="hash">The function for hashing the elements.</param>
             <returns>True if neither span contains an element the other does not.</returns>
+        </member>
+        <member name="M:Towel.Statics.ContainsDuplicates``1(System.Span{``0},System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Determines if the span contains any duplicate elements.</summary>
+            <typeparam name="T">The element type of the span.</typeparam>
+            <param name="span">The span to look for duplicates in.</param>
+            <param name="equate">The function for equating elements.</param>
+            <param name="hash">The function for hashing elements.</param>
+            <returns>True if the span contains duplicates.</returns>
+        </member>
+        <member name="M:Towel.Statics.ContainsDuplicates``3(System.Span{``0},``1,``2)">
+            <summary>Determines if the span contains any duplicate elements.</summary>
+            <typeparam name="T">The element type of the span.</typeparam>
+            <typeparam name="Equate">The function for equating elements.</typeparam>
+            <typeparam name="Hash">The function for hashing elements.</typeparam>
+            <param name="span">The span to look for duplicates in.</param>
+            <param name="equate">The function for equating elements.</param>
+            <param name="hash">The function for hashing elements.</param>
+            <returns>True if the span contains duplicates.</returns>
+        </member>
+        <member name="M:Towel.Statics.Contains``1(System.Span{``0},``0,System.Func{``0,``0,System.Boolean})">
+            <summary>Determines if a span contains a value.</summary>
+            <typeparam name="T">The element type of the span.</typeparam>
+            <param name="span">The span to check for the value in.</param>
+            <param name="value">The value to look for.</param>
+            <param name="equate">The function for equating elements.</param>
+            <returns>True if the value was found.</returns>
+        </member>
+        <member name="M:Towel.Statics.Contains``2(System.Span{``0},``0,``1)">
+            <summary>Determines if a span contains a value.</summary>
+            <typeparam name="T">The element type of the span.</typeparam>
+            <typeparam name="Equate">The function for equating elements.</typeparam>
+            <param name="span">The span to check for the value in.</param>
+            <param name="value">The value to look for.</param>
+            <param name="equate">The function for equating elements.</param>
+            <returns>True if the value was found.</returns>
+        </member>
+        <member name="M:Towel.Statics.Any``1(System.Span{``0},System.Func{``0,System.Boolean})">
+            <summary>Determines if a span contains any predicated values.</summary>
+            <typeparam name="T">The element type of the span.</typeparam>
+            <param name="span">The span to scan for predicated values in.</param>
+            <param name="predicate">The predicate of the elements.</param>
+            <returns>True if a predicated was found.</returns>
+        </member>
+        <member name="M:Towel.Statics.Any``2(System.Span{``0},``1)">
+            <summary>Determines if a span contains a value.</summary>
+            <typeparam name="T">The element type of the span.</typeparam>
+            <typeparam name="Predicate">The function for equating elements.</typeparam>
+            <param name="span">The span to check for the value in.</param>
+            <param name="predicate">The value to look for.</param>
+            <returns>True if a predicated was found.</returns>
         </member>
         <member name="M:Towel.Statics.Shuffle_XML">
             <summary>
