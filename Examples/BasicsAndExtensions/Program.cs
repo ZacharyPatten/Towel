@@ -192,6 +192,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine($"    Random.NextChar('a', 'z'): {random.NextChar('a', 'z')}");
 				Console.WriteLine($"    Random.NextDecimal(): {random.NextDecimal()}");
 				Console.WriteLine($"    Random.NextTimeSpan(): {random.NextTimeSpan()}");
+				Console.WriteLine($"    Random.Next(5, 0, 100, excluded: {{ 50, 51, 52, 53 }}): {string.Join(", ", random.Next(5, 0, 100, excluded: new[] { 50, 51, 52, 53 }))}");
 				Console.WriteLine($"    Random.NextUnique(5, 0, 100): {string.Join(", ", random.NextUnique(5, 0, 100))}");
 				Console.WriteLine($"    Random.NextUnique(5, 0, 100, excluded: {{ 50, 51, 52, 53 }}): {string.Join(", ", random.NextUnique(5, 0, 100, excluded: new[] { 50, 51, 52, 53 }))}");
 
