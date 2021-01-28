@@ -275,6 +275,20 @@ namespace Towel
 			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 		/// <summary>
+		/// Generates <paramref name="count"/> random <see cref="int"/> values in the
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
+		/// </summary>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="excluded">Values that should be excluded during generation.</param>
+		/// <returns>The randomly generated values.</returns>
+		public static int[] Next(this Random random, int count, int minValue, int maxValue, Span<int> excluded) =>
+			Statics.Next<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+
+		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
 		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
 		/// inclusive and <paramref name="maxValue"/> is exclusive.
@@ -288,6 +302,22 @@ namespace Towel
 		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int> =>
 			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
+
+		/// <summary>
+		/// Generates <paramref name="count"/> random <see cref="int"/> values in the
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
+		/// </summary>
+		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		/// <param name="excluded">Values that should be excluded during generation.</param>
+		public static void Next<Step>(this Random random, int count, int minValue, int maxValue, Span<int> excluded, Step step = default)
+			where Step : struct, IAction<int> =>
+			Next<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
 		/// <summary>
 		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
@@ -438,6 +468,46 @@ namespace Towel
 				throw new ArgumentNullException(nameof(step));
 			}
 			NextUnique<ActionRuntime<int>>(random, count, minValue, maxValue, step);
+		}
+
+		/// <summary>
+		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
+		/// </summary>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		/// <param name="excluded">Values that should be excluded during generation.</param>
+		public static void NextUnique(this Random random, int count, int minValue, int maxValue, Span<int> excluded, Action<int> step)
+		{
+			if (step is null)
+			{
+				throw new ArgumentNullException(nameof(step));
+			}
+			NextUnique<ActionRuntime<int>>(random, count, minValue, maxValue, excluded, step);
+		}
+
+		/// <summary>
+		/// Generates <paramref name="count"/> random <see cref="int"/> values in the
+		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
+		/// inclusive and <paramref name="maxValue"/> is exclusive.
+		/// </summary>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
+		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
+		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		/// <param name="excluded">Values that should be excluded during generation.</param>
+		public static void Next(this Random random, int count, int minValue, int maxValue, Span<int> excluded, Action<int> step)
+		{
+			if (step is null)
+			{
+				throw new ArgumentNullException(nameof(step));
+			}
+			Next<ActionRuntime<int>>(random, count, minValue, maxValue, excluded, step);
 		}
 
 		/// <summary>Chooses an item at random (all equally weighted).</summary>
