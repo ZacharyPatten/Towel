@@ -532,7 +532,7 @@ namespace Towel
 			{
 				if (minValue <= value && value < maxValue)
 				{
-					set.TryAdd(value);
+					set.TryAdd(value, out _);
 				}
 			}
 			if (maxValue - minValue - set.Count < count)
@@ -872,7 +872,7 @@ namespace Towel
 			{
 				if (minValue <= value && value < maxValue)
 				{
-					set.TryAdd(value);
+					set.TryAdd(value, out _);
 				}
 			}
 			if (set.Count >= maxValue - minValue)
