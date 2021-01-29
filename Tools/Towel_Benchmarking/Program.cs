@@ -35,6 +35,7 @@ namespace Towel_Benchmarking
 			typeof(MapVsDictionary_Add),
 			typeof(MapVsDictionary_LookUp),
 			typeof(SpanVsArraySorting),
+			typeof(RandomWithExclusions),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>

@@ -5,6 +5,27 @@ namespace Towel
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics
 	{
+		internal struct FillArray<T> : IAction<T>
+		{
+			int Index;
+			T[] Array;
+
+			public void Do(T arg1) => Array[Index++] = arg1;
+
+			public static implicit operator FillArray<T>(T[] array) =>
+				new FillArray<T>() { Array = array, };
+		}
+
+		public struct IntHash : IFunc<int, int>
+		{
+			public int Do(int a) => a;
+		}
+
+		public struct IntEquate : IFunc<int, int, bool>
+		{
+			public bool Do(int a, int b) => a == b;
+		}
+
 		/// <summary>Default int compare.</summary>
 		public struct IntCompare : IFunc<int, int, CompareResult>
 		{
