@@ -845,7 +845,9 @@ decimal NextDecimal(this Random random);
 DateTime DateTime(this Random random);
 TimeSpan TimeSpan(this Random random);
 long NextLong(this Random random);
-IEnumerable<int> NextUnique(this Random random, int count, int minValue, int maxValue); // unique values
+int[] Next(this Random random, int count, int minValue, int maxValue, Span<T> excluded); // with exclusions
+int[] NextUnique(this Random random, int count, int minValue, int maxValue); // unique values
+int[] NextUnique(this Random random, int count, int minValue, int maxValue, Span<T> excluded); // unique values with exclusions
 T Next<T>(this Random random, IEnumerable<(T Value, double Weight)> pool); // weighted values
 void Shuffle<T>(this Random random, T[] array); // randomize arrays
 
