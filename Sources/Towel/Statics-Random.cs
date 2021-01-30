@@ -78,7 +78,7 @@ namespace Towel
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
-			if (count < Math.Sqrt(maxValue - minValue))
+			if (count + excluded.Length < Math.Sqrt(maxValue - minValue))
 			{
 				NextUniqueRollTracking(count, minValue, maxValue, excluded, random, step);
 			}
