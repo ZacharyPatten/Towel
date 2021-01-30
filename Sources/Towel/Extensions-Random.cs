@@ -247,268 +247,134 @@ namespace Towel
 			return TimeSpan.FromTicks(min.Ticks + randomLong);
 		}
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue) =>
-			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
+		#region Next (with exclusions)
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		/// <inheritdoc cref="Statics.Next{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"/>
+		public static void Next(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
+			Statics.Next<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
 
-		/// <summary>
-		/// Generates <paramref name="count"/> random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		/// <returns>The randomly generated values.</returns>
+		/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
+		public static void NextRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
+			Statics.NextRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+
+		/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
+		public static void NextPoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
+			Statics.NextPoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+
+		/// <inheritdoc cref="Statics.Next{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
 		public static int[] Next(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
 			Statics.Next<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
+		/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int})"/>
+		public static int[] NextRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
+			Statics.NextRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
-		/// <summary>
-		/// Generates <paramref name="count"/> random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
+		/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int})"/>
+		public static int[] NextPoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
+			Statics.NextPoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+
+		/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
 		public static void Next<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
 			where Step : struct, IAction<int> =>
 			Next<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
+		/// <inheritdoc cref="Next{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
+		public static void NextRollTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
 			where Step : struct, IAction<int> =>
-			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+			NextRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-			Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		/// <inheritdoc cref="Next{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
+		public static void NextPoolTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
+			where Step : struct, IAction<int> =>
+			NextPoolTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <returns>The randomly generated values.</returns>
+		#endregion
+
+		#region NextUnique
+
+		/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, Action{int}, Random)"/>
+		public static void NextUnique(this Random random, int count, int minValue, int maxValue, Action<int> step) =>
+			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique(Random, int, int, int, Action{int})"/>
+		public static void NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue, Action<int> step) =>
+			Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique(Random, int, int, int, Action{int})"/>
+		public static void NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue, Action<int> step) =>
+			Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
+
+		/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, Random)"/>
+		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue) =>
+			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique(Random, int, int, int)"/>
 		public static int[] NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue) =>
 			Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		/// <inheritdoc cref="NextUnique(Random, int, int, int)"/>
+		public static int[] NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue) =>
+			Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"/>
+		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
+			where Step : struct, IAction<int> =>
+			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
+
+		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, Step)"/>
 		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int> =>
 			NextUniqueRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUniqueRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
-
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue) =>
-			Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
-
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
+		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, Step)"/>
 		public static void NextUniquePoolTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
 			where Step : struct, IAction<int> =>
 			NextUniquePoolTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		/// <returns>The randomly generated values.</returns>
+		#endregion
+
+		#region NextUnique (with exclusions)
+
+		/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"/>
+		public static void NextUnique(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
+			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
+		public static void NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
+			Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
+		public static void NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
+			Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+
+		/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
+		public static int[] NextUnique(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
+			Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int})"/>
+		public static int[] NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
+			Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+
+		/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int})"/>
 		public static int[] NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
 			Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
+		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
+		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
+			where Step : struct, IAction<int> =>
+			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+
+		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
+		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
+			where Step : struct, IAction<int> =>
+			NextUniqueRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+
+		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
 		public static void NextUniquePoolTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
 			where Step : struct, IAction<int> =>
 			NextUniquePoolTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		public static void NextUnique(this Random random, int count, int minValue, int maxValue, Action<int> step)
-		{
-			if (step is null)
-			{
-				throw new ArgumentNullException(nameof(step));
-			}
-			NextUnique<ActionRuntime<int>>(random, count, minValue, maxValue, step);
-		}
-
-		/// <summary>
-		/// Generates <paramref name="count"/> unique random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextUnique(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step)
-		{
-			if (step is null)
-			{
-				throw new ArgumentNullException(nameof(step));
-			}
-			NextUnique<ActionRuntime<int>>(random, count, minValue, maxValue, excluded, step);
-		}
-
-		/// <summary>
-		/// Generates <paramref name="count"/> random <see cref="int"/> values in the
-		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
-		/// inclusive and <paramref name="maxValue"/> is exclusive.
-		/// </summary>
-		/// <param name="random">The random to generation algorithm.</param>
-		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
-		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
-		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void Next(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step)
-		{
-			if (step is null)
-			{
-				throw new ArgumentNullException(nameof(step));
-			}
-			Next<ActionRuntime<int>>(random, count, minValue, maxValue, excluded, step);
-		}
+		#endregion
 
 		/// <summary>Chooses an item at random (all equally weighted).</summary>
 		/// <typeparam name="T">The generic type of the items to choose from.</typeparam>
@@ -524,6 +390,16 @@ namespace Towel
 			if (values.Length < 1)
 			{
 				throw new ArgumentException($"{nameof(values)}.{nameof(values.Length)} < 1");
+			}
+			return values[random.Next(values.Length)];
+		}
+
+		/// <inheritdoc cref="Choose{T}(Random, T[])"/>
+		public static T Choose<T>(this Random random, Span<T> values)
+		{
+			if (values.IsEmpty)
+			{
+				throw new ArgumentException($"{nameof(values)}.{nameof(values.IsEmpty)}", nameof(values));
 			}
 			return values[random.Next(values.Length)];
 		}
