@@ -47,7 +47,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void Next<Step, Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default, Step step = default)
+		public static void Next<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
@@ -74,11 +74,11 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextUnique<Step, Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default, Step step = default)
+		public static void NextUnique<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
-			if (count < Math.Sqrt(maxValue - minValue))
+			if (count + excluded.Length < Math.Sqrt(maxValue - minValue))
 			{
 				NextUniqueRollTracking(count, minValue, maxValue, excluded, random, step);
 			}
@@ -298,7 +298,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUnique<Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default)
+		public static int[] NextUnique<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
@@ -330,7 +330,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] Next<Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default)
+		public static int[] Next<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
@@ -421,7 +421,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUniquePoolTracking<Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default)
+		public static int[] NextUniquePoolTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
@@ -459,7 +459,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] NextPoolTracking<Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default)
+		public static int[] NextPoolTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
@@ -493,7 +493,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] NextRollTracking<Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default)
+		public static int[] NextRollTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
@@ -522,7 +522,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextUniquePoolTracking<Step, Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default, Step step = default)
+		public static void NextUniquePoolTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
@@ -592,7 +592,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUniqueRollTracking<Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default)
+		public static int[] NextUniqueRollTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
 			where Random : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
@@ -625,7 +625,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextUniqueRollTracking<Step, Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default, Step step = default)
+		public static void NextUniqueRollTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
@@ -776,7 +776,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextRollTracking<Step, Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default, Step step = default)
+		public static void NextRollTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
@@ -854,7 +854,7 @@ namespace Towel
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
-		public static void NextPoolTracking<Step, Random>(int count, int minValue, int maxValue, Span<int> excluded, Random random = default, Step step = default)
+		public static void NextPoolTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{

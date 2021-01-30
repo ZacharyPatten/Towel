@@ -15182,7 +15182,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Extensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32})">
+        <member name="M:Towel.Extensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32})">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15195,7 +15195,7 @@
             <param name="excluded">Values that should be excluded during generation.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Extensions.Next(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32})">
+        <member name="M:Towel.Extensions.Next(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32})">
             <summary>
             Generates <paramref name="count"/> random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15221,7 +15221,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.Extensions.Next``1(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Extensions.Next``1(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15235,7 +15235,7 @@
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
             <param name="excluded">Values that should be excluded during generation.</param>
         </member>
-        <member name="M:Towel.Extensions.NextUnique``1(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Extensions.NextUnique``1(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15249,7 +15249,7 @@
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
             <param name="excluded">Values that should be excluded during generation.</param>
         </member>
-        <member name="M:Towel.Extensions.NextUniqueRollTracking(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32})">
+        <member name="M:Towel.Extensions.NextUniqueRollTracking(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32})">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15287,7 +15287,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.Extensions.NextUniqueRollTracking``1(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Extensions.NextUniqueRollTracking``1(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15326,7 +15326,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.Extensions.NextUniquePoolTracking(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32})">
+        <member name="M:Towel.Extensions.NextUniquePoolTracking(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32})">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15339,7 +15339,7 @@
             <param name="excluded">Values that should be excluded during generation.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Extensions.NextUniquePoolTracking``1(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Extensions.NextUniquePoolTracking``1(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15365,7 +15365,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.Extensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32},System.Action{System.Int32})">
+        <member name="M:Towel.Extensions.NextUnique(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},System.Action{System.Int32})">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -15378,7 +15378,7 @@
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
             <param name="excluded">Values that should be excluded during generation.</param>
         </member>
-        <member name="M:Towel.Extensions.Next(System.Random,System.Int32,System.Int32,System.Int32,System.Span{System.Int32},System.Action{System.Int32})">
+        <member name="M:Towel.Extensions.Next(System.Random,System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},System.Action{System.Int32})">
             <summary>
             Generates <paramref name="count"/> random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30250,7 +30250,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
         </member>
-        <member name="M:Towel.Statics.Next``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+        <member name="M:Towel.Statics.Next``2(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``1,``0)">
             <summary>
             Generates <paramref name="count"/> random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30265,7 +30265,7 @@
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
             <param name="excluded">Values that should be excluded during generation.</param>
         </member>
-        <member name="M:Towel.Statics.NextUnique``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+        <member name="M:Towel.Statics.NextUnique``2(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``1,``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30334,7 +30334,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Statics.NextUnique``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Statics.NextUnique``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30348,7 +30348,7 @@
             <param name="excluded">Values that should be excluded during generation.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Statics.Next``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Statics.Next``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30388,7 +30388,7 @@
             <param name="maxValue">Exclusive endpoint of the random generation range.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Statics.NextUniquePoolTracking``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Statics.NextUniquePoolTracking``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30402,7 +30402,7 @@
             <param name="excluded">Values that should be excluded during generation.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Statics.NextPoolTracking``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Statics.NextPoolTracking``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30416,7 +30416,7 @@
             <param name="excluded">Values that should be excluded during generation.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Statics.NextRollTracking``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Statics.NextRollTracking``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30430,7 +30430,7 @@
             <param name="excluded">Values that should be excluded during generation.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Statics.NextUniquePoolTracking``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+        <member name="M:Towel.Statics.NextUniquePoolTracking``2(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``1,``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30445,7 +30445,7 @@
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
             <param name="excluded">Values that should be excluded during generation.</param>
         </member>
-        <member name="M:Towel.Statics.NextUniqueRollTracking``1(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``0)">
+        <member name="M:Towel.Statics.NextUniqueRollTracking``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30459,7 +30459,7 @@
             <param name="excluded">Values that should be excluded during generation.</param>
             <returns>The randomly generated values.</returns>
         </member>
-        <member name="M:Towel.Statics.NextUniqueRollTracking``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+        <member name="M:Towel.Statics.NextUniqueRollTracking``2(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``1,``0)">
             <summary>
             Generates <paramref name="count"/> unique random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30474,7 +30474,7 @@
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
             <param name="excluded">Values that should be excluded during generation.</param>
         </member>
-        <member name="M:Towel.Statics.NextRollTracking``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+        <member name="M:Towel.Statics.NextRollTracking``2(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``1,``0)">
             <summary>
             Generates <paramref name="count"/> random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
@@ -30489,7 +30489,7 @@
             <param name="step">The function to perform on each generated <see cref="T:System.Int32"/> value.</param>
             <param name="excluded">Values that should be excluded during generation.</param>
         </member>
-        <member name="M:Towel.Statics.NextPoolTracking``2(System.Int32,System.Int32,System.Int32,System.Span{System.Int32},``1,``0)">
+        <member name="M:Towel.Statics.NextPoolTracking``2(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``1,``0)">
             <summary>
             Generates <paramref name="count"/> random <see cref="T:System.Int32"/> values in the
             [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
