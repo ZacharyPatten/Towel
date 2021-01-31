@@ -127,7 +127,7 @@ namespace Towel
 			}
 			if (set.Count >= maxValue - minValue)
 			{
-				throw new ArgumentException($"{nameof(excluded)}.{nameof(excluded.Length)} >= {nameof(count)}");
+				throw new ArgumentException($"{nameof(excluded)}.{nameof(excluded.Length)} >= {nameof(maxValue)} - {nameof(minValue)}");
 			}
 			int pool = maxValue - minValue - set.Count;
 			Span<int> span = new int[pool];
