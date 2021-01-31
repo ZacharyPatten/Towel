@@ -13,14 +13,14 @@ namespace Towel_Benchmarking
 		public int MinValue;
 		[Params(10, 100, 1000, 10000, 100000, 1000000)]
 		public int MaxValue;
-		[Params(.01, .1, .25, .5)]
-		public double CountRatio;
-		[Params("1: sqrt(sqrt(range))", "2: .5*sqrt(range)", "3: sqrt(range)", "4: 2*sqrt(range)", "5: .5*range")]
+		[Params("1: sqrt(sqrt(range))", "2: .5*sqrt(range)", "3: sqrt(range)", "4: 2*sqrt(range)")]
+		public string Count;
+		[Params("1: sqrt(sqrt(range))", "2: .5*sqrt(range)", "3: sqrt(range)", "4: 2*sqrt(range)")]
 		public string Exclued;
 
 		Random Random;
 		int[] Excludes;
-		int Count;
+		int CountInt;
 		int[] temp;
 
 		[IterationSetup]
@@ -30,20 +30,26 @@ namespace Towel_Benchmarking
 			int excludeCount = Exclued switch
 			{
 				"1: sqrt(sqrt(range))" => (int)(Math.Sqrt(Math.Sqrt(MaxValue - MinValue))),
-				"2: .5*sqrt(range)" =>    (int)(.5*Math.Sqrt(MaxValue - MinValue)),
+				"2: .5*sqrt(range)" =>    (int)(.5 * Math.Sqrt(MaxValue - MinValue)),
 				"3: sqrt(range)" =>       (int)(Math.Sqrt(MaxValue - MinValue)),
 				"4: 2*sqrt(range)" =>     (int)(2 * Math.Sqrt(MaxValue - MinValue)),
-				"5: .5*range" =>          (int)(.5 * (MaxValue - MinValue)),
 				_ => throw new NotImplementedException(),
 			};
 			Excludes = Random.NextUnique(excludeCount, MinValue, MaxValue);
-			Count = (int)(CountRatio * (MaxValue - MinValue));
+			CountInt = Count switch
+			{
+				"1: sqrt(sqrt(range))" => (int)(Math.Sqrt(Math.Sqrt(MaxValue - MinValue))),
+				"2: .5*sqrt(range)" => (int)(.5 * Math.Sqrt(MaxValue - MinValue)),
+				"3: sqrt(range)" => (int)(Math.Sqrt(MaxValue - MinValue)),
+				"4: 2*sqrt(range)" => (int)(2 * Math.Sqrt(MaxValue - MinValue)),
+				_ => throw new NotImplementedException(),
+			};
 		}
 
 		[Benchmark]
 		public void Towel()
 		{
-			int[] result = Random.Next(Count, MinValue, MaxValue, Excludes);
+			int[] result = Random.Next(CountInt, MinValue, MaxValue, Excludes);
 			temp = result;
 		}
 
@@ -66,8 +72,8 @@ namespace Towel_Benchmarking
 					pool[i++] = value;
 				}
 			}
-			int[] result = new int[Count];
-			for (int i = 0; i < Count; i++)
+			int[] result = new int[CountInt];
+			for (int i = 0; i < CountInt; i++)
 			{
 				int index = Random.Next(0, pool.Length);
 				result[i] = pool[index];
@@ -94,8 +100,8 @@ namespace Towel_Benchmarking
 					pool[i++] = value;
 				}
 			}
-			int[] result = new int[Count];
-			for (int i = 0; i < Count; i++)
+			int[] result = new int[CountInt];
+			for (int i = 0; i < CountInt; i++)
 			{
 				int index = Random.Next(0, pool.Length);
 				result[i] = pool[index];
@@ -144,7 +150,7 @@ namespace Towel_Benchmarking
 			}
 			System.Collections.Generic.HashSet<int> exclude = new(Excludes);
 			System.Collections.Generic.IEnumerable<int> range = Enumerable.Range(MinValue, MaxValue).Where(i => !exclude.Contains(i));
-			int[] result = Enumerable.Range(0, Count).Select(i => range.ElementAt(Random.Next(range.Count()))).ToArray();
+			int[] result = Enumerable.Range(0, CountInt).Select(i => range.ElementAt(Random.Next(range.Count()))).ToArray();
 			temp = result;
 		}
 	}

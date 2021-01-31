@@ -39,10 +39,9 @@ namespace Towel_Benchmarking
 		};
 
 		/// <summary>Runs the benchmarks.</summary>
-		/// <param name="updateDocumentation">Whether or not to update the </param>
-#pragma warning disable IDE1006 // Naming Styles
+		/// <param name="updateDocumentation">Whether or not to update the docfx documentation.</param>
+		/// <param name="documentationPath">The path to the docfx documentation file.</param>
 		[Command] public static void run(
-#pragma warning restore IDE1006 // Naming Styles
 			bool updateDocumentation = false,
 			string documentationPath = null)
 		{

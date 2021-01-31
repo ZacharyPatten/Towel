@@ -61,8 +61,10 @@ namespace Towel_Benchmarking
 
 				return new Person[][]
 				{
+					GenerateData(10),
 					GenerateData(100),
-					GenerateData(100000),
+					GenerateData(1000),
+					GenerateData(10000),
 				};
 			}
 		}

@@ -27,7 +27,7 @@ namespace Towel
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
 		{
-			if (excluded.Length < Math.Sqrt(maxValue - minValue))
+			if (count * excluded.Length + .5 * Math.Pow(excluded.Length, 2) < (maxValue - minValue) + count + 2 * excluded.Length)
 			{
 				NextRollTracking(count, minValue, maxValue, excluded, random, step);
 			}
@@ -50,7 +50,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			// Algorithm B: O(.5*(count + excluded.Length)^2 + .5*excluded.Length^2), Ω(count + excluded.Length), ε(.5*(count + excluded.Length)^2 + .5*excluded.Length^2)
+			// Algorithm B: O(count * excluded.Length + .5*excluded.Length^2)
 			Node<int>? head = null;
 			int excludeCount = 0;
 			foreach (int i in excluded) // Θ(excluded.Length)
@@ -94,7 +94,7 @@ namespace Towel
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
 				Node<int>? node = head;
-				while (node is not null && node.Value <= roll) // O(.5*(count + excluded.Length)), Ω(0), ε(.5*(count + excluded.Length))
+				while (node is not null && node.Value <= roll) // O(excluded.Length), Ω(0)
 				{
 					roll++;
 					node = node.Next;
