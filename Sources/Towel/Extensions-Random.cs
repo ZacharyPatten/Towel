@@ -161,13 +161,12 @@ namespace Towel
 		/// <summary>Generates a random <see cref="decimal"/> value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated <see cref="decimal"/> value.</returns>
-		public static decimal NextDecimal(this Random random) =>
-			new decimal(
-				random.Next(int.MinValue, int.MaxValue),
-				random.Next(int.MinValue, int.MaxValue),
-				random.Next(int.MinValue, int.MaxValue),
-				random.NextBool(),
-				(byte)random.Next(29));
+		public static decimal NextDecimal(this Random random) => new(
+			random.Next(int.MinValue, int.MaxValue),
+			random.Next(int.MinValue, int.MaxValue),
+			random.Next(int.MinValue, int.MaxValue),
+			random.NextBool(),
+			(byte)random.Next(29));
 
 		/// <summary>Generates a random <see cref="decimal"/> value.</summary>
 		/// <param name="random">The random generation algorithm.</param>

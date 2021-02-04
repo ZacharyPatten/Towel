@@ -26,6 +26,8 @@ namespace Towel
 		internal static bool _negative4OverPiSquared_assigned;
 		internal static bool _negative4OverπSquared_assigned;
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+
 		internal static T _zero;
 		internal static T _one;
 		internal static T _two;
@@ -41,6 +43,8 @@ namespace Towel
 		internal static T _fourOverπSquared;
 		internal static T _negative4OverPiSquared;
 		internal static T _negative4OverπSquared;
+
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
 		/// <summary>Zero [0]</summary>
 		public static T Zero

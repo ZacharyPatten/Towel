@@ -69,7 +69,7 @@ namespace Towel
 		/// <typeparam name="T">The type of object to deserialize.</typeparam>
 		/// <param name="string">The string containing the XML content to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		public static T DefaultFromXml<T>(string @string)
+		public static T? DefaultFromXml<T>(string @string)
 		{
 			using StringReader stringReader = new StringReader(@string);
 			return DefaultFromXml<T>(stringReader);
@@ -79,10 +79,10 @@ namespace Towel
 		/// <typeparam name="T">The type of object to deserialize.</typeparam>
 		/// <param name="textReader">The text reader providing the XML to deserialize.</param>
 		/// <returns>The deserialized value.</returns>
-		public static T DefaultFromXml<T>(TextReader textReader)
+		public static T? DefaultFromXml<T>(TextReader textReader)
 		{
 			XmlSerializer serializer = new XmlSerializer(typeof(T));
-			return (T)serializer.Deserialize(textReader);
+			return (T?)serializer.Deserialize(textReader);
 		}
 
 		#endregion

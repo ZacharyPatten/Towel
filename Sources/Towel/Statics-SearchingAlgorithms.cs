@@ -192,10 +192,10 @@ namespace Towel
 				public GraphSearchStatusStruct(GraphSearchStatus value) => Value = value;
 				/// <summary>Converts a <see cref="GraphSearchStatus"/> into a <see cref="GraphSearchStatusStruct"/>.</summary>
 				/// <param name="value">The <see cref="GraphSearchStatus"/> to convert.</param>
-				public static implicit operator GraphSearchStatusStruct(GraphSearchStatus value) => new GraphSearchStatusStruct(value);
+				public static implicit operator GraphSearchStatusStruct(GraphSearchStatus value) => new(value);
 				/// <summary>Converts a <see cref="StepStatus"/> into a <see cref="GraphSearchStatusStruct"/>.</summary>
 				/// <param name="value">The <see cref="StepStatus"/> to convert.</param>
-				public static implicit operator GraphSearchStatusStruct(StepStatus value) => new GraphSearchStatusStruct((GraphSearchStatus)value);
+				public static implicit operator GraphSearchStatusStruct(StepStatus value) => new((GraphSearchStatus)value);
 				/// <summary>Converts a <see cref="GraphSearchStatusStruct"/> into a <see cref="GraphSearchStatus"/>.</summary>
 				/// <param name="value">The <see cref="GraphSearchStatusStruct"/> to convert.</param>
 				public static implicit operator GraphSearchStatus(GraphSearchStatusStruct value) => value.Value;

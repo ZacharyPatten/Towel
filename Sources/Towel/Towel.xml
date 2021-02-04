@@ -29762,6 +29762,36 @@
             <param name="assembly">The assembly to get the file path of.</param>
             <returns>The file path of the assembly.</returns>
         </member>
+        <member name="M:Towel.Meta.GetXmlName(System.Type)">
+            <summary>Gets the XML name of an <see cref="T:System.Type"/> as it appears in the XML docs.</summary>
+            <param name="type">The field to get the XML name of.</param>
+            <returns>The XML name of <paramref name="type"/> as it appears in the XML docs.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetXmlName(System.Reflection.MethodInfo)">
+            <summary>Gets the XML name of an <see cref="T:System.Reflection.MethodInfo"/> as it appears in the XML docs.</summary>
+            <param name="methodInfo">The field to get the XML name of.</param>
+            <returns>The XML name of <paramref name="methodInfo"/> as it appears in the XML docs.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetXmlName(System.Reflection.ConstructorInfo)">
+            <summary>Gets the XML name of an <see cref="T:System.Reflection.ConstructorInfo"/> as it appears in the XML docs.</summary>
+            <param name="constructorInfo">The field to get the XML name of.</param>
+            <returns>The XML name of <paramref name="constructorInfo"/> as it appears in the XML docs.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetXmlName(System.Reflection.PropertyInfo)">
+            <summary>Gets the XML name of an <see cref="T:System.Reflection.PropertyInfo"/> as it appears in the XML docs.</summary>
+            <param name="propertyInfo">The field to get the XML name of.</param>
+            <returns>The XML name of <paramref name="propertyInfo"/> as it appears in the XML docs.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetXmlName(System.Reflection.FieldInfo)">
+            <summary>Gets the XML name of an <see cref="T:System.Reflection.FieldInfo"/> as it appears in the XML docs.</summary>
+            <param name="fieldInfo">The field to get the XML name of.</param>
+            <returns>The XML name of <paramref name="fieldInfo"/> as it appears in the XML docs.</returns>
+        </member>
+        <member name="M:Towel.Meta.GetXmlName(System.Reflection.EventInfo)">
+            <summary>Gets the XML name of an <see cref="T:System.Reflection.EventInfo"/> as it appears in the XML docs.</summary>
+            <param name="eventInfo">The event to get the XML name of.</param>
+            <returns>The XML name of <paramref name="eventInfo"/> as it appears in the XML docs.</returns>
+        </member>
         <member name="M:Towel.Meta.LoadXmlDocumentation(System.String)">
             <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
             <param name="xmlDocumentation">The content of the XML code documentation.</param>

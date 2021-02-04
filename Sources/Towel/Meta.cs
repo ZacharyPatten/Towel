@@ -6,7 +6,6 @@ using System.Xml;
 using Towel.DataStructures;
 using System.Linq;
 using static Towel.Statics;
-using System.Runtime.CompilerServices;
 
 namespace Towel
 {
@@ -759,204 +758,73 @@ namespace Towel
 
 		#endregion
 
-		#region XML Code Documentation
+		#region GetXmlName
 
-		internal static SetHashLinked<Assembly> loadedAssemblies = new();
-		internal static MapHashLinked<string, string> loadedXmlDocumentation = new();
-
-		internal static void LoadXmlDocumentation(Assembly assembly)
-		{
-			if (loadedAssemblies.Contains(assembly))
-			{
-				return;
-			}
-			string? directoryPath = assembly.GetDirectoryPath();
-			if (directoryPath is not null)
-			{
-				string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
-				if (File.Exists(xmlFilePath))
-				{
-					using StreamReader streamReader = new(xmlFilePath);
-					LoadXmlDocumentation(streamReader);
-				}
-			}
-			loadedAssemblies.Add(assembly);
-		}
-
-		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
-		/// <param name="xmlDocumentation">The content of the XML code documentation.</param>
-		public static void LoadXmlDocumentation(string xmlDocumentation)
-		{
-			using StringReader stringReader = new(xmlDocumentation);
-			LoadXmlDocumentation(stringReader);
-		}
-
-		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
-		/// <param name="textReader">The text reader to process in an XmlReader.</param>
-		public static void LoadXmlDocumentation(TextReader textReader)
-		{
-			using XmlReader xmlReader = XmlReader.Create(textReader);
-			while (xmlReader.Read())
-			{
-				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
-				{
-					string? rawName = xmlReader["name"];
-					if (!string.IsNullOrWhiteSpace(rawName))
-					{
-						loadedXmlDocumentation[rawName] = xmlReader.ReadInnerXml();
-					}
-				}
-			}
-		}
-
-		/// <summary>Clears the currently loaded XML documentation.</summary>
-		public static void ClearXmlDocumentation()
-		{
-			loadedAssemblies.Clear();
-			loadedXmlDocumentation.Clear();
-		}
-
-		/// <summary>Gets the XML documentation on a type.</summary>
-		/// <param name="type">The type to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the type.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string? GetDocumentation(this Type type)
+		/// <summary>Gets the XML name of an <see cref="Type"/> as it appears in the XML docs.</summary>
+		/// <param name="type">The field to get the XML name of.</param>
+		/// <returns>The XML name of <paramref name="type"/> as it appears in the XML docs.</returns>
+		public static string GetXmlName(this Type type)
 		{
 			_ = type ?? throw new ArgumentNullException(nameof(type));
 			_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
 			LoadXmlDocumentation(type.Assembly);
-			string key = "T:" + GetXmlNameTypeSegment(type.FullName);
-			loadedXmlDocumentation.TryGet(key, out string? documentation);
-			return documentation;
+			return "T:" + GetXmlNameTypeSegment(type.FullName);
 		}
 
-		/// <summary>Gets the XML documentation on a method.</summary>
-		/// <param name="methodInfo">The method to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the method.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string? GetDocumentation(this MethodInfo methodInfo)
+		/// <summary>Gets the XML name of an <see cref="MethodInfo"/> as it appears in the XML docs.</summary>
+		/// <param name="methodInfo">The field to get the XML name of.</param>
+		/// <returns>The XML name of <paramref name="methodInfo"/> as it appears in the XML docs.</returns>
+		public static string GetXmlName(this MethodInfo methodInfo)
 		{
 			_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
 			_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
-			return GetDocumentationMethodBase(methodInfo: methodInfo);
+			return GetXmlNameMethodBase(methodInfo: methodInfo);
 		}
 
-		/// <summary>Gets the XML documentation on a constructor.</summary>
-		/// <param name="constructorInfo">The constructor to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the constructor.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string? GetDocumentation(this ConstructorInfo constructorInfo)
+		/// <summary>Gets the XML name of an <see cref="ConstructorInfo"/> as it appears in the XML docs.</summary>
+		/// <param name="constructorInfo">The field to get the XML name of.</param>
+		/// <returns>The XML name of <paramref name="constructorInfo"/> as it appears in the XML docs.</returns>
+		public static string GetXmlName(this ConstructorInfo constructorInfo)
 		{
 			_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
 			_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
-			return GetDocumentationMethodBase(constructorInfo: constructorInfo);
+			return GetXmlNameMethodBase(constructorInfo: constructorInfo);
 		}
 
-		/// <summary>Gets the XML documentation on a property.</summary>
-		/// <param name="propertyInfo">The property to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the property.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string? GetDocumentation(this PropertyInfo propertyInfo)
+		/// <summary>Gets the XML name of an <see cref="PropertyInfo"/> as it appears in the XML docs.</summary>
+		/// <param name="propertyInfo">The field to get the XML name of.</param>
+		/// <returns>The XML name of <paramref name="propertyInfo"/> as it appears in the XML docs.</returns>
+		public static string GetXmlName(this PropertyInfo propertyInfo)
 		{
 			_ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
 			_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
 			_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
-			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
-			string key = "P:" + GetXmlNameTypeSegment(propertyInfo.DeclaringType.FullName) + "." + propertyInfo.Name;
-			loadedXmlDocumentation.TryGet(key, out string? documentation);
-			return documentation;
+			return "P:" + GetXmlNameTypeSegment(propertyInfo.DeclaringType.FullName) + "." + propertyInfo.Name;
 		}
 
-		/// <summary>Gets the XML documentation on a field.</summary>
-		/// <param name="fieldInfo">The field to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the field.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string? GetDocumentation(this FieldInfo fieldInfo)
+		/// <summary>Gets the XML name of an <see cref="FieldInfo"/> as it appears in the XML docs.</summary>
+		/// <param name="fieldInfo">The field to get the XML name of.</param>
+		/// <returns>The XML name of <paramref name="fieldInfo"/> as it appears in the XML docs.</returns>
+		public static string GetXmlName(this FieldInfo fieldInfo)
 		{
 			_ = fieldInfo ?? throw new ArgumentNullException(nameof(fieldInfo));
 			_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
 			_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
-			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
-			string key = "F:" + GetXmlNameTypeSegment(fieldInfo.DeclaringType.FullName) + "." + fieldInfo.Name;
-			loadedXmlDocumentation.TryGet(key, out string? documentation);
-			return documentation;
+			return "F:" + GetXmlNameTypeSegment(fieldInfo.DeclaringType.FullName) + "." + fieldInfo.Name;
 		}
 
-		/// <summary>Gets the XML documentation on an event.</summary>
-		/// <param name="eventInfo">The event to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the event.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string? GetDocumentation(this EventInfo eventInfo)
+		/// <summary>Gets the XML name of an <see cref="EventInfo"/> as it appears in the XML docs.</summary>
+		/// <param name="eventInfo">The event to get the XML name of.</param>
+		/// <returns>The XML name of <paramref name="eventInfo"/> as it appears in the XML docs.</returns>
+		public static string GetXmlName(this EventInfo eventInfo)
 		{
 			_ = eventInfo ?? throw new ArgumentNullException(nameof(eventInfo));
 			_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
 			_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
-			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
-			string key = "E:" + GetXmlNameTypeSegment(eventInfo.DeclaringType.FullName) + "." + eventInfo.Name;
-			loadedXmlDocumentation.TryGet(key, out string? documentation);
-			return documentation;
+			return "E:" + GetXmlNameTypeSegment(eventInfo.DeclaringType.FullName) + "." + eventInfo.Name;
 		}
 
-		/// <summary>Gets the XML documentation on a member.</summary>
-		/// <param name="memberInfo">The member to get the XML documentation of.</param>
-		/// <returns>The XML documentation on the member.</returns>
-		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
-		public static string? GetDocumentation(this MemberInfo memberInfo)
-		{
-			switch (memberInfo)
-			{
-				case FieldInfo fieldInfo:
-					_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-					_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
-					return fieldInfo.GetDocumentation();
-				case PropertyInfo propertyInfo:
-					_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-					_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
-					return propertyInfo.GetDocumentation();
-				case EventInfo eventInfo:
-					_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-					_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
-					return eventInfo.GetDocumentation();
-				case ConstructorInfo constructorInfo:
-					_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-					return constructorInfo.GetDocumentation();
-				case MethodInfo methodInfo:
-					_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-					return methodInfo.GetDocumentation();
-				case Type type:
-					_ = type.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
-					return type.GetDocumentation();
-				case null:
-					throw new ArgumentNullException(nameof(memberInfo));
-				default:
-					throw new TowelBugException($"{nameof(GetDocumentation)} encountered an unhandled {nameof(MemberInfo)} type: {memberInfo}");
-			};
-		}
-
-		/// <summary>Gets the XML documentation for a parameter.</summary>
-		/// <param name="parameterInfo">The parameter to get the XML documentation for.</param>
-		/// <returns>The XML documenation of the parameter.</returns>
-		public static string? GetDocumentation(this ParameterInfo parameterInfo)
-		{
-			_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
-			string? memberDocumentation = parameterInfo.Member.GetDocumentation();
-			if (memberDocumentation is not null)
-			{
-				string regexPattern =
-					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
-					".*?" +
-					Regex.Escape(@"</param>");
-
-				Match match = Regex.Match(memberDocumentation, regexPattern);
-				if (match.Success)
-				{
-					return match.Value;
-				}
-			}
-			return null;
-		}
-
-		internal static string? GetDocumentationMethodBase(MethodInfo? methodInfo = null, ConstructorInfo? constructorInfo = null)
+		internal static string GetXmlNameMethodBase(MethodInfo? methodInfo = null, ConstructorInfo? constructorInfo = null)
 		{
 			if (methodInfo is not null && constructorInfo is not null)
 			{
@@ -1018,9 +886,7 @@ namespace Towel
 			{
 				key += "~" + GetXmlDocumenationFormattedString(methodInfo.ReturnType, true, typeGenericMap, methodGenericMap);
 			}
-
-			loadedXmlDocumentation.TryGet(key, out string? documentation);
-			return documentation;
+			return key;
 		}
 
 		internal static string GetXmlDocumenationFormattedString(
@@ -1093,6 +959,206 @@ namespace Towel
 
 		internal static string GetXmlNameTypeSegment(string typeFullNameString) =>
 			Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
+
+
+		#endregion
+
+		#region GetXmlDocumentation
+
+		internal static SetHashLinked<Assembly> loadedAssemblies = new();
+		internal static MapHashLinked<string, string> loadedXmlDocumentation = new();
+
+		internal static void LoadXmlDocumentation(Assembly assembly)
+		{
+			if (loadedAssemblies.Contains(assembly))
+			{
+				return;
+			}
+			string? directoryPath = assembly.GetDirectoryPath();
+			if (directoryPath is not null)
+			{
+				string xmlFilePath = Path.Combine(directoryPath, assembly.GetName().Name + ".xml");
+				if (File.Exists(xmlFilePath))
+				{
+					using StreamReader streamReader = new(xmlFilePath);
+					LoadXmlDocumentation(streamReader);
+				}
+			}
+			loadedAssemblies.Add(assembly);
+		}
+
+		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+		/// <param name="xmlDocumentation">The content of the XML code documentation.</param>
+		public static void LoadXmlDocumentation(string xmlDocumentation)
+		{
+			using StringReader stringReader = new(xmlDocumentation);
+			LoadXmlDocumentation(stringReader);
+		}
+
+		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
+		/// <param name="textReader">The text reader to process in an XmlReader.</param>
+		public static void LoadXmlDocumentation(TextReader textReader)
+		{
+			using XmlReader xmlReader = XmlReader.Create(textReader);
+			while (xmlReader.Read())
+			{
+				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
+				{
+					string? rawName = xmlReader["name"];
+					if (!string.IsNullOrWhiteSpace(rawName))
+					{
+						loadedXmlDocumentation[rawName] = xmlReader.ReadInnerXml();
+					}
+				}
+			}
+		}
+
+		/// <summary>Clears the currently loaded XML documentation.</summary>
+		public static void ClearXmlDocumentation()
+		{
+			loadedAssemblies.Clear();
+			loadedXmlDocumentation.Clear();
+		}
+
+		/// <summary>Gets the XML documentation on a type.</summary>
+		/// <param name="type">The type to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the type.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this Type type)
+		{
+			_ = type ?? throw new ArgumentNullException(nameof(type));
+			_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
+			LoadXmlDocumentation(type.Assembly);
+			loadedXmlDocumentation.TryGet(type.GetXmlName(), out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a method.</summary>
+		/// <param name="methodInfo">The method to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the method.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this MethodInfo methodInfo)
+		{
+			_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
+			_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
+			LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
+			loadedXmlDocumentation.TryGet(methodInfo.GetXmlName(), out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a constructor.</summary>
+		/// <param name="constructorInfo">The constructor to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the constructor.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this ConstructorInfo constructorInfo)
+		{
+			_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
+			_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
+			LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
+			loadedXmlDocumentation.TryGet(constructorInfo.GetXmlName(), out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a property.</summary>
+		/// <param name="propertyInfo">The property to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the property.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this PropertyInfo propertyInfo)
+		{
+			_ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
+			_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
+			_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
+			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
+			loadedXmlDocumentation.TryGet(propertyInfo.GetXmlName(), out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a field.</summary>
+		/// <param name="fieldInfo">The field to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the field.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this FieldInfo fieldInfo)
+		{
+			_ = fieldInfo ?? throw new ArgumentNullException(nameof(fieldInfo));
+			_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
+			_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
+			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
+			loadedXmlDocumentation.TryGet(fieldInfo.GetXmlName(), out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on an event.</summary>
+		/// <param name="eventInfo">The event to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the event.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this EventInfo eventInfo)
+		{
+			_ = eventInfo ?? throw new ArgumentNullException(nameof(eventInfo));
+			_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
+			_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
+			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
+			loadedXmlDocumentation.TryGet(eventInfo.GetXmlName(), out string? documentation);
+			return documentation;
+		}
+
+		/// <summary>Gets the XML documentation on a member.</summary>
+		/// <param name="memberInfo">The member to get the XML documentation of.</param>
+		/// <returns>The XML documentation on the member.</returns>
+		/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
+		public static string? GetDocumentation(this MemberInfo memberInfo)
+		{
+			switch (memberInfo)
+			{
+				case FieldInfo fieldInfo:
+					_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return fieldInfo.GetDocumentation();
+				case PropertyInfo propertyInfo:
+					_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return propertyInfo.GetDocumentation();
+				case EventInfo eventInfo:
+					_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return eventInfo.GetDocumentation();
+				case ConstructorInfo constructorInfo:
+					_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					return constructorInfo.GetDocumentation();
+				case MethodInfo methodInfo:
+					_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+					return methodInfo.GetDocumentation();
+				case Type type:
+					_ = type.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+					return type.GetDocumentation();
+				case null:
+					throw new ArgumentNullException(nameof(memberInfo));
+				default:
+					throw new TowelBugException($"{nameof(GetDocumentation)} encountered an unhandled {nameof(MemberInfo)} type: {memberInfo}");
+			};
+		}
+
+		/// <summary>Gets the XML documentation for a parameter.</summary>
+		/// <param name="parameterInfo">The parameter to get the XML documentation for.</param>
+		/// <returns>The XML documenation of the parameter.</returns>
+		public static string? GetDocumentation(this ParameterInfo parameterInfo)
+		{
+			_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
+			string? memberDocumentation = parameterInfo.Member.GetDocumentation();
+			if (memberDocumentation is not null)
+			{
+				string regexPattern =
+					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
+					".*?" +
+					Regex.Escape(@"</param>");
+
+				Match match = Regex.Match(memberDocumentation, regexPattern);
+				if (match.Success)
+				{
+					return match.Value;
+				}
+			}
+			return null;
+		}
 
 		#endregion
 
