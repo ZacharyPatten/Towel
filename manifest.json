@@ -1,0 +1,4304 @@
+{
+  "homepages": [],
+  "source_base_path": "/github/workspace/Tools/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime-1.html",
+          "hash": "rdVutWuWtM7Vh2heAiiwMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime-2.html",
+          "hash": "SULGed2Hwm9/iJ9dio9ZdQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime-3.html",
+          "hash": "wFxlkMQZgj7DAw6RoMpzKw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime-4.html",
+          "hash": "R+PxdVtuiBxWRn12GKmCXA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime-5.html",
+          "hash": "HQTJlhbJwi9YBbynFzQIxA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime-6.html",
+          "hash": "QIgSTBsg0trDmwHBqXTPBg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime-7.html",
+          "hash": "mQRvb/VKyAOKeASFpofK5A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ActionRuntime.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ActionRuntime.html",
+          "hash": "XSNyXsgM350+bKi9+Ri/1A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.CommandLine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.CommandLine.html",
+          "hash": "1U6JTQR4TPVxYZJrG/2s6w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.CompareResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.CompareResult.html",
+          "hash": "nOCBPNKmow8jogZ6kfZyAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.ConsoleHelper.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.ConsoleHelper.html",
+          "hash": "OSofYZlJh5obcqzdc+FSRA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Constant-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Constant-1.html",
+          "hash": "E8ARsZPhC9RGuwGXBMDMLg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.CorruptedDataStructureException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.CorruptedDataStructureException.html",
+          "hash": "MsCW1HaslgpukDi0LxZA/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Array-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Array-1.html",
+          "hash": "3x3dcCNvONGTPTSpVUK/Rg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ArrayJagged-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ArrayJagged-1.html",
+          "hash": "1c31v7gIBZoVYXbyK/XVkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.AvlTree.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.AvlTree.html",
+          "hash": "d+p3y8pM/BJvEuqnHx5BkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.AvlTreeLinked-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.AvlTreeLinked-2.html",
+          "hash": "dhuzIKMUQ2GqStHQx1y22A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IAddable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IAddable-1.html",
+          "hash": "2yymfiP4eGeIyZQU8LUIBQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IAuditable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IAuditable-1.html",
+          "hash": "+uUV/FmCKQ0HGRaf0lMGmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IClearable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IClearable.html",
+          "hash": "1AMNI1BddWRN3R2C530f1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IComparing-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IComparing-2.html",
+          "hash": "ZeSAHsC0S2fuV8xMyWsahA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.ICountable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.ICountable.html",
+          "hash": "RkciqgeNt0EtHb73ipPs/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IEquating-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IEquating-1.html",
+          "hash": "vRYP7qnFy62bHNq06c12Uw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IHashing-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IHashing-1.html",
+          "hash": "4rEE3DNoohTwuzR6TrnRmA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IRemovable-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IRemovable-1.html",
+          "hash": "IdEU/OcOhKrAr7NP2r7uAw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.IStepperRef-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.IStepperRef-1.html",
+          "hash": "UGtE2/TJYPhHCZybVXnyYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.DataStructure.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.DataStructure.html",
+          "hash": "FdFcAK23sUV2d8d8E4H2HA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.GraphMap-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.GraphMap-1.html",
+          "hash": "mnRoUb0rqDU/GH9xhiumvQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.GraphSetOmnitree-1.Edge.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.GraphSetOmnitree-1.Edge.html",
+          "hash": "dRNKHTwjLYe/tVtWERuDiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.GraphSetOmnitree-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.GraphSetOmnitree-1.html",
+          "hash": "j3Y6BM+F8RqWPibziJsFNQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.HeapArray-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.HeapArray-1.html",
+          "hash": "VnSOUsJIZbDQYQU2METTHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.HeapArray-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.HeapArray-2.html",
+          "hash": "LzXM52KMYFADADrl7r6F3A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IArray-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IArray-1.html",
+          "hash": "xnBZrdKcbi4mSDj/02gQ2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IArray-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IArray-2.html",
+          "hash": "OqpIad69iZpWmgOw8dJ6WQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IAvlTree-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IAvlTree-2.html",
+          "hash": "F7JfgbRAkOdJHusTMlmaXA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IDataStructure-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IDataStructure-1.html",
+          "hash": "bnPkzxZxZxBqFScBpxGDEQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IGraph-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IGraph-1.html",
+          "hash": "tRWrSbrGJM+PRCDNiu9p0w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IHeap-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IHeap-2.html",
+          "hash": "q+JAqSTWZWoC/QoNTM0ZRA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IList-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IList-1.html",
+          "hash": "akz78iXXr4d++zWnVSdGoQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IMap-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IMap-2.html",
+          "hash": "qVlBpgbNntb51iQfg1+3lA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-1.html",
+          "hash": "CrdstjANrhwlqNdrtj4QOA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-2.html",
+          "hash": "NsoM/DJb7/761l/B3uYgDg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-3.html",
+          "hash": "LE1TB7kHBh0Z2vRZn7Z7gA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-4.html",
+          "hash": "u40l01Mm1XxgqyD5CZOvJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-5.html",
+          "hash": "7xYDvier3233jMpLJg+B4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-6.html",
+          "hash": "8PNpy4r4RESjqmIELqN19Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-7.html",
+          "hash": "fwTh5UYTLzDXR3wSTzN1Ow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitree-8.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitree-8.html",
+          "hash": "AcvGzR0+9Nb2CbBU/TxOVQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IOmnitreePoints-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IOmnitreePoints-2.html",
+          "hash": "uxUbyPAkvPGLrEZcaGlSow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IQueue-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IQueue-1.html",
+          "hash": "J6+kzre4Zl3DN6JCc8NjWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IRedBlackTree-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IRedBlackTree-2.html",
+          "hash": "C5/v71LVvMC0A0mmh7AB/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ISet-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ISet-1.html",
+          "hash": "4ULE+xCBhOfTBD7V3+stWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ISortedBinaryTree-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ISortedBinaryTree-2.html",
+          "hash": "BT5Nh7/jLKB0jpzKNmP76Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.IStack-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.IStack-1.html",
+          "hash": "82249GeFDYDfMhCE2c+zTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ITree-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ITree-1.html",
+          "hash": "oGcH+TORm/t0gHQGwFBbmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ITrie-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ITrie-1.html",
+          "hash": "6WzpLdqi2S8GkxtbvMC6yA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ITrie-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ITrie-2.html",
+          "hash": "qBuGm8PwOD42Z/HBokUxSw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link-1.html",
+          "hash": "EJvFEFyQpHKpxegeg0GU3Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link-2.html",
+          "hash": "NWdpEjC27xE4B/A+gu4IRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link-3.html",
+          "hash": "mf7uHWRYjyC2NHoETF5DqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link-4.html",
+          "hash": "T9e4hwMz9eoDeAsvIb/T+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link-5.html",
+          "hash": "Vcg2dcGaGoXJ5YhhhaTPwg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link-6.html",
+          "hash": "3fND9NG1yagfcYXMO43VeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link-7.html",
+          "hash": "ZW9bIRWV70REB9BBcGeGzA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Link.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Link.html",
+          "hash": "33w1U7cL4IXfhz/K41xFtA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.LinkStruct-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.LinkStruct-1.html",
+          "hash": "xlBpAhvGWjwcVc51QLXKvg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.LinkStruct-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.LinkStruct-2.html",
+          "hash": "dHLjD3Aa3SwpHj+MmKLFfQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.LinkStruct-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.LinkStruct-3.html",
+          "hash": "2rYLp5hDH81cz1HlYgEvgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.LinkStruct-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.LinkStruct-4.html",
+          "hash": "DmsW6o6aRpp6P5vUKJTO5g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.LinkStruct-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.LinkStruct-5.html",
+          "hash": "JB40s/8xhkDJIiMF/769yA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.LinkStruct-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.LinkStruct-6.html",
+          "hash": "wBZHWAs6D9zLyGrzrMO3zw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.LinkStruct-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.LinkStruct-7.html",
+          "hash": "OkkaUYejVBKjj9AetMiCbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.List.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.List.html",
+          "hash": "359zXAGpAMeISu2G0rDkyQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ListArray-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ListArray-1.html",
+          "hash": "RrB0/0H/6KNrKS8wc9EReQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.ListLinked-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.ListLinked-1.html",
+          "hash": "ql5XTeOu0aFcU2torcxsZQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Map.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Map.html",
+          "hash": "NMeDdw77IZusjXfcnUI6HQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.MapHashLinked-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.MapHashLinked-4.html",
+          "hash": "8iwD8R/1nHPVWrdiVDo0Xg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bound-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bound-1.html",
+          "hash": "A2AZMsTzymMF1jCKdTlvow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds-1.html",
+          "hash": "HiR5Uj22t8U6wfy7tjVEWA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds-2.html",
+          "hash": "KP7+4ujSPCVt5W+zXeHQpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds-3.html",
+          "hash": "6x0+durh0SRoEPpxOcfmpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds-4.html",
+          "hash": "OmiDJFoQ/fO4iH9V3laRjg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds-5.html",
+          "hash": "tJXYnRTWYDj/PYgpV5V29A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds-6.html",
+          "hash": "vmr4/Co/DW4VJbkpXstEIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds-7.html",
+          "hash": "LS7rFeIxjicHHzkEzLvYZg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Bounds.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Bounds.html",
+          "hash": "5SX0iuwWrgS/zxCkTO5r6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-2.html",
+          "hash": "VObpvp/Y+EkUYJhcwXlF/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-3.html",
+          "hash": "v2hBkqrP+QuHZooLJLMU/g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-4.html",
+          "hash": "q9z/nBIr5ESn8ha1qWadIQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-5.html",
+          "hash": "+CAqej8HoyXH/fd4PTA1Nw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-6.html",
+          "hash": "kX52TMan7Lv7x7QH/8E0/Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-7.html",
+          "hash": "ozMkQ7iMqxTPaX1nA+MYiQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-8.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBoundings-8.html",
+          "hash": "dBpMeI3jfrntmxf3UrH1dg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-2.html",
+          "hash": "Um2B7VA+OO5bPSI4MIA/Cw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-3.html",
+          "hash": "G5HeiB5V2EQCP88Uj60+ow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-4.html",
+          "hash": "hHOvILIHejYIUaXwUWx+iw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-5.html",
+          "hash": "HCuy3ar+3/zWdRrd2CQynw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-6.html",
+          "hash": "uneqUGtOwPK6aa8bPe8Zjg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-7.html",
+          "hash": "uDcuQnVm2LMdFy+z7ze12Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-8.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.GetBounds-8.html",
+          "hash": "JyFg1tP2n3PihUXYRJHBvw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Keyword.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Keyword.html",
+          "hash": "kgiq1q6z7F5WE2dO0pX6QA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Location-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Location-2.html",
+          "hash": "xJxC3cjlfrvrFeGu/it9Ag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Location-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Location-3.html",
+          "hash": "I0cUUcFstl7nUw6pJdbD4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Location-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Location-4.html",
+          "hash": "KemLJoTTiVPd6P2LAM40UQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Location-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Location-5.html",
+          "hash": "YxJSjf/K5u7yRJeT8sHMMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Location-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Location-6.html",
+          "hash": "WSBDGzkaw7W8l4Tg6u7XGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Location-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Location-7.html",
+          "hash": "1OzsiuZc39OFWtnGqmxlWQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Location-8.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Location-8.html",
+          "hash": "Lh5QZhURZgwgUe09EyoErA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.SubdivisionOverride-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.SubdivisionOverride-3.html",
+          "hash": "UU7SDCAle+wUxmANSwRaXw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector-1.html",
+          "hash": "630jdDZCniUzy6Wz917/qA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector-2.html",
+          "hash": "tnm2f8FybfZaYnSVm8zGxg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector-3.html",
+          "hash": "SCJJra5PF6gARQ7XVnQFPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector-4.html",
+          "hash": "ENJNdazN6EMdbC0p6c3gHw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector-5.html",
+          "hash": "7N06+oRVuDe3vTygdMhocQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector-6.html",
+          "hash": "W8wv9Cufxlyar47q4fCSLw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector-7.html",
+          "hash": "CQUuFrSwiCMFjiqFZZdIrw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.Vector.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.Vector.html",
+          "hash": "zfuyI4rF8GUWmhAdNThTXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Omnitree.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Omnitree.html",
+          "hash": "IhdfInHaCwBqpy+CC6SAsA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.OmnitreePointsLinked-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.OmnitreePointsLinked-2.html",
+          "hash": "VU5wom1foDoNvBndfK/jFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.QueueArray-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.QueueArray-1.html",
+          "hash": "TMVg7aPaLZhxwVk9x5N/JQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.QueueLinked-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.QueueLinked-1.html",
+          "hash": "eND4BzOzFBqPNUBVQsFZwA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.RedBlackTree.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.RedBlackTree.html",
+          "hash": "rpV9wQSR1e8O8vrJSj0bLQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.RedBlackTreeLinked-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.RedBlackTreeLinked-2.html",
+          "hash": "c6TH4JOweg1F74opK3xuTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.SetHashLinked-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.SetHashLinked-3.html",
+          "hash": "RgIn7WfPGKYh5UZbFGyKtg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.SortedBinaryTree.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.SortedBinaryTree.html",
+          "hash": "OkqqNWQmNGxJJwyJiuhNtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.StackArray-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.StackArray-1.html",
+          "hash": "/Ipx8bCItQrns51Yn6NQNQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.StackLinked-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.StackLinked-1.html",
+          "hash": "v9ZOkItFkTg3IsdVWGeUPQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Tree.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Tree.html",
+          "hash": "DAs+TSIIKnfK2Z8/BWnnGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.TreeMap-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.TreeMap-1.html",
+          "hash": "XNpDbFJPvumR9dDozd7bog=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.Trie.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.Trie.html",
+          "hash": "2Guyi6KeGJReqLuVVzfUYQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.TrieLinkedHashLinked-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.TrieLinkedHashLinked-1.html",
+          "hash": "j2+gn0jZ6JSB8HdQ75hPMQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.TrieLinkedHashLinked-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.TrieLinkedHashLinked-2.html",
+          "hash": "kIoIxRAiuvMfIPBdbL+Z2g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DataStructures.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DataStructures.html",
+          "hash": "hhA5Pg6voSnWhuucUx51Eg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.DocumentationMethodException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.DocumentationMethodException.html",
+          "hash": "xVmgtM94PCvQqqAN90cKyg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Extensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Extensions.html",
+          "hash": "Se1iOLhJlT3DjehU+XEUlg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-1.html",
+          "hash": "9oXL+gEQk2eIj+G2gSksfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-2.html",
+          "hash": "kEQ2aiytk8eiSvWUQT8UoQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-3.html",
+          "hash": "eaVyEAuQKzX5E0omKxzTfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-4.html",
+          "hash": "qGtmNaKv0KsP08GbaoAruQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-5.html",
+          "hash": "hyPBF7tb8iVzNSAfpUZE1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-6.html",
+          "hash": "qDI/rUNva0SMQ2TI0Pv3Pw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-7.html",
+          "hash": "NbKx/1H7x081a4elcyfSPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.FuncRuntime-8.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.FuncRuntime-8.html",
+          "hash": "vAA+I8P3S93aIHIUJ19jhw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction-1.html",
+          "hash": "82+ohnJtBWS8GuQNDiGR1g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction-2.html",
+          "hash": "5Kl3EeCeLRT/KiJttuk30Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction-3.html",
+          "hash": "upUxpEX5pFtm9fnJrvrcDg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction-4.html",
+          "hash": "4emmVi8hHoShLfFwpqR42Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction-5.html",
+          "hash": "QqnaNAHPdhW+26yn/NKggA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction-6.html",
+          "hash": "cVMsxq9NjyRD9Ea/hgwEIw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction-7.html",
+          "hash": "CAbTRQO2luiaAi7IKg0FUQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IAction.html",
+          "hash": "cFo4Ywl/KaO1IvQIS48R9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-1.html",
+          "hash": "ExZoD/l5oQBr2aHColGTcQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-2.html",
+          "hash": "xntJkwXf47aGnSIDINv2Mg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-3.html",
+          "hash": "T/UUfCskJUYwYSnmaHSVhQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-4.html",
+          "hash": "LFa2F2GVVkVZE6u/mroNVw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-5.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-5.html",
+          "hash": "h6ktAiC7ZcmFF+vET8fqFQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-6.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-6.html",
+          "hash": "3YDTCcSx+/NxhFQBFqCeVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-7.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-7.html",
+          "hash": "KWwU61iMrZ8mmQHOKXEj9A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IFunc-8.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IFunc-8.html",
+          "hash": "CEptIB2Wt47XnBI7C2RBbw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IStepRef-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IStepRef-1.html",
+          "hash": "N51eGBTc68q+pad2LjwH1w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.IStepRefBreak-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.IStepRefBreak-1.html",
+          "hash": "br+rFPojvps7ckccSSfPOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.InequalitySyntaxException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.InequalitySyntaxException.html",
+          "hash": "3m0gYJimrIx6igbHji9Oow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Fraction-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Fraction-1.html",
+          "hash": "K/45Li0CcynlzYq8ybd6gQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsDelegates.Cosine-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsDelegates.Cosine-1.html",
+          "hash": "/iK+CYTbsAG/tIaLui1R2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsDelegates.InverseCosine-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsDelegates.InverseCosine-1.html",
+          "hash": "r7Y25N/pC6UHcKEbP0IsZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsDelegates.InverseSine-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsDelegates.InverseSine-1.html",
+          "hash": "3knk6TT7cqm+lW1WCMTfQg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsDelegates.InverseTangent-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsDelegates.InverseTangent-1.html",
+          "hash": "s6spUfYLGKS5Zzi7rwCxpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsDelegates.Sine-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsDelegates.Sine-1.html",
+          "hash": "kuexVBwZ3o5/wDpLg/iaYQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsDelegates.Tangent-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsDelegates.Tangent-1.html",
+          "hash": "+mz+nFIMkdtOfcnrT7WL5w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsDelegates.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsDelegates.html",
+          "hash": "/wbY0zzsleXXocORg5dBWA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.MathematicsSyntax.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.MathematicsSyntax.html",
+          "hash": "GWFvRdJkbotxZVKuUnpsrw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Matrix-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Matrix-1.html",
+          "hash": "ZNodoY4Y+8KN0Ygijj9ZXQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Quaternion-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Quaternion-1.html",
+          "hash": "G8fNewegkuD8X4zxSoUbWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Add.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Add.html",
+          "hash": "sFY5A0oJrwx3JDW46kJOag=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.AddOrSubtract.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.AddOrSubtract.html",
+          "hash": "dAv4dK1mIo/OEzI005A0YQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Binary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Binary.html",
+          "hash": "3iGCbO0KuwPbbTtJr/+xTg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Constant-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Constant-1.html",
+          "hash": "JEmQ7xHpKk61Kwt0laN6Nw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Constant.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Constant.html",
+          "hash": "i+r0tmcSJ7wFL/E7QsqHIw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Cosecant.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Cosecant.html",
+          "hash": "zba1xSKr91wFZGjkBNZaKw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Cosine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Cosine.html",
+          "hash": "f4wBul+YWNxW55N7QLJr5Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Cotangent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Cotangent.html",
+          "hash": "e9xK+vzblP4tDxPdLvh6DQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Divide.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Divide.html",
+          "hash": "yu3qJZbl9+8LEi9uPsF6QQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Equal.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Equal.html",
+          "hash": "BM88yUg30NVp4fj55aO6zA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Exponential.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Exponential.html",
+          "hash": "BqvqXasfJtQa8j1l12FOaQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Expression.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Expression.html",
+          "hash": "UsjlBfGpCIJnRS4GFoB0CA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Factorial.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Factorial.html",
+          "hash": "/ZRfVzzar4j0lMa40xdkTA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.False.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.False.html",
+          "hash": "lbKNWnz+metIqkBPng1yJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.GreaterThan.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.GreaterThan.html",
+          "hash": "BluUPGxz2tD83dzVaAUcHA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.GreaterThanOrEqual.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.GreaterThanOrEqual.html",
+          "hash": "HiKMxSmeyhSlv/ShtfXGGQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Invert.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Invert.html",
+          "hash": "fVnd9d3HIkLhDL/kqi678w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.KnownConstantOfKnownType-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.KnownConstantOfKnownType-1.html",
+          "hash": "1PPjs/J4AfrGYqbnaVV+Bg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.KnownConstantOfUnknownType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.KnownConstantOfUnknownType.html",
+          "hash": "ZLvpDvOIqlusjKcjSwc8Uw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.LessThan.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.LessThan.html",
+          "hash": "FaCaFQe394EfRSyqBq6huw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.LessThanOrEqual.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.LessThanOrEqual.html",
+          "hash": "JDpMqxLYc3BKfHZStiC2aQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Multinary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Multinary.html",
+          "hash": "Q28XIZwdw6VC1aCOVKA/RQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Multiply.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Multiply.html",
+          "hash": "10PFT5LHB9h+zpS/LJMYHw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.MultiplyOrDivide.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.MultiplyOrDivide.html",
+          "hash": "XhaDhGwLfSkt2cp0GFu8Vw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.NaturalLog.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.NaturalLog.html",
+          "hash": "PvAh2wQfG6jIJTrZTsUZZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Negate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Negate.html",
+          "hash": "b4vf5vbpwCxKZrRy1IDwyA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.NotEqual.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.NotEqual.html",
+          "hash": "TjDw5PGQwo7yuP0BiEx3Fg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.One-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.One-1.html",
+          "hash": "cZFG+KN6LFJq4eTEwI1Xkg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.One.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.One.html",
+          "hash": "HfaHp0XZJnee/TWeN7Ou7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Operation.ILogical.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Operation.ILogical.html",
+          "hash": "946vgDIOv1g9O3p9w4oUyQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Operation.IMathematical.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Operation.IMathematical.html",
+          "hash": "K4HRMx0CDbKhxvRYIs/OEw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Operation.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Operation.html",
+          "hash": "lraergeSQYf4Q3ACX+tJVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Pi-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Pi-1.html",
+          "hash": "/InUKT/YJgQ43+VVQ7aakQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Pi.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Pi.html",
+          "hash": "oDhvOVfjob9zC3mV6RvwPA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Power.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Power.html",
+          "hash": "p9Nd40ioGG3TqvaqJ5znxQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Root.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Root.html",
+          "hash": "S9hsZv+8hIJG7etwJWsgJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Secant.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Secant.html",
+          "hash": "GJkSftMKZZZrFsMHST5BUg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Simplification.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Simplification.html",
+          "hash": "2zZMUOYyAoHSIa6f4lt5Mg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Sine.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Sine.html",
+          "hash": "UeWdZBM+bnPkIxg0RWVmCw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.SquareRoot.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.SquareRoot.html",
+          "hash": "EP2Ai5M31MQKSpzf1Vm1Vg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Subtract.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Subtract.html",
+          "hash": "Q3mv+o+YkzAFdb4fSqFFWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Tangent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Tangent.html",
+          "hash": "8ptefJDT7Ya7VDwbqEEdpQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Ternary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Ternary.html",
+          "hash": "LL+HPKY3RVzryEENEYquUw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Three-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Three-1.html",
+          "hash": "dmmXFCdvEix883jGZVyHcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Three.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Three.html",
+          "hash": "lv7rUrDK7+Duuowi0l0GJQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Trigonometry.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Trigonometry.html",
+          "hash": "P4PpbfPpkjbvQGKrZTy79w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.True.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.True.html",
+          "hash": "/OdHvJ8Yd2sb4Z/X/IXpxw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Two-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Two-1.html",
+          "hash": "qqyjmoS/8Tmf65c4XETUkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Two.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Two.html",
+          "hash": "RzFn/JW+A4IUuIzmg6eJHg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Unary.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Unary.html",
+          "hash": "RjtXeF9kRjtNas4ctEn8Cw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Variable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Variable.html",
+          "hash": "/T0F/kOgxxoV0Nw7nwIM8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Zero-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Zero-1.html",
+          "hash": "BOVfq+xMA1C0jgwOM8aIzA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.Zero.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.Zero.html",
+          "hash": "LW8kOHk1llN+OiNUesgCuQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Symbolics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Symbolics.html",
+          "hash": "Ha218kRO0LRvXf74l6h6BA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.Vector-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.Vector-1.html",
+          "hash": "XBSy/IdqH9drWk7vvrDpXw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Mathematics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Mathematics.html",
+          "hash": "xyOsfLjSh/H0yw7OVOiaAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.MathematicsException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.MathematicsException.html",
+          "hash": "vGr253gSOEVvxBRX3syhQg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Acceleration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Acceleration-1.html",
+          "hash": "wk8pLlPBYA0xKpWBYMMkww=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Angle-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Angle-1.html",
+          "hash": "SE2fdh8bnPGzQmdgAIQk6A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Angle.Units.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Angle.Units.html",
+          "hash": "YRwl4a9Wl8r6U6l7XxgOAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Angle.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Angle.html",
+          "hash": "y8dpBbPWjGIPBjdYwBNlvg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.AngularAcceleration-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.AngularAcceleration-1.html",
+          "hash": "cfH3lC7NJ5GtOnfEP+DK9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.AngularSpeed-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.AngularSpeed-1.html",
+          "hash": "XoyYlLhAc8Kt+/wGpVBKFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Area-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Area-1.html",
+          "hash": "4DNHeJoq549bzZ8t3dHMqA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.AreaDensity-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.AreaDensity-1.html",
+          "hash": "Y1W+D4J6HrwXaCxitrsQPw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Density-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Density-1.html",
+          "hash": "t5u/adv2Taf7WzdQhpBkbA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.ElectricCharge-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.ElectricCharge-1.html",
+          "hash": "WBV4pIZqk2yQNwhqLiRqig=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.ElectricCharge.Units.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.ElectricCharge.Units.html",
+          "hash": "LwSO+iBU18sOIsV1CjxtZQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.ElectricCharge.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.ElectricCharge.html",
+          "hash": "au/Z9hAhh/tqNomqJLm0iQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.ElectricCurrent-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.ElectricCurrent-1.html",
+          "hash": "/d8nAYHbhIYYfyh7QXf3lw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Energy-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Energy-1.html",
+          "hash": "l91IYCZL2S27gGIiZ71MOg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Force-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Force-1.html",
+          "hash": "FSSW/tVHCtjgK+CrEPsqPg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Length-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Length-1.html",
+          "hash": "8+raGf0LObDFWJGHhhxc1Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Length.Units.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Length.Units.html",
+          "hash": "oRjAye3QE/bhUMHQdA9iQw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Length.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Length.html",
+          "hash": "7+TBqbVfqc4XaQlSLq4MkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.LinearDensity-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.LinearDensity-1.html",
+          "hash": "QPbD1PmyPDZxo2WVWa7mdw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.LinearMass-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.LinearMass-1.html",
+          "hash": "gHHGZZr5WPO3uUi2kc685w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.LinearMassFlow-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.LinearMassFlow-1.html",
+          "hash": "bN75fpBpgN1kerG9Pt0ZvQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Mass-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Mass-1.html",
+          "hash": "qYH5KRh0j0iiMRhXyDkGXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Mass.Units.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Mass.Units.html",
+          "hash": "FDe1NOLI4C/mW7IHoaZJkA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Mass.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Mass.html",
+          "hash": "UHt8vr07Vj1/oPrVPHH1ng=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MassRate-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MassRate-1.html",
+          "hash": "tboaqQGSJNR6tk3bBCzavw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Measurement.IUnits-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Measurement.IUnits-1.html",
+          "hash": "Gq7zo4Lu7kFcq5N+kBCL4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Measurement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Measurement.html",
+          "hash": "VgG+tJXSCEM2cIWWLjbW3g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AccelerationBaseUnits.html",
+          "hash": "Fa4/+o4hOpbNNIoSUW+2+A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AngleUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AngleUnits.html",
+          "hash": "JbeH6eTK0TGsKfMo2tcTgw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularAccelerationBaseUnits.html",
+          "hash": "44+AqUb0fQzKvQg26Ntrpw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AngularSpeedBaseUnits.html",
+          "hash": "kq14PhuE/YApjhL9dfnGQQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaBaseUnits.html",
+          "hash": "NqdjRV3yA4CvUAwS4gS1rw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.AreaDensityBaseUnits.html",
+          "hash": "nNfEhg2rH+K9TexNp1/Qkw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.DensityBaseUnits.html",
+          "hash": "+xgUNF21Q/fVfeW6EcaoUA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricChargeUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricChargeUnits.html",
+          "hash": "gFPRGLPHNq3tUMHyZiFuYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits.html",
+          "hash": "sBbaN/D4GoSyFhuZXPhGGw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.EnergyBaseUnits.html",
+          "hash": "VcIIz7u2lI5InQIpxy6Z2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.ForceBaseUnits.html",
+          "hash": "TP3fHAPnVTNmeWecWakFnA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LengthUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LengthUnits.html",
+          "hash": "tZ7XlRNTbaOy6fAx4PGCBw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearDensityBaseUnits.html",
+          "hash": "XVIJ3DpXitzNYvdecqmfZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassBaseUnits.html",
+          "hash": "9DeI/pdm/mpm8M/ymy9tEQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.LinearMassFlowBaseUnits.html",
+          "hash": "DFk+6WF4cl6Z/JeU7Oyw/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.MassRateBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.MassRateBaseUnits.html",
+          "hash": "Wp1TUF4eJC+3fZW8X1khBg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.MassUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.MassUnits.html",
+          "hash": "xR44AnVh9KSzUNIBm/C4vg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.PowerBaseUnits.html",
+          "hash": "AqO8KNoBtLAQLYH+ua6LRQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.PressureBaseUnits.html",
+          "hash": "/3qb719uKVI+AeTqVhwh/g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.SpeedBaseUnits.html",
+          "hash": "2zzDLMN1+PdFFh3ImJWm8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.TempuratureUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.TempuratureUnits.html",
+          "hash": "TJS0XfOQ4TZBdlOSUAuceA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeAreaBaseUnits.html",
+          "hash": "vYuHA7DofNMBNQTFa3LBmA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.TimeUnits.html",
+          "hash": "3Ou3Mmz8aaqd+7qQQVm+Xg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeBaseUnits.html",
+          "hash": "pxo8VKcGKNHtfnTfzRYlmA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.VolumeRateBaseUnits.html",
+          "hash": "7g41GBKgAdnvcnDwXmIXkQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementUnitsSyntaxTypes.html",
+          "hash": "7epIgSA4rwMd3jZyloLzqQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.MeasurementsSyntax.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.MeasurementsSyntax.html",
+          "hash": "JBf8Zy2JCem0fAgFgu8pCA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Power-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Power-1.html",
+          "hash": "TYyX2c3qxyGXMkZ89cMTAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Pressure-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Pressure-1.html",
+          "hash": "MAMFplEuwTnfyBHXmeM75g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Speed-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Speed-1.html",
+          "hash": "8+fQgmSd7Okd96uuXmltAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Tempurature-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Tempurature-1.html",
+          "hash": "wNpXvublJbEfzBXLaq+s8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Tempurature.Units.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Tempurature.Units.html",
+          "hash": "60SVBdexZRS9ZOQ45NjQ9g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Tempurature.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Tempurature.html",
+          "hash": "Aa80k2AkXsKUGpTEJ5vtHw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Time-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Time-1.html",
+          "hash": "ALEM4tVVMMac4TAFM4lZfA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Time.Units.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Time.Units.html",
+          "hash": "ql9AKqGWjonrZLj0Vms28g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Time.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Time.html",
+          "hash": "B8otdlJHlLTX9KMfNlnzBQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.TimeArea-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.TimeArea-1.html",
+          "hash": "2lTCrsRi0E9l7pL7TbjbYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.Volume-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.Volume-1.html",
+          "hash": "bygMCy3ILfoaTSSh6DU8Sw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.VolumeRate-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.VolumeRate-1.html",
+          "hash": "pE9t8TFTAI8yCKTkPkkpQg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Measurements.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Measurements.html",
+          "hash": "cGqBH+dOk0cNj60rx3ZRGA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Meta.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Meta.html",
+          "hash": "tE5WxnxqO/EnVXFPpNMwIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Serialization.Json.Delegate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Serialization.Json.Delegate.html",
+          "hash": "Bsxi1vjxc8HhKVGJXwI4rw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Serialization.Json.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Serialization.Json.html",
+          "hash": "7VjX7VrRiQQiX0oyxqTT5g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Serialization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Serialization.html",
+          "hash": "PD0AkdNI/deisPJJ7RnVew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.Action_ReadOnlySpan-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.Action_ReadOnlySpan-1.html",
+          "hash": "0cTTcn581ZGw9oJsvNQg2Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.Action_ReadOnlySpan_Runtime-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.Action_ReadOnlySpan_Runtime-1.html",
+          "hash": "ITeoOR1RPFEmNIrhCilX/w=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.ChanceSyntax.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.ChanceSyntax.html",
+          "hash": "PtWwUXBJxSQiG0/FR8PMYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.CharEquate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.CharEquate.html",
+          "hash": "JmXMoA+hquz9zWCZ7s7ihA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.GraphSearchStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.GraphSearchStatus.html",
+          "hash": "7ssD7G7RCofWCPo/ZsWTMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.GraphSyntax.GraphSearchStatusStruct.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.GraphSyntax.GraphSearchStatusStruct.html",
+          "hash": "+GOwIfscettcedzs3YZ08A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.GraphSyntax.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.GraphSyntax.html",
+          "hash": "VpaAblu/N5ug/GxIgVwYow=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.IAction_ReadOnlySpan-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.IAction_ReadOnlySpan-1.html",
+          "hash": "zmm1eTks54g4accQGTG3JA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.Inequality-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.Inequality-1.html",
+          "hash": "uVO3xw4SQLzNxeF01gz6iA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.IntCompare.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.IntCompare.html",
+          "hash": "t+Z3fnhHvdy6m3JdGymUYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.IntEquate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.IntEquate.html",
+          "hash": "nwv9QGX8jtGbQCSarrwDKg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.IntHash.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.IntHash.html",
+          "hash": "5IgfLiOAVvfiRhXRs5udiw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.OperatorValidated.Inequality-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.OperatorValidated.Inequality-1.html",
+          "hash": "FGXiD+TN6zAVeboCvvFBIg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.OperatorValidated.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.OperatorValidated.html",
+          "hash": "wWazNVq0B4EyVqtjQetbTw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.RandomNextIntMinValueIntMaxValue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.RandomNextIntMinValueIntMaxValue.html",
+          "hash": "bPvL/FjCHptBiIS9zUW4EA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SearchCheck-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SearchCheck-1.html",
+          "hash": "vt98dnbZh3vA4hOZcs6akA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SearchCost-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SearchCost-2.html",
+          "hash": "7yCevFB3vll2pih2G5fMsw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SearchGoal-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SearchGoal-1.html",
+          "hash": "4k2XsH2fOnKniBroso893g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SearchHeuristic-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SearchHeuristic-2.html",
+          "hash": "W5pLVl56iD7bwjzma8KjLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SearchNeighbors-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SearchNeighbors-1.html",
+          "hash": "Wjdo8dIFaQjBpnX1bps2OA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SiftFromCompareAndValue-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SiftFromCompareAndValue-2.html",
+          "hash": "OcQrG5NcW8xkoJybw3GZAQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.StepStatusContinue.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.StepStatusContinue.html",
+          "hash": "LptMF4PD2jh27Gb478Q8rQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SwitchSyntax.Condition-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SwitchSyntax.Condition-1.html",
+          "hash": "CXpNYdXQNj/+kpetcmJh4A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SwitchSyntax.Condition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SwitchSyntax.Condition.html",
+          "hash": "Q9ho0OuvnEXcjEw8k5FDVA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SwitchSyntax.Keyword.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SwitchSyntax.Keyword.html",
+          "hash": "Ka8643cEQpmOwyZvX8S8Gw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SwitchSyntax.ParamsAction-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SwitchSyntax.ParamsAction-2.html",
+          "hash": "+yhOGrwnUgSIycnV138hcQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.SwitchSyntax.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.SwitchSyntax.html",
+          "hash": "tyktnHf7DfzPIx+NBs0prA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.UniversalQuantification-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.UniversalQuantification-1.html",
+          "hash": "C02aRkKfAIj7kVWZbM6vOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.Statics.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.Statics.html",
+          "hash": "f3CSkmU/1E+v0NUy99KPWA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepBreakFromAction-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepBreakFromAction-2.html",
+          "hash": "hsHqfHlxI6aRO832dMsotw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepBreakRuntime-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepBreakRuntime-1.html",
+          "hash": "N9si+r31DkJFaYFk8M88ZQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepFromStepRef-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepFromStepRef-2.html",
+          "hash": "YB87f0S8SfHFazRvf2Vhyg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepRef-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepRef-1.html",
+          "hash": "rgxKrw32pl2+E2S9rnMzDQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepRefBreak-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepRefBreak-1.html",
+          "hash": "7x8lC7j0jFEunDn8ReIv2A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepRefBreakFromStepBreak-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepRefBreakFromStepBreak-2.html",
+          "hash": "ixRhsbLOkgexJgSxj2Omjg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepRefBreakFromStepRef-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepRefBreakFromStepRef-2.html",
+          "hash": "/37Xege2HRu/QCpp7ax42Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepRefBreakRuntime-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepRefBreakRuntime-1.html",
+          "hash": "KpVGX2seL9AaZ+B3OCsA0Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepRefRuntime-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepRefRuntime-1.html",
+          "hash": "Jf4LuLDqJXJti+zdkHV4cg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepStatus.html",
+          "hash": "pNz3i07mkOkVeN3OBUgo6g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepToStepRef-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepToStepRef-2.html",
+          "hash": "kAwMAsKtrzntAj9G3WerQw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepperRef-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepperRef-1.html",
+          "hash": "JO8AGZL6ZjpvJADbCR6mdA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.StepperRefBreak-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.StepperRefBreak-1.html",
+          "hash": "bKoDPcLEeySFwsJ73qB2uA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.TagAttribute.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.TagAttribute.html",
+          "hash": "7JQjqLK9gpqlpxdk7cDYZA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.TagAttributeExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.TagAttributeExtensions.html",
+          "hash": "HLvFZpzrKRcHzHW5JC1rig=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.TowelBugException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.TowelBugException.html",
+          "hash": "qhEnVxa/HNuk69zZUolJcw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/Towel.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/Towel.html",
+          "hash": "KV9BWNKyKxH85CsYvkgnIw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html",
+          "hash": "FO7TLj0eJshS2+OQ4jFBtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "s9khloLfPPA2zTeQAcZ/6A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/benchmarks.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/benchmarks.html",
+          "hash": "Wn26IXGFlTLuIJ95iupVOQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html",
+          "hash": "dUUGvcLd+/07toGaAugGpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html",
+          "hash": "qby+thGgSkDTypowIxhFmw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "aR7cpYyPbT44HwMXm+gxew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "+rHUkRZHZRi5gd1aTU6lJA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 4,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 347,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

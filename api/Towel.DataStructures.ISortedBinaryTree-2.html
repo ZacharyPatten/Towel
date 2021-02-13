@@ -1,0 +1,1171 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ISortedBinaryTree&lt;T, _Compare&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ISortedBinaryTree&lt;T, _Compare&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.6.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.ISortedBinaryTree`2">
+  
+  
+  <h1 id="Towel_DataStructures_ISortedBinaryTree_2" data-uid="Towel.DataStructures.ISortedBinaryTree`2" class="text-break">Interface ISortedBinaryTree&lt;T, _Compare&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A self-sorting binary tree based on the heights of each node.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html#Towel_DataStructures_IDataStructure_1_Stepper_Action__0__">IDataStructure&lt;T&gt;.Stepper(Action&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html#Towel_DataStructures_IDataStructure_1_Stepper_Func__0_Towel_StepStatus__">IDataStructure&lt;T&gt;.Stepper(Func&lt;T, StepStatus&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html#Towel_DataStructures_DataStructure_IAddable_1_TryAdd__0_System_Nullable_Exception___">DataStructure.IAddable&lt;T&gt;.TryAdd(T, Nullable&lt;Exception&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html#Towel_DataStructures_DataStructure_IRemovable_1_TryRemove__0_System_Nullable_Exception___">DataStructure.IRemovable&lt;T&gt;.TryRemove(T, Nullable&lt;Exception&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html#Towel_DataStructures_DataStructure_ICountable_Count">DataStructure.ICountable.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html#Towel_DataStructures_DataStructure_IClearable_Clear">DataStructure.IClearable.Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IComparing-2.html#Towel_DataStructures_DataStructure_IComparing_2_Compare">DataStructure.IComparing&lt;T, _Compare&gt;.Compare</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html#Towel_DataStructures_DataStructure_IAuditable_1_Contains__0_">DataStructure.IAuditable&lt;T&gt;.Contains(T)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_ISortedBinaryTree_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISortedBinaryTree&lt;T, _Compare&gt; : IDataStructure&lt;T&gt;, IEnumerable&lt;T&gt;, DataStructure.IAddable&lt;T&gt;, DataStructure.IRemovable&lt;T&gt;, DataStructure.ICountable, DataStructure.IClearable, DataStructure.IComparing&lt;T, _Compare&gt;, DataStructure.IAuditable&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic type of this data structure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">_Compare</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_CurrentGreatest.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.CurrentGreatest%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L21">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_CurrentGreatest_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.CurrentGreatest*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_CurrentGreatest" data-uid="Towel.DataStructures.ISortedBinaryTree`2.CurrentGreatest">CurrentGreatest</h4>
+  <div class="markdown level1 summary"><p>Gets the current greated value in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">T CurrentGreatest { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_CurrentLeast.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.CurrentLeast%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L19">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_CurrentLeast_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.CurrentLeast*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_CurrentLeast" data-uid="Towel.DataStructures.ISortedBinaryTree`2.CurrentLeast">CurrentLeast</h4>
+  <div class="markdown level1 summary"><p>Gets the current least value in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">T CurrentLeast { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_Contains_Func__0_Towel_CompareResult__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.Contains(Func%7B%600%2CTowel.CompareResult%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L26">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_Contains_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Contains*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_Contains_Func__0_Towel_CompareResult__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Contains(Func{`0,Towel.CompareResult})">Contains(Func&lt;T, CompareResult&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if the tree contains a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Contains(Func&lt;T, CompareResult&gt; sift)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T, <a class="xref" href="Towel.CompareResult.html">CompareResult</a>&gt;</td>
+        <td><span class="parametername">sift</span></td>
+        <td><p>The compare delegate. This must match the compare delegate of the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value is in the tree or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Action__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.Stepper(%600%2C%600%2CAction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L63">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Action__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Action{`0})">Stepper(T, T, Action&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (left to right) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Stepper(T minimum, T maximum, Action&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Func__0_Towel_StepStatus__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.Stepper(%600%2C%600%2CFunc%7B%600%2CTowel.StepStatus%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L74">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Func__0_Towel_StepStatus__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Func{`0,Towel.StepStatus})">Stepper(T, T, Func&lt;T, StepStatus&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (left to right) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StepStatus Stepper(T minimum, T maximum, Func&lt;T, StepStatus&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T, <a class="xref" href="Towel.StepStatus.html">StepStatus</a>&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The result status of the stepper function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.Stepper(%600%2C%600%2CTowel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L68">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Towel_StepRef__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Towel.StepRef{`0})">Stepper(T, T, StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (left to right) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Stepper(T minimum, T maximum, StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.Stepper(%600%2C%600%2CTowel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L80">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_Stepper__0__0_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Towel.StepRefBreak{`0})">Stepper(T, T, StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (left to right) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StepStatus Stepper(T minimum, T maximum, StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The result status of the stepper function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_Stepper_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.Stepper(Towel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L40">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_Towel_StepRef__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper(Towel.StepRef{`0})">Stepper(StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure (left to right).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Stepper(StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_Stepper_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.Stepper(Towel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L44">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_Stepper_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.Stepper(Towel.StepRefBreak{`0})">Stepper(StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure (left to right).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StepStatus Stepper(StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Action__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(%600%2C%600%2CAction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L85">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Action__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Action{`0})">StepperReverse(T, T, Action&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (right to left) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void StepperReverse(T minimum, T maximum, Action&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Func__0_Towel_StepStatus__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(%600%2C%600%2CFunc%7B%600%2CTowel.StepStatus%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L96">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Func__0_Towel_StepStatus__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Func{`0,Towel.StepStatus})">StepperReverse(T, T, Func&lt;T, StepStatus&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (right to left) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StepStatus StepperReverse(T minimum, T maximum, Func&lt;T, StepStatus&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T, <a class="xref" href="Towel.StepStatus.html">StepStatus</a>&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The result status of the stepper function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(%600%2C%600%2CTowel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L90">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Towel_StepRef__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Towel.StepRef{`0})">StepperReverse(T, T, StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (right to left) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void StepperReverse(T minimum, T maximum, StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(%600%2C%600%2CTowel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L102">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse__0__0_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">StepperReverse(T, T, StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Does an optimized step function (right to left) for sorted binary search trees.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StepStatus StepperReverse(T minimum, T maximum, StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">minimum</span></td>
+        <td><p>The minimum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">maximum</span></td>
+        <td><p>The maximum step value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The result status of the stepper function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Action__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(Action%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L47">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Action__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Action{`0})">StepperReverse(Action&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure (right to left).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void StepperReverse(Action&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Action</span>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Func__0_Towel_StepStatus__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(Func%7B%600%2CTowel.StepStatus%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L54">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Func__0_Towel_StepStatus__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Func{`0,Towel.StepStatus})">StepperReverse(Func&lt;T, StepStatus&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure (right to left).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StepStatus StepperReverse(Func&lt;T, StepStatus&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T, <a class="xref" href="Towel.StepStatus.html">StepStatus</a>&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Towel_StepRef__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(Towel.StepRef%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L50">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Towel_StepRef__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Towel.StepRef{`0})">StepperReverse(StepRef&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure (right to left).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void StepperReverse(StepRef&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRef-1.html">StepRef</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Towel_StepRefBreak__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.StepperReverse(Towel.StepRefBreak%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L58">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_StepperReverse_Towel_StepRefBreak__0__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Towel.StepRefBreak{`0})">StepperReverse(StepRefBreak&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Invokes a delegate for each entry in the data structure (right to left).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">StepStatus StepperReverse(StepRefBreak&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepRefBreak-1.html">StepRefBreak</a>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The delegate to invoke on each item in the structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The resulting status of the iteration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_TryGet__0__System_Nullable_Exception___Func__0_Towel_CompareResult__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.TryGet(%600%40%2CSystem.Nullable%7BException%7D%40%2CFunc%7B%600%2CTowel.CompareResult%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L32">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_TryGet_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.TryGet*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_TryGet__0__System_Nullable_Exception___Func__0_Towel_CompareResult__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.TryGet(`0@,System.Nullable{Exception}@,Func{`0,Towel.CompareResult})">TryGet(out T, out Nullable&lt;Exception&gt;, Func&lt;T, CompareResult&gt;)</h4>
+  <div class="markdown level1 summary"><p>Tries to get a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryGet(out T value, out Exception? exception, Func&lt;T, CompareResult&gt; sift)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value if found or default.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;</td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the get failed.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T, <a class="xref" href="Towel.CompareResult.html">CompareResult</a>&gt;</td>
+        <td><span class="parametername">sift</span></td>
+        <td><p>The compare delegate. This must match the compare delegate of the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value was found or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2_TryRemove_System_Nullable_Exception___Func__0_Towel_CompareResult__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602.TryRemove(System.Nullable%7BException%7D%40%2CFunc%7B%600%2CTowel.CompareResult%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L37">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_ISortedBinaryTree_2_TryRemove_" data-uid="Towel.DataStructures.ISortedBinaryTree`2.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_ISortedBinaryTree_2_TryRemove_System_Nullable_Exception___Func__0_Towel_CompareResult__" data-uid="Towel.DataStructures.ISortedBinaryTree`2.TryRemove(System.Nullable{Exception}@,Func{`0,Towel.CompareResult})">TryRemove(out Nullable&lt;Exception&gt;, Func&lt;T, CompareResult&gt;)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool TryRemove(out Exception? exception, Func&lt;T, CompareResult&gt; sift)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;</td>
+        <td><span class="parametername">exception</span></td>
+        <td><p>The exception that occurred if the remove failed.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T, <a class="xref" href="Towel.CompareResult.html">CompareResult</a>&gt;</td>
+        <td><span class="parametername">sift</span></td>
+        <td><p>The compare delegate. This must match the compare delegate of the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the remove succeeded or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Stepper__1_Towel_DataStructures_IDataStructure___0__">DataStructure.Stepper&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_StepperBreak__1_Towel_DataStructures_IDataStructure___0__">DataStructure.StepperBreak&lt;T&gt;(IDataStructure&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryAdd__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.TryAdd&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Add__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.Add&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_TryRemove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.TryRemove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Remove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.Remove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Stepper__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.Stepper&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRef__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.StepperRef&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreak__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.StepperBreak&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreak__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.StepperRefBreak&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.StepperReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.StepperRefReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreakReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.StepperBreakReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreakReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1__">SortedBinaryTree.StepperRefBreakReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Stepper__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.Stepper&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRef__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.StepperRef&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreak__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.StepperBreak&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreak__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.StepperRefBreak&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.StepperReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.StepperRefReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreakReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.StepperBreakReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperRefBreakReverse__2_Towel_DataStructures_ISortedBinaryTree___0___1____0___0_">SortedBinaryTree.StepperRefBreakReverse&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_TryGet__2_Towel_DataStructures_ISortedBinaryTree___0___1____0__Func___0_Towel_CompareResult__">SortedBinaryTree.TryGet&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, out T, Func&lt;T, CompareResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Get__2_Towel_DataStructures_ISortedBinaryTree___0___1__Func___0_Towel_CompareResult__">SortedBinaryTree.Get&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, Func&lt;T, CompareResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_TryRemove__2_Towel_DataStructures_ISortedBinaryTree___0___1__Func___0_Towel_CompareResult__">SortedBinaryTree.TryRemove&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, Func&lt;T, CompareResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Remove__2_Towel_DataStructures_ISortedBinaryTree___0___1__Func___0_Towel_CompareResult__">SortedBinaryTree.Remove&lt;T, _Compare&gt;(ISortedBinaryTree&lt;T, _Compare&gt;, Func&lt;T, CompareResult&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/master/apiSpec/new?filename=Towel_DataStructures_ISortedBinaryTree_2.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/master/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L7" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
