@@ -82,7 +82,7 @@ namespace Towel
 			for (int i = 1; i < args.Length; i += 2)
 			{
 				string arg = args[i];
-				if (arg.Length < 3 || arg[0] != '-')
+				if (arg.Length < 3 || arg[0] is not '-' || arg[1] is not '-')
 				{
 					Console.Error.WriteLine($"Invalid parameter {arg} in index {i}.");
 					return;
