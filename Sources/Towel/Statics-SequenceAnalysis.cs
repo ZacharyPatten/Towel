@@ -1534,7 +1534,7 @@ namespace Towel
 		/// <returns>
 		/// An iteratable <see cref="IEnumerable>"/> of a tuple of <typeparamref name="T1"/> and <typeparamref name="T2"/>
 		/// </returns>
-		public static IEnumerable<(T1 left, T2 right)> Zip<T1, T2>(this (IEnumerable<T1> l, IEnumerable<T2> r) seq)
+		public static System.Collections.Generic.IEnumerable<(T1 left, T2 right)> Zip<T1, T2>(this (System.Collections.Generic.IEnumerable<T1> l, System.Collections.Generic.IEnumerable<T2> r) seq)
 		{
 			bool l, r;
 			var enumL = seq.l.GetEnumerator();
