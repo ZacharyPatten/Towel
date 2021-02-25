@@ -1515,5 +1515,35 @@ namespace Towel
 		}
 
 		#endregion
+			
+		#region Multiple sequences	
+		/// <summary>
+		/// Similar to python's zip. Sequentially iterates over a pair of sequences, producing
+		/// a tuple of elements from each of the sequences one by one
+		/// </summary>
+		/// <typeparam name="T1">
+		/// A type, contained by the first sequence
+		/// </typeparam>
+		/// <typeparam name="T2">
+		/// A type, contained by the second sequence
+		/// </typeparam>
+		/// <param name="seq">
+		/// It is your tuple of sequences. You would normally use it as
+		/// (oneSequence, anotherSequence).Zip()
+		/// </param>
+		/// <returns>
+		/// An iteratable <see cref="IEnumerable>"/> of a tuple of <typeparamref name="T1"/> and <typeparamref name="T2"/>
+		/// </returns>
+		public static IEnumerable<(T1 left, T2 right)> Zip<T1, T2>(this (IEnumerable<T1> l, IEnumerable<T2> r) seq)
+		{
+			bool l, r;
+			var enumL = seq.l.GetEnumerator();
+			var enumR = seq.r.GetEnumerator();
+			while ((l = enumL.MoveNext()) & (r = enumR.MoveNext()))
+				yield return (enumL.Current, enumR.Current);
+			if (l != r)
+				throw new Exception(); // TODO: what should be here?
+		}
+		#endregion
 	}
 }
