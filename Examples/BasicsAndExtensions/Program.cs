@@ -55,7 +55,7 @@ namespace BasicsAndExtensions
 
 			#region Convert
 			{
-				// Note: the main use case for this is converting types when using generics.
+				// Note: the main use case for this is converting types when using generics (not when the types are known at compile time).
 
 				double a = Convert<int, double>(1234);
 				float b = Convert<int, float>(123);
