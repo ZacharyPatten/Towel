@@ -36,6 +36,12 @@ namespace Towel
 			public CompareResult Do(int a, int b) => ToCompareResult(a.CompareTo(b));
 		}
 
+		public struct CompareInvert<T, Compare> : IFunc<T, T, CompareResult>
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			public CompareResult Do(T a, T b) => default(Compare).Do(b, a);
+		}
+
 		/// <summary>Compares two char values for equality.</summary>
 		public struct CharEquate : IFunc<char, char, bool>
 		{

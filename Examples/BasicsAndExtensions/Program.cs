@@ -313,6 +313,19 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region Get X Least/Greatest
+			{
+				int[] a = { 10, 2, 9, 1, 8, 3 };
+				int count = 3;
+
+				Console.WriteLine("  Get X Least/Greatest--------------------------");
+				Console.WriteLine();
+				Console.WriteLine($"    GetLeast([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetLeast<int, IntCompare>(a.AsSpan(), count))}]");
+				Console.WriteLine($"    GetGreatest([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetGreatest<int, IntCompare>(a.AsSpan(), count))}]");
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region IsOrdered
 			{
 				int[] a = { 1, 2, 3, 4, 5 }; // least to greatest
