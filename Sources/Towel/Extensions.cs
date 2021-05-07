@@ -34,8 +34,7 @@ namespace Towel
 		public static string ReplaceCached(this string @this, params (string Pattern, string Replacement)[] rules) => ReplaceBase(@this, rules, true);
 
 		/// <summary>Cache for the <see cref="ReplaceCached"/> method.</summary>
-		private readonly static System.Collections.Generic.Dictionary<object, (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet)> ReplaceCachedCache =
-			new System.Collections.Generic.Dictionary<object, (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet)>();
+		private readonly static System.Collections.Generic.Dictionary<object, (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet)> ReplaceCachedCache = new();
 
 		private static string ReplaceBase(string @this, (string Pattern, string Replacement)[] rules, bool cached)
 		{
@@ -106,7 +105,7 @@ namespace Towel
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
 			}
 
-			SetHashLinked<char> set = new SetHashLinked<char>();
+			SetHashLinked<char> set = new();
 			foreach (char c in chars)
 			{
 				set.Add(c);
@@ -351,7 +350,7 @@ namespace Towel
 		/// <returns>The string after removing any predicated characters.</returns>
 		public static string Remove(this string @string, Predicate<char> where)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new();
 			foreach (char c in @string)
 			{
 				if (!where(c))
@@ -657,7 +656,7 @@ namespace Towel
 		/// <returns>The TimeSpan the action took to complete.</returns>
 		public static TimeSpan Time_StopWatch(this Action action)
 		{
-			Stopwatch watch = new Stopwatch();
+			Stopwatch watch = new();
 			watch.Restart();
 			action();
 			watch.Stop();
@@ -960,7 +959,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this Func<Func<T, StepStatus>, StepStatus> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
-			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
+			SetHashLinked<T> set = new(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))
@@ -987,7 +986,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
-			SetHashLinked<T> set = new SetHashLinked<T>(equate, hash);
+			SetHashLinked<T> set = new(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))
@@ -1048,7 +1047,7 @@ namespace Towel
 		/// <returns>The string of the concatenated chars.</returns>
 		public static string ConcatToString(this Action<Action<char>> stepper)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new();
 			stepper(c => stringBuilder.Append(c));
 			return stringBuilder.ToString();
 		}

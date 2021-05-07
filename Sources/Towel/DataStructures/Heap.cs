@@ -266,7 +266,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public HeapArray<T, _Compare> Clone() => new HeapArray<T, _Compare>(this);
+		public HeapArray<T, _Compare> Clone() => new(this);
 
 		#endregion
 	}
@@ -299,7 +299,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public new HeapArray<T> Clone() => new HeapArray<T>(this);
+		public new HeapArray<T> Clone() => new(this);
 
 		#endregion
 	}

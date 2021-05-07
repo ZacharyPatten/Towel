@@ -263,7 +263,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this set.</returns>
-		public SetHashLinked<T, Equate, Hash> Clone() => new SetHashLinked<T, Equate, Hash>(this);
+		public SetHashLinked<T, Equate, Hash> Clone() => new(this);
 
 		/// <summary>
 		/// Determines if a value has been added to a set.
@@ -414,7 +414,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this set.</returns>
-		public new SetHashLinked<T> Clone() => new SetHashLinked<T>(this);
+		public new SetHashLinked<T> Clone() => new(this);
 
 		#endregion
 	}

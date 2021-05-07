@@ -10,7 +10,7 @@ namespace DataStructures
 	{
 		static void Main()
 		{
-			Random random = new Random();
+			Random random = new();
 			int test = 10;
 
 			Console.WriteLine("You are runnning the Data Structures example.");

@@ -48,7 +48,7 @@ namespace ConsoleHelpers
 				ConsoleHelper.PressToContinue();
 				DoWith(cursorVisible: false, action: () =>
 				{
-					Thread thread = new Thread(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
+					Thread thread = new(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
 					thread.Start();
 					ConsoleHelper.AnimatedEllipsis(
 						condition: () => thread.IsAlive,
@@ -73,7 +73,7 @@ namespace ConsoleHelpers
 			#region Progress Bar Example
 			{
 				Console.WriteLine("---------------------");
-				Random random = new Random();
+				Random random = new();
 				Console.WriteLine("Progress Bar Example.");
 				ConsoleHelper.PromptPressToContinue();
 				Console.WriteLine();
