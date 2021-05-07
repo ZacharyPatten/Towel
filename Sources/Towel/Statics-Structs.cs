@@ -12,8 +12,7 @@ namespace Towel
 
 			public void Do(T arg1) => Array[Index++] = arg1;
 
-			public static implicit operator FillArray<T>(T[] array) =>
-				new FillArray<T>() { Array = array, };
+			public static implicit operator FillArray<T>(T[] array) => new() { Array = array, };
 		}
 
 		public struct IntHash : IFunc<int, int>
@@ -89,7 +88,7 @@ namespace Towel
 			/// <inheritdoc cref="Random.Next(int, int)"/>
 			public int Do(int minValue, int maxValue) => _random.Next(minValue, maxValue);
 			/// <summary>Casts a <see cref="Random"/> to a struct wrapper.</summary>
-			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) => new RandomNextIntMinValueIntMaxValue() { _random = random, };
+			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) => new() { _random = random, };
 		}
 
 		public interface IAction_ReadOnlySpan<T> { void Do(ReadOnlySpan<T> readOnlySpan); }
@@ -100,8 +99,7 @@ namespace Towel
 		{
 			Action_ReadOnlySpan<T> Delegate;
 			public void Do(ReadOnlySpan<T> readOnlySpan) => Delegate(readOnlySpan);
-			public static implicit operator Action_ReadOnlySpan_Runtime<T>(Action_ReadOnlySpan<T> @delegate) =>
-				new Action_ReadOnlySpan_Runtime<T>() { Delegate = @delegate, };
+			public static implicit operator Action_ReadOnlySpan_Runtime<T>(Action_ReadOnlySpan<T> @delegate) => new() { Delegate = @delegate, };
 		}
 
 		internal struct Func_int_int_JaggedArray_Length0<T> : IFunc<int, int>
@@ -109,8 +107,7 @@ namespace Towel
 			T[][] JaggedArray;
 			public int Do(int index) => JaggedArray[index].Length;
 
-			public static implicit operator Func_int_int_JaggedArray_Length0<T>(T[][] jaggedArray) =>
-				new Func_int_int_JaggedArray_Length0<T>() { JaggedArray = jaggedArray, };
+			public static implicit operator Func_int_int_JaggedArray_Length0<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
 		}
 
 		internal struct Func_int_int_T_JaggedArray_Get<T> : IFunc<int, int, T>
@@ -118,8 +115,7 @@ namespace Towel
 			T[][] JaggedArray;
 			public T Do(int index1, int index2) => JaggedArray[index1][index2];
 
-			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) =>
-				new Func_int_int_T_JaggedArray_Get<T>() { JaggedArray = jaggedArray, };
+			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
 		}
 
 		internal struct IntIncrement : IFunc<int, int>
