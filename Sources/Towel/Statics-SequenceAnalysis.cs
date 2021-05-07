@@ -1549,7 +1549,7 @@ namespace Towel
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetLeast<T, Compare>(Span<T> values, int count)
+		public static T[] GetLeast<T, Compare>(ReadOnlySpan<T> values, int count)
 			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			if (values.IsEmpty) throw new ArgumentException($"{nameof(values)}.{nameof(values.IsEmpty)}", nameof(values));
@@ -1583,7 +1583,7 @@ namespace Towel
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetGreatest<T, Compare>(Span<T> values, int count)
+		public static T[] GetGreatest<T, Compare>(ReadOnlySpan<T> values, int count)
 			where Compare : struct, IFunc<T, T, CompareResult> =>
 			GetLeast<T, CompareInvert<T, Compare>>(values, count);
 

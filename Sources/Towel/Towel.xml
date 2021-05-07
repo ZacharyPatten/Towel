@@ -30974,7 +30974,7 @@
             <param name="count">The number of items to get from <paramref name="values"/>.</param>
             <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
         </member>
-        <member name="M:Towel.Statics.GetLeast``2(System.Span{``0},System.Int32)">
+        <member name="M:Towel.Statics.GetLeast``2(System.ReadOnlySpan{``0},System.Int32)">
             <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
             <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
             <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
@@ -30990,7 +30990,7 @@
             <param name="count">The number of items to get from <paramref name="values"/>.</param>
             <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
         </member>
-        <member name="M:Towel.Statics.GetGreatest``2(System.Span{``0},System.Int32)">
+        <member name="M:Towel.Statics.GetGreatest``2(System.ReadOnlySpan{``0},System.Int32)">
             <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
             <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
             <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
