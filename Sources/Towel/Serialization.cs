@@ -15,7 +15,7 @@ namespace Towel
 		#region Shared
 
 		internal static readonly XmlWriterSettings DefaultXmlWriterSettings =
-			new XmlWriterSettings() { OmitXmlDeclaration = true, };
+			new() { OmitXmlDeclaration = true, };
 
 		#endregion
 
@@ -37,7 +37,7 @@ namespace Towel
 		/// <returns>The XML serialzation of the value.</returns>
 		public static string DefaultToXml<T>(T value, XmlWriterSettings xmlWriterSettings)
 		{
-			using StringWriter stringWriter = new StringWriter();
+			using StringWriter stringWriter = new();
 			DefaultToXml(value, stringWriter, xmlWriterSettings);
 			return stringWriter.ToString();
 		}
@@ -57,7 +57,7 @@ namespace Towel
 		public static void DefaultToXml<T>(T value, TextWriter textWriter, XmlWriterSettings xmlWriterSettings)
 		{
 			using XmlWriter xmlWriter = XmlWriter.Create(textWriter, xmlWriterSettings);
-			XmlSerializer serializer = new XmlSerializer(typeof(T));
+			XmlSerializer serializer = new(typeof(T));
 			serializer.Serialize(xmlWriter, value);
 		}
 
@@ -71,7 +71,7 @@ namespace Towel
 		/// <returns>The deserialized value.</returns>
 		public static T? DefaultFromXml<T>(string @string)
 		{
-			using StringReader stringReader = new StringReader(@string);
+			using StringReader stringReader = new(@string);
 			return DefaultFromXml<T>(stringReader);
 		}
 
@@ -81,7 +81,7 @@ namespace Towel
 		/// <returns>The deserialized value.</returns>
 		public static T? DefaultFromXml<T>(TextReader textReader)
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(T));
+			XmlSerializer serializer = new(typeof(T));
 			return (T?)serializer.Deserialize(textReader);
 		}
 
@@ -131,7 +131,7 @@ namespace Towel
 		/// </exception>
 		public static string StaticDelegateToXml<T>(T @delegate, XmlWriterSettings xmlWriterSettings) where T : Delegate
 		{
-			using StringWriter stringWriter = new StringWriter();
+			using StringWriter stringWriter = new();
 			StaticDelegateToXml(@delegate, stringWriter, xmlWriterSettings);
 			return stringWriter.ToString();
 		}
@@ -225,7 +225,7 @@ namespace Towel
 		/// </exception>
 		public static T StaticDelegateFromXml<T>(string @string) where T : Delegate
 		{
-			using StringReader stringReader = new StringReader(@string);
+			using StringReader stringReader = new(@string);
 			return StaticDelegateFromXml<T>(stringReader);
 		}
 
@@ -381,7 +381,7 @@ namespace Towel
 				parameterTypes[i] = parameterInfos[i].ParameterType.AssemblyQualifiedName;
 			}
 
-			Json.Delegate delegateObject = new Json.Delegate()
+			Json.Delegate delegateObject = new()
 			{
 				DeclaringType = methodInfo.DeclaringType.AssemblyQualifiedName,
 				MethodName = methodInfo.Name,

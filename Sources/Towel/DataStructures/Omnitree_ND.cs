@@ -220,7 +220,7 @@ namespace Towel.DataStructures
 			public ReadOnlySpan<object> Location => _location;
 
 			/// <summary>Returns a vector with defaulted values.</summary>
-			public static Vector Default => new Vector();
+			public static Vector Default => new();
 		}
 
 		/// <summary>An N-D bounding box.</summary>

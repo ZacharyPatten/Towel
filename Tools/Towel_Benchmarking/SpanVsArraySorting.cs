@@ -17,7 +17,7 @@ namespace Towel_Benchmarking
 		{
 			Values = new int[N];
 			Extensions.Iterate(N, i => Values[i] = i);
-			Random random = new Random(7);
+			Random random = new(7);
 			Shuffle<int>(Values, random);
 		}
 
@@ -65,13 +65,13 @@ namespace Towel_Benchmarking
 	{
 		internal T[] Array;
 		public T Do(int index) => Array[index];
-		public static implicit operator GetIndexArray<T>(T[] array) => new GetIndexArray<T>() { Array = array, };
+		public static implicit operator GetIndexArray<T>(T[] array) => new() { Array = array, };
 	}
 
 	public struct SetIndexArray<T> : IAction<int, T>
 	{
 		internal T[] Array;
 		public void Do(int index, T value) => Array[index] = value;
-		public static implicit operator SetIndexArray<T>(T[] array) => new SetIndexArray<T>() { Array = array, };
+		public static implicit operator SetIndexArray<T>(T[] array) => new() { Array = array, };
 	}
 }

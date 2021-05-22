@@ -88,7 +88,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Implicitly converts a C# System array into a Towel array.</summary>
 		/// <param name="array">The array to be represented as a Towel array.</param>
-		public static implicit operator Array<T>(T[] array) => new Array<T>(array);
+		public static implicit operator Array<T>(T[] array) => new(array);
 
 		/// <summary>Implicitly converts a Towel array into a C# System array.</summary>
 		/// <param name="array">The array to be represented as a C# System array.</param>
@@ -259,7 +259,7 @@ namespace Towel.DataStructures
 		/// <summary>Clones this array.</summary>
 		/// <returns>A clone of the array.</returns>
 		public ArrayJagged<T> Clone() =>
-			new ArrayJagged<T>(this);
+			new(this);
 
 		#region Stepper And IEnumerable
 

@@ -167,7 +167,7 @@ namespace Towel.Measurements
 				measurement = default;
 				return false;
 			}
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new();
 			foreach (Match match in matchCollection)
 			{
 				string matchValue = match.Value;

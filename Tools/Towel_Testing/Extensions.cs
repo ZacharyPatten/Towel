@@ -108,25 +108,25 @@ namespace Towel_Testing
 
 			{ // test shifting from maxValue
 				int i = 999;
-				TestingRandom random = new TestingRandom(() => i--);
+				TestingRandom random = new(() => i--);
 				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(5, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from 0
-				TestingRandom random = new TestingRandom(() => 0);
+				TestingRandom random = new(() => 0);
 				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from inner value
-				TestingRandom random = new TestingRandom(() => 7);
+				TestingRandom random = new(() => 7);
 				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test
-				Random random = new Random();
+				Random random = new();
 				for (int i = 0; i < 10000; i++)
 				{
 					ISet<int> set = new SetHashLinked<int>();
@@ -135,11 +135,11 @@ namespace Towel_Testing
 				}
 			}
 			{ // test invalid random argument exception
-				TestingRandom random = new TestingRandom(() => 1000);
+				TestingRandom random = new(() => 1000);
 				Assert.ThrowsException<ArgumentException>(() => random.NextUnique(5, 0, 1000, i => { }));
 			}
 			{ // test invalid random argument exception
-				TestingRandom random = new TestingRandom(() => -1);
+				TestingRandom random = new(() => -1);
 				Assert.ThrowsException<ArgumentException>(() => random.NextUnique(5, 0, 1000, i => { }));
 			}
 
@@ -149,25 +149,25 @@ namespace Towel_Testing
 
 			{ // test shifting from maxValue
 				int i = 999;
-				TestingRandom random = new TestingRandom(() => i--);
+				TestingRandom random = new(() => i--);
 				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(100, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from 0
-				TestingRandom random = new TestingRandom(() => 0);
+				TestingRandom random = new(() => 0);
 				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from inner value
-				TestingRandom random = new TestingRandom(() => 7);
+				TestingRandom random = new(() => 7);
 				ISet<int> set = new SetHashLinked<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test
-				Random random = new Random();
+				Random random = new();
 				for (int i = 0; i < 10000; i++)
 				{
 					ISet<int> set = new SetHashLinked<int>();
@@ -176,11 +176,11 @@ namespace Towel_Testing
 				}
 			}
 			{ // test invalid random argument exception
-				TestingRandom random = new TestingRandom(() => 1000);
+				TestingRandom random = new(() => 1000);
 				Assert.ThrowsException<ArgumentException>(() => random.NextUnique(100, 0, 1000, i => { }));
 			}
 			{ // test invalid random argument exception
-				TestingRandom random = new TestingRandom(() => -1);
+				TestingRandom random = new(() => -1);
 				Assert.ThrowsException<ArgumentException>(() => random.NextUnique(100, 0, 1000, i => { }));
 			}
 
@@ -189,7 +189,7 @@ namespace Towel_Testing
 
 		[TestMethod] public void Random_NextDecimal()
 		{
-			Random random = new Random(7);
+			Random random = new(7);
 			_ = random.NextDecimal();
 			{
 				const decimal min = 0;

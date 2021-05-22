@@ -7,7 +7,7 @@ namespace Towel_Testing.Mathematics
 	{
 		[TestMethod] public void Parse_String_Testing()
 		{
-			Symbolics.Constant<int> ONE = new Symbolics.Constant<int>(1);
+			Symbolics.Constant<int> ONE = new(1);
 
 			#region Basic Negate Tests
 

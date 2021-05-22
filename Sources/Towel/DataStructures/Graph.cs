@@ -390,7 +390,7 @@ namespace Towel.DataStructures
 		/// <summary>Makes a clone of this <see cref="GraphMap{T}"/>.</summary>
 		/// <returns></returns>
 		public GraphMap<T> Clone() =>
-			new GraphMap<T>(this);
+			new(this);
 
 		/// <summary>Gets an with all the nodes of th graph in it.</summary>
 		/// <returns>An array with all the nodes of th graph in it.</returns>

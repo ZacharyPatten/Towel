@@ -62,7 +62,7 @@ namespace Towel.Mathematics
 		/// <summary>Implicitly converts a value into a fraction.</summary>
 		/// <param name="value">The value to convert to a fraction.</param>
 		public static implicit operator Fraction<T>(T value) =>
-			new Fraction<T>(value);
+			new(value);
 
 		#endregion
 
@@ -77,7 +77,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The value to negate.</param>
 		/// <returns>The result of the negation.</returns>
 		public static Fraction<T> Negate(Fraction<T> a) =>
-			new Fraction<T>(Negation(a.Numerator), a.Denominator);
+			new(Negation(a.Numerator), a.Denominator);
 
 		#endregion
 
@@ -142,7 +142,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the multiplication.</returns>
 		public static Fraction<T> Multiply(Fraction<T> a, Fraction<T> b) =>
-			new Fraction<T>(
+			new(
 				Multiplication(a.Numerator, b.Numerator),
 				Multiplication(a.Denominator, b.Denominator));
 
@@ -162,7 +162,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the division.</returns>
 		public static Fraction<T> Divide(Fraction<T> a, Fraction<T> b) =>
-			new Fraction<T>(
+			new(
 				Multiplication(a.Numerator, b.Denominator),
 				Multiplication(a.Denominator, b.Numerator));
 

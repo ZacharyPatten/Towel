@@ -136,7 +136,7 @@ namespace Towel_Testing.DataStructures
 				{
 					values[i] = i;
 				}
-				Random random = new Random(7);
+				Random random = new(7);
 				Shuffle<int>(values, random);
 				for (int i = 0; i < count; i++)
 				{

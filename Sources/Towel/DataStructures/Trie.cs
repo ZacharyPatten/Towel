@@ -172,7 +172,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new Node { Map = new MapHashLinked<Node, T>(Equate, Hash) };
+					Node temp = new() { Map = new MapHashLinked<Node, T>(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -511,7 +511,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new Node { Map = new MapHashLinked<Node, T>(Equate, Hash) };
+					Node temp = new() { Map = new MapHashLinked<Node, T>(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -567,7 +567,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new Node { Map = new MapHashLinked<Node, T>(Equate, Hash) };
+					Node temp = new() { Map = new MapHashLinked<Node, T>(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}

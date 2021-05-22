@@ -265,8 +265,8 @@ namespace Towel_Testing.Mathematics
 
 			// Exceptions
 			{
-				Matrix<decimal> A = new Matrix<decimal>(2, 2);
-				Matrix<decimal> B = new Matrix<decimal>(3, 3);
+				Matrix<decimal> A = new(2, 2);
+				Matrix<decimal> B = new(3, 3);
 				Assert.ThrowsException<MathematicsException>(() => A + B);
 			}
 		}
@@ -371,8 +371,8 @@ namespace Towel_Testing.Mathematics
 
 			// Exceptions
 			{
-				Matrix<decimal> A = new Matrix<decimal>(2, 2);
-				Matrix<decimal> B = new Matrix<decimal>(3, 3);
+				Matrix<decimal> A = new(2, 2);
+				Matrix<decimal> B = new(3, 3);
 				Assert.ThrowsException<MathematicsException>(() => A - B);
 			}
 		}
@@ -469,8 +469,8 @@ namespace Towel_Testing.Mathematics
 
 			// Exceptions
 			{
-				Matrix<decimal> A = new Matrix<decimal>(2, 2);
-				Matrix<decimal> B = new Matrix<decimal>(3, 3);
+				Matrix<decimal> A = new(2, 2);
+				Matrix<decimal> B = new(3, 3);
 				Assert.ThrowsException<MathematicsException>(() => A * B);
 			}
 		}
@@ -483,14 +483,14 @@ namespace Towel_Testing.Mathematics
 		{
 			// int
 			{
-				Matrix<int> A = new Matrix<int>(3, 3)
+				Matrix<int> A = new(3, 3)
 				{
 					[0] =  2, [1] = 3, [2] = -4,
 					[3] = 11, [4] = 8, [5] =  7,
 					[6] =  2, [7] = 5, [8] =  3,
 				};
-				Vector<int> B = new Vector<int>(3, 7, 5);
-				Vector<int> C = new Vector<int>(7, 124, 56);
+				Vector<int> B = new(3, 7, 5);
+				Vector<int> C = new(7, 124, 56);
 				Assert.IsTrue(A * B == C);
 			}
 
@@ -502,8 +502,8 @@ namespace Towel_Testing.Mathematics
 					{ 11f, 8f,  7f, },
 					{  2f, 5f,  3f, },
 				};
-				Vector<float> B = new Vector<float>(3, 7, 5);
-				Vector<float> C = new Vector<float>(7, 124, 56);
+				Vector<float> B = new(3, 7, 5);
+				Vector<float> C = new(7, 124, 56);
 				Assert.IsTrue(A * B == C);
 			}
 
@@ -515,8 +515,8 @@ namespace Towel_Testing.Mathematics
 					{ 11d, 8d,  7d, },
 					{  2d, 5d,  3d, },
 				};
-				Vector<double> B = new Vector<double>(3d, 7d, 5d);
-				Vector<double> C = new Vector<double>(7d, 124d, 56d);
+				Vector<double> B = new(3d, 7d, 5d);
+				Vector<double> C = new(7d, 124d, 56d);
 				Assert.IsTrue(A * B == C);
 			}
 
@@ -528,15 +528,15 @@ namespace Towel_Testing.Mathematics
 					{ 11m, 8m,  7m, },
 					{  2m, 5m,  3m, },
 				};
-				Vector<decimal> B = new Vector<decimal>(3m, 7m, 5m);
-				Vector<decimal> C = new Vector<decimal>(7m, 124m, 56m);
+				Vector<decimal> B = new(3m, 7m, 5m);
+				Vector<decimal> C = new(7m, 124m, 56m);
 				Assert.IsTrue(A * B == C);
 			}
 
 			// Exceptions
 			{
-				Vector<int> V = new Vector<int>(1);
-				Matrix<int> M = new Matrix<int>(2, 2);
+				Vector<int> V = new(1);
+				Matrix<int> M = new(2, 2);
 				Assert.ThrowsException<MathematicsException>(() => M * V);
 			}
 		}
@@ -759,7 +759,7 @@ namespace Towel_Testing.Mathematics
 
 			// Exceptions
 			{
-				Matrix<decimal> A = new Matrix<decimal>(2, 3);
+				Matrix<decimal> A = new(2, 3);
 				Assert.ThrowsException<MathematicsException>(() => A.Power(3));
 			}
 		}
@@ -844,7 +844,7 @@ namespace Towel_Testing.Mathematics
 			}
 			// Exceptions
 			{
-				Matrix<decimal> a = new Matrix<decimal>(2, 3);
+				Matrix<decimal> a = new(2, 3);
 				Assert.ThrowsException<MathematicsException>(() => a.DeterminantLaplace());
 			}
 		}
@@ -925,7 +925,7 @@ namespace Towel_Testing.Mathematics
 			}
 			// Exceptions
 			{
-				Matrix<decimal> a = new Matrix<decimal>(2, 3);
+				Matrix<decimal> a = new(2, 3);
 				Assert.ThrowsException<MathematicsException>(() => a.DeterminantGaussian());
 			}
 		}
@@ -982,7 +982,7 @@ namespace Towel_Testing.Mathematics
 
 			// Exceptions
 			{
-				Matrix<decimal> a = new Matrix<decimal>(2, 3);
+				Matrix<decimal> a = new(2, 3);
 				Assert.ThrowsException<MathematicsException>(() => a.Trace());
 			}
 		}

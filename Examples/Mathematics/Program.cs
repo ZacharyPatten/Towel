@@ -17,7 +17,7 @@ namespace Mathematics
 			Console.WriteLine("==========================================");
 			Console.WriteLine();
 
-			Random random = new Random();
+			Random random = new();
 
 			#region Basic Operations
 
@@ -25,9 +25,9 @@ namespace Mathematics
 			Console.WriteLine();
 
 			// Variables
-			Fraction<short> clampA = new Fraction<short>(-123, 9); // -123 / 9
-			Fraction<short> clampB = new Fraction<short>(7, 12);   //    7 / 12
-			Fraction<short> clampC = new Fraction<short>(14, 15);  //   14 / 15
+			Fraction<short> clampA = new(-123, 9); // -123 / 9
+			Fraction<short> clampB = new(7, 12);   //    7 / 12
+			Fraction<short> clampC = new(14, 15);  //   14 / 15
 			double[] values = new double[4];
 			Action<Action<double>> valueStepper = values.ToStepper();
 			values.Format(x => random.NextDouble());
@@ -154,7 +154,7 @@ namespace Mathematics
 			Console.WriteLine();
 
 			double randomDouble = random.NextDouble();
-			Angle<double> randomAngle = new Angle<double>(randomDouble, Angle.Units.Radians);
+			Angle<double> randomAngle = new(randomDouble, Angle.Units.Radians);
 
 			double sineTaylorSeries = SineTaylorSeries(randomAngle);
 			Console.WriteLine("    SinTaylorSeries(" + randomAngle + ") = " + Format(sineTaylorSeries));
@@ -248,7 +248,7 @@ namespace Mathematics
 			Console.WriteLine();
 
 			// Vector Construction
-			Vector<double> V = new Vector<double>(4, i => random.NextDouble());
+			Vector<double> V = new(4, i => random.NextDouble());
 
 			Console.WriteLine("    Vector<double> V: ");
 			ConsoleWrite(V);
@@ -277,7 +277,7 @@ namespace Mathematics
 			Console.WriteLine();
 
 			// Vector Cross Product
-			Vector<double> V3 = new Vector<double>(3, i => random.NextDouble());
+			Vector<double> V3 = new(3, i => random.NextDouble());
 
 			Console.WriteLine("    Vector<double> V3: ");
 			ConsoleWrite(V3);
@@ -285,7 +285,7 @@ namespace Mathematics
 			ConsoleWrite(Vector<double>.CrossProduct(V3, V3));
 
 			// Matrix Construction
-			Matrix<double> M = new Matrix<double>(4, 4, (row, column) => random.NextDouble());
+			Matrix<double> M = new(4, 4, (row, column) => random.NextDouble());
 
 			Console.WriteLine("    Matrix<double>.Identity(4, 4): ");
 			ConsoleWrite(Matrix<double>.FactoryIdentity(4, 4));
@@ -349,7 +349,7 @@ namespace Mathematics
 			ConsoleWrite(inverse);
 
 			// Quaternion Construction
-			Quaternion<double> Q = new Quaternion<double>(
+			Quaternion<double> Q = new(
 				random.NextDouble(),
 				random.NextDouble(),
 				random.NextDouble(),

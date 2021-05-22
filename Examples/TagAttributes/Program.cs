@@ -81,7 +81,7 @@ namespace Example
 		{
 			[Tag(MyTagA, "works :3")]
 			[Tag(MyTagB, "E")]
-			public object Field = new object();
+			public object Field = new();
 
 			[Tag(MyTagA, "works :b")]
 			[Tag(MyTagB, "F")]

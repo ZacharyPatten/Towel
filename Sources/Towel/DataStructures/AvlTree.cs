@@ -64,7 +64,7 @@ namespace Towel.DataStructures
 		internal AvlTreeLinked(AvlTreeLinked<T, _Compare> tree)
 		{
 			static Node Clone(Node node) =>
-				new Node(
+				new(
 					value: node.Value,
 					height: node.Height,
 					leftChild: node.LeftChild is null ? null : Clone(node.LeftChild),
@@ -184,7 +184,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: θ(n)</para>
 		/// </summary>
 		/// <returns>A clone of the AVL tree.</returns>
-		public AvlTreeLinked<T, _Compare> Clone() => new AvlTreeLinked<T, _Compare>(this);
+		public AvlTreeLinked<T, _Compare> Clone() => new(this);
 
 		/// <summary>
 		/// Determines if the AVL tree contains a value.
@@ -767,7 +767,7 @@ namespace Towel.DataStructures
 		internal AvlTreeLinked(AvlTreeLinked<T> tree)
 		{
 			static Node Clone(Node node) =>
-				new Node(
+				new(
 					value: node.Value,
 					height: node.Height,
 					leftChild: node.LeftChild is null ? null : Clone(node.LeftChild),
@@ -796,7 +796,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
 		/// <returns>A clone of the AVL tree.</returns>
-		public new AvlTreeLinked<T> Clone() => new AvlTreeLinked<T>(this);
+		public new AvlTreeLinked<T> Clone() => new(this);
 
 		#endregion
 	}

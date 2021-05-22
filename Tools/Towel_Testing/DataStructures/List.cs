@@ -25,7 +25,7 @@ namespace Towel_Testing.DataStructures
 		public static void Add_Testing<T, List>(int count, Func<int, T> func)
 			where List : IList<T>, new()
 		{
-			List list = new List();
+			List list = new();
 			list.Populate(count, func);
 		}
 
@@ -33,7 +33,7 @@ namespace Towel_Testing.DataStructures
 			where List : IList<T>, new()
 		{
 			{ // removing from the front of the list
-				List list = new List();
+				List list = new();
 				list.Populate(count, func);
 				for (int i = 0; i < count; i++)
 				{
@@ -45,7 +45,7 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(list.Count == 0);
 			}
 			{ // removing from the end of the list
-				List list = new List();
+				List list = new();
 				list.Populate(count, func);
 				for (int i = count - 1; i >= 0; i--)
 				{
@@ -57,7 +57,7 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(list.Count == 0);
 			}
 			{ // removing every third value
-				List list = new List();
+				List list = new();
 				list.Populate(count, func);
 				for (int i = 0; i < count; i += 3)
 				{
@@ -69,12 +69,12 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(list.Count == count / 3 * 2);
 			}
 			{ // removing from an empty list exception
-				List list = new List();
+				List list = new();
 				Assert.IsTrue(list.Count == 0);
 				Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(func(0)));
 			}
 			{ // removing non-existant value exception
-				List list = new List();
+				List list = new();
 				list.Populate(10, func);
 				Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(func(11)));
 			}
@@ -84,7 +84,7 @@ namespace Towel_Testing.DataStructures
 			where List : IList<T>, new()
 		{
 			{
-				List list = new List();
+				List list = new();
 				list.Populate(count, i => values[i % values.Length]);
 				bool Predicate(T x) => x.Equals(values[0]);
 				int removals = list.Stepper().Where(Predicate).Count();

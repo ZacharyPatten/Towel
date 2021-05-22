@@ -43,8 +43,8 @@ namespace OmnitreeGraphicsDemo
 		private const int Width = 800;
 		private const int Height = 700;
 
-		private static Vector3 CameraPosition = new Vector3(0.0f, 0.0f, 3.0f);
-		private static Vector3 CameraFront = new Vector3(0.0f, 0.0f, -1.0f);
+		private static Vector3 CameraPosition = new(0.0f, 0.0f, 3.0f);
+		private static Vector3 CameraFront = new(0.0f, 0.0f, -1.0f);
 		private static Vector3 CameraUp = Vector3.UnitY;
 		private static Vector3 CameraDirection = Vector3.Zero;
 		private static float CameraYaw = -90f;
@@ -157,7 +157,7 @@ void main()
 
 		static uint _cubeShaderProgramId;
 
-		private static readonly Random random = new Random();
+		private static readonly Random random = new();
 
 
 		private static void Main()
@@ -209,7 +209,7 @@ void main()
 							continue;
 						}
 
-						Vector3 position = new Vector3(i, j, k);
+						Vector3 position = new(i, j, k);
 						Vector3 velocity;
 						Vector3 color;
 
@@ -229,7 +229,7 @@ void main()
 							(float)random.NextDouble(),
 							(float)random.NextDouble());
 
-						Cube cube = new Cube()
+						Cube cube = new()
 						{
 							HalfLength = .5f,
 							Position = position,

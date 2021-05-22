@@ -24,7 +24,7 @@ namespace Towel_Documenting
 			// Note: Explicitly loading the XML file is not necessary if the XML file
 			// is in the same location as the referenced DLL. In this case it was necessary.
 			string Towel_xml_Path = @"..\..\..\..\..\Sources\Towel\Towel.xml";
-			using (StreamReader reader = new StreamReader(Towel_xml_Path))
+			using (StreamReader reader = new(Towel_xml_Path))
 			{
 				Meta.LoadXmlDocumentation(reader);
 			}
@@ -32,8 +32,8 @@ namespace Towel_Documenting
 
 			#region Build Namespace Tree
 
-			List<Namespace> rootNamespaces = new List<Namespace>();
-			Dictionary<string, Namespace> namespaceMap = new Dictionary<string, Namespace>();
+			List<Namespace> rootNamespaces = new();
+			Dictionary<string, Namespace> namespaceMap = new();
 
 			void HandleNamespace(string @namespace)
 			{
@@ -67,7 +67,7 @@ namespace Towel_Documenting
 
 			#endregion
 
-			StringBuilder output = new StringBuilder();
+			StringBuilder output = new();
 
 			#region CSS
 

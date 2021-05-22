@@ -19,7 +19,7 @@ namespace Towel.DataStructures
 	{
 		internal const bool Red = true;
 		internal const bool Black = false;
-		internal readonly Node _sentinelNode = new Node(value: default, color: Black);
+		internal readonly Node _sentinelNode = new(value: default, color: Black);
 
 		internal _Compare _compare;
 		internal int _count;
@@ -72,7 +72,7 @@ namespace Towel.DataStructures
 				{
 					return _sentinelNode;
 				}
-				Node clone = new Node(
+				Node clone = new(
 					value: node.Value,
 					color: node.Color,
 					parent: parent);
@@ -142,7 +142,7 @@ namespace Towel.DataStructures
 		public bool TryAdd(T value, out Exception? exception)
 		{
 			Exception? capturedException = null;
-			Node addition = new Node(
+			Node addition = new(
 				value: value,
 				leftChild: _sentinelNode,
 				rightChild: _sentinelNode);
@@ -205,7 +205,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public RedBlackTreeLinked<T, _Compare> Clone() => new RedBlackTreeLinked<T, _Compare>(this);
+		public RedBlackTreeLinked<T, _Compare> Clone() => new(this);
 
 		/// <summary>Determines if the tree contains a given value;</summary>
 		/// <param name="value">The value to see if the tree contains.</param>
@@ -880,7 +880,7 @@ namespace Towel.DataStructures
 				{
 					return _sentinelNode;
 				}
-				Node clone = new Node(
+				Node clone = new(
 					value: node.Value,
 					color: node.Color,
 					parent: parent);
@@ -900,7 +900,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public new RedBlackTreeLinked<T> Clone() => new RedBlackTreeLinked<T>(this);
+		public new RedBlackTreeLinked<T> Clone() => new(this);
 
 		#endregion
 	}

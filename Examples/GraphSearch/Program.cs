@@ -178,7 +178,7 @@ namespace GraphSearch
 
 				// Make Path Finding Functions
 
-				SetHashLinked<Vector2> alreadyUsed = new SetHashLinked<Vector2>();
+				SetHashLinked<Vector2> alreadyUsed = new();
 
 				void Neighbors(Vector2 currentLocation, Action<Vector2> neighbors)
 				{
@@ -270,13 +270,13 @@ namespace GraphSearch
 
 				// Lets say you are coding enemy AI and you want the AI to find a path towards the player
 				// in order to attack them. Here are their starting positions:
-				Vector<float> enemyLocation = new Vector<float>(-100f, 0f, -50f);
-				Vector<float> playerLocation = new Vector<float>(200f, 0f, -50f);
+				Vector<float> enemyLocation = new(-100f, 0f, -50f);
+				Vector<float> playerLocation = new(200f, 0f, -50f);
 				float enemyAttackRange = 3f; // enemy has a melee attack with 3 range
 
 				// Lets say most of the terrain is open, but there is a big rock in between them that they
 				// must go around.
-				Vector<float> rockLocation = new Vector<float>(15f, 0f, -40f);
+				Vector<float> rockLocation = new(15f, 0f, -40f);
 				float rockRadius = 20f;
 
 				// Make sure we don't re-use locations (must be wiped after running the algorithm)
@@ -343,7 +343,7 @@ namespace GraphSearch
 
 				// Lets say there is a lot of mud around the rock, and the mud makes our player move at half their normal speed.
 				// Our path finding needs to find the fastest route to the player, whether it be through the mud or not.
-				Vector<float> mudLocation = new Vector<float>(15f, 0f, -70f);
+				Vector<float> mudLocation = new(15f, 0f, -70f);
 				float mudRadius = 30f;
 
 				Vector<float> costVectorStorage = null; // storage to prevent a ton of vectors from being allocated

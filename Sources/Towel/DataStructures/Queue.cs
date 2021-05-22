@@ -141,7 +141,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public QueueLinked<T> Clone() => new QueueLinked<T>(this);
+		public QueueLinked<T> Clone() => new(this);
 
 		/// <summary>
 		/// Adds an item to the back of the queue.
@@ -422,7 +422,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public QueueArray<T> Clone() => new QueueArray<T>(this);
+		public QueueArray<T> Clone() => new(this);
 
 		/// <summary>
 		/// Adds an item to the end of the list.

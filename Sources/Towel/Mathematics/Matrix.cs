@@ -409,23 +409,23 @@ namespace Towel.Mathematics
 
 			// a / b + c / d = (a * d + b * c) / (b * d)
 			public static MatrixElementFraction<T> operator +(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
-				=> new MatrixElementFraction<T>(Addition(
+				=> new(Addition(
 					Multiplication(a.Numerator, b.Denominator),
 					Multiplication(a.Denominator, b.Numerator)
 				), Multiplication(a.Denominator, b.Denominator));
 
 			public static MatrixElementFraction<T> operator *(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
-				=> new MatrixElementFraction<T>(Multiplication(a.Numerator, b.Numerator), Multiplication(a.Denominator, b.Denominator));
+				=> new(Multiplication(a.Numerator, b.Numerator), Multiplication(a.Denominator, b.Denominator));
 
 			public static MatrixElementFraction<T> operator -(MatrixElementFraction<T> a)
-				=> new MatrixElementFraction<T>(Multiplication(a.Numerator, Constant<T>.NegativeOne), a.Denominator);
+				=> new(Multiplication(a.Numerator, Constant<T>.NegativeOne), a.Denominator);
 
 			public static MatrixElementFraction<T> operator -(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
 				=> a + (-b);
 
 			// a / b / (d / c) = (a * c) / (b * d)
 			public static MatrixElementFraction<T> operator /(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
-				=> new MatrixElementFraction<T>(Multiplication(a.Numerator, b.Denominator), Multiplication(a.Denominator, b.Numerator));
+				=> new(Multiplication(a.Numerator, b.Denominator), Multiplication(a.Denominator, b.Numerator));
 
 			public static bool operator <(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
 			{
@@ -453,10 +453,10 @@ namespace Towel.Mathematics
 				=> a < b || a == b;
 
 			public static explicit operator MatrixElementFraction<T>(int val)
-				=> new MatrixElementFraction<T>(Convert<int, T>(val));
+				=> new(Convert<int, T>(val));
 
 			public MatrixElementFraction<T> Abs()
-				=> new MatrixElementFraction<T>(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
+				=> new(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
 
 			public bool IsDividedByZero => Equate(Denominator, Constant<T>.Zero);
 		}
@@ -2559,7 +2559,7 @@ namespace Towel.Mathematics
 		/// <param name="array">The T[,] to convert to a matrix.</param>
 		/// <returns>The resulting matrix after conversion.</returns>
 		public static implicit operator Matrix<T>(T[,] array) =>
-			new Matrix<T>(array.GetLength(0), array.GetLength(1), (i, j) => array[i, j]);
+			new(array.GetLength(0), array.GetLength(1), (i, j) => array[i, j]);
 
 		/// <summary>Converts a matrix into a T[,].</summary>
 		/// <param name="matrix">The matrix toconvert to a T[,].</param>

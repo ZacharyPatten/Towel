@@ -166,7 +166,7 @@ namespace Towel
 		public struct ChanceSyntax
 		{
 			/// <summary>The random algorithm currently being used by chance syntax.</summary>
-			public static Random Algorithm = new Random();
+			public static Random Algorithm = new();
 
 			/// <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
 			/// <param name="percentage">The value of the percentage.</param>
@@ -199,7 +199,7 @@ namespace Towel
 			/// <summary>Contructs a new <see cref="Inequality{T}"/>.</summary>
 			/// <param name="a">The initial value of the running inequality.</param>
 			public static implicit operator Inequality<T>(T a) =>
-				new Inequality<T>()
+				new()
 				{
 					Cast = true,
 					A = a,
@@ -288,37 +288,37 @@ namespace Towel
 				/// <param name="b">The value of the right hand operand of the greater than operation.</param>
 				/// <returns>A running inequality with the additonal greater than operation.</returns>
 				public static Inequality<T> operator >(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Compare(a.A, b) == Greater, b);
+					new(a.Result && Compare(a.A, b) == Greater, b);
 				/// <summary>Adds a less than operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than operation.</param>
 				/// <returns>A running inequality with the additonal less than operation.</returns>
 				public static Inequality<T> operator <(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Compare(a.A, b) == Less, b);
+					new(a.Result && Compare(a.A, b) == Less, b);
 				/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
 				/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
 				public static Inequality<T> operator >=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Compare(a.A, b) != Less, b);
+					new(a.Result && Compare(a.A, b) != Less, b);
 				/// <summary>Adds a less than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
 				/// <returns>A running inequality with the additonal less than or equal operation.</returns>
 				public static Inequality<T> operator <=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Compare(a.A, b) != Greater, b);
+					new(a.Result && Compare(a.A, b) != Greater, b);
 				/// <summary>Adds an equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the equal operation.</param>
 				/// <returns>A running inequality with the additonal equal operation.</returns>
 				public static Inequality<T> operator ==(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Equate(a.A, b), b);
+					new(a.Result && Equate(a.A, b), b);
 				/// <summary>Adds an inequal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the inequal operation.</param>
 				/// <returns>A running inequality with the additonal inequal operation.</returns>
 				public static Inequality<T> operator !=(Inequality<T> a, T b) =>
-					new Inequality<T>(a.Result && Inequate(a.A, b), b);
+					new(a.Result && Inequate(a.A, b), b);
 				/// <summary>Converts the result of this inequality to a <see cref="string"/>.</summary>
 				/// <returns>The result of this inequality converted to a <see cref="string"/>.</returns>
 				public override string ToString() => Result.ToString();
@@ -344,7 +344,7 @@ namespace Towel
 		/// <typeparam name="T">The element type of the universal quantification to declare.</typeparam>
 		/// <param name="values">The values of the universal quantification.</param>
 		/// <returns>The declared universal quantification.</returns>
-		public static UniversalQuantification<T> Ɐ<T>(params T[] values) => new UniversalQuantification<T>(values);
+		public static UniversalQuantification<T> Ɐ<T>(params T[] values) => new(values);
 
 		/// <summary>Universal Quantification.</summary>
 		/// <typeparam name="T">The element type of the universal quantification.</typeparam>
@@ -502,22 +502,22 @@ namespace Towel
 			public static implicit operator T[](UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
 			/// <summary>Converts a universal quantification to a <see cref="System.Collections.Generic.List{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator System.Collections.Generic.List<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.List<T>(universalQuantification.Value);
+			public static implicit operator System.Collections.Generic.List<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value);
 			/// <summary>Converts a universal quantification to an <see cref="System.Collections.Generic.HashSet{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator System.Collections.Generic.HashSet<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.HashSet<T>(universalQuantification.Value);
+			public static implicit operator System.Collections.Generic.HashSet<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value);
 			/// <summary>Converts a universal quantification to a <see cref="System.Collections.Generic.LinkedList{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator System.Collections.Generic.LinkedList<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.LinkedList<T>(universalQuantification.Value);
+			public static implicit operator System.Collections.Generic.LinkedList<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value);
 			/// <summary>Converts a universal quantification to an <see cref="System.Collections.Generic.Stack{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator System.Collections.Generic.Stack<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.Stack<T>(universalQuantification.Value);
+			public static implicit operator System.Collections.Generic.Stack<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value);
 			/// <summary>Converts a universal quantification to an <see cref="System.Collections.Generic.Queue{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator System.Collections.Generic.Queue<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.Queue<T>(universalQuantification.Value);
+			public static implicit operator System.Collections.Generic.Queue<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value);
 			/// <summary>Converts a universal quantification to a sorted <see cref="System.Collections.Generic.SortedSet{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator System.Collections.Generic.SortedSet<T>(UniversalQuantification<T> universalQuantification) => new System.Collections.Generic.SortedSet<T>(universalQuantification.Value);
+			public static implicit operator System.Collections.Generic.SortedSet<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value);
 			/// <summary>Converts a universal quantification to an Action&lt;Action&lt;T&gt;&gt;.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator Action<Action<T>>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepper();
@@ -535,10 +535,10 @@ namespace Towel
 			public static implicit operator Towel.DataStructures.Array<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value;
 			/// <summary>Converts a universal quantification to an <see cref="ListArray{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator Towel.DataStructures.ListArray<T>(UniversalQuantification<T> universalQuantification) => new ListArray<T>(universalQuantification.Value, universalQuantification.Value.Length);
+			public static implicit operator Towel.DataStructures.ListArray<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value, universalQuantification.Value.Length);
 			/// <summary>Converts a universal quantification to an <see cref="StackArray{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> universalQuantification) => new StackArray<T>(universalQuantification.Value, universalQuantification.Value.Length, default);
+			public static implicit operator Towel.DataStructures.StackArray<T>(UniversalQuantification<T> universalQuantification) => new(universalQuantification.Value, universalQuantification.Value.Length, default);
 
 			#endregion
 		}

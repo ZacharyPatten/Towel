@@ -590,7 +590,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this map.</returns>
-		public MapHashLinked<T, K, Equate, Hash> Clone() => new MapHashLinked<T, K, Equate, Hash>(this);
+		public MapHashLinked<T, K, Equate, Hash> Clone() => new(this);
 
 		/// <summary>
 		/// Determines if a value has been added to a map.
@@ -826,7 +826,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this map.</returns>
-		public new MapHashLinked<T, K> Clone() => new MapHashLinked<T, K>(this);
+		public new MapHashLinked<T, K> Clone() => new(this);
 
 		#endregion
 	}

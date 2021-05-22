@@ -341,12 +341,12 @@ namespace Measurements
 
 			// You can use measurements inside Vectors in Towel.
 
-			Vector<Speed<float>> velocity1 = new Vector<Speed<float>>(
+			Vector<Speed<float>> velocity1 = new(
 				(1f, Meters / Seconds),
 				(2f, Meters / Seconds),
 				(3f, Meters / Seconds));
 
-			Vector<Speedf> velocity2 = new Vector<Speedf>(
+			Vector<Speedf> velocity2 = new(
 				(.1f, Centimeters / Seconds),
 				(.2f, Centimeters / Seconds),
 				(.3f, Centimeters / Seconds));

@@ -37,7 +37,7 @@ namespace Towel
 		/// <summary>Invocation of the delegate.</summary>
 		public void Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{j}")) #>);
 		/// <summary>Implicit caster from a delegate.</summary>
-		public static implicit operator ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>(Action<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #> @delegate) => new ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>() { _delegate = @delegate, };
+		public static implicit operator ActionRuntime<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #>(Action<#= i == 0 ? "" : $"<{string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}"))}>" #> @delegate) => new() { _delegate = @delegate, };
 	}
 <# } #>
 <# for (int i = 0; i <= parameterCount; i++) { #>
@@ -50,7 +50,7 @@ namespace Towel
 		/// <summary>Invocation of the delegate.</summary>
 		public TResult Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j} arg{j}")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{j}")) #>);
 		/// <summary>Implicit caster from a delegate.</summary>
-		public static implicit operator FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>(Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult> @delegate) => new FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>() { _delegate = @delegate, };
+		public static implicit operator FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult>(Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{j}")) +", " #>TResult> @delegate) => new() { _delegate = @delegate, };
 	}
 <# } #>
 }

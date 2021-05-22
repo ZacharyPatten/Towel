@@ -302,7 +302,7 @@ namespace Towel.Mathematics
 			}
 
 			internal static System.Collections.Generic.Dictionary<Type, Func<object, Expression>> preCompiledConstructors =
-				new System.Collections.Generic.Dictionary<Type, Func<object, Expression>>();
+				new();
 
 			internal static Expression BuildGeneric(object value)
 			{
@@ -2986,7 +2986,7 @@ namespace Towel.Mathematics
 
 		// Library Building Fields
 		internal static bool ParseableLibraryBuilt;
-		internal static readonly object ParseableLibraryLock = new object();
+		internal static readonly object ParseableLibraryLock = new();
 		// Regex Expressions
 		internal const string ParenthesisPattern = @"\(.*\)";
 		internal static string ParsableOperationsRegexPattern;
@@ -3684,7 +3684,7 @@ namespace Towel.Mathematics
 
 		internal static ListArray<string> SplitOperands(string @string)
 		{
-			ListArray<string> operands = new ListArray<string>();
+			ListArray<string> operands = new();
 			int scope = 0;
 			int operandStart = 0;
 			for (int i = 0; i < @string.Length; i++)

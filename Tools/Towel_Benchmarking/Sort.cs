@@ -16,7 +16,7 @@ namespace Towel_Benchmarking
 		{
 			Values = new int[N];
 			Extensions.Iterate(N, i => Values[i] = i);
-			Random random = new Random(7);
+			Random random = new(7);
 			Shuffle<int>(Values, random);
 		}
 

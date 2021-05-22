@@ -153,7 +153,7 @@ namespace Towel
 		/// <returns>The quadratic estimation of the cosine ratio of the provided angle.</returns>
 		public static T CosineQuadratic<T>(Angle<T> a)
 		{
-			Angle<T> piOver2Radians = new Angle<T>(Constant<T>.PiOver2, Angle.Units.Radians);
+			Angle<T> piOver2Radians = new(Constant<T>.PiOver2, Angle.Units.Radians);
 			return SineQuadratic(a - piOver2Radians);
 		}
 

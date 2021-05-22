@@ -93,7 +93,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public StackLinked<T> Clone() => new StackLinked<T>(this);
+		public StackLinked<T> Clone() => new(this);
 
 		/// <summary>
 		/// Converts the structure into an array.
@@ -331,7 +331,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public StackArray<T> Clone() => new StackArray<T>(this);
+		public StackArray<T> Clone() => new(this);
 
 		/// <summary>Converts the list array into a standard array.</summary>
 		/// <returns>A standard array of all the elements.</returns>

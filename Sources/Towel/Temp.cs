@@ -41,7 +41,7 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="stepRef">The runtime Step delegate.</param>
 		public static implicit operator StepFromStepRef<T, StepRef>(StepRef stepRef) =>
-			new StepFromStepRef<T, StepRef>() { StepRefFunction = stepRef, };
+			new() { StepRefFunction = stepRef, };
 	}
 
 	/// <summary>A compile time delegate for stepping values of iteration.</summary>
@@ -64,7 +64,7 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="stepRef">The runtime Step delegate.</param>
 		public static implicit operator StepRefRuntime<T>(StepRef<T> stepRef) =>
-			new StepRefRuntime<T>() { StepRef = stepRef, };
+			new() { StepRef = stepRef, };
 	}
 
 	/// <summary>Built in struct for runtime computations.</summary>
@@ -81,7 +81,7 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>
 		public static implicit operator StepToStepRef<T, Step>(Step step) =>
-			new StepToStepRef<T, Step>() { StepFunction = step, };
+			new() { StepFunction = step, };
 	}
 
 	/// <summary>Built in struct for runtime computations.</summary>
@@ -96,7 +96,7 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="stepBreak">The runtime Step delegate.</param>
 		public static implicit operator StepBreakRuntime<T>(Func<T, StepStatus> stepBreak) =>
-			new StepBreakRuntime<T>() { StepBreak = stepBreak, };
+			new() { StepBreak = stepBreak, };
 	}
 
 	/// <summary>Built in struct for runtime computations.</summary>
@@ -113,7 +113,7 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>
 		public static implicit operator StepBreakFromAction<T, Step>(Step step) =>
-			new StepBreakFromAction<T, Step>() { StepFunction = step, };
+			new() { StepFunction = step, };
 	}
 
 	/// <summary>A compile time delegate for stepping values of iteration.</summary>
@@ -136,7 +136,7 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="stepRefBreak">The runtime Step delegate.</param>
 		public static implicit operator StepRefBreakRuntime<T>(StepRefBreak<T> stepRefBreak) =>
-			new StepRefBreakRuntime<T>() { StepRefBreak = stepRefBreak, };
+			new() { StepRefBreak = stepRefBreak, };
 	}
 
 	/// <summary>Built in struct for runtime computations.</summary>
@@ -153,7 +153,7 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>
 		public static implicit operator StepRefBreakFromStepBreak<T, Step>(Step step) =>
-			new StepRefBreakFromStepBreak<T, Step>() { StepFunction = step, };
+			new() { StepFunction = step, };
 	}
 
 	/// <summary>Built in struct for runtime computations.</summary>
@@ -170,6 +170,6 @@ namespace Towel
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>
 		public static implicit operator StepRefBreakFromStepRef<T, Step>(Step step) =>
-			new StepRefBreakFromStepRef<T, Step>() { StepFunction = step, };
+			new() { StepFunction = step, };
 	}
 }

@@ -242,7 +242,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public ListLinked<T> Clone() => new ListLinked<T>(this);
+		public ListLinked<T> Clone() => new(this);
 
 		/// <summary>Removes the first equality by object reference.</summary>
 		/// <param name="predicate">The predicate to determine removal.</param>
@@ -558,7 +558,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public ListArray<T> Clone() => new ListArray<T>(this);
+		public ListArray<T> Clone() => new(this);
 
 		/// <summary>
 		/// Removes the item at a specific index.
