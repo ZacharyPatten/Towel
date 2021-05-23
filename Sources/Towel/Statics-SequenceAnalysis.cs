@@ -1598,6 +1598,7 @@ namespace Towel
 		/// <param name="b">The second sequence of the zip.</param>
 		/// <returns>An <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s containing the values of <paramref name="a"/> and <paramref name="b"/>.</returns>
 		/// <exception cref="ArgumentException">Thrown when <paramref name="a"/> and <paramref name="b"/> don't have the same number of elements.</exception>
+		/// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is null.</exception>
 		public static System.Collections.Generic.IEnumerable<(T1 A, T2 B)> Zip<T1, T2>(System.Collections.Generic.IEnumerable<T1> a, System.Collections.Generic.IEnumerable<T2> b)
 		{
 			if (a is null) throw new ArgumentNullException(nameof(a));
