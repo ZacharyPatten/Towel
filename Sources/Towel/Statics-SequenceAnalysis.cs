@@ -1515,35 +1515,30 @@ namespace Towel
 		}
 
 		#endregion
-			
-		#region Multiple sequences	
-		/// <summary>
-		/// Similar to python's zip. Sequentially iterates over a pair of sequences, producing
-		/// a tuple of elements from each of the sequences one by one
-		/// </summary>
-		/// <typeparam name="T1">
-		/// A type, contained by the first sequence
-		/// </typeparam>
-		/// <typeparam name="T2">
-		/// A type, contained by the second sequence
-		/// </typeparam>
-		/// <param name="seq">
-		/// It is your tuple of sequences. You would normally use it as
-		/// (oneSequence, anotherSequence).Zip()
-		/// </param>
-		/// <returns>
-		/// An iteratable <see cref="IEnumerable>"/> of a tuple of <typeparamref name="T1"/> and <typeparamref name="T2"/>
-		/// </returns>
-		public static System.Collections.Generic.IEnumerable<(T1 left, T2 right)> Zip<T1, T2>(this (System.Collections.Generic.IEnumerable<T1> l, System.Collections.Generic.IEnumerable<T2> r) seq)
+
+		#region Zip
+
+		/// <summary>Combines two <see cref="System.Collections.Generic.IEnumerable{T}"/>'s into a single <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s of the values of both <paramref name="a"/> and <paramref name="b"/>.</summary>
+		/// <typeparam name="T1">The generic type of the first sequence.</typeparam>
+		/// <typeparam name="T2">The generic type of the second sequence.</typeparam>
+		/// <param name="a">The first sequence of the zip.</param>
+		/// <param name="b">The second sequence of the zip.</param>
+		/// <returns>An <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s containing the values of <paramref name="a"/> and <paramref name="b"/>.</returns>
+		/// <exception cref="ArgumentException">Thrown when </exception>
+		public static System.Collections.Generic.IEnumerable<(T1 A, T2 B)> Zip<T1, T2>(System.Collections.Generic.IEnumerable<T1> a, System.Collections.Generic.IEnumerable<T2> b)
 		{
-			bool l, r;
-			var enumL = seq.l.GetEnumerator();
-			var enumR = seq.r.GetEnumerator();
-			while ((l = enumL.MoveNext()) & (r = enumR.MoveNext()))
-				yield return (enumL.Current, enumR.Current);
-			if (l != r)
-				throw new Exception(); // TODO: what should be here?
+			if (a is null) throw new ArgumentNullException(nameof(a));
+			if (b is null) throw new ArgumentNullException(nameof(b));
+			var (ea, eb) = (a.GetEnumerator(), b.GetEnumerator());
+			Loop:
+			switch (ea.MoveNext(), eb.MoveNext())
+			{
+				case (true, true): yield return (ea.Current, eb.Current); goto Loop;
+				case (false, false): break;
+				default: throw new ArgumentException($"!({nameof(a)}.Count() != {nameof(b)}.Count())");
+			}
 		}
+
 		#endregion
 	}
 }

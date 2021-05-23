@@ -30966,6 +30966,15 @@
             <param name="predicate">The value to look for.</param>
             <returns>True if a predicated was found.</returns>
         </member>
+        <member name="M:Towel.Statics.Zip``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1})">
+            <summary>Combines two <see cref="T:System.Collections.Generic.IEnumerable`1"/>'s into a single <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:System.ValueTuple`2"/>'s of the values of both <paramref name="a"/> and <paramref name="b"/>.</summary>
+            <typeparam name="T1">The generic type of the first sequence.</typeparam>
+            <typeparam name="T2">The generic type of the second sequence.</typeparam>
+            <param name="a">The first sequence of the zip.</param>
+            <param name="b">The second sequence of the zip.</param>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:System.ValueTuple`2"/>'s containing the values of <paramref name="a"/> and <paramref name="b"/>.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when </exception>
+        </member>
         <member name="M:Towel.Statics.Shuffle_XML">
             <summary>
             Sorts values into a randomized order.
