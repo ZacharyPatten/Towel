@@ -5,6 +5,7 @@ using static Towel.Statics;
 using Towel.Measurements;
 using Towel.DataStructures;
 using System.Runtime.CompilerServices;
+using System.Linq;
 
 namespace Towel_Testing
 {
@@ -2483,6 +2484,33 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+		}
+
+		#endregion
+
+		#region Zip
+
+		[TestMethod] public void Zip_Testing()
+		{
+			{
+				int[] a = { 1, 2, 3 };
+				string[] b = { "one", "two", "three" };
+				(int, string)[] c = { (a[0], b[0]), (a[1], b[1]), (a[2], b[2]) };
+				Assert.IsTrue(Zip(a, b).SequenceEqual(c));
+				Assert.ThrowsException<ArgumentNullException>(() => Zip(default(int[]), b).ToList());
+				Assert.ThrowsException<ArgumentNullException>(() => Zip(a, default(string[])).ToList());
+				Assert.ThrowsException<ArgumentNullException>(() => Zip(default(int[]), default(string[])).ToList());
+			}
+			{
+				int[] a = { 1, 2 };
+				string[] b = { "one", "two", "three" };
+				Assert.ThrowsException<ArgumentException>(() => Zip(a, b).ToList());
+			}
+			{
+				int[] a = { 1, 2, 3 };
+				string[] b = { "one", "two" };
+				Assert.ThrowsException<ArgumentException>(() => Zip(a, b).ToList());
+			}
 		}
 
 		#endregion

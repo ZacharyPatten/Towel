@@ -1588,5 +1588,30 @@ namespace Towel
 			GetLeast<T, CompareInvert<T, Compare>>(values, count);
 
 		#endregion
+
+		#region Zip
+
+		/// <summary>Combines two <see cref="System.Collections.Generic.IEnumerable{T}"/>'s into a single <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s of the values of both <paramref name="a"/> and <paramref name="b"/>.</summary>
+		/// <typeparam name="T1">The generic type of the first sequence.</typeparam>
+		/// <typeparam name="T2">The generic type of the second sequence.</typeparam>
+		/// <param name="a">The first sequence of the zip.</param>
+		/// <param name="b">The second sequence of the zip.</param>
+		/// <returns>An <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s containing the values of <paramref name="a"/> and <paramref name="b"/>.</returns>
+		/// <exception cref="ArgumentException">Thrown when </exception>
+		public static System.Collections.Generic.IEnumerable<(T1 A, T2 B)> Zip<T1, T2>(System.Collections.Generic.IEnumerable<T1> a, System.Collections.Generic.IEnumerable<T2> b)
+		{
+			if (a is null) throw new ArgumentNullException(nameof(a));
+			if (b is null) throw new ArgumentNullException(nameof(b));
+			var (ea, eb) = (a.GetEnumerator(), b.GetEnumerator());
+			Loop:
+			switch (ea.MoveNext(), eb.MoveNext())
+			{
+				case (true, true): yield return (ea.Current, eb.Current); goto Loop;
+				case (false, false): break;
+				default: throw new ArgumentException($"!({nameof(a)}.Count() != {nameof(b)}.Count())");
+			}
+		}
+
+		#endregion
 	}
 }
