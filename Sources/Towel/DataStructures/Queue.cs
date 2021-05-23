@@ -367,7 +367,7 @@ namespace Towel.DataStructures
 		/// <exception cref="InvalidOperationException">Thrown when: _count &lt;= 0</exception>
 		public T Newest =>
 			_count <= 0 ? throw new InvalidOperationException("attempting to get the newest item in an empty queue") :
-			_array[(_start + _count) % _array.Length];
+			_array[(_start + _count - 1) % _array.Length];
 
 		/// <summary>
 		/// The current newest <typeparamref name="T"/> in the queue.
@@ -388,11 +388,11 @@ namespace Towel.DataStructures
 		public T this[int index]
 		{
 			get =>
-				index <= 0 || index > _count ? throw new ArgumentOutOfRangeException(nameof(index), index, $"!(0 <= {nameof(index)} < {nameof(Count)})") :
+				index < 0 || index >= _count ? throw new ArgumentOutOfRangeException(nameof(index), index, $"!(0 <= {nameof(index)} < {nameof(Count)})") :
 				_array[(_start + index) % _array.Length];
 			set
 			{
-				if (index <= 0 || index > _count) throw new ArgumentOutOfRangeException(nameof(index), index, $"!(0 <= {nameof(index)} < {nameof(Count)})");
+				if (index < 0 || index >= _count) throw new ArgumentOutOfRangeException(nameof(index), index, $"!(0 <= {nameof(index)} < {nameof(Count)})");
 				_array[(_start + index) % _array.Length] = value;
 			}
 		}

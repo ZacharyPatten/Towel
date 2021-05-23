@@ -170,6 +170,63 @@ namespace Towel_Testing.DataStructures
 		{
 			IQueueTester.IEnumerable_Testing<QueueArray<int>>();
 		}
+
+		[TestMethod] public void Indexer_Testing()
+		{
+			int max = 100;
+			QueueArray<int> queue = new();
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => queue[0]);
+			for (int i = 0; i < max; i++)
+			{
+				queue.Enqueue(i + 1);
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => queue[-1]);
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => queue[i + 1]);
+				for (int j = 0; j <= i; j++)
+				{
+					Assert.IsTrue(queue[j] == j + 1);
+				}
+			}
+			for (int i = 0; i < max; i++)
+			{
+				queue.Dequeue();
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => queue[-1]);
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => queue[max - i - 1]);
+			}
+		}
+
+		[TestMethod] public void Newest_Testing()
+		{
+			int max = 100;
+			QueueArray<int> queue = new();
+			Assert.ThrowsException<InvalidOperationException>(() => queue.Newest);
+			for (int i = 0; i < max; i++)
+			{
+				queue.Enqueue(i + 1);
+				Assert.IsTrue(queue.Newest == i + 1);
+			}
+			for (int i = 0; i < max - 1; i++)
+			{
+				queue.Dequeue();
+				Assert.IsTrue(queue.Newest == max);
+			}
+		}
+
+		[TestMethod] public void Oldest_Testing()
+		{
+			int max = 100;
+			QueueArray<int> queue = new();
+			Assert.ThrowsException<InvalidOperationException>(() => queue.Oldest);
+			for (int i = 0; i < max; i++)
+			{
+				queue.Enqueue(i + 1);
+				Assert.IsTrue(queue.Oldest == 1);
+			}
+			for (int i = 0; i < max - 1; i++)
+			{
+				queue.Dequeue();
+				Assert.IsTrue(queue.Oldest == i + 2);
+			}
+		}
 	}
 
 	[TestClass] public class QueueLinked_Testing

@@ -39,10 +39,10 @@ namespace Towel_Benchmarking
 
 			public static Person[][] GenerateBenchmarkData()
 			{
-				DateTime minimumBirthDate = new DateTime(1950, 1, 1);
-				DateTime maximumBirthDate = new DateTime(2000, 1, 1);
+				DateTime minimumBirthDate = new(1950, 1, 1);
+				DateTime maximumBirthDate = new(2000, 1, 1);
 
-				Random random = new Random(7);
+				Random random = new(7);
 				Person[] GenerateData(int count)
 				{
 					Person[] data = new Person[count];

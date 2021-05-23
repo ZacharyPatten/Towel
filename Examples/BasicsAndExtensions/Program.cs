@@ -55,7 +55,7 @@ namespace BasicsAndExtensions
 
 			#region Convert
 			{
-				// Note: the main use case for this is converting types when using generics.
+				// Note: the main use case for this is converting types when using generics (not when the types are known at compile time).
 
 				double a = Convert<int, double>(1234);
 				float b = Convert<int, float>(123);
@@ -196,7 +196,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine($"    Random.NextUnique(5, 0, 100): {string.Join(", ", random.NextUnique(5, 0, 100))}");
 				Console.WriteLine($"    Random.NextUnique(5, 0, 100, excluded: {{ 50, 51, 52, 53 }}): {string.Join(", ", random.NextUnique(5, 0, 100, excluded: new[] { 50, 51, 52, 53 }))}");
 
-				var weightedNames = new (string Name, double Weight)[]
+				(string Name, double Weight)[] weightedNames = new[]
 				{
 					("Dixie Normous ", 40d),
 					("Harry Dick    ", 70d),
@@ -309,6 +309,19 @@ namespace BasicsAndExtensions
 				//SortBogo<int>(dataSet);
 				//Console.WriteLine($"    Bogo:      {DataSetToString()}");
 
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region Get X Least/Greatest
+			{
+				int[] a = { 10, 2, 9, 1, 8, 3 };
+				int count = 3;
+
+				Console.WriteLine("  Get X Least/Greatest--------------------------");
+				Console.WriteLine();
+				Console.WriteLine($"    GetLeast([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetLeast<int, IntCompare>(a.AsSpan(), count))}]");
+				Console.WriteLine($"    GetGreatest([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetGreatest<int, IntCompare>(a.AsSpan(), count))}]");
 				Console.WriteLine();
 			}
 			#endregion

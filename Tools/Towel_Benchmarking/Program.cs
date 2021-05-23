@@ -45,7 +45,7 @@ namespace Towel_Benchmarking
 			bool updateDocumentation = false,
 			string documentationPath = null)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
+			StringBuilder stringBuilder = new();
 			stringBuilder.AppendLine("# Benchmarks");
 			stringBuilder.AppendLine();
 			stringBuilder.AppendLine(@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>");

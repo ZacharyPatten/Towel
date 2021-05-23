@@ -731,7 +731,7 @@ namespace Towel_Testing
 
 		[TestMethod] public void IsEven_Testing()
 		{
-			Random random = new Random();
+			Random random = new();
 
 			{ // int
 				bool isEven = true;
@@ -795,7 +795,7 @@ namespace Towel_Testing
 
 		[TestMethod] public void IsOdd_Testing()
 		{
-			Random random = new Random();
+			Random random = new();
 
 			{ // int
 				bool isOdd = false;
@@ -1663,7 +1663,7 @@ namespace Towel_Testing
 		{
 			void Test(int sizeAdjusted)
 			{
-				Random random = new Random(SortRandomSeed);
+				Random random = new(SortRandomSeed);
 				int[] array = new int[sizeAdjusted];
 				Extensions.Iterate(sizeAdjusted, i => array[i] = i);
 				Shuffle<int>(array, random);
@@ -1690,7 +1690,7 @@ namespace Towel_Testing
 		[TestMethod]
 		public void Shuffle_Testing()
 		{
-			Random random = new Random(SortRandomSeed);
+			Random random = new(SortRandomSeed);
 			int[] array = new int[SortSize];
 			Extensions.Iterate(SortSize, i => array[i] = i);
 			Shuffle<int>(array, random);
@@ -2344,7 +2344,7 @@ namespace Towel_Testing
 				Assert.IsTrue(SetEquals<int>(output, new[] { 1, 3, 5, 7, 9, }));
 			}
 			{
-				Random random = new Random();
+				Random random = new();
 				const int minValue = 0;
 				const int maxValue = 1000;
 				const int count = 6;
@@ -2404,7 +2404,7 @@ namespace Towel_Testing
 				Assert.IsTrue(SetEquals<int>(output, new[] { 1, 3, 5, 7, 9, }));
 			}
 			{
-				Random random = new Random();
+				Random random = new();
 				const int minValue = 0;
 				const int maxValue = 1000;
 				const int count = 6;

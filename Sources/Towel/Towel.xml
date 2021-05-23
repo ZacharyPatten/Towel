@@ -30966,6 +30966,38 @@
             <param name="predicate">The value to look for.</param>
             <returns>True if a predicated was found.</returns>
         </member>
+        <member name="M:Towel.Statics.GetLeast``2(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+            <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+            <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+            <param name="values">The values to get <paramref name="count"/> values from.</param>
+            <param name="count">The number of items to get from <paramref name="values"/>.</param>
+            <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+        </member>
+        <member name="M:Towel.Statics.GetLeast``2(System.ReadOnlySpan{``0},System.Int32)">
+            <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+            <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+            <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+            <param name="values">The values to get <paramref name="count"/> values from.</param>
+            <param name="count">The number of items to get from <paramref name="values"/>.</param>
+            <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+        </member>
+        <member name="M:Towel.Statics.GetGreatest``2(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+            <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+            <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+            <param name="values">The values to get <paramref name="count"/> values from.</param>
+            <param name="count">The number of items to get from <paramref name="values"/>.</param>
+            <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+        </member>
+        <member name="M:Towel.Statics.GetGreatest``2(System.ReadOnlySpan{``0},System.Int32)">
+            <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+            <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+            <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+            <param name="values">The values to get <paramref name="count"/> values from.</param>
+            <param name="count">The number of items to get from <paramref name="values"/>.</param>
+            <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+        </member>
         <member name="M:Towel.Statics.Zip``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1})">
             <summary>Combines two <see cref="T:System.Collections.Generic.IEnumerable`1"/>'s into a single <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:System.ValueTuple`2"/>'s of the values of both <paramref name="a"/> and <paramref name="b"/>.</summary>
             <typeparam name="T1">The generic type of the first sequence.</typeparam>

@@ -1516,6 +1516,79 @@ namespace Towel
 
 		#endregion
 
+		#region Get X Least/Greatest
+
+		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetLeast<T, Compare>(System.Collections.Generic.IEnumerable<T> values, int count)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (values is null) throw new ArgumentNullException(nameof(values));
+			if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} <= 0");
+			HeapArray<T, Compare> heap = new(minimumCapacity: count + 1);
+			foreach (T value in values)
+			{
+				heap.Enqueue(value);
+				if (heap.Count > count)
+				{
+					heap.Dequeue();
+				}
+			}
+			if (heap.Count is 0) throw new ArgumentException($"{nameof(values)}.Count() is 0", nameof(values));
+			if (heap.Count < count) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} > {nameof(values)}.Count()");
+			return heap.ToArray();
+		}
+
+		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetLeast<T, Compare>(ReadOnlySpan<T> values, int count)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (values.IsEmpty) throw new ArgumentException($"{nameof(values)}.{nameof(values.IsEmpty)}", nameof(values));
+			if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} <= 0");
+			if (count > values.Length) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} > {nameof(values)}.{nameof(values.Length)}");
+			HeapArray<T, Compare> heap = new(minimumCapacity: count + 1);
+			foreach (T value in values)
+			{
+				heap.Enqueue(value);
+				if (heap.Count > count)
+				{
+					heap.Dequeue();
+				}
+			}
+			return heap.ToArray();
+		}
+
+		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetGreatest<T, Compare>(System.Collections.Generic.IEnumerable<T> values, int count)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			GetLeast<T, CompareInvert<T, Compare>>(values, count);
+
+		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetGreatest<T, Compare>(ReadOnlySpan<T> values, int count)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			GetLeast<T, CompareInvert<T, Compare>>(values, count);
+
+		#endregion
+
 		#region Zip
 
 		/// <summary>Combines two <see cref="System.Collections.Generic.IEnumerable{T}"/>'s into a single <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s of the values of both <paramref name="a"/> and <paramref name="b"/>.</summary>
