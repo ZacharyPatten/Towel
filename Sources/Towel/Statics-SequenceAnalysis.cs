@@ -1649,6 +1649,7 @@ namespace Towel
 				});
 			foreach (var (A, B) in ranges)
 			{
+				if (LessThan(B, A)) throw new ArgumentException($"Invalid range in {nameof(ranges)}: Item2 < Item1.", nameof(ranges));
 				bool overlap = false;
 				T min = default!;
 				T max = default!;
