@@ -30462,33 +30462,12 @@
             <param name="compare">The second operand of the maximum operation.</param>
             <returns>The computed maximum of the provided values.</returns>
         </member>
-        <member name="M:Towel.Statics.Minimum``1(``0,``0)">
+        <member name="M:Towel.Statics.MinimumValue``1(``0,``0,System.Func{``0,``0,Towel.CompareResult})">
             <summary>Computes the minimum of two numeric values.</summary>
             <typeparam name="T">The numeric type of the operation.</typeparam>
             <param name="a">The first operand of the minimum operation.</param>
             <param name="b">The second operand of the minimum operation.</param>
-            <returns>The computed minimum of the provided values.</returns>
-        </member>
-        <member name="M:Towel.Statics.Minimum``1(``0,``0,``0,``0[])">
-            <summary>Computes the minimum of multiple numeric values.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="a">The first operand of the minimum operation.</param>
-            <param name="b">The second operand of the minimum operation.</param>
-            <param name="c">The third operand of the minimum operation.</param>
-            <param name="d">The remaining operands of the minimum operation.</param>
-            <returns>The computed minimum of the provided values.</returns>
-        </member>
-        <member name="M:Towel.Statics.Minimum``1(System.Action{System.Action{``0}})">
-            <summary>Computes the minimum of multiple numeric values.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="stepper">The set of data to compute the minimum of.</param>
-            <returns>The computed minimum of the provided values.</returns>
-        </member>
-        <member name="M:Towel.Statics.Minimum(System.Int32,System.Int32,System.Int32)">
-            <summary>Computes the minimum of multiple numeric values.</summary>
-            <param name="a">The first operand of the minimum operation.</param>
-            <param name="b">The second operand of the minimum operation.</param>
-            <param name="c">The third operand of the minimum operation.</param>
+            <param name="compare">The second operand of the minimum operation.</param>
             <returns>The computed minimum of the provided values.</returns>
         </member>
         <member name="M:Towel.Statics.Range``1(``0@,``0@,System.Action{System.Action{``0}})">
@@ -30998,14 +30977,10 @@
             <param name="count">The number of items to get from <paramref name="values"/>.</param>
             <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
         </member>
-        <member name="M:Towel.Statics.Zip``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1})">
-            <summary>Combines two <see cref="T:System.Collections.Generic.IEnumerable`1"/>'s into a single <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:System.ValueTuple`2"/>'s of the values of both <paramref name="a"/> and <paramref name="b"/>.</summary>
-            <typeparam name="T1">The generic type of the first sequence.</typeparam>
-            <typeparam name="T2">The generic type of the second sequence.</typeparam>
-            <param name="a">The first sequence of the zip.</param>
-            <param name="b">The second sequence of the zip.</param>
-            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of <see cref="T:System.ValueTuple`2"/>'s containing the values of <paramref name="a"/> and <paramref name="b"/>.</returns>
-            <exception cref="T:System.ArgumentException">Thrown when </exception>
+        <member name="M:Towel.Statics.CombineRanges``1(System.Collections.Generic.IEnumerable{System.ValueTuple{``0,``0}})">
+            <summary>Simplifies a sequence of ranges by merging ranges without gaps between them.</summary>
+            <param name="ranges">The ranges to be simplified.</param>
+            <returns>A potentially smaller sequence of ranges that have been merged if there were no gaps in no particular order.</returns>
         </member>
         <member name="M:Towel.Statics.Shuffle_XML">
             <summary>

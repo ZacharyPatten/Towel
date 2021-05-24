@@ -830,6 +830,9 @@ void Combinations<...>(...);
 // Path Finding (Graph Search)
 // Note: overloads for A*, Dijkstra, and Breadth-First-Search algorithms
 SearchGraph<...>(...);
+
+// Combines ranges without gaps between them
+IEnumerable<(T A, T B)> CombineRanges<T>(IEnumerable<(T A, T B)> ranges)
 ```
 
 > _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html#sorting-algorithms) are included for the sorting algorithms._

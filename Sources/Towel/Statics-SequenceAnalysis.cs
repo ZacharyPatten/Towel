@@ -105,37 +105,11 @@ namespace Towel
 
 		#region Minimum
 
-		/// <summary>Computes the minimum of two numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the minimum operation.</param>
-		/// <param name="b">The second operand of the minimum operation.</param>
-		/// <returns>The computed minimum of the provided values.</returns>
-		public static T Minimum<T>(T a, T b) =>
-			LessThanOrEqual(a, b) ? a : b;
+		public static (int Index, T Value) Minimum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
+			Minimum<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
 
-		/// <summary>Computes the minimum of multiple numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the minimum operation.</param>
-		/// <param name="b">The second operand of the minimum operation.</param>
-		/// <param name="c">The third operand of the minimum operation.</param>
-		/// <param name="d">The remaining operands of the minimum operation.</param>
-		/// <returns>The computed minimum of the provided values.</returns>
-		public static T Minimum<T>(T a, T b, T c, params T[] d) =>
-			Minimum<T>(step => { step(a); step(b); step(c); d.ToStepper()(step); });
-
-		/// <summary>Computes the minimum of multiple numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The set of data to compute the minimum of.</param>
-		/// <returns>The computed minimum of the provided values.</returns>
-		public static T Minimum<T>(Action<Action<T>> stepper) =>
-			OperationOnStepper(stepper, Minimum);
-
-		/// <summary>Computes the minimum of multiple numeric values.</summary>
-		/// <param name="a">The first operand of the minimum operation.</param>
-		/// <param name="b">The second operand of the minimum operation.</param>
-		/// <param name="c">The third operand of the minimum operation.</param>
-		/// <returns>The computed minimum of the provided values.</returns>
-		public static int Minimum(int a, int b, int c) => Math.Min(Math.Min(a, b), c);
+		public static (int Index, T Value) Minimum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
+			Minimum<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
 
 		public static (int Index, T Value) Minimum<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
 			where Compare : struct, IFunc<T, T, CompareResult>
@@ -153,6 +127,75 @@ namespace Towel
 				}
 			}
 			return (index, span[index]);
+		}
+
+		#endregion
+
+		#region MinimumValue
+
+		/// <summary>Computes the minimum of two numeric values.</summary>
+		/// <typeparam name="T">The numeric type of the operation.</typeparam>
+		/// <param name="a">The first operand of the minimum operation.</param>
+		/// <param name="b">The second operand of the minimum operation.</param>
+		/// <param name="compare">The second operand of the minimum operation.</param>
+		/// <returns>The computed minimum of the provided values.</returns>
+		public static T MinimumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
+			MinimumValue<T, FuncRuntime<T, T, CompareResult>>(a, b, compare ?? Compare);
+
+		public static T MinimumValue<T, Compare>(T a, T b, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult> =>
+			compare.Do(b, a) is Less ? b : a;
+
+		public static T MinimumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
+			MinimumValue<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+
+		public static T MinimumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
+			MinimumValue<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		public static T MinimumValue<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (span.IsEmpty)
+			{
+				throw new ArgumentException($"{nameof(span)}.{nameof(span.IsEmpty)}", nameof(span));
+			}
+			T min = span[0];
+			for (int i = 1; i < span.Length; i++)
+			{
+				if (compare.Do(span[i], min) is Less)
+				{
+					min = span[i];
+				}
+			}
+			return min;
+		}
+
+		#endregion
+
+		#region MinimumIndex
+
+		public static int MinimumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
+			MinimumIndex<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+
+		public static int MinimumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
+			MinimumIndex<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+
+		public static int MinimumIndex<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
+			where Compare : struct, IFunc<T, T, CompareResult>
+		{
+			if (span.IsEmpty)
+			{
+				throw new ArgumentException($"{nameof(span)}.{nameof(span.IsEmpty)}", nameof(span));
+			}
+			int min = 0;
+			for (int i = 1; i < span.Length; i++)
+			{
+				if (compare.Do(span[i], span[min]) is Less)
+				{
+					min = i;
+				}
+			}
+			return min;
 		}
 
 		#endregion
@@ -786,7 +829,7 @@ namespace Towel
 					1 + LDR(ai, _bi) :
 				bi >= b_length ? 1 + LDR(_ai, bi) :
 				equals.Do(a.Do(ai), b.Do(bi)) ? LDR(_ai, _bi) :
-				1 + Minimum(LDR(ai, _bi), LDR(_ai, bi), LDR(_ai, _bi));
+				1 + MinimumValue(default, LDR(ai, _bi), LDR(_ai, bi), LDR(_ai, _bi));
 			}
 			return LDR(0, 0);
 		}
@@ -824,7 +867,7 @@ namespace Towel
 					1 + LDR(a, b, ai, _bi) :
 				bi >= b.Length ? 1 + LDR(a, b, _ai, bi) :
 				equals.Do(a[ai], b[bi]) ? LDR(a, b, _ai, _bi) :
-				1 + Minimum(LDR(a, b, ai, _bi), LDR(a, b, _ai, bi), LDR(a, b, _ai, _bi));
+				1 + MinimumValue(default, LDR(a, b, ai, _bi), LDR(a, b, _ai, bi), LDR(a, b, _ai, _bi));
 			}
 			return LDR(a, b, 0, 0);
 		}
@@ -875,7 +918,7 @@ namespace Towel
 				{
 					int _ai = ai - 1;
 					int _bi = bi - 1;
-					matrix[ai, bi] = Minimum(
+					matrix[ai, bi] = MinimumValue(default,
 						matrix[_ai, bi] + 1,
 						matrix[ai, _bi] + 1,
 						!equals.Do(a.Do(_ai), b.Do(_bi)) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
@@ -921,7 +964,7 @@ namespace Towel
 				{
 					int _ai = ai - 1;
 					int _bi = bi - 1;
-					matrix[ai, bi] = Minimum(
+					matrix[ai, bi] = MinimumValue(default,
 						matrix[_ai, bi] + 1,
 						matrix[ai, _bi] + 1,
 						!equals.Do(a[_ai], b[_bi]) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
@@ -1589,7 +1632,54 @@ namespace Towel
 
 		#endregion
 
+		#region CombineRanges
+
+		/// <summary>Simplifies a sequence of ranges by merging ranges without gaps between them.</summary>
+		/// <param name="ranges">The ranges to be simplified.</param>
+		/// <returns>A potentially smaller sequence of ranges that have been merged if there were no gaps in no particular order.</returns>
+		public static System.Collections.Generic.IEnumerable<(T A, T B)> CombineRanges<T>(System.Collections.Generic.IEnumerable<(T A, T B)> ranges)
+		{
+			if (ranges is null) throw new ArgumentNullException(nameof(ranges));
+			OmnitreeBoundsLinked<(T A, T B), T> omnitree =
+				new(
+				((T A, T B) x, out T min1, out T max1) =>
+				{
+					min1 = x.A;
+					max1 = x.B;
+				});
+			foreach (var (A, B) in ranges)
+			{
+				bool overlap = false;
+				T min = default!;
+				T max = default!;
+				omnitree.StepperOverlapped(x =>
+				{
+					min = !overlap ? x.A : MinimumValue(min, x.A);
+					max = !overlap ? x.B : MaximumValue(max, x.B);
+					overlap = true;
+				}, A, B);
+				if (overlap)
+				{
+					min = MinimumValue(min, A);
+					max = MaximumValue(max, B);
+					omnitree.RemoveOverlapped(min, max);
+					omnitree.Add((min, max));
+				}
+				else
+				{
+					omnitree.Add((A, B));
+				}
+			}
+			return omnitree;
+		}
+
+		#endregion
+
 		#region Zip
+
+		// This is hidden because the BCL contains the same method. Need to compare to BCL to see if there is any reason to keep this or not.
+
+		#if false
 
 		/// <summary>Combines two <see cref="System.Collections.Generic.IEnumerable{T}"/>'s into a single <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s of the values of both <paramref name="a"/> and <paramref name="b"/>.</summary>
 		/// <typeparam name="T1">The generic type of the first sequence.</typeparam>
@@ -1612,6 +1702,8 @@ namespace Towel
 				default: throw new ArgumentException($"!({nameof(a)}.Count() != {nameof(b)}.Count())");
 			}
 		}
+
+		#endif
 
 		#endregion
 	}

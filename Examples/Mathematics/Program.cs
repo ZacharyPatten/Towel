@@ -61,11 +61,11 @@ namespace Mathematics
 			Fraction<short> clamp = Clamp(clampA, clampB, clampC);
 			Console.WriteLine("    Clamp(" + clampA + ", " + clampB + ", " + clampC + "): " + clamp);
 
-			int maximum = MaximumValue<int>(compare: null, 1, 2, 3);
+			int maximum = MaximumValue(compare: default, 1, 2, 3);
 			Console.WriteLine("    MaximumValue(compare: null, 1, 2, 3): " + maximum);
 
-			int minimum = Minimum(1, 2, 3);
-			Console.WriteLine("    Minimum(1, 2, 3): " + minimum);
+			int minimum = MinimumValue(compare: default, 1, 2, 3);
+			Console.WriteLine("    MinimumValue(1, 2, 3): " + minimum);
 
 			bool lessThan = LessThan((Fraction<int>)1, (Fraction<int>)2);
 			Console.WriteLine("    LessThan(1, 2): " + lessThan);

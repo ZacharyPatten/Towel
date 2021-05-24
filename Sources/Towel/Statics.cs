@@ -405,7 +405,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(start), start, $@"{nameof(start)} < 0");
 			}
-			if (end >= Minimum(a.Length, b.Length))
+			if (end >= Math.Min(a.Length, b.Length))
 			{
 				throw new ArgumentOutOfRangeException(nameof(end), end, $@"{nameof(end)} >= Min({nameof(a)}.{nameof(a.Length)} {a.Length}, {nameof(b)}.{nameof(b.Length)} {b.Length})");
 			}

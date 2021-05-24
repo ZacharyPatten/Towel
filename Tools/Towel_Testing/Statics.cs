@@ -1098,30 +1098,94 @@ namespace Towel_Testing
 
 		#region Minimum_Testing
 
-		[TestMethod] public void Minimum_Testing()
+		[TestMethod]
+		public void Minimum_Testing()
 		{
 			{ // int
-				Assert.IsTrue(Minimum(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) == -5);
-				Assert.IsTrue(Minimum(5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) == -5);
-				Assert.IsTrue(Minimum(0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) == -5);
+				Assert.IsTrue(Minimum(compare: null, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) is (0, -5));
+				Assert.IsTrue(Minimum(compare: null, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) is (10, -5));
+				Assert.IsTrue(Minimum(compare: null, 0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) is (10, -5));
 			}
 			{ // float
-				Assert.IsTrue(Minimum(-5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) == -5f);
-				Assert.IsTrue(Minimum(5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) == -5f);
-				Assert.IsTrue(Minimum(0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) == -5f);
-				Assert.IsTrue(Minimum(-0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) == -3f);
+				Assert.IsTrue(Minimum(compare: null, -5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) is (0, -5f));
+				Assert.IsTrue(Minimum(compare: null, 5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) is (10, -5f));
+				Assert.IsTrue(Minimum(compare: null, 0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) is (10, -5f));
+				Assert.IsTrue(Minimum(compare: null, -0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) is (2, -3f));
 			}
 			{ // double
-				Assert.IsTrue(Minimum(-5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) == -5d);
-				Assert.IsTrue(Minimum(5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) == -5d);
-				Assert.IsTrue(Minimum(0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) == -5d);
-				Assert.IsTrue(Minimum(-0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) == -3d);
+				Assert.IsTrue(Minimum(compare: null, -5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) is (0, -5d));
+				Assert.IsTrue(Minimum(compare: null, 5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) is (10, -5d));
+				Assert.IsTrue(Minimum(compare: null, 0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) is (10, -5d));
+				Assert.IsTrue(Minimum(compare: null, -0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) is (2, -3d));
 			}
 			{ // decimal
-				Assert.IsTrue(Minimum(-5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) == -5m);
-				Assert.IsTrue(Minimum(5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) == -5m);
-				Assert.IsTrue(Minimum(0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) == -5m);
-				Assert.IsTrue(Minimum(-0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) == -3m);
+				Assert.IsTrue(Minimum(compare: null, -5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) is (0, -5m));
+				Assert.IsTrue(Minimum(compare: null, 5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) is (10, -5m));
+				Assert.IsTrue(Minimum(compare: null, 0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) is (10, -5m));
+				Assert.IsTrue(Minimum(compare: null, -0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) is (2, -3m));
+			}
+		}
+
+		#endregion
+
+		#region MinimumValue_Testing
+
+		[TestMethod] public void MinimumValue_Testing()
+		{
+			{ // int
+				Assert.IsTrue(MinimumValue(compare: null, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) is -5);
+				Assert.IsTrue(MinimumValue(compare: null, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) is -5);
+				Assert.IsTrue(MinimumValue(compare: null, 0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) is -5);
+			}
+			{ // float
+				Assert.IsTrue(MinimumValue(compare: null, -5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) is -5f);
+				Assert.IsTrue(MinimumValue(compare: null, 5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) is -5f);
+				Assert.IsTrue(MinimumValue(compare: null, 0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) is -5f);
+				Assert.IsTrue(MinimumValue(compare: null, -0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) is -3f);
+			}
+			{ // double
+				Assert.IsTrue(MinimumValue(compare: null, -5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) is -5d);
+				Assert.IsTrue(MinimumValue(compare: null, 5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) is -5d);
+				Assert.IsTrue(MinimumValue(compare: null, 0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) is -5d);
+				Assert.IsTrue(MinimumValue(compare: null, -0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) is -3d);
+			}
+			{ // decimal
+				Assert.IsTrue(MinimumValue(compare: null, -5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) is -5m);
+				Assert.IsTrue(MinimumValue(compare: null, 5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) is -5m);
+				Assert.IsTrue(MinimumValue(compare: null, 0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) is -5m);
+				Assert.IsTrue(MinimumValue(compare: null, -0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) is -3m);
+			}
+		}
+
+		#endregion
+
+		#region MinimumIndex_Testing
+
+		[TestMethod]
+		public void MinimumIndex_Testing()
+		{
+			{ // int
+				Assert.IsTrue(MinimumIndex(compare: null, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5) is 0);
+				Assert.IsTrue(MinimumIndex(compare: null, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5) is 10);
+				Assert.IsTrue(MinimumIndex(compare: null, 0, 4, 3, 2, 1, 5, -1, -2, -3, -4, -5) is 10);
+			}
+			{ // float
+				Assert.IsTrue(MinimumIndex(compare: null, -5f, -4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 4f, 5f) is 0);
+				Assert.IsTrue(MinimumIndex(compare: null, 5f, 4f, 3f, 2f, 1f, 0f, -1f, -2f, -3f, -4f, -5f) is 10);
+				Assert.IsTrue(MinimumIndex(compare: null, 0f, 4f, 3f, 2f, 1f, 5f, -1f, -2f, -3f, -4f, -5f) is 10);
+				Assert.IsTrue(MinimumIndex(compare: null, -0.5f, -0.4f, -3f, -2f, -1f, 0f, 1f, 2f, 3f, 0.4f, 0.5f) is 2);
+			}
+			{ // double
+				Assert.IsTrue(MinimumIndex(compare: null, -5d, -4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 4d, 5d) is 0);
+				Assert.IsTrue(MinimumIndex(compare: null, 5d, 4d, 3d, 2d, 1d, 0d, -1d, -2d, -3d, -4d, -5d) is 10);
+				Assert.IsTrue(MinimumIndex(compare: null, 0d, 4d, 3d, 2d, 1d, 5d, -1d, -2d, -3d, -4d, -5d) is 10);
+				Assert.IsTrue(MinimumIndex(compare: null, -0.5d, -0.4d, -3d, -2d, -1d, 0d, 1d, 2d, 3d, 0.4d, 0.5d) is 2);
+			}
+			{ // decimal
+				Assert.IsTrue(MinimumIndex(compare: null, -5m, -4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 4m, 5m) is 0);
+				Assert.IsTrue(MinimumIndex(compare: null, 5m, 4m, 3m, 2m, 1m, 0m, -1m, -2m, -3m, -4m, -5m) is 10);
+				Assert.IsTrue(MinimumIndex(compare: null, 0m, 4m, 3m, 2m, 1m, 5m, -1m, -2m, -3m, -4m, -5m) is 10);
+				Assert.IsTrue(MinimumIndex(compare: null, -0.5m, -0.4m, -3m, -2m, -1m, 0m, 1m, 2m, 3m, 0.4m, 0.5m) is 2);
 			}
 		}
 
@@ -2490,6 +2554,8 @@ namespace Towel_Testing
 
 		#region Zip
 
+		#if false
+
 		[TestMethod] public void Zip_Testing()
 		{
 			{
@@ -2512,6 +2578,8 @@ namespace Towel_Testing
 				Assert.ThrowsException<ArgumentException>(() => Zip(a, b).ToList());
 			}
 		}
+
+		#endif
 
 		#endregion
 	}

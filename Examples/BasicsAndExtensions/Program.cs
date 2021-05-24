@@ -468,6 +468,63 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region CombineRanges
+			{
+				Console.WriteLine("  CombineRanges--------------------");
+				Console.WriteLine();
+				Console.WriteLine("    CombineRanges combines ranges that have no gaps");
+				Console.WriteLine("    between them. So, if you have two ranges (2000-2006)");
+				Console.WriteLine("    and (2004-2010) it would combine them to be (2000-2010).");
+				Console.WriteLine("    But ranges (1-3) and (7-9) could not be combined unless");
+				Console.WriteLine("    there were other ranges to fill in the (4-6) gap.");
+				Console.WriteLine();
+				{
+					Console.WriteLine("    Int Range Example:");
+					Console.WriteLine();
+					(int, int)[] input = new[]
+					{
+						(1, 5),
+						(4, 7),
+						(15, 18),
+						(3, 10),
+					};
+					Console.WriteLine($"      Input:");
+					foreach (var range in input)
+					{
+						Console.WriteLine($"        {range}");
+					}
+					Console.WriteLine($"      CombineRanges:");
+					foreach (var range in CombineRanges(input))
+					{
+						Console.WriteLine($"        {range}");
+					}
+					Console.WriteLine();
+				}
+				{
+					Console.WriteLine("    DateTime Range Example:");
+					Console.WriteLine();
+					(DateTime, DateTime)[] input = new[]
+					{
+						(new DateTime(2000, 1, 1), new DateTime(2002, 1, 1)),
+						(new DateTime(2000, 1, 1), new DateTime(2009, 1, 1)),
+						(new DateTime(2003, 1, 1), new DateTime(2009, 1, 1)),
+						(new DateTime(2011, 1, 1), new DateTime(2016, 1, 1)),
+					};
+					Console.WriteLine($"      Input:");
+					foreach (var range in input)
+					{
+						Console.WriteLine($"        {range}");
+					}
+					Console.WriteLine($"      CombineRanges:");
+					foreach (var range in CombineRanges(input))
+					{
+						Console.WriteLine($"        {range}");
+					}
+					Console.WriteLine();
+				}
+			}
+			#endregion
+
 			#region Switch
 			{
 				Console.WriteLine("  Switch syntax----------------------");
