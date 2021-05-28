@@ -2252,6 +2252,17 @@ namespace Towel_Testing
 			Assert.IsTrue(SetEquals<char>("", ""));
 			Assert.IsTrue(SetEquals<char>(null, ""));
 			Assert.IsTrue(SetEquals<char>("", null));
+
+			Assert.IsTrue(SetEquals<int>(new int[0], new int[0]));
+			Assert.IsTrue(SetEquals<int>(new[] { 1 }, new[] { 1 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2 }, new[] { 1, 2 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2 }, new[] { 2, 1 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 3, 2, 1 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 2, 1, 3 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 2, 3, 1 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 1, 3, 2 }));
+			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 3, 1, 2 }));
 		}
 
 		#endregion
@@ -2548,6 +2559,62 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+		}
+
+		#endregion
+
+		#region CombineRanges
+
+		[TestMethod] public void CombineRanges_Testing()
+		{
+			{
+				Assert.IsTrue(SetEquals<(int, int)>(Array.Empty<(int, int)>(), Array.Empty<(int, int)>()));
+			}
+			{
+				(int, int)[] a = new[]
+				{
+					(1, 5),
+					(4, 7),
+					(15, 18),
+					(3, 10),
+				};
+				(int, int)[] b = new[]
+				{
+					(1, 10),
+					(15, 18),
+				};
+				Assert.IsTrue(SetEquals<(int, int)>(CombineRanges(a).ToArray(), b));
+			}
+			{
+				(DateTime, DateTime)[] a =
+				{
+					(new DateTime(2000, 1, 1), new DateTime(2002, 1, 1)),
+					(new DateTime(2000, 1, 1), new DateTime(2009, 1, 1)),
+					(new DateTime(2003, 1, 1), new DateTime(2009, 1, 1)),
+					(new DateTime(2011, 1, 1), new DateTime(2016, 1, 1)),
+				};
+				(DateTime, DateTime)[] b =
+				{
+					(new DateTime(2000, 1, 1), new DateTime(2009, 1, 1)),
+					(new DateTime(2011, 1, 1), new DateTime(2016, 1, 1)),
+				};
+				Assert.IsTrue(SetEquals<(DateTime, DateTime)>(CombineRanges(a).ToArray(), b));
+			}
+			{
+				(string, string)[] a = new[]
+				{
+					("tux", "zebra"),
+					("a", "hippo"),
+					("boy", "joust"),
+					("car", "dog"),
+				};
+				(string, string)[] b = new[]
+				{
+					("a", "joust"),
+					("tux", "zebra"),
+				};
+				Assert.IsTrue(SetEquals<(string, string)>(CombineRanges(a).ToArray(), b));
+			}
 		}
 
 		#endregion

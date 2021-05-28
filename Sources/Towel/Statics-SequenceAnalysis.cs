@@ -1418,34 +1418,27 @@ namespace Towel
 			{
 				return true;
 			}
-			SetHashLinked<T, Equate, Hash> elements = new(
+			SetHashLinked<T, Equate, Hash> a_counts = new(
 				equate: equate,
 				hash: hash,
 				expectedCount: a.Length);
-			SetHashLinked<T, Equate, Hash> found = new(
+			SetHashLinked<T, Equate, Hash> b_counts = new(
 				equate: equate,
 				hash: hash,
 				expectedCount: a.Length);
 			foreach (T value in a)
 			{
-				elements.TryAdd(value);
+				a_counts.TryAdd(value);
 			}
 			foreach (T value in b)
 			{
-				if (!elements.Contains(value))
+				if (!a_counts.Contains(value))
 				{
-					if (!found.Contains(value))
-					{
-						return false;
-					}
+					return false;
 				}
-				else
-				{
-					elements.Remove(value);
-					found.Add(value);
-				}
+				b_counts.TryAdd(value);
 			}
-			return elements.Count is 0;
+			return a_counts.Count == b_counts.Count;
 		}
 
 		#endregion
@@ -1649,7 +1642,7 @@ namespace Towel
 				});
 			foreach (var (A, B) in ranges)
 			{
-				if (LessThan(B, A)) throw new ArgumentException($"Invalid range in {nameof(ranges)}: Item2 < Item1.", nameof(ranges));
+				if (Compare(B, A) is Less) throw new ArgumentException($"Invalid range in {nameof(ranges)}: Item2 < Item1.", nameof(ranges));
 				bool overlap = false;
 				T min = default!;
 				T max = default!;
