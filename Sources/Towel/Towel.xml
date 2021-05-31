@@ -1045,7 +1045,6 @@
         </member>
         <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.GetEnumerator">
             <summary>Enumerates through all the added nodes in the graph</summary>
-            <returns></returns>
         </member>
         <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.TryRemove(`0,System.Exception@)">
             <summary>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -636,11 +634,12 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Enumerates through all the added nodes in the graph</summary>
-		/// <returns></returns>
-		public IEnumerator<V> GetEnumerator() => Structure.Keys().ToArray().GetEnumerator() as IEnumerator<V>;
+		public System.Collections.Generic.IEnumerator<V> GetEnumerator() =>
+			// TODO: this can be optimized
+			Structure.Keys().ToArray().GetEnumerator() as System.Collections.Generic.IEnumerator<V>;
 
 		#endregion
 

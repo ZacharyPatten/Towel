@@ -2,6 +2,7 @@
 using Towel;
 using Towel.DataStructures;
 using static Towel.Statics;
+
 namespace DataStructures
 {
 	class Program
