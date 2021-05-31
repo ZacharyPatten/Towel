@@ -435,7 +435,7 @@ namespace Towel.DataStructures
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	public interface IGraphWeighted<V, W> : IGraph<V>
+	public interface IGraphUndirectedWeighted<V, W> : IGraph<V>
 	{
 		#region Methods
 
@@ -460,21 +460,21 @@ namespace Towel.DataStructures
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	public class GraphWeighted<V, W> : IGraphWeighted<V, W>
+	public class GraphUndirectedWeightedMap<V, W> : IGraphUndirectedWeighted<V, W>
 	{
-		/// <summary>A cheap way to create entire structure of a graph</summary>
-		protected MapHashLinked<(MapHashLinked<W?, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V> Structure;
+		internal MapHashLinked<(MapHashLinked<W?, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V> Structure;
+		internal int _edges;
 
 		#region Constructors
 
 		/// <summary>Default constructor for this Type</summary>
-		public GraphWeighted()
+		public GraphUndirectedWeightedMap()
 		{
 			Structure = new();
 		}
 
 		[Obsolete("Not Implemented")]
-		internal GraphWeighted(GraphWeighted<V, W> graph)
+		internal GraphUndirectedWeightedMap(GraphUndirectedWeightedMap<V, W> graph)
 		{
 			throw new NotImplementedException();
 		}
@@ -484,17 +484,7 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <summary>Number of edges present in the graph</summary>
-		/// <value>int value of edges in graph</value>
-		public int EdgeCount
-		{
-			get
-			{
-				// TODO: store edge count so that it does not have to be calculated
-				int count = 0;
-				Structure.Keys(key => count += Structure[key].IncomingNodes._count);
-				return count;
-			}
-		}
+		public int EdgeCount => _edges;
 
 		/// <summary>Number of nodes present in graph</summary>
 		public int NodeCount => Structure.Count;
@@ -530,6 +520,7 @@ namespace Towel.DataStructures
 			if (!Structure.TryGet(end, out var incoming)) throw new ArgumentException(message: "end Vertex must be present in graph before adding edge", paramName: nameof(end));
 			outgoing.OutgoingEdges.Add(end, weight);
 			incoming.IncomingNodes.Add(start);
+			_edges++;
 		}
 
 		/// <summary>Checks if b is adjacent to a.</summary>
@@ -567,9 +558,7 @@ namespace Towel.DataStructures
 		/// <param name="function">The delegate function to act on the node</param>
 		public void Neighbors(V a, Action<V> function) => Structure[a].OutgoingEdges.Keys(function);
 
-		/// <summary>
-		/// Renoves any edge between the given nodes
-		/// </summary>
+		/// <summary>Removes any edge between the given nodes.</summary>
 		/// <param name="start">The node on the start of the edge</param>
 		/// <param name="end">The node on the end of the edge</param>
 		public void Remove(V start, V end)
@@ -578,6 +567,7 @@ namespace Towel.DataStructures
 			if (!Structure.Contains(end)) throw new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(end));
 			Structure[start].OutgoingEdges.Remove(end);
 			Structure[end].IncomingNodes.Remove(start);
+			_edges--;
 		}
 
 		#region Stepper and IEnumerable
@@ -685,7 +675,7 @@ namespace Towel.DataStructures
 		/// <summary>Clones the graph.</summary>
 		/// <returns>A clone of the graph.</returns>
 		[Obsolete("Not Implemented")]
-		public GraphWeighted<V, W> Clone() => new(this);
+		public GraphUndirectedWeightedMap<V, W> Clone() => new(this);
 
 		// TODO: Interface these "XxxToArray" methods off the struct generic steppers?
 

@@ -178,7 +178,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AdjacentTest()
 		{
-			GraphWeighted<byte, int> graph = new();
+			GraphUndirectedWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -190,7 +190,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void NeighborsTest()
 		{
-			GraphWeighted<byte, int> graph = new();
+			GraphUndirectedWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -206,7 +206,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void RemoveTest()
 		{
-			GraphWeighted<byte, int> graph = new();
+			GraphUndirectedWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -221,7 +221,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AddPropertyTest()
 		{
-			GraphWeighted<byte, int> graph = new();
+			GraphUndirectedWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -239,7 +239,7 @@ namespace Towel_Testing.DataStructures
 			Assert.ThrowsException<ArgumentException>(
 				() =>
 				{
-					GraphWeighted<byte, int> graph = new();
+					GraphUndirectedWeightedMap<byte, int> graph = new();
 					for (byte i = 1; i <= 5; i++) graph.Add(i);
 					graph.Add(1, 5, 1);
 					graph.Add(2, 5, 1);
