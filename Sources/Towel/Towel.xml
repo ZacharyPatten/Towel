@@ -972,6 +972,14 @@
         <member name="P:Towel.DataStructures.GraphWeighted`2.NodeCount">
             <summary>Number of nodes present in graph</summary>
         </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.TryAdd(`0,System.Exception@)">
+            <summary>
+            Tries to add a node. Returns false on success.
+            </summary>
+            <param name="value">The node to add</param>
+            <param name="exception">The inner exception, in case of failure</param>
+            <returns>boolean value indicating the success of process</returns>
+        </member>
         <member name="M:Towel.DataStructures.GraphWeighted`2.Add(`0,`0,`1)">
             <summary>Adds a weighted edge to the graph </summary>
             <param name="start">The starting point of the edge to add</param>
@@ -993,10 +1001,6 @@
         </member>
         <member name="M:Towel.DataStructures.GraphWeighted`2.Clear">
             <summary>Removes all edges and nodes</summary>
-        </member>
-        <member name="M:Towel.DataStructures.GraphWeighted`2.GetEnumerator">
-            <summary>Enumerates through all the added nodes in the graph</summary>
-            <returns></returns>
         </member>
         <member name="M:Towel.DataStructures.GraphWeighted`2.Neighbors(`0,System.Action{`0})">
             <summary> Performs action via a delegate for every neighbour of a node </summary>
@@ -1021,26 +1025,33 @@
             <param name="step">Action to perform</param>
             <returns>Status of Action</returns>
         </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
         <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(System.Action{`0})">
-            <summary>
-            Performs action for every node
-            </summary>
-            <param name="step">Action to perform</param>
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.StepperRef``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(Towel.StepRef{`0})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.StepperBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
         </member>
         <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>
-            Preforms step for every node
-            </summary>
-            <param name="step">Action to perform</param>
-            <returns>status of Action</returns>
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeighted`2.TryAdd(`0,System.Exception@)">
-            <summary>
-            Tries to add a node. Returns false on success.
-            </summary>
-            <param name="value">The node to add</param>
-            <param name="exception">The inner exception, in case of failure</param>
-            <returns>boolean value indicating the success of process</returns>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(Towel.StepRefBreak{`0})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.StepperRefBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.GetEnumerator">
+            <summary>Enumerates through all the added nodes in the graph</summary>
+            <returns></returns>
         </member>
         <member name="M:Towel.DataStructures.GraphWeighted`2.TryRemove(`0,System.Exception@)">
             <summary>
@@ -1049,6 +1060,10 @@
             <param name="node">The node to remove from the graph</param>
             <param name="exception">The inner exception in case of failure</param>
             <returns>boolean value indicating success of process</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Clone">
+            <summary>Clones the graph.</summary>
+            <returns>A clone of the graph.</returns>
         </member>
         <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
@@ -3125,11 +3140,35 @@
         <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRefBreak{`0})">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
         </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys_XML">
+            <summary>Invokes a method for each entry in the data structure.</summary>
+            <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+            <param name="step">The method to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
+        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(System.Action{`1})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysRef``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(Towel.StepRef{`1})">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(System.Func{`1,Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(Towel.StepRefBreak{`1})">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysRefBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(System.Action{`0,`1})">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>

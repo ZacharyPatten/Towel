@@ -682,26 +682,60 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Keys(Action<K> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				for (Node? node = _table[i]; node is not null; node = node.Next)
-				{
-					step(node.Key);
-				}
-			}
-		}
+		#region Keys
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Keys(Func<K, StepStatus> step)
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Invokes a method for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The method to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		internal static void Keys_XML() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public void Keys<Step>(Step step = default)
+			where Step : struct, IAction<K> =>
+			KeysRef<StepToStepRef<K, Step>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public void Keys(Action<K> step) =>
+			Keys<ActionRuntime<K>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		internal void KeysRef<Step>(Step step = default)
+			where Step : struct, IStepRef<K> =>
+			KeysRefBreak<StepRefBreakFromStepRef<K, Step>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		internal void Keys(StepRef<K> step) =>
+			KeysRef<StepRefRuntime<K>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public StepStatus KeysBreak<Step>(Step step = default)
+			where Step : struct, IFunc<K, StepStatus> =>
+			KeysRefBreak<StepRefBreakFromStepBreak<K, Step>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public StepStatus Keys(Func<K, StepStatus> step) =>
+			KeysBreak<StepBreakRuntime<K>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		internal StepStatus Keys(StepRefBreak<K> step) =>
+			KeysRefBreak<StepRefBreakRuntime<K>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		internal StepStatus KeysRefBreak<Step>(Step step = default)
+			where Step : struct, IStepRefBreak<K>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					if (step(node.Key) is Break)
+					if (step.Do(ref node.Key) is Break)
 					{
 						return Break;
 					}
@@ -709,6 +743,8 @@ namespace Towel.DataStructures
 			}
 			return Continue;
 		}
+
+		#endregion
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T, K> step)

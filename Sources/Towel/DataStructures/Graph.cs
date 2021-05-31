@@ -437,6 +437,8 @@ namespace Towel.DataStructures
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
 	public interface IGraphWeighted<V, W> : IGraph<V>
 	{
+		#region Methods
+
 		void IGraph<V>.Add(V start, V end) => Add(start, end, default);
 		/// <summary>Adds a weighted edge to the graph </summary>
 		/// <param name="start">The starting point of the edge to add</param>
@@ -449,6 +451,8 @@ namespace Towel.DataStructures
 		/// <param name="weight">The weight of the edge, if it exists.</param>
 		/// <returns>True if b is adjacent to a; False if not</returns>
 		bool Adjacent(V a, V b, out W? weight);
+
+		#endregion
 	}
 
 	/// <summary>
@@ -461,11 +465,23 @@ namespace Towel.DataStructures
 		/// <summary>A cheap way to create entire structure of a graph</summary>
 		protected MapHashLinked<(MapHashLinked<W?, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V> Structure;
 
+		#region Constructors
+
 		/// <summary>Default constructor for this Type</summary>
 		public GraphWeighted()
 		{
 			Structure = new();
 		}
+
+		[Obsolete("Not Implemented")]
+		internal GraphWeighted(GraphWeighted<V, W> graph)
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>Number of edges present in the graph</summary>
 		/// <value>int value of edges in graph</value>
@@ -481,6 +497,26 @@ namespace Towel.DataStructures
 
 		/// <summary>Number of nodes present in graph</summary>
 		public int NodeCount => Structure.Keys().Count();
+
+		/// <summary>
+		/// Tries to add a node. Returns false on success.
+		/// </summary>
+		/// <param name="value">The node to add</param>
+		/// <param name="exception">The inner exception, in case of failure</param>
+		/// <returns>boolean value indicating the success of process</returns>
+		public bool TryAdd(V value, out Exception? exception)
+		{
+			if (!Structure.TryAdd(value, (new(), new()), out Exception? childException))
+			{
+				exception = new ArgumentException(message: "Queried value already exists in graph", paramName: nameof(value), childException);
+				return false;
+			}
+			else
+			{
+				exception = null;
+				return true;
+			}
+		}
 
 		/// <summary>Adds a weighted edge to the graph </summary>
 		/// <param name="start">The starting point of the edge to add</param>
@@ -524,10 +560,6 @@ namespace Towel.DataStructures
 		/// <summary>Removes all edges and nodes</summary>
 		public void Clear() => Structure.Clear();
 
-		/// <summary>Enumerates through all the added nodes in the graph</summary>
-		/// <returns></returns>
-		public IEnumerator<V> GetEnumerator() => Structure.Keys().ToArray().GetEnumerator() as IEnumerator<V>;
-
 		/// <summary> Performs action via a delegate for every neighbour of a node </summary>
 		/// <param name="a">The node to scan neighbours for</param>
 		/// <param name="function">The delegate function to act on the node</param>
@@ -545,6 +577,8 @@ namespace Towel.DataStructures
 			Structure[start].OutgoingEdges.Remove(end);
 			Structure[end].IncomingNodes.Remove(start);
 		}
+
+		#region Stepper and IEnumerable
 
 		/// <summary>Invokes a delegate for each edge in the graph.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -568,38 +602,53 @@ namespace Towel.DataStructures
 			Structure.Stepper((edge, a) =>
 			edge.OutgoingEdges.Keys(b => step(a, b)));
 
-		/// <summary>
-		/// Performs action for every node
-		/// </summary>
-		/// <param name="step">Action to perform</param>
-		public void Stepper(Action<V> step) => Structure.Keys(step);
+		#region Stepper (nodes/verteces)
 
-		/// <summary>
-		/// Preforms step for every node
-		/// </summary>
-		/// <param name="step">Action to perform</param>
-		/// <returns>status of Action</returns>
-		public StepStatus Stepper(Func<V, StepStatus> step) => Structure.Keys(step);
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public void Stepper<Step>(Step step = default)
+			where Step : struct, IAction<V> =>
+			StepperRef<StepToStepRef<V, Step>>(step);
 
-		/// <summary>
-		/// Tries to add a node. Returns false on success.
-		/// </summary>
-		/// <param name="value">The node to add</param>
-		/// <param name="exception">The inner exception, in case of failure</param>
-		/// <returns>boolean value indicating the success of process</returns>
-		public bool TryAdd(V value, out Exception? exception)
-		{
-			if (!Structure.TryAdd(value, (new(), new()), out Exception? childException))
-			{
-				exception = new ArgumentException(message: "Queried value already exists in graph", paramName: nameof(value), childException);
-				return false;
-			}
-			else
-			{
-				exception = null;
-				return true;
-			}
-		}
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public void Stepper(Action<V> step) =>
+			Stepper<ActionRuntime<V>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public void StepperRef<Step>(Step step = default)
+			where Step : struct, IStepRef<V> =>
+			StepperRefBreak<StepRefBreakFromStepRef<V, Step>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public void Stepper(StepRef<V> step) =>
+			StepperRef<StepRefRuntime<V>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus StepperBreak<Step>(Step step = default)
+			where Step : struct, IFunc<V, StepStatus> =>
+			StepperRefBreak<StepRefBreakFromStepBreak<V, Step>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(Func<V, StepStatus> step) =>
+			StepperBreak<StepBreakRuntime<V>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus Stepper(StepRefBreak<V> step) =>
+			StepperRefBreak<StepRefBreakRuntime<V>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public StepStatus StepperRefBreak<Step>(Step step = default)
+			where Step : struct, IStepRefBreak<V> =>
+			Structure.KeysRefBreak<Step>(step);
+
+		#endregion
+
+		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+		/// <summary>Enumerates through all the added nodes in the graph</summary>
+		/// <returns></returns>
+		public IEnumerator<V> GetEnumerator() => Structure.Keys().ToArray().GetEnumerator() as IEnumerator<V>;
+
+		#endregion
 
 		/// <summary>
 		/// Tries to remove a node. Returns true on success.
@@ -629,6 +678,13 @@ namespace Towel.DataStructures
 			return true;
 		}
 
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		
+
+		/// <summary>Clones the graph.</summary>
+		/// <returns>A clone of the graph.</returns>
+		[Obsolete("Not Implemented")]
+		public GraphWeighted<V, W> Clone() => new(this);
+
+		#endregion
 	}
 }
