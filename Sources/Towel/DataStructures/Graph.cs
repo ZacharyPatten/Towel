@@ -489,6 +489,7 @@ namespace Towel.DataStructures
 		{
 			get
 			{
+				// TODO: store edge count so that it does not have to be calculated
 				int count = 0;
 				Structure.Keys(key => count += Structure[key].IncomingNodes._count);
 				return count;
@@ -496,7 +497,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Number of nodes present in graph</summary>
-		public int NodeCount => Structure.Keys().Count();
+		public int NodeCount => Structure.Count;
 
 		/// <summary>
 		/// Tries to add a node. Returns false on success.
@@ -580,6 +581,8 @@ namespace Towel.DataStructures
 		}
 
 		#region Stepper and IEnumerable
+
+		// TODO: all steppers need to allow struct generic parameters as the base implementation
 
 		/// <summary>Invokes a delegate for each edge in the graph.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
