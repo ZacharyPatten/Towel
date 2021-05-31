@@ -682,12 +682,21 @@ namespace Towel.DataStructures
 			return true;
 		}
 
-		
-
 		/// <summary>Clones the graph.</summary>
 		/// <returns>A clone of the graph.</returns>
 		[Obsolete("Not Implemented")]
 		public GraphWeighted<V, W> Clone() => new(this);
+
+		// TODO: Interface these "XxxToArray" methods off the struct generic steppers?
+
+		[Obsolete("Not Implemented")]
+		public V[] ToArray() => throw new NotImplementedException();
+
+		[Obsolete("Not Implemented")]
+		public (V, V)[] EdgesToArray() => throw new NotImplementedException();
+
+		[Obsolete("Not Implemented")]
+		public (V, V, W)[] EdgesAndWeightsToArray() => throw new NotImplementedException();
 
 		#endregion
 	}
