@@ -506,6 +506,7 @@ namespace Towel.DataStructures
 		/// <returns>boolean value indicating the success of process</returns>
 		public bool TryAdd(V value, out Exception? exception)
 		{
+			// TODO: change this so that it does not allocate the new collections until necessary
 			if (!Structure.TryAdd(value, (new(), new()), out Exception? childException))
 			{
 				exception = new ArgumentException(message: "Queried value already exists in graph", paramName: nameof(value), childException);
