@@ -2,6 +2,7 @@
 using System;
 using Towel;
 using Towel.DataStructures;
+using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {
@@ -148,6 +149,51 @@ namespace Towel_Testing.DataStructures
 				Assert.IsFalse(map.Contains((-1).ToString()));
 				Assert.IsFalse(map.Contains(count.ToString()));
 			}
+		}
+
+		[TestMethod]
+		public void PropertyTest()
+		{
+			MapHashLinked<string, int> map = new();
+			map.Add(1, "Hello");
+			map.Add(2, "World");
+			Assert.IsTrue(map.Count is 2);
+		}
+
+		[TestMethod]
+		public void IndexerGetSetTest()
+		{
+			MapHashLinked<string, int> map = new();
+			map.Add(1, "Hello");
+			map.Add(2, "World");
+			const string s = "Added word";
+			map[3] = s;
+			Assert.IsTrue(map[3] is s);
+		}
+
+		[TestMethod]
+		public void RemoveTest()
+		{
+			MapHashLinked<string, int> map = new();
+			map.Add(1, "Hello");
+			map.Add(2, "World");
+			map.Remove(1);
+			Assert.ThrowsException<ArgumentException>(() => map[1]);
+		}
+
+		[TestMethod]
+		public void GetEnumeratorPairsTest()
+		{
+			MapHashLinked<string, int> map = new();
+			map.Add(1, "Hello");
+			map.Add(2, "World");
+			(int, string)[] array = new (int, string)[2];
+			int i = 0;
+			foreach (var values in map.GetEnumeratorPairs)
+			{
+				array[i++] = values;
+			}
+			Assert.IsTrue(Equate<(int, string)>(new[] { (1, "Hello"), (2, "World") }, array));
 		}
 	}
 }

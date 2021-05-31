@@ -4228,7 +4228,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -5862,7 +5862,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -7637,7 +7637,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -9555,7 +9555,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -11618,7 +11618,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -13828,7 +13828,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -16187,7 +16187,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -17797,7 +17797,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}
@@ -19459,7 +19459,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}
@@ -21295,7 +21295,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}
@@ -23305,7 +23305,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}
@@ -25489,7 +25489,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}
@@ -27847,7 +27847,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}
@@ -30379,7 +30379,7 @@ namespace Towel.DataStructures
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}

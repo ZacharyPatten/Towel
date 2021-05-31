@@ -932,113 +932,109 @@
         <member name="M:Towel.DataStructures.GraphMap`1.Clear">
             <summary>Clears this graph to an empty state.</summary>
         </member>
-        <member name="T:Towel.DataStructures.IWeightedGraph`2">
+        <member name="T:Towel.DataStructures.IGraphWeighted`2">
             <summary>
             A weighted graph data structure that stores nodes, edges with their corresponding weights. 
             </summary>
             <typeparam name="V">The generic node type of this graph.</typeparam>
             <typeparam name="W">The generic weight type of this graph.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.IWeightedGraph`2.Add(`0,`0,`1)">
+        <member name="M:Towel.DataStructures.IGraphWeighted`2.Add(`0,`0,`1)">
             <summary>Adds a weighted edge to the graph </summary>
             <param name="start">The starting point of the edge to add</param>
             <param name="end">The ending point of the edge to add</param>
             <param name="weight">The weight of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.IWeightedGraph`2.Adjacent(`0,`0,`1@)">
+        <member name="M:Towel.DataStructures.IGraphWeighted`2.Adjacent(`0,`0,`1@)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <param name="weight">The weight of the edge, if it exists.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="T:Towel.DataStructures.WeightedGraph`2">
+        <member name="T:Towel.DataStructures.GraphWeighted`2">
             <summary>
             Implements a weighted graph. Implements a Dictionary of Nodes and edges
             </summary>
             <typeparam name="V">The generic node type of this graph.</typeparam>
             <typeparam name="W">The generic weight type of this graph.</typeparam>
         </member>
-        <member name="F:Towel.DataStructures.WeightedGraph`2.Structure">
+        <member name="F:Towel.DataStructures.GraphWeighted`2.Structure">
             <summary>A cheap way to create entire structure of a graph</summary>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.#ctor">
-            <summary>
-            Default constructor for this Type
-            </summary>
+        <member name="M:Towel.DataStructures.GraphWeighted`2.#ctor">
+            <summary>Default constructor for this Type</summary>
         </member>
-        <member name="P:Towel.DataStructures.WeightedGraph`2.EdgeCount">
-            <summary>
-            Number of edges present in the graph 
-            </summary>
+        <member name="P:Towel.DataStructures.GraphWeighted`2.EdgeCount">
+            <summary>Number of edges present in the graph</summary>
             <value>int value of edges in graph</value>
         </member>
-        <member name="P:Towel.DataStructures.WeightedGraph`2.NodeCount">
+        <member name="P:Towel.DataStructures.GraphWeighted`2.NodeCount">
             <summary>Number of nodes present in graph</summary>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Add(`0,`0,`1)">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Add(`0,`0,`1)">
             <summary>Adds a weighted edge to the graph </summary>
             <param name="start">The starting point of the edge to add</param>
             <param name="end">The ending point of the edge to add</param>
             <param name="weight">The weight of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Adjacent(`0,`0,`1@)">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Adjacent(`0,`0,`1@)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <param name="weight">The weight of the edge, if it exists.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Adjacent(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Adjacent(`0,`0)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Clear">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Clear">
             <summary>Removes all edges and nodes</summary>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.GetEnumerator">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.GetEnumerator">
             <summary>Enumerates through all the added nodes in the graph</summary>
             <returns></returns>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Neighbors(`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Neighbors(`0,System.Action{`0})">
             <summary> Performs action via a delegate for every neighbour of a node </summary>
             <param name="a">The node to scan neighbours for</param>
             <param name="function">The delegate function to act on the node</param>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Remove(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Remove(`0,`0)">
             <summary>
             Renoves any edge between the given nodes
             </summary>
             <param name="start">The node on the start of the edge</param>
             <param name="end">The node on the end of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Stepper(System.Action{`0,`0})">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(System.Action{`0,`0})">
             <summary>Invokes a delegate for each edge in the graph.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Stepper(System.Func{`0,`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(System.Func{`0,`0,Towel.StepStatus})">
             <summary>
             Performs action for every edge
             </summary>
             <param name="step">Action to perform</param>
             <returns>Status of Action</returns>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Stepper(System.Action{`0})">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(System.Action{`0})">
             <summary>
             Performs action for every node
             </summary>
             <param name="step">Action to perform</param>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Stepper(System.Func{`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.Stepper(System.Func{`0,Towel.StepStatus})">
             <summary>
             Preforms step for every node
             </summary>
             <param name="step">Action to perform</param>
             <returns>status of Action</returns>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.TryAdd(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.TryAdd(`0,System.Exception@)">
             <summary>
             Tries to add a node. Returns false on success.
             </summary>
@@ -1046,25 +1042,13 @@
             <param name="exception">The inner exception, in case of failure</param>
             <returns>boolean value indicating the success of process</returns>
         </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Add(`0)">
-            <summary>
-            Adds a node to the graph.
-            </summary>
-            <param name="value">The node to add</param>
-        </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.TryRemove(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphWeighted`2.TryRemove(`0,System.Exception@)">
             <summary>
             Tries to remove a node. Returns true on success.
             </summary>
-            <param name="deleteNode">The node to remove from the graph</param>
+            <param name="node">The node to remove from the graph</param>
             <param name="exception">The inner exception in case of failure</param>
             <returns>boolean value indicating success of process</returns>
-        </member>
-        <member name="M:Towel.DataStructures.WeightedGraph`2.Remove(`0)">
-            <summary>
-            Removes a node and all its associated edges from the graph
-            </summary>
-            <param name="deleteNode">The node to delete</param>
         </member>
         <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>

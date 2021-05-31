@@ -134,14 +134,14 @@ namespace Towel.DataStructures
 		{
 			if (!_nodes.Contains(start))
 			{
-				throw new InvalidOperationException("Adding an edge to a graph from a node that does not exists");
+				throw new ArgumentException("Adding an edge to a graph from a node that does not exists");
 			}
 			if (!_nodes.Contains(end))
 			{
-				throw new InvalidOperationException("Adding an edge to a graph to a node that does not exists");
+				throw new ArgumentException("Adding an edge to a graph to a node that does not exists");
 			}
 			_edges.Stepper(
-				(Edge e) => throw new InvalidOperationException("Adding an edge to a graph that already exists"),
+				e => throw new ArgumentException("Adding an edge to a graph that already exists"),
 				start, start, end, end);
 
 			_edges.Add(new Edge() { Start = start, End = end });
@@ -170,14 +170,14 @@ namespace Towel.DataStructures
 		{
 			if (!_nodes.Contains(start))
 			{
-				throw new InvalidOperationException("Removing an edge to a graph from a node that does not exists");
+				throw new ArgumentException("Removing an edge to a graph from a node that does not exists");
 			}
 			if (!_nodes.Contains(end))
 			{
-				throw new InvalidOperationException("Removing an edge to a graph to a node that does not exists");
+				throw new ArgumentException("Removing an edge to a graph to a node that does not exists");
 			}
 			_edges.Stepper(
-				(Edge e) => throw new InvalidOperationException("Removing a non-existing edge in a graph"),
+				(Edge e) => throw new ArgumentException("Removing a non-existing edge in a graph"),
 				start, start, end, end);
 			_edges.Remove(start, start, end, end);
 		}
@@ -188,24 +188,12 @@ namespace Towel.DataStructures
 		/// <returns>True if adjacent. False if not.</returns>
 		public bool Adjacent(T a, T b)
 		{
-			/*
 			bool exists = false;
 			_edges.Stepper(edge =>
 			{
 				exists = true;
 				return StepStatus.Break;
 			}, a, a, b, b);
-			return exists;
-			*/
-			bool exists = false;
-			_edges.Stepper
-			(
-				(x)=>
-				{
-					exists=(x.Start.Equals(a)&&x.End.Equals(b));
-					return exists?StepStatus.Break:StepStatus.Continue;
-				}, a, a, b, b
-			);
 			return exists;
 		}
 
@@ -292,6 +280,7 @@ namespace Towel.DataStructures
 			Stepper((T a, T b) => Add(a, b));
 		}
 		#endregion
+
 		#region Properties
 
 		/// <summary>Gets the number of edges in the graph.</summary>
@@ -307,7 +296,7 @@ namespace Towel.DataStructures
 		/// <summary>Adds a node to the graph.</summary>
 		/// <param name="node">The node to add to the graph.</param>
 		/// <param name="exception">The exception that occurred if the add failed.</param>
-		public bool TryAdd(T node, out Exception exception)
+		public bool TryAdd(T node, out Exception? exception)
 		{
 
 			return _map.TryAdd(node, (new SetHashLinked<T>(_map.Equate, _map.Hash), new SetHashLinked<T>(_map.Equate, _map.Hash)), out exception);
@@ -319,9 +308,9 @@ namespace Towel.DataStructures
 		public void Add(T start, T end)
 		{
 			if (!_map.Contains(start))
-				throw new InvalidOperationException("Adding an edge to a non-existing starting node.");
+				throw new ArgumentException(message: "Adding an edge to a non-existing starting node.");
 			if (!_map.Contains(end))
-				throw new InvalidOperationException("Adding an edge to a non-existing ending node.");
+				throw new ArgumentException(message: "Adding an edge to a non-existing ending node.");
 			//Commenting out the case below, as it should not ouccer
 			// if (_map[start].Outgoing is null)
 			// _map[start].Outgoing = new(_map.Equate, _map.Hash);
@@ -440,106 +429,110 @@ namespace Towel.DataStructures
 
 		#endregion
 	}
+
 	/// <summary>
 	/// A weighted graph data structure that stores nodes, edges with their corresponding weights. 
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	public interface IWeightedGraph<V, W> : IGraph<V> where W : notnull, IComparable<W>
+	public interface IGraphWeighted<V, W> : IGraph<V>
 	{
-		void IGraph<V>.Add(V start, V end) => Add(start, end, default(W));
+		void IGraph<V>.Add(V start, V end) => Add(start, end, default);
 		/// <summary>Adds a weighted edge to the graph </summary>
 		/// <param name="start">The starting point of the edge to add</param>
 		/// <param name="end">The ending point of the edge to add</param>
 		/// <param name="weight">The weight of the edge</param>
-		void Add(V start, V end, W weight);
+		void Add(V start, V end, W? weight);
 		/// <summary>Checks if b is adjacent to a.</summary>
 		/// <param name="a">The starting point of the edge to check.</param>
 		/// <param name="b">The ending point of the edge to check.</param>
 		/// <param name="weight">The weight of the edge, if it exists.</param>
 		/// <returns>True if b is adjacent to a; False if not</returns>
-		bool Adjacent(V a, V b, out W weight);
+		bool Adjacent(V a, V b, out W? weight);
 	}
+
 	/// <summary>
 	/// Implements a weighted graph. Implements a Dictionary of Nodes and edges
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	public class WeightedGraph<V, W> : IWeightedGraph<V, W>
-	where W : notnull, IComparable<W>
+	public class GraphWeighted<V, W> : IGraphWeighted<V, W>
 	{
 		/// <summary>A cheap way to create entire structure of a graph</summary>
-		protected MapHashLinked<(MapHashLinked<W, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V> Structure;
-		/// <summary>
-		/// Default constructor for this Type
-		/// </summary>
-		public WeightedGraph()
+		protected MapHashLinked<(MapHashLinked<W?, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V> Structure;
+
+		/// <summary>Default constructor for this Type</summary>
+		public GraphWeighted()
 		{
 			Structure = new();
 		}
-		/// <summary>
-		/// Number of edges present in the graph 
-		/// </summary>
+
+		/// <summary>Number of edges present in the graph</summary>
 		/// <value>int value of edges in graph</value>
 		public int EdgeCount
 		{
 			get
 			{
-				int x = 0;
-				foreach (var item in Structure.Keys().ToArray())
-				{
-					x += Structure[item].IncomingNodes._count;
-				}
-				return x;
+				int count = 0;
+				Structure.Keys(key => count += Structure[key].IncomingNodes._count);
+				return count;
 			}
 		}
+
 		/// <summary>Number of nodes present in graph</summary>
 		public int NodeCount => Structure.Keys().Count();
+
 		/// <summary>Adds a weighted edge to the graph </summary>
 		/// <param name="start">The starting point of the edge to add</param>
 		/// <param name="end">The ending point of the edge to add</param>
 		/// <param name="weight">The weight of the edge</param>
-		public void Add(V start, V end, W weight)
+		public void Add(V start, V end, W? weight)
 		{
-			if (!Structure.Contains(start)) throw new ArgumentException(message: "start Vertex must be present in graph before adding edge", paramName: nameof(start));
-			if (!Structure.Contains(end)) throw new ArgumentException(message: "end Vertex must be present in graph before adding edge", paramName: nameof(end));
-			Structure[start].OutgoingEdges.Add(end, weight);
-			Structure[end].IncomingNodes.Add(start);
+			if (!Structure.TryGet(start, out var outgoing)) throw new ArgumentException(message: "start Vertex must be present in graph before adding edge", paramName: nameof(start));
+			if (!Structure.TryGet(end, out var incoming)) throw new ArgumentException(message: "end Vertex must be present in graph before adding edge", paramName: nameof(end));
+			outgoing.OutgoingEdges.Add(end, weight);
+			incoming.IncomingNodes.Add(start);
 		}
+
 		/// <summary>Checks if b is adjacent to a.</summary>
 		/// <param name="a">The starting point of the edge to check.</param>
 		/// <param name="b">The ending point of the edge to check.</param>
 		/// <param name="weight">The weight of the edge, if it exists.</param>
 		/// <returns>True if b is adjacent to a; False if not</returns>
-		public bool Adjacent(V a, V b, out W weight)
+		public bool Adjacent(V a, V b, out W? weight)
 		{
-			if (!Structure.Contains(a)) throw new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(a));
+			if (!Structure.TryGet(a, out var outgoing)) throw new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(a));
 			if (!Structure.Contains(b)) throw new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(b));
-			if (Structure[a].OutgoingEdges.Contains(b))
+			if (outgoing.OutgoingEdges.Contains(b))
 			{
 				weight = Structure[a].OutgoingEdges[b];
 				return true;
 			}
 			else
 			{
-				weight = default(W);
+				weight = default;
 				return false;
 			}
 		}
+
 		/// <summary>Checks if b is adjacent to a.</summary>
 		/// <param name="a">The starting point of the edge to check.</param>
 		/// <param name="b">The ending point of the edge to check.</param>
 		/// <returns>True if b is adjacent to a; False if not</returns>
 		public bool Adjacent(V a, V b) => Adjacent(a, b, out var _);
+
 		/// <summary>Removes all edges and nodes</summary>
 		public void Clear() => Structure.Clear();
+
 		/// <summary>Enumerates through all the added nodes in the graph</summary>
 		/// <returns></returns>
 		public IEnumerator<V> GetEnumerator() => Structure.Keys().ToArray().GetEnumerator() as IEnumerator<V>;
+
 		/// <summary> Performs action via a delegate for every neighbour of a node </summary>
 		/// <param name="a">The node to scan neighbours for</param>
 		/// <param name="function">The delegate function to act on the node</param>
 		public void Neighbors(V a, Action<V> function) => Structure[a].OutgoingEdges.Keys(function);
+
 		/// <summary>
 		/// Renoves any edge between the given nodes
 		/// </summary>
@@ -552,18 +545,20 @@ namespace Towel.DataStructures
 			Structure[start].OutgoingEdges.Remove(end);
 			Structure[end].IncomingNodes.Remove(start);
 		}
+
 		/// <summary>Invokes a delegate for each edge in the graph.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(Action<V?, V?> step)
 		{
 			foreach(var pair in Structure.GetEnumeratorPairs)
 			{
-				foreach(var innerpair in pair.Value.OutgoingEdges.GetEnumeratorPairs)
+				foreach(var (Key, _) in pair.Value.OutgoingEdges.GetEnumeratorPairs)
 				{
-					step(pair.Key, innerpair.Key);
+					step(pair.Key, Key);
 				}
 			}
 		}
+
 		/// <summary>
 		/// Performs action for every edge
 		/// </summary>
@@ -572,17 +567,20 @@ namespace Towel.DataStructures
 		public StepStatus Stepper(Func<V, V, StepStatus> step) =>
 			Structure.Stepper((edge, a) =>
 			edge.OutgoingEdges.Keys(b => step(a, b)));
+
 		/// <summary>
 		/// Performs action for every node
 		/// </summary>
 		/// <param name="step">Action to perform</param>
 		public void Stepper(Action<V> step) => Structure.Keys(step);
+
 		/// <summary>
 		/// Preforms step for every node
 		/// </summary>
 		/// <param name="step">Action to perform</param>
 		/// <returns>status of Action</returns>
 		public StepStatus Stepper(Func<V, StepStatus> step) => Structure.Keys(step);
+
 		/// <summary>
 		/// Tries to add a node. Returns false on success.
 		/// </summary>
@@ -591,57 +589,46 @@ namespace Towel.DataStructures
 		/// <returns>boolean value indicating the success of process</returns>
 		public bool TryAdd(V value, out Exception? exception)
 		{
-			exception = null;
-			try
+			if (!Structure.TryAdd(value, (new(), new()), out Exception? childException))
 			{
-				Add(value);
-				return true;
-			}
-			catch (Exception e)
-			{
-				exception = e;
+				exception = new ArgumentException(message: "Queried value already exists in graph", paramName: nameof(value), childException);
 				return false;
 			}
+			else
+			{
+				exception = null;
+				return true;
+			}
 		}
-		/// <summary>
-		/// Adds a node to the graph.
-		/// </summary>
-		/// <param name="value">The node to add</param>
-		public void Add(V value)
-		{
-			if(Structure.Contains(value))throw new ArgumentException(message:"Queried value already exists in graph", paramName:nameof(value));
-			Structure.Add(value, (new(), new()));
-		}
+
 		/// <summary>
 		/// Tries to remove a node. Returns true on success.
 		/// </summary>
-		/// <param name="deleteNode">The node to remove from the graph</param>
+		/// <param name="node">The node to remove from the graph</param>
 		/// <param name="exception">The inner exception in case of failure</param>
 		/// <returns>boolean value indicating success of process</returns>
-		public bool TryRemove(V deleteNode, out Exception? exception)
+		public bool TryRemove(V node, out Exception? exception)
 		{
-			exception = null;
-			try
+			if (!Structure.Contains(node))
 			{
-				return true;
-			}
-			catch (Exception e)
-			{
-				exception = e;
+				exception = new ArgumentException("Node does not exist in graph", nameof(node));
 				return false;
 			}
+			//Remove all edges e, where e=(x, deleteNode)
+			foreach (var item in Structure[node].IncomingNodes)
+			{
+				Remove(node, item);
+			}
+			//Remove all edges e, where e=(deleteNode, x)
+			foreach (var item in Structure[node].OutgoingEdges.Keys().ToArray())
+			{
+				Remove(node, item);
+			}
+			Structure.Remove(node);
+			exception = null;
+			return true;
 		}
-		/// <summary>
-		/// Removes a node and all its associated edges from the graph
-		/// </summary>
-		/// <param name="deleteNode">The node to delete</param>
-		public void Remove(V deleteNode)
-		{
-			if(!Structure.Contains(deleteNode))throw new ArgumentException("Node does not exist in graph", nameof(deleteNode));
-			foreach (var item in Structure[deleteNode].IncomingNodes) Remove(deleteNode, item);//Remove all edges e, where e=(x, deleteNode)
-			foreach (var item in Structure[deleteNode].OutgoingEdges.Keys().ToArray()) Remove(deleteNode, item);//Remove all edges e, where e=(deleteNode, x)
-			Structure.Remove(deleteNode);//Now it should be alright to delete this node
-		}
+
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 	}
 }

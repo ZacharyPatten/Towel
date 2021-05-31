@@ -2130,7 +2130,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.Stepper(step, child, bounds)) != StepStatus.Continue)
 						break;
 			}
@@ -4056,7 +4056,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					if (EncapsulationCheck(bounds, child.Bounds) &&
 						(status = this.Stepper(step, child)) != StepStatus.Continue)
 						break;
-					else if (!InclusionCheck(child.Bounds, bounds) &&
+					else if (InclusionCheck(child.Bounds, bounds) &&
 						(status = this.StepperBase(step, child, bounds, spatialCheck)) != StepStatus.Continue)
 						break;
 			}
