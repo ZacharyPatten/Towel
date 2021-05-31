@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -20,6 +21,10 @@ namespace Towel.DataStructures
 		/// <param name="key">The "index" to access of the structure.</param>
 		/// <returns>The value at the index of the requested key.</returns>
 		T this[K key] { get; set; }
+		/// <summary>
+		/// This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
+		/// </summary>
+		public IEnumerable<(K Key, T Value)> GetEnumeratorPairs {get;}
 
 		#endregion
 
@@ -765,9 +770,25 @@ namespace Towel.DataStructures
 			}
 			return array;
 		}
+		/// <summary>
+		/// This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
+		/// </summary>
+		public IEnumerable<(K Key, T Value)> GetEnumeratorPairs
+		{
+			get
+			{
+				for (int i = 0; i < _table.Length; i++)
+				{
+					for (Node? node = _table[i]; node is not null; node = node.Next)
+					{
+						yield return (node.Key, node.Value);
+					}
+				}
+			}
+		}
 
-		#endregion
-	}
+        #endregion
+    }
 
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
