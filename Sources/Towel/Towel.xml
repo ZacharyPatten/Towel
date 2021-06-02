@@ -2913,7 +2913,7 @@
             <summary>Steps through all the keys.</summary>
             <param name="step">The action to perform on all the keys.</param>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.Keys(System.Func{`1,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.IMap`2.KeysBreak(System.Func{`1,Towel.StepStatus})">
             <summary>Steps through all the keys.</summary>
             <param name="step">The action to perform on all the keys.</param>
             <returns>The status of the stepper.</returns>
@@ -3158,7 +3158,7 @@
         <member name="M:Towel.DataStructures.MapHashLinked`4.Keys``1(``0)">
             <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(System.Func{`1,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysBreak(System.Func{`1,Towel.StepStatus})">
             <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.KeysBreak``1(``0)">

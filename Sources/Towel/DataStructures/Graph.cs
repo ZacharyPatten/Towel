@@ -379,7 +379,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on every node in the graph.</param>
 		/// <returns>The status of the iteration.</returns>
 		public StepStatus Stepper(Func<T, StepStatus> step) =>
-			_map.Keys(step);
+			_map.KeysBreak(step);
 
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
@@ -415,13 +415,7 @@ namespace Towel.DataStructures
 		/// Enumerates through the nodes of the graph
 		/// </summary>
 		/// <returns>Enumerator object</returns>
-		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
-		{
-			// TODO: this can be optimized
-			ListArray<T> list = new(NodeCount);
-			Stepper(node => list.Add(node));
-			return list.GetEnumerator();
-		}
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _map.GetKeys().GetEnumerator();
 
 		/// <summary>Clears this graph to an empty state.</summary>
 		public void Clear()

@@ -200,7 +200,7 @@ namespace Towel.DataStructures
 		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(Func<T, StepStatus> step)
 		{
-			return _tree.Keys(step);
+			return _tree.KeysBreak(step);
 		}
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>

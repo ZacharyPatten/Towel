@@ -48,13 +48,15 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on all the values.</param>
 		/// <returns>The status of the stepper.</returns>
 		StepStatus Stepper(StepRefBreak<T> step);
+
+		public System.Collections.Generic.IEnumerable<K> GetKeys();
 		/// <summary>Steps through all the keys.</summary>
 		/// <param name="step">The action to perform on all the keys.</param>
 		void Keys(Action<K> step);
 		/// <summary>Steps through all the keys.</summary>
 		/// <param name="step">The action to perform on all the keys.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Keys(Func<K, StepStatus> step);
+		StepStatus KeysBreak(Func<K, StepStatus> step);
 		/// <summary>
 		/// This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
 		/// </summary>
@@ -151,7 +153,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static Func<Func<K, StepStatus>, StepStatus> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
+		public static Func<Func<K, StepStatus>, StepStatus> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.KeysBreak;
 
 		#endregion
 
@@ -714,7 +716,7 @@ namespace Towel.DataStructures
 			KeysBreak<StepBreakFromAction<K, Step>>(step);
 
 		/// <inheritdoc cref="Keys_XML"/>
-		public StepStatus Keys(Func<K, StepStatus> step) =>
+		public StepStatus KeysBreak(Func<K, StepStatus> step) =>
 			KeysBreak<StepBreakRuntime<K>>(step);
 
 		/// <inheritdoc cref="Keys_XML"/>
@@ -732,6 +734,17 @@ namespace Towel.DataStructures
 				}
 			}
 			return Continue;
+		}
+
+		public System.Collections.Generic.IEnumerable<K> GetKeys()
+		{
+			for (int i = 0; i < _table.Length; i++)
+			{
+				for (Node? node = _table[i]; node is not null; node = node.Next)
+				{
+					yield return node.Key;
+				}
+			}
 		}
 
 		#endregion
