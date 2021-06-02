@@ -189,10 +189,7 @@ namespace Towel_Testing.DataStructures
 			map.Add(2, "World");
 			(int, string)[] array = new (int, string)[2];
 			int i = 0;
-			foreach (var values in map.GetEnumeratorPairs)
-			{
-				array[i++] = values;
-			}
+			map.Pairs(pair => array[i++] = (pair.Item2, pair.Item1));
 			Assert.IsTrue(Equate<(int, string)>(new[] { (1, "Hello"), (2, "World") }, array));
 		}
 	}

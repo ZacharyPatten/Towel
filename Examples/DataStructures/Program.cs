@@ -495,7 +495,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.WriteLine("    Traversal: ");
-				mapHashLinked.Stepper((value, key) => Console.WriteLine($"      {key}->{value}"));
+				mapHashLinked.Pairs(pair => Console.WriteLine($"      {pair.Item2}->{pair.Item1}"));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
@@ -798,7 +798,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.WriteLine("    Edges (Traversal): ");
-				graphSetOmnitree.Stepper((from, to) => Console.WriteLine($"      {from}->{to}"));
+				graphSetOmnitree.Edges(edge => Console.WriteLine($"      {edge.Item1}->{edge.Item2}"));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);

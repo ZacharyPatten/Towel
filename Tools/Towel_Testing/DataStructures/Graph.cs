@@ -50,7 +50,7 @@ namespace Towel_Testing.DataStructures
 			graph.Add(4, 5);
 			graph.Remove(3);
 			ListArray<(int, int)> RemainingEdges = new();
-			graph.Stepper((p, q) => RemainingEdges.Add((p, q)));
+			graph.Edges(edge => RemainingEdges.Add((edge.Item1, edge.Item2)));
 			Assert.IsTrue(SetEquals<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
 		}
 
@@ -132,7 +132,7 @@ namespace Towel_Testing.DataStructures
 			graph.Add(4, 5);
 			graph.Remove(3);
 			ListArray<(int, int)> RemainingEdges = new();
-			graph.Stepper((p, q) => RemainingEdges.Add((p, q)));
+			graph.Edges(edge => RemainingEdges.Add((edge.Item1, edge.Item2)));
 			Assert.IsTrue(SetEquals<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
 		}
 
@@ -171,14 +171,14 @@ namespace Towel_Testing.DataStructures
 	}
 
 	[TestClass]
-	public class WeightedGraph_Testing
+	public class GraphWeightedMap_Testing
 	{
 		#region Methods
 
 		[TestMethod]
 		public void AdjacentTest()
 		{
-			GraphUndirectedWeightedMap<byte, int> graph = new();
+			GraphWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -190,7 +190,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void NeighborsTest()
 		{
-			GraphUndirectedWeightedMap<byte, int> graph = new();
+			GraphWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -206,7 +206,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void RemoveTest()
 		{
-			GraphUndirectedWeightedMap<byte, int> graph = new();
+			GraphWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -214,14 +214,14 @@ namespace Towel_Testing.DataStructures
 			graph.Add(4, 5, 1);
 			graph.Remove<byte>(3);
 			ListArray<(int, int)> RemainingEdges = new();
-			graph.Stepper((p, q) => RemainingEdges.Add((p, q)));
+			graph.Edges(edge => RemainingEdges.Add((edge.Item1, edge.Item2)));
 			Assert.IsTrue(SetEquals<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
 		}
 
 		[TestMethod]
 		public void AddPropertyTest()
 		{
-			GraphUndirectedWeightedMap<byte, int> graph = new();
+			GraphWeightedMap<byte, int> graph = new();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -239,7 +239,7 @@ namespace Towel_Testing.DataStructures
 			Assert.ThrowsException<ArgumentException>(
 				() =>
 				{
-					GraphUndirectedWeightedMap<byte, int> graph = new();
+					GraphWeightedMap<byte, int> graph = new();
 					for (byte i = 1; i <= 5; i++) graph.Add(i);
 					graph.Add(1, 5, 1);
 					graph.Add(2, 5, 1);

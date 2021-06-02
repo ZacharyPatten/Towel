@@ -604,6 +604,12 @@
             <param name="step">The method to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
+        <member name="M:Towel.DataStructures.DataStructure.Stepper_XML">
+            <summary>Invokes a method for each entry in the data structure.</summary>
+            <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+            <param name="step">The method to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+        </member>
         <member name="T:Towel.DataStructures.DataStructure.IAuditable`1">
             <summary>Property of a data structure (does it have a contains method).</summary>
             <typeparam name="T">The type of value.</typeparam>
@@ -744,11 +750,11 @@
             <param name="start">The starting point of the edge to remove.</param>
             <param name="end">The ending point of the edge to remove.</param>
         </member>
-        <member name="M:Towel.DataStructures.IGraph`1.Stepper(System.Action{`0,`0})">
+        <member name="M:Towel.DataStructures.IGraph`1.Edges(System.Action{System.ValueTuple{`0,`0}})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.IGraph`1.Stepper(System.Func{`0,`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.IGraph`1.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
@@ -830,11 +836,11 @@
             <param name="step">The action to perform on all the nodes in the graph.</param>
             <returns>The status of the stepper operation.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(System.Action{`0,`0})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Edges(System.Action{System.ValueTuple{`0,`0}})">
             <summary>Steps through all the edges in the graph.</summary>
             <param name="step">The action to perform on all the edges in the graph.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(System.Func{`0,`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
             <summary>Steps through all the edges in the graph.</summary>
             <param name="step">The action to perform on all the edges in the graph.</param>
             <returns>The status of the stepper operation.</returns>
@@ -906,11 +912,11 @@
             <param name="step">The action to perform on every node in the graph.</param>
             <returns>The status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(System.Action{`0,`0})">
+        <member name="M:Towel.DataStructures.GraphMap`1.Edges(System.Action{System.ValueTuple{`0,`0}})">
             <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
             <param name="step">The action to perform on every edge in the graph.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(System.Func{`0,`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.GraphMap`1.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
             <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
             <param name="step">The action to perform on every edge in the graph.</param>
             <returns>The status of the iteration.</returns>
@@ -932,43 +938,43 @@
         <member name="M:Towel.DataStructures.GraphMap`1.Clear">
             <summary>Clears this graph to an empty state.</summary>
         </member>
-        <member name="T:Towel.DataStructures.IGraphUndirectedWeighted`2">
+        <member name="T:Towel.DataStructures.IGraphWeighted`2">
             <summary>
             A weighted graph data structure that stores nodes, edges with their corresponding weights. 
             </summary>
             <typeparam name="V">The generic node type of this graph.</typeparam>
             <typeparam name="W">The generic weight type of this graph.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.IGraphUndirectedWeighted`2.Add(`0,`0,`1)">
+        <member name="M:Towel.DataStructures.IGraphWeighted`2.Add(`0,`0,`1)">
             <summary>Adds a weighted edge to the graph </summary>
             <param name="start">The starting point of the edge to add</param>
             <param name="end">The ending point of the edge to add</param>
             <param name="weight">The weight of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.IGraphUndirectedWeighted`2.Adjacent(`0,`0,`1@)">
+        <member name="M:Towel.DataStructures.IGraphWeighted`2.Adjacent(`0,`0,`1@)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <param name="weight">The weight of the edge, if it exists.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="T:Towel.DataStructures.GraphUndirectedWeightedMap`2">
+        <member name="T:Towel.DataStructures.GraphWeightedMap`2">
             <summary>
             Implements a weighted graph. Implements a Dictionary of Nodes and edges
             </summary>
             <typeparam name="V">The generic node type of this graph.</typeparam>
             <typeparam name="W">The generic weight type of this graph.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.#ctor">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.#ctor">
             <summary>Default constructor for this Type</summary>
         </member>
-        <member name="P:Towel.DataStructures.GraphUndirectedWeightedMap`2.EdgeCount">
+        <member name="P:Towel.DataStructures.GraphWeightedMap`2.EdgeCount">
             <summary>Number of edges present in the graph</summary>
         </member>
-        <member name="P:Towel.DataStructures.GraphUndirectedWeightedMap`2.NodeCount">
+        <member name="P:Towel.DataStructures.GraphWeightedMap`2.NodeCount">
             <summary>Number of nodes present in graph</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.TryAdd(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.TryAdd(`0,System.Exception@)">
             <summary>
             Tries to add a node. Returns false on success.
             </summary>
@@ -976,77 +982,66 @@
             <param name="exception">The inner exception, in case of failure</param>
             <returns>boolean value indicating the success of process</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Add(`0,`0,`1)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Add(`0,`0,`1)">
             <summary>Adds a weighted edge to the graph </summary>
             <param name="start">The starting point of the edge to add</param>
             <param name="end">The ending point of the edge to add</param>
             <param name="weight">The weight of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Adjacent(`0,`0,`1@)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Adjacent(`0,`0,`1@)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <param name="weight">The weight of the edge, if it exists.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Adjacent(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Adjacent(`0,`0)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Clear">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Clear">
             <summary>Removes all edges and nodes</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Neighbors(`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Neighbors(`0,System.Action{`0})">
             <summary> Performs action via a delegate for every neighbour of a node </summary>
             <param name="a">The node to scan neighbours for</param>
             <param name="function">The delegate function to act on the node</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Remove(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Remove(`0,`0)">
             <summary>Removes any edge between the given nodes.</summary>
             <param name="start">The node on the start of the edge</param>
             <param name="end">The node on the end of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Stepper(System.Action{`0,`0})">
-            <summary>Invokes a delegate for each edge in the graph.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Stepper``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Stepper(System.Func{`0,`0,Towel.StepStatus})">
-            <summary>
-            Performs action for every edge
-            </summary>
-            <param name="step">Action to perform</param>
-            <returns>Status of Action</returns>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Stepper(System.Action{`0})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Stepper``1(``0)">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Stepper(System.Func{`0,Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Stepper(System.Action{`0})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.StepperBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.StepperRef``1(``0)">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Edges``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Stepper(Towel.StepRef{`0})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Edges(System.Action{System.ValueTuple{`0,`0}})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.StepperBreak``1(``0)">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Stepper(System.Func{`0,Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Stepper(Towel.StepRefBreak{`0})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
-        </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.StepperRefBreak``1(``0)">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
-        </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.GetEnumerator">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.GetEnumerator">
             <summary>Enumerates through all the added nodes in the graph</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.TryRemove(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.TryRemove(`0,System.Exception@)">
             <summary>
             Tries to remove a node. Returns true on success.
             </summary>
@@ -1054,7 +1049,7 @@
             <param name="exception">The inner exception in case of failure</param>
             <returns>boolean value indicating success of process</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphUndirectedWeightedMap`2.Clone">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Clone">
             <summary>Clones the graph.</summary>
             <returns>A clone of the graph.</returns>
         </member>
@@ -2886,11 +2881,6 @@
             <param name="key">The "index" to access of the structure.</param>
             <returns>The value at the index of the requested key.</returns>
         </member>
-        <member name="P:Towel.DataStructures.IMap`2.GetEnumeratorPairs">
-            <summary>
-            This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
-            </summary>
-        </member>
         <member name="M:Towel.DataStructures.IMap`2.TryGet(`1,`0@,System.Exception@)">
             <summary>Tries to get a value by key.</summary>
             <param name="key">The key of the value to get.</param>
@@ -2928,11 +2918,16 @@
             <param name="step">The action to perform on all the keys.</param>
             <returns>The status of the stepper.</returns>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.Stepper(System.Action{`0,`1})">
+        <member name="M:Towel.DataStructures.IMap`2.GetPairs">
+            <summary>
+            This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
+            </summary>
+        </member>
+        <member name="M:Towel.DataStructures.IMap`2.Pairs(System.Action{System.ValueTuple{`0,`1}})">
             <summary>Steps through all the keys and values.</summary>
             <param name="step">The action to perform on all the keys and values.</param>
         </member>
-        <member name="M:Towel.DataStructures.IMap`2.Stepper(System.Func{`0,`1,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.IMap`2.PairsBreak(System.Func{System.ValueTuple{`0,`1},Towel.StepStatus})">
             <summary>Steps through all the keys and values.</summary>
             <param name="step">The action to perform on all the keys and values.</param>
             <returns>The status of the stepper.</returns>
@@ -3121,17 +3116,35 @@
             <para>Runtime: O(1)</para>
             </summary>
         </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML">
+            <summary>Invokes a method for each entry in the data structure.</summary>
+            <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+            <param name="step">The method to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
+        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(System.Action{`0})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.StepperRef``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRef{`0})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.StepperBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(System.Func{`0,Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(Towel.StepRefBreak{`0})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.StepperRefBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Stepper_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Keys_XML">
             <summary>Invokes a method for each entry in the data structure.</summary>
@@ -3139,35 +3152,40 @@
             <param name="step">The method to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys``1(``0)">
-            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
-        </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(System.Action{`1})">
             <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysRef``1(``0)">
-            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(Towel.StepRef{`1})">
-            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysBreak``1(``0)">
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys``1(``0)">
             <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(System.Func{`1,Towel.StepStatus})">
             <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Keys(Towel.StepRefBreak{`1})">
+        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysBreak``1(``0)">
             <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.KeysRefBreak``1(``0)">
-            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Keys_XML"/>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Pairs_XML">
+            <summary>Invokes a method for each entry in the data structure.</summary>
+            <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+            <param name="step">The method to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(System.Action{`0,`1})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Pairs(System.Action{System.ValueTuple{`0,`1}})">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Pairs_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`4.Stepper(System.Func{`0,`1,Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.Pairs``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Pairs_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.PairsBreak(System.Func{System.ValueTuple{`0,`1},Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Pairs_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.PairsBreak``1(``0)">
+            <inheritdoc cref="M:Towel.DataStructures.MapHashLinked`4.Pairs_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked`4.GetPairs">
+            <summary>
+            This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
+            </summary>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.GetEnumerator">
             <summary>Gets the enumerator for the map.</summary>
@@ -3179,11 +3197,6 @@
             <para>Runtime: Θ(n)</para>
             </summary>
             <returns>An array with all the values in the map.</returns>
-        </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`4.GetEnumeratorPairs">
-            <summary>
-            This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
-            </summary>
         </member>
         <member name="T:Towel.DataStructures.MapHashLinked`2">
             <summary>An unsorted structure of unique items.</summary>

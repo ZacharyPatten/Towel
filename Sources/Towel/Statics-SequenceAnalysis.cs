@@ -335,11 +335,11 @@ namespace Towel
 					maxOccurences = Math.Max(1, maxOccurences);
 				}
 			});
-			map.Stepper((value, key) =>
+			map.Pairs(x =>
 			{
-				if (value == maxOccurences)
+				if (x.Item1 == maxOccurences)
 				{
-					step(key);
+					step(x.Item2);
 				}
 			});
 		}

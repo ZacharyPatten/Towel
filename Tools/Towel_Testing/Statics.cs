@@ -1373,6 +1373,39 @@ namespace Towel_Testing
 
 		#endregion
 
+		#region Mode_Testing
+
+		[TestMethod]
+		public void Mode_Testing()
+		{
+			{ // int
+				ListArray<int> list = new();
+				Mode(x => list.Add(x), 1, 2, 3, 4, 5, 1);
+				Assert.IsTrue(list.Count is 1);
+				Assert.IsTrue(list[0] is 1);
+			}
+			{ // float
+				ListArray<float> list = new();
+				Mode(x => list.Add(x), 1f, 2f, 3f, 4f, 5f, 1f);
+				Assert.IsTrue(list.Count is 1);
+				Assert.IsTrue(list[0] is 1f);
+			}
+			{ // double
+				ListArray<double> list = new();
+				Mode(x => list.Add(x), 1d, 2d, 3d, 4d, 5d, 1d);
+				Assert.IsTrue(list.Count is 1);
+				Assert.IsTrue(list[0] is 1d);
+			}
+			{ // decimal
+				ListArray<decimal> list = new();
+				Mode(x => list.Add(x), 1m, 2m, 3m, 4m, 5m, 1m);
+				Assert.IsTrue(list.Count is 1);
+				Assert.IsTrue(list[0] is 1m);
+			}
+		}
+
+		#endregion
+
 		#region Clamp
 
 		[TestMethod] public void Clamp_Testing()

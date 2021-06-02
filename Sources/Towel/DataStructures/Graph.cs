@@ -41,11 +41,11 @@ namespace Towel.DataStructures
 		void Remove(T start, T end);
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void Stepper(Action<T?, T?> step);
+		void Edges(Action<(T?, T?)> step);
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus Stepper(Func<T, T, StepStatus> step);
+		StepStatus EdgesBreak(Func<(T, T), StepStatus> step);
 
 		#endregion
 	}
@@ -231,12 +231,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
-		public void Stepper(Action<T, T> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
+		public void Edges(Action<(T, T)> step) => _edges.Stepper(edge => step((edge.Start, edge.End)));
 
 		/// <summary>Steps through all the edges in the graph.</summary>
 		/// <param name="step">The action to perform on all the edges in the graph.</param>
 		/// <returns>The status of the stepper operation.</returns>
-		public StepStatus Stepper(Func<T, T, StepStatus> step) => _edges.Stepper(edge => step(edge.Start, edge.End));
+		public StepStatus EdgesBreak(Func<(T, T), StepStatus> step) => _edges.Stepper(edge => step((edge.Start, edge.End)));
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -275,8 +275,9 @@ namespace Towel.DataStructures
 			_edges = graphToClone._edges;
 			_map = new(graphToClone._map.Equate, graphToClone._map.Hash);
 			Stepper((T node) => this.Add(node));
-			Stepper((T a, T b) => Add(a, b));
+			Edges(edge => Add(edge.Item1, edge.Item2));
 		}
+
 		#endregion
 
 		#region Properties
@@ -382,16 +383,16 @@ namespace Towel.DataStructures
 
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
-		public void Stepper(Action<T?, T?> step) =>
-			_map.Stepper((edges, a) =>
-				edges.Outgoing.Stepper(b => step(a, b)));
+		public void Edges(Action<(T?, T?)> step) =>
+			_map.Pairs(pair =>
+				pair.Item1.Outgoing.Stepper(b => step((pair.Item2, b))));
 
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
 		/// <returns>The status of the iteration.</returns>
-		public StepStatus Stepper(Func<T?, T?, StepStatus> step) =>
-			_map.Stepper((edges, a) =>
-				edges.Outgoing.Stepper(b => step(a, b)));
+		public StepStatus EdgesBreak(Func<(T?, T?), StepStatus> step) =>
+			_map.PairsBreak(pair =>
+				pair.Item1.Outgoing.Stepper(b => step((pair.Item2, b))));
 
 		/// <summary>Makes a clone of this <see cref="GraphMap{T}"/>.</summary>
 		/// <returns></returns>
@@ -408,14 +409,18 @@ namespace Towel.DataStructures
 			return nodes;
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()=>GetEnumerator();
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
 		/// <summary>
 		/// Enumerates through the nodes of the graph
 		/// </summary>
 		/// <returns>Enumerator object</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			foreach(var pairs in _map.GetEnumeratorPairs) yield return pairs.Key;
+			// TODO: this can be optimized
+			ListArray<T> list = new(NodeCount);
+			Stepper(node => list.Add(node));
+			return list.GetEnumerator();
 		}
 
 		/// <summary>Clears this graph to an empty state.</summary>
@@ -433,7 +438,7 @@ namespace Towel.DataStructures
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	public interface IGraphUndirectedWeighted<V, W> : IGraph<V>
+	public interface IGraphWeighted<V, W> : IGraph<V>
 	{
 		#region Methods
 
@@ -458,7 +463,7 @@ namespace Towel.DataStructures
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	public class GraphUndirectedWeightedMap<V, W> : IGraphUndirectedWeighted<V, W>
+	public class GraphWeightedMap<V, W> : IGraphWeighted<V, W>
 	{
 		internal MapHashLinked<(MapHashLinked<W?, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V> Structure;
 		internal int _edges;
@@ -466,13 +471,13 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Default constructor for this Type</summary>
-		public GraphUndirectedWeightedMap()
+		public GraphWeightedMap()
 		{
 			Structure = new();
 		}
 
 		[Obsolete("Not Implemented")]
-		internal GraphUndirectedWeightedMap(GraphUndirectedWeightedMap<V, W> graph)
+		internal GraphWeightedMap(GraphWeightedMap<V, W> graph)
 		{
 			throw new NotImplementedException();
 		}
@@ -570,67 +575,75 @@ namespace Towel.DataStructures
 
 		#region Stepper and IEnumerable
 
-		// TODO: all steppers need to allow struct generic parameters as the base implementation
-
-		/// <summary>Invokes a delegate for each edge in the graph.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<V?, V?> step)
-		{
-			foreach(var pair in Structure.GetEnumeratorPairs)
-			{
-				foreach(var (Key, _) in pair.Value.OutgoingEdges.GetEnumeratorPairs)
-				{
-					step(pair.Key, Key);
-				}
-			}
-		}
-
-		/// <summary>
-		/// Performs action for every edge
-		/// </summary>
-		/// <param name="step">Action to perform</param>
-		/// <returns>Status of Action</returns>
-		public StepStatus Stepper(Func<V, V, StepStatus> step) =>
-			Structure.Stepper((edge, a) =>
-			edge.OutgoingEdges.Keys(b => step(a, b)));
-
 		#region Stepper (nodes/verteces)
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
 		public void Stepper<Step>(Step step = default)
 			where Step : struct, IAction<V> =>
-			StepperRef<StepToStepRef<V, Step>>(step);
+			StepperBreak<StepBreakFromAction<V, Step>>(step);
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
 		public void Stepper(Action<V> step) =>
 			Stepper<ActionRuntime<V>>(step);
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<V> =>
-			StepperRefBreak<StepRefBreakFromStepRef<V, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<V> step) =>
-			StepperRef<StepRefRuntime<V>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<V, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<V, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
 		public StepStatus Stepper(Func<V, StepStatus> step) =>
 			StepperBreak<StepBreakRuntime<V>>(step);
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<V> step) =>
-			StepperRefBreak<StepRefBreakRuntime<V>>(step);
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
+		public StepStatus StepperBreak<Step>(Step step = default)
+			where Step : struct, IFunc<V, StepStatus> =>
+			Structure.KeysBreak<Step>(step);
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<V> =>
-			Structure.KeysRefBreak<Step>(step);
+		#endregion
+
+		#region Stepper (nodes/verteces)
+
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
+		public void Edges<Step>(Step step = default)
+			where Step : struct, IAction<(V, V)> =>
+			EdgesBreak<StepBreakFromAction<(V, V), Step>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
+		public void Edges(Action<(V, V)> step) =>
+			Edges<ActionRuntime<(V, V)>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
+		public StepStatus EdgesBreak(Func<(V, V), StepStatus> step) =>
+			EdgesBreak<StepBreakRuntime<(V, V)>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
+		public StepStatus EdgesBreak<Step>(Step step = default)
+			where Step : struct, IFunc<(V, V), StepStatus>
+		{
+			EdgesStep<Step> step2 = new() { _step = step, };
+			return Structure.PairsBreak<EdgesStep<Step>>(step2);
+		}
+
+		internal struct EdgesStep<Step> : IFunc<((MapHashLinked<W?, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V), StepStatus>
+			where Step : struct, IFunc<(V, V), StepStatus>
+		{
+			internal Step _step;
+
+			public StepStatus Do(((MapHashLinked<W?, V> OutgoingEdges, SetHashLinked<V> IncomingNodes), V) a)
+			{
+				EdgesStep2<Step> step2 = new() { _a = a.Item2, _step = _step, };
+				return a.Item1.OutgoingEdges.PairsBreak<EdgesStep2<Step>>(step2);
+			}
+		}
+
+		internal struct EdgesStep2<Step> : IFunc<(W?, V), StepStatus>
+			where Step : struct, IFunc<(V, V), StepStatus>
+		{
+			internal Step _step;
+			internal V _a;
+
+			public StepStatus Do((W?, V) a)
+			{
+				var edge = (_a, a.Item2);
+				return _step.Do(edge);
+			}
+		}
 
 		#endregion
 
@@ -674,7 +687,7 @@ namespace Towel.DataStructures
 		/// <summary>Clones the graph.</summary>
 		/// <returns>A clone of the graph.</returns>
 		[Obsolete("Not Implemented")]
-		public GraphUndirectedWeightedMap<V, W> Clone() => new(this);
+		public GraphWeightedMap<V, W> Clone() => new(this);
 
 		// TODO: Interface these "XxxToArray" methods off the struct generic steppers?
 
