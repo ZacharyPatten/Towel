@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -31,6 +32,10 @@ namespace Towel.DataStructures
 		/// <param name="a">The node to find all the adjacent node to.</param>
 		/// <param name="function">The delegate to perform on each adjacent node to a.</param>
 		void Neighbors(T a, Action<T> function);
+		/// <summary>Gets enumerator of all neighbours of a node</summary>
+		/// <param name="node">The node to get neighbours of</param>
+		/// <returns>IEnumerable of all neighbours of the given node</returns>
+		public IEnumerable<T> GetNeighbours(T node);
 		/// <summary>Adds an edge to the graph starting at a and ending at b.</summary>
 		/// <param name="start">The stating point of the edge to add.</param>
 		/// <param name="end">The ending point of the edge to add.</param>
@@ -243,7 +248,15 @@ namespace Towel.DataStructures
 		/// <summary>Gets the enumerator for the nodes in the graph.</summary>
 		/// <returns>The enumerator for the nodes in the graph.</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _nodes.GetEnumerator();
-
+		/// <summary>Gets enumerator of all neighbours of a node</summary>
+		/// <param name="node">The node to get neighbours of</param>
+		/// <returns>IEnumerable of all neighbours of the given node</returns>
+		public IEnumerable<T> GetNeighbours(T node)
+		{
+			ListArray<T> NodeList = new();
+			Neighbors(node, (x) => NodeList.Add(x));
+			return NodeList;
+		}
 		#endregion
 	}
 
@@ -345,7 +358,7 @@ namespace Towel.DataStructures
 		/// <param name="end">The ending point of the edge to remove.</param>
 		public void Remove(T start, T end)
 		{
-			if(_map.Contains(start) && _map.Contains(end) && _map[start].Outgoing.Contains(end))
+			if (_map.Contains(start) && _map.Contains(end) && _map[start].Outgoing.Contains(end))
 			{
 				_map[start].Outgoing.Remove(end);
 				_map[end].Incoming.Remove(start);
@@ -360,7 +373,7 @@ namespace Towel.DataStructures
 		/// <returns>True if ajacent. False if not.</returns>
 		public bool Adjacent(T a, T b)
 		{
-			if(_map.Contains(a) && _map.Contains(b)) return _map[a].Outgoing.Contains(b);
+			if (_map.Contains(a) && _map.Contains(b)) return _map[a].Outgoing.Contains(b);
 			else return false;
 		}
 		/// <summary>Steps through all the **Outgoing** neighbors of a node.</summary>
@@ -368,7 +381,7 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on all the neighbors of the provided node.</param>
 		public void Neighbors(T a, Action<T?> step)
 		{
-			foreach(var node in _map[a].Outgoing)step(node);
+			foreach (var node in _map[a].Outgoing) step(node);
 		}
 		/// <summary>Steps through all the nodes in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every node in the graph.</param>
@@ -416,6 +429,10 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <returns>Enumerator object</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _map.GetKeys().GetEnumerator();
+		/// <summary>Gets enumerator of all neighbours of a node</summary>
+		/// <param name="node">The node to get neighbours of</param>
+		/// <returns>IEnumerable of all neighbours of the given node</returns>
+		public IEnumerable<T> GetNeighbours(T node) => _map[node].Outgoing;
 
 		/// <summary>Clears this graph to an empty state.</summary>
 		public void Clear()
@@ -428,7 +445,7 @@ namespace Towel.DataStructures
 	}
 
 	/// <summary>
-	/// A weighted graph data structure that stores nodes, edges with their corresponding weights. 
+	/// A weighted graph data structure that stores nodes, edges with their corresponding weights.
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
@@ -448,6 +465,13 @@ namespace Towel.DataStructures
 		/// <param name="weight">The weight of the edge, if it exists.</param>
 		/// <returns>True if b is adjacent to a; False if not</returns>
 		bool Adjacent(V a, V b, out W? weight);
+		/// <summary>
+		/// Gets the weight between two edges
+		/// </summary>
+		/// <param name="a">The node on which the edge begins</param>
+		/// <param name="b">The node on which the edge ends</param>
+		/// <returns></returns>
+		W GetWeight(V a, V b);
 
 		#endregion
 	}
@@ -641,9 +665,13 @@ namespace Towel.DataStructures
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Enumerates through all the added nodes in the graph</summary>
-		public System.Collections.Generic.IEnumerator<V> GetEnumerator() =>
+		public System.Collections.Generic.IEnumerator<V> GetEnumerator()
+		{
 			// TODO: this can be optimized
-			Structure.Keys().ToArray().GetEnumerator() as System.Collections.Generic.IEnumerator<V>;
+			var x = Structure.Keys().ToArray<V>().GetEnumerator() as IEnumerator<V>;
+			if (x == null) throw new System.MissingMemberException("The IEnumerator<V> for the Keys was null");
+			else return x;
+		}
 
 		#endregion
 
@@ -680,15 +708,15 @@ namespace Towel.DataStructures
 		public GraphWeightedMap<V, W> Clone() => new(this);
 		/// <summary>Returns an array of nodes in this graph</summary>
 		/// <returns>Array of nodes of this graph</returns>
-		public V[] ToArray()=>Structure.Keys().ToArray();
+		public V[] ToArray() => Structure.Keys().ToArray();
 		/// <summary>Enumerates and returns all edges present in the graph</summary>
 		/// <returns>Array of Tuple of nodes that represent an edge</returns>
 		public (V, V)[] EdgesToArray()
 		{
-			ListArray<(V, V)> edgelist=new();
-			foreach(var nodepair in Structure.GetPairs())
+			ListArray<(V, V)> edgelist = new();
+			foreach (var nodepair in Structure.GetPairs())
 			{
-				foreach(var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
+				foreach (var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
 				{
 					edgelist.Add((nodepair.Key, outgoing.Key));
 				}
@@ -699,16 +727,28 @@ namespace Towel.DataStructures
 		/// <returns>Array of Tuple of nodes and weight that represent an edge</returns>
 		public (V, V, W)[] EdgesAndWeightsToArray()
 		{
-			ListArray<(V, V, W)> edgelist=new();
-			foreach(var nodepair in Structure.GetPairs())
+			ListArray<(V, V, W)> edgelist = new();
+			foreach (var nodepair in Structure.GetPairs())
 			{
-				foreach(var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
+				foreach (var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
 				{
-					edgelist.Add((nodepair.Key, outgoing.Key, outgoing.Value));
+					if (outgoing.Value != null)
+						edgelist.Add((nodepair.Key, outgoing.Key, outgoing.Value));
 				}
 			}
 			return edgelist.ToArray();
 		}
+		/// <summary>Gets enumerator of all neighbours of a node</summary>
+		/// <param name="node">The node to get neighbours of</param>
+		/// <returns>IEnumerable of all neighbours of the given node</returns>
+		public IEnumerable<V> GetNeighbours(V node) => Structure[node].OutgoingEdges.Keys().ToArray();
+		/// <summary>
+		/// Gets weight or cost between two nodes
+		/// </summary>
+		/// <param name="a">The node where the edge begins</param>
+		/// <param name="b">The node where the edge ends</param>
+		/// <returns>The weight between the nodes</returns>
+		public W GetWeight(V a, V b) => Structure[a].OutgoingEdges[b] ?? throw new ArgumentException("No edge found between the queired nodes");
 		#endregion
 	}
 }

@@ -381,7 +381,7 @@ namespace GraphSearch
 						out float aStarTotalPathCost);
 
 				// Flush the already used markers before running the DijkstraPath algorithm.
-				// Normally you won't run two algorithms for the same graph/location, but 
+				// Normally you won't run two algorithms for the same graph/location, but
 				// we are running both algorithms in this example to demonstrate the
 				// differences between them.
 
@@ -416,7 +416,7 @@ namespace GraphSearch
 						});
 
 				// NOTE: If there is no valid path, then "Search.Graph" will return "null."
-				// For this example, I know that there will be a valid path so I did not 
+				// For this example, I know that there will be a valid path so I did not
 				// include a null check.
 
 				// Lets convert the paths into arrays so you can look at them in the debugger. :)
@@ -434,11 +434,61 @@ namespace GraphSearch
 
 				bool IsAStarPathBetterThanijkstra = aStarTotalPathCost < dijkstraTotalCost;
 
-				// Notice that that the A* algorithm produces a less costly path than the DijkstraPath, 
+				// Notice that that the A* algorithm produces a less costly path than the DijkstraPath,
 				// meaning that it is faster. The DijkstraPath path went through the mud, but the A* path
 				// took the longer route around the other side of the rock, which ended up being faster
 				// than running through the mud.
 			}
+			#endregion
+
+			#region WeightedGraph and Static Graph search method showcase
+			System.Console.WriteLine("\n Beginning Weightedgraph example");
+			string graphbody = @"
+[A]--10->[B]--15->[C]
+ |        |        |
+ 5        20       2
+ |        |        |
+[D]--35--[E]--10--[F]
+ |        |        |
+ 55       30       65
+ |        |        |
+[G]--40--[H]--40--[I]
+
+			";
+			System.Console.WriteLine($"For the given graph: {graphbody}");
+			GraphWeightedMap<char, int> WeightedGraph = new();
+			for (char ch = 'A'; ch <= 'I'; ch++) WeightedGraph.Add(ch);//Add Nodes from A to I
+			WeightedGraph.Add('A', 'D', 5); //
+			WeightedGraph.Add('A', 'B', 10);//	[A]--10--[B]--15--[C]
+			WeightedGraph.Add('B', 'C', 15);//	 |        |        |
+			WeightedGraph.Add('B', 'E', 20);//	 5        20       20
+			WeightedGraph.Add('C', 'F', 20);//	 |        |        |
+			WeightedGraph.Add('D', 'E', 35);//	[D]--35--[E]--10--[F]
+			WeightedGraph.Add('D', 'G', 55);//	 |        |        |
+			WeightedGraph.Add('E', 'H', 30);//	 55       30       65
+			WeightedGraph.Add('E', 'F', 10);//	 |        |        |
+			WeightedGraph.Add('F', 'I', 65);//	[G]--40--[H]--40--[I]
+			WeightedGraph.Add('G', 'H', 40);//
+			WeightedGraph.Add('H', 'I', 40);//
+
+			System.Console.WriteLine("Computing Breadth-First-Search from Node 'A' to 'C' :\n");
+			foreach (var node in WeightedGraph.PerformBredthFirstSearch('A', 'C')) System.Console.Write($"{node}, ");
+			System.Console.WriteLine("\nAlternative Delegate based Breadth-First-Search");
+			WeightedGraph.PerformBredthFirstSearch('A', 'C', (x) => System.Console.Write($"{x} "));
+
+			System.Console.WriteLine("\n\n Computing Shortest Path via Dijkstra's Algorithm from 'A' to 'I'\n");
+			int totalcost;
+			foreach (var node in WeightedGraph.DijkstraSearch('A', 'I', out totalcost)) System.Console.Write($"{node}, ");
+			System.Console.WriteLine($"\nTotal cost = {totalcost}");
+			System.Console.WriteLine("Alternative Delegate based Dijkstra search");
+			WeightedGraph.DijkstraSearch('A', 'I', (x) => System.Console.Write($"{x} "), out var _);
+
+			System.Console.WriteLine("\n\n Computing Shortest Path via A* Algorithm from 'A' to 'I'\n");
+			foreach (var node in WeightedGraph.AStarSearch('A', 'I', (x) => 'I' - x, out totalcost)) System.Console.Write($"{node}, ");
+			System.Console.WriteLine($"\nTotal cost = {totalcost}");
+			System.Console.WriteLine("Alternative Delegate based A* Search");
+			WeightedGraph.AStarSearch('A', 'I', (x) => 'I' - x, (x) => System.Console.Write($"{x} "), out var _);
+
 			#endregion
 
 			Console.WriteLine();

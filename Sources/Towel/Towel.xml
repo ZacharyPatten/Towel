@@ -740,6 +740,11 @@
             <param name="a">The node to find all the adjacent node to.</param>
             <param name="function">The delegate to perform on each adjacent node to a.</param>
         </member>
+        <member name="M:Towel.DataStructures.IGraph`1.GetNeighbours(`0)">
+            <summary>Gets enumerator of all neighbours of a node</summary>
+            <param name="node">The node to get neighbours of</param>
+            <returns>IEnumerable of all neighbours of the given node</returns>
+        </member>
         <member name="M:Towel.DataStructures.IGraph`1.Add(`0,`0)">
             <summary>Adds an edge to the graph starting at a and ending at b.</summary>
             <param name="start">The stating point of the edge to add.</param>
@@ -849,6 +854,11 @@
             <summary>Gets the enumerator for the nodes in the graph.</summary>
             <returns>The enumerator for the nodes in the graph.</returns>
         </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.GetNeighbours(`0)">
+            <summary>Gets enumerator of all neighbours of a node</summary>
+            <param name="node">The node to get neighbours of</param>
+            <returns>IEnumerable of all neighbours of the given node</returns>
+        </member>
         <member name="T:Towel.DataStructures.GraphMap`1">
             <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
             <typeparam name="T">The generic node type of this graph.</typeparam>
@@ -935,12 +945,17 @@
             </summary>
             <returns>Enumerator object</returns>
         </member>
+        <member name="M:Towel.DataStructures.GraphMap`1.GetNeighbours(`0)">
+            <summary>Gets enumerator of all neighbours of a node</summary>
+            <param name="node">The node to get neighbours of</param>
+            <returns>IEnumerable of all neighbours of the given node</returns>
+        </member>
         <member name="M:Towel.DataStructures.GraphMap`1.Clear">
             <summary>Clears this graph to an empty state.</summary>
         </member>
         <member name="T:Towel.DataStructures.IGraphWeighted`2">
             <summary>
-            A weighted graph data structure that stores nodes, edges with their corresponding weights. 
+            A weighted graph data structure that stores nodes, edges with their corresponding weights.
             </summary>
             <typeparam name="V">The generic node type of this graph.</typeparam>
             <typeparam name="W">The generic weight type of this graph.</typeparam>
@@ -957,6 +972,14 @@
             <param name="b">The ending point of the edge to check.</param>
             <param name="weight">The weight of the edge, if it exists.</param>
             <returns>True if b is adjacent to a; False if not</returns>
+        </member>
+        <member name="M:Towel.DataStructures.IGraphWeighted`2.GetWeight(`0,`0)">
+            <summary>
+            Gets the weight between two edges
+            </summary>
+            <param name="a">The node on which the edge begins</param>
+            <param name="b">The node on which the edge ends</param>
+            <returns></returns>
         </member>
         <member name="T:Towel.DataStructures.GraphWeightedMap`2">
             <summary>
@@ -1052,6 +1075,31 @@
         <member name="M:Towel.DataStructures.GraphWeightedMap`2.Clone">
             <summary>Clones the graph.</summary>
             <returns>A clone of the graph.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.ToArray">
+            <summary>Returns an array of nodes in this graph</summary>
+            <returns>Array of nodes of this graph</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesToArray">
+            <summary>Enumerates and returns all edges present in the graph</summary>
+            <returns>Array of Tuple of nodes that represent an edge</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesAndWeightsToArray">
+            <summary>Enumerates and returns all edges present in the graph</summary>
+            <returns>Array of Tuple of nodes and weight that represent an edge</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.GetNeighbours(`0)">
+            <summary>Gets enumerator of all neighbours of a node</summary>
+            <param name="node">The node to get neighbours of</param>
+            <returns>IEnumerable of all neighbours of the given node</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.GetWeight(`0,`0)">
+            <summary>
+            Gets weight or cost between two nodes
+            </summary>
+            <param name="a">The node where the edge begins</param>
+            <param name="b">The node where the edge ends</param>
+            <returns>The weight between the nodes</returns>
         </member>
         <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
@@ -30583,6 +30631,32 @@
         <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCost{``0,``1},Towel.Statics.SearchCheck{``0},``1@)">
             <inheritdoc cref="M:Towel.Statics.Graph_Astar_XML"/>
         </member>
+        <member name="M:Towel.Statics.AStarSearch``2(Towel.DataStructures.IGraphWeighted{``0,``1},``0,``0,Towel.Statics.SearchHeuristic{``0,``1},``1@)">
+            <summary>
+            Perfoms A* Search on the graph
+            </summary>
+            <param name="graph">The weighted graph object</param>
+            <param name="Source">The node to begin search from</param>
+            <param name="Destination">The node to search</param>
+            <param name="CustomHeuristic">The heuristic function of the node</param>
+            <param name="TotalWeight">The total cost or weight incurred from source to destination</param>
+            <typeparam name="Node">The Node type of the graph</typeparam>
+            <typeparam name="Numeric">The Numeric type of the weighted graph</typeparam>
+            <returns>IEnumerable of the ordered sequence of nodes from source to destination</returns>
+        </member>
+        <member name="M:Towel.Statics.AStarSearch``2(Towel.DataStructures.IGraphWeighted{``0,``1},``0,``0,Towel.Statics.SearchHeuristic{``0,``1},System.Action{``0},``1@)">
+            <summary>
+            Perfoms A* Search on the graph and executes action on every node in path
+            </summary>
+            <param name="graph">The weighted graph object</param>
+            <param name="Source">The node to begin search from</param>
+            <param name="Destination">The node to search</param>
+            <param name="CustomHeuristic">The heuristic function of the node</param>
+            <param name="action">The action to perform for every node on path</param>
+            <param name="TotalWeight">The total cost or weight incurred from source to destination</param>
+            <typeparam name="Node">The Node type of the graph</typeparam>
+            <typeparam name="Numeric">The Numeric type of the weighted graph</typeparam>
+        </member>
         <member name="M:Towel.Statics.Graph_Dijkstra_XML">
             <summary>Runs the Dijkstra search algorithm on a graph.</summary>
             <inheritdoc cref="M:Towel.Statics.SearchGraph_XML"/>
@@ -30608,6 +30682,30 @@
         <member name="M:Towel.Statics.SearchGraph``2(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchHeuristic{``0,``1},Towel.Statics.SearchCheck{``0})">
             <inheritdoc cref="M:Towel.Statics.Graph_Dijkstra_XML"/>
         </member>
+        <member name="M:Towel.Statics.DijkstraSearch``2(Towel.DataStructures.IGraphWeighted{``0,``1},``0,``0,``1@)">
+            <summary>
+            Performs Dijkstra search on graph
+            </summary>
+            <param name="graph">The weighted graph object to search</param>
+            <param name="Source">The node to begin searching from</param>
+            <param name="Destination">The node to search</param>
+            <param name="TotalWeight">The total cost or weight incurred from the Soruce to the Destination node</param>
+            <typeparam name="Node">The Node Type of the graph</typeparam>
+            <typeparam name="Numeric">The Numeric Type of the graph</typeparam>
+            <returns>IEnumerable of the ordered nodes in path from source to destination</returns>
+        </member>
+        <member name="M:Towel.Statics.DijkstraSearch``2(Towel.DataStructures.IGraphWeighted{``0,``1},``0,``0,System.Action{``0},``1@)">
+            <summary>
+            Performs Dijkstra Search and executes action on every node in path
+            </summary>
+            <param name="graph">The weighted graph object to search</param>
+            <param name="Source">The node to begin searching from</param>
+            <param name="Destination">The destination node to search</param>
+            <param name="action">The action to execute for every node on the path</param>
+            <param name="TotalWeight">The Total cost or weight incurred from the Source to the Destination node</param>
+            <typeparam name="Node">The Node Type of the graph</typeparam>
+            <typeparam name="Numeric">The Numeric Type of the graph</typeparam>
+        </member>
         <member name="M:Towel.Statics.Graph_BreadthFirstSearch_XML">
             <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
             <inheritdoc cref="M:Towel.Statics.SearchGraph_XML"/>
@@ -30632,6 +30730,26 @@
         </member>
         <member name="M:Towel.Statics.SearchGraph``1(``0,Towel.Statics.SearchNeighbors{``0},Towel.Statics.SearchCheck{``0})">
             <inheritdoc cref="M:Towel.Statics.Graph_BreadthFirstSearch_XML"/>
+        </member>
+        <member name="M:Towel.Statics.PerformBredthFirstSearch``1(Towel.DataStructures.IGraph{``0},``0,``0)">
+            <summary>
+            Performs Breadth First Search and returns the path as ordered sequence of nodes
+            </summary>
+            <param name="graph">The IGraph object</param>
+            <param name="Source">The node to begin the Breadth First Search from</param>
+            <param name="Destination">The node to search</param>
+            <typeparam name="Node">The Node Type of the Graph</typeparam>
+            <returns>IEnumerable of the Nodes found along the path</returns>
+        </member>
+        <member name="M:Towel.Statics.PerformBredthFirstSearch``1(Towel.DataStructures.IGraph{``0},``0,``0,System.Action{``0})">
+            <summary>
+            Performs Breadth First Search and executes the specified action on every ordered node to in the path searched.
+            </summary>
+            <param name="graph">The IGraph object</param>
+            <param name="Source">The node to begin Breadth First Search from</param>
+            <param name="Destination">The node to search</param>
+            <param name="action">The action to perform</param>
+            <typeparam name="Node">The Node Type of the graph</typeparam>
         </member>
         <member name="M:Towel.Statics.MaximumValue``1(``0,``0,System.Func{``0,``0,Towel.CompareResult})">
             <summary>Computes the maximum of two numeric values.</summary>
