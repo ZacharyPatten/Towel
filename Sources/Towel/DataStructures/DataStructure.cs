@@ -37,6 +37,18 @@ namespace Towel.DataStructures
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Invokes a method for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The method to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		internal static void Stepper_XML() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
 		#endregion
 
 		#region Interfaces

@@ -48,20 +48,26 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on all the values.</param>
 		/// <returns>The status of the stepper.</returns>
 		StepStatus Stepper(StepRefBreak<T> step);
+
+		public System.Collections.Generic.IEnumerable<K> GetKeys();
 		/// <summary>Steps through all the keys.</summary>
 		/// <param name="step">The action to perform on all the keys.</param>
 		void Keys(Action<K> step);
 		/// <summary>Steps through all the keys.</summary>
 		/// <param name="step">The action to perform on all the keys.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Keys(Func<K, StepStatus> step);
+		StepStatus KeysBreak(Func<K, StepStatus> step);
+		/// <summary>
+		/// This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
+		/// </summary>
+		public System.Collections.Generic.IEnumerable<(T Value, K Key)> GetPairs();
 		/// <summary>Steps through all the keys and values.</summary>
 		/// <param name="step">The action to perform on all the keys and values.</param>
-		void Stepper(Action<T, K> step);
+		void Pairs(Action<(T Value, K Key)> step);
 		/// <summary>Steps through all the keys and values.</summary>
 		/// <param name="step">The action to perform on all the keys and values.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(Func<T, K, StepStatus> step);
+		StepStatus PairsBreak(Func<(T Value, K Key), StepStatus> step);
 
 		#endregion
 	}
@@ -94,7 +100,7 @@ namespace Towel.DataStructures
 		{
 			if (!map.TryAdd(key, value, out Exception? exception))
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 
@@ -132,7 +138,7 @@ namespace Towel.DataStructures
 		{
 			if (!map.TryGet(key, out T? value, out Exception? exception))
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Get)} failed but the {nameof(exception)} is null"); ; ;
+				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
 			}
 			return value!;
 		}
@@ -147,7 +153,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
-		public static Func<Func<K, StepStatus>, StepStatus> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
+		public static Func<Func<K, StepStatus>, StepStatus> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.KeysBreak;
 
 		#endregion
 
@@ -621,38 +627,60 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				for (Node? node = _table[i]; node is not null; node = node.Next)
-				{
-					step(node.Value);
-				}
-			}
-		}
+		#region Stepper
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				for (Node? node = _table[i]; node is not null; node = node.Next)
-				{
-					step(ref node.Value);
-				}
-			}
-		}
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step)
+		/// <summary>Invokes a method for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The method to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		internal static void Stepper_XML() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		public void Stepper<Step>(Step step = default)
+			where Step : struct, IAction<T> =>
+			StepperRef<StepToStepRef<T, Step>>(step);
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		public void Stepper(Action<T> step) =>
+			Stepper<ActionRuntime<T>>(step);
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		public void StepperRef<Step>(Step step = default)
+			where Step : struct, IStepRef<T> =>
+			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		public void Stepper(StepRef<T> step) =>
+			StepperRef<StepRefRuntime<T>>(step);
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		public StepStatus StepperBreak<Step>(Step step = default)
+			where Step : struct, IFunc<T, StepStatus> =>
+			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		public StepStatus Stepper(Func<T, StepStatus> step) =>
+			StepperBreak<StepBreakRuntime<T>>(step);
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		public StepStatus Stepper(StepRefBreak<T> step) =>
+			StepperRefBreak<StepRefBreakRuntime<T>>(step);
+
+		/// <inheritdoc cref="Stepper_XML"/>
+		internal StepStatus StepperRefBreak<Step>(Step step = default)
+			where Step : struct, IStepRefBreak<T>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					if (step(node.Value) is Break)
+					if (step.Do(ref node.Value) is Break)
 					{
 						return Break;
 					}
@@ -661,14 +689,45 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step)
+		#endregion
+
+
+		#region Keys
+
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Invokes a method for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The method to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		internal static void Keys_XML() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public void Keys(Action<K> step) =>
+			Keys<ActionRuntime<K>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public void Keys<Step>(Step step = default)
+			where Step : struct, IAction<K> =>
+			KeysBreak<StepBreakFromAction<K, Step>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public StepStatus KeysBreak(Func<K, StepStatus> step) =>
+			KeysBreak<StepBreakRuntime<K>>(step);
+
+		/// <inheritdoc cref="Keys_XML"/>
+		public StepStatus KeysBreak<Step>(Step step = default)
+			where Step : struct, IFunc<K, StepStatus>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					if (step(ref node.Value) is Break)
+					if (step.Do(node.Key) is Break)
 					{
 						return Break;
 					}
@@ -677,26 +736,56 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Keys(Action<K> step)
+		public System.Collections.Generic.IEnumerable<K> GetKeys()
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					step(node.Key);
+					yield return node.Key;
 				}
 			}
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Keys(Func<K, StepStatus> step)
+		#endregion
+
+		#region Pairs
+
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Invokes a method for each entry in the data structure.</summary>
+		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
+		/// <param name="step">The method to invoke on each item in the structure.</param>
+		/// <returns>The resulting status of the iteration.</returns>
+		internal static void Pairs_XML() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="Pairs_XML"/>
+		public void Pairs(Action<(T Value, K Key)> step) =>
+			Pairs<ActionRuntime<(T Value, K Key)>>(step);
+
+		/// <inheritdoc cref="Pairs_XML"/>
+		public void Pairs<Step>(Step step = default)
+			where Step : struct, IAction<(T Value, K Key)> =>
+			PairsBreak<StepBreakFromAction<(T Value, K Key), Step>>(step);
+
+		/// <inheritdoc cref="Pairs_XML"/>
+		public StepStatus PairsBreak(Func<(T Value, K Key), StepStatus> step) =>
+			PairsBreak<FuncRuntime<(T Value, K Key), StepStatus>>(step);
+
+		/// <inheritdoc cref="Pairs_XML"/>
+		public StepStatus PairsBreak<Step>(Step step = default)
+			where Step : struct, IFunc<(T Value, K Key), StepStatus>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					if (step(node.Key) is Break)
+					var value = (node.Value, node.Key);
+					if (step.Do(value) is Break)
 					{
 						return Break;
 					}
@@ -705,33 +794,21 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T, K> step)
+		/// <summary>
+		/// This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
+		/// </summary>
+		public System.Collections.Generic.IEnumerable<(T Value, K Key)> GetPairs()
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					step(node.Value, node.Key);
+					yield return (node.Value, node.Key);
 				}
 			}
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, K, StepStatus> step)
-		{
-			for (int i = 0; i < _table.Length; i++)
-			{
-				for (Node? node = _table[i]; node is not null; node = node.Next)
-				{
-					if (step(node.Value, node.Key) is Break)
-					{
-						return Break;
-					}
-				}
-			}
-			return Continue;
-		}
+		#endregion
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
