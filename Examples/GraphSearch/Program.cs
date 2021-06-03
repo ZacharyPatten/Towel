@@ -448,11 +448,13 @@ namespace GraphSearch
  |        |        |
  5        20       2
  |        |        |
-[D]--35--[E]--10--[F]
+ V        V        V
+[D]--35->[E]--10->[F]
  |        |        |
  55       30       65
  |        |        |
-[G]--40--[H]--40--[I]
+ V        V        V
+[G]--40->[H]--40->[I]
 
 			";
 			System.Console.WriteLine($"For the given graph: {graphbody}");
@@ -474,20 +476,20 @@ namespace GraphSearch
 			System.Console.WriteLine("Computing Breadth-First-Search from Node 'A' to 'C' :\n");
 			foreach (var node in WeightedGraph.PerformBredthFirstSearch('A', 'C')) System.Console.Write($"{node}, ");
 			System.Console.WriteLine("\nAlternative Delegate based Breadth-First-Search");
-			WeightedGraph.PerformBredthFirstSearch('A', 'C', (x) => System.Console.Write($"{x} "));
+			WeightedGraph.PerformBredthFirstSearch('A', 'C', (x) => System.Console.Write($"{x}, "));
 
 			System.Console.WriteLine("\n\n Computing Shortest Path via Dijkstra's Algorithm from 'A' to 'I'\n");
 			int totalcost;
 			foreach (var node in WeightedGraph.DijkstraSearch('A', 'I', out totalcost)) System.Console.Write($"{node}, ");
 			System.Console.WriteLine($"\nTotal cost = {totalcost}");
 			System.Console.WriteLine("Alternative Delegate based Dijkstra search");
-			WeightedGraph.DijkstraSearch('A', 'I', (x) => System.Console.Write($"{x} "), out var _);
+			WeightedGraph.DijkstraSearch('A', 'I', (x) => System.Console.Write($"{x}, "), out var _);
 
 			System.Console.WriteLine("\n\n Computing Shortest Path via A* Algorithm from 'A' to 'I'\n");
 			foreach (var node in WeightedGraph.AStarSearch('A', 'I', (x) => 'I' - x, out totalcost)) System.Console.Write($"{node}, ");
 			System.Console.WriteLine($"\nTotal cost = {totalcost}");
 			System.Console.WriteLine("Alternative Delegate based A* Search");
-			WeightedGraph.AStarSearch('A', 'I', (x) => 'I' - x, (x) => System.Console.Write($"{x} "), out var _);
+			WeightedGraph.AStarSearch('A', 'I', (x) => 'I' - x, (x) => System.Console.Write($"{x}, "), out var _);
 
 			#endregion
 
