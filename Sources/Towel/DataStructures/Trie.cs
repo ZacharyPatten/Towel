@@ -338,10 +338,10 @@ namespace Towel.DataStructures
 				}
 				node.Map.Pairs(pair =>
 				{
-					Stepper(pair.Item1, x => { stepper(x); x(pair.Item2); });
+					Stepper(pair.Value, x => { stepper(x); x(pair.Key); });
 				});
 			}
-			_map.Pairs(pair => Stepper(pair.Item1, x => x(pair.Item2)));
+			_map.Pairs(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -359,11 +359,11 @@ namespace Towel.DataStructures
 					}
 				}
 				return node.Map.PairsBreak(pair =>
-					Stepper(pair.Item1, x => { stepper(x); x(pair.Item2); }) is Break
+					Stepper(pair.Value, x => { stepper(x); x(pair.Key); }) is Break
 						? Break
 						: Continue);
 			}
-			return _map.PairsBreak(pair => Stepper(pair.Item1, x => x(pair.Item2)));
+			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>
@@ -732,10 +732,10 @@ namespace Towel.DataStructures
 				}
 				node.Map.Pairs(pair =>
 				{
-					Stepper(pair.Item1, x => { stepper(x); x(pair.Item2); });
+					Stepper(pair.Value, x => { stepper(x); x(pair.Key); });
 				});
 			}
-			_map.Pairs(pair => Stepper(pair.Item1, x => x(pair.Item2)));
+			_map.Pairs(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -753,11 +753,11 @@ namespace Towel.DataStructures
 					}
 				}
 				return node.Map.PairsBreak(pair =>
-					Stepper(pair.Item1, x => { stepper(x); x(pair.Item2); }) is Break
+					Stepper(pair.Value, x => { stepper(x); x(pair.Key); }) is Break
 						? Break
 						: Continue);
 			}
-			return _map.PairsBreak(pair => Stepper(pair.Item1, x => x(pair.Item2)));
+			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -772,10 +772,10 @@ namespace Towel.DataStructures
 				}
 				node.Map.Pairs(pair =>
 				{
-					Stepper(pair.Item1, x => { stepper(x); x(pair.Item2); });
+					Stepper(pair.Value, x => { stepper(x); x(pair.Key); });
 				});
 			}
-			_map.Pairs(pair => Stepper(pair.Item1, x => x(pair.Item2)));
+			_map.Pairs(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -793,11 +793,11 @@ namespace Towel.DataStructures
 					}
 				}
 				return node.Map.PairsBreak(pair =>
-					Stepper(pair.Item1, x => { stepper(x); x(pair.Item2); }) is Break
+					Stepper(pair.Value, x => { stepper(x); x(pair.Key); }) is Break
 						? Break
 						: Continue);
 			}
-			return _map.PairsBreak(pair => Stepper(pair.Item1, x => x(pair.Item2)));
+			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>

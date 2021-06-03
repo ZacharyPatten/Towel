@@ -63,11 +63,11 @@ namespace Towel.DataStructures
 		public System.Collections.Generic.IEnumerable<(T Value, K Key)> GetPairs();
 		/// <summary>Steps through all the keys and values.</summary>
 		/// <param name="step">The action to perform on all the keys and values.</param>
-		void Pairs(Action<(T, K)> step);
+		void Pairs(Action<(T Value, K Key)> step);
 		/// <summary>Steps through all the keys and values.</summary>
 		/// <param name="step">The action to perform on all the keys and values.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus PairsBreak(Func<(T, K), StepStatus> step);
+		StepStatus PairsBreak(Func<(T Value, K Key), StepStatus> step);
 
 		#endregion
 	}
@@ -138,7 +138,7 @@ namespace Towel.DataStructures
 		{
 			if (!map.TryGet(key, out T? value, out Exception? exception))
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Get)} failed but the {nameof(exception)} is null"); ; ;
+				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
 			}
 			return value!;
 		}
@@ -764,27 +764,27 @@ namespace Towel.DataStructures
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="Pairs_XML"/>
-		public void Pairs(Action<(T, K)> step) =>
-			Pairs<ActionRuntime<(T, K)>>(step);
+		public void Pairs(Action<(T Value, K Key)> step) =>
+			Pairs<ActionRuntime<(T Value, K Key)>>(step);
 
 		/// <inheritdoc cref="Pairs_XML"/>
 		public void Pairs<Step>(Step step = default)
-			where Step : struct, IAction<(T, K)> =>
-			PairsBreak<StepBreakFromAction<(T, K), Step>>(step);
+			where Step : struct, IAction<(T Value, K Key)> =>
+			PairsBreak<StepBreakFromAction<(T Value, K Key), Step>>(step);
 
 		/// <inheritdoc cref="Pairs_XML"/>
-		public StepStatus PairsBreak(Func<(T, K), StepStatus> step) =>
-			PairsBreak<FuncRuntime<(T, K), StepStatus>>(step);
+		public StepStatus PairsBreak(Func<(T Value, K Key), StepStatus> step) =>
+			PairsBreak<FuncRuntime<(T Value, K Key), StepStatus>>(step);
 
 		/// <inheritdoc cref="Pairs_XML"/>
 		public StepStatus PairsBreak<Step>(Step step = default)
-			where Step : struct, IFunc<(T, K), StepStatus>
+			where Step : struct, IFunc<(T Value, K Key), StepStatus>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					(T, K) value = (node.Value, node.Key);
+					var value = (node.Value, node.Key);
 					if (step.Do(value) is Break)
 					{
 						return Break;

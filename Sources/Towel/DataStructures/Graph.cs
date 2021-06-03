@@ -398,14 +398,14 @@ namespace Towel.DataStructures
 		/// <param name="step">The action to perform on every edge in the graph.</param>
 		public void Edges(Action<(T?, T?)> step) =>
 			_map.Pairs(pair =>
-				pair.Item1.Outgoing.Stepper(b => step((pair.Item2, b))));
+				pair.Value.Outgoing.Stepper(b => step((pair.Key, b))));
 
 		/// <summary>Steps through all the edges in the <see cref="GraphMap{T}"/></summary>
 		/// <param name="step">The action to perform on every edge in the graph.</param>
 		/// <returns>The status of the iteration.</returns>
 		public StepStatus EdgesBreak(Func<(T?, T?), StepStatus> step) =>
 			_map.PairsBreak(pair =>
-				pair.Item1.Outgoing.Stepper(b => step((pair.Item2, b))));
+				pair.Value.Outgoing.Stepper(b => step((pair.Key, b))));
 
 		/// <summary>Makes a clone of this <see cref="GraphMap{T}"/>.</summary>
 		/// <returns></returns>

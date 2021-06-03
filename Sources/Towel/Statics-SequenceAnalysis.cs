@@ -337,9 +337,9 @@ namespace Towel
 			});
 			map.Pairs(x =>
 			{
-				if (x.Item1 == maxOccurences)
+				if (x.Value == maxOccurences)
 				{
-					step(x.Item2);
+					step(x.Key);
 				}
 			});
 		}
