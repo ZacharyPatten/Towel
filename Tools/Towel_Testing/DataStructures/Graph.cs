@@ -249,6 +249,55 @@ namespace Towel_Testing.DataStructures
 				});
 		}
 
+		[TestMethod]
+		public void CloneTest()
+		{
+			GraphWeightedMap<int, float> g1=new();
+			g1.Add(7);
+			g1.Add(5);
+			g1.Add(7, 5, 13);
+			GraphWeightedMap<int, float> g2=new(g1);
+			g2.Adjacent(7, 5, out var f);
+			Assert.IsTrue(f is 13f);
+		}
+		[TestMethod]
+		public void ToArrayTest()
+		{
+			GraphWeightedMap<byte, int> graph = new();
+			for (byte i = 1; i <= 5; i++) graph.Add(i);
+			var array=graph.ToArray();
+			CollectionAssert.AreEquivalent(new byte[]{1,2,3,4,5}, array);
+		}
+		[TestMethod]
+		public void EdgesToArrayTest()
+		{
+			GraphWeightedMap<byte, int> graph = new();
+			for (byte i = 1; i <= 5; i++) graph.Add(i);
+			graph.Add(1, 5, 1);
+			graph.Add(2, 5, 1);
+			graph.Add(3, 5, 1);
+			graph.Add(4, 5, 1);
+			graph.Add(1, 2, 1);
+			graph.Add(2, 3, 1);
+			graph.Add(3, 4, 1);
+			var array=graph.EdgesToArray();
+			CollectionAssert.AreEquivalent(new (byte, byte)[]{(1,5),(2,5),(3,5),(4,5),(1,2),(2,3),(3,4)}, array);
+		}
+		[TestMethod]
+		public void EdgesAndWeightsToArrayTest()
+		{
+			GraphWeightedMap<byte, int> graph = new();
+			for (byte i = 1; i <= 5; i++) graph.Add(i);
+			graph.Add(1, 5, 1);
+			graph.Add(2, 5, 1);
+			graph.Add(3, 5, 1);
+			graph.Add(4, 5, 1);
+			graph.Add(1, 2, 1);
+			graph.Add(2, 3, 1);
+			graph.Add(3, 4, 1);
+			var array=graph.EdgesAndWeightsToArray();
+			CollectionAssert.AreEquivalent(new (byte, byte, int)[]{(1,5,1),(2,5,1),(3,5,1),(4,5,1),(1,2,1),(2,3,1),(3,4,1)}, array);
+		}
 		#endregion
 	}
 }

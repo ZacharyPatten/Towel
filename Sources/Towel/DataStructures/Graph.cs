@@ -469,13 +469,10 @@ namespace Towel.DataStructures
 		{
 			Structure = new();
 		}
-
-		[Obsolete("Not Implemented")]
 		internal GraphWeightedMap(GraphWeightedMap<V, W> graph)
 		{
-			throw new NotImplementedException();
+			Structure = new(graph.Structure);
 		}
-
 		#endregion
 
 		#region Methods
@@ -680,20 +677,38 @@ namespace Towel.DataStructures
 
 		/// <summary>Clones the graph.</summary>
 		/// <returns>A clone of the graph.</returns>
-		[Obsolete("Not Implemented")]
 		public GraphWeightedMap<V, W> Clone() => new(this);
-
-		// TODO: Interface these "XxxToArray" methods off the struct generic steppers?
-
-		[Obsolete("Not Implemented")]
-		public V[] ToArray() => throw new NotImplementedException();
-
-		[Obsolete("Not Implemented")]
-		public (V, V)[] EdgesToArray() => throw new NotImplementedException();
-
-		[Obsolete("Not Implemented")]
-		public (V, V, W)[] EdgesAndWeightsToArray() => throw new NotImplementedException();
-
+		/// <summary>Returns an array of nodes in this graph</summary>
+		/// <returns>Array of nodes of this graph</returns>
+		public V[] ToArray()=>Structure.Keys().ToArray();
+		/// <summary>Enumerates and returns all edges present in the graph</summary>
+		/// <returns>Array of Tuple of nodes that represent an edge</returns>
+		public (V, V)[] EdgesToArray()
+		{
+			ListArray<(V, V)> edgelist=new();
+			foreach(var nodepair in Structure.GetPairs())
+			{
+				foreach(var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
+				{
+					edgelist.Add((nodepair.Key, outgoing.Key));
+				}
+			}
+			return edgelist.ToArray();
+		}
+		/// <summary>Enumerates and returns all edges present in the graph</summary>
+		/// <returns>Array of Tuple of nodes and weight that represent an edge</returns>
+		public (V, V, W)[] EdgesAndWeightsToArray()
+		{
+			ListArray<(V, V, W)> edgelist=new();
+			foreach(var nodepair in Structure.GetPairs())
+			{
+				foreach(var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
+				{
+					edgelist.Add((nodepair.Key, outgoing.Key, outgoing.Value));
+				}
+			}
+			return edgelist.ToArray();
+		}
 		#endregion
 	}
 }
