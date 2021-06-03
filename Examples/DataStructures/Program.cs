@@ -495,7 +495,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.WriteLine("    Traversal: ");
-				mapHashLinked.Pairs(pair => Console.WriteLine($"      {pair.Item2}->{pair.Item1}"));
+				mapHashLinked.Pairs(pair => Console.WriteLine($"      {pair.Key}->{pair.Value}"));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
