@@ -1053,6 +1053,18 @@
             <summary>Clones the graph.</summary>
             <returns>A clone of the graph.</returns>
         </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.ToArray">
+            <summary>Returns an array of nodes in this graph</summary>
+            <returns>Array of nodes of this graph</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesToArray">
+            <summary>Enumerates and returns all edges present in the graph</summary>
+            <returns>Array of Tuple of nodes that represent an edge</returns>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesAndWeightsToArray">
+            <summary>Enumerates and returns all edges present in the graph</summary>
+            <returns>Array of Tuple of nodes and weight that represent an edge</returns>
+        </member>
         <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
             <typeparam name="T">The generic type to be stored within the heap.</typeparam>
