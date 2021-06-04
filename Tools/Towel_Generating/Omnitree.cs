@@ -329,7 +329,28 @@ namespace Towel_Generating
 				{
 					code.AppendLine($@"	/// <typeparam name=""Axis{j}"">The type of the {j}D axis.</typeparam>");
 				}
-				code.AppendLine($@"	public interface IOmnitree<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}> : IOmnitree<T> {{ }}");
+				code.AppendLine($@"	public interface IOmnitree<T,");
+				code.AppendLine($@"		{Join(1..I, n => $"Axis{n}", ", ")},");
+				code.AppendLine($@"		{Join(1..I, n => $"Compare{n}", ", ")}>");
+				code.AppendLine($@"		: IOmnitree<T>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		where Compare{j} : struct, IFunc<Axis{j}, Axis{j}, CompareResult>");
+				}
+				code.AppendLine($@"	{{");
+				code.AppendLine($@"		#region Properties");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The number of dimensions this tree is sorting on.</summary>");
+				code.AppendLine($@"		public int Dimensions {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The current maximum depth of this tree.</summary>");
+				code.AppendLine($@"		public int MaxDepth {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The current number of nodes in this tree.</summary>");
+				code.AppendLine($@"		public int NodeCount {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"	}}");
 				code.AppendLine($@"");
 
 				#endregion
@@ -338,9 +359,36 @@ namespace Towel_Generating
 
 				code.AppendLine($@"	#region OmnitreePoints");
 				code.AppendLine($@"");
-				code.AppendLine($@"	public interface IOmnitreePoints<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}> : IOmnitree<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}>");
+				code.AppendLine($@"	public interface IOmnitreePoints<T,");
+				code.AppendLine($@"		{Join(1..I, n => $"Axis{n}", ", ")},");
+				code.AppendLine($@"		{Join(1..I, n => $"Locate{n}", ", ")},");
+				code.AppendLine($@"		{Join(1..I, n => $"Compare{n}", ", ")},");
+				code.AppendLine($@"		{Join(1..I, n => $"Subdivide{n}", ", ")}>");
+				code.AppendLine($@"		: IOmnitree<T,");
+				code.AppendLine($@"			{Join(1..I, n => $"Axis{n}", ", ")},");
+				code.AppendLine($@"			{Join(1..I, n => $"Compare{n}", ", ")}>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		where Locate{j} : struct, IFunc<T, Axis{j}>");
+				}
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		where Compare{j} : struct, IFunc<Axis{j}, Axis{j}, CompareResult>");
+				}
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		where Subdivide{j} : struct, IFunc<(int Count, int Depth, System.Collections.Generic.IEnumerable<Axis{j}> Values, (Bound<Axis{j}> Min, Bound<Axis{j}> Max) Bounds), Axis{j}>");
+				}
 				code.AppendLine($@"	{{");
-				code.AppendLine($@"		// todo");
+				code.AppendLine($@"		#region Properties");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The current number of branches in this tree.</summary>");
+				code.AppendLine($@"		public int BranchCount {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The current number of leaves in this tree.</summary>");
+				code.AppendLine($@"		public int LeafCount {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
 				code.AppendLine($@"	}}");
 				code.AppendLine($@"");
 
@@ -348,27 +396,35 @@ namespace Towel_Generating
 
 				#region public class OmnitreePointsLinked<...>
 
-				code.AppendLine($@"	public class OmnitreePointsLinked<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}, Locate> //: IOmnitree<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}>");
+				code.AppendLine($@"	public class OmnitreePointsLinked<T,");
+				code.AppendLine($@"		{Join(1..I, n => $"Axis{n}", ", ")},");
+				code.AppendLine($@"		{Join(1..I, n => $"Locate{n}", ", ")},");
+				code.AppendLine($@"		{Join(1..I, n => $"Compare{n}", ", ")},");
+				code.AppendLine($@"		{Join(1..I, n => $"Subdivide{n}", ", ")}>");
+				code.AppendLine($@"		//: IOmnitree<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		where Locate{j} : struct, IFunc<T, Axis{j}>");
+				}
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"		where Compare{j} : struct, IFunc<Axis{j}, Axis{j}, CompareResult>");
 				}
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"		where Subdivide{j} : struct, IFunc<int, System.Collections.Generic.IEnumerable<T>, Bounds<{Join(1..I, n => $"Axis{n}", ", ")}>, Axis{j}>");
+					code.AppendLine($@"		where Subdivide{j} : struct, IFunc<(int Count, int Depth, System.Collections.Generic.IEnumerable<Axis{j}> Values, (Bound<Axis{j}> Min, Bound<Axis{j}> Max) Bounds), Axis{j}>");
 				}
-				code.AppendLine($@"		where Locate : struct, IFunc<T, {(i is 1 ? "" : "(")}{Join(1..I, n => $"Axis{n}", ", ")}{(i is 1 ? "" : ")")}>");
 				code.AppendLine($@"	{{");
 				code.AppendLine($@"		internal {(i < 30 ? "const" : "readonly static")} {(i < 30 ? "int" : "BigInteger")} ChildrenPerNode = {(i < 30 ? $"{Math.Pow(2, i)}" : $"BigInteger.Pow(2, {i})")};");
 				code.AppendLine($@"");
 				code.AppendLine($@"		internal Node _top;");
-				code.AppendLine($@"		/// <summary>Caches the next time to calculate loads (lower count).</summary>");
 				code.AppendLine($@"		internal int _naturalLogLower = 1;");
-				code.AppendLine($@"		/// <summary>Caches the next time to calculate loads (upper count).</summary>");
 				code.AppendLine($@"		internal int _naturalLogUpper = 1;");
-				code.AppendLine($@"		/// <summary>ln(count); min = _defaultLoad.</summary>");
 				code.AppendLine($@"		internal int _load = 1;");
-				code.AppendLine($@"		internal Locate _locate;");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		internal Locate{j} _locate{j};");
+				}
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"		internal Compare{j} _compare{j};");
@@ -428,6 +484,14 @@ namespace Towel_Generating
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"			internal abstract Node Clone();");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal abstract int MaxDepth {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal abstract int NodeCount {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal abstract int BranchCount {{ get; }}");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal abstract int LeafCount {{ get; }}");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 
@@ -522,6 +586,70 @@ namespace Towel_Generating
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"			internal override Node Clone() => new Branch(this);");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int MaxDepth");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				get");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					int maxDepth = 0;");
+				code.AppendLine($@"					foreach (Node node in Children)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (node is not null)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							maxDepth = Math.Max(maxDepth, node.MaxDepth + 1);");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					return maxDepth;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int NodeCount");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				get");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					int nodeCount = 1;");
+				code.AppendLine($@"					foreach (Node node in Children)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (node is not null)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							nodeCount += node.NodeCount;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					return nodeCount;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int BranchCount");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				get");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					int branchCount = 1;");
+				code.AppendLine($@"					foreach (Node node in Children)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (node is not null)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							branchCount += node.BranchCount;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					return branchCount;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int LeafCount");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				get");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					int leafCount = 0;");
+				code.AppendLine($@"					foreach (Node node in Children)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (node is not null)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							leafCount += node.LeafCount;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					return leafCount;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 
@@ -568,7 +696,15 @@ namespace Towel_Generating
 				code.AppendLine($@"				Count++;");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"			internal override OmnitreePointsLinked<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}, Locate>.Node Clone() => new Leaf(this);");
+				code.AppendLine($@"			internal override OmnitreePointsLinked<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Locate{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}>.Node Clone() => new Leaf(this);");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int MaxDepth => 0;");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int NodeCount => 1;");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int BranchCount => 0;");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal override int LeafCount => 1;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 
@@ -584,29 +720,35 @@ namespace Towel_Generating
 				code.AppendLine($@"		#region Constructors");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>This constructor is for cloning purposes.</summary>");
-				code.AppendLine($@"		internal OmnitreePointsLinked(OmnitreePointsLinked<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}, Locate> omnitree)");
+				code.AppendLine($@"		internal OmnitreePointsLinked(");
+				code.AppendLine($@"			OmnitreePointsLinked<T,");
+				code.AppendLine($@"				{Join(1..I, n => $"Axis{n}", ", ")},");
+				code.AppendLine($@"				{Join(1..I, n => $"Locate{n}", ", ")},");
+				code.AppendLine($@"				{Join(1..I, n => $"Compare{n}", ", ")},");
+				code.AppendLine($@"				{Join(1..I, n => $"Subdivide{n}", ", ")}>");
+				code.AppendLine($@"			omnitree)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			_top = omnitree._top.Clone();");
 				code.AppendLine($@"			_load = omnitree._load;");
-				code.AppendLine($@"			_locate = omnitree._locate;");
 				for (int j = 1; j <= i; j++)
 				{
+					code.AppendLine($@"			_locate{j} = omnitree._locate{j};");
 					code.AppendLine($@"			_compare{j} = omnitree._compare{j};");
 					code.AppendLine($@"			_subdivide{j} = omnitree._subdivide{j};");
 				}
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		internal OmnitreePointsLinked(");
-				code.AppendLine($@"			Locate locate = default,");
 				for (int j = 1; j <= i; j++)
 				{
+					code.AppendLine($@"			Locate{j} locate{j} = default,");
 					code.AppendLine($@"			Compare{j} compare{j} = default,");
 					code.AppendLine($@"			Subdivide{j} subdivide{j} = default{(j == i ? ")" : ",")}");
 				}
 				code.AppendLine($@"		{{");
-				code.AppendLine($@"			_locate = locate;");
 				for (int j = 1; j <= i; j++)
 				{
+					code.AppendLine($@"			_locate{j} = locate{j};");
 					code.AppendLine($@"			_compare{j} = compare{j};");
 					code.AppendLine($@"			_subdivide{j} = subdivide{j};");
 				}
@@ -627,25 +769,40 @@ namespace Towel_Generating
 				code.AppendLine($@"		public int Dimensions => {i};");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>The current number of <typeparamref name=""T""/>'s in this tree.</summary>");
-				code.AppendLine($@"		public int Count  => _top.Count;");
+				code.AppendLine($@"		public int Count => _top.Count;");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>The function this tree is using to locate <typeparamref name=""T""/>'s along the {i} axes.</summary>");
-				code.AppendLine($@"		public Locate LocateFunction  => _locate;");
+				code.AppendLine($@"		/// <summary>The current maximum depth of this tree. Warning! Not an O(1) operation.</summary>");
+				code.AppendLine($@"		public int MaxDepth => _top.MaxDepth;");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The current number of nodes in this tree. Warning! Not an O(1) operation.</summary>");
+				code.AppendLine($@"		public int NodeCount => _top.NodeCount;");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The current number of branches in this tree. Warning! Not an O(1) operation.</summary>");
+				code.AppendLine($@"		public int BranchCount => _top.BranchCount;");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>The current number of leaves in this tree. Warning! Not an O(1) operation.</summary>");
+				code.AppendLine($@"		public int LeafCount => _top.LeafCount;");
+				code.AppendLine($@"");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <summary>The function this tree is using to locate <typeparamref name=""T""/>'s along the {i}D axis.</summary>");
+					code.AppendLine($@"		public Locate{j} LocateFunction{j} => _locate{j};");
+				}
 				code.AppendLine($@"");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"		/// <summary>The function this tree is using to compare <typeparamref name=""T""/>'s along the {j}D axis.</summary>");
-					code.AppendLine($@"		public Compare{j} CompareFunction{j}  => _compare{j};");
+					code.AppendLine($@"		public Compare{j} CompareFunction{j} => _compare{j};");
 				}
 				code.AppendLine($@"");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"		/// <summary>The function this tree is using to subdivide <typeparamref name=""T""/>'s along the {j}D axis.</summary>");
-					code.AppendLine($@"		public Subdivide{j} SubdivideFunction{j}  => _subdivide{j};");
+					code.AppendLine($@"		public Subdivide{j} SubdivideFunction{j} => _subdivide{j};");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Steps through all the items at a given coordinate.</summary>");
-				code.AppendLine($@"		public System.Collections.Generic.IEnumerable<T> this[{Join(1..I, n => $"Axis{n} axis{n}", ", ")}]  => throw new NotImplementedException();");
+				code.AppendLine($@"		public System.Collections.Generic.IEnumerable<T> this[{Join(1..I, n => $"Axis{n} axis{n}", ", ")}] => throw new NotImplementedException();");
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
 				code.AppendLine($@"");
@@ -669,13 +826,13 @@ namespace Towel_Generating
 				code.AppendLine($@"				return (false, exception);");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
-				code.AppendLine($@"			Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> location = _locate.Do(value);");
+				code.AppendLine($@"			Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> location = FullLocate(value);");
 				code.AppendLine($@"			if (_top is Leaf top && top.Count >= _load)");
 				code.AppendLine($@"			{{");
-				code.AppendLine($@"				_top = new Branch(DetermineMedians(top), Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}>.None, null, -1);");
+				code.AppendLine($@"				_top = new Branch(DeterminePointOfDivision(top, 0), Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}>.None, null, -1);");
 				code.AppendLine($@"				for (Leaf.Node list = top.Head; list is not null; list = list.Next)");
 				code.AppendLine($@"				{{");
-				code.AppendLine($@"					Add(list.Value, _top, _locate.Do(list.Value), 0);");
+				code.AppendLine($@"					Add(list.Value, _top, FullLocate(list.Value), 0);");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			Add(value, _top, location, 0);");
@@ -700,18 +857,18 @@ namespace Towel_Generating
 				code.AppendLine($@"				{{");
 				code.AppendLine($@"					Branch parent = node.Parent;");
 				code.AppendLine($@"					int child_index = DetermineChildIndex(parent.PointOfDivision, location);");
-				code.AppendLine($@"					Branch growth = new(DetermineMedians(leaf), leaf.Bounds, parent, child_index);");
+				code.AppendLine($@"					Branch growth = new(DeterminePointOfDivision(leaf, depth), leaf.Bounds, parent, child_index);");
 				code.AppendLine($@"					parent[child_index] = growth;");
 				code.AppendLine($@"					for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)");
 				code.AppendLine($@"					{{");
-				code.AppendLine($@"						Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> temp_location = _locate.Do(list.Value);");
+				code.AppendLine($@"						Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> temp_location = FullLocate(list.Value);");
 				code.AppendLine($@"						if (Omnitree.ContainsCheck(growth.Bounds, temp_location, {Join(1..I, n => $"_compare{n}", ", ")}))");
 				code.AppendLine($@"						{{");
 				code.AppendLine($@"							Add(list.Value, growth, temp_location, depth);");
 				code.AppendLine($@"						}}");
 				code.AppendLine($@"						else");
 				code.AppendLine($@"						{{");
-				code.AppendLine($@"							ReduceParentCounts(parent, 1);");
+				code.AppendLine($@"							AdjustParentCounts(parent, 1);");
 				code.AppendLine($@"							Add(list.Value, _top, temp_location, 0);");
 				code.AppendLine($@"						}}");
 				code.AppendLine($@"					}}");
@@ -738,12 +895,18 @@ namespace Towel_Generating
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		internal Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> DetermineMedians(Leaf leaf) =>");
+				code.AppendLine($@"		#region DeterminePointOfDivision");
+				code.AppendLine($@"");
+				code.AppendLine($@"		internal Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> DeterminePointOfDivision(Leaf leaf, int depth) =>");
 				code.AppendLine($@"			new(");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"				_subdivide{j}.Do(leaf.Count, leaf, leaf.Bounds){(j == i ? ");" : ",")}");
+					code.AppendLine($@"				_subdivide{j}.Do((leaf.Count, depth, leaf, (leaf.Bounds.Min{j}, leaf.Bounds.Max{j})){(j == i ? ");" : ",")}");
 				}
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#region DetermineChildBounds");
 				code.AppendLine($@"");
 				code.AppendLine($@"		internal Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> DetermineChildBounds(Branch branch, int child_index)");
 				code.AppendLine($@"		{{");
@@ -795,7 +958,12 @@ namespace Towel_Generating
 				code.AppendLine($@"		#region Clone");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Returns this tree to an empty state.</summary>");
-				code.AppendLine($@"		public OmnitreePointsLinked<T, {Join(1..I, n => $"Axis{n}", ", ")}, {Join(1..I, n => $"Compare{n}", ", ")}, {Join(1..I, n => $"Subdivide{n}", ", ")}, Locate> Clone() => new(this);");
+				code.AppendLine($@"		public OmnitreePointsLinked<T,");
+				code.AppendLine($@"			{Join(1..I, n => $"Axis{n}", ", ")},");
+				code.AppendLine($@"			{Join(1..I, n => $"Locate{n}", ", ")},");
+				code.AppendLine($@"			{Join(1..I, n => $"Compare{n}", ", ")},");
+				code.AppendLine($@"			{Join(1..I, n => $"Subdivide{n}", ", ")}>");
+				code.AppendLine($@"			Clone() => new(this);");
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
 				code.AppendLine($@"");
@@ -870,7 +1038,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			{{");
 				code.AppendLine($@"				for (Leaf.Node list = leaf.Head; list is null; list = list.Next)");
 				code.AppendLine($@"				{{");
-				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, _locate.Do(list.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, FullLocate(list.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
 				code.AppendLine($@"					{{");
 				code.AppendLine($@"						count++;");
 				code.AppendLine($@"					}}");
@@ -928,10 +1096,113 @@ namespace Towel_Generating
 				code.AppendLine($@"			int child = 0;");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			if (!bounds.Min{j}.Exists || !(_compare{j}.Do(bounds.Min{j}.Value, pointOfDivision.Axis{j}) is Less)) child += 1 << {j - 1};");
+					code.AppendLine($@"			if (!bounds.Min{j}.Exists || _compare{j}.Do(bounds.Min{j}.Value, pointOfDivision.Axis{j}) is not Less) child += 1 << {j - 1};");
 				}
 				code.AppendLine($@"			return child;");
 				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Computes the child index that contains the desired dimensions.</summary>");
+				code.AppendLine($@"		/// <param name=""pointOfDivision"">The point of division to compare against.</param>");
+				code.AppendLine($@"		/// <param name=""vector"">The dimensions to determine the child index.</param>");
+				code.AppendLine($@"		/// <returns>The computed child index based on the coordinates relative to the center of the node.</returns>");
+				code.AppendLine($@"		internal int DetermineChildIndex(Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> pointOfDivision, Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> vector)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			int child = 0;");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			if (_compare{j}.Do(vector.Axis{j}, pointOfDivision.Axis{j}) is not Less) child += 1 << {j - 1};");
+				}
+				code.AppendLine($@"			return child;");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region ShrinkChild
+
+				code.AppendLine($@"		#region ShrinkChild");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Converts a branch back into a leaf when the count is reduced.</summary>");
+				code.AppendLine($@"		/// <param name=""parent"">The parent to shrink a child of.</param>");
+				code.AppendLine($@"		/// <param name=""child_index"">The index of the child to shrink.</param>");
+				code.AppendLine($@"		internal void ShrinkChild(Branch parent, int child_index)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Leaf leaf;");
+				code.AppendLine($@"			Node removal = null;");
+				code.AppendLine($@"			if (parent is null)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				removal = _top;");
+				code.AppendLine($@"				leaf = new Leaf(Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}>.None, null, -1);");
+				code.AppendLine($@"				_top = leaf;");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			else");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				removal = parent[child_index];");
+				code.AppendLine($@"				leaf = new Leaf(removal.Bounds, removal.Parent, removal.Index);");
+				code.AppendLine($@"				parent[child_index] = leaf;");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			// TODO: optimize");
+				code.AppendLine($@"			Stepper(step => {{ leaf.Add(step); }}, removal);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region AdjustParentCounts
+
+				code.AppendLine($@"		#region AdjustParentCounts");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Adjusts the counts of all parents of a node.</summary>");
+				code.AppendLine($@"		/// <param name=""parent"">The starting node of the adjustments.</param>");
+				code.AppendLine($@"		/// <param name=""adjustment"">The adjustment to apply to the node counts.</param>");
+				code.AppendLine($@"		internal void AdjustParentCounts(Node parent, int adjustment)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			for (Node node = parent; node is not null; node = node.Parent)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				node.Count += adjustment;");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region GetContainingParent
+
+				code.AppendLine($@"		#region NearestContainingNode");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Gets the nearest node to <paramref name=""node""/> that contains <paramref name=""vector""/>.</summary>");
+				code.AppendLine($@"		/// <param name=""node"">The starting node to find the nearest containing node of <paramref name=""vector""/>.</param>");
+				code.AppendLine($@"		/// <param name=""vector"">The vector to find the nearest containing node of start at <paramref name=""node""/>.</param>");
+				code.AppendLine($@"		/// <returns>The nearest node to <paramref name=""node""/> that contains <paramref name=""vector""/>.</returns>");
+				code.AppendLine($@"		internal Node NearestContainingNode(Node node, Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> vector)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			while (node is not null && !Omnitree.ContainsCheck(node.Bounds, vector, {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				node = node.Parent;");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			return node;");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region FullLocate
+
+				code.AppendLine($@"		#region FullLocate");
+				code.AppendLine($@"");
+				code.AppendLine($@"		internal Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> FullLocate(T value) => new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			_locate{j}.Do(value){(j == i ? ");" : ",")}");
+				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
 				code.AppendLine($@"");
