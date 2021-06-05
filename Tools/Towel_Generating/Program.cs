@@ -10,6 +10,7 @@ namespace Towel_Generating
 
 		/// <summary>Generates the source code for "Omnitree.cs".</summary>
 		/// <param name="output">The file path to output the result to.</param>
+		/// <example>dotnet run Omnitree --output "..\..\Sources\Towel\DataStructures\Omnitree2.cs"</example>
 		/// <example>dotnet Towel_Generating.dll Omnitree --output "..\..\..\..\..\Sources\Towel\DataStructures\Omnitree2.cs"</example>
 		[Command]
 		public static void Omnitree(
