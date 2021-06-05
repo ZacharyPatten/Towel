@@ -13698,6 +13698,9 @@
             <summary>A Spacial Partitioning data structure.</summary>
             <typeparam name="T">The type of items to store in the omnitree.</typeparam>
         </member>
+        <member name="P:Towel.DataStructures.IOmnitree`1.Dimensions">
+            <summary>The number of dimensions this tree is sorting on.</summary>
+        </member>
         <member name="M:Towel.DataStructures.IOmnitree`1.Remove(`0,System.Func{`0,`0,System.Boolean})">
             <summary>Removes all occurences of an item from the omnitree.</summary>
             <param name="removal">The value to be removed.</param>

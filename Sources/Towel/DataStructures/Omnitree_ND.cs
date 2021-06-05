@@ -293,6 +293,9 @@ namespace Towel.DataStructures
 		DataStructure.IClearable,
 		DataStructure.IRemovable<T>
 	{
+		/// <summary>The number of dimensions this tree is sorting on.</summary>
+		public int Dimensions { get; }
+
 		/// <summary>Removes all occurences of an item from the omnitree.</summary>
 		/// <param name="removal">The value to be removed.</param>
 		/// <param name="equate">The  delegate for determining equality.</param>

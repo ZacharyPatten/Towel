@@ -186,9 +186,9 @@ namespace Towel_Generating
 
 				#region Helper Methods
 
-				code.AppendLine($@"		/// <summary>Checks a node for inclusion (overlap) between two bounds.</summary>");
+				code.AppendLine($@"		/// <summary>Checks a node for overlap between two bounds.</summary>");
 				code.AppendLine($@"		/// <returns>True if the spaces overlap; False if not.</returns>");
-				code.AppendLine($@"		public static bool InclusionCheck<");
+				code.AppendLine($@"		public static bool OverlapCheck<");
 				code.AppendLine($@"			{Join(1..I, n => $"Axis{n}", ", ")},");
 				code.AppendLine($@"			{Join(1..I, n => $"Compare{n}", ", ")}>(");
 				code.AppendLine($@"			Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> a,");
@@ -340,9 +340,6 @@ namespace Towel_Generating
 				code.AppendLine($@"	{{");
 				code.AppendLine($@"		#region Properties");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>The number of dimensions this tree is sorting on.</summary>");
-				code.AppendLine($@"		public int Dimensions {{ get; }}");
-				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>The current maximum depth of this tree.</summary>");
 				code.AppendLine($@"		public int MaxDepth {{ get; }}");
 				code.AppendLine($@"");
@@ -415,6 +412,9 @@ namespace Towel_Generating
 					code.AppendLine($@"		where Subdivide{j} : struct, IFunc<(int Count, int Depth, System.Collections.Generic.IEnumerable<Axis{j}> Values, (Bound<Axis{j}> Min, Bound<Axis{j}> Max) Bounds), Axis{j}>");
 				}
 				code.AppendLine($@"	{{");
+
+				#region Fields
+
 				code.AppendLine($@"		internal {(i < 30 ? "const" : "readonly static")} {(i < 30 ? "int" : "BigInteger")} ChildrenPerNode = {(i < 30 ? $"{Math.Pow(2, i)}" : $"BigInteger.Pow(2, {i})")};");
 				code.AppendLine($@"");
 				code.AppendLine($@"		internal Node _top;");
@@ -434,6 +434,8 @@ namespace Towel_Generating
 					code.AppendLine($@"		internal Subdivide{j} _subdivide{j};");
 				}
 				code.AppendLine($@"");
+
+				#endregion
 
 				#region Nested Types
 
@@ -705,6 +707,15 @@ namespace Towel_Generating
 				code.AppendLine($@"			internal override int BranchCount => 0;");
 				code.AppendLine($@"");
 				code.AppendLine($@"			internal override int LeafCount => 1;");
+				code.AppendLine($@"");
+				code.AppendLine($@"			internal System.Collections.Generic.IEnumerable<Axis> GetEnumerable<Axis, Locate>(Locate locate = default)");
+				code.AppendLine($@"				where Locate : struct, IFunc<T, Axis>");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				for (Node node = Head; node is not null; node = node.Next)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					yield return locate.Do(node.Value);");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 
@@ -895,17 +906,29 @@ namespace Towel_Generating
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region DeterminePointOfDivision
+
 				code.AppendLine($@"		#region DeterminePointOfDivision");
 				code.AppendLine($@"");
 				code.AppendLine($@"		internal Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> DeterminePointOfDivision(Leaf leaf, int depth) =>");
 				code.AppendLine($@"			new(");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"				_subdivide{j}.Do((leaf.Count, depth, leaf, (leaf.Bounds.Min{j}, leaf.Bounds.Max{j})){(j == i ? ");" : ",")}");
+					code.AppendLine($@"				_subdivide{j}.Do((leaf.Count, depth, leaf.GetEnumerable<Axis{j}, Locate{j}>(_locate{j}), (leaf.Bounds.Min{j}, leaf.Bounds.Max{j}))){(j == i ? ");" : ",")}");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
 				code.AppendLine($@"");
+
+				#endregion
+
+				#region DetermineChildBounds
+
 				code.AppendLine($@"		#region DetermineChildBounds");
 				code.AppendLine($@"");
 				code.AppendLine($@"		internal Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> DetermineChildBounds(Branch branch, int child_index)");
@@ -930,6 +953,329 @@ namespace Towel_Generating
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? ");" : ",")}");
 				}
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region Remove (predicate)
+
+				code.AppendLine($@"		#region Remove (predicate)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the values qualified by the predicate.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
+				code.AppendLine($@"		public void Remove<Predicate>(Predicate predicate = default) where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Remove(_top, predicate);");
+				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the values qualified by the predicate.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
+				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
+				code.AppendLine($@"		internal int Remove<Predicate>(Node node, Predicate predicate) where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			int removals = 0;");
+				code.AppendLine($@"			if (node is Leaf leaf)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				while (leaf.Head is not null && predicate.Do(leaf.Head.Value))");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					leaf.Head = leaf.Head.Next;");
+				code.AppendLine($@"					removals++;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				if (leaf.Head is not null)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					Leaf.Node list = leaf.Head;");
+				code.AppendLine($@"					while (list.Next is not null)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (predicate.Do(list.Next.Value))");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							list.Next = list.Next.Next;");
+				code.AppendLine($@"							removals++;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				leaf.Count -= removals;");
+				code.AppendLine($@"				return removals;");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			else if (node is Branch branch)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				int skipped = 0;");
+				code.AppendLine($@"				for (int i = 0; i + skipped < branch.Children.Length;)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					removals += Remove(branch.Children[i], predicate);");
+				code.AppendLine($@"					if (branch.Children[i].Count == 0)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					else");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						i++;");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				Node[] newArray = new Node[branch.Children.Length - skipped];");
+				code.AppendLine($@"				Array.Copy(branch.Children, newArray, newArray.Length);");
+				code.AppendLine($@"				branch.Children = newArray;");
+				code.AppendLine($@"				branch.Count -= removals;");
+				code.AppendLine($@"				if (branch.Count < _load && branch.Count != 0)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					ShrinkChild(branch.Parent, branch.Index);");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				return removals;");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			else if (node is null)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				throw new TowelBugException($""{{nameof(Remove)}} encounted null node"");");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			else");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				throw new TowelBugException($""{{nameof(Remove)}} encounted unhandled node type {{node.GetType()}}"");");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region Remove (subspace)
+
+				code.AppendLine($@"		#region Remove (subspace)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
+				}
+				code.AppendLine($@"		public void Remove(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j}{(j == i ? ")" : ",")}");
+				}
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Remove(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? "));" : ",")}");
+				}
+				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
+				}
+				code.AppendLine($@"		public void Remove(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j}{(j == i ? ")" : ",")}");
+				}
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Remove(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? "));" : ",")}");
+				}
+				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		internal int Remove(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			int removals = 0;");
+				code.AppendLine($@"			if (Omnitree.OverlapCheck(bounds, node.Bounds, {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				if (node is Leaf leaf)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					Leaf.Node current_node = leaf.Head;");
+				code.AppendLine($@"					Leaf.Node previous_node = null;");
+				code.AppendLine($@"					while (!(current_node is null))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						Leaf.Node temp_previous = current_node;");
+				code.AppendLine($@"						if (Omnitree.ContainsCheck(bounds, FullLocate(current_node.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							removals++;");
+				code.AppendLine($@"							if (current_node == leaf.Head)");
+				code.AppendLine($@"							{{");
+				code.AppendLine($@"								leaf.Head = leaf.Head.Next;");
+				code.AppendLine($@"							}}");
+				code.AppendLine($@"							else");
+				code.AppendLine($@"							{{");
+				code.AppendLine($@"								previous_node.Next = current_node.Next;");
+				code.AppendLine($@"								temp_previous = previous_node;");
+				code.AppendLine($@"							}}");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"						previous_node = temp_previous;");
+				code.AppendLine($@"						current_node = current_node.Next;");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					leaf.Count -= removals;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				else if (node is Branch branch)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					int skipped = 0;");
+				code.AppendLine($@"					for (int i = 0; i + skipped < branch.Children.Length;)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						removals += Remove(branch.Children[i], bounds);");
+				code.AppendLine($@"						if (branch.Children[i].Count == 0)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"						else");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							i++;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					Node[] newArray = new Node[branch.Children.Length - skipped];");
+				code.AppendLine($@"					Array.Copy(branch.Children, newArray, newArray.Length);");
+				code.AppendLine($@"					branch.Children = newArray;");
+				code.AppendLine($@"					branch.Count -= removals;");
+				code.AppendLine($@"					if (branch.Count < _load && branch.Count > 0)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						ShrinkChild(branch.Parent, branch.Index);");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				else if (node is null)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted null node"");");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				else");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted unhandled node type {{node.GetType()}}"");");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			return removals;");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region Remove (subspace + predicate)
+
+				code.AppendLine($@"		#region Remove (subspace + predicate)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
+				}
+				code.AppendLine($@"		public void Remove<Predicate>(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j},");
+				}
+				code.AppendLine($@"			Predicate predicate = default)");
+				code.AppendLine($@"			where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Remove(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				predicate);");
+				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
+				}
+				code.AppendLine($@"		public void Remove<Predicate>(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j},");
+				}
+				code.AppendLine($@"				Predicate predicate = default)");
+				code.AppendLine($@"			where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Remove(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				predicate);");
+				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		internal int Remove<Predicate>(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds, Predicate predicate = default)");
+				code.AppendLine($@"			where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			int removals = 0;");
+				code.AppendLine($@"			if (Omnitree.OverlapCheck(bounds, node.Bounds, {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				if (node is Leaf leaf)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					Leaf.Node current_node = leaf.Head;");
+				code.AppendLine($@"					Leaf.Node previous_node = null;");
+				code.AppendLine($@"					while (!(current_node is null))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						Leaf.Node temp_previous = current_node;");
+				code.AppendLine($@"						if (Omnitree.ContainsCheck(bounds, FullLocate(current_node.Value), {Join(1..I, n => $"_compare{n}", ", ")})  && predicate.Do(current_node.Value))");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							removals++;");
+				code.AppendLine($@"							if (current_node == leaf.Head)");
+				code.AppendLine($@"							{{");
+				code.AppendLine($@"								leaf.Head = leaf.Head.Next;");
+				code.AppendLine($@"							}}");
+				code.AppendLine($@"							else");
+				code.AppendLine($@"							{{");
+				code.AppendLine($@"								previous_node.Next = current_node.Next;");
+				code.AppendLine($@"								temp_previous = previous_node;");
+				code.AppendLine($@"							}}");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"						previous_node = temp_previous;");
+				code.AppendLine($@"						current_node = current_node.Next;");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					leaf.Count -= removals;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				else if (node is Branch branch)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					int skipped = 0;");
+				code.AppendLine($@"					for (int i = 0; i + skipped < branch.Children.Length;)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						removals += Remove(branch.Children[i], bounds, predicate);");
+				code.AppendLine($@"						if (branch.Children[i].Count == 0)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"						else");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							i++;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					Node[] newArray = new Node[branch.Children.Length - skipped];");
+				code.AppendLine($@"					Array.Copy(branch.Children, newArray, newArray.Length);");
+				code.AppendLine($@"					branch.Children = newArray;");
+				code.AppendLine($@"					branch.Count -= removals;");
+				code.AppendLine($@"					if (branch.Count < _load && branch.Count > 0)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						ShrinkChild(branch.Parent, branch.Index);");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				else if (node is null)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted null node"");");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"				else");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted unhandled node type {{node.GetType()}}"");");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			return removals;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
