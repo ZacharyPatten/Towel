@@ -749,7 +749,7 @@ namespace Towel_Generating
 				}
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		internal OmnitreePointsLinked(");
+				code.AppendLine($@"		public OmnitreePointsLinked(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"			Locate{j} locate{j} = default,");
@@ -1027,14 +1027,6 @@ namespace Towel_Generating
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"				return removals;");
 				code.AppendLine($@"			}}");
-				code.AppendLine($@"			else if (node is null)");
-				code.AppendLine($@"			{{");
-				code.AppendLine($@"				throw new TowelBugException($""{{nameof(Remove)}} encounted null node"");");
-				code.AppendLine($@"			}}");
-				code.AppendLine($@"			else");
-				code.AppendLine($@"			{{");
-				code.AppendLine($@"				throw new TowelBugException($""{{nameof(Remove)}} encounted unhandled node type {{node.GetType()}}"");");
-				code.AppendLine($@"			}}");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
@@ -1139,14 +1131,6 @@ namespace Towel_Generating
 				code.AppendLine($@"					{{");
 				code.AppendLine($@"						ShrinkChild(branch.Parent, branch.Index);");
 				code.AppendLine($@"					}}");
-				code.AppendLine($@"				}}");
-				code.AppendLine($@"				else if (node is null)");
-				code.AppendLine($@"				{{");
-				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted null node"");");
-				code.AppendLine($@"				}}");
-				code.AppendLine($@"				else");
-				code.AppendLine($@"				{{");
-				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted unhandled node type {{node.GetType()}}"");");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			return removals;");
@@ -1265,14 +1249,6 @@ namespace Towel_Generating
 				code.AppendLine($@"					{{");
 				code.AppendLine($@"						ShrinkChild(branch.Parent, branch.Index);");
 				code.AppendLine($@"					}}");
-				code.AppendLine($@"				}}");
-				code.AppendLine($@"				else if (node is null)");
-				code.AppendLine($@"				{{");
-				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted null node"");");
-				code.AppendLine($@"				}}");
-				code.AppendLine($@"				else");
-				code.AppendLine($@"				{{");
-				code.AppendLine($@"					throw new TowelBugException($""{{nameof(Remove)}} encounted unhandled node type {{node.GetType()}}"");");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			return removals;");
@@ -1409,14 +1385,6 @@ namespace Towel_Generating
 				code.AppendLine($@"					}}");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
-				code.AppendLine($@"			else if (node is null)");
-				code.AppendLine($@"			{{");
-				code.AppendLine($@"				throw new TowelBugException($""{{nameof(CountSubSpace)}} parameter {{nameof(node)}} is null"");");
-				code.AppendLine($@"			}}");
-				code.AppendLine($@"			else");
-				code.AppendLine($@"			{{");
-				code.AppendLine($@"				throw new TowelBugException($""{{nameof(CountSubSpace)}} parameter {{nameof(node)}} is not a valid type {{node.GetType()}}"");");
-				code.AppendLine($@"			}}");
 				code.AppendLine($@"			return count;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
@@ -1489,7 +1457,7 @@ namespace Towel_Generating
 				code.AppendLine($@"				leaf = new Leaf(removal.Bounds, removal.Parent, removal.Index);");
 				code.AppendLine($@"				parent[child_index] = leaf;");
 				code.AppendLine($@"			}}");
-				code.AppendLine($@"			// TODO: optimize");
+				code.AppendLine($@"			// TODO: optimize (don't use delegate)");
 				code.AppendLine($@"			Stepper(step => {{ leaf.Add(step); }}, removal);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
@@ -1554,6 +1522,482 @@ namespace Towel_Generating
 				code.AppendLine($@"");
 
 				#endregion
+
+				#region Stepper
+
+				code.AppendLine($@"		#region Stepper");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		public void Stepper(Action<T> step)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
+				code.AppendLine($@"			Stepper<ActionRuntime<T>>(step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		public void Stepper<Step>(Step step = default)");
+				code.AppendLine($@"			where Step : struct, IAction<T> =>");
+				code.AppendLine($@"			Stepper(_top, step);");
+				code.AppendLine($@"");
+				code.AppendLine($@"		// TODO: kill the following method...");
+				code.AppendLine($@"		internal void Stepper(Action<T> step, Node node) =>");
+				code.AppendLine($@"			Stepper<ActionRuntime<T>>(_top, step);");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		internal void Stepper<Step>(Node node, Step step)");
+				code.AppendLine($@"			where Step : struct, IAction<T>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (node is Leaf leaf)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				Leaf.Node list = leaf.Head;");
+				code.AppendLine($@"				while (list is not null)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					step.Do(list.Value);");
+				code.AppendLine($@"					list = list.Next;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			else if (node is Branch branch)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				foreach (Node child in branch.Children)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					Stepper(child, step);");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region StepperBreak
+
+				code.AppendLine($@"		#region StepperBreak");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		public StepStatus StepperBreak(Func<T, StepStatus> step)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
+				code.AppendLine($@"			return StepperBreak<FuncRuntime<T, StepStatus>>(step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		public StepStatus StepperBreak<Step>(Step step = default)");
+				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus> =>");
+				code.AppendLine($@"			StepperBreak(_top, step);");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		internal StepStatus StepperBreak<Step>(Node node, Step step)");
+				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (node is Leaf leaf)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				Leaf.Node list = leaf.Head;");
+				code.AppendLine($@"				while (list is not null)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					if (step.Do(list.Value) is Break)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						return Break;");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					list = list.Next;");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			else if (node is Branch branch)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				foreach (Node child in branch.Children)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					if (StepperBreak(child, step) is Break)");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						return Break;");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			return Continue;");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region Stepper (subspace)
+
+				code.AppendLine($@"		#region Stepper (subspace)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public void Stepper(Action<T> step,");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j}{(j == i ? ")" : ",")}");
+				}
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
+				code.AppendLine($@"			Stepper<ActionRuntime<T>>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public void Stepper(Action<T> step,");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j}{(j == i ? ")" : ",")}");
+				}
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
+				code.AppendLine($@"			Stepper<ActionRuntime<T>>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public void Stepper<Step>(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j},");
+				}
+				code.AppendLine($@"			Step step = default)");
+				code.AppendLine($@"			where Step : struct, IAction<T>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Stepper<Step>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public void Stepper<Step>(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j},");
+				}
+				code.AppendLine($@"			Step step = default)");
+				code.AppendLine($@"			where Step : struct, IAction<T>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			Stepper<Step>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		/// <param name=""bounds"">The bounds of the traversal.</param>");
+				code.AppendLine($@"		internal void Stepper<Step>(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds, Step step)");
+				code.AppendLine($@"			where Step : struct, IAction<T>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (node is Leaf leaf)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, FullLocate(list.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						step.Do(list.Value);");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			if (node is Branch branch)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				foreach (Node child in branch.Children)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, child.Bounds, {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						Stepper(child, step);");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					else if (Omnitree.OverlapCheck(child.Bounds, bounds, {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						Stepper(child, bounds, step);");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region StepperBreak (subspace)
+
+				code.AppendLine($@"		#region StepperBreak (subspace)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public StepStatus StepperBreak(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j},");
+				}
+				code.AppendLine($@"			Func<T, StepStatus> step)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
+				code.AppendLine($@"			return StepperBreak<FuncRuntime<T, StepStatus>>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public StepStatus StepperBreak(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j},");
+				}
+				code.AppendLine($@"			Func<T, StepStatus> step)");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
+				code.AppendLine($@"			return StepperBreak<FuncRuntime<T, StepStatus>>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public StepStatus StepperBreak<Step>(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j},");
+				}
+				code.AppendLine($@"			Step step = default)");
+				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			return StepperBreak<Step>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum bound on the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum bound on the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		public StepStatus StepperBreak<Step>(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j},");
+				}
+				code.AppendLine($@"			Step step = default)");
+				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			return StepperBreak<Step>(_top, new(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
+				}
+				code.AppendLine($@"				step);");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
+				code.AppendLine($@"		/// <param name=""bounds"">The bounds of the traversal.</param>");
+				code.AppendLine($@"		internal StepStatus StepperBreak<Step>(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds, Step step)");
+				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			if (node is Leaf leaf)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, FullLocate(list.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (step.Do(list.Value) is Break)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							return Break;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			if (node is Branch branch)");
+				code.AppendLine($@"			{{");
+				code.AppendLine($@"				foreach (Node child in branch.Children)");
+				code.AppendLine($@"				{{");
+				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, child.Bounds, {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (StepperBreak(child, step) is Break)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							return Break;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"					else if (Omnitree.OverlapCheck(child.Bounds, bounds, {Join(1..I, n => $"_compare{n}", ", ")}))");
+				code.AppendLine($@"					{{");
+				code.AppendLine($@"						if (StepperBreak(child, bounds, step) is Break)");
+				code.AppendLine($@"						{{");
+				code.AppendLine($@"							return Break;");
+				code.AppendLine($@"						}}");
+				code.AppendLine($@"					}}");
+				code.AppendLine($@"				}}");
+				code.AppendLine($@"			}}");
+				code.AppendLine($@"			return Continue;");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				///// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
+				///// <param name="axis1">The axis of the removal along the  1D axis.</param>
+				///// <param name="axis2">The axis of the removal along the  2D axis.</param>
+				///// <param name="axis3">The axis of the removal along the  3D axis.</param>
+				//public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+				//	Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
+
+				//internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+				//{
+				//	Node current = node;
+				//	while (current is not null)
+				//	{
+				//		if (current is Leaf)
+				//		{
+				//			for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
+				//				if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
+				//					step(leaf_node.Value);
+				//			break;
+				//		}
+				//		else
+				//		{
+				//			Branch branch = current as Branch;
+				//			int child_index = DetermineChildIndex(branch.PointOfDivision, vector);
+				//			current = branch[child_index];
+				//		}
+				//	}
+				//}
+
+				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				///// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
+				///// <param name="axis1">The axis of the removal along the  1D axis.</param>
+				///// <param name="axis2">The axis of the removal along the  2D axis.</param>
+				///// <param name="axis3">The axis of the removal along the  3D axis.</param>
+				//public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+				//	Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
+
+				//internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+				//{
+				//	Node current = node;
+				//	while (current is not null)
+				//	{
+				//		if (current is Leaf)
+				//		{
+				//			for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
+				//			{
+				//				StepStatus status = StepStatus.Continue;
+				//				if (EqualsCheck(vector, LocateVector(list.Value)) &&
+				//					(status = step(list.Value)) != StepStatus.Continue)
+				//					return status;
+				//			}
+				//		}
+				//		else
+				//		{
+				//			Branch branch = current as Branch;
+				//			int child_index = DetermineChildIndex(branch.PointOfDivision, vector);
+				//			current = branch[child_index];
+				//		}
+				//	}
+				//	return StepStatus.Continue;
+				//}
+
+				//System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+				//public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+				//{
+				//	// Note: this can be optimized.
+				//	IList<T> list = new ListLinked<T>();
+				//	Stepper(x => list.Add(x));
+				//	return list.GetEnumerator();
+				//}
+
+				//#endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
