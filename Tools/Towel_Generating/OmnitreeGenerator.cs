@@ -1000,7 +1000,6 @@ namespace Towel_Generating
 				code.AppendLine($@"					}}");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"				leaf.Count -= removals;");
-				code.AppendLine($@"				return removals;");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			else if (node is Branch branch)");
 				code.AppendLine($@"			{{");
@@ -1025,8 +1024,8 @@ namespace Towel_Generating
 				code.AppendLine($@"				{{");
 				code.AppendLine($@"					ShrinkChild(branch.Parent, branch.Index);");
 				code.AppendLine($@"				}}");
-				code.AppendLine($@"				return removals;");
 				code.AppendLine($@"			}}");
+				code.AppendLine($@"			return removals;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
@@ -1358,7 +1357,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			else if (node is Leaf leaf)");
 				code.AppendLine($@"			{{");
-				code.AppendLine($@"				for (Leaf.Node list = leaf.Head; list is null; list = list.Next)");
+				code.AppendLine($@"				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)");
 				code.AppendLine($@"				{{");
 				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, FullLocate(list.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
 				code.AppendLine($@"					{{");
