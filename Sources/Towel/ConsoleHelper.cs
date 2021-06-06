@@ -78,7 +78,7 @@ namespace Towel
 			Console.Write(prompt);
 			while (!int.TryParse(Console.ReadLine(), out inputValue) || inputValue < 1 || options.Length < inputValue)
 			{
-				Console.WriteLine("Invalid Input. Try Again...");
+				Console.WriteLine(invalidMessage);
 				Console.Write(prompt);
 			}
 			options[inputValue - 1].Action?.Invoke();
