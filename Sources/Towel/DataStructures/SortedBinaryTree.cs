@@ -3,15 +3,17 @@
 namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	public interface ISortedBinaryTree<T, _Compare> : IDataStructure<T>,
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public interface ISortedBinaryTree<T, TCompare> : IDataStructure<T>,
 		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.IRemovable<T>,
 		DataStructure.ICountable,
 		DataStructure.IClearable,
-		DataStructure.IComparing<T, _Compare>,
+		DataStructure.IComparing<T, TCompare>,
 		DataStructure.IAuditable<T>
+		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		#region Members
 
@@ -152,168 +154,208 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> Stepper<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static Action<Action<T>> Stepper<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.Stepper;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static StepperRef<T> StepperRef<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.Stepper;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.Stepper;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static StepperRefBreak<T> StepperRefBreak<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.Stepper;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> StepperReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static Action<Action<T>> StepperReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.StepperReverse;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static StepperRef<T> StepperRefReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.StepperReverse;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.StepperReverse;
 
 		/// <summary>Gets a reverse traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree) =>
+		public static StepperRefBreak<T> StepperRefBreakReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.StepperReverse;
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> Stepper<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static Action<Action<T>> Stepper<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.Stepper(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRef<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static StepperRef<T> StepperRef<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.Stepper(minimum, maximum, y => x(ref y));
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.Stepper(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreak<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static StepperRefBreak<T> StepperRefBreak<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.Stepper(minimum, maximum, y => x(ref y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Action<Action<T>> StepperReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static Action<Action<T>> StepperReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.StepperReverse(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRef<T> StepperRefReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static StepperRef<T> StepperRefReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.StepperReverse(minimum, maximum, y => x(ref y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static Func<Func<T, StepStatus>, StepStatus> StepperBreakReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.StepperReverse(minimum, maximum, y => x(y));
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to traverse.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
 		/// <returns>The stepper of the traversal.</returns>
-		public static StepperRefBreak<T> StepperRefBreakReverse<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, T minimum, T maximum) =>
+		public static StepperRefBreak<T> StepperRefBreakReverse<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, T minimum, T maximum)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			x => tree.StepperReverse(minimum, maximum, y => x(ref y));
 
 		/// <summary>Tries to get a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to get the value from.</param>
 		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <param name="value">The value if it is found.</param>
 		/// <returns>True if the value was found or false if not.</returns>
-		public static bool TryGet<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, out T? value, Func<T, CompareResult> sift) =>
+		public static bool TryGet<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, out T? value, Func<T, CompareResult> sift)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.TryGet(out value, out _, sift);
 
 		/// <summary>Gets a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to get the value from.</param>
 		/// <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
 		/// <returns>The value.</returns>
-		public static T? Get<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, Func<T, CompareResult> sift) =>
-			tree.TryGet(out T value, out Exception? exception, sift)
+		public static T? Get<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, Func<T, CompareResult> sift)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			tree.TryGet(out T? value, out Exception? exception, sift)
 			? value
-			: throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Get)} failed but the {nameof(exception)} is null");
+			: throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to remove the value from.</param>
 		/// <param name="sift">The compare delegate.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, Func<T, CompareResult> sift) =>
+		public static bool TryRemove<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, Func<T, CompareResult> sift)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			tree.TryRemove(out _, sift);
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="tree">The tree to remove the value from.</param>
 		/// <param name="sift">The compare delegate.</param>
-		public static void Remove<T, _Compare>(this ISortedBinaryTree<T, _Compare> tree, Func<T, CompareResult> sift)
+		public static void Remove<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree, Func<T, CompareResult> sift)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (!tree.TryRemove(out Exception? exception, sift))
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Remove)} failed but the {nameof(exception)} is null");
+				throw exception ?? new ArgumentException($"{nameof(Remove)} failed but the {nameof(exception)} is null");
 			}
 		}
 

@@ -284,15 +284,16 @@
         </member>
         <member name="T:Towel.DataStructures.IAvlTree`2">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
-            <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.AvlTree">
             <summary>Contains extensions methods for the AvlTree interface.</summary>
         </member>
         <member name="T:Towel.DataStructures.AvlTreeLinked`2">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
-            <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
-            <typeparam name="_Compare">The Compare delegate.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.AvlTreeLinked`2.#ctor(`1)">
             <summary>
@@ -581,7 +582,7 @@
         </member>
         <member name="T:Towel.DataStructures.IDataStructure`1">
             <summary>Polymorphism base for all data structures in the Towel framework.</summary>
-            <typeparam name="T">The type of the instances to store in this data structure.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.IDataStructure`1.Stepper(System.Action{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -627,11 +628,12 @@
             <summary>Gets the hashing function being used by the data structure.</summary>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IComparing`2">
-            <summary>Property of a data structure (does it have a Compare property).</summary>
-            <typeparam name="T">The type of value.</typeparam>
+            <summary>Represents a type that is comparing values of type <typeparamref name="T"/>.</summary>
+            <typeparam name="T">The type of values this type is comparing.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.DataStructure.IComparing`2.Compare">
-            <summary>Gets the comparing function of the data structure.</summary>
+            <summary>Gets the value of the comparer that is comparing <typeparamref name="T"/> values.</summary>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IAddable`1">
             <summary>Property of a data structure (does it have a Add method).</summary>
@@ -1067,7 +1069,8 @@
         </member>
         <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
-            <typeparam name="T">The generic type to be stored within the heap.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.IHeap`2.Enqueue(`0)">
             <summary>Enqueues an item into the heap.</summary>
@@ -1083,8 +1086,8 @@
         </member>
         <member name="T:Towel.DataStructures.HeapArray`2">
             <summary>A heap with static priorities implemented as a array.</summary>
-            <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-            <typeparam name="_Compare">The <see cref="T:Towel.IFunc`3"/> to sort elements.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`2.#ctor(`1,System.Nullable{System.Int32})">
             <summary>
@@ -13947,15 +13950,16 @@
         </member>
         <member name="T:Towel.DataStructures.IRedBlackTree`2">
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.RedBlackTree">
             <summary>Contains extension methods for the RedBlackTree interface.</summary>
         </member>
         <member name="T:Towel.DataStructures.RedBlackTreeLinked`2">
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
-            <typeparam name="_Compare">The compare delegate.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.RedBlackTreeLinked`2.#ctor(`1)">
             <summary>Constructs a new Red Black Tree.</summary>
@@ -14328,7 +14332,8 @@
         </member>
         <member name="T:Towel.DataStructures.ISortedBinaryTree`2">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
-            <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="P:Towel.DataStructures.ISortedBinaryTree`2.CurrentLeast">
             <summary>Gets the current least value in the tree.</summary>
@@ -14470,54 +14475,63 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.Stepper``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRef``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1})">
             <summary>Gets a reverse traversal stepper for the tree.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <returns>The stepper of the traversal.</returns>
         </member>
         <member name="M:Towel.DataStructures.SortedBinaryTree.Stepper``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14526,6 +14540,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRef``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14534,6 +14549,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14542,6 +14558,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreak``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14550,6 +14567,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14558,6 +14576,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14566,6 +14585,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14574,6 +14594,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.StepperRefBreakReverse``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0,``0)">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to traverse.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
@@ -14582,6 +14603,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.TryGet``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},``0@,System.Func{``0,Towel.CompareResult})">
             <summary>Tries to get a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to get the value from.</param>
             <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
             <param name="value">The value if it is found.</param>
@@ -14590,6 +14612,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.Get``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},System.Func{``0,Towel.CompareResult})">
             <summary>Gets a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to get the value from.</param>
             <param name="sift">The compare delegate. This must match the compare that the Red-Black tree is sorted with.</param>
             <returns>The value.</returns>
@@ -14597,6 +14620,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.TryRemove``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},System.Func{``0,Towel.CompareResult})">
             <summary>Tries to remove a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to remove the value from.</param>
             <param name="sift">The compare delegate.</param>
             <returns>True if the remove was successful or false if not.</returns>
@@ -14604,6 +14628,7 @@
         <member name="M:Towel.DataStructures.SortedBinaryTree.Remove``2(Towel.DataStructures.ISortedBinaryTree{``0,``1},System.Func{``0,Towel.CompareResult})">
             <summary>Removes a value.</summary>
             <typeparam name="T">The type of value.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
             <param name="tree">The tree to remove the value from.</param>
             <param name="sift">The compare delegate.</param>
         </member>

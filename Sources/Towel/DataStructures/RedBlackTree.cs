@@ -5,23 +5,25 @@ using static Towel.Statics;
 namespace Towel.DataStructures
 {
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	public interface IRedBlackTree<T, _Compare> : ISortedBinaryTree<T, _Compare> { }
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public interface IRedBlackTree<T, TCompare> : ISortedBinaryTree<T, TCompare>
+		where TCompare : struct, IFunc<T, T, CompareResult> { }
 
 	/// <summary>Contains extension methods for the RedBlackTree interface.</summary>
 	public static class RedBlackTree { }
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	/// <typeparam name="_Compare">The compare delegate.</typeparam>
-	public class RedBlackTreeLinked<T, _Compare> : IRedBlackTree<T, _Compare>
-		where _Compare : struct, IFunc<T, T, CompareResult>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public class RedBlackTreeLinked<T, TCompare> : IRedBlackTree<T, TCompare>
+		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const bool Red = true;
 		internal const bool Black = false;
 		internal readonly Node _sentinelNode = new(value: default, color: Black);
 
-		internal _Compare _compare;
+		internal TCompare _compare;
 		internal int _count;
 		internal Node _root;
 
@@ -56,7 +58,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new Red Black Tree.</summary>
 		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-		public RedBlackTreeLinked(_Compare compare = default)
+		public RedBlackTreeLinked(TCompare compare = default)
 		{
 			_root = _sentinelNode;
 			_compare = compare;
@@ -64,7 +66,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructor for cloning purposes.</summary>
 		/// <param name="tree">The tree to be cloned.</param>
-		internal RedBlackTreeLinked(RedBlackTreeLinked<T, _Compare> tree)
+		internal RedBlackTreeLinked(RedBlackTreeLinked<T, TCompare> tree)
 		{
 			Node Clone(Node node, Node parent)
 			{
@@ -129,7 +131,7 @@ namespace Towel.DataStructures
 		public int Count => _count;
 
 		/// <summary>The comparison function being utilized by this structure.</summary>
-		public _Compare Compare => _compare;
+		public TCompare Compare => _compare;
 
 		#endregion
 
@@ -161,7 +163,7 @@ namespace Towel.DataStructures
 					default:
 						capturedException = compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(TCompare));
 						goto Break;
 				}
 			}
@@ -182,7 +184,7 @@ namespace Towel.DataStructures
 					default:
 						capturedException = compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(TCompare));
 						break;
 				}
 			}
@@ -205,12 +207,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
-		public RedBlackTreeLinked<T, _Compare> Clone() => new(this);
+		public RedBlackTreeLinked<T, TCompare> Clone() => new(this);
 
 		/// <summary>Determines if the tree contains a given value;</summary>
 		/// <param name="value">The value to see if the tree contains.</param>
 		/// <returns>True if the tree contains the value. False if not.</returns>
-		public bool Contains(T value) => Contains(new SiftFromCompareAndValue<T, _Compare>(value, _compare));
+		public bool Contains(T value) => Contains(new SiftFromCompareAndValue<T, TCompare>(value, _compare));
 
 		/// <summary>
 		/// Determines if this structure contains an item by a given key.
@@ -243,7 +245,7 @@ namespace Towel.DataStructures
 					default:
 						throw compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(TCompare));
 				}
 			}
 			return false;
@@ -281,7 +283,7 @@ namespace Towel.DataStructures
 					default:
 						throw compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(TCompare));
 				}
 			}
 			value = default;
@@ -294,7 +296,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception? exception) =>
-			TryRemove(out exception, new SiftFromCompareAndValue<T, _Compare>(value, _compare));
+			TryRemove(out exception, new SiftFromCompareAndValue<T, TCompare>(value, _compare));
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="sift">The compare delegate.</param>
@@ -333,7 +335,7 @@ namespace Towel.DataStructures
 					default:
 						throw compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(TCompare));
 				}
 			}
 			exception = new ArgumentException("Attempting to remove a non-existing entry.");

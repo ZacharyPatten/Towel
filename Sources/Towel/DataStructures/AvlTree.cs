@@ -5,21 +5,23 @@ using static Towel.Statics;
 namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	public interface IAvlTree<T, _Compare> : ISortedBinaryTree<T, _Compare> { }
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public interface IAvlTree<T, TCompare> : ISortedBinaryTree<T, TCompare>
+		where TCompare : struct, IFunc<T, T, CompareResult> { }
 
 	/// <summary>Contains extensions methods for the AvlTree interface.</summary>
 	public static class AvlTree { }
 
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-	/// <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
-	/// <typeparam name="_Compare">The Compare delegate.</typeparam>
-	public class AvlTreeLinked<T, _Compare> : IAvlTree<T, _Compare>
-		where _Compare : struct, IFunc<T, T, CompareResult>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public class AvlTreeLinked<T, TCompare> : IAvlTree<T, TCompare>
+		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal Node? _root;
 		internal int _count;
-		internal _Compare _compare;
+		internal TCompare _compare;
 
 		#region Node
 
@@ -52,7 +54,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
 		/// <param name="compare">The comparison function for sorting the items.</param>
-		public AvlTreeLinked(_Compare compare = default)
+		public AvlTreeLinked(TCompare compare = default)
 		{
 			_root = null;
 			_count = 0;
@@ -61,7 +63,7 @@ namespace Towel.DataStructures
 
 		/// <summary>This constructor if for cloning purposes.</summary>
 		/// <param name="tree">The tree to clone.</param>
-		internal AvlTreeLinked(AvlTreeLinked<T, _Compare> tree)
+		internal AvlTreeLinked(AvlTreeLinked<T, TCompare> tree)
 		{
 			static Node Clone(Node node) =>
 				new(
@@ -118,7 +120,7 @@ namespace Towel.DataStructures
 		/// The comparison function being utilized by this structure.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		public _Compare Compare => _compare;
+		public TCompare Compare => _compare;
 
 		/// <summary>
 		/// Gets the number of elements in the collection.
@@ -160,7 +162,7 @@ namespace Towel.DataStructures
 					default:
 						capturedException = compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.");
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 						break;
 				}
 				return capturedException is null ? Balance(node) : node;
@@ -184,7 +186,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: θ(n)</para>
 		/// </summary>
 		/// <returns>A clone of the AVL tree.</returns>
-		public AvlTreeLinked<T, _Compare> Clone() => new(this);
+		public AvlTreeLinked<T, TCompare> Clone() => new(this);
 
 		/// <summary>
 		/// Determines if the AVL tree contains a value.
@@ -226,7 +228,7 @@ namespace Towel.DataStructures
 					default:
 						throw compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.");
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 				}
 			}
 			return false;
@@ -274,7 +276,7 @@ namespace Towel.DataStructures
 					default:
 						throw compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.");
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 				}
 			}
 			value = default;
@@ -291,7 +293,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryRemove(T value, out Exception? exception) =>
-			TryRemove(out exception, new SiftFromCompareAndValue<T, _Compare>(value, _compare));
+			TryRemove(out exception, new SiftFromCompareAndValue<T, TCompare>(value, _compare));
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="sift">The compare delegate.</param>
@@ -340,7 +342,7 @@ namespace Towel.DataStructures
 						default:
 							throw compareResult.IsDefined()
 								? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-								: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.");
+								: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 					}
 					SetHeight(node);
 					return Balance(node);

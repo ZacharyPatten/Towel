@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Towel.DataStructures
 {
 	/// <summary>Polymorphism base for all data structures in the Towel framework.</summary>
-	/// <typeparam name="T">The type of the instances to store in this data structure.</typeparam>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IDataStructure<T> : IEnumerable<T>
 	{
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -71,12 +71,14 @@ namespace Towel.DataStructures
 			Func<T, int> Hash { get; }
 		}
 
-		/// <summary>Property of a data structure (does it have a Compare property).</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IComparing<T, _Compare>
+		/// <summary>Represents a type that is comparing values of type <typeparamref name="T"/>.</summary>
+		/// <typeparam name="T">The type of values this type is comparing.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+		public interface IComparing<T, TCompare>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
-			/// <summary>Gets the comparing function of the data structure.</summary>
-			_Compare Compare { get; }
+			/// <summary>Gets the value of the comparer that is comparing <typeparamref name="T"/> values.</summary>
+			TCompare Compare { get; }
 		}
 
 		/// <summary>Property of a data structure (does it have a Add method).</summary>
