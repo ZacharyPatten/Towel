@@ -578,7 +578,7 @@ namespace DataStructures
 				Console.Write($"    Look Up ({lookUp}, \"{lookUpToString}\", {lookUp}m): ");
 				omnitree.Stepper(i => Console.Write(i),
 					lookUp, lookUp,
-					lookUp.ToString(), lookUp.ToString(),
+					lookUpToString, lookUpToString,
 					lookUp, lookUp);
 				Console.WriteLine();
 
