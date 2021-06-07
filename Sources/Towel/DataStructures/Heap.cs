@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -64,7 +63,7 @@ namespace Towel.DataStructures
 		internal const int _root = 1; // The root index of the heap.
 
 		internal TCompare _compare;
-		internal T[] _heap;
+		internal T[] _array;
 		internal int? _minimumCapacity;
 		internal int _count;
 
@@ -78,9 +77,10 @@ namespace Towel.DataStructures
 		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
 		public HeapArray(TCompare compare = default, int? minimumCapacity = null)
 		{
+			if (minimumCapacity is not null && minimumCapacity.Value < 1) throw new ArgumentOutOfRangeException(message: "value.Value < 1", paramName: nameof(minimumCapacity));
 			_compare = compare;
 			_minimumCapacity = minimumCapacity;
-			_heap = new T[(_minimumCapacity ?? 0) + _root];
+			_array = new T[(_minimumCapacity ?? 0) + _root];
 			_count = 0;
 		}
 
@@ -88,7 +88,7 @@ namespace Towel.DataStructures
 		{
 			_compare = heap._compare;
 			_minimumCapacity = heap._minimumCapacity;
-			_heap = (T[])heap._heap.Clone();
+			_array = (T[])heap._array.Clone();
 			_count = heap._count;
 		}
 
@@ -106,13 +106,25 @@ namespace Towel.DataStructures
 		/// The maximum items the queue can hold.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		public int CurrentCapacity => _heap.Length - 1;
+		public int CurrentCapacity => _array.Length - 1;
 
 		/// <summary>
 		/// The minumum capacity of this queue to limit low-level resizing.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		public int? MinimumCapacity => _minimumCapacity;
+		public int? MinimumCapacity
+		{
+			get => _minimumCapacity;
+			set
+			{
+				if (value is not null)
+				{
+					if (value.Value < 1) throw new ArgumentOutOfRangeException(message: "value.Value < 1", paramName: nameof(value)); 
+					else if (value.Value > _array.Length + 1) Array.Resize<T>(ref _array, value.Value + 1);
+				}
+				_minimumCapacity = value;
+			}
+		}
 
 		/// <summary>
 		/// The number of items in the queue.
@@ -146,16 +158,16 @@ namespace Towel.DataStructures
 		/// <param name="addition">The item to be added.</param>
 		public void Enqueue(T addition)
 		{
-			if (_count + 1 >= _heap.Length)
+			if (_count + 1 >= _array.Length)
 			{
-				if (_heap.Length is int.MaxValue)
+				if (_array.Length is int.MaxValue)
 				{
 					throw new InvalidOperationException("this heap has become too large");
 				}
-				Array.Resize<T>(ref _heap, _heap.Length > int.MaxValue / 2 ? int.MaxValue : _heap.Length * 2);
+				Array.Resize<T>(ref _array, _array.Length > int.MaxValue / 2 ? int.MaxValue : _array.Length * 2);
 			}
 			_count++;
-			_heap[_count] = addition;
+			_array[_count] = addition;
 			ShiftUp(_count);
 		}
 
@@ -168,8 +180,8 @@ namespace Towel.DataStructures
 		{
 			if (_count > 0)
 			{
-				T removal = _heap[_root];
-				Swap(ref _heap[_root], ref _heap[_count]);
+				T removal = _array[_root];
+				Swap(ref _array[_root], ref _array[_count]);
 				_count--;
 				ShiftDown(_root);
 				return removal;
@@ -187,7 +199,7 @@ namespace Towel.DataStructures
 			int i;
 			for (i = 1; i <= _count; i++)
 			{
-				if (_compare.Do(item, _heap[i]) is Equal)
+				if (_compare.Do(item, _array[i]) is Equal)
 				{
 					break;
 				}
@@ -208,7 +220,7 @@ namespace Towel.DataStructures
 		{
 			if (_count > 0)
 			{
-				return _heap[_root];
+				return _array[_root];
 			}
 			throw new InvalidOperationException("Attempting to peek at an empty priority queue.");
 		}
@@ -221,9 +233,9 @@ namespace Towel.DataStructures
 		internal void ShiftUp(int index)
 		{
 			int parent;
-			while ((parent = Parent(index)) > 0 && _compare.Do(_heap[index], _heap[parent]) is Greater)
+			while ((parent = Parent(index)) > 0 && _compare.Do(_array[index], _array[parent]) is Greater)
 			{
-				Swap(ref _heap[index], ref _heap[parent]);
+				Swap(ref _array[index], ref _array[parent]);
 				index = parent;
 			}
 		}
@@ -239,15 +251,15 @@ namespace Towel.DataStructures
 			while ((leftChild = LeftChild(index)) <= _count)
 			{
 				int down = leftChild;
-				if ((rightChild = RightChild(index)) <= _count && _compare.Do(_heap[rightChild], _heap[leftChild]) is Greater)
+				if ((rightChild = RightChild(index)) <= _count && _compare.Do(_array[rightChild], _array[leftChild]) is Greater)
 				{
 					down = rightChild;
 				}
-				if (_compare.Do(_heap[down], _heap[index]) is Less)
+				if (_compare.Do(_array[down], _array[index]) is Less)
 				{
 					break;
 				}
-				Swap(ref _heap[index], ref _heap[down]);
+				Swap(ref _array[index], ref _array[down]);
 				index = down;
 			}
 		}
@@ -260,33 +272,33 @@ namespace Towel.DataStructures
 
 		/// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
 		/// <returns>The array of priority-sorted items.</returns>
-		public T[] ToArray() => _heap[1..(_count + 1)];
+		public T[] ToArray() => _array[1..(_count + 1)];
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <summary>Gets the enumerator of the heap.</summary>
 		/// <returns>The enumerator of the heap.</returns>
-		public IEnumerator<T> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 1; i <= _count; i++)
 			{
-				yield return _heap[i];
+				yield return _array[i];
 			}
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _heap.Stepper(1, _count + 1, step);
+		public void Stepper(StepRef<T> step) => _array.Stepper(1, _count + 1, step);
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus> =>
-			_heap.StepperBreak(1, _count + 1, step);
+			_array.StepperBreak(1, _count + 1, step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _heap.Stepper(1, _count + 1, step);
+		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(1, _count + 1, step);
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
