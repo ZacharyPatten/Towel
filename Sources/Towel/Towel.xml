@@ -205,23 +205,17 @@
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Array`1.Stepper(System.Action{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
         <member name="M:Towel.DataStructures.Array`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Array`1.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.Array`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Array`1.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Array`1.GetEnumerator">
             <summary>Gets the enumerator for the array.</summary>
@@ -260,18 +254,12 @@
             <summary>Clones this array.</summary>
             <returns>A clone of the array.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ArrayJagged`1.Stepper(System.Action{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
+        <member name="M:Towel.DataStructures.ArrayJagged`1.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.ArrayJagged`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.ArrayJagged`1.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.ArrayJagged`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -288,7 +276,15 @@
             <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.AvlTree">
-            <summary>Contains extensions methods for the AvlTree interface.</summary>
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.IAvlTree`2"/>.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.AvlTreeLinked">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.AvlTreeLinked`2"/>.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.AvlTreeLinked.New``1(System.Func{``0,``0,Towel.CompareResult})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.AvlTreeLinked`2"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.AvlTreeLinked`2"/>.</returns>
         </member>
         <member name="T:Towel.DataStructures.AvlTreeLinked`2">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
@@ -552,46 +548,15 @@
             </summary>
             <param name="node">The tree to have its height adjusted.</param>
         </member>
-        <member name="T:Towel.DataStructures.AvlTreeLinked`1">
-            <summary>A self-sorting binary tree based on the heights of each node.</summary>
-            <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.#ctor(System.Func{`0,`0,Towel.CompareResult})">
-            <summary>
-            Constructs an AVL Tree.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="compare">The comparison function for sorting the items.</param>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.#ctor(Towel.DataStructures.AvlTreeLinked{`0})">
-            <summary>This constructor if for cloning purposes.</summary>
-            <param name="tree">The tree to clone.</param>
-        </member>
-        <member name="P:Towel.DataStructures.AvlTreeLinked`1.Compare">
-            <summary>
-            The comparison function being utilized by this structure.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="M:Towel.DataStructures.AvlTreeLinked`1.Clone">
-            <summary>
-            Clones the AVL tree.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <returns>A clone of the AVL tree.</returns>
-        </member>
         <member name="T:Towel.DataStructures.IDataStructure`1">
             <summary>Polymorphism base for all data structures in the Towel framework.</summary>
             <typeparam name="T">The type of values stored in this data structure.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.IDataStructure`1.Stepper(System.Action{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.IDataStructure`1.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.IDataStructure`1.StepperBreak``1(``0)">
+            <summary>Traverses the data structure and invokes a function on every <typeparamref name="T"/> value.</summary>
+            <typeparam name="TStep">The function to invoke on every <typeparamref name="T"/> value in the data structure.</typeparam>
+            <param name="step">The function to invoke on every <typeparamref name="T"/> value in the data structure.</param>
+            <returns>The status of the traversal.</returns>
         </member>
         <member name="T:Towel.DataStructures.DataStructure">
             <summary>Contains extension methods for the Structure interface.</summary>
@@ -620,12 +585,13 @@
             <param name="value">The value to look for in the data structure.</param>
             <returns>True if the value exists in the data structure. False if not.</returns>
         </member>
-        <member name="T:Towel.DataStructures.DataStructure.IHashing`1">
-            <summary>Property of a data structure (does it have a Hash property).</summary>
-            <typeparam name="T">The type of value.</typeparam>
+        <member name="T:Towel.DataStructures.DataStructure.IHashing`2">
+            <summary>Represents a type that is hashing values of type <typeparamref name="T"/>.</summary>
+            <typeparam name="T">The type of values this type is hashing.</typeparam>
+            <typeparam name="THash">The type that is hashing <typeparamref name="T"/> values.</typeparam>
         </member>
-        <member name="P:Towel.DataStructures.DataStructure.IHashing`1.Hash">
-            <summary>Gets the hashing function being used by the data structure.</summary>
+        <member name="P:Towel.DataStructures.DataStructure.IHashing`2.Hash">
+            <summary>Gets the value of the type that is hashing <typeparamref name="T"/> values.</summary>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IComparing`2">
             <summary>Represents a type that is comparing values of type <typeparamref name="T"/>.</summary>
@@ -667,12 +633,13 @@
         <member name="M:Towel.DataStructures.DataStructure.IClearable.Clear">
             <summary>Returns the data structure to an empty state.</summary>
         </member>
-        <member name="T:Towel.DataStructures.DataStructure.IEquating`1">
-            <summary>Property of a data structure (does it have a Equate property).</summary>
-            <typeparam name="T">The type of value.</typeparam>
+        <member name="T:Towel.DataStructures.DataStructure.IEquating`2">
+            <summary>Represents a type that is equality checking values of type <typeparamref name="T"/>.</summary>
+            <typeparam name="T">The type of values this type is equality checking.</typeparam>
+            <typeparam name="TEquate">The type that is equality checking <typeparamref name="T"/> values.</typeparam>
         </member>
-        <member name="P:Towel.DataStructures.DataStructure.IEquating`1.Equate">
-            <summary>Gets the equating function of the data structure.</summary>
+        <member name="P:Towel.DataStructures.DataStructure.IEquating`2.Equate">
+            <summary>Gets the value of the type that is checking <typeparamref name="T"/> values for equality.</summary>
         </member>
         <member name="T:Towel.DataStructures.DataStructure.IStepperRef`1">
             <summary>Property of a data structure (does it have a Stepper ref method).</summary>
@@ -686,6 +653,15 @@
             <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.DataStructure.Stepper``1(Towel.DataStructures.IDataStructure{``0},System.Action{``0})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.DataStructure.Stepper``2(Towel.DataStructures.IDataStructure{``0},``1)">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        </member>
+        <member name="M:Towel.DataStructures.DataStructure.StepperBreak``1(Towel.DataStructures.IDataStructure{``0},System.Func{``0,Towel.StepStatus})">
+            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
         </member>
         <member name="M:Towel.DataStructures.DataStructure.Stepper``1(Towel.DataStructures.IDataStructure{``0})">
             <summary>Gets the stepper for this data structure.</summary>
@@ -721,6 +697,22 @@
             <param name="structure">The structure to remove the value from.</param>
             <param name="value">The value to be removed.</param>
         </member>
+        <member name="T:Towel.DataStructures.Graph">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.IGraph`1"/>.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.Graph.TryRemove``1(Towel.DataStructures.IGraph{``0},``0)">
+            <summary>Tries to removes a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <param name="structure">The structure to remove the value from.</param>
+            <param name="value">The value to be removed.</param>
+            <returns>True if the remove was successful or false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Graph.Remove``1(Towel.DataStructures.IGraph{``0},``0)">
+            <summary>Removes a value.</summary>
+            <typeparam name="T">The type of value.</typeparam>
+            <param name="structure">The structure to remove the value from.</param>
+            <param name="value">The value to be removed.</param>
+        </member>
         <member name="T:Towel.DataStructures.IGraph`1">
             <summary>A graph data structure that stores nodes and edges.</summary>
             <typeparam name="T">The generic node type to store in the graph.</typeparam>
@@ -747,7 +739,7 @@
             <param name="start">The stating point of the edge to add.</param>
             <param name="end">The ending point of the edge to add.</param>
         </member>
-        <member name="M:Towel.DataStructures.IGraph`1.Remove(`0,`0)">
+        <member name="M:Towel.DataStructures.IGraph`1.TryRemove(`0,`0,System.Exception@)">
             <summary>Removes an edge from the graph.</summary>
             <param name="start">The starting point of the edge to remove.</param>
             <param name="end">The ending point of the edge to remove.</param>
@@ -761,183 +753,191 @@
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="T:Towel.DataStructures.GraphSetOmnitree`1">
+        <member name="T:Towel.DataStructures.GraphSetOmnitree">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.GraphSetOmnitree`3"/>.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree.New``1(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.GraphSetOmnitree`3"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.GraphSetOmnitree`3"/>.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.GraphSetOmnitree`3">
             <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
             <typeparam name="T">The generic type of this data structure.</typeparam>
         </member>
-        <member name="T:Towel.DataStructures.GraphSetOmnitree`1.Edge">
+        <member name="T:Towel.DataStructures.GraphSetOmnitree`3.Edge">
             <summary>Represents an edge in a graph.</summary>
         </member>
-        <member name="P:Towel.DataStructures.GraphSetOmnitree`1.Edge.Start">
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`3.Edge.Start">
             <summary>The starting node of the edge.</summary>
         </member>
-        <member name="P:Towel.DataStructures.GraphSetOmnitree`1.Edge.End">
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`3.Edge.End">
             <summary>The ending node of the edge.</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(Towel.DataStructures.GraphSetOmnitree{`0})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.#ctor(Towel.DataStructures.GraphSetOmnitree{`0,`1,`2})">
             <summary>This constructor is for cloning purposes.</summary>
             <param name="graph">The graph to construct a clone of.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,`0,Towel.CompareResult},System.Func{`0,System.Int32})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.#ctor(`1,`2,System.Func{`0,`0,Towel.CompareResult})">
             <summary>Constructs a new GraphSetOmnitree.</summary>
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="compare">The compare delegate for the data structure to use.</param>
             <param name="hash">The hash delegate for the datastructure to use.</param>
         </member>
-        <member name="P:Towel.DataStructures.GraphSetOmnitree`1.EdgeCount">
-            <summary>Gets the number of edges in the graph.</summary>
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`3.Equate">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.GraphSetOmnitree`1.NodeCount">
-            <summary>Gets the number of nodes in the graph.</summary>
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`3.Hash">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.TryAdd(`0,System.Exception@)">
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`3.EdgeCount">
+            <inheritdoc/>
+        </member>
+        <member name="P:Towel.DataStructures.GraphSetOmnitree`3.NodeCount">
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.TryAdd(`0,System.Exception@)">
             <summary>Tries to add a node to the graph.</summary>
             <param name="node">The node to add to the graph.</param>
-            <param name="exception">The exception that occurred if the add failed.</param>
+            <param name="exception">The exception that occured if there was a failure.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Add(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.Add(`0,`0)">
             <summary>Adds an edge to the graph.</summary>
             <param name="start">The starting point of the edge.</param>
             <param name="end">The ending point of the edge.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.TryRemove(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.TryRemove(`0,System.Exception@)">
             <summary>Removes a node from the graph and all attached edges.</summary>
             <param name="node">The edge to remove from the graph.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
+            <param name="exception">The exception that occured if there was a failure.</param>
             <returns>True if the remove succeeded or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Remove(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.TryRemove(`0,`0,System.Exception@)">
             <summary>Removes an edge from the graph.</summary>
             <param name="start">The starting point of the edge.</param>
             <param name="end">The ending point of the edge.</param>
+            <param name="exception">The exception that occured if there was a failure.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Adjacent(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.Adjacent(`0,`0)">
             <summary>Checks two nodes for adjacency (connected by an edge).</summary>
             <param name="a">The first node of the adjacency check.</param>
             <param name="b">The second node of the adjacency check.</param>
             <returns>True if adjacent. False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Neighbors(`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.Neighbors(`0,System.Action{`0})">
             <summary>Gets the neighbors of a node.</summary>
             <param name="node">The node to get the neighbors of.</param>
             <param name="step">The step to perform on all the neighbors.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Clone">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.Clone">
             <summary>Clones this data structure.</summary>
             <returns>A clone of this data structure.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Clear">
-            <summary>Returns this data structure to an empty state.</summary>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.Clear">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(System.Action{`0})">
-            <summary>Steps through all the nodes in the graph.</summary>
-            <param name="step">The action to perform on all the nodes in the graph.</param>
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Steps through all the nodes in the graph.</summary>
-            <param name="step">The action to perform on all the nodes in the graph.</param>
-            <returns>The status of the stepper operation.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.Edges(System.Action{System.ValueTuple{`0,`0}})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.Edges(System.Action{System.ValueTuple{`0,`0}})">
             <summary>Steps through all the edges in the graph.</summary>
             <param name="step">The action to perform on all the edges in the graph.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
             <summary>Steps through all the edges in the graph.</summary>
             <param name="step">The action to perform on all the edges in the graph.</param>
             <returns>The status of the stepper operation.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphSetOmnitree`1.GetEnumerator">
+        <member name="M:Towel.DataStructures.GraphSetOmnitree`3.GetEnumerator">
             <summary>Gets the enumerator for the nodes in the graph.</summary>
             <returns>The enumerator for the nodes in the graph.</returns>
         </member>
-        <member name="T:Towel.DataStructures.GraphMap`1">
+        <member name="T:Towel.DataStructures.GraphMap">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.GraphMap`3"/>.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphMap.New``1(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.GraphMap`3"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.GraphMap`3"/>.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.GraphMap`3">
             <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
             <typeparam name="T">The generic node type of this graph.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.#ctor">
-            <summary>Constructs a new GraphMap.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
+        <member name="M:Towel.DataStructures.GraphMap`3.#ctor(`1,`2)">
             <summary>Constructs a new GraphMap.</summary>
             <param name="equate">The equate delegate for the data structure to use.</param>
             <param name="hash">The hash function for the data structure to use.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.#ctor(Towel.DataStructures.GraphMap{`0})">
+        <member name="M:Towel.DataStructures.GraphMap`3.#ctor(Towel.DataStructures.GraphMap{`0,`1,`2})">
             <summary>Constructor for cloning purposes.</summary>
-            <param name="graphToClone">The graph to clone.</param>
+            <param name="graph">The graph to clone.</param>
         </member>
-        <member name="P:Towel.DataStructures.GraphMap`1.EdgeCount">
+        <member name="P:Towel.DataStructures.GraphMap`3.EdgeCount">
             <summary>Gets the number of edges in the graph.</summary>
         </member>
-        <member name="P:Towel.DataStructures.GraphMap`1.NodeCount">
+        <member name="P:Towel.DataStructures.GraphMap`3.NodeCount">
             <summary>Gets the number of nodes in the graph.</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.TryAdd(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphMap`3.TryAdd(`0,System.Exception@)">
             <summary>Adds a node to the graph.</summary>
             <param name="node">The node to add to the graph.</param>
             <param name="exception">The exception that occurred if the add failed.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Add(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphMap`3.Add(`0,`0)">
             <summary>Adds an edge to the graph.</summary>
             <param name="start">The starting point of the edge.</param>
             <param name="end">The ending point of the edge.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.TryRemove(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphMap`3.TryRemove(`0,System.Exception@)">
             <summary>Removes a node from the graph.</summary>
             <param name="node">The node to remove from the graph.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove succeeded or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Remove(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphMap`3.Remove(`0,`0)">
             <summary>Removes an edge from the graph.</summary>
             <param name="start">The starting point of the edge to remove.</param>
             <param name="end">The ending point of the edge to remove.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Adjacent(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphMap`3.Adjacent(`0,`0)">
             <summary>Checks for adjacency between two nodes.</summary>
             <param name="a">The first node of the adjacency check.</param>
             <param name="b">The second node fo the adjacency check.</param>
             <returns>True if ajacent. False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Neighbors(`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.GraphMap`3.Neighbors(`0,System.Action{`0})">
             <summary>Steps through all the **Outgoing** neighbors of a node.</summary>
             <param name="a">The node to step through the children of.</param>
             <param name="step">The action to perform on all the neighbors of the provided node.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(System.Action{`0})">
-            <summary>Steps through all the nodes in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
-            <param name="step">The action to perform on every node in the graph.</param>
+        <member name="M:Towel.DataStructures.GraphMap`3.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Steps through all the nodes in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
-            <param name="step">The action to perform on every node in the graph.</param>
-            <returns>The status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Edges(System.Action{System.ValueTuple{`0,`0}})">
-            <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
+        <member name="M:Towel.DataStructures.GraphMap`3.Edges(System.Action{System.ValueTuple{`0,`0}})">
+            <summary>Steps through all the edges in the <see cref="!:GraphMap&lt;T&gt;"/></summary>
             <param name="step">The action to perform on every edge in the graph.</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
-            <summary>Steps through all the edges in the <see cref="T:Towel.DataStructures.GraphMap`1"/></summary>
+        <member name="M:Towel.DataStructures.GraphMap`3.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
+            <summary>Steps through all the edges in the <see cref="!:GraphMap&lt;T&gt;"/></summary>
             <param name="step">The action to perform on every edge in the graph.</param>
             <returns>The status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Clone">
-            <summary>Makes a clone of this <see cref="T:Towel.DataStructures.GraphMap`1"/>.</summary>
+        <member name="M:Towel.DataStructures.GraphMap`3.Clone">
+            <summary>Makes a clone of this <see cref="!:GraphMap&lt;T&gt;"/>.</summary>
             <returns></returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.ToArray">
+        <member name="M:Towel.DataStructures.GraphMap`3.ToArray">
             <summary>Gets an with all the nodes of th graph in it.</summary>
             <returns>An array with all the nodes of th graph in it.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.GetEnumerator">
+        <member name="M:Towel.DataStructures.GraphMap`3.GetEnumerator">
             <summary>
             Enumerates through the nodes of the graph
             </summary>
             <returns>Enumerator object</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`1.Clear">
+        <member name="M:Towel.DataStructures.GraphMap`3.Clear">
             <summary>Clears this graph to an empty state.</summary>
         </member>
         <member name="T:Towel.DataStructures.IGraphWeighted`2">
@@ -960,23 +960,42 @@
             <param name="weight">The weight of the edge, if it exists.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="T:Towel.DataStructures.GraphWeightedMap`2">
+        <member name="M:Towel.DataStructures.IGraphWeighted`2.EdgesToArray">
+            <summary>Enumerates and returns all edges present in the graph</summary>
+            <returns>Array of Tuple of nodes that represent an edge</returns>
+        </member>
+        <member name="M:Towel.DataStructures.IGraphWeighted`2.EdgesAndWeightsToArray">
+            <summary>Enumerates and returns all edges present in the graph</summary>
+            <returns>Array of Tuple of nodes and weight that represent an edge</returns>
+        </member>
+        <member name="T:Towel.DataStructures.GraphWeightedMap">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.GraphWeightedMap`4"/>.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap.New``2(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.GraphWeightedMap`4"/>.</summary>
+            <typeparam name="V">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.GraphWeightedMap`4"/>.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.GraphWeightedMap`4">
             <summary>
             Implements a weighted graph. Implements a Dictionary of Nodes and edges
             </summary>
             <typeparam name="V">The generic node type of this graph.</typeparam>
             <typeparam name="W">The generic weight type of this graph.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.#ctor">
-            <summary>Default constructor for this Type</summary>
+        <member name="P:Towel.DataStructures.GraphWeightedMap`4.Equate">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.GraphWeightedMap`2.EdgeCount">
-            <summary>Number of edges present in the graph</summary>
+        <member name="P:Towel.DataStructures.GraphWeightedMap`4.Hash">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.GraphWeightedMap`2.NodeCount">
-            <summary>Number of nodes present in graph</summary>
+        <member name="P:Towel.DataStructures.GraphWeightedMap`4.EdgeCount">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.TryAdd(`0,System.Exception@)">
+        <member name="P:Towel.DataStructures.GraphWeightedMap`4.NodeCount">
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.TryAdd(`0,System.Exception@)">
             <summary>
             Tries to add a node. Returns false on success.
             </summary>
@@ -984,66 +1003,66 @@
             <param name="exception">The inner exception, in case of failure</param>
             <returns>boolean value indicating the success of process</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Add(`0,`0,`1)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Add(`0,`0,`1)">
             <summary>Adds a weighted edge to the graph </summary>
             <param name="start">The starting point of the edge to add</param>
             <param name="end">The ending point of the edge to add</param>
             <param name="weight">The weight of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Adjacent(`0,`0,`1@)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Adjacent(`0,`0,`1@)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <param name="weight">The weight of the edge, if it exists.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Adjacent(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Adjacent(`0,`0)">
             <summary>Checks if b is adjacent to a.</summary>
             <param name="a">The starting point of the edge to check.</param>
             <param name="b">The ending point of the edge to check.</param>
             <returns>True if b is adjacent to a; False if not</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Clear">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Clear">
             <summary>Removes all edges and nodes</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Neighbors(`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Neighbors(`0,System.Action{`0})">
             <summary> Performs action via a delegate for every neighbour of a node </summary>
             <param name="a">The node to scan neighbours for</param>
             <param name="function">The delegate function to act on the node</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Remove(`0,`0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.TryRemove(`0,`0,System.Exception@)">
             <summary>Removes any edge between the given nodes.</summary>
             <param name="start">The node on the start of the edge</param>
             <param name="end">The node on the end of the edge</param>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Stepper``1(``0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Stepper``1(``0)">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Stepper(System.Action{`0})">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Stepper(System.Action{`0})">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Stepper(System.Func{`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Stepper(System.Func{`0,Towel.StepStatus})">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.StepperBreak``1(``0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.StepperBreak``1(``0)">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Edges``1(``0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Edges``1(``0)">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Edges(System.Action{System.ValueTuple{`0,`0}})">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Edges(System.Action{System.ValueTuple{`0,`0}})">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.EdgesBreak(System.Func{System.ValueTuple{`0,`0},Towel.StepStatus})">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesBreak``1(``0)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.EdgesBreak``1(``0)">
             <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_XML"/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.GetEnumerator">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.GetEnumerator">
             <summary>Enumerates through all the added nodes in the graph</summary>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.TryRemove(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.TryRemove(`0,System.Exception@)">
             <summary>
             Tries to remove a node. Returns true on success.
             </summary>
@@ -1051,21 +1070,19 @@
             <param name="exception">The inner exception in case of failure</param>
             <returns>boolean value indicating success of process</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.Clone">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.Clone">
             <summary>Clones the graph.</summary>
             <returns>A clone of the graph.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.ToArray">
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.ToArray">
             <summary>Returns an array of nodes in this graph</summary>
             <returns>Array of nodes of this graph</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesToArray">
-            <summary>Enumerates and returns all edges present in the graph</summary>
-            <returns>Array of Tuple of nodes that represent an edge</returns>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.EdgesToArray">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.GraphWeightedMap`2.EdgesAndWeightsToArray">
-            <summary>Enumerates and returns all edges present in the graph</summary>
-            <returns>Array of Tuple of nodes and weight that represent an edge</returns>
+        <member name="M:Towel.DataStructures.GraphWeightedMap`4.EdgesAndWeightsToArray">
+            <inheritdoc/>
         </member>
         <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
@@ -1191,18 +1208,12 @@
             <summary>Gets the enumerator of the heap.</summary>
             <returns>The enumerator of the heap.</returns>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`2.Stepper(System.Action{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
         <member name="M:Towel.DataStructures.HeapArray`2.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.HeapArray`2.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.HeapArray`2.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`2.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -1285,14 +1296,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`1.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Link`1.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.Link`1.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1366,14 +1371,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`1.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1446,14 +1445,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`2.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Link`2.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.Link`2.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`2.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1532,14 +1525,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`2.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1617,14 +1604,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`3.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Link`3.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.Link`3.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`3.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1708,14 +1689,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`3.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1798,14 +1773,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`4.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Link`4.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.Link`4.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`4.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1894,14 +1863,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`4.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -1989,14 +1952,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`5.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Link`5.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.Link`5.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`5.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -2090,14 +2047,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`5.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -2190,14 +2141,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`6.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Link`6.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.Link`6.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`6.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -2296,14 +2241,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`6.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -2401,14 +2340,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.Link`7.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.Link`7.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.Link`7.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`7.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -2512,14 +2445,8 @@
             <param name="compare">Delegate representing comparison technique.</param>
             <returns>true if the item is in this structure; false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.Stepper(System.Action{System.Object})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.Stepper(System.Func{System.Object,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="function">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`7.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
@@ -3002,12 +2929,21 @@
             <summary>Gets the stepper for this data structure.</summary>
             <returns>The stepper for this data structure.</returns>
         </member>
+        <member name="T:Towel.DataStructures.MapHashLinked">
+            <summary>Static helpers.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.MapHashLinked.New``2(System.Func{``1,``1,System.Boolean},System.Func{``1,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.MapHashLinked`4"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="K">The type of keys used to look up values.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.MapHashLinked`4"/>.</returns>
+        </member>
         <member name="T:Towel.DataStructures.MapHashLinked`4">
             <summary>An unsorted structure of unique items.</summary>
             <typeparam name="T">The generic type of the structure.</typeparam>
             <typeparam name="K">The generic key type of this map.</typeparam>
-            <typeparam name="Equate">The equate function.</typeparam>
-            <typeparam name="Hash">The hash function.</typeparam>
+            <typeparam name="TEquate">The equate function.</typeparam>
+            <typeparam name="THash">The hash function.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.MapHashLinked`4.#ctor(`2,`3,System.Nullable{System.Int32})">
             <summary>
@@ -3032,22 +2968,13 @@
             </summary>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`4.Count">
-            <summary>
-            The current number of values in the map.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`4.Towel#DataStructures#DataStructure#IHashing{K}#Hash">
-            <summary>
-            The delegate for computing hash codes.
-            <para>Runtime: O(1)</para>
-            </summary>
+        <member name="P:Towel.DataStructures.MapHashLinked`4.Hash">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`4.Towel#DataStructures#DataStructure#IEquating{K}#Equate">
-            <summary>
-            The delegate for equality checking.
-            <para>Runtime: O(1)</para>
-            </summary>
+        <member name="P:Towel.DataStructures.MapHashLinked`4.Equate">
+            <inheritdoc/>
         </member>
         <member name="P:Towel.DataStructures.MapHashLinked`4.Item(`1)">
             <summary>Gets the value of a specified key.</summary>
@@ -3212,46 +3139,6 @@
             <para>Runtime: Θ(n)</para>
             </summary>
             <returns>An array with all the values in the map.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.MapHashLinked`2">
-            <summary>An unsorted structure of unique items.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
-            <typeparam name="K">The generic key type of this map.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(System.Func{`1,`1,System.Boolean},System.Func{`1,System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Constructs a hashed map.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="equate">The equate delegate.</param>
-            <param name="hash">The hashing function.</param>
-            <param name="expectedCount">The expected count of the map.</param>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.#ctor(Towel.DataStructures.MapHashLinked{`0,`1})">
-            <summary>
-            This constructor is for cloning purposes.
-            <para>Runtime: O(n)</para>
-            </summary>
-            <param name="map">The map to clone.</param>
-        </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`2.Hash">
-            <summary>
-            The delegate for computing hash codes.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="P:Towel.DataStructures.MapHashLinked`2.Equate">
-            <summary>
-            The delegate for equality checking.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="M:Towel.DataStructures.MapHashLinked`2.Clone">
-            <summary>
-            Creates a shallow clone of this map.
-            <para>Runtime: Θ(n)</para>
-            </summary>
-            <returns>A shallow clone of this map.</returns>
         </member>
         <member name="T:Towel.DataStructures.Omnitree">
             <summary>Contains the necessary type definitions for the various omnitree types.</summary>
@@ -13954,7 +13841,15 @@
             <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.RedBlackTree">
-            <summary>Contains extension methods for the RedBlackTree interface.</summary>
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.IAvlTree`2"/>.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.RedBlackTreeLinked">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.RedBlackTreeLinked`2"/>.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.RedBlackTreeLinked.New``1(System.Func{``0,``0,Towel.CompareResult})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.RedBlackTreeLinked`2"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.RedBlackTreeLinked`2"/>.</returns>
         </member>
         <member name="T:Towel.DataStructures.RedBlackTreeLinked`2">
             <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
@@ -14157,31 +14052,23 @@
             This method was provided by user CyrusNajmabadi from GitHub.
             </citation>
         </member>
-        <member name="T:Towel.DataStructures.RedBlackTreeLinked`1">
-            <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-            <typeparam name="T">The generic type of the structure.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor(System.Func{`0,`0,Towel.CompareResult})">
-            <summary>Constructs a new Red Black Tree.</summary>
-            <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.#ctor(Towel.DataStructures.RedBlackTreeLinked{`0})">
-            <summary>Constructor for cloning purposes.</summary>
-            <param name="tree">The tree to be cloned.</param>
-        </member>
-        <member name="M:Towel.DataStructures.RedBlackTreeLinked`1.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
-        </member>
         <member name="T:Towel.DataStructures.ISet`1">
             <summary>An unsorted structure of unique items.</summary>
             <typeparam name="T">The type of values to store in the set.</typeparam>
         </member>
+        <member name="T:Towel.DataStructures.SetHashLinked">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.SetHashLinked`3"/>.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.SetHashLinked.New``1(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.SetHashLinked`3"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.SetHashLinked`3"/>.</returns>
+        </member>
         <member name="T:Towel.DataStructures.SetHashLinked`3">
             <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
             <typeparam name="T">The type of values to store in the set.</typeparam>
-            <typeparam name="Equate">The function for equality comparing values.</typeparam>
-            <typeparam name="Hash">The function for computing hash codes.</typeparam>
+            <typeparam name="TEquate">The function for equality comparing values.</typeparam>
+            <typeparam name="THash">The function for computing hash codes.</typeparam>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`3.#ctor(`1,`2,System.Nullable{System.Int32})">
             <summary>
@@ -14211,17 +14098,11 @@
             <para>Runtime: O(1)</para>
             </summary>
         </member>
-        <member name="P:Towel.DataStructures.SetHashLinked`3.Towel#DataStructures#DataStructure#IHashing{T}#Hash">
-            <summary>
-            The delegate for computing hash codes.
-            <para>Runtime: O(1)</para>
-            </summary>
+        <member name="P:Towel.DataStructures.SetHashLinked`3.Hash">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.SetHashLinked`3.Towel#DataStructures#DataStructure#IEquating{T}#Equate">
-            <summary>
-            The delegate for equality checking.
-            <para>Runtime: O(1)</para>
-            </summary>
+        <member name="P:Towel.DataStructures.SetHashLinked`3.Equate">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`3.TryAdd(`0,System.Exception@)">
             <summary>
@@ -14274,11 +14155,8 @@
             <para>Runtime: O(1)</para>
             </summary>
         </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`3.Stepper(System.Action{`0})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`3.Stepper(System.Func{`0,Towel.StepStatus})">
-            <inheritdoc cref="M:Towel.DataStructures.DataStructure.Stepper_O_n_step_XML"/>
+        <member name="M:Towel.DataStructures.SetHashLinked`3.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.SetHashLinked`3.GetEnumerator">
             <summary>Gets the enumerator for the set.</summary>
@@ -14291,152 +14169,117 @@
             </summary>
             <returns>An array with all the values in the set.</returns>
         </member>
-        <member name="T:Towel.DataStructures.SetHashLinked`1">
-            <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
-            <typeparam name="T">The type of values to store in the set.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Constructs a hashed set.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="equate">The equate delegate.</param>
-            <param name="hash">The hashing function.</param>
-            <param name="expectedCount">The expected count of the set.</param>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.#ctor(Towel.DataStructures.SetHashLinked{`0})">
-            <summary>
-            This constructor is for cloning purposes.
-            <para>Runtime: O(n)</para>
-            </summary>
-            <param name="set">The set to clone.</param>
-        </member>
-        <member name="P:Towel.DataStructures.SetHashLinked`1.Hash">
-            <summary>
-            The delegate for computing hash codes.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="P:Towel.DataStructures.SetHashLinked`1.Equate">
-            <summary>
-            The delegate for equality checking.
-            <para>Runtime: O(1)</para>
-            </summary>
-        </member>
-        <member name="M:Towel.DataStructures.SetHashLinked`1.Clone">
-            <summary>
-            Creates a shallow clone of this set.
-            <para>Runtime: Θ(n)</para>
-            </summary>
-            <returns>A shallow clone of this set.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.ISortedBinaryTree`2">
+        <member name="T:Towel.DataStructures.ISortedBinaryTree`1">
             <summary>A self-sorting binary tree based on the heights of each node.</summary>
             <typeparam name="T">The type of values stored in this data structure.</typeparam>
-            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
-        <member name="P:Towel.DataStructures.ISortedBinaryTree`2.CurrentLeast">
+        <member name="P:Towel.DataStructures.ISortedBinaryTree`1.CurrentLeast">
             <summary>Gets the current least value in the tree.</summary>
         </member>
-        <member name="P:Towel.DataStructures.ISortedBinaryTree`2.CurrentGreatest">
+        <member name="P:Towel.DataStructures.ISortedBinaryTree`1.CurrentGreatest">
             <summary>Gets the current greated value in the tree.</summary>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Contains(System.Func{`0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Contains(System.Func{`0,Towel.CompareResult})">
             <summary>Determines if the tree contains a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <returns>True if the value is in the tree or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.TryGet(`0@,System.Exception@,System.Func{`0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryGet(`0@,System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to get a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="value">The value if found or default.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the value was found or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.TryRemove(System.Exception@,System.Func{`0,Towel.CompareResult})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.TryRemove(System.Exception@,System.Func{`0,Towel.CompareResult})">
             <summary>Tries to remove a value.</summary>
             <param name="sift">The compare delegate. This must match the compare delegate of the tree.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove succeeded or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(Towel.StepRefBreak{`0})">
             <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(System.Action{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(System.Action{`0})">
             <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.StepRef{`0})">
             <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(System.Func{`0,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(System.Func{`0,Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(Towel.StepRefBreak{`0})">
+            <summary>Invokes a delegate for each entry in the data structure (right to left).</summary>
+            <param name="step">The delegate to invoke on each item in the structure.</param>
+            <returns>The resulting status of the iteration.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,System.Action{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.StepRef{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,System.Func{`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,System.Func{`0,Towel.StepStatus})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.Stepper(`0,`0,Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.Stepper(`0,`0,Towel.StepRefBreak{`0})">
             <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,System.Action{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Towel.StepRef{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.StepRef{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,System.Func{`0,Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,System.Func{`0,Towel.StepStatus})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
         </member>
-        <member name="M:Towel.DataStructures.ISortedBinaryTree`2.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">
+        <member name="M:Towel.DataStructures.ISortedBinaryTree`1.StepperReverse(`0,`0,Towel.StepRefBreak{`0})">
             <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
             <param name="step">The step function.</param>
             <param name="minimum">The minimum step value.</param>
             <param name="maximum">The maximum step value.</param>
             <returns>The result status of the stepper function.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.ISortedBinaryTree`2">
+            <summary>A self-sorting binary tree based on the heights of each node.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
         <member name="T:Towel.DataStructures.SortedBinaryTree">
             <summary>Contains extensions methods for the SortedBinaryTree interface.</summary>
@@ -14851,58 +14694,64 @@
             <param name="addition">The node to be added.</param>
             <param name="parent">The parent of the node to be added.</param>
         </member>
-        <member name="T:Towel.DataStructures.TreeMap`1">
+        <member name="T:Towel.DataStructures.TreeMap">
+            <summary>Static helpers.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.TreeMap.New``1(``0,System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.TreeMap`3"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.TreeMap`3"/>.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.TreeMap`3">
             <summary>A generic tree data structure using a dictionary to store node data.</summary>
             <typeparam name="T">The generic type stored in this data structure.</typeparam>
         </member>
-        <member name="P:Towel.DataStructures.TreeMap`1.Head">
+        <member name="M:Towel.DataStructures.TreeMap`3.#ctor(Towel.DataStructures.TreeMap{`0,`1,`2})">
+            <summary>This constructor is for cloning purposes.</summary>
+            <param name="tree">The tree to clone.</param>
+        </member>
+        <member name="P:Towel.DataStructures.TreeMap`3.Head">
             <summary>The head of the tree.</summary>
         </member>
-        <member name="P:Towel.DataStructures.TreeMap`1.Hash">
+        <member name="P:Towel.DataStructures.TreeMap`3.Hash">
             <summary>The hash function being used (was passed into the constructor).</summary>
         </member>
-        <member name="P:Towel.DataStructures.TreeMap`1.Equate">
+        <member name="P:Towel.DataStructures.TreeMap`3.Equate">
             <summary>The equate function being used (was passed into the constructor).</summary>
         </member>
-        <member name="P:Towel.DataStructures.TreeMap`1.Count">
+        <member name="P:Towel.DataStructures.TreeMap`3.Count">
             <summary>The number of nodes in this tree.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.IsChildOf(`0,`0)">
+        <member name="M:Towel.DataStructures.TreeMap`3.IsChildOf(`0,`0)">
             <summary>Determines if a node is the child of another node.</summary>
             <param name="node">The child to check the parent of.</param>
             <param name="parent">The parent to check the child of.</param>
             <returns>True if the node is a child of the parent; False if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.Parent(`0)">
+        <member name="M:Towel.DataStructures.TreeMap`3.Parent(`0)">
             <summary>Gets the parent of a given node.</summary>
             <param name="child">The child to get the parent of.</param>
             <returns>The parent of the given child.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.Children(`0,System.Action{`0})">
+        <member name="M:Towel.DataStructures.TreeMap`3.Children(`0,System.Action{`0})">
             <summary>Stepper function for the children of a given node.</summary>
             <param name="parent">The node to step through the children of.</param>
             <param name="step">The step function.</param>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.Add(`0,`0)">
+        <member name="M:Towel.DataStructures.TreeMap`3.Add(`0,`0)">
             <summary>Adds a node to the tree.</summary>
             <param name="addition">The node to be added.</param>
             <param name="parent">The parent of the node to be added.</param>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.TryRemove(`0,System.Exception@)">
+        <member name="M:Towel.DataStructures.TreeMap`3.TryRemove(`0,System.Exception@)">
             <summary>Removes a node from the tree and all the child nodes.</summary>
             <param name="removal">The node to be removed.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.Stepper(System.Action{`0})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
+        <member name="M:Towel.DataStructures.TreeMap`3.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.TreeMap`1.Clone">
+        <member name="M:Towel.DataStructures.TreeMap`3.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
         </member>
@@ -14967,54 +14816,62 @@
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
         </member>
-        <member name="T:Towel.DataStructures.TrieLinkedHashLinked`1">
+        <member name="T:Towel.DataStructures.TrieLinkedHashLinked">
+            <summary>Static helpers.</summary>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked.New``1(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.TrieLinkedHashLinked`3"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.TrieLinkedHashLinked`3"/>.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked.New``2(System.Func{``0,``0,System.Boolean},System.Func{``0,System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.TrieLinkedHashLinked`4"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <typeparam name="D">The additional data type to store with each leaf.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.TrieLinkedHashLinked`4"/>.</returns>
+        </member>
+        <member name="T:Towel.DataStructures.TrieLinkedHashLinked`3">
             <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
             <typeparam name="T">The type of values in the trie.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`3.#ctor(`1,`2)">
             <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
             <param name="equate">The equality delegate for the keys.</param>
             <param name="hash">The hashing function for the keys.</param>
         </member>
-        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`1.Count">
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`3.Count">
             <summary>The current count of the trie.</summary>
         </member>
-        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`1.Equate">
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`3.Equate">
             <summary>The equality function of the keys.</summary>
         </member>
-        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`1.Hash">
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`3.Hash">
             <summary>The hash fucntion for the keys.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.TryAdd(System.Action{System.Action{`0}},System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`3.TryAdd(System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to add a value to the trie.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the add failed.</param>
             <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.TryRemove(System.Action{System.Action{`0}},System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`3.TryRemove(System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to remove a value.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Contains(System.Action{System.Action{`0}})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`3.Contains(System.Action{System.Action{`0}})">
             <summary>Determines if the trie contains the relative keys.</summary>
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Clear">
-            <summary>Returns the trie to an empty state.</summary>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`3.Clear">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(System.Action{System.Action{System.Action{`0}}})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`3.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.Stepper(System.Func{System.Action{System.Action{`0}},Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`1.GetEnumerator">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`3.GetEnumerator">
             <summary>Gets the enumerator for the trie.</summary>
             <returns>The enumerator for the trie.</returns>
         </member>
@@ -15057,72 +14914,63 @@
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
         </member>
-        <member name="T:Towel.DataStructures.TrieLinkedHashLinked`2">
+        <member name="T:Towel.DataStructures.TrieLinkedHashLinked`4">
             <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
             <typeparam name="T">The type of values in the trie.</typeparam>
             <typeparam name="D">The additional data type to store with each leaf.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.#ctor(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.#ctor(`2,`3)">
             <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
             <param name="equate">The equality delegate for the keys.</param>
             <param name="hash">The hashing function for the keys.</param>
         </member>
-        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Count">
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`4.Count">
             <summary>The current count of the trie.</summary>
         </member>
-        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Equate">
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`4.Equate">
             <summary>The equality function of the keys.</summary>
         </member>
-        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`2.Hash">
+        <member name="P:Towel.DataStructures.TrieLinkedHashLinked`4.Hash">
             <summary>The hash fucntion for the keys.</summary>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryAdd(`1,System.Action{System.Action{`0}},System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.TryAdd(`1,System.Action{System.Action{`0}},System.Exception@)">
             <summary>Tries to add a value to the trie.</summary>
             <param name="value">The value to add.</param>
             <param name="stepper">The relative keys of the value.</param>
             <param name="exception">The exception that occurred if the add failed.</param>
             <returns>True if the value was added or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryGet(System.Action{System.Action{`0}},`1@,System.Exception@)">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.TryGet(System.Action{System.Action{`0}},`1@,System.Exception@)">
             <summary>Tries to get a value.</summary>
             <param name="stepper">The relative keys of the value.</param>
             <param name="value">The value if found.</param>
             <param name="exception">The exception that occurred if the get failed.</param>
             <returns>True if the remove was successful or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.TryRemove(System.Action{System.Action{`0}},System.Exception@)">
-            <summary>Tries to remove a value.</summary>
-            <param name="stepper">The relative keys of the value.</param>
-            <param name="exception">The exception that occurred if the remove failed.</param>
-            <returns>True if the remove was successful or false if not.</returns>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.TryRemove(System.Action{System.Action{`0}},System.Exception@)">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Contains(System.Action{System.Action{`0}})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.Contains(System.Action{System.Action{`0}})">
             <summary>Determines if the trie contains the relative keys.</summary>
             <param name="stepper">The relative keys.</param>
             <returns>True if the trie contains th relative keys or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Clear">
-            <summary>Returns the trie to an empty state.</summary>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.Clear">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Action{System.Action{System.Action{`0}},`1})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.StepperBreak``1(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.Stepper(System.Action{System.Action{System.Action{`0}},`1})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Func{System.Action{System.Action{`0}},`1,Towel.StepStatus})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-            <returns>The resulting status of the iteration.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Action{System.Action{System.Action{`0}}})">
-            <summary>Invokes a delegate for each entry in the data structure.</summary>
-            <param name="step">The delegate to invoke on each item in the structure.</param>
-        </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.Stepper(System.Func{System.Action{System.Action{`0}},Towel.StepStatus})">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.Stepper(System.Func{System.Action{System.Action{`0}},`1,Towel.StepStatus})">
             <summary>Invokes a delegate for each entry in the data structure.</summary>
             <param name="step">The delegate to invoke on each item in the structure.</param>
             <returns>The resulting status of the iteration.</returns>
         </member>
-        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`2.GetEnumerator">
+        <member name="M:Towel.DataStructures.TrieLinkedHashLinked`4.GetEnumerator">
             <summary>Gets the enumerator for the trie.</summary>
             <returns>The enumerator for the trie.</returns>
         </member>
@@ -15692,7 +15540,7 @@
             <param name="step">The operation to perform on each value of th traversal.</param>
             <returns>The status of the traversal.</returns>
         </member>
-        <member name="M:Towel.Extensions.Stepper``1(``0[],System.Func{``0,Towel.StepStatus})">
+        <member name="M:Towel.Extensions.StepperBreak``1(``0[],System.Func{``0,Towel.StepStatus})">
             <summary>Traverses an array and performs an operation on each value.</summary>
             <typeparam name="T">The element type in the array.</typeparam>
             <param name="array">The array to traverse.</param>
@@ -31535,24 +31383,6 @@
         <member name="M:Towel.Statics.SortStooge``2(System.Span{``0},``1)">
             <inheritdoc cref="M:Towel.Statics.SortStooge_XML"/>
         </member>
-        <member name="T:Towel.Statics.IntCompare">
-            <summary>Default int compare.</summary>
-        </member>
-        <member name="M:Towel.Statics.IntCompare.Do(System.Int32,System.Int32)">
-            <summary>Default int compare.</summary>
-            <param name="a">The left hand side of the compare.</param>
-            <param name="b">The right ahnd side of the compare.</param>
-            <returns>The result of the comparison.</returns>
-        </member>
-        <member name="T:Towel.Statics.CharEquate">
-            <summary>Compares two char values for equality.</summary>
-        </member>
-        <member name="M:Towel.Statics.CharEquate.Do(System.Char,System.Char)">
-            <summary>Compares two char values for equality.</summary>
-            <param name="a">The first operand of the equality check.</param>
-            <param name="b">The second operand of the equality check.</param>
-            <returns>True if equal; False if not.</returns>
-        </member>
         <member name="T:Towel.Statics.SiftFromCompareAndValue`2">
             <summary>Built in Compare struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the values to compare.</typeparam>
@@ -31812,12 +31642,8 @@
         <member name="P:Towel.Statics.UniversalQuantification`1.Length">
             <summary>The number of values in this universal quantification.</summary>
         </member>
-        <member name="M:Towel.Statics.UniversalQuantification`1.Stepper(System.Action{`0})">
-            <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
-            <param name="step">The action to perform on every step of the iteration.</param>
-        </member>
-        <member name="M:Towel.Statics.UniversalQuantification`1.Stepper(System.Func{`0,Towel.StepStatus})">
-            <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
+        <member name="M:Towel.Statics.UniversalQuantification`1.StepperBreak``1(``0)">
+            <inheritdoc/>
         </member>
         <member name="P:Towel.Statics.UniversalQuantification`1.Item(System.Int32)">
             <summary>Index property for get/set operations.</summary>

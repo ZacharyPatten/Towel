@@ -13,7 +13,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void MapDelegates()
 		{
-			MapHashLinked<int, int> map = new();
+			IMap<int, int> map = MapHashLinked.New<int, int>();
 			for (int i = 0; i < N; i++)
 			{
 				map.TryAdd(i, i, out _);
@@ -55,15 +55,15 @@ namespace Towel_Benchmarking
 		[Params(10, 100, 1000, 10000)]
 		public int N;
 
-		MapHashLinked<int, int> mapHashLinked;
-		MapHashLinked<int, int, IntEquate, IntHash> mapHashLinkedStructs;
+		IMap<int, int> mapHashLinked;
+		IMap<int, int> mapHashLinkedStructs;
 		System.Collections.Generic.Dictionary<int, int> dictionary;
 		int temp;
 
 		[IterationSetup]
 		public void IterationSetup()
 		{
-			mapHashLinked = new MapHashLinked<int, int>();
+			mapHashLinked = MapHashLinked.New<int, int>();
 			mapHashLinkedStructs = new MapHashLinked<int, int, IntEquate, IntHash>();
 			dictionary = new System.Collections.Generic.Dictionary<int, int>();
 			for (int i = 0; i < N; i++)

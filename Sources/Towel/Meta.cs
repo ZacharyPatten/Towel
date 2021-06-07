@@ -837,7 +837,7 @@ namespace Towel
 
 			LoadXmlDocumentation(methodBase.DeclaringType.Assembly);
 
-			MapHashLinked<int, string> typeGenericMap = new();
+			MapHashLinked<int, string, StringEquate, StringHash> typeGenericMap = new();
 			Type[] typeGenericArguments = methodBase.DeclaringType.GetGenericArguments();
 			for (int i = 0; i < typeGenericArguments.Length; i++)
 			{
@@ -845,7 +845,7 @@ namespace Towel
 				typeGenericMap[typeGeneric.Name] = i;
 			}
 
-			MapHashLinked<int, string> methodGenericMap = new();
+			MapHashLinked<int, string, StringEquate, StringHash> methodGenericMap = new();
 			if (constructorInfo is null)
 			{
 				Type[] methodGenericArguments = methodBase.GetGenericArguments();
@@ -892,8 +892,8 @@ namespace Towel
 		internal static string GetXmlDocumenationFormattedString(
 			Type type,
 			bool isMethodParameter,
-			MapHashLinked<int, string> typeGenericMap,
-			MapHashLinked<int, string> methodGenericMap)
+			MapHashLinked<int, string, StringEquate, StringHash> typeGenericMap,
+			MapHashLinked<int, string, StringEquate, StringHash> methodGenericMap)
 		{
 			if (type.IsGenericParameter)
 			{
@@ -965,8 +965,8 @@ namespace Towel
 
 		#region GetXmlDocumentation
 
-		internal static SetHashLinked<Assembly> loadedAssemblies = new();
-		internal static MapHashLinked<string, string> loadedXmlDocumentation = new();
+		internal static SetHashLinked<Assembly, FuncRuntime<Assembly, Assembly, bool>, FuncRuntime<Assembly, int>> loadedAssemblies = SetHashLinked.New<Assembly>();
+		internal static MapHashLinked<string, string, StringEquate, StringHash> loadedXmlDocumentation = new();
 
 		internal static void LoadXmlDocumentation(Assembly assembly)
 		{

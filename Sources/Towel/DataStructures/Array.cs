@@ -110,21 +110,17 @@ namespace Towel.DataStructures
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<T> step) => _array.Stepper(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		public void Stepper(StepRef<T> step) => _array.Stepper(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, StepStatus> step) => _array.Stepper(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
 		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(step);
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			_array.StepperBreak(step);
 
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -263,9 +259,9 @@ namespace Towel.DataStructures
 
 		#region Stepper And IEnumerable
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<T> step)
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (int i = 0; i < _elements.Length; i++)
 			{
@@ -273,9 +269,13 @@ namespace Towel.DataStructures
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
-					step(array[j]);
+					if (step.Do(array[i]) is Break)
+					{
+						return Break;
+					}
 				}
 			}
+			return Continue;
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
@@ -291,26 +291,6 @@ namespace Towel.DataStructures
 					step(ref array[j]);
 				}
 			}
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, StepStatus> step)
-		{
-			for (int i = 0; i < _elements.Length; i++)
-			{
-				T[] array = _elements[i];
-				int arrayLength = array.Length;
-				for (int j = 0; j < arrayLength; j++)
-				{
-					if (step(array[i]) is Break)
-					{
-						return Break;
-					}
-				}
-			}
-			return Continue;
 		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>

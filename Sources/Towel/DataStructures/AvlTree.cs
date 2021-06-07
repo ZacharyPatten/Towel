@@ -4,19 +4,38 @@ using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
+	public interface IAvlTree<T> : ISortedBinaryTree<T>
+	{
+		// TODO
+	}
+
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 	public interface IAvlTree<T, TCompare> : ISortedBinaryTree<T, TCompare>
 		where TCompare : struct, IFunc<T, T, CompareResult> { }
 
-	/// <summary>Contains extensions methods for the AvlTree interface.</summary>
-	public static class AvlTree { }
+	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
+	public static class AvlTree
+	{
+		// TODO
+	}
+
+	/// <summary>Static helpers for <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
+	public static class AvlTreeLinked
+	{
+		/// <summary>Constructs a new <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <returns>The new constructed <see cref="AvlTreeLinked{T, TCompare}"/>.</returns>
+		public static AvlTreeLinked<T, FuncRuntime<T, T, CompareResult>> New<T>(
+			Func<T, T, CompareResult>? compare = null) =>
+			new(compare ?? Compare);
+	}
 
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public class AvlTreeLinked<T, TCompare> : IAvlTree<T, TCompare>
+	public class AvlTreeLinked<T, TCompare> : IAvlTree<T, TCompare>, IAvlTree<T>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal Node? _root;
@@ -157,7 +176,7 @@ namespace Towel.DataStructures
 					case Less:    node.RightChild = Add(node.RightChild); break;
 					case Greater: node.LeftChild  = Add(node.LeftChild);  break;
 					case Equal:
-						capturedException = new ArgumentException($"Adding to add a duplicate value to an {nameof(AvlTreeLinked<T>)}: {value}.", nameof(value));
+						capturedException = new ArgumentException($"Adding to add a duplicate value to an {nameof(AvlTreeLinked<T, TCompare>)}: {value}.", nameof(value));
 						return node;
 					default:
 						capturedException = compareResult.IsDefined()
@@ -747,58 +766,6 @@ namespace Towel.DataStructures
 			node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
 
 		#endregion
-
-		#endregion
-	}
-
-	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
-	/// <typeparam name="T">The generic type of values to store in the AVL tree.</typeparam>
-	public class AvlTreeLinked<T> : AvlTreeLinked<T, FuncRuntime<T, T, CompareResult>>
-	{
-		#region Constructors
-
-		/// <summary>
-		/// Constructs an AVL Tree.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="compare">The comparison function for sorting the items.</param>
-		public AvlTreeLinked(Func<T, T, CompareResult>? compare = null) : base(compare ?? Statics.Compare) { }
-
-		/// <summary>This constructor if for cloning purposes.</summary>
-		/// <param name="tree">The tree to clone.</param>
-		internal AvlTreeLinked(AvlTreeLinked<T> tree)
-		{
-			static Node Clone(Node node) =>
-				new(
-					value: node.Value,
-					height: node.Height,
-					leftChild: node.LeftChild is null ? null : Clone(node.LeftChild),
-					rightChild: node.RightChild is null ? null : Clone(node.RightChild));
-			_root = tree._root is null ? null : Clone(tree._root);
-			_count = tree._count;
-			_compare = tree._compare;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// The comparison function being utilized by this structure.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public Func<T, T, CompareResult> Compare => _compare._delegate;
-
-		#endregion
-
-		#region Clone
-
-		/// <summary>
-		/// Clones the AVL tree.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <returns>A clone of the AVL tree.</returns>
-		public new AvlTreeLinked<T> Clone() => new(this);
 
 		#endregion
 	}

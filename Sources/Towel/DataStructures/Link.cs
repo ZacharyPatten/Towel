@@ -107,7 +107,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -119,7 +119,7 @@ namespace Towel.DataStructures
 		{
 			yield return this._1;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -129,7 +129,7 @@ namespace Towel.DataStructures
 				typeof(T1)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -142,26 +142,18 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
@@ -170,7 +162,7 @@ namespace Towel.DataStructures
 				>((T1)this._1
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -289,21 +281,21 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
 			yield return this._1;
 		}
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.Generic.IEnumerator<object>
 			System.Collections.Generic.IEnumerable<object>.GetEnumerator()
 		{
 			yield return this._1;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -313,7 +305,7 @@ namespace Towel.DataStructures
 				typeof(T1)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -324,26 +316,17 @@ namespace Towel.DataStructures
 				return true;
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
@@ -352,7 +335,7 @@ namespace Towel.DataStructures
 				>((T1)this._1
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -501,7 +484,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -515,7 +498,7 @@ namespace Towel.DataStructures
 			yield return this._1;
 			yield return this._2;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -526,7 +509,7 @@ namespace Towel.DataStructures
 				, typeof(T2)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -543,31 +526,22 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
@@ -578,7 +552,7 @@ namespace Towel.DataStructures
 				, this._2
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -727,7 +701,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
@@ -735,7 +709,7 @@ namespace Towel.DataStructures
 			yield return this._1;
 			yield return this._2;
 		}
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.Generic.IEnumerator<object>
 			System.Collections.Generic.IEnumerable<object>.GetEnumerator()
@@ -743,7 +717,7 @@ namespace Towel.DataStructures
 			yield return this._1;
 			yield return this._2;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -754,7 +728,7 @@ namespace Towel.DataStructures
 				, typeof(T2)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -767,31 +741,21 @@ namespace Towel.DataStructures
 				return true;
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
@@ -802,7 +766,7 @@ namespace Towel.DataStructures
 				, this._2
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -982,7 +946,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -998,7 +962,7 @@ namespace Towel.DataStructures
 			yield return this._2;
 			yield return this._3;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -1010,7 +974,7 @@ namespace Towel.DataStructures
 				, typeof(T3)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -1031,36 +995,26 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
@@ -1073,7 +1027,7 @@ namespace Towel.DataStructures
 				, this._3
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -1254,7 +1208,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
@@ -1263,7 +1217,7 @@ namespace Towel.DataStructures
 			yield return this._2;
 			yield return this._3;
 		}
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.Generic.IEnumerator<object>
 			System.Collections.Generic.IEnumerable<object>.GetEnumerator()
@@ -1272,7 +1226,7 @@ namespace Towel.DataStructures
 			yield return this._2;
 			yield return this._3;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -1284,7 +1238,7 @@ namespace Towel.DataStructures
 				, typeof(T3)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -1299,36 +1253,25 @@ namespace Towel.DataStructures
 				return true;
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
@@ -1341,7 +1284,7 @@ namespace Towel.DataStructures
 				, this._3
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -1552,7 +1495,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -1570,7 +1513,7 @@ namespace Towel.DataStructures
 			yield return this._3;
 			yield return this._4;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -1583,7 +1526,7 @@ namespace Towel.DataStructures
 				, typeof(T4)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -1608,41 +1551,30 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
@@ -1657,7 +1589,7 @@ namespace Towel.DataStructures
 				, this._4
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -1872,7 +1804,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
@@ -1882,7 +1814,7 @@ namespace Towel.DataStructures
 			yield return this._3;
 			yield return this._4;
 		}
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.Generic.IEnumerator<object>
 			System.Collections.Generic.IEnumerable<object>.GetEnumerator()
@@ -1892,7 +1824,7 @@ namespace Towel.DataStructures
 			yield return this._3;
 			yield return this._4;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -1905,7 +1837,7 @@ namespace Towel.DataStructures
 				, typeof(T4)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -1922,41 +1854,29 @@ namespace Towel.DataStructures
 				return true;
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
@@ -1971,7 +1891,7 @@ namespace Towel.DataStructures
 				, this._4
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -2213,7 +2133,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -2233,7 +2153,7 @@ namespace Towel.DataStructures
 			yield return this._4;
 			yield return this._5;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -2247,7 +2167,7 @@ namespace Towel.DataStructures
 				, typeof(T5)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -2276,46 +2196,34 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-			function(this._5);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) is Break)
+			if (step.Do(_5) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
@@ -2332,7 +2240,7 @@ namespace Towel.DataStructures
 				, this._5
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -2583,7 +2491,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
@@ -2594,7 +2502,7 @@ namespace Towel.DataStructures
 			yield return this._4;
 			yield return this._5;
 		}
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.Generic.IEnumerator<object>
 			System.Collections.Generic.IEnumerable<object>.GetEnumerator()
@@ -2605,7 +2513,7 @@ namespace Towel.DataStructures
 			yield return this._4;
 			yield return this._5;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -2619,7 +2527,7 @@ namespace Towel.DataStructures
 				, typeof(T5)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -2638,46 +2546,33 @@ namespace Towel.DataStructures
 				return true;
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-			function(this._5);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) is Break)
+			if (step.Do(_5) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
@@ -2694,7 +2589,7 @@ namespace Towel.DataStructures
 				, this._5
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -2967,7 +2862,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -2989,7 +2884,7 @@ namespace Towel.DataStructures
 			yield return this._5;
 			yield return this._6;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -3004,7 +2899,7 @@ namespace Towel.DataStructures
 				, typeof(T6)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -3037,51 +2932,38 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-			function(this._5);
-			function(this._6);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) is Break)
+			if (step.Do(_5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) is Break)
+			if (step.Do(_6) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
@@ -3100,7 +2982,7 @@ namespace Towel.DataStructures
 				, this._6
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -3389,7 +3271,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
@@ -3401,7 +3283,7 @@ namespace Towel.DataStructures
 			yield return this._5;
 			yield return this._6;
 		}
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.Generic.IEnumerator<object>
 			System.Collections.Generic.IEnumerable<object>.GetEnumerator()
@@ -3413,7 +3295,7 @@ namespace Towel.DataStructures
 			yield return this._5;
 			yield return this._6;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -3428,7 +3310,7 @@ namespace Towel.DataStructures
 				, typeof(T6)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -3449,51 +3331,37 @@ namespace Towel.DataStructures
 				return true;
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-			function(this._5);
-			function(this._6);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) is Break)
+			if (step.Do(_5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) is Break)
+			if (step.Do(_6) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
@@ -3512,7 +3380,7 @@ namespace Towel.DataStructures
 				, this._6
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -3816,7 +3684,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
 		{
@@ -3840,7 +3708,7 @@ namespace Towel.DataStructures
 			yield return this._6;
 			yield return this._7;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -3856,7 +3724,7 @@ namespace Towel.DataStructures
 				, typeof(T7)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -3893,56 +3761,42 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-			function(this._5);
-			function(this._6);
-			function(this._7);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public	StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) is Break)
+			if (step.Do(_5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) is Break)
+			if (step.Do(_6) is Break)
 			{
 				return Break;
 			}
-			if (function(this._7) is Break)
+			if (step.Do(_7) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public	IDataStructure<object> Clone()
@@ -3963,7 +3817,7 @@ namespace Towel.DataStructures
 				, this._7
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()
@@ -4292,7 +4146,7 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.IEnumerator
 			System.Collections.IEnumerable.GetEnumerator()
@@ -4305,7 +4159,7 @@ namespace Towel.DataStructures
 			yield return this._6;
 			yield return this._7;
 		}
-		
+
 		/// <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
 		System.Collections.Generic.IEnumerator<object>
 			System.Collections.Generic.IEnumerable<object>.GetEnumerator()
@@ -4318,7 +4172,7 @@ namespace Towel.DataStructures
 			yield return this._6;
 			yield return this._7;
 		}
-		
+
 		/// <summary>Gets an array with all the types contained in this link in respective order.</summary>
 		/// <returns>An array of all the types in this link in respective order.</returns>
 		public System.Type[] Types()
@@ -4334,7 +4188,7 @@ namespace Towel.DataStructures
 				, typeof(T7)
 			};
 		}
-		
+
 		/// <summary>Checks to see if a given object is in this data structure.</summary>
 		/// <param name="item">The item to check for.</param>
 		/// <param name="compare">Delegate representing comparison technique.</param>
@@ -4357,56 +4211,41 @@ namespace Towel.DataStructures
 				return true;
 			return false;
 		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<object> function)
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<object, StepStatus>
 		{
-			function(this._1);
-			function(this._2);
-			function(this._3);
-			function(this._4);
-			function(this._5);
-			function(this._6);
-			function(this._7);
-		}
-		
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="function">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<object, StepStatus> function)
-		{
-			if (function(this._1) is Break)
+			if (step.Do(_1) is Break)
 			{
 				return Break;
 			}
-			if (function(this._2) is Break)
+			if (step.Do(_2) is Break)
 			{
 				return Break;
 			}
-			if (function(this._3) is Break)
+			if (step.Do(_3) is Break)
 			{
 				return Break;
 			}
-			if (function(this._4) is Break)
+			if (step.Do(_4) is Break)
 			{
 				return Break;
 			}
-			if (function(this._5) is Break)
+			if (step.Do(_5) is Break)
 			{
 				return Break;
 			}
-			if (function(this._6) is Break)
+			if (step.Do(_6) is Break)
 			{
 				return Break;
 			}
-			if (function(this._7) is Break)
+			if (step.Do(_7) is Break)
 			{
 				return Break;
 			}
 			return Continue;
 		}
-		
+
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public IDataStructure<object> Clone()
@@ -4427,7 +4266,7 @@ namespace Towel.DataStructures
 				, this._7
 				);
 		}
-		
+
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public	object[] ToArray()

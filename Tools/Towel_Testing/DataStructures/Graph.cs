@@ -14,7 +14,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AdjacentTest()
 		{
-			GraphMap<int> graph = new();
+			IGraph<int> graph = GraphMap.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -26,7 +26,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void NeighborsTest()
 		{
-			GraphMap<int> graph = new();
+			IGraph<int> graph = GraphMap.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -42,7 +42,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void RemoveTest()
 		{
-			GraphMap<int> graph = new();
+			IGraph<int> graph = GraphMap.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -57,7 +57,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AddPropertyTest()
 		{
-			GraphMap<int> graph = new();
+			IGraph<int> graph = GraphMap.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -75,7 +75,7 @@ namespace Towel_Testing.DataStructures
 			Assert.ThrowsException<ArgumentException>(
 				() =>
 				{
-					GraphMap<int> graph = new();
+					IGraph<int> graph = GraphMap.New<int>();
 					for (int i = 1; i <= 5; i++) graph.Add(i);
 					graph.Add(1, 5);
 					graph.Add(2, 5);
@@ -96,7 +96,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AdjacentTest()
 		{
-			GraphSetOmnitree<int> graph = new();
+			IGraph<int> graph = GraphSetOmnitree.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -108,7 +108,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void NeighborsTest()
 		{
-			GraphSetOmnitree<int> graph = new();
+			IGraph<int> graph = GraphSetOmnitree.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -124,7 +124,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void RemoveTest()
 		{
-			GraphSetOmnitree<int> graph = new();
+			IGraph<int> graph = GraphSetOmnitree.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -139,7 +139,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AddPropertyTest()
 		{
-			GraphSetOmnitree<int> graph = new();
+			IGraph<int> graph = GraphSetOmnitree.New<int>();
 			for (int i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5);
 			graph.Add(2, 5);
@@ -157,7 +157,7 @@ namespace Towel_Testing.DataStructures
 			Assert.ThrowsException<ArgumentException>(
 				() =>
 				{
-					GraphSetOmnitree<int> graph = new();
+					IGraph<int> graph = GraphSetOmnitree.New<int>();
 					for (int i = 1; i <= 5; i++) graph.Add(i);
 					graph.Add(1, 5);
 					graph.Add(2, 5);
@@ -178,7 +178,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AdjacentTest()
 		{
-			GraphWeightedMap<byte, int> graph = new();
+			IGraphWeighted<byte, int> graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -190,7 +190,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void NeighborsTest()
 		{
-			GraphWeightedMap<byte, int> graph = new();
+			IGraphWeighted<byte, int> graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -206,7 +206,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void RemoveTest()
 		{
-			GraphWeightedMap<byte, int> graph = new();
+			IGraphWeighted<byte, int> graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -221,7 +221,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void AddPropertyTest()
 		{
-			GraphWeightedMap<byte, int> graph = new();
+			IGraphWeighted<byte, int> graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -239,7 +239,7 @@ namespace Towel_Testing.DataStructures
 			Assert.ThrowsException<ArgumentException>(
 				() =>
 				{
-					GraphWeightedMap<byte, int> graph = new();
+					IGraphWeighted<byte, int> graph = GraphWeightedMap.New<byte, int>();
 					for (byte i = 1; i <= 5; i++) graph.Add(i);
 					graph.Add(1, 5, 1);
 					graph.Add(2, 5, 1);
@@ -252,18 +252,18 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void CloneTest()
 		{
-			GraphWeightedMap<int, float> g1=new();
-			g1.Add(7);
-			g1.Add(5);
+			var g1 = GraphWeightedMap.New<byte, int>();
+			g1.Add((byte)7);
+			g1.Add((byte)5);
 			g1.Add(7, 5, 13);
-			GraphWeightedMap<int, float> g2=new(g1);
+			var g2 = g1.Clone();
 			g2.Adjacent(7, 5, out var f);
-			Assert.IsTrue(f is 13f);
+			Assert.IsTrue(f is 13);
 		}
 		[TestMethod]
 		public void ToArrayTest()
 		{
-			GraphWeightedMap<byte, int> graph = new();
+			var graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			var array=graph.ToArray();
 			CollectionAssert.AreEquivalent(new byte[]{1,2,3,4,5}, array);
@@ -271,7 +271,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void EdgesToArrayTest()
 		{
-			GraphWeightedMap<byte, int> graph = new();
+			IGraphWeighted<byte, int> graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -280,13 +280,13 @@ namespace Towel_Testing.DataStructures
 			graph.Add(1, 2, 1);
 			graph.Add(2, 3, 1);
 			graph.Add(3, 4, 1);
-			var array=graph.EdgesToArray();
+			var array = graph.EdgesToArray();
 			CollectionAssert.AreEquivalent(new (byte, byte)[]{(1,5),(2,5),(3,5),(4,5),(1,2),(2,3),(3,4)}, array);
 		}
 		[TestMethod]
 		public void EdgesAndWeightsToArrayTest()
 		{
-			GraphWeightedMap<byte, int> graph = new();
+			IGraphWeighted<byte, int> graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			graph.Add(1, 5, 1);
 			graph.Add(2, 5, 1);
@@ -295,7 +295,7 @@ namespace Towel_Testing.DataStructures
 			graph.Add(1, 2, 1);
 			graph.Add(2, 3, 1);
 			graph.Add(3, 4, 1);
-			var array=graph.EdgesAndWeightsToArray();
+			var array = graph.EdgesAndWeightsToArray();
 			CollectionAssert.AreEquivalent(new (byte, byte, int)[]{(1,5,1),(2,5,1),(3,5,1),(4,5,1),(1,2,1),(2,3,1),(3,4,1)}, array);
 		}
 		#endregion

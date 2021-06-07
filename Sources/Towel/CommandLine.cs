@@ -70,7 +70,7 @@ namespace Towel
 				throw new Exception("syntax error: relative command not static");
 			}
 
-			MapHashLinked<int, string> parameterMap = new();
+			MapHashLinked<int, string, StringEquate, StringHash> parameterMap = new();
 			int parameterCount = 0;
 			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 			foreach (ParameterInfo parameterInfo in parameterInfos)

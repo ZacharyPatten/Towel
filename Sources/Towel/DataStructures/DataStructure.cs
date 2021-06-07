@@ -7,14 +7,12 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IDataStructure<T> : IEnumerable<T>
 	{
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void Stepper(Action<T> step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus Stepper(Func<T, StepStatus> step);
+		/// <summary>Traverses the data structure and invokes a function on every <typeparamref name="T"/> value.</summary>
+		/// <typeparam name="TStep">The function to invoke on every <typeparamref name="T"/> value in the data structure.</typeparam>
+		/// <param name="step">The function to invoke on every <typeparamref name="T"/> value in the data structure.</param>
+		/// <returns>The status of the traversal.</returns>
+		StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>;
 	}
 
 	/// <summary>Contains extension methods for the Structure interface.</summary>
@@ -63,12 +61,14 @@ namespace Towel.DataStructures
 			bool Contains(T value);
 		}
 
-		/// <summary>Property of a data structure (does it have a Hash property).</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IHashing<T>
+		/// <summary>Represents a type that is hashing values of type <typeparamref name="T"/>.</summary>
+		/// <typeparam name="T">The type of values this type is hashing.</typeparam>
+		/// <typeparam name="THash">The type that is hashing <typeparamref name="T"/> values.</typeparam>
+		public interface IHashing<T, THash>
+			where THash : struct, IFunc<T, int>
 		{
-			/// <summary>Gets the hashing function being used by the data structure.</summary>
-			Func<T, int> Hash { get; }
+			/// <summary>Gets the value of the type that is hashing <typeparamref name="T"/> values.</summary>
+			THash Hash { get; }
 		}
 
 		/// <summary>Represents a type that is comparing values of type <typeparamref name="T"/>.</summary>
@@ -117,12 +117,14 @@ namespace Towel.DataStructures
 			void Clear();
 		}
 
-		/// <summary>Property of a data structure (does it have a Equate property).</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IEquating<T>
+		/// <summary>Represents a type that is equality checking values of type <typeparamref name="T"/>.</summary>
+		/// <typeparam name="T">The type of values this type is equality checking.</typeparam>
+		/// <typeparam name="TEquate">The type that is equality checking <typeparamref name="T"/> values.</typeparam>
+		public interface IEquating<T, TEquate>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
-			/// <summary>Gets the equating function of the data structure.</summary>
-			Func<T, T, bool> Equate { get; }
+			/// <summary>Gets the value of the type that is checking <typeparamref name="T"/> values for equality.</summary>
+			TEquate Equate { get; }
 		}
 
 		/// <summary>Property of a data structure (does it have a Stepper ref method).</summary>
@@ -142,6 +144,19 @@ namespace Towel.DataStructures
 
 		#region Extension Methods
 
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public static void Stepper<T>(this IDataStructure<T> dataStructure, Action<T> step) =>
+			dataStructure.Stepper<T, ActionRuntime<T>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public static void Stepper<T, TStep>(this IDataStructure<T> dataStructure, TStep step = default)
+			where TStep : struct, IAction<T> =>
+			dataStructure.StepperBreak<StepBreakFromAction<T, TStep>>(step);
+
+		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		public static StepStatus StepperBreak<T>(this IDataStructure<T> dataStructure, Func<T, StepStatus> step) =>
+			dataStructure.StepperBreak<FuncRuntime<T, StepStatus>>(step);
+
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
 		public static Action<Action<T>> Stepper<T>(this IDataStructure<T> dataStructure) =>
@@ -150,7 +165,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>
 		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T>(this IDataStructure<T> dataStructure) =>
-			dataStructure.Stepper;
+			dataStructure.StepperBreak;
 
 		/// <summary>Adds a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -168,7 +183,7 @@ namespace Towel.DataStructures
 		{
 			if (!structure.TryAdd(value, out Exception? exception))
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 
@@ -188,7 +203,7 @@ namespace Towel.DataStructures
 		{
 			if (!structure.TryRemove(value, out Exception? exception))
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Remove)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Remove)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 

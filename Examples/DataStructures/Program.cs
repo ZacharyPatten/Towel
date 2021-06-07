@@ -322,7 +322,7 @@ namespace DataStructures
 				Console.WriteLine("    It is very similar to an Red Black tree, but uses a different sorting algorithm.");
 				Console.WriteLine();
 
-				AvlTreeLinked<int> avlTree = new();
+				IAvlTree<int> avlTree = AvlTreeLinked.New<int>();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -379,7 +379,7 @@ namespace DataStructures
 				Console.WriteLine("    It is very similar to an AVL tree, but uses a different sorting algorithm.");
 				Console.WriteLine();
 
-				RedBlackTreeLinked<int> redBlackTree = new();
+				IRedBlackTree<int> redBlackTree = RedBlackTreeLinked.New<int>();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -443,7 +443,7 @@ namespace DataStructures
 				Console.WriteLine("    been added to the set.");
 				Console.WriteLine();
 
-				ISet<int> setHashLinked = new SetHashLinked<int>();
+				ISet<int> setHashLinked = SetHashLinked.New<int>();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -483,7 +483,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				// Note: the first generic is the value, the second is the key
-				IMap<string, int> mapHashLinked = new MapHashLinked<string, int>();
+				IMap<string, int> mapHashLinked = MapHashLinked.New<string, int>();
 
 				Console.WriteLine("    Let's map each int to its word representation (ex 1 -> One).");
 
@@ -763,7 +763,7 @@ namespace DataStructures
 				Console.WriteLine("    in a Set and edges are stored in an Omnitree (aka Quadtree).");
 				Console.WriteLine();
 
-				IGraph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
+				IGraph<int> graphSetOmnitree = GraphSetOmnitree.New<int>();
 
 				Console.WriteLine($"    Adding Nodes (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -844,7 +844,7 @@ namespace DataStructures
 					"nine",
 				};
 
-				ITrie<char, int> trie = new TrieLinkedHashLinked<char, int>();
+				ITrie<char, int> trie = TrieLinkedHashLinked.New<char, int>();
 
 				Console.WriteLine("    Adding...");
 				for (int i = 0; i < strings.Length; i++)

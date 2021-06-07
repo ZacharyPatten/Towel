@@ -51,7 +51,7 @@ namespace Towel_Testing.DataStructures
 				IStack<int> stack = new Stack();
 				values.Stepper(i => stack.Push(i));
 				Assert.IsTrue(stack.Stepper().Count() == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
 				{
@@ -68,7 +68,7 @@ namespace Towel_Testing.DataStructures
 				stack.Pop();
 				stack.Pop();
 				Assert.IsTrue(stack.Stepper().Count() == expectedValues.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
 				{
@@ -87,7 +87,7 @@ namespace Towel_Testing.DataStructures
 					stack.Push(i);
 				});
 				Assert.IsTrue(stack.Stepper().Count() == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
 				{
@@ -106,7 +106,7 @@ namespace Towel_Testing.DataStructures
 				IStack<int> stack = new Stack();
 				values.Stepper(i => stack.Push(i));
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in stack)
 				{
@@ -123,7 +123,7 @@ namespace Towel_Testing.DataStructures
 				stack.Pop();
 				stack.Pop();
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == expectedValues.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				foreach (int i in stack)
 				{
@@ -142,7 +142,7 @@ namespace Towel_Testing.DataStructures
 					stack.Push(i);
 				});
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in stack)
 				{

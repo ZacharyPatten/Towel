@@ -5,6 +5,30 @@ namespace Towel
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics
 	{
+		#region Int32
+
+		public struct IntHash : IFunc<int, int> { public int Do(int a) => a; }
+		public struct IntEquate : IFunc<int, int, bool> { public bool Do(int a, int b) => a == b; }
+		public struct IntCompare : IFunc<int, int, CompareResult> { public CompareResult Do(int a, int b) => ToCompareResult(a.CompareTo(b)); }
+		internal struct IntIncrement : IFunc<int, int> { public int Do(int a) => a + 1; }
+		internal struct IntDecrement : IFunc<int, int> { public int Do(int a) => a - 1; }
+
+		#endregion
+
+		#region Char
+
+		public struct CharEquate : IFunc<char, char, bool> { public bool Do(char a, char b) => a == b; }
+		public struct CharHash : IFunc<char, int> { public int Do(char a) => a; }
+
+		#endregion
+
+		#region String
+
+		public struct StringEquate : IFunc<string, string, bool> { public bool Do(string a, string b) => a == b; }
+		public struct StringHash : IFunc<string, int> { public int Do(string a) => a.GetHashCode(); }
+
+		#endregion
+
 		internal struct FillArray<T> : IAction<T>
 		{
 			int Index;
@@ -15,42 +39,12 @@ namespace Towel
 			public static implicit operator FillArray<T>(T[] array) => new() { Array = array, };
 		}
 
-		public struct IntHash : IFunc<int, int>
-		{
-			public int Do(int a) => a;
-		}
-
-		public struct IntEquate : IFunc<int, int, bool>
-		{
-			public bool Do(int a, int b) => a == b;
-		}
-
-		/// <summary>Default int compare.</summary>
-		public struct IntCompare : IFunc<int, int, CompareResult>
-		{
-			/// <summary>Default int compare.</summary>
-			/// <param name="a">The left hand side of the compare.</param>
-			/// <param name="b">The right ahnd side of the compare.</param>
-			/// <returns>The result of the comparison.</returns>
-			public CompareResult Do(int a, int b) => ToCompareResult(a.CompareTo(b));
-		}
-
 		public struct CompareInvert<T, Compare> : IFunc<T, T, CompareResult>
 			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			Compare _compare;
 			public CompareResult Do(T a, T b) => _compare.Do(b, a);
 			public static implicit operator CompareInvert<T, Compare>(Compare compare) => new() { _compare = compare, };
-		}
-
-		/// <summary>Compares two char values for equality.</summary>
-		public struct CharEquate : IFunc<char, char, bool>
-		{
-			/// <summary>Compares two char values for equality.</summary>
-			/// <param name="a">The first operand of the equality check.</param>
-			/// <param name="b">The second operand of the equality check.</param>
-			/// <returns>True if equal; False if not.</returns>
-			public bool Do(char a, char b) => a == b;
 		}
 
 		/// <summary>Built in Compare struct for runtime computations.</summary>
@@ -118,16 +112,6 @@ namespace Towel
 			public T Do(int index1, int index2) => JaggedArray[index1][index2];
 
 			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
-		}
-
-		internal struct IntIncrement : IFunc<int, int>
-		{
-			public int Do(int a) => a + 1;
-		}
-
-		internal struct IntDecrement : IFunc<int, int>
-		{
-			public int Do(int a) => a - 1;
 		}
 	}
 }

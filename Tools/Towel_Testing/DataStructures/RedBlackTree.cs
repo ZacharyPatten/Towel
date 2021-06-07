@@ -11,13 +11,13 @@ namespace Towel_Testing.DataStructures
 		{
 			// adding duplicate values should return false
 			{
-				RedBlackTreeLinked<int> tree = new();
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
 				Assert.IsTrue(tree.TryAdd(1));
 				Assert.IsFalse(tree.TryAdd(1));
 			}
 			// normal add checking
 			{
-				RedBlackTreeLinked<int> tree = new();
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
 				Assert.IsTrue(tree.TryAdd(1));
 				Assert.IsTrue(tree.TryAdd(2));
 				Assert.IsTrue(tree.TryAdd(3));
@@ -27,7 +27,7 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(tree.Contains(3));
 			}
 			{
-				RedBlackTreeLinked<int> tree = new();
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
 				Extensions.Iterate(100, i => tree.TryAdd(i));
 				Assert.IsTrue(tree.Count == 100);
 				Extensions.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
@@ -38,19 +38,23 @@ namespace Towel_Testing.DataStructures
 		{
 			// adding duplicate values should throw exceptions
 			{
-				RedBlackTreeLinked<int> tree = new() { 1, };
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				tree.Add(1);
 				Assert.ThrowsException<ArgumentException>(() => tree.Add(1));
 			}
 			// normal add checking
 			{
-				RedBlackTreeLinked<int> tree = new() { 1, 2, 3, };
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				tree.Add(1);
+				tree.Add(2);
+				tree.Add(3);
 				Assert.IsTrue(tree.Count == 3);
 				Assert.IsTrue(tree.Contains(1));
 				Assert.IsTrue(tree.Contains(2));
 				Assert.IsTrue(tree.Contains(3));
 			}
 			{
-				RedBlackTreeLinked<int> tree = new();
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
 				Extensions.Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count == 100);
 				Extensions.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
@@ -61,12 +65,17 @@ namespace Towel_Testing.DataStructures
 		{
 			// removing a non-existing value should return false
 			{
-				RedBlackTreeLinked<int> tree = new() { 1, 3, };
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				tree.Add(1);
+				tree.Add(3);
 				Assert.IsFalse(tree.TryRemove(2));
 			}
 			// normal remove checking
 			{
-				RedBlackTreeLinked<int> tree = new() { 1, 2, 3, };
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				tree.Add(1);
+				tree.Add(2);
+				tree.Add(3);
 				Assert.IsTrue(tree.Count == 3);
 				Assert.IsTrue(tree.TryRemove(1));
 				Assert.IsFalse(tree.Contains(1));
@@ -79,7 +88,7 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(tree.Count == 0);
 			}
 			{
-				RedBlackTreeLinked<int> tree = new();
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
 				Extensions.Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count == 100);
 				Extensions.Iterate(100, i => tree.TryRemove(i));
@@ -91,12 +100,17 @@ namespace Towel_Testing.DataStructures
 		{
 			// removing a non-existing value should throw exceptions
 			{
-				RedBlackTreeLinked<int> tree = new() { 1, 3, };
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				tree.Add(1);
+				tree.Add(3);
 				Assert.ThrowsException<ArgumentException>(() => tree.Remove(2));
 			}
 			// normal remove checking
 			{
-				RedBlackTreeLinked<int> tree = new() { 1, 2, 3, };
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				tree.Add(1);
+				tree.Add(2);
+				tree.Add(3);
 				Assert.IsTrue(tree.Count == 3);
 				tree.Remove(1);
 				Assert.IsFalse(tree.Contains(1));
@@ -109,7 +123,7 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(tree.Count == 0);
 			}
 			{
-				RedBlackTreeLinked<int> tree = new();
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
 				Extensions.Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count == 100);
 				Extensions.Iterate(100, i => tree.Remove(i));

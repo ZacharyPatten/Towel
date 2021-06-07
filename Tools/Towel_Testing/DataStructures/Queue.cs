@@ -50,7 +50,7 @@ namespace Towel_Testing.DataStructures
 				IQueue<int> queue = new Queue();
 				values.Stepper(i => queue.Enqueue(i));
 				Assert.IsTrue(queue.Stepper().Count() == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				queue.Stepper(i =>
 				{
@@ -67,7 +67,7 @@ namespace Towel_Testing.DataStructures
 				queue.Dequeue();
 				queue.Dequeue();
 				Assert.IsTrue(queue.Stepper().Count() == expectedValues.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				queue.Stepper(i =>
 				{
@@ -86,7 +86,7 @@ namespace Towel_Testing.DataStructures
 					queue.Enqueue(i);
 				});
 				Assert.IsTrue(queue.Stepper().Count() == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				queue.Stepper(i =>
 				{
@@ -105,7 +105,7 @@ namespace Towel_Testing.DataStructures
 				IQueue<int> queue = new Queue();
 				values.Stepper(i => queue.Enqueue(i));
 				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in queue)
 				{
@@ -122,7 +122,7 @@ namespace Towel_Testing.DataStructures
 				queue.Dequeue();
 				queue.Dequeue();
 				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == expectedValues.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				foreach (int i in queue)
 				{
@@ -141,7 +141,7 @@ namespace Towel_Testing.DataStructures
 					queue.Enqueue(i);
 				});
 				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in queue)
 				{

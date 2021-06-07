@@ -36,16 +36,17 @@ namespace GraphSearch
 				//    (edge costs in parenthases)
 
 				// make a graph
-				IGraph<int> graph = new GraphSetOmnitree<int>()
-				{
-					// add nodes
-					0, 1, 2, 3,
-					// add edges
-					{ 0, 1 },
-					{ 1, 2 },
-					{ 2, 3 },
-					{ 0, 3 },
-				};
+				IGraph<int> graph = GraphSetOmnitree.New<int>();
+				// add nodes
+				graph.Add(0);
+				graph.Add(1);
+				graph.Add(2);
+				graph.Add(3);
+				// add edges
+				graph.Add(0, 1);
+				graph.Add(1, 2);
+				graph.Add(2, 3);
+				graph.Add(0, 3);
 
 				// make a heuristic function
 				static int Heuristic(int node) => node switch
@@ -178,7 +179,7 @@ namespace GraphSearch
 
 				// Make Path Finding Functions
 
-				SetHashLinked<Vector2> alreadyUsed = new();
+				ISet<Vector2> alreadyUsed = SetHashLinked.New<Vector2>();
 
 				void Neighbors(Vector2 currentLocation, Action<Vector2> neighbors)
 				{
@@ -280,7 +281,7 @@ namespace GraphSearch
 				float rockRadius = 20f;
 
 				// Make sure we don't re-use locations (must be wiped after running the algorithm)
-				ISet<Vector<float>> alreadyUsed = new SetHashLinked<Vector<float>>();
+				ISet<Vector<float>> alreadyUsed = SetHashLinked.New<Vector<float>>();
 
 				Vector<float> validationVectorStorage = null; // storage to prevent a ton of vectors from being allocated
 

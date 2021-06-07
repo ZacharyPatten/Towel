@@ -2596,7 +2596,7 @@ namespace Towel.Mathematics
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
 		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, StepStatus> step) => _matrix.Stepper(step);
+		public StepStatus Stepper(Func<T, StepStatus> step) => _matrix.StepperBreak(step);
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>

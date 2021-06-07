@@ -362,7 +362,7 @@ namespace Towel_Generating
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"	/// <typeparam name=""Axis{j}"">The generic type of the {j}D axis.</typeparam>");
-					code.AppendLine($@"	/// <typeparam name=""Locate{j}"">The function this tree is using to locate <typeparamref name=""T""/>'s along the {i}D axis.</typeparam>");
+					code.AppendLine($@"	/// <typeparam name=""Locate{j}"">The function this tree is using to locate <typeparamref name=""T""/>'s along the {j}D axis.</typeparam>");
 					code.AppendLine($@"	/// <typeparam name=""Compare{j}"">The function this tree is using to compare <typeparamref name=""T""/>'s along the {j}D axis.</typeparam>");
 					code.AppendLine($@"	/// <typeparam name=""Subdivide{j}"">The function this tree is using to subdivide <typeparamref name=""T""/>'s along the {j}D axis.</typeparam>");
 				}
@@ -408,7 +408,7 @@ namespace Towel_Generating
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"	/// <typeparam name=""Axis{j}"">The generic type of the {j}D axis.</typeparam>");
-					code.AppendLine($@"	/// <typeparam name=""Locate{j}"">The function this tree is using to locate <typeparamref name=""T""/>'s along the {i}D axis.</typeparam>");
+					code.AppendLine($@"	/// <typeparam name=""Locate{j}"">The function this tree is using to locate <typeparamref name=""T""/>'s along the {j}D axis.</typeparam>");
 					code.AppendLine($@"	/// <typeparam name=""Compare{j}"">The function this tree is using to compare <typeparamref name=""T""/>'s along the {j}D axis.</typeparam>");
 					code.AppendLine($@"	/// <typeparam name=""Subdivide{j}"">The function this tree is using to subdivide <typeparamref name=""T""/>'s along the {j}D axis.</typeparam>");
 				}
@@ -858,12 +858,12 @@ namespace Towel_Generating
 
 				code.AppendLine($@"		#region Add");
 				code.AppendLine($@"");
-				code.AppendLine($@"		public (bool Success, Exception? Exception) TryAdd(T value)");
+				code.AppendLine($@"		public bool TryAdd(T value, out Exception? exception)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (_top.Count is int.MaxValue)");
 				code.AppendLine($@"			{{");
-				code.AppendLine($@"				System.InvalidOperationException exception = new(""Omnitree.Count is int.MaxValue"");");
-				code.AppendLine($@"				return (false, exception);");
+				code.AppendLine($@"				exception = new(""Omnitree.Count is int.MaxValue"");");
+				code.AppendLine($@"				return false;");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
 				code.AppendLine($@"			Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> location = FullLocate(value);");
@@ -876,7 +876,8 @@ namespace Towel_Generating
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			Add(value, _top, location, 0);");
-				code.AppendLine($@"			return (true, null);");
+				code.AppendLine($@"			exception = null;");
+				code.AppendLine($@"			return true;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Recursive version of the add function.</summary>");
@@ -2022,10 +2023,8 @@ namespace Towel_Generating
 				code.AppendLine($@"		#warning Not Implemented Methods");
 
 				code.AppendLine($@"		public void Remove(T removal, Func<T, T, bool> equate) => throw new NotImplementedException();");
-				code.AppendLine($@"		public StepStatus Stepper(Func<T, StepStatus> step) => throw new NotImplementedException();");
 				code.AppendLine($@"		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => throw new NotImplementedException();");
 				code.AppendLine($@"		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => throw new NotImplementedException();");
-				code.AppendLine($@"		public bool TryAdd(T value, out Exception exception) => throw new NotImplementedException();");
 				code.AppendLine($@"		public bool TryRemove(T value, out Exception exception) => throw new NotImplementedException();");
 
 				code.AppendLine($@"");

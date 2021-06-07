@@ -4,16 +4,13 @@ namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
-	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public interface ISortedBinaryTree<T, TCompare> : IDataStructure<T>,
+	public interface ISortedBinaryTree<T> : IDataStructure<T>,
 		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.IRemovable<T>,
 		DataStructure.ICountable,
 		DataStructure.IClearable,
-		DataStructure.IComparing<T, TCompare>,
 		DataStructure.IAuditable<T>
-		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		#region Members
 
@@ -106,6 +103,16 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
+	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public interface ISortedBinaryTree<T, TCompare> : ISortedBinaryTree<T>,
+		DataStructure.IComparing<T, TCompare>
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+		// TODO
+	}
+
 	/// <summary>Contains extensions methods for the SortedBinaryTree interface.</summary>
 	public static class SortedBinaryTree
 	{
@@ -177,7 +184,7 @@ namespace Towel.DataStructures
 		/// <returns>The stepper of the traversal.</returns>
 		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T, TCompare>(this ISortedBinaryTree<T, TCompare> tree)
 			where TCompare : struct, IFunc<T, T, CompareResult> =>
-			tree.Stepper;
+			tree.StepperBreak;
 
 		/// <summary>Gets a traversal stepper for the tree.</summary>
 		/// <typeparam name="T">The generic type of this data structure.</typeparam>

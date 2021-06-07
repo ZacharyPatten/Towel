@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Towel.Mathematics;
 using Towel.DataStructures;
+using static Towel.Statics;
 
 namespace Towel.Measurements
 {
@@ -66,7 +67,7 @@ namespace Towel.Measurements
 			// make a regex pattern with all the currently supported unit types and
 			// build the unit string to unit type string map
 			IList<string> strings = new ListArray<string>();
-			IMap<string, string> unitStringToUnitTypeString = new MapHashLinked<string, string>();
+			IMap<string, string> unitStringToUnitTypeString = new MapHashLinked<string, string, StringEquate, StringHash>();
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
 			{
 				if (!type.IsEnum)
@@ -90,7 +91,7 @@ namespace Towel.Measurements
 			UnitStringToUnitTypeString = unitStringToUnitTypeString;
 
 			// make the Enum arrays to units map
-			IMap<Enum, string> unitStringToEnumMap = new MapHashLinked<Enum, string>();
+			IMap<Enum, string> unitStringToEnumMap = new MapHashLinked<Enum, string, StringEquate, StringHash>();
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
 			{
 				foreach (Enum @enum in Enum.GetValues(type))
@@ -111,7 +112,7 @@ namespace Towel.Measurements
 			internal static void BuildTypeSpecificParsingLibrary()
 			{
 				// make the delegates for constructing the measurements
-				IMap<Func<T, object[], object>, string> unitsStringsToFactoryFunctions = new MapHashLinked<Func<T, object[], object>, string>();
+				IMap<Func<T, object[], object>, string> unitsStringsToFactoryFunctions = new MapHashLinked<Func<T, object[], object>, string, StringEquate, StringHash>();
 				foreach (MethodInfo methodInfo in typeof(ParsingFunctions).GetMethods())
 				{
 					if (methodInfo.DeclaringType == typeof(ParsingFunctions))

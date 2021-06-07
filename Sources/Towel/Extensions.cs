@@ -105,7 +105,7 @@ namespace Towel
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
 			}
 
-			SetHashLinked<char> set = new();
+			SetHashLinked<char, CharEquate, CharHash> set = new();
 			foreach (char c in chars)
 			{
 				set.Add(c);
@@ -424,7 +424,7 @@ namespace Towel
 		/// <param name="array">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, Func<T, StepStatus> step) =>
+		public static StepStatus StepperBreak<T>(this T[] array, Func<T, StepStatus> step) =>
 			StepperBreak<T, StepBreakRuntime<T>>(array, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
@@ -959,7 +959,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this Func<Func<T, StepStatus>, StepStatus> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
-			SetHashLinked<T> set = new(equate, hash);
+			var set = SetHashLinked.New(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))
@@ -986,7 +986,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
-			SetHashLinked<T> set = new(equate, hash);
+			var set = SetHashLinked.New(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))

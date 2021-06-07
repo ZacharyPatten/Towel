@@ -84,7 +84,6 @@ namespace Towel.DataStructures
 		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
-		DataStructure.IEquating<T>,
 		DataStructure.IAddable<Action<Action<T>>>,
 		DataStructure.IRemovable<Action<Action<T>>>
 	{
@@ -98,20 +97,44 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
+	/// <summary>Static helpers.</summary>
+	public static class TrieLinkedHashLinked
+	{
+		/// <summary>Constructs a new <see cref="TrieLinkedHashLinked{T, TEquate, THash}"/>.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <returns>The new constructed <see cref="TrieLinkedHashLinked{T, TEquate, THash}"/>.</returns>
+		public static TrieLinkedHashLinked<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>> New<T>(
+			Func<T, T, bool>? equate = null,
+			Func<T, int>? hash = null) =>
+			new(equate ?? Equate, hash ?? DefaultHash);
+
+		/// <summary>Constructs a new <see cref="TrieLinkedHashLinked{T, D, TEquate, THash}"/>.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
+		/// <returns>The new constructed <see cref="TrieLinkedHashLinked{T, D, TEquate, THash}"/>.</returns>
+		public static TrieLinkedHashLinked<T, D, FuncRuntime<T, T, bool>, FuncRuntime<T, int>> New<T, D>(
+			Func<T, T, bool>? equate = null,
+			Func<T, int>? hash = null) =>
+			new(equate ?? Equate, hash ?? DefaultHash);
+	}
+
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
-	public class TrieLinkedHashLinked<T> : ITrie<T>,
+	public class TrieLinkedHashLinked<T, TEquate, THash> : ITrie<T>,
 		// Structure Properties
-		DataStructure.IHashing<T>
+		DataStructure.IEquating<T, TEquate>,
+		DataStructure.IHashing<T, THash>
+		where TEquate : struct, IFunc<T, T, bool>
+		where THash : struct, IFunc<T, int>
 	{ 
-		internal MapHashLinked<Node, T> _map;
+		internal MapHashLinked<Node, T, TEquate, THash> _map;
 		internal int _count;
 
 		#region Node
 
 		internal class Node
 		{
-			internal MapHashLinked<Node, T>? Map;
+			internal MapHashLinked<Node, T, TEquate, THash>? Map;
 			internal bool IsLeaf;
 			internal int Count;
 		}
@@ -123,12 +146,10 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
+		public TrieLinkedHashLinked(TEquate equate = default, THash hash = default)
 		{
 			_count = 0;
-			_map = new MapHashLinked<Node, T>(
-				equate ?? Statics.Equate,
-				hash ?? DefaultHash);
+			_map = new(equate, hash);
 		}
 
 		#endregion
@@ -138,9 +159,9 @@ namespace Towel.DataStructures
 		/// <summary>The current count of the trie.</summary>
 		public int Count => _count;
 		/// <summary>The equality function of the keys.</summary>
-		public Func<T, T, bool> Equate => _map.Equate;
+		public TEquate Equate => _map.Equate;
 		/// <summary>The hash fucntion for the keys.</summary>
-		public Func<T, int> Hash => _map.Hash;
+		public THash Hash => _map.Hash;
 
 		#endregion
 
@@ -163,16 +184,14 @@ namespace Towel.DataStructures
 			Node? node = null;
 			stepper(key =>
 			{
-				MapHashLinked<Node, T>? map = node is null
-					? _map
-					: node.Map;
+				var map = node is null ? _map : node.Map;
 				if (map.Contains(key))
 				{
 					node = map[key];
 				}
 				else
 				{
-					Node temp = new() { Map = new MapHashLinked<Node, T>(Equate, Hash) };
+					Node temp = new() { Map = new(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -213,17 +232,15 @@ namespace Towel.DataStructures
 				exception = new ArgumentNullException(nameof(stepper));
 				return false;
 			}
-			IStack<(T, MapHashLinked<Node, T>, Node)> pathStack = new StackLinked<(T, MapHashLinked<Node, T>, Node)>();
+			var pathStack = new StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)>();
 			T finalKey = default;
-			MapHashLinked<Node, T>? finalMap = null;
+			MapHashLinked<Node, T, TEquate, THash>? finalMap = null;
 			Node? node = null;
 			Exception? capturedException = null;
 			stepper(key =>
 			{
 				finalKey = key;
-				finalMap = node is null
-					? _map
-					: node.Map;
+				finalMap = node is null ? _map : node.Map;
 				if (finalMap.Contains(key))
 				{
 					node = finalMap[key];
@@ -291,7 +308,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					MapHashLinked<Node, T>? map = node is null
+					var map = node is null
 						? _map
 						: node.Map;
 					if (map.Contains(key))
@@ -315,7 +332,7 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Returns the trie to an empty state.</summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_count = 0;
@@ -326,34 +343,15 @@ namespace Towel.DataStructures
 
 		#region Stepper And IEnumerable
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<Action<Action<T>>> step)
-		{
-			void Stepper(Node node, Action<Action<T>> stepper)
-			{
-				if (node.IsLeaf)
-				{
-					step(stepper);
-				}
-				node.Map.Pairs(pair =>
-				{
-					Stepper(pair.Value, x => { stepper(x); x(pair.Key); });
-				});
-			}
-			_map.Pairs(pair => Stepper(pair.Value, x => x(pair.Key)));
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<Action<Action<T>>, StepStatus> step)
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<Action<Action<T>>, StepStatus>
 		{
 			StepStatus Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.IsLeaf)
 				{
-					if (step(stepper) is Break)
+					if (step.Do(stepper) is Break)
 					{
 						return Break;
 					}
@@ -374,7 +372,7 @@ namespace Towel.DataStructures
 		public System.Collections.Generic.IEnumerator<Action<Action<T>>> GetEnumerator()
 		{
 			IList<Action<Action<T>>> list = new ListLinked<Action<Action<T>>>();
-			Stepper(x => list.Add(x));
+			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
 		}
 
@@ -389,8 +387,7 @@ namespace Towel.DataStructures
 	public interface ITrie<T, D> : IDataStructure<Action<Action<T>>>,
 		// Structure Properties
 		DataStructure.ICountable,
-		DataStructure.IClearable,
-		DataStructure.IEquating<T>
+		DataStructure.IClearable
 	{
 		#region Members
 
@@ -434,21 +431,23 @@ namespace Towel.DataStructures
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
-	public class TrieLinkedHashLinked<T, D> : ITrie<T, D>,
+	public class TrieLinkedHashLinked<T, D, TEquate, THash> : ITrie<T, D>,
 		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
-		DataStructure.IEquating<T>,
-		DataStructure.IHashing<T>
+		DataStructure.IEquating<T, TEquate>,
+		DataStructure.IHashing<T, THash>
+		where TEquate : struct, IFunc<T, T, bool>
+		where THash : struct, IFunc<T, int>
 	{
-		internal MapHashLinked<Node, T> _map;
+		internal MapHashLinked<Node, T, TEquate, THash> _map;
 		internal int _count;
 
 		#region Node
 
 		internal class Node
 		{
-			internal MapHashLinked<Node, T>? Map;
+			internal MapHashLinked<Node, T, TEquate, THash>? Map;
 			internal D Value;
 			internal bool HasValue;
 			internal int Count;
@@ -461,12 +460,10 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new trie that uses linked hash tables of linked lists.</summary>
 		/// <param name="equate">The equality delegate for the keys.</param>
 		/// <param name="hash">The hashing function for the keys.</param>
-		public TrieLinkedHashLinked(Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
+		public TrieLinkedHashLinked(TEquate equate = default, THash hash = default)
 		{
 			_count = 0;
-			_map = new MapHashLinked<Node, T>(
-				equate ?? Statics.Equate,
-				hash ?? DefaultHash);
+			_map = new(equate, hash);
 		}
 
 		#endregion
@@ -476,9 +473,9 @@ namespace Towel.DataStructures
 		/// <summary>The current count of the trie.</summary>
 		public int Count => _count;
 		/// <summary>The equality function of the keys.</summary>
-		public Func<T, T, bool> Equate => _map.Equate;
+		public TEquate Equate => _map.Equate;
 		/// <summary>The hash fucntion for the keys.</summary>
-		public Func<T, int> Hash => _map.Hash;
+		public THash Hash => _map.Hash;
 
 		#endregion
 
@@ -502,16 +499,14 @@ namespace Towel.DataStructures
 			Node? node = null;
 			stepper(key =>
 			{
-				MapHashLinked<Node, T>? map = node is null
-					? _map
-					: node.Map;
+				var map = node is null ? _map : node.Map;
 				if (map.Contains(key))
 				{
 					node = map[key];
 				}
 				else
 				{
-					Node temp = new() { Map = new MapHashLinked<Node, T>(Equate, Hash) };
+					Node temp = new() { Map = new(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -558,16 +553,14 @@ namespace Towel.DataStructures
 			Node? node = null;
 			stepper(key =>
 			{
-				MapHashLinked<Node, T>? map = node is null
-					? _map
-					: node.Map;
+				var map = node is null ? _map : node.Map;
 				if (map.Contains(key))
 				{
 					node = map[key];
 				}
 				else
 				{
-					Node temp = new() { Map = new MapHashLinked<Node, T>(Equate, Hash) };
+					Node temp = new() { Map = new(Equate, Hash) };
 					map[key] = temp;
 					node = temp;
 				}
@@ -596,10 +589,7 @@ namespace Towel.DataStructures
 
 		#region Remove
 
-		/// <summary>Tries to remove a value.</summary>
-		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
+		/// <inheritdoc/>
 		public bool TryRemove(Action<Action<T>> stepper, out Exception? exception)
 		{
 			if (stepper is null)
@@ -607,17 +597,15 @@ namespace Towel.DataStructures
 				exception = new ArgumentNullException(nameof(stepper));
 				return false;
 			}
-			IStack<(T, MapHashLinked<Node, T>, Node)> pathStack = new StackLinked<(T, MapHashLinked<Node, T>, Node)>();
+			var pathStack = new StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)>();
 			T finalKey;
-			MapHashLinked<Node, T>? finalMap;
+			MapHashLinked<Node, T, TEquate, THash>? finalMap;
 			Node? node = null;
 			Exception? capturedException = null;
 			stepper(key =>
 			{
 				finalKey = key;
-				finalMap = node is null
-					? _map
-					: node.Map;
+				finalMap = node is null ? _map : node.Map;
 				if (finalMap.Contains(key))
 				{
 					node = finalMap[key];
@@ -685,9 +673,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					MapHashLinked<Node, T>? map = node is null
-						? _map
-						: node.Map;
+					var map = node is null ? _map : node.Map;
 					if (map.Contains(key))
 					{
 						node = map[key];
@@ -709,7 +695,7 @@ namespace Towel.DataStructures
 
 		#region Clear
 
-		/// <summary>Returns the trie to an empty state.</summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_count = 0;
@@ -719,6 +705,27 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Stepper And IEnumerable
+
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<Action<Action<T>>, StepStatus>
+		{
+			StepStatus Stepper(Node node, Action<Action<T>> stepper)
+			{
+				if (node.HasValue)
+				{
+					if (step.Do(stepper) is Break)
+					{
+						return Break;
+					}
+				}
+				return node.Map.PairsBreak(pair =>
+					Stepper(pair.Value, x => { stepper(x); x(pair.Key); }) is Break
+						? Break
+						: Continue);
+			}
+			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
+		}
 
 		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
 		/// <param name="step">The delegate to invoke on each item in the structure.</param>
@@ -760,46 +767,6 @@ namespace Towel.DataStructures
 			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<Action<Action<T>>> step)
-		{
-			void Stepper(Node node, Action<Action<T>> stepper)
-			{
-				if (node.HasValue)
-				{
-					step(stepper);
-				}
-				node.Map.Pairs(pair =>
-				{
-					Stepper(pair.Value, x => { stepper(x); x(pair.Key); });
-				});
-			}
-			_map.Pairs(pair => Stepper(pair.Value, x => x(pair.Key)));
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<Action<Action<T>>, StepStatus> step)
-		{
-			StepStatus Stepper(Node node, Action<Action<T>> stepper)
-			{
-				if (node.HasValue)
-				{
-					if (step(stepper) is Break)
-					{
-						return Break;
-					}
-				}
-				return node.Map.PairsBreak(pair =>
-					Stepper(pair.Value, x => { stepper(x); x(pair.Key); }) is Break
-						? Break
-						: Continue);
-			}
-			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
-		}
-
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>
 			GetEnumerator();
 
@@ -808,7 +775,7 @@ namespace Towel.DataStructures
 		public System.Collections.Generic.IEnumerator<Action<Action<T>>> GetEnumerator()
 		{
 			IList<Action<Action<T>>> list = new ListLinked<Action<Action<T>>>();
-			Stepper(x => list.Add(x));
+			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
 		}
 

@@ -4141,6 +4141,31 @@ namespace Towel.DataStructures
 			}
 		}
 
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Do(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
+		}
+
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
 		public StepStatus Stepper(Func<T, StepStatus> step) =>
@@ -5765,6 +5790,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Do(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -7532,6 +7582,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Do(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -9442,6 +9517,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Do(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -11497,6 +11597,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Do(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -13699,6 +13824,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Do(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -16052,6 +16202,31 @@ namespace Towel.DataStructures
 			}
 		}
 
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Do(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
+		}
+
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
 		/// <param name="step">The delegate to perform on every item in the tree.</param>
 		public StepStatus Stepper(Func<T, StepStatus> step) =>
@@ -17665,6 +17840,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Do(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -19311,6 +19507,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Do(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -21131,6 +21348,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Do(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -23125,6 +23363,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Do(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -25293,6 +25552,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Do(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -27635,6 +27915,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Do(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -30151,6 +30452,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Do(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>

@@ -363,13 +363,12 @@ namespace Towel
 			/// <summary>The number of values in this universal quantification.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public int Length => Value.Length;
-			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
-			/// <param name="step">The action to perform on every step of the iteration.</param>
-			[Obsolete(TowelConstants.NotIntended, true)]
-			public void Stepper(Action<T> step) => Value.Stepper(step);
-			/// <summary>Iterates each value in this universal quantification and performs an action for each element.</summary>
-			[Obsolete(TowelConstants.NotIntended, true)]
-			public StepStatus Stepper(Func<T, StepStatus> step) => Value.Stepper(step);
+
+			/// <inheritdoc/>
+			public StepStatus StepperBreak<TStep>(TStep step = default)
+				where TStep : struct, IFunc<T, StepStatus> =>
+				Value.StepperBreak(step);
+
 			#endregion
 
 			#region System.Collections.Generic.IList<T>

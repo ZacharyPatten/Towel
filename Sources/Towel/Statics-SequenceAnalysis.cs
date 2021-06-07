@@ -321,7 +321,7 @@ namespace Towel
 		public static void Mode<T>(Action<Action<T>> stepper, Action<T> step, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			int maxOccurences = -1;
-			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
+			IMap<int, T> map = MapHashLinked.New<int, T>(equate, hash);
 			stepper(a =>
 			{
 				if (map.Contains(a))
@@ -698,7 +698,7 @@ namespace Towel
 		/// <returns>The occurence map of the data.</returns>
 		public static IMap<int, T> Occurences<T>(Action<Action<T>> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
-			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
+			IMap<int, T> map = MapHashLinked.New<int, T>(equate, hash);
 			stepper(a =>
 			{
 				if (map.Contains(a))

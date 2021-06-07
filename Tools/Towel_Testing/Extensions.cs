@@ -109,19 +109,19 @@ namespace Towel_Testing
 			{ // test shifting from maxValue
 				int i = 999;
 				TestingRandom random = new(() => i--);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(5, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from 0
 				TestingRandom random = new(() => 0);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from inner value
 				TestingRandom random = new(() => 7);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
@@ -129,7 +129,7 @@ namespace Towel_Testing
 				Random random = new();
 				for (int i = 0; i < 10000; i++)
 				{
-					ISet<int> set = new SetHashLinked<int>();
+					ISet<int> set = SetHashLinked.New<int>();
 					random.NextUnique(5, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 					Assert.IsTrue(set.Count == 5);
 				}
@@ -150,19 +150,19 @@ namespace Towel_Testing
 			{ // test shifting from maxValue
 				int i = 999;
 				TestingRandom random = new(() => i--);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(100, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from 0
 				TestingRandom random = new(() => 0);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from inner value
 				TestingRandom random = new(() => 7);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
@@ -170,7 +170,7 @@ namespace Towel_Testing
 				Random random = new();
 				for (int i = 0; i < 10000; i++)
 				{
-					ISet<int> set = new SetHashLinked<int>();
+					ISet<int> set = SetHashLinked.New<int>();
 					random.NextUnique(100, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 					Assert.IsTrue(set.Count == 100);
 				}

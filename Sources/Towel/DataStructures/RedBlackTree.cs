@@ -4,19 +4,38 @@ using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
+	public interface IRedBlackTree<T> : ISortedBinaryTree<T>
+	{
+		// TODO
+	}
+
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 	public interface IRedBlackTree<T, TCompare> : ISortedBinaryTree<T, TCompare>
 		where TCompare : struct, IFunc<T, T, CompareResult> { }
 
-	/// <summary>Contains extension methods for the RedBlackTree interface.</summary>
-	public static class RedBlackTree { }
+	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
+	public static class RedBlackTree
+	{
+		// TODO
+	}
+
+	/// <summary>Static helpers for <see cref="RedBlackTreeLinked{T, TCompare}"/>.</summary>
+	public static class RedBlackTreeLinked
+	{
+		/// <summary>Constructs a new <see cref="RedBlackTreeLinked{T, TCompare}"/>.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <returns>The new constructed <see cref="RedBlackTreeLinked{T, TCompare}"/>.</returns>
+		public static RedBlackTreeLinked<T, FuncRuntime<T, T, CompareResult>> New<T>(
+			Func<T, T, CompareResult>? compare = null) =>
+			new(compare ?? Compare);
+	}
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public class RedBlackTreeLinked<T, TCompare> : IRedBlackTree<T, TCompare>
+	public class RedBlackTreeLinked<T, TCompare> : IRedBlackTree<T, TCompare>, IRedBlackTree<T>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const bool Red = true;
@@ -158,7 +177,7 @@ namespace Towel.DataStructures
 					case Less:    node = node.LeftChild; break;
 					case Greater: node = node.RightChild; break;
 					case Equal:
-						capturedException = new ArgumentException($"Adding to add a duplicate value to a {nameof(RedBlackTreeLinked<T>)}: {value}.", nameof(value));
+						capturedException = new ArgumentException($"Adding to add a duplicate value to a {nameof(RedBlackTreeLinked<T, TCompare>)}: {value}.", nameof(value));
 						goto Break;
 					default:
 						capturedException = compareResult.IsDefined()
@@ -858,51 +877,6 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
-
-		#endregion
-	}
-
-	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	public class RedBlackTreeLinked<T> : RedBlackTreeLinked<T, FuncRuntime<T, T, CompareResult>>
-	{
-		#region Constructors
-
-		/// <summary>Constructs a new Red Black Tree.</summary>
-		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-		public RedBlackTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Statics.Compare) { }
-
-		/// <summary>Constructor for cloning purposes.</summary>
-		/// <param name="tree">The tree to be cloned.</param>
-		internal RedBlackTreeLinked(RedBlackTreeLinked<T> tree)
-		{
-			Node Clone(Node node, Node parent)
-			{
-				if (node == _sentinelNode)
-				{
-					return _sentinelNode;
-				}
-				Node clone = new(
-					value: node.Value,
-					color: node.Color,
-					parent: parent);
-				clone.LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild, clone);
-				clone.RightChild = node.RightChild is null ? null : Clone(node.RightChild, clone);
-				return clone;
-			}
-
-			_compare = tree._compare;
-			_count = tree._count;
-			_root = tree._root is null ? null : Clone(tree._root, null);
-		}
-
-		#endregion
-
-		#region Clone
-
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public new RedBlackTreeLinked<T> Clone() => new(this);
 
 		#endregion
 	}

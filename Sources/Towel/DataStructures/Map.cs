@@ -11,8 +11,7 @@ namespace Towel.DataStructures
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAuditable<K>,
-		DataStructure.IRemovable<K>,
-		DataStructure.IEquating<K>
+		DataStructure.IRemovable<K>
 	{
 		#region Properties
 
@@ -160,22 +159,36 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
+	/// <summary>Static helpers.</summary>
+	public static class MapHashLinked
+	{
+		/// <summary>Constructs a new <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <typeparam name="K">The type of keys used to look up values.</typeparam>
+		/// <returns>The new constructed <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</returns>
+		public static MapHashLinked<T, K, FuncRuntime<K, K, bool>, FuncRuntime<K, int>> New<T, K>(
+			Func<K, K, bool>? equate = null,
+			Func<K, int>? hash = null) =>
+			new(equate ?? Equate, hash ?? DefaultHash);
+	}
+
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	/// <typeparam name="Equate">The equate function.</typeparam>
-	/// <typeparam name="Hash">The hash function.</typeparam>
-	public class MapHashLinked<T, K, Equate, Hash> : IMap<T, K>,
+	/// <typeparam name="TEquate">The equate function.</typeparam>
+	/// <typeparam name="THash">The hash function.</typeparam>
+	public class MapHashLinked<T, K, TEquate, THash> : IMap<T, K>,
 		// Structure Properties
-		DataStructure.IHashing<K>
-		where Equate : struct, IFunc<K, K, bool>
-		where Hash : struct, IFunc<K, int>
+		DataStructure.IEquating<K, TEquate>,
+		DataStructure.IHashing<K, THash>
+		where TEquate : struct, IFunc<K, K, bool>
+		where THash : struct, IFunc<K, int>
 	{
 		internal const float _maxLoadFactor = .7f;
 		internal const float _minLoadFactor = .3f;
 
-		internal Equate _equate;
-		internal Hash _hash;
+		internal TEquate _equate;
+		internal THash _hash;
 		internal Node?[] _table;
 		internal int _count;
 
@@ -207,8 +220,8 @@ namespace Towel.DataStructures
 		/// <param name="hash">The hashing function.</param>
 		/// <param name="expectedCount">The expected count of the map.</param>
 		public MapHashLinked(
-			Equate equate = default,
-			Hash hash = default,
+			TEquate equate = default,
+			THash hash = default,
 			int? expectedCount = null)
 		{
 			if (expectedCount.HasValue && expectedCount.Value > 0)
@@ -234,7 +247,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(n)</para>
 		/// </summary>
 		/// <param name="map">The map to clone.</param>
-		internal MapHashLinked(MapHashLinked<T, K, Equate, Hash> map)
+		internal MapHashLinked(MapHashLinked<T, K, TEquate, THash> map)
 		{
 			_equate = map._equate;
 			_hash = map._hash;
@@ -252,29 +265,14 @@ namespace Towel.DataStructures
 		/// </summary>
 		public int TableSize => _table.Length;
 
-		/// <summary>
-		/// The current number of values in the map.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
-		/// <summary>
-		/// The delegate for computing hash codes.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		Func<K, int> DataStructure.IHashing<K>.Hash =>
-			_hash is FuncRuntime<K, int> hash
-				? hash._delegate
-				: _hash.Do;
+		/// <inheritdoc/>
+		public THash Hash => _hash;
 
-		/// <summary>
-		/// The delegate for equality checking.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		Func<K, K, bool> DataStructure.IEquating<K>.Equate =>
-			_equate is FuncRuntime<K, K, bool> equate
-			? equate._delegate
-			: _equate.Do;
+		/// <inheritdoc/>
+		public TEquate Equate => _equate;
 
 		/// <summary>Gets the value of a specified key.</summary>
 		/// <param name="key">The key to get the value of.</param>
@@ -596,7 +594,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: Θ(n)</para>
 		/// </summary>
 		/// <returns>A shallow clone of this map.</returns>
-		public MapHashLinked<T, K, Equate, Hash> Clone() => new(this);
+		public MapHashLinked<T, K, TEquate, THash> Clone() => new(this);
 
 		/// <summary>
 		/// Determines if a value has been added to a map.
@@ -842,68 +840,6 @@ namespace Towel.DataStructures
 			}
 			return array;
 		}
-
-		#endregion
-	}
-
-	/// <summary>An unsorted structure of unique items.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	public class MapHashLinked<T, K> : MapHashLinked<T, K, FuncRuntime<K, K, bool>, FuncRuntime<K, int>>
-	{
-		#region Constructors
-
-		/// <summary>
-		/// Constructs a hashed map.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="equate">The equate delegate.</param>
-		/// <param name="hash">The hashing function.</param>
-		/// <param name="expectedCount">The expected count of the map.</param>
-		public MapHashLinked(
-			Func<K, K, bool>? equate = null,
-			Func<K, int>? hash = null,
-			int? expectedCount = null) : base(equate ?? Statics.Equate, hash ?? DefaultHash, expectedCount) { }
-
-		/// <summary>
-		/// This constructor is for cloning purposes.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <param name="map">The map to clone.</param>
-		internal MapHashLinked(MapHashLinked<T, K> map)
-		{
-			_equate = map._equate;
-			_hash = map._hash;
-			_table = (Node[])map._table.Clone();
-			_count = map._count;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>
-		/// The delegate for computing hash codes.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public Func<K, int> Hash => _hash._delegate;
-
-		/// <summary>
-		/// The delegate for equality checking.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		public Func<K, K, bool> Equate => _equate._delegate;
-
-		#endregion
-
-		#region Clone
-
-		/// <summary>
-		/// Creates a shallow clone of this map.
-		/// <para>Runtime: Θ(n)</para>
-		/// </summary>
-		/// <returns>A shallow clone of this map.</returns>
-		public new MapHashLinked<T, K> Clone() => new(this);
 
 		#endregion
 	}
