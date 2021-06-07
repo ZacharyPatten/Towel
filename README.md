@@ -114,6 +114,39 @@
 </p>
 </details>
 
+
+<details>
+<summary>
+:page_facing_up: <strong>Repository File Structure Overview <em>(Click To Expand)</em></strong>
+</summary>
+<p>
+
+> - :file_folder: `.github` <sub>content regarding the GitHub repoistory.</sub>
+>   - :file_folder: `ISSUE_TEMPLATE` <sub>templates for issue submissions to the GitHub repository</sub>
+>   - :file_folder: `Resources` <sub>resources such as image files</sub>
+>   - :file_folder: `workflows` <sub>[GitHub Actions](https://github.com/ZacharyPatten/Towel/actions) workflows</sub>
+>     - :page_facing_up: `Towel Continuous Integration.yml` <sub>workflow for checking that code compiles and unit tests pass</sub>
+>     - :page_facing_up: `Towel Deployment.yml` <sub>workflow to manage releases and deploy nuget packages</sub>
+>     - :page_facing_up: `Towel Docfx.yml` <sub>workflow that runs [docfx](https://github.com/dotnet/docfx) to generate the GitHub pages in the `gh-pages` branch</sub>
+>   -  `pull_request_template.md` <sub>template for when pull requests are created</sub>
+> - :file_folder: `.vscode` <sub>confirguration files for if the code is opened in [Visual Studio Code](https://visualstudio.microsoft.com/)</sub>
+> - :file_folder: `Examples` <sub>root folder for all the example projects</sub>
+> - :file_folder: `Sources` <sub>root folder for the source code of released nuget packages</sub>
+>   - :file_folder: **`Towel` <sub>the root folder for all source code in the Towel nuget package</sub>**
+> - :file_folder: `Tools` <sub>root folder for all support projects</sub>
+>   - :file_folder: `docfx_project` <sub>root folder for [docfx](https://github.com/dotnet/docfx) project (used in the `Towel Docfx.yml` workflow)</sub>
+>     - :file_folder: `articles` <sub>root folder for all articless of the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
+>     - :page_facing_up: `docfx.json` <sub>configuration file that controls [docfx](https://github.com/dotnet/docfx)</sub>
+>     - :page_facing_up: `index.md` <sub>home page of the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
+>     - :page_facing_up: `toc.yml` <sub>primary navigation for the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
+>   - :file_folder: `Towel_Benchmarking` <sub>project with all the benchmarking for the Towel project</sub>
+>   - :file_folder: `Towel_Generating` <sub>code generation for the Towel Project</sub>
+>   - :file_folder: `Towel_Testing` <sub>project with all unit tests for the Towel project (runs in the `Towel Continuous Integration.yml` workflow)</sub>
+
+</p>
+</details>
+
+
 <details>
 <summary>
 :page_facing_up: <strong>Get Involved <em>(Click To Expand)</em></strong>
@@ -136,40 +169,6 @@
 > 1. Fork this repository
 > 2. Make some changes
 > 3. Open a pull request
-
-</p>
-</details>
-
-<details>
-<summary>
-:page_facing_up: <strong>Repository Structure <em>(Click To Expand)</em></strong>
-</summary>
-<p>
-
-> Here is a map of this repository's file structure:
-> 
-> - :file_folder: `.github` <sub>content regarding the GitHub repoistory.</sub>
->   - :file_folder: `ISSUE_TEMPLATE` <sub>templates for issue submissions to the GitHub repository</sub>
->   - :file_folder: `Resources` <sub>resources such as image files</sub>
->   - :file_folder: `workflows` <sub>[GitHub Actions](https://github.com/ZacharyPatten/Towel/actions) workflows</sub>
->     - :page_facing_up: `Towel Continuous Integration.yml` <sub>workflow for checking that code compiles and unit tests pass</sub>
->     - :page_facing_up: `Towel Deployment.yml` <sub>workflow to manage releases and deploy nuget packages</sub>
->     - :page_facing_up: `Towel Docfx.yml` <sub>workflow that runs [docfx](https://github.com/dotnet/docfx) to generate the GitHub pages in the `gh-pages` branch</sub>
->   -  `pull_request_template.md` <sub>template for when pull requests are created</sub>
-> - :file_folder: `.vscode` <sub>confirguration files for if the code is opened in [Visual Studio Code](https://visualstudio.microsoft.com/)</sub>
-> - :file_folder: `Examples` <sub>root folder for all the example projects</sub>
-> - :file_folder: `Sources` <sub>root folder for the source code of released nuget packages</sub>
->   - :file_folder: **`Towel` <sub>the root folder for all source code in the Towel nuget package</sub>**
-> - :file_folder: `Tools` <sub>root folder for all support projects</sub>
->   - :file_folder: `docfx_project` <sub>root folder for [docfx](https://github.com/dotnet/docfx) project (used in the `Towel Docfx.yml` workflow)</sub>
->     - :file_folder: `articles` <sub>root folder for all articless of the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
->     - :page_facing_up: `docfx.json` <sub>configuration file that controls [docfx](https://github.com/dotnet/docfx)</sub>
->     - :page_facing_up: `index.md` <sub>home page of the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
->     - :page_facing_up: `toc.yml` <sub>primary navigation for the [docfx](https://github.com/dotnet/docfx) generated GitHub pages website</sub>
->   - :file_folder: `Towel_Benchmarking` <sub>project with all the benchmarking for the Towel project</sub>
->   - :file_folder: _`Towel_Documenting` <sub>not currently used; custom documentation generation for the Towel Project</sub>_
->   - :file_folder: _`Towel_Generating` <sub>not currently used; custom source code generation for the Towel Project</sub>_
->   - :file_folder: `Towel_Testing` <sub>project with all unit tests for the Towel project (runs in the `Towel Continuous Integration.yml` workflow)</sub>
 
 </p>
 </details>
@@ -425,7 +424,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 > // of a heap is that no parent can be less than either of its children. A Heap using "sifting up"
 > // and "sifting down" algorithms to move values vertically through the tree to keep items sorted.
 > 
-> IHeap<T> heapArray = new HeapArray<T>();
+> IHeap<T> heap = HeapArray.New<T>();
 > 
 > // Visualization:
 > //
@@ -476,7 +475,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 > // tree is sorted in the same manor as a Red-Black Tree, but uses different algorithms to maintain
 > // the balance of the tree.
 > 
-> IAvlTree<int> avlTree = new AvlTreeLinked<int>();
+> IAvlTree<T> avlTree = AvlTreeLinked.New<T>();
 > 
 > // Visualization:
 > //
@@ -525,7 +524,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 > // than its right child (if the children exist). A Red-Black tree is sorted in the same manor as
 > // an AVL Tree, but uses different algorithms to maintain the balance of the tree.
 > 
-> IRedBlackTree<int> redBlackTree = new RedBlackTreeLinked<int>();
+> IRedBlackTree<T> redBlackTree = RedBlackTreeLinked.New<T>();
 > 
 > // Visualization:
 > //
@@ -707,7 +706,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 <p>
 
 > ```cs
-> Tree<T> treeMap = new TreeMap<T>(...);
+> ITree<T> treeMap = TreeMap.New<T>(...);
 > ```
 
 </p>
@@ -726,27 +725,25 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 > // graph that stores nodes in a hashed set and the edges in a 2D omnitree (aka
 > // quadtree).
 > 
-> IGraph<int> graph = new GraphSetOmnitree<int>()
-> {
-> 	// add nodes
-> 	0,
-> 	1,
-> 	2,
-> 	3,
-> 	// add edges
-> 	{ 0, 1 },
-> 	{ 1, 2 },
-> 	{ 2, 3 },
-> 	{ 0, 3 },
-> 	// visualization
-> 	//
-> 	//     0 --------> 1
-> 	//     |           |
-> 	//     |           |
-> 	//     |           |
-> 	//     v           v
-> 	//     3 <-------- 2
-> };
+> IGraph<int> graph = GraphSetOmnitree.New<int>();
+> // add nodes
+> graph.Add(0);
+> graph.Add(1);
+> graph.Add(2);
+> graph.Add(3);
+> // add edges
+> graph.Add(0, 1);
+> graph.Add(1, 2);
+> graph.Add(2, 3);
+> graph.Add(0, 3);
+> // visualization
+> //
+> //     0 --------> 1
+> //     |           |
+> //     |           |
+> //     |           |
+> //     v           v
+> //     3 <-------- 2
 > ```
 
 </p>
@@ -771,10 +768,10 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 > // There are two versions. One that only stores the values of the trie (ITrie<T>)
 > // and one that stores the values of the trie plus an additional generic value
 > // on the leaves (ITrie<T, D>).
-> 
-> ITrie<T> trie = new TrieLinkedHashLinked<T>();
-> 
-> ITrie<T, D> trieWithAdditionalData = new TrieLinkedHashLinked<T, D>();
+>
+> ITrie<T> trie = TrieLinkedHashLinked.New<T>();
+>
+> ITrie<T, D> trie = TrieLinkedHashLinked.New<T, D>();
 > ```
 
 </p>
@@ -855,7 +852,6 @@ T Next<T>(this Random random, IEnumerable<(T Value, double Weight)> pool); // we
 void Shuffle<T>(this Random random, T[] array); // randomize arrays
 
 // Type conversion to string definition as appears in C# source code
-// Note: useful for runtime compilation from strings
 string ConvertToCSharpSourceDefinition(this Type type);
 // Example: typeof(List<int>) -> "System.Collections.Generic.List<int>"
 
