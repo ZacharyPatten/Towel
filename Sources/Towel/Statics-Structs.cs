@@ -7,11 +7,11 @@ namespace Towel
 	{
 		#region Int32
 
-		public struct IntHash : IFunc<int, int> { public int Do(int a) => a; }
-		public struct IntEquate : IFunc<int, int, bool> { public bool Do(int a, int b) => a == b; }
-		public struct IntCompare : IFunc<int, int, CompareResult> { public CompareResult Do(int a, int b) => ToCompareResult(a.CompareTo(b)); }
-		internal struct IntIncrement : IFunc<int, int> { public int Do(int a) => a + 1; }
-		internal struct IntDecrement : IFunc<int, int> { public int Do(int a) => a - 1; }
+		public struct Int32Hash : IFunc<int, int> { public int Do(int a) => a; }
+		public struct Int32Equate : IFunc<int, int, bool> { public bool Do(int a, int b) => a == b; }
+		public struct Int32Compare : IFunc<int, int, CompareResult> { public CompareResult Do(int a, int b) => ToCompareResult(a.CompareTo(b)); }
+		internal struct Int32Increment : IFunc<int, int> { public int Do(int a) => a + 1; }
+		internal struct Int32Decrement : IFunc<int, int> { public int Do(int a) => a - 1; }
 
 		#endregion
 

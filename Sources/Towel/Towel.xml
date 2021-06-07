@@ -4529,15 +4529,6 @@
             <param name="compare">The value compare to wrap into a bounds compare.</param>
             <returns>The bounds compare.</returns>
         </member>
-        <member name="T:Towel.DataStructures.Omnitree.SubdivisionOverride`3">
-            <summary>A delegate for determining the point of subdivision in a set of values and current bounds.</summary>
-            <typeparam name="T">The generic type of the values to find the point of subdivision.</typeparam>
-            <typeparam name="A">The type of axis along with the values are to be subdivided.</typeparam>
-            <typeparam name="BoundsType">The type of bounds currently constraining the data.</typeparam>
-            <param name="bounds">The current bounds of the set of values.</param>
-            <param name="values">The values to find the point of subdivision.</param>
-            <returns></returns>
-        </member>
         <member name="T:Towel.DataStructures.Omnitree.Vector">
             <summary>An N-D vector.</summary>
         </member>
@@ -4561,6 +4552,15 @@
         </member>
         <member name="M:Towel.DataStructures.Omnitree.Bounds.#ctor(Towel.DataStructures.Omnitree.Bound{System.Object}[],Towel.DataStructures.Omnitree.Bound{System.Object}[])">
             <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
+        </member>
+        <member name="T:Towel.DataStructures.Omnitree.SubdivisionOverride`3">
+            <summary>A delegate for determining the point of subdivision in a set of values and current bounds.</summary>
+            <typeparam name="T">The generic type of the values to find the point of subdivision.</typeparam>
+            <typeparam name="A">The type of axis along with the values are to be subdivided.</typeparam>
+            <typeparam name="BoundsType">The type of bounds currently constraining the data.</typeparam>
+            <param name="bounds">The current bounds of the set of values.</param>
+            <param name="values">The values to find the point of subdivision.</param>
+            <returns></returns>
         </member>
         <member name="T:Towel.DataStructures.IOmnitree`2">
             <summary>Inheritance base for 1D omnitrees.</summary>
@@ -30312,9 +30312,9 @@
         <member name="M:Towel.Statics.NextUniquePoolTracking``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)">
             <inheritdoc cref="M:Towel.Statics.NextUnique``1(System.Int32,System.Int32,System.Int32,System.ReadOnlySpan{System.Int32},``0)"/>
         </member>
-        <member name="M:Towel.Statics.TryParseRomanNumeral(System.String)">
-            <summary>Attempts to parse a Roman Numeral <see cref="T:System.String"/> into an <see cref="T:System.Int32"/> value.</summary>
-            <param name="string">The Roman Numeral <see cref="T:System.String"/> to parse into an <see cref="T:System.Int32"/> value.</param>
+        <member name="M:Towel.Statics.TryParseRomanNumeral(System.ReadOnlySpan{System.Char})">
+            <summary>Attempts to parse a Roman Numeral string into an <see cref="T:System.Int32"/> value.</summary>
+            <param name="span">The Roman Numeral string to parse into an <see cref="T:System.Int32"/> value.</param>
             <returns>
             (<see cref="T:System.Boolean"/> Success, <see cref="T:System.Int32"/> Value)
             <para>- <see cref="T:System.Boolean"/> Success: true if the parse was successful or false if not</para>

@@ -32,14 +32,14 @@ namespace Towel.DataStructures
 		DataStructure.IComparing<T, TCompare>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
-		// TODO
+		
 	}
 
 
 	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class Heap
 	{
-		// TODO
+		
 	}
 
 	/// <summary>Static helpers for <see cref="HeapArray{T, TCompare}"/>.</summary>

@@ -582,7 +582,7 @@ namespace Towel.DataStructures
 		/// <returns>boolean value indicating the success of process</returns>
 		public bool TryAdd(V value, out Exception? exception)
 		{
-			// TODO: change this so that it does not allocate the new collections until necessary
+			#warning TODO: change this so that it does not allocate the new collections until necessary
 			if (!_map.TryAdd(value, (new(Equate, Hash), new(Equate, Hash)), out Exception? childException))
 			{
 				exception = new ArgumentException(message: "Queried value already exists in graph", paramName: nameof(value), childException);
@@ -735,7 +735,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Enumerates through all the added nodes in the graph</summary>
 		public System.Collections.Generic.IEnumerator<V> GetEnumerator() =>
-			// TODO: this can be optimized
+			#warning TODO: optimize
 			_map.Keys().ToArray().GetEnumerator() as System.Collections.Generic.IEnumerator<V>;
 
 		#endregion
@@ -780,11 +780,11 @@ namespace Towel.DataStructures
 		public (V, V)[] EdgesToArray()
 		{
 			ListArray<(V, V)> edgelist=new();
-			foreach(var nodepair in _map.GetPairs())
+			foreach(var (adjacencies, start) in _map.GetPairs())
 			{
-				foreach(var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
+				foreach(var (_, end) in adjacencies.OutgoingEdges.GetPairs())
 				{
-					edgelist.Add((nodepair.Key, outgoing.Key));
+					edgelist.Add((start, end));
 				}
 			}
 			return edgelist.ToArray();
@@ -793,12 +793,12 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public (V, V, W)[] EdgesAndWeightsToArray()
 		{
-			ListArray<(V, V, W)> edgelist=new();
-			foreach(var nodepair in _map.GetPairs())
+			ListArray<(V, V, W)> edgelist = new();
+			foreach(var (adjacencies, start) in _map.GetPairs())
 			{
-				foreach(var outgoing in nodepair.Value.OutgoingEdges.GetPairs())
+				foreach(var (weight, end) in adjacencies.OutgoingEdges.GetPairs())
 				{
-					edgelist.Add((nodepair.Key, outgoing.Key, outgoing.Value));
+					edgelist.Add((start, end, weight));
 				}
 			}
 			return edgelist.ToArray();

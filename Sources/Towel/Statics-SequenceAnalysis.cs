@@ -1375,11 +1375,11 @@ namespace Towel
 				expectedCount: a.Length);
 			foreach (T value in a)
 			{
-				counts.AddOrUpdate<IntIncrement>(value, 1);
+				counts.AddOrUpdate<Int32Increment>(value, 1);
 			}
 			foreach (T value in b)
 			{
-				if (!counts.TryUpdate<IntDecrement>(value, out int count) || count is -1)
+				if (!counts.TryUpdate<Int32Decrement>(value, out int count) || count is -1)
 				{
 					return false;
 				}

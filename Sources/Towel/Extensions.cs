@@ -49,7 +49,7 @@ namespace Towel
 					if (Pattern is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Pattern)}s");
 					if (Replacement is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Replacement)}s");
 					if (Pattern == string.Empty) throw new ArgumentException($"{nameof(rules)} contains empty {nameof(Pattern)}s", nameof(rules));
-					// TODO: TryAdd when available
+					#warning TODO: TryAdd when available
 					if (regexAndRuleSet.RuleSet.ContainsKey(Pattern))
 					{
 						throw new ArgumentException($"{nameof(rules)} contains duplicate {nameof(Pattern)}s");

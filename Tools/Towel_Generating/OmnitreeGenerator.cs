@@ -805,10 +805,10 @@ namespace Towel_Generating
 
 				code.AppendLine($@"		#region Properties");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>The number of dimensions this tree is sorting on.</summary>");
+				code.AppendLine($@"		/// <inheritdoc/>");
 				code.AppendLine($@"		public int Dimensions => {i};");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>The current number of <typeparamref name=""T""/>'s in this tree.</summary>");
+				code.AppendLine($@"		/// <inheritdoc/>");
 				code.AppendLine($@"		public int Count => _top.Count;");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>The current maximum depth of this tree. Warning! Not an O(1) operation.</summary>");
@@ -1486,7 +1486,8 @@ namespace Towel_Generating
 				code.AppendLine($@"				leaf = new Leaf(removal.Bounds, removal.Parent, removal.Index);");
 				code.AppendLine($@"				parent[child_index] = leaf;");
 				code.AppendLine($@"			}}");
-				code.AppendLine($@"			// TODO: optimize (don't use delegate)");
+				#warning TODO: optmimize (don't use delegate?)
+				code.AppendLine($@"			#warning TODO: optimize (don't use delegate?)");
 				code.AppendLine($@"			Stepper(step => {{ leaf.Add(step); }}, removal);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
@@ -1571,7 +1572,8 @@ namespace Towel_Generating
 				code.AppendLine($@"			where Step : struct, IAction<T> =>");
 				code.AppendLine($@"			Stepper(_top, step);");
 				code.AppendLine($@"");
-				code.AppendLine($@"		// TODO: kill the following method...");
+				#warning TODO: kill the following method
+				code.AppendLine($@"		#warning TODO: kill the following method");
 				code.AppendLine($@"		internal void Stepper(Action<T> step, Node node) =>");
 				code.AppendLine($@"			Stepper<ActionRuntime<T>>(_top, step);");
 				code.AppendLine($@"");

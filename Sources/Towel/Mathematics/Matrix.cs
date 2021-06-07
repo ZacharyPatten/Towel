@@ -506,14 +506,14 @@ namespace Towel.Mathematics
 						fractioned.Set(row, column,
 							// D - A * B / C
 							D_subtract_A_multiply_B_divide_C<MatrixElementFraction<T>>.Function(
-								fractioned.Get(row, i), /*     A */
-								fractioned.Get(i, column), /*     B */
-								pivotElement, /*               C */
-								fractioned.Get(row, column))); /* D */
+								/* A */ fractioned.Get(row, i),
+								/* B */ fractioned.Get(i, column),
+								/* C */ pivotElement,
+								/* D */ fractioned.Get(row, column)));
 					}
 				}
 			}
-			// TODO: should we return zero if determinant's denominator is zero?
+			#warning TODO: should we return zero if determinant's denominator is zero?
 			return determinant.IsDividedByZero ? Constant<T>.Zero : determinant.Value;
 		}
 

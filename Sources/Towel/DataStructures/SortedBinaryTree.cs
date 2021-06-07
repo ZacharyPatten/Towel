@@ -110,7 +110,7 @@ namespace Towel.DataStructures
 		DataStructure.IComparing<T, TCompare>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
-		// TODO
+		
 	}
 
 	/// <summary>Contains extensions methods for the SortedBinaryTree interface.</summary>

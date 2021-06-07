@@ -1788,19 +1788,19 @@ namespace Towel_Testing.Mathematics
 
 		[TestMethod] public void GithubIssue53()
 		{
-			var a = new Matrix<RefNumeric<float>>(3, 5);
+			var a = new Matrix<Ref<float>>(3, 5);
 			for (int i = 0; i < a.Rows; i++)
 				for (int j = 0; j < a.Columns; j++)
 					a[i, j] = 3;
 
-			var b = new Matrix<RefNumeric<float>>(5, 6);
+			var b = new Matrix<Ref<float>>(5, 6);
 			for (int i = 0; i < b.Rows; i++)
 				for (int j = 0; j < b.Columns; j++)
 					b[i, j] = 5;
 
 			var c = a * b;
 
-			Matrix<RefNumeric<float>> expectedResult = new RefNumeric<float>[,]
+			Matrix<Ref<float>> expectedResult = new Ref<float>[,]
 			{
 				{ 75,  75,  75,  75,  75,  75, },
 				{ 75,  75,  75,  75,  75,  75, },

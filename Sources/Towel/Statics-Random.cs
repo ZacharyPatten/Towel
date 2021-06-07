@@ -117,7 +117,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
 			// Algorithm: Θ(range + count + 2*excluded.Length)
-			SetHashLinked<int, IntEquate, IntHash> set = new(expectedCount: excluded.Length); // Θ(excluded)
+			SetHashLinked<int, Int32Equate, Int32Hash> set = new(expectedCount: excluded.Length); // Θ(excluded)
 			foreach (int value in excluded)
 			{
 				if (minValue <= value && value < maxValue)
@@ -722,7 +722,7 @@ namespace Towel
 			where Random : struct, IFunc<int, int, int>
 		{
 			// Algorithm: Θ(range + count + 2*excluded.Length)
-			SetHashLinked<int, IntEquate, IntHash> set = new(expectedCount: excluded.Length); // Θ(excluded)
+			SetHashLinked<int, Int32Equate, Int32Hash> set = new(expectedCount: excluded.Length); // Θ(excluded)
 			foreach (int value in excluded)
 			{
 				if (minValue <= value && value < maxValue)

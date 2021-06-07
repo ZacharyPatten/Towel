@@ -72,78 +72,6 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
-			#region Stepper
-			{
-				Console.WriteLine("  Stepper------------------------------------");
-				Console.WriteLine();
-				Console.WriteLine("    A Towel.Stepper<T> in Towel is similar to a ");
-				Console.WriteLine("    System.Collections.Generic.IEnumerable<T> but");
-				Console.WriteLine("    it uses delegates rather than an enumerator.");
-				Console.WriteLine("    There are pros/cons to both methodologies.");
-				Console.WriteLine();
-
-				System.Collections.Generic.IEnumerable<int> iEnumerable = Ɐ(1, 2, 3);
-				Console.Write("    iEnumerable values:");
-				foreach (int value in iEnumerable)
-				{
-					Console.Write(" " + value);
-				}
-				Console.WriteLine();
-
-				Action<Action<int>> stepper = Ɐ(1, 2, 3);
-				Console.Write("    stepper values:");
-				stepper(value => Console.Write(" " + value));
-				Console.WriteLine();
-
-				/// You can "break" a foreach loop, but you cannot break a stepper traversal.
-				/// For this, there is another type of stepper that is breakable. "Towel.StepperBreak<T>"
-				/// is a breakable version of the stepper.
-
-				Func<Func<int, StepStatus>, StepStatus> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
-				Console.Write("    stepperBreak values:");
-				stepperBreak(value =>
-				{
-					Console.Write(" " + value);
-					return value >= 3 ? Break : Continue;
-				});
-				Console.WriteLine();
-
-				/// You cannot alter the values of an IEnumerable during iteration, however,
-				/// you can do so with a "Towel.StepperRef<T>".
-
-				StepperRef<int> stepperRef = Ɐ(0, 1, 2);
-				Console.Write("    stepperRef values:");
-				stepperRef((ref int value) =>
-				{
-					value++;
-					Console.Write(" " + value);
-				});
-				Console.WriteLine();
-
-				/// The "Towel.StepperRefBreak<T>" is a stepper type that allows for altering
-				/// values and breaking iteration.
-
-				StepperRefBreak<int> stepperRefBreak = Ɐ(0, 1, 2, 3, 4, 5);
-				Console.Write("    stepperRefBreak values:");
-				stepperRefBreak((ref int value) =>
-				{
-					value++;
-					Console.Write(" " + value);
-					return value >= 3 ? Break : Continue;
-				});
-				Console.WriteLine();
-
-				/// Here is an example of creating a stepper from only functions (no backing
-				/// data structure).
-				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
-				Console.Write("    stepperFunctional values:");
-				stepperFunctional(value => Console.Write(" " + value));
-
-				Console.WriteLine();
-				Console.WriteLine();
-			}
-			#endregion
-
 			#region Decimal To Words
 			{
 				Console.WriteLine("  Converting Decimal To Words---------------------------");
@@ -160,6 +88,24 @@ namespace BasicsAndExtensions
 				decimal value3 = 1111111.2m;
 				Console.WriteLine($"    Value3 = {value3}");
 				Console.WriteLine($"    Value3 To Words = {value3.ToEnglishWords()}");
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region TryParse Roman Numeral
+			{
+				Console.WriteLine("  TryParse Roman Numeral--------------------------------");
+				Console.WriteLine();
+
+				string a = "I";
+				Console.WriteLine(@$"    {nameof(TryParseRomanNumeral)}(""{a}"") = {TryParseRomanNumeral(a)}");
+
+				string b = "XLII";
+				Console.WriteLine(@$"    {nameof(TryParseRomanNumeral)}(""{b}"") = {TryParseRomanNumeral(b)}");
+
+				string c = "invalid";
+				Console.WriteLine(@$"    {nameof(TryParseRomanNumeral)}(""{c}"") = {TryParseRomanNumeral(c)}");
+
 				Console.WriteLine();
 			}
 			#endregion
@@ -320,8 +266,8 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  Get X Least/Greatest--------------------------");
 				Console.WriteLine();
-				Console.WriteLine($"    GetLeast([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetLeast<int, IntCompare>(a.AsSpan(), count))}]");
-				Console.WriteLine($"    GetGreatest([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetGreatest<int, IntCompare>(a.AsSpan(), count))}]");
+				Console.WriteLine($"    GetLeast([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetLeast<int, Int32Compare>(a.AsSpan(), count))}]");
+				Console.WriteLine($"    GetGreatest([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetGreatest<int, Int32Compare>(a.AsSpan(), count))}]");
 				Console.WriteLine();
 			}
 			#endregion
@@ -722,6 +668,80 @@ namespace BasicsAndExtensions
 						Console.WriteLine("    Inequality Syntax Error");
 					}
 				}
+				Console.WriteLine();
+			}
+			#endregion
+
+			#region Stepper
+			{
+				Console.WriteLine("  Stepper------------------------------------");
+				Console.WriteLine();
+				Console.WriteLine(@"    A Towel has a lot of methods called ""Stepper""");
+				Console.WriteLine(@"    and ""StepperBreak"". These methods are essnetially");
+				Console.WriteLine(@"    the same as an ""IEnumerable<T>"", but rather than");
+				Console.WriteLine(@"    The methods returning the values, you instead pass");
+				Console.WriteLine(@"    the ""step"" code that you want to run on every value.");
+				Console.WriteLine(@"    There are pros and cons to both patterns. Here are some");
+				Console.WriteLine(@"    examples.");
+				Console.WriteLine();
+
+				System.Collections.Generic.IEnumerable<int> iEnumerable = Ɐ(1, 2, 3);
+				Console.Write("    iEnumerable values:");
+				foreach (int value in iEnumerable)
+				{
+					Console.Write(" " + value);
+				}
+				Console.WriteLine();
+
+				Action<Action<int>> stepper = Ɐ(1, 2, 3);
+				Console.Write("    stepper values:");
+				stepper(value => Console.Write(" " + value));
+				Console.WriteLine();
+
+				/// In order to break the traversal you can return a "StepStatus"
+				/// from a "StepperBreak" method.
+
+				Func<Func<int, StepStatus>, StepStatus> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
+				Console.Write("    stepperBreak values:");
+				stepperBreak(value =>
+				{
+					Console.Write(" " + value);
+					return value >= 3 ? Break : Continue;
+				});
+				Console.WriteLine();
+
+				/// If allowed on the data, you can mutate the values during traversal
+				/// with "StepperRef" methods that use "ref" parameters.
+
+				StepperRef<int> stepperRef = Ɐ(0, 1, 2);
+				Console.Write("    stepperRef values:");
+				stepperRef((ref int value) =>
+				{
+					value++;
+					Console.Write(" " + value);
+				});
+				Console.WriteLine();
+
+				/// The "StepperRefBreak" methods are the combination of
+				/// allowing both value mutability and traversal breakability.
+
+				StepperRefBreak<int> stepperRefBreak = Ɐ(0, 1, 2, 3, 4, 5);
+				Console.Write("    stepperRefBreak values:");
+				stepperRefBreak((ref int value) =>
+				{
+					value++;
+					Console.Write(" " + value);
+					return value >= 3 ? Break : Continue;
+				});
+				Console.WriteLine();
+
+				/// Steppers can be defined as functions without a backing data structure.
+				
+				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
+				Console.Write("    stepperFunctional values:");
+				stepperFunctional(value => Console.Write(" " + value));
+
+				Console.WriteLine();
 				Console.WriteLine();
 			}
 			#endregion

@@ -489,5 +489,9 @@
         <member name="T:Towel_Testing.TestingRandom">
             <summary>This is for testing purposes only. It lets you force values on a Random.</summary>
         </member>
+        <member name="T:Towel_Testing.Ref`1">
+            <summary>Represents a boxed struct value.</summary>
+            <typeparam name="T">The type of value to be boxed.</typeparam>
+        </member>
     </members>
 </doc>

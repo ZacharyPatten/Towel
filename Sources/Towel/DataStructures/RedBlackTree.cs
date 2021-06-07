@@ -6,7 +6,7 @@ namespace Towel.DataStructures
 {
 	public interface IRedBlackTree<T> : ISortedBinaryTree<T>
 	{
-		// TODO
+		
 	}
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
@@ -18,7 +18,7 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class RedBlackTree
 	{
-		// TODO
+		
 	}
 
 	/// <summary>Static helpers for <see cref="RedBlackTreeLinked{T, TCompare}"/>.</summary>

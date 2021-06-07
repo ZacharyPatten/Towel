@@ -22,20 +22,16 @@ namespace Towel_Benchmarking
 		}
 
 		[Benchmark]
-		public void ArrayBubbleRunTime() =>
-			SortBubbleArray(Values);
+		public void ArrayBubbleRunTime() => SortBubbleArray(Values);
 
 		[Benchmark]
-		public void ArrayBubbleCompileTime() =>
-			SortBubbleArray<int, IntCompare>(Values);
+		public void ArrayBubbleCompileTime() => SortBubbleArray<int, Int32Compare>(Values);
 
 		[Benchmark]
-		public void SpanBubbleRunTime() =>
-			SortBubble(Values.AsSpan());
+		public void SpanBubbleRunTime() => SortBubble(Values.AsSpan());
 
 		[Benchmark]
-		public void SpanBubbleCompileTime() =>
-			SortBubble<int, IntCompare>(Values.AsSpan());
+		public void SpanBubbleCompileTime() => SortBubble<int, Int32Compare>(Values.AsSpan());
 
 		public struct ComparerInt : System.Collections.Generic.IComparer<int>
 		{

@@ -46,6 +46,13 @@ namespace Towel_Benchmarking
 			};
 		}
 
+		[IterationCleanup]
+		public void IterationCleanUp()
+		{
+			// use "temp" to prevent some optimizations... still need to validate IL though
+			Console.WriteLine(temp.Sum());
+		}
+
 		[Benchmark]
 		public void Towel()
 		{
@@ -84,7 +91,7 @@ namespace Towel_Benchmarking
 		[Benchmark]
 		public void SetHashLinkedAndArray()
 		{
-			Towel.DataStructures.SetHashLinked<int, IntEquate, IntHash> excluded = new(default, default, Excludes.Length);
+			Towel.DataStructures.SetHashLinked<int, Int32Equate, Int32Hash> excluded = new(default, default, Excludes.Length);
 			foreach (int exclude in Excludes)
 			{
 				if (MinValue <= exclude && exclude < MaxValue)

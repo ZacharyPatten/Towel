@@ -29,7 +29,7 @@ namespace DataStructures
 
 			Link link = new Link<int, int, int, int, int, int>(0, 1, 2, 3, 4, 5);
 			Console.Write("    Traversal: ");
-			link.Stepper(i => Console.Write(i));
+			link.Stepper(Console.Write);
 			Console.WriteLine();
 
 			Console.WriteLine($"    Size: {link.Size}");
@@ -57,7 +57,7 @@ namespace DataStructures
 			Console.WriteLine();
 
 			Console.Write("    Traversal: ");
-			array.Stepper(i => Console.Write(i));
+			array.Stepper(Console.Write);
 			Console.WriteLine();
 
 			Console.WriteLine($"    Length: {array.Length}");
@@ -92,7 +92,7 @@ namespace DataStructures
 			Console.WriteLine();
 
 			Console.Write("    [ListArray] Traversal: ");
-			listArray.Stepper(i => Console.Write(i));
+			listArray.Stepper(Console.Write);
 			Console.WriteLine();
 
 			Console.WriteLine($"    [ListArray] Count: {listArray.Count}");
@@ -112,7 +112,7 @@ namespace DataStructures
 			Console.WriteLine();
 
 			Console.Write("    [ListLinked] Traversal: ");
-			listLinked.Stepper(i => Console.Write(i));
+			listLinked.Stepper(Console.Write);
 			Console.WriteLine();
 
 			Console.WriteLine($"    [ListLinked] Count: {listLinked.Count}");
@@ -145,7 +145,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [StackArray] Traversal: ");
-				stackArray.Stepper(i => Console.Write(i));
+				stackArray.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [StackArray] Pop: {stackArray.Pop()}");
@@ -168,7 +168,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [StackLinked] Traversal: ");
-				stackLinked.Stepper(i => Console.Write(i));
+				stackLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [StackLinked] Pop: {stackLinked.Pop()}");
@@ -205,7 +205,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [QueueArray] Traversal: ");
-				queueArray.Stepper(i => Console.Write(i));
+				queueArray.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [QueueArray] Dequeue: {queueArray.Dequeue()}");
@@ -228,7 +228,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [QueueLinked] Traversal: ");
-				queueLinked.Stepper(i => Console.Write(i));
+				queueLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [QueueLinked] Pop: {queueLinked.Dequeue()}");
@@ -332,7 +332,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				avlTree.Stepper(i => Console.Write(i));
+				avlTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				//// The "foreach" enumeration works for avl trees, but it is not optimized
@@ -348,13 +348,13 @@ namespace DataStructures
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
 				Console.Write($"    Ranged Traversal [{minimum}-{maximum}]: ");
-				avlTree.Stepper(minimum, maximum, i => Console.Write(i));
+				avlTree.Stepper(minimum, maximum, Console.Write);
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);
 				Console.Write($"    Remove({removal}): ");
 				avlTree.Remove(removal);
-				avlTree.Stepper(i => Console.Write(i));
+				avlTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int contains = random.Next(0, test);
@@ -389,19 +389,19 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				redBlackTree.Stepper(i => Console.Write(i));
+				redBlackTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
 				Console.Write($"    Ranged Traversal [{minimum}-{maximum}]: ");
-				redBlackTree.Stepper(minimum, maximum, i => Console.Write(i));
+				redBlackTree.Stepper(minimum, maximum, Console.Write);
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);
 				Console.Write($"    Remove({removal}): ");
 				redBlackTree.Remove(removal);
-				redBlackTree.Stepper(i => Console.Write(i));
+				redBlackTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int contains = random.Next(0, test);
@@ -453,13 +453,13 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				setHashLinked.Stepper(i => Console.Write(i));
+				setHashLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
 				setHashLinked.Remove(a);
 				Console.Write($"    Remove({a}): ");
-				setHashLinked.Stepper(i => Console.Write(i));
+				setHashLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int b = random.Next(0, test);
@@ -545,7 +545,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				//// The "foreach" enumeration works for omnitrees, but it is not optimized
@@ -565,7 +565,7 @@ namespace DataStructures
 				Console.Write("    Spacial Traversal [" +
 					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
 					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: ");
-				omnitree.Stepper(i => Console.Write(i),
+				omnitree.Stepper(Console.Write,
 					minimumXZ, maximumXZ,
 					minimumY, maximumY,
 					minimumXZ, maximumXZ);
@@ -576,7 +576,7 @@ namespace DataStructures
 				int lookUp = random.Next(0, test);
 				string lookUpToString = lookUp.ToString();
 				Console.Write($"    Look Up ({lookUp}, \"{lookUpToString}\", {lookUp}m): ");
-				omnitree.Stepper(i => Console.Write(i),
+				omnitree.Stepper(Console.Write,
 					lookUp, lookUp,
 					lookUpToString, lookUpToString,
 					lookUp, lookUp);
@@ -608,7 +608,7 @@ namespace DataStructures
 					removalMinimum, removalMaximum,
 					removalMinimumY, removalMaximumY,
 					removalMinimum, removalMaximum);
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
@@ -659,7 +659,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				//// The "foreach" enumeration works for omnitrees, but it is not optimized
@@ -679,7 +679,7 @@ namespace DataStructures
 				Console.Write("    Spacial Traversal [" +
 					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
 					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: ");
-				omnitree.StepperOverlapped(i => Console.Write(i),
+				omnitree.StepperOverlapped(Console.Write,
 					minimumXZ, maximumXZ,
 					minimumY, maximumY,
 					minimumXZ, maximumXZ);
@@ -690,7 +690,7 @@ namespace DataStructures
 				int lookUpXZ = random.Next(0, test);
 				string lookUpY = lookUpXZ.ToString();
 				Console.Write($"    Look Up ({lookUpXZ}, \"{lookUpY}\", {lookUpXZ}m): ");
-				omnitree.StepperOverlapped(i => Console.Write(i),
+				omnitree.StepperOverlapped(Console.Write,
 					lookUpXZ, lookUpXZ,
 					lookUpY, lookUpY,
 					lookUpXZ, lookUpXZ);
@@ -722,7 +722,7 @@ namespace DataStructures
 					removalMinimumXZ, removalMaximumXZ,
 					removalMinimumY, removalMaximumY,
 					removalMinimumXZ, removalMaximumXZ);
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
@@ -794,7 +794,7 @@ namespace DataStructures
 				}
 
 				Console.Write("    Nodes (Traversal): ");
-				graphSetOmnitree.Stepper(i => Console.Write(i));
+				graphSetOmnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine("    Edges (Traversal): ");

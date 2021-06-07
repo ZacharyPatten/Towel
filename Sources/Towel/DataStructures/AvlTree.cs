@@ -6,7 +6,7 @@ namespace Towel.DataStructures
 {
 	public interface IAvlTree<T> : ISortedBinaryTree<T>
 	{
-		// TODO
+		
 	}
 
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
@@ -18,7 +18,7 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class AvlTree
 	{
-		// TODO
+		
 	}
 
 	/// <summary>Static helpers for <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
