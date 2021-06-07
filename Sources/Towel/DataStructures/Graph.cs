@@ -413,21 +413,6 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <summary>Removes an edge from the graph.</summary>
-		/// <param name="start">The starting point of the edge to remove.</param>
-		/// <param name="end">The ending point of the edge to remove.</param>
-		[Obsolete("delete me", true)]
-		public void Remove(T start, T end)
-		{
-			if (_map.Contains(start) && _map.Contains(end) && _map[start].Outgoing.Contains(end))
-			{
-				_map[start].Outgoing.Remove(end);
-				_map[end].Incoming.Remove(start);
-				_edges--;
-			}
-			else throw new InvalidOperationException("Removing a non-existing edge from the graph.");
-		}
-
 		/// <summary>Checks for adjacency between two nodes.</summary>
 		/// <param name="a">The first node of the adjacency check.</param>
 		/// <param name="b">The second node fo the adjacency check.</param>

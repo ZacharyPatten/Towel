@@ -895,11 +895,6 @@
             <param name="exception">The exception that occurred if the remove failed.</param>
             <returns>True if the remove succeeded or false if not.</returns>
         </member>
-        <member name="M:Towel.DataStructures.GraphMap`3.Remove(`0,`0)">
-            <summary>Removes an edge from the graph.</summary>
-            <param name="start">The starting point of the edge to remove.</param>
-            <param name="end">The ending point of the edge to remove.</param>
-        </member>
         <member name="M:Towel.DataStructures.GraphMap`3.Adjacent(`0,`0)">
             <summary>Checks for adjacency between two nodes.</summary>
             <param name="a">The first node of the adjacency check.</param>
