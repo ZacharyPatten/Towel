@@ -1084,22 +1084,37 @@
         <member name="M:Towel.DataStructures.GraphWeightedMap`4.EdgesAndWeightsToArray">
             <inheritdoc/>
         </member>
+        <member name="T:Towel.DataStructures.IHeap`1">
+            <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+        </member>
+        <member name="M:Towel.DataStructures.IHeap`1.Enqueue(`0)">
+            <summary>Enqueues an item into the heap.</summary>
+            <param name="addition"></param>
+        </member>
+        <member name="M:Towel.DataStructures.IHeap`1.Dequeue">
+            <summary>Removes and returns the highest priority item.</summary>
+            <returns>The highest priority item from the queue.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.IHeap`1.Peek">
+            <summary>Returns the highest priority item.</summary>
+            <returns>The highest priority item in the queue.</returns>
+        </member>
         <member name="T:Towel.DataStructures.IHeap`2">
             <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
             <typeparam name="T">The type of values stored in this data structure.</typeparam>
             <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
         </member>
-        <member name="M:Towel.DataStructures.IHeap`2.Enqueue(`0)">
-            <summary>Enqueues an item into the heap.</summary>
-            <param name="addition"></param>
+        <member name="T:Towel.DataStructures.Heap">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.IAvlTree`2"/>.</summary>
         </member>
-        <member name="M:Towel.DataStructures.IHeap`2.Dequeue">
-            <summary>Removes and returns the highest priority item.</summary>
-            <returns>The highest priority item from the queue.</returns>
+        <member name="T:Towel.DataStructures.HeapArray">
+            <summary>Static helpers for <see cref="T:Towel.DataStructures.HeapArray`2"/>.</summary>
         </member>
-        <member name="M:Towel.DataStructures.IHeap`2.Peek">
-            <summary>Returns the highest priority item.</summary>
-            <returns>The highest priority item in the queue.</returns>
+        <member name="M:Towel.DataStructures.HeapArray.New``1(System.Func{``0,``0,Towel.CompareResult},System.Nullable{System.Int32})">
+            <summary>Constructs a new <see cref="T:Towel.DataStructures.HeapArray`2"/>.</summary>
+            <typeparam name="T">The type of values stored in this data structure.</typeparam>
+            <returns>The new constructed <see cref="T:Towel.DataStructures.HeapArray`2"/>.</returns>
         </member>
         <member name="T:Towel.DataStructures.HeapArray`2">
             <summary>A heap with static priorities implemented as a array.</summary>
@@ -1221,22 +1236,6 @@
             <returns>The resulting status of the iteration.</returns>
         </member>
         <member name="M:Towel.DataStructures.HeapArray`2.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.HeapArray`1">
-            <summary>A heap with static priorities implemented as a array.</summary>
-            <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-        </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.#ctor(System.Func{`0,`0,Towel.CompareResult},System.Nullable{System.Int32})">
-            <summary>
-            Generates a priority queue with a capacity of the parameter.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="compare">Delegate determining the comparison technique used for sorting.</param>
-            <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
-        </member>
-        <member name="M:Towel.DataStructures.HeapArray`1.Clone">
             <summary>Creates a shallow clone of this data structure.</summary>
             <returns>A shallow clone of this data structure.</returns>
         </member>

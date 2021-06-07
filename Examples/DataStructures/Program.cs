@@ -267,7 +267,7 @@ namespace DataStructures
 				}
 				Console.WriteLine();
 
-				HeapArray<int> heapArray = new(Priority);
+				IHeap<int> heapArray = HeapArray.New<int>(Priority);
 
 				Console.Write($"    [HeapArray] Enqueuing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -776,7 +776,7 @@ namespace DataStructures
 				for (int i = 0; i < test; i++)
 				{
 					// lets use a heap to randomize the edges using random priorities
-					HeapArray<(int, int)> heap = new();
+					IHeap<(int, int)> heap = HeapArray.New<(int, int)>();
 					for (int j = 0; j < test; j++)
 					{
 						if (j != i)

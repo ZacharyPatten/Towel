@@ -6,13 +6,10 @@ namespace Towel.DataStructures
 {
 	/// <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
-	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public interface IHeap<T, TCompare> : IDataStructure<T>,
+	public interface IHeap<T> : IDataStructure<T>,
 		// Structure Properties
 		DataStructure.ICountable,
-		DataStructure.IClearable,
-		DataStructure.IComparing<T, TCompare>
-		where TCompare : struct, IFunc<T, T, CompareResult>
+		DataStructure.IClearable
 	{
 		#region Methods
 
@@ -29,10 +26,39 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
+	/// <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public interface IHeap<T, TCompare> : IHeap<T>,
+		DataStructure.IComparing<T, TCompare>
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+		// TODO
+	}
+
+
+	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
+	public static class Heap
+	{
+		// TODO
+	}
+
+	/// <summary>Static helpers for <see cref="HeapArray{T, TCompare}"/>.</summary>
+	public static class HeapArray
+	{
+		/// <summary>Constructs a new <see cref="HeapArray{T, TCompare}"/>.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <returns>The new constructed <see cref="HeapArray{T, TCompare}"/>.</returns>
+		public static HeapArray<T, FuncRuntime<T, T, CompareResult>> New<T>(
+			Func<T, T, CompareResult>? compare = null,
+			int? minimumCapacity = null) =>
+			new(compare ?? Compare, minimumCapacity);
+	}
+
 	/// <summary>A heap with static priorities implemented as a array.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public class HeapArray<T, TCompare> : IHeap<T, TCompare>
+	public class HeapArray<T, TCompare> : IHeap<T, TCompare>, IHeap<T>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const int _root = 1; // The root index of the heap.
@@ -265,39 +291,6 @@ namespace Towel.DataStructures
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public HeapArray<T, TCompare> Clone() => new(this);
-
-		#endregion
-	}
-
-	/// <summary>A heap with static priorities implemented as a array.</summary>
-	/// <typeparam name="T">The type of item to be stored in this priority heap.</typeparam>
-	public class HeapArray<T> : HeapArray<T, FuncRuntime<T, T, CompareResult>>
-	{
-		#region Constructors
-
-		/// <summary>
-		/// Generates a priority queue with a capacity of the parameter.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
-		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
-		public HeapArray(Func<T, T, CompareResult>? compare = null, int? minimumCapacity = null) : base(compare ?? Statics.Compare, minimumCapacity) { }
-
-		internal HeapArray(HeapArray<T> heap)
-		{
-			_compare = heap._compare;
-			_heap = (T[])heap._heap.Clone();
-			_minimumCapacity = heap._minimumCapacity;
-			_count = heap._count;
-		}
-
-		#endregion
-
-		#region Clone
-
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public new HeapArray<T> Clone() => new(this);
 
 		#endregion
 	}
