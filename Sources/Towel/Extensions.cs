@@ -704,8 +704,7 @@ namespace Towel
 		/// <typeparam name="T">The type of the enum.</typeparam>
 		/// <param name="value">The value to determine if it is defined.</param>
 		/// <returns>true if a constant in enumType has a value equal to value; otherwise, false.</returns>
-		public static bool IsDefined<T>(this T value) where T : Enum =>
-			Enum.IsDefined(typeof(T), value);
+		public static bool IsDefined<T>(this T value) where T : Enum => Enum.IsDefined(typeof(T), value);
 
 		#endregion
 

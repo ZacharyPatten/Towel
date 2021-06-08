@@ -49,7 +49,7 @@ namespace Towel
 		internal static T OperationOnStepper<T>(Action<Action<T>> stepper, Func<T, T, T> operation)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			T result = default;
+			T? result = default;
 			bool assigned = false;
 			stepper(a =>
 			{
@@ -92,19 +92,19 @@ namespace Towel
 #pragma warning disable IDE1006 // Naming Styles
 
 		/// <summary>Gets the file path of the current location in source code.</summary>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
 		/// <returns>The file path of the current location in source code.</returns>
-		public static string sourcefilepath([CallerFilePath] string DEFAULT = default) => DEFAULT;
+		public static string sourcefilepath([CallerFilePath] string @default = default!) => @default;
 
 		/// <summary>Gets the member name of the current location in source code.</summary>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerMemberNameAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerMemberNameAttribute"/>.</param>
 		/// <returns>The member name of the current location in source code.</returns>
-		public static string sourcemembername([CallerMemberName] string DEFAULT = default) => DEFAULT;
+		public static string sourcemembername([CallerMemberName] string @default = default!) => @default;
 
 		/// <summary>Gets the line number of the current location in source code.</summary>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerLineNumberAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerLineNumberAttribute"/>.</param>
 		/// <returns>The line number of the current location in source code.</returns>
-		public static int sourcelinenumber([CallerLineNumber] int DEFAULT = default) => DEFAULT;
+		public static int sourcelinenumber([CallerLineNumber] int @default = default) => @default;
 
 #if false
 		/// <summary>Gets the source code and evaluation of an expression.</summary>
@@ -142,7 +142,7 @@ namespace Towel
 		/// <para>- <typeparamref name="A"/> Value: The value if the parse was successful or default if not.</para>
 		/// </returns>
 		public static (bool Success, A? Value) TryParse<A>(string @string) =>
-			(TryParseImplementation<A>.Function(@string, out A value), value);
+			(TryParseImplementation<A>.Function(@string, out A? value), value);
 
 		internal static class TryParseImplementation<A>
 		{
@@ -292,8 +292,7 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				// todo: add a type safe meethodinfo look up
-				// todo: I need to kill this try-catch...
+				#warning TODO: kill this try catch
 				try
 				{
 					var A = Expression.Parameter(typeof(A));
@@ -312,17 +311,17 @@ namespace Towel
 					EquateImplementation<A, B, bool>.Function = 
 						(typeof(A).IsValueType, typeof(B).IsValueType) switch
 						{
-							(true, true)   => (A, B) => A.Equals(B),
-							(true, false)  => (A, B) => A.Equals(B),
-							(false, true)  => (A, B) => B.Equals(A),
+							(true, true)   => (A, B) => A!.Equals(B),
+							(true, false)  => (A, B) => A!.Equals(B),
+							(false, true)  => (A, B) => B!.Equals(A),
 							(false, false) =>
 								(A, B) =>
 									(A, B) switch
 									{
 										(null, null) => true,
-										(_, null) => false,
-										(null, _) => false,
-										_ => A.Equals(B),
+										(_,    null) => false,
+										(null,    _) => false,
+										_            => A.Equals(B),
 									},
 						};
 					return Function!(a, b);

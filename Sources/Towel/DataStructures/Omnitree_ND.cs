@@ -110,7 +110,7 @@ namespace Towel.DataStructures
 			/// <summary>Implicitly converts the "None" keyword into a non-existant bound.</summary>
 			/// <param name="keyword">The keyword to convert into a non-existant bound.</param>
 			public static implicit operator Bound<T>(Keyword keyword) => 
-				keyword == Keyword.None
+				keyword is Keyword.None
 					? None
 					: throw new InvalidCastException("Implicit cast from invalid Omnitree.Keyword.");
 
@@ -123,6 +123,8 @@ namespace Towel.DataStructures
 					!b.Exists ? Equal :
 					Greater;
 		}
+
+		#if false
 
 		/// <summary>An N-D vector.</summary>
 		public struct Vector
@@ -165,6 +167,8 @@ namespace Towel.DataStructures
 				_max = max.Clone() as Bound<object>[];
 			}
 		}
+
+		#endif
 
 		#endregion
 
