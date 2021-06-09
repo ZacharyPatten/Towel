@@ -3,6 +3,7 @@
 		<OutputType>Exe</OutputType>
 		<IsPackable>false</IsPackable>
 		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 	  <NoWarn>1701;1702;IDE1006</NoWarn>

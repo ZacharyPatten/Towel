@@ -4,6 +4,7 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Silk.NET.Input.Desktop" Version="2.0.0-preview" />

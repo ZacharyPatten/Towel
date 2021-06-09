@@ -28,15 +28,6 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Functional.tt</DependentUpon>
 		</Compile>
-		<None Update="DataStructures\Link.tt">
-			<Generator>TextTemplatingFileGenerator</Generator>
-			<LastGenOutput>Link.cs</LastGenOutput>
-		</None>
-		<Compile Update="DataStructures\Link.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Link.tt</DependentUpon>
-		</Compile>
 		<None Update="Measurements\MeasurementTypes.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>MeasurementTypes.cs</LastGenOutput>
@@ -58,8 +49,5 @@
 		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
 			<_Parameter1>Towel_Testing</_Parameter1>
 		</AssemblyAttribute>
-	</ItemGroup>
-	<ItemGroup>
-	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 </Project>

@@ -3,6 +3,7 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net5.0</TargetFramework>
 		<IsPackable>false</IsPackable>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\Sources\Towel\Towel.csproj" />

@@ -12,7 +12,7 @@ namespace Towel_Generating
 	{
 		public static string Run(int dimensions = 7)
 		{
-			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath()), "..", ".."), sourcefilepath());
+			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath())!, "..", ".."), sourcefilepath());
 
 			StringBuilder code = new();
 			code.AppendLine($@"//------------------------------------------------------------------------------");

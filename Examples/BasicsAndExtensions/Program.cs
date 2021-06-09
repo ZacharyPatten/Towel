@@ -177,7 +177,7 @@ namespace BasicsAndExtensions
 				Console.Write("    XML Documentation On Towel.TagAttribute:");
 				Console.WriteLine(typeof(Towel.TagAttribute).GetDocumentation());
 				Console.Write("    XML Documentation On Towel.Constant<float>.Pi:");
-				Console.WriteLine(typeof(Constant<float>).GetProperty(nameof(Constant<float>.Pi)).GetDocumentation());
+				Console.WriteLine(typeof(Constant<float>).GetProperty(nameof(Constant<float>.Pi))!.GetDocumentation());
 			}
 			#endregion
 

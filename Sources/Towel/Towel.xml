@@ -1238,1225 +1238,1239 @@
             <summary>Represents a link between objects.</summary>
         </member>
         <member name="P:Towel.DataStructures.Link.Size">
-            <summary>The number of objects in the tuple.</summary>
+            <summary>The number of values in the tuple.</summary>
         </member>
         <member name="T:Towel.DataStructures.Link`1">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.Link`1.Value1">
+            <summary>The #1 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.Link`1.#ctor(`0)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
+            <summary>Constructs a link of values.</summary>
+            <param name="value1">The #1 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.Link`1.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`1._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.Link`1.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.Link`1.op_Explicit(System.ValueTuple{`0})~Towel.DataStructures.Link{`0}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`1.op_Implicit(System.ValueTuple{`0})~Towel.DataStructures.Link{`0}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`1.op_Explicit(Towel.DataStructures.Link{`0})~System.ValueTuple{`0}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.Link`1.op_Implicit(Towel.DataStructures.Link{`0})~System.ValueTuple{`0}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`1.op_Explicit(System.Tuple{`0})~Towel.DataStructures.Link{`0}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`1.op_Implicit(System.Tuple{`0})~Towel.DataStructures.Link{`0}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`1.op_Explicit(Towel.DataStructures.Link{`0})~System.Tuple{`0}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.Link`1.op_Implicit(Towel.DataStructures.Link{`0})~System.Tuple{`0}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.op_Implicit(Towel.DataStructures.LinkStruct{`0})~Towel.DataStructures.Link{`0}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`1.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`1.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`1.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`1.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`1.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`1.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`1.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.Link.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.Equals(Towel.DataStructures.Link{`0})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`1.Deconstruct(`0@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`1">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`1.Value1">
+            <summary>The #1 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.#ctor(`0)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
+            <summary>Creates a link between objects.</summary>
+            <param name="value1">The #1 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`1.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`1._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.LinkStruct`1.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(System.ValueTuple{`0})~Towel.DataStructures.LinkStruct{`0}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`1.op_Implicit(System.ValueTuple{`0})~Towel.DataStructures.LinkStruct{`0}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(Towel.DataStructures.LinkStruct{`0})~System.ValueTuple{`0}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`1.op_Implicit(Towel.DataStructures.LinkStruct{`0})~System.ValueTuple{`0}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(System.Tuple{`0})~Towel.DataStructures.LinkStruct{`0}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`1.op_Implicit(System.Tuple{`0})~Towel.DataStructures.LinkStruct{`0}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.op_Explicit(Towel.DataStructures.LinkStruct{`0})~System.Tuple{`0}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`1.op_Implicit(Towel.DataStructures.LinkStruct{`0})~System.Tuple{`0}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`1.op_Implicit(Towel.DataStructures.Link{`0})~Towel.DataStructures.LinkStruct{`0}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.System#Collections#Generic#IEnumerable{System#Object}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`1.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`1.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`1.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`1.Equals(Towel.DataStructures.LinkStruct{`0})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`1.Deconstruct(`0@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.Link`2">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.Link`2.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`2.Value2">
+            <summary>The #2 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.Link`2.#ctor(`0,`1)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
+            <summary>Constructs a link of values.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.Link`2.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`2._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.Link`2.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`2._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`2.op_Implicit(System.ValueTuple{`0,`1})~Towel.DataStructures.Link{`0,`1}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`2.op_Explicit(System.ValueTuple{`0,`1})~Towel.DataStructures.Link{`0,`1}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`2.op_Implicit(Towel.DataStructures.Link{`0,`1})~System.ValueTuple{`0,`1}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`2.op_Explicit(Towel.DataStructures.Link{`0,`1})~System.ValueTuple{`0,`1}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.Link`2.op_Implicit(System.Tuple{`0,`1})~Towel.DataStructures.Link{`0,`1}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`2.op_Explicit(System.Tuple{`0,`1})~Towel.DataStructures.Link{`0,`1}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`2.op_Implicit(Towel.DataStructures.Link{`0,`1})~System.Tuple{`0,`1}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`2.op_Explicit(Towel.DataStructures.Link{`0,`1})~System.Tuple{`0,`1}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.Link`2.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1})~Towel.DataStructures.Link{`0,`1}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`2.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`2.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`2.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`2.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`2.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`2.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`2.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.Link.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.Equals(Towel.DataStructures.Link{`0,`1})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`2.Deconstruct(`0@,`1@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`2">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`2.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`2.Value2">
+            <summary>The #2 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.#ctor(`0,`1)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
+            <summary>Creates a link between objects.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`2.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`2._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.LinkStruct`2.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`2._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`2.op_Implicit(System.ValueTuple{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(System.ValueTuple{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`2.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1})~System.ValueTuple{`0,`1}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1})~System.ValueTuple{`0,`1}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`2.op_Implicit(System.Tuple{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(System.Tuple{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`2.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1})~System.Tuple{`0,`1}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1})~System.Tuple{`0,`1}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`2.op_Implicit(Towel.DataStructures.Link{`0,`1})~Towel.DataStructures.LinkStruct{`0,`1}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.System#Collections#Generic#IEnumerable{System#Object}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`2.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`2.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`2.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`2.Equals(Towel.DataStructures.LinkStruct{`0,`1})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`2.Deconstruct(`0@,`1@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.Link`3">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.Link`3.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`3.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`3.Value3">
+            <summary>The #3 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.Link`3.#ctor(`0,`1,`2)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
+            <summary>Constructs a link of values.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.Link`3.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`3._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.Link`3.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`3._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`3.op_Implicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`3._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`3.op_Implicit(Towel.DataStructures.Link{`0,`1,`2})~System.ValueTuple{`0,`1,`2}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`3.op_Explicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`3.op_Implicit(System.Tuple{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`3.op_Explicit(Towel.DataStructures.Link{`0,`1,`2})~System.ValueTuple{`0,`1,`2}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.Link`3.op_Implicit(Towel.DataStructures.Link{`0,`1,`2})~System.Tuple{`0,`1,`2}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`3.op_Explicit(System.Tuple{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`3.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2})~Towel.DataStructures.Link{`0,`1,`2}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`3.op_Explicit(Towel.DataStructures.Link{`0,`1,`2})~System.Tuple{`0,`1,`2}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.Link`3.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`3.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`3.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`3.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`3.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`3.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`3.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`3.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.Link.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.Link`3.Equals(Towel.DataStructures.Link{`0,`1,`2})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`3.Deconstruct(`0@,`1@,`2@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`3">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`3.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`3.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`3.Value3">
+            <summary>The #3 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.#ctor(`0,`1,`2)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
+            <summary>Creates a link between objects.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`3.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`3._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.LinkStruct`3.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`3._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`3.op_Implicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`3._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`3.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2})~System.ValueTuple{`0,`1,`2}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(System.ValueTuple{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`3.op_Implicit(System.Tuple{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2})~System.ValueTuple{`0,`1,`2}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`3.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2})~System.Tuple{`0,`1,`2}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(System.Tuple{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`3.op_Implicit(Towel.DataStructures.Link{`0,`1,`2})~Towel.DataStructures.LinkStruct{`0,`1,`2}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2})~System.Tuple{`0,`1,`2}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.System#Collections#Generic#IEnumerable{System#Object}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`3.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`3.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`3.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`3.Equals(Towel.DataStructures.LinkStruct{`0,`1,`2})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`3.Deconstruct(`0@,`1@,`2@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.Link`4">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.Link`4.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`4.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`4.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`4.Value4">
+            <summary>The #4 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.Link`4.#ctor(`0,`1,`2,`3)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
+            <summary>Constructs a link of values.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.Link`4.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`4._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.Link`4.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`4._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`4.op_Implicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`4._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`4.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3})~System.ValueTuple{`0,`1,`2,`3}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`4._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`4.op_Implicit(System.Tuple{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`4.op_Explicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`4.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3})~System.Tuple{`0,`1,`2,`3}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`4.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3})~System.ValueTuple{`0,`1,`2,`3}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.Link`4.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`4.op_Explicit(System.Tuple{`0,`1,`2,`3})~Towel.DataStructures.Link{`0,`1,`2,`3}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`4.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3})~System.Tuple{`0,`1,`2,`3}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.Link`4.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`4.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`4.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`4.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`4.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`4.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`4.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`4.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.Link.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.Link`4.Equals(Towel.DataStructures.Link{`0,`1,`2,`3})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`4.Deconstruct(`0@,`1@,`2@,`3@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`4">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`4.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`4.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`4.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`4.Value4">
+            <summary>The #4 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.#ctor(`0,`1,`2,`3)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
+            <summary>Creates a link between objects.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`4.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`4._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.LinkStruct`4.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`4._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`4.op_Implicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`4._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`4.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})~System.ValueTuple{`0,`1,`2,`3}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`4._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`4.op_Implicit(System.Tuple{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(System.ValueTuple{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`4.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})~System.Tuple{`0,`1,`2,`3}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})~System.ValueTuple{`0,`1,`2,`3}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`4.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(System.Tuple{`0,`1,`2,`3})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})~System.Tuple{`0,`1,`2,`3}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.System#Collections#Generic#IEnumerable{System#Object}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`4.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`4.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`4.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`4.Equals(Towel.DataStructures.LinkStruct{`0,`1,`2,`3})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`4.Deconstruct(`0@,`1@,`2@,`3@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.Link`5">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
-            <typeparam name="T5">The type of #5 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+            <typeparam name="T5">The type of #5 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.Link`5.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`5.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`5.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`5.Value4">
+            <summary>The #4 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`5.Value5">
+            <summary>The #5 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.Link`5.#ctor(`0,`1,`2,`3,`4)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
-            <param name="_5">The #5 item to be linked.</param>
+            <summary>Constructs a link of values.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
+            <param name="value5">The #5 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.Link`5.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`5._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.Link`5.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`5._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`5.op_Implicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`5._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`5.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4})~System.ValueTuple{`0,`1,`2,`3,`4}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`5._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`5.op_Implicit(System.Tuple{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`5._5">
-            <summary>The #5 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`5.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4})~System.Tuple{`0,`1,`2,`3,`4}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`5.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
+        <member name="M:Towel.DataStructures.Link`5.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`5.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4})~System.ValueTuple{`0,`1,`2,`3,`4}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`5.op_Explicit(System.Tuple{`0,`1,`2,`3,`4})~Towel.DataStructures.Link{`0,`1,`2,`3,`4}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`5.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4})~System.Tuple{`0,`1,`2,`3,`4}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.Link`5.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`5.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`5.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`5.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`5.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`5.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`5.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`5.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.Link.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.Link`5.Equals(Towel.DataStructures.Link{`0,`1,`2,`3,`4})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`5.Deconstruct(`0@,`1@,`2@,`3@,`4@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
+            <param name="value5">The #5 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`5">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
-            <typeparam name="T5">The type of #5 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+            <typeparam name="T5">The type of #5 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`5.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`5.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`5.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`5.Value4">
+            <summary>The #4 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`5.Value5">
+            <summary>The #5 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.#ctor(`0,`1,`2,`3,`4)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
-            <param name="_5">The #5 item to be linked.</param>
+            <summary>Creates a link between objects.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
+            <param name="value5">The #5 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`5.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`5._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.LinkStruct`5.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`5._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`5.op_Implicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`5._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`5.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})~System.ValueTuple{`0,`1,`2,`3,`4}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`5._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`5.op_Implicit(System.Tuple{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`5._5">
-            <summary>The #5 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`5.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})~System.Tuple{`0,`1,`2,`3,`4}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
+        <member name="M:Towel.DataStructures.LinkStruct`5.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})~System.ValueTuple{`0,`1,`2,`3,`4}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(System.Tuple{`0,`1,`2,`3,`4})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})~System.Tuple{`0,`1,`2,`3,`4}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.System#Collections#Generic#IEnumerable{System#Object}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`5.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`5.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`5.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`5.Equals(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`5.Deconstruct(`0@,`1@,`2@,`3@,`4@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
+            <param name="value5">The #5 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.Link`6">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
-            <typeparam name="T5">The type of #5 element in the link.</typeparam>
-            <typeparam name="T6">The type of #6 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+            <typeparam name="T5">The type of #5 value in the link.</typeparam>
+            <typeparam name="T6">The type of #6 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.Link`6.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`6.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`6.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`6.Value4">
+            <summary>The #4 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`6.Value5">
+            <summary>The #5 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`6.Value6">
+            <summary>The #6 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.Link`6.#ctor(`0,`1,`2,`3,`4,`5)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
-            <param name="_5">The #5 item to be linked.</param>
-            <param name="_6">The #6 item to be linked.</param>
+            <summary>Constructs a link of values.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
+            <param name="value5">The #5 value to be linked.</param>
+            <param name="value6">The #6 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.Link`6.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`6._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.Link`6.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`6._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`6.op_Implicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`6._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`6.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})~System.ValueTuple{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`6._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`6.op_Implicit(System.Tuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`6._5">
-            <summary>The #5 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`6.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})~System.Tuple{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`6._6">
-            <summary>The #6 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`6.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.Link`6.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`6.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})~System.ValueTuple{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`6.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`6.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})~System.Tuple{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.Link`6.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`6.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`6.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`6.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`6.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`6.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`6.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`6.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.Link.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.Link`6.Equals(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`6.Deconstruct(`0@,`1@,`2@,`3@,`4@,`5@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
+            <param name="value5">The #5 value of the link.</param>
+            <param name="value6">The #6 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`6">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
-            <typeparam name="T5">The type of #5 element in the link.</typeparam>
-            <typeparam name="T6">The type of #6 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+            <typeparam name="T5">The type of #5 value in the link.</typeparam>
+            <typeparam name="T6">The type of #6 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`6.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`6.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`6.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`6.Value4">
+            <summary>The #4 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`6.Value5">
+            <summary>The #5 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`6.Value6">
+            <summary>The #6 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.#ctor(`0,`1,`2,`3,`4,`5)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
-            <param name="_5">The #5 item to be linked.</param>
-            <param name="_6">The #6 item to be linked.</param>
+            <summary>Creates a link between objects.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
+            <param name="value5">The #5 value to be linked.</param>
+            <param name="value6">The #6 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`6.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`6._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.LinkStruct`6.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`6._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`6.op_Implicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`6._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`6.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})~System.ValueTuple{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`6._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`6.op_Implicit(System.Tuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`6._5">
-            <summary>The #5 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`6.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})~System.Tuple{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`6._6">
-            <summary>The #6 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`6.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})~System.ValueTuple{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})~System.Tuple{`0,`1,`2,`3,`4,`5}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.System#Collections#Generic#IEnumerable{System#Object}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`6.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`6.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`6.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`6.Equals(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`6.Deconstruct(`0@,`1@,`2@,`3@,`4@,`5@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
+            <param name="value5">The #5 value of the link.</param>
+            <param name="value6">The #6 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.Link`7">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
-            <typeparam name="T5">The type of #5 element in the link.</typeparam>
-            <typeparam name="T6">The type of #6 element in the link.</typeparam>
-            <typeparam name="T7">The type of #7 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+            <typeparam name="T5">The type of #5 value in the link.</typeparam>
+            <typeparam name="T6">The type of #6 value in the link.</typeparam>
+            <typeparam name="T7">The type of #7 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.Link`7.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`7.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`7.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`7.Value4">
+            <summary>The #4 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`7.Value5">
+            <summary>The #5 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`7.Value6">
+            <summary>The #6 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.Link`7.Value7">
+            <summary>The #7 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.Link`7.#ctor(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
-            <param name="_5">The #5 item to be linked.</param>
-            <param name="_6">The #6 item to be linked.</param>
-            <param name="_7">The #7 item to be linked.</param>
+            <summary>Constructs a link of values.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
+            <param name="value5">The #5 value to be linked.</param>
+            <param name="value6">The #6 value to be linked.</param>
+            <param name="value7">The #7 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.Link`7.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`7._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.Link`7.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.Link`7._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`7.op_Implicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`7._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`7.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})~System.ValueTuple{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`7._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`7.op_Implicit(System.Tuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`7._5">
-            <summary>The #5 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`7.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})~System.Tuple{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`7._6">
-            <summary>The #6 item in the link.</summary>
+        <member name="M:Towel.DataStructures.Link`7.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="P:Towel.DataStructures.Link`7._7">
-            <summary>The #7 item in the link.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.Link`7.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`7.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})~System.ValueTuple{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`7.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.Link of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.Link.</param>
-            <returns>The resulting Towel.DataStructures.Link.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`7.op_Explicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})~System.Tuple{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a Towel.DataStructures.Link to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.Link to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
+        <member name="M:Towel.DataStructures.Link`7.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`7.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.Link`7.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`7.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`7.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`7.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.Link`7.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.Link.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.Link`7.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.Link.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.Link`7.Equals(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.Link`7.Deconstruct(`0@,`1@,`2@,`3@,`4@,`5@,`6@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
+            <param name="value5">The #5 value of the link.</param>
+            <param name="value6">The #6 value of the link.</param>
+            <param name="value7">The #7 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.LinkStruct`7">
             <summary>Represents a link between objects.</summary>
-            <typeparam name="T1">The type of #1 element in the link.</typeparam>
-            <typeparam name="T2">The type of #2 element in the link.</typeparam>
-            <typeparam name="T3">The type of #3 element in the link.</typeparam>
-            <typeparam name="T4">The type of #4 element in the link.</typeparam>
-            <typeparam name="T5">The type of #5 element in the link.</typeparam>
-            <typeparam name="T6">The type of #6 element in the link.</typeparam>
-            <typeparam name="T7">The type of #7 element in the link.</typeparam>
+            <typeparam name="T1">The type of #1 value in the link.</typeparam>
+            <typeparam name="T2">The type of #2 value in the link.</typeparam>
+            <typeparam name="T3">The type of #3 value in the link.</typeparam>
+            <typeparam name="T4">The type of #4 value in the link.</typeparam>
+            <typeparam name="T5">The type of #5 value in the link.</typeparam>
+            <typeparam name="T6">The type of #6 value in the link.</typeparam>
+            <typeparam name="T7">The type of #7 value in the link.</typeparam>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Value1">
+            <summary>The #1 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Value2">
+            <summary>The #2 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Value3">
+            <summary>The #3 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Value4">
+            <summary>The #4 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Value5">
+            <summary>The #5 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Value6">
+            <summary>The #6 value of the link.</summary>
+        </member>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Value7">
+            <summary>The #7 value of the link.</summary>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.#ctor(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>
-            Creates a link between objects.
-            <para>Runtime: O(1)</para>
-            </summary>
-            <param name="_1">The #1 item to be linked.</param>
-            <param name="_2">The #2 item to be linked.</param>
-            <param name="_3">The #3 item to be linked.</param>
-            <param name="_4">The #4 item to be linked.</param>
-            <param name="_5">The #5 item to be linked.</param>
-            <param name="_6">The #6 item to be linked.</param>
-            <param name="_7">The #7 item to be linked.</param>
+            <summary>Creates a link between objects.</summary>
+            <param name="value1">The #1 value to be linked.</param>
+            <param name="value2">The #2 value to be linked.</param>
+            <param name="value3">The #3 value to be linked.</param>
+            <param name="value4">The #4 value to be linked.</param>
+            <param name="value5">The #5 value to be linked.</param>
+            <param name="value6">The #6 value to be linked.</param>
+            <param name="value7">The #7 value to be linked.</param>
         </member>
         <member name="P:Towel.DataStructures.LinkStruct`7.Size">
-            <summary>
-            The number of objects in the tuple.
-            <para>Runtime: O(1)</para>
-            </summary>
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`7._1">
-            <summary>The #1 item in the link.</summary>
+        <member name="P:Towel.DataStructures.LinkStruct`7.Item(System.Int32)">
+            <inheritdoc/>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`7._2">
-            <summary>The #2 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`7.op_Implicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`7._3">
-            <summary>The #3 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`7.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})~System.ValueTuple{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`7._4">
-            <summary>The #4 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`7.op_Implicit(System.Tuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a tuple to a link.</summary>
+            <param name="tuple">The tuple to convert to a link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`7._5">
-            <summary>The #5 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`7.op_Implicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})~System.Tuple{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a link to a tuple.</summary>
+            <param name="link">The link to convert to a tuple.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`7._6">
-            <summary>The #6 item in the link.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`7.op_Implicit(Towel.DataStructures.Link{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Converts a class link to a struct link.</summary>
+            <param name="link">The class link to convert to a struct link.</param>
         </member>
-        <member name="P:Towel.DataStructures.LinkStruct`7._7">
-            <summary>The #7 item in the link.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(System.ValueTuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a System.ValueTuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.ValueTuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})~System.ValueTuple{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.ValueTuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.ValueTuple.</param>
-            <returns>The resulting System.ValueTuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(System.Tuple{`0,`1,`2,`3,`4,`5,`6})~Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a System.Tuple to a Towel.DataStructures.LinkStruct of the same generic types.</summary>
-            <param name="tuple">The System.Tuple to convert into a Towel.DataStructures.LinkStruct.</param>
-            <returns>The resulting Towel.DataStructures.LinkStruct.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.op_Explicit(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})~System.Tuple{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Converts a Towel.DataStructures.LinkStruct to a System.Tuple of the same generic types.</summary>
-            <param name="link">The Towel.DataStructures.LinkStruct to convert into a System.Tuple.</param>
-            <returns>The resulting System.Tuple.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.System#Collections#IEnumerable#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.System#Collections#Generic#IEnumerable{System#Object}#GetEnumerator">
-            <summary>FOR COMPATIBILITY ONLY. AVOID IF POSSIBLE.</summary>
+        <member name="M:Towel.DataStructures.LinkStruct`7.GetEnumerator">
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.Types">
-            <summary>Gets an array with all the types contained in this link in respective order.</summary>
-            <returns>An array of all the types in this link in respective order.</returns>
-        </member>
-        <member name="M:Towel.DataStructures.LinkStruct`7.Contains(System.Object,System.Func{System.Object,System.Object,Towel.CompareResult})">
-            <summary>Checks to see if a given object is in this data structure.</summary>
-            <param name="item">The item to check for.</param>
-            <param name="compare">Delegate representing comparison technique.</param>
-            <returns>true if the item is in this structure; false if not.</returns>
+            <summary>Gets the types of the values of this link.</summary>
+            <returns>The types of the values of this link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.StepperBreak``1(``0)">
             <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.Clone">
-            <summary>Creates a shallow clone of this data structure.</summary>
-            <returns>A shallow clone of this data structure.</returns>
+            <summary>Clones the link.</summary>
+            <returns>A clone of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.ToArray">
-            <summary>Converts the structure into an array.</summary>
-            <returns>An array containing all the item in the structure.</returns>
+            <summary>Converts the link into an array.</summary>
+            <returns>An array containing the values of the link.</returns>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.GetHashCode">
-            <summary>Default hashing function for the Towel.DataStructures.LinkStruct.</summary>
-            <returns>The computed hash code.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Towel.DataStructures.LinkStruct`7.Equals(System.Object)">
-            <summary>Default equals method for Towel.DataStructures.LinkStruct.</summary>
-            <returns>Whether this object and the provided obj are value equal.</returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`7.Equals(Towel.DataStructures.LinkStruct{`0,`1,`2,`3,`4,`5,`6})">
+            <summary>Check for equality with another link.</summary>
+            <param name="b">The other link to check for equality with.</param>
+            <returns>True if equal; false if not.</returns>
+        </member>
+        <member name="M:Towel.DataStructures.LinkStruct`7.Deconstruct(`0@,`1@,`2@,`3@,`4@,`5@,`6@)">
+            <summary>Deconstructs the link.</summary>
+            <param name="value1">The #1 value of the link.</param>
+            <param name="value2">The #2 value of the link.</param>
+            <param name="value3">The #3 value of the link.</param>
+            <param name="value4">The #4 value of the link.</param>
+            <param name="value5">The #5 value of the link.</param>
+            <param name="value6">The #6 value of the link.</param>
+            <param name="value7">The #7 value of the link.</param>
         </member>
         <member name="T:Towel.DataStructures.IList`1">
             <summary>A primitive dynamic sized data structure.</summary>
@@ -4528,30 +4542,6 @@
             <summary>Gets the bound compare delegate from a value compare delegate.</summary>
             <param name="compare">The value compare to wrap into a bounds compare.</param>
             <returns>The bounds compare.</returns>
-        </member>
-        <member name="T:Towel.DataStructures.Omnitree.Vector">
-            <summary>An N-D vector.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.Omnitree.Vector.Location">
-            <summary>The locations along each axis.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.Omnitree.Vector.Default">
-            <summary>Returns a vector with defaulted values.</summary>
-        </member>
-        <member name="T:Towel.DataStructures.Omnitree.Bounds">
-            <summary>An N-D bounding box.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.Omnitree.Bounds.Min">
-            <summary>The minimum of the bounds.</summary>
-        </member>
-        <member name="P:Towel.DataStructures.Omnitree.Bounds.Max">
-            <summary>The maximum of the bounds.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.Omnitree.Bounds.None(System.Int32)">
-            <summary>Extends infinitely along each axis.</summary>
-        </member>
-        <member name="M:Towel.DataStructures.Omnitree.Bounds.#ctor(Towel.DataStructures.Omnitree.Bound{System.Object}[],Towel.DataStructures.Omnitree.Bound{System.Object}[])">
-            <summary>A set of values denoting a range (or lack of range) along each axis.</summary>
         </member>
         <member name="T:Towel.DataStructures.Omnitree.SubdivisionOverride`3">
             <summary>A delegate for determining the point of subdivision in a set of values and current bounds.</summary>
@@ -31863,17 +31853,17 @@
         </member>
         <member name="M:Towel.Statics.sourcefilepath(System.String)">
             <summary>Gets the file path of the current location in source code.</summary>
-            <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute"/>.</param>
+            <param name="default">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerFilePathAttribute"/>.</param>
             <returns>The file path of the current location in source code.</returns>
         </member>
         <member name="M:Towel.Statics.sourcemembername(System.String)">
             <summary>Gets the member name of the current location in source code.</summary>
-            <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/>.</param>
+            <param name="default">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute"/>.</param>
             <returns>The member name of the current location in source code.</returns>
         </member>
         <member name="M:Towel.Statics.sourcelinenumber(System.Int32)">
             <summary>Gets the line number of the current location in source code.</summary>
-            <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute"/>.</param>
+            <param name="default">Intended to leave default. This value is set by the compiler via <see cref="T:System.Runtime.CompilerServices.CallerLineNumberAttribute"/>.</param>
             <returns>The line number of the current location in source code.</returns>
         </member>
         <member name="M:Towel.Statics.TryParse``1(System.String)">
