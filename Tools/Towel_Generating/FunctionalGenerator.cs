@@ -137,46 +137,6 @@ namespace Towel_Generating
 				}
 				code.AppendLine($@"");
 			}
-
-
-
-
-			//code.AppendLine($@"<# for (int i = 0; i <= parameterCount; i++) {{ #>");
-			//	code.AppendLine($@"");
-			//	code.AppendLine($@"	/// <summary>Encapsulates a method.</summary>");
-			//	code.AppendLine($@"	public interface IFunc<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } ")) +", " #>TResult>");
-			//	code.AppendLine($@"	{{");
-			//	code.AppendLine($@"		/// <summary>Invocation of the method.</summary>");
-			//	code.AppendLine($@"		TResult Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } arg{ { j} } ")) #>);");
-			//	code.AppendLine($@"	}}");
-			//	code.AppendLine($@"<# }} #>");
-			//	code.AppendLine($@"<# for (int i = 0; i <= parameterCount; i++) {{ #>");
-			//	code.AppendLine($@"");
-			//	code.AppendLine($@"	/// <summary>Encapsulates a delegate.</summary>");
-			//	code.AppendLine($@"	public struct ActionRuntime<#= i == 0 ? "" : $" <{ { string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{{j}}"))} }> " #> : IAction<#= i == 0 ? "" : $" <{ { string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{{j}}"))} }> " #>");
-			//	code.AppendLine($@"	{{");
-			//	code.AppendLine($@"		/// <summary>The delegate instance.</summary>");
-			//	code.AppendLine($@"		internal Action<#= i == 0 ? "" : $" <{ { string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{{j}}"))} }> " #> _delegate;");
-			//	code.AppendLine($@"		/// <summary>Invocation of the delegate.</summary>");
-			//	code.AppendLine($@"		public void Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } arg{ { j} } ")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{ { j} } ")) #>);");
-			//	code.AppendLine($@"		/// <summary>Implicit caster from a delegate.</summary>");
-			//	code.AppendLine($@"		public static implicit operator ActionRuntime<#= i == 0 ? "" : $" <{ { string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{{j}}"))} }> " #>(Action<#= i == 0 ? "" : $" <{ { string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{{j}}"))} }> " #> @delegate) => new() {{ _delegate = @delegate, }};");
-			//	code.AppendLine($@"	}}");
-			//	code.AppendLine($@"<# }} #>");
-			//	code.AppendLine($@"<# for (int i = 0; i <= parameterCount; i++) {{ #>");
-			//	code.AppendLine($@"");
-			//	code.AppendLine($@"	/// <summary>Encapsulates a delegate.</summary>");
-			//	code.AppendLine($@"	public struct FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } ")) +", " #>TResult> : IFunc<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } ")) +", " #>TResult>");
-			//	code.AppendLine($@"	{{");
-			//	code.AppendLine($@"		/// <summary>The delegate instance.</summary>");
-			//	code.AppendLine($@"		internal Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } ")) +", " #>TResult> _delegate;");
-			//	code.AppendLine($@"		/// <summary>Invocation of the delegate.</summary>");
-			//	code.AppendLine($@"		public TResult Do(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } arg{ { j} } ")) #>) => _delegate(<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"arg{ { j} } ")) #>);");
-			//	code.AppendLine($@"		/// <summary>Implicit caster from a delegate.</summary>");
-			//	code.AppendLine($@"		public static implicit operator FuncRuntime<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } ")) +", " #>TResult>(Func<<#= i == 0 ? "" : string.Join(", ", Enumerable.Range(1, i).Select(j => $"T{ { j} } ")) +", " #>TResult> @delegate) => new() {{ _delegate = @delegate, }};");
-			//	code.AppendLine($@"	}}");
-
-
 			code.AppendLine($@"}}");
 			return code.ToString();
 		}
