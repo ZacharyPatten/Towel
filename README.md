@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-	A .NET library intended to add core functionality and make advanced topics as clean and simple as possible: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)
+	A .NET library intended to make coding a bit more towelerable: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)
 </p>
 
 > "It's a tough galaxy. If you want to survive, you've gotta know... where your towel is." - Ford Prefect
