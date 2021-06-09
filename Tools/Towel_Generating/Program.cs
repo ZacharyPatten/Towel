@@ -60,20 +60,47 @@ namespace Towel_Generating
 			}
 		}
 
+		/// <summary>Generates the source code for "Functional.cs".</summary>
+		/// <param name="output">The file path to output the result to.</param>
+		/// <example>dotnet run Functional --output "..\..\Sources\Towel\Functional.cs"</example>
+		/// <example>dotnet Towel_Generating.dll Functional --output "..\..\..\..\..\Sources\Towel\Functional.cs"</example>
+		[Command]
+		public static void Functional(string? output = null)
+		{
+			string code = FunctionalGenerator.Run();
+			if (output is null)
+			{
+				Console.WriteLine(code);
+			}
+			else
+			{
+				try
+				{
+					File.WriteAllText(output, code);
+				}
+				catch (Exception exception)
+				{
+					Console.WriteLine(exception);
+				}
+			}
+		}
+
 		/// <summary>Generates the source code.</summary>
-		/// <example>dotnet run All --omnitreeOutput "..\..\Sources\Towel\DataStructures\Omnitree2.cs" --omnitreeOutput "..\..\Sources\Towel\DataStructures\Link.cs"</example>
-		/// <example>dotnet Towel_Generating.dll All --omnitreeOutput "..\..\Sources\Towel\DataStructures\Omnitree2.cs" --omnitreeOutput "..\..\Sources\Towel\DataStructures\Link.cs"</example>
+		/// <example>dotnet run All --omnitreeOutput "..\..\Sources\Towel\DataStructures\Omnitree2.cs" --linkOutput "..\..\Sources\Towel\DataStructures\Link.cs" --functionalOutput "..\..\..\..\..\Sources\Towel\Functional.cs"</example>
+		/// <example>dotnet Towel_Generating.dll All --omnitreeOutput "..\..\Sources\Towel\DataStructures\Omnitree2.cs" --linkOutput "..\..\Sources\Towel\DataStructures\Link.cs" --functionalOutput "..\..\..\..\..\Sources\Towel\Functional.cs"</example>
 		[Command]
 		public static void All(
 			string omnitreeOutput,
-			string linkOutput)
+			string linkOutput,
+			string functionalOutput)
 		{
-			if (ContainsDuplicates<string>(Ɐ(omnitreeOutput, linkOutput)))
+			if (ContainsDuplicates<string>(Ɐ(omnitreeOutput, linkOutput, functionalOutput)))
 			{
 				Console.WriteLine("Invalid arguments. Duplicate output files.");
 			}
 			Omnitree(omnitreeOutput);
 			Link(linkOutput);
+			Functional(functionalOutput);
 		}
 	}
 }

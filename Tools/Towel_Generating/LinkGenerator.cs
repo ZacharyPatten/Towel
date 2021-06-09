@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using Towel;
 using static Towel.Statics;
@@ -10,7 +9,7 @@ namespace Towel_Generating
 {
 	public static class LinkGenerator
 	{
-		public static string Run(int dimensions = 7)
+		public static string Run(int size = 7)
 		{
 			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath())!, "..", ".."), sourcefilepath());
  
@@ -34,7 +33,7 @@ namespace Towel_Generating
 			code.AppendLine($@"		/// <summary>The number of values in the tuple.</summary>");
 			code.AppendLine($@"		int Size {{ get; }}");
 			code.AppendLine($@"	}}");
-			for (int i = 1, I = 2; i <= dimensions; i++, I++)
+			for (int i = 1, I = 2; i <= size; i++, I++)
 			{
 				code.AppendLine($@"");
 				code.AppendLine($@"	/// <summary>Represents a link between objects.</summary>");
