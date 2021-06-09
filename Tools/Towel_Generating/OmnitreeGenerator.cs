@@ -10,7 +10,7 @@ namespace Towel_Generating
 {
 	public static class OmnitreeGenerator
 	{
-		public static string Run(int dimensions = 7)
+		public static string Run(int dimensions = Program.DefaultGenerationCount)
 		{
 			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath())!, "..", ".."), sourcefilepath());
 

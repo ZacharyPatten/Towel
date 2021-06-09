@@ -9,7 +9,7 @@ namespace Towel_Generating
 {
 	public static class LinkGenerator
 	{
-		public static string Run(int size = 7)
+		public static string Run(int size = Program.DefaultGenerationCount)
 		{
 			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath())!, "..", ".."), sourcefilepath());
  

@@ -9,7 +9,7 @@ namespace Towel_Generating
 {
 	public static class FunctionalGenerator
 	{
-		public static string Run(int parameters = 7)
+		public static string Run(int parameters = Program.DefaultGenerationCount)
 		{
 			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath())!, "..", ".."), sourcefilepath());
 

@@ -15335,6 +15335,95 @@
             <param name="totalWeight">The total weight of all the values in the pool.</param>
             <returns>A randomly selected value from the weighted pool.</returns>
         </member>
+        <member name="M:Towel.Extensions.GetEnumerator(System.Runtime.CompilerServices.ITuple)">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.Tuple{``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.ValueTuple{``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.Tuple{``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.ValueTuple{``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.Tuple{``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.ValueTuple{``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.Tuple{``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.ValueTuple{``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.Tuple{``0,``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.ValueTuple{``0,``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.Tuple{``0,``0,``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.ValueTuple{``0,``0,``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.Tuple{``0,``0,``0,``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
+        <member name="M:Towel.Extensions.GetEnumerator``1(System.ValueTuple{``0,``0,``0,``0,``0,``0,``0})">
+            <summary>Gets an enumerator for a tuple.</summary>
+            <typeparam name="T">The type of values in the tuple.</typeparam>
+            <param name="tuple">The tuple to get an enumerator for.</param>
+            <returns>An enumerator for a tuple.</returns>
+        </member>
         <member name="M:Towel.Extensions.Replace(System.String,System.ValueTuple{System.String,System.String}[])">
             <summary>Returns a new <see cref="T:System.String"/> in which all occurrences of Unicode <see cref="T:System.String"/> patterns in this instance are replaced with a relative Unicode <see cref="T:System.String"/> replacements.</summary>
             <remarks>Uses Regex without a timeout.</remarks>

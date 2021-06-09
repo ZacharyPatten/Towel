@@ -524,6 +524,40 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region Tuple GetEnumerator Extensions
+			{
+				Console.WriteLine("  Tuple GetEnumerator Extensions-----------------");
+				Console.WriteLine();
+				Console.WriteLine(@$"    ""GetEnumerator"" extensions for tuples so");
+				Console.WriteLine(@$"    you can use ""foreach"" loop them.");
+				Console.WriteLine();
+
+				Console.Write("    Tuple 1 = (");
+				foreach (int value in (5, 7, 9, 11))
+				{
+					Console.Write($" {value}");
+				}
+				Console.WriteLine(" )");
+
+				Console.Write("    Tuple 2 = (");
+				foreach (object value in ('a', "howdy", -10, 3.33m))
+				{
+					Console.Write($" {value}");
+				}
+				Console.WriteLine(" )");
+
+				Console.Write("    Tuple 3 = (");
+				Tuple<int, int, int> tuple3 = new(4, 6, 8);
+				foreach (int value in tuple3)
+				{
+					Console.Write($" {value}");
+				}
+				Console.WriteLine(" )");
+
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Permutations
 			{
 				Console.WriteLine("  Permutations---------------------------");
