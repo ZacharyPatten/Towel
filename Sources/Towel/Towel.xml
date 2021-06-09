@@ -16455,45 +16455,6 @@
             <summary>Default conversion to string for fractions.</summary>
             <returns>The value represented as a string.</returns>
         </member>
-        <member name="T:Towel.Mathematics.MathematicsDelegates">
-            <summary>Static mathematics delegates container.</summary>
-        </member>
-        <member name="T:Towel.Mathematics.MathematicsDelegates.Sine`1">
-            <summary>Computes the sine ratio of an angle.</summary>
-            <typeparam name="T">The numeric type of the opertion.</typeparam>
-            <param name="angle">The angle to compute the sine ratio of.</param>
-            <returns>The sine ratio of the angle.</returns>
-        </member>
-        <member name="T:Towel.Mathematics.MathematicsDelegates.Cosine`1">
-            <summary>Computes the cosine ratio of an angle.</summary>
-            <typeparam name="T">The numeric type of the opertion.</typeparam>
-            <param name="angle">The angle to compute the cosine ratio of.</param>
-            <returns>The cosine ratio of the angle.</returns>
-        </member>
-        <member name="T:Towel.Mathematics.MathematicsDelegates.Tangent`1">
-            <summary>Computes the cosine ratio of an angle.</summary>
-            <typeparam name="T">The numeric type of the opertion.</typeparam>
-            <param name="angle">The angle to compute the tangent ratio of.</param>
-            <returns>The cosine ratio of the angle.</returns>
-        </member>
-        <member name="T:Towel.Mathematics.MathematicsDelegates.InverseSine`1">
-            <summary>Computes the angle measurement from a sine ratio.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="ratio">The sine ratio to compute the angle of.</param>
-            <returns>The angle of the sine ratio.</returns>
-        </member>
-        <member name="T:Towel.Mathematics.MathematicsDelegates.InverseCosine`1">
-            <summary>Computes the angle measurement from a cosine ratio.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="ratio">The cosine ratio to compute the angle of.</param>
-            <returns>The angle of the cosine ratio.</returns>
-        </member>
-        <member name="T:Towel.Mathematics.MathematicsDelegates.InverseTangent`1">
-            <summary>Computes the angle measurement from a tangent ratio.</summary>
-            <typeparam name="T">The numeric type of the operation.</typeparam>
-            <param name="ratio">The tangent ratio to compute the angle of.</param>
-            <returns>The angle of the tangent ratio.</returns>
-        </member>
         <member name="T:Towel.Mathematics.MathematicsSyntax">
             <summary>Contains static methods for mathematics syntax.</summary>
         </member>
@@ -19119,17 +19080,32 @@
             <summary>Normalizes this vector.</summary>
             <returns>The result of the normalization.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Vector`1.Angle(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},Towel.Mathematics.MathematicsDelegates.InverseCosine{`0})">
+        <member name="M:Towel.Mathematics.Vector`1.Angle``1(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},``0)">
+            <summary>Computes the angle between two vectors.</summary>
+            <typeparam name="TArcCos">A function for how to compute the inverse of a cosine ratio.</typeparam>
+            <param name="a">The first vector to determine the angle between.</param>
+            <param name="b">The second vector to determine the angle between.</param>
+            <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
+            <returns>The angle between the two vectors in radians.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Vector`1.Angle(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},System.Func{`0,Towel.Measurements.Angle{`0}})">
             <summary>Computes the angle between two vectors.</summary>
             <param name="a">The first vector to determine the angle between.</param>
             <param name="b">The second vector to determine the angle between.</param>
             <param name="arccos">A delegate for how to compute the inverse of a cosine ratio.</param>
             <returns>The angle between the two vectors in radians.</returns>
         </member>
-        <member name="M:Towel.Mathematics.Vector`1.Angle(Towel.Mathematics.Vector{`0},Towel.Mathematics.MathematicsDelegates.InverseCosine{`0})">
+        <member name="M:Towel.Mathematics.Vector`1.Angle(Towel.Mathematics.Vector{`0},System.Func{`0,Towel.Measurements.Angle{`0}})">
             <summary>Computes the angle between two vectors.</summary>
             <param name="b">The second vector to determine the angle between.</param>
-            <param name="arccos">A delegate for how to compute the inverse of a cosine ratio.</param>
+            <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
+            <returns>The angle between the two vectors in radians.</returns>
+        </member>
+        <member name="M:Towel.Mathematics.Vector`1.Angle``1(Towel.Mathematics.Vector{`0},``0)">
+            <summary>Computes the angle between two vectors.</summary>
+            <typeparam name="TArcCos">A function for how to compute the inverse of a cosine ratio.</typeparam>
+            <param name="b">The second vector to determine the angle between.</param>
+            <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
             <returns>The angle between the two vectors in radians.</returns>
         </member>
         <member name="M:Towel.Mathematics.Vector`1.Projection(Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0},Towel.Mathematics.Vector{`0}@)">

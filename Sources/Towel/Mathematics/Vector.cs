@@ -800,11 +800,13 @@ namespace Towel.Mathematics
 		#region Angle
 
 		/// <summary>Computes the angle between two vectors.</summary>
+		/// <typeparam name="TArcCos">A function for how to compute the inverse of a cosine ratio.</typeparam>
 		/// <param name="a">The first vector to determine the angle between.</param>
 		/// <param name="b">The second vector to determine the angle between.</param>
-		/// <param name="arccos">A delegate for how to compute the inverse of a cosine ratio.</param>
+		/// <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
 		/// <returns>The angle between the two vectors in radians.</returns>
-		public static Angle<T> Angle(Vector<T> a, Vector<T> b, MathematicsDelegates.InverseCosine<T> arccos)
+		public static Angle<T> Angle<TArcCos>(Vector<T> a, Vector<T> b, TArcCos arccos = default)
+			where TArcCos : struct, IFunc<T, Angle<T>>
 		{
 			// a ⋅ b = |a| * |b| * cosθ
 
@@ -813,17 +815,31 @@ namespace Towel.Mathematics
 			T dotProduct = a.DotProduct(b);
 			T aMagTimesbMag = Statics.Multiplication(a.Magnitude, b.Magnitude);
 			T divided = Statics.Division(dotProduct, aMagTimesbMag);
-			return arccos(divided);
+			return arccos.Invoke(divided);
 		}
 
 		/// <summary>Computes the angle between two vectors.</summary>
+		/// <param name="a">The first vector to determine the angle between.</param>
 		/// <param name="b">The second vector to determine the angle between.</param>
 		/// <param name="arccos">A delegate for how to compute the inverse of a cosine ratio.</param>
 		/// <returns>The angle between the two vectors in radians.</returns>
-		public Angle<T> Angle(Vector<T> b, MathematicsDelegates.InverseCosine<T> arccos)
-		{
-			return Angle(this, b, arccos);
-		}
+		public static Angle<T> Angle(Vector<T> a, Vector<T> b, Func<T, Angle<T>> arccos) =>
+			Angle<SFunc<T, Angle<T>>>(a, b, arccos);
+
+		/// <summary>Computes the angle between two vectors.</summary>
+		/// <param name="b">The second vector to determine the angle between.</param>
+		/// <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
+		/// <returns>The angle between the two vectors in radians.</returns>
+		public Angle<T> Angle(Vector<T> b, Func<T, Angle<T>> arccos) => Angle(this, b, arccos);
+
+		/// <summary>Computes the angle between two vectors.</summary>
+		/// <typeparam name="TArcCos">A function for how to compute the inverse of a cosine ratio.</typeparam>
+		/// <param name="b">The second vector to determine the angle between.</param>
+		/// <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
+		/// <returns>The angle between the two vectors in radians.</returns>
+		public Angle<T> Angle<TArcCos>(Vector<T> b, TArcCos arccos = default)
+			where TArcCos : struct, IFunc<T, Angle<T>> =>
+			Angle(this, b, arccos);
 
 		#endregion
 
