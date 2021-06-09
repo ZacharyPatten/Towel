@@ -1,5 +1,6 @@
 name: Towel Continuous Integration
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
