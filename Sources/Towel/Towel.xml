@@ -15694,10 +15694,7 @@
             <remarks>This extension is syntax sugar so you don't have to cast the return.</remarks>
         </member>
         <member name="M:Towel.Extensions.IsDefined``1(``0)">
-            <summary>Returns an indication whether a constant with a specified value exists in a specified enumeration.</summary>
-            <typeparam name="T">The type of the enum.</typeparam>
-            <param name="value">The value to determine if it is defined.</param>
-            <returns>true if a constant in enumType has a value equal to value; otherwise, false.</returns>
+            <inheritdoc cref="M:System.Enum.IsDefined``1(``0)"/>
         </member>
         <member name="M:Towel.Extensions.ToIEnumerable(System.Range)">
             <summary>Converts a <see cref="T:System.Range"/> to an <see cref="T:System.Collections.Generic.IEnumerable`1"/>.</summary>
@@ -15851,292 +15848,260 @@
             <returns>The string of the concatenated chars.</returns>
         </member>
         <member name="T:Towel.IAction">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action"/>
         </member>
-        <member name="M:Towel.IAction.Do">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction.Invoke">
+            <inheritdoc cref="M:System.Action.Invoke"/>
         </member>
         <member name="T:Towel.IAction`1">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action`1"/>
         </member>
-        <member name="M:Towel.IAction`1.Do(`0)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction`1.Invoke(`0)">
+            <inheritdoc cref="M:System.Action`1.Invoke(`0)"/>
         </member>
         <member name="T:Towel.IAction`2">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action`2"/>
         </member>
-        <member name="M:Towel.IAction`2.Do(`0,`1)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction`2.Invoke(`0,`1)">
+            <inheritdoc cref="M:System.Action`2.Invoke(`0,`1)"/>
         </member>
         <member name="T:Towel.IAction`3">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action`3"/>
         </member>
-        <member name="M:Towel.IAction`3.Do(`0,`1,`2)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction`3.Invoke(`0,`1,`2)">
+            <inheritdoc cref="M:System.Action`3.Invoke(`0,`1,`2)"/>
         </member>
         <member name="T:Towel.IAction`4">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action`4"/>
         </member>
-        <member name="M:Towel.IAction`4.Do(`0,`1,`2,`3)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction`4.Invoke(`0,`1,`2,`3)">
+            <inheritdoc cref="M:System.Action`4.Invoke(`0,`1,`2,`3)"/>
         </member>
         <member name="T:Towel.IAction`5">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action`5"/>
         </member>
-        <member name="M:Towel.IAction`5.Do(`0,`1,`2,`3,`4)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction`5.Invoke(`0,`1,`2,`3,`4)">
+            <inheritdoc cref="M:System.Action`5.Invoke(`0,`1,`2,`3,`4)"/>
         </member>
         <member name="T:Towel.IAction`6">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action`6"/>
         </member>
-        <member name="M:Towel.IAction`6.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction`6.Invoke(`0,`1,`2,`3,`4,`5)">
+            <inheritdoc cref="M:System.Action`6.Invoke(`0,`1,`2,`3,`4,`5)"/>
         </member>
         <member name="T:Towel.IAction`7">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Action`7"/>
         </member>
-        <member name="M:Towel.IAction`7.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IAction`7.Invoke(`0,`1,`2,`3,`4,`5,`6)">
+            <inheritdoc cref="M:System.Action`7.Invoke(`0,`1,`2,`3,`4,`5,`6)"/>
         </member>
         <member name="T:Towel.IFunc`1">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`1"/>
         </member>
-        <member name="M:Towel.IFunc`1.Do">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`1.Invoke">
+            <inheritdoc cref="M:System.Func`1.Invoke"/>
         </member>
         <member name="T:Towel.IFunc`2">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`2"/>
         </member>
-        <member name="M:Towel.IFunc`2.Do(`0)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`2.Invoke(`0)">
+            <inheritdoc cref="M:System.Func`2.Invoke(`0)"/>
         </member>
         <member name="T:Towel.IFunc`3">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`3"/>
         </member>
-        <member name="M:Towel.IFunc`3.Do(`0,`1)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`3.Invoke(`0,`1)">
+            <inheritdoc cref="M:System.Func`3.Invoke(`0,`1)"/>
         </member>
         <member name="T:Towel.IFunc`4">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`4"/>
         </member>
-        <member name="M:Towel.IFunc`4.Do(`0,`1,`2)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`4.Invoke(`0,`1,`2)">
+            <inheritdoc cref="M:System.Func`4.Invoke(`0,`1,`2)"/>
         </member>
         <member name="T:Towel.IFunc`5">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`5"/>
         </member>
-        <member name="M:Towel.IFunc`5.Do(`0,`1,`2,`3)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`5.Invoke(`0,`1,`2,`3)">
+            <inheritdoc cref="M:System.Func`5.Invoke(`0,`1,`2,`3)"/>
         </member>
         <member name="T:Towel.IFunc`6">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`6"/>
         </member>
-        <member name="M:Towel.IFunc`6.Do(`0,`1,`2,`3,`4)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`6.Invoke(`0,`1,`2,`3,`4)">
+            <inheritdoc cref="M:System.Func`6.Invoke(`0,`1,`2,`3,`4)"/>
         </member>
         <member name="T:Towel.IFunc`7">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`7"/>
         </member>
-        <member name="M:Towel.IFunc`7.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`7.Invoke(`0,`1,`2,`3,`4,`5)">
+            <inheritdoc cref="M:System.Func`7.Invoke(`0,`1,`2,`3,`4,`5)"/>
         </member>
         <member name="T:Towel.IFunc`8">
-            <summary>Encapsulates a method.</summary>
+            <inheritdoc cref="T:System.Func`8"/>
         </member>
-        <member name="M:Towel.IFunc`8.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Invocation of the method.</summary>
+        <member name="M:Towel.IFunc`8.Invoke(`0,`1,`2,`3,`4,`5,`6)">
+            <inheritdoc cref="M:System.Func`8.Invoke(`0,`1,`2,`3,`4,`5,`6)"/>
         </member>
-        <member name="T:Towel.ActionRuntime">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="T:Towel.SAction">
+            <inheritdoc cref="T:System.Action"/>
         </member>
-        <member name="F:Towel.ActionRuntime._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SAction.Invoke">
+            <inheritdoc cref="M:System.Action.Invoke"/>
         </member>
-        <member name="M:Towel.ActionRuntime.Do">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SAction.op_Implicit(System.Action)~Towel.SAction">
+            <summary>Wraps an <see cref="F:Towel.SAction.Action"/> in an <see cref="T:Towel.SAction"/>.</summary>
+            <param name="action">The <see cref="F:Towel.SAction.Action"/> wrapped in an <see cref="T:Towel.SAction"/>.</param>
         </member>
-        <member name="M:Towel.ActionRuntime.op_Implicit(System.Action)~Towel.ActionRuntime">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="T:Towel.SAction`1">
+            <inheritdoc cref="T:System.Action`1"/>
         </member>
-        <member name="T:Towel.ActionRuntime`1">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SAction`1.Invoke(`0)">
+            <inheritdoc cref="M:System.Action`1.Invoke(`0)"/>
         </member>
-        <member name="F:Towel.ActionRuntime`1._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SAction`1.op_Implicit(System.Action{`0})~Towel.SAction{`0}">
+            <summary>Wraps an <see cref="T:System.Action`1"/> in an <see cref="T:Towel.SAction`1"/>.</summary>
+            <param name="action">The <see cref="T:System.Action`1"/> wrapped in an <see cref="T:Towel.SAction`1"/>.</param>
         </member>
-        <member name="M:Towel.ActionRuntime`1.Do(`0)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="T:Towel.SAction`2">
+            <inheritdoc cref="T:System.Action`2"/>
         </member>
-        <member name="M:Towel.ActionRuntime`1.op_Implicit(System.Action{`0})~Towel.ActionRuntime{`0}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SAction`2.Invoke(`0,`1)">
+            <inheritdoc cref="M:System.Action`2.Invoke(`0,`1)"/>
         </member>
-        <member name="T:Towel.ActionRuntime`2">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SAction`2.op_Implicit(System.Action{`0,`1})~Towel.SAction{`0,`1}">
+            <summary>Wraps an <see cref="T:System.Action`2"/> in an <see cref="T:Towel.SAction`2"/>.</summary>
+            <param name="action">The <see cref="T:System.Action`2"/> wrapped in an <see cref="T:Towel.SAction`2"/>.</param>
         </member>
-        <member name="F:Towel.ActionRuntime`2._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="T:Towel.SAction`3">
+            <inheritdoc cref="T:System.Action`3"/>
         </member>
-        <member name="M:Towel.ActionRuntime`2.Do(`0,`1)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SAction`3.Invoke(`0,`1,`2)">
+            <inheritdoc cref="M:System.Action`3.Invoke(`0,`1,`2)"/>
         </member>
-        <member name="M:Towel.ActionRuntime`2.op_Implicit(System.Action{`0,`1})~Towel.ActionRuntime{`0,`1}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SAction`3.op_Implicit(System.Action{`0,`1,`2})~Towel.SAction{`0,`1,`2}">
+            <summary>Wraps an <see cref="T:System.Action`3"/> in an <see cref="T:Towel.SAction`3"/>.</summary>
+            <param name="action">The <see cref="T:System.Action`3"/> wrapped in an <see cref="T:Towel.SAction`3"/>.</param>
         </member>
-        <member name="T:Towel.ActionRuntime`3">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="T:Towel.SAction`4">
+            <inheritdoc cref="T:System.Action`4"/>
         </member>
-        <member name="F:Towel.ActionRuntime`3._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SAction`4.Invoke(`0,`1,`2,`3)">
+            <inheritdoc cref="M:System.Action`4.Invoke(`0,`1,`2,`3)"/>
         </member>
-        <member name="M:Towel.ActionRuntime`3.Do(`0,`1,`2)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SAction`4.op_Implicit(System.Action{`0,`1,`2,`3})~Towel.SAction{`0,`1,`2,`3}">
+            <summary>Wraps an <see cref="T:System.Action`4"/> in an <see cref="T:Towel.SAction`4"/>.</summary>
+            <param name="action">The <see cref="T:System.Action`4"/> wrapped in an <see cref="T:Towel.SAction`4"/>.</param>
         </member>
-        <member name="M:Towel.ActionRuntime`3.op_Implicit(System.Action{`0,`1,`2})~Towel.ActionRuntime{`0,`1,`2}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="T:Towel.SAction`5">
+            <inheritdoc cref="T:System.Action`5"/>
         </member>
-        <member name="T:Towel.ActionRuntime`4">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SAction`5.Invoke(`0,`1,`2,`3,`4)">
+            <inheritdoc cref="M:System.Action`5.Invoke(`0,`1,`2,`3,`4)"/>
         </member>
-        <member name="F:Towel.ActionRuntime`4._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SAction`5.op_Implicit(System.Action{`0,`1,`2,`3,`4})~Towel.SAction{`0,`1,`2,`3,`4}">
+            <summary>Wraps an <see cref="T:System.Action`5"/> in an <see cref="T:Towel.SAction`5"/>.</summary>
+            <param name="action">The <see cref="T:System.Action`5"/> wrapped in an <see cref="T:Towel.SAction`5"/>.</param>
         </member>
-        <member name="M:Towel.ActionRuntime`4.Do(`0,`1,`2,`3)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="T:Towel.SAction`6">
+            <inheritdoc cref="T:System.Action`6"/>
         </member>
-        <member name="M:Towel.ActionRuntime`4.op_Implicit(System.Action{`0,`1,`2,`3})~Towel.ActionRuntime{`0,`1,`2,`3}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SAction`6.Invoke(`0,`1,`2,`3,`4,`5)">
+            <inheritdoc cref="M:System.Action`6.Invoke(`0,`1,`2,`3,`4,`5)"/>
         </member>
-        <member name="T:Towel.ActionRuntime`5">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SAction`6.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5})~Towel.SAction{`0,`1,`2,`3,`4,`5}">
+            <summary>Wraps an <see cref="T:System.Action`6"/> in an <see cref="T:Towel.SAction`6"/>.</summary>
+            <param name="action">The <see cref="T:System.Action`6"/> wrapped in an <see cref="T:Towel.SAction`6"/>.</param>
         </member>
-        <member name="F:Towel.ActionRuntime`5._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="T:Towel.SAction`7">
+            <inheritdoc cref="T:System.Action`7"/>
         </member>
-        <member name="M:Towel.ActionRuntime`5.Do(`0,`1,`2,`3,`4)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SAction`7.Invoke(`0,`1,`2,`3,`4,`5,`6)">
+            <inheritdoc cref="M:System.Action`7.Invoke(`0,`1,`2,`3,`4,`5,`6)"/>
         </member>
-        <member name="M:Towel.ActionRuntime`5.op_Implicit(System.Action{`0,`1,`2,`3,`4})~Towel.ActionRuntime{`0,`1,`2,`3,`4}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SAction`7.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5,`6})~Towel.SAction{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Wraps an <see cref="T:System.Action`7"/> in an <see cref="T:Towel.SAction`7"/>.</summary>
+            <param name="action">The <see cref="T:System.Action`7"/> wrapped in an <see cref="T:Towel.SAction`7"/>.</param>
         </member>
-        <member name="T:Towel.ActionRuntime`6">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="T:Towel.SFunc`1">
+            <inheritdoc cref="T:System.Func`1"/>
         </member>
-        <member name="F:Towel.ActionRuntime`6._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SFunc`1.Invoke">
+            <inheritdoc cref="M:System.Func`1.Invoke"/>
         </member>
-        <member name="M:Towel.ActionRuntime`6.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SFunc`1.op_Implicit(System.Func{`0})~Towel.SFunc{`0}">
+            <summary>Wraps an <see cref="T:System.Func`1"/> in an <see cref="T:Towel.SFunc`1"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`1"/> wrapped in an <see cref="T:Towel.SFunc`1"/>.</param>
         </member>
-        <member name="M:Towel.ActionRuntime`6.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5})~Towel.ActionRuntime{`0,`1,`2,`3,`4,`5}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="T:Towel.SFunc`2">
+            <inheritdoc cref="T:System.Func`2"/>
         </member>
-        <member name="T:Towel.ActionRuntime`7">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SFunc`2.Invoke(`0)">
+            <inheritdoc cref="M:System.Func`2.Invoke(`0)"/>
         </member>
-        <member name="F:Towel.ActionRuntime`7._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SFunc`2.op_Implicit(System.Func{`0,`1})~Towel.SFunc{`0,`1}">
+            <summary>Wraps an <see cref="T:System.Func`2"/> in an <see cref="T:Towel.SFunc`2"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`2"/> wrapped in an <see cref="T:Towel.SFunc`2"/>.</param>
         </member>
-        <member name="M:Towel.ActionRuntime`7.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="T:Towel.SFunc`3">
+            <inheritdoc cref="T:System.Func`3"/>
         </member>
-        <member name="M:Towel.ActionRuntime`7.op_Implicit(System.Action{`0,`1,`2,`3,`4,`5,`6})~Towel.ActionRuntime{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SFunc`3.Invoke(`0,`1)">
+            <inheritdoc cref="M:System.Func`3.Invoke(`0,`1)"/>
         </member>
-        <member name="T:Towel.FuncRuntime`1">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SFunc`3.op_Implicit(System.Func{`0,`1,`2})~Towel.SFunc{`0,`1,`2}">
+            <summary>Wraps an <see cref="T:System.Func`3"/> in an <see cref="T:Towel.SFunc`3"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`3"/> wrapped in an <see cref="T:Towel.SFunc`3"/>.</param>
         </member>
-        <member name="F:Towel.FuncRuntime`1._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="T:Towel.SFunc`4">
+            <inheritdoc cref="T:System.Func`4"/>
         </member>
-        <member name="M:Towel.FuncRuntime`1.Do">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SFunc`4.Invoke(`0,`1,`2)">
+            <inheritdoc cref="M:System.Func`4.Invoke(`0,`1,`2)"/>
         </member>
-        <member name="M:Towel.FuncRuntime`1.op_Implicit(System.Func{`0})~Towel.FuncRuntime{`0}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SFunc`4.op_Implicit(System.Func{`0,`1,`2,`3})~Towel.SFunc{`0,`1,`2,`3}">
+            <summary>Wraps an <see cref="T:System.Func`4"/> in an <see cref="T:Towel.SFunc`4"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`4"/> wrapped in an <see cref="T:Towel.SFunc`4"/>.</param>
         </member>
-        <member name="T:Towel.FuncRuntime`2">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="T:Towel.SFunc`5">
+            <inheritdoc cref="T:System.Func`5"/>
         </member>
-        <member name="F:Towel.FuncRuntime`2._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SFunc`5.Invoke(`0,`1,`2,`3)">
+            <inheritdoc cref="M:System.Func`5.Invoke(`0,`1,`2,`3)"/>
         </member>
-        <member name="M:Towel.FuncRuntime`2.Do(`0)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SFunc`5.op_Implicit(System.Func{`0,`1,`2,`3,`4})~Towel.SFunc{`0,`1,`2,`3,`4}">
+            <summary>Wraps an <see cref="T:System.Func`5"/> in an <see cref="T:Towel.SFunc`5"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`5"/> wrapped in an <see cref="T:Towel.SFunc`5"/>.</param>
         </member>
-        <member name="M:Towel.FuncRuntime`2.op_Implicit(System.Func{`0,`1})~Towel.FuncRuntime{`0,`1}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="T:Towel.SFunc`6">
+            <inheritdoc cref="T:System.Func`6"/>
         </member>
-        <member name="T:Towel.FuncRuntime`3">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SFunc`6.Invoke(`0,`1,`2,`3,`4)">
+            <inheritdoc cref="M:System.Func`6.Invoke(`0,`1,`2,`3,`4)"/>
         </member>
-        <member name="F:Towel.FuncRuntime`3._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="M:Towel.SFunc`6.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5})~Towel.SFunc{`0,`1,`2,`3,`4,`5}">
+            <summary>Wraps an <see cref="T:System.Func`6"/> in an <see cref="T:Towel.SFunc`6"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`6"/> wrapped in an <see cref="T:Towel.SFunc`6"/>.</param>
         </member>
-        <member name="M:Towel.FuncRuntime`3.Do(`0,`1)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="T:Towel.SFunc`7">
+            <inheritdoc cref="T:System.Func`7"/>
         </member>
-        <member name="M:Towel.FuncRuntime`3.op_Implicit(System.Func{`0,`1,`2})~Towel.FuncRuntime{`0,`1,`2}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SFunc`7.Invoke(`0,`1,`2,`3,`4,`5)">
+            <inheritdoc cref="M:System.Func`7.Invoke(`0,`1,`2,`3,`4,`5)"/>
         </member>
-        <member name="T:Towel.FuncRuntime`4">
-            <summary>Encapsulates a delegate.</summary>
+        <member name="M:Towel.SFunc`7.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6})~Towel.SFunc{`0,`1,`2,`3,`4,`5,`6}">
+            <summary>Wraps an <see cref="T:System.Func`7"/> in an <see cref="T:Towel.SFunc`7"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`7"/> wrapped in an <see cref="T:Towel.SFunc`7"/>.</param>
         </member>
-        <member name="F:Towel.FuncRuntime`4._delegate">
-            <summary>The delegate instance.</summary>
+        <member name="T:Towel.SFunc`8">
+            <inheritdoc cref="T:System.Func`8"/>
         </member>
-        <member name="M:Towel.FuncRuntime`4.Do(`0,`1,`2)">
-            <summary>Invocation of the delegate.</summary>
+        <member name="M:Towel.SFunc`8.Invoke(`0,`1,`2,`3,`4,`5,`6)">
+            <inheritdoc cref="M:System.Func`8.Invoke(`0,`1,`2,`3,`4,`5,`6)"/>
         </member>
-        <member name="M:Towel.FuncRuntime`4.op_Implicit(System.Func{`0,`1,`2,`3})~Towel.FuncRuntime{`0,`1,`2,`3}">
-            <summary>Implicit caster from a delegate.</summary>
-        </member>
-        <member name="T:Towel.FuncRuntime`5">
-            <summary>Encapsulates a delegate.</summary>
-        </member>
-        <member name="F:Towel.FuncRuntime`5._delegate">
-            <summary>The delegate instance.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`5.Do(`0,`1,`2,`3)">
-            <summary>Invocation of the delegate.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`5.op_Implicit(System.Func{`0,`1,`2,`3,`4})~Towel.FuncRuntime{`0,`1,`2,`3,`4}">
-            <summary>Implicit caster from a delegate.</summary>
-        </member>
-        <member name="T:Towel.FuncRuntime`6">
-            <summary>Encapsulates a delegate.</summary>
-        </member>
-        <member name="F:Towel.FuncRuntime`6._delegate">
-            <summary>The delegate instance.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`6.Do(`0,`1,`2,`3,`4)">
-            <summary>Invocation of the delegate.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`6.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5}">
-            <summary>Implicit caster from a delegate.</summary>
-        </member>
-        <member name="T:Towel.FuncRuntime`7">
-            <summary>Encapsulates a delegate.</summary>
-        </member>
-        <member name="F:Towel.FuncRuntime`7._delegate">
-            <summary>The delegate instance.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`7.Do(`0,`1,`2,`3,`4,`5)">
-            <summary>Invocation of the delegate.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`7.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5,`6}">
-            <summary>Implicit caster from a delegate.</summary>
-        </member>
-        <member name="T:Towel.FuncRuntime`8">
-            <summary>Encapsulates a delegate.</summary>
-        </member>
-        <member name="F:Towel.FuncRuntime`8._delegate">
-            <summary>The delegate instance.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`8.Do(`0,`1,`2,`3,`4,`5,`6)">
-            <summary>Invocation of the delegate.</summary>
-        </member>
-        <member name="M:Towel.FuncRuntime`8.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6,`7})~Towel.FuncRuntime{`0,`1,`2,`3,`4,`5,`6,`7}">
-            <summary>Implicit caster from a delegate.</summary>
+        <member name="M:Towel.SFunc`8.op_Implicit(System.Func{`0,`1,`2,`3,`4,`5,`6,`7})~Towel.SFunc{`0,`1,`2,`3,`4,`5,`6,`7}">
+            <summary>Wraps an <see cref="T:System.Func`8"/> in an <see cref="T:Towel.SFunc`8"/>.</summary>
+            <param name="func">The <see cref="T:System.Func`8"/> wrapped in an <see cref="T:Towel.SFunc`8"/>.</param>
         </member>
         <member name="T:Towel.Mathematics.Fraction`1">
             <summary>Represents a rational value with a numerator and a denominator.</summary>
@@ -31372,7 +31337,7 @@
             <typeparam name="T">The generic type of the values to compare.</typeparam>
             <typeparam name="Compare">The compare function.</typeparam>
         </member>
-        <member name="M:Towel.Statics.SiftFromCompareAndValue`2.Do(`0)">
+        <member name="M:Towel.Statics.SiftFromCompareAndValue`2.Invoke(`0)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
         <member name="M:Towel.Statics.SiftFromCompareAndValue`2.#ctor(`0,`1)">
@@ -31383,14 +31348,14 @@
         <member name="T:Towel.Statics.StepStatusContinue">
             <summary>Compile time resulution to the <see cref="F:Towel.StepStatus.Continue"/> value.</summary>
         </member>
-        <member name="M:Towel.Statics.StepStatusContinue.Do">
+        <member name="M:Towel.Statics.StepStatusContinue.Invoke">
             <summary>Returns <see cref="F:Towel.StepStatus.Continue"/>.</summary>
             <returns><see cref="F:Towel.StepStatus.Continue"/></returns>
         </member>
         <member name="T:Towel.Statics.RandomNextIntMinValueIntMaxValue">
             <summary>Struct wrapper for the <see cref="M:System.Random.Next(System.Int32,System.Int32)"/> method as an <see cref="T:Towel.IFunc`3"/>.</summary>
         </member>
-        <member name="M:Towel.Statics.RandomNextIntMinValueIntMaxValue.Do(System.Int32,System.Int32)">
+        <member name="M:Towel.Statics.RandomNextIntMinValueIntMaxValue.Invoke(System.Int32,System.Int32)">
             <inheritdoc cref="M:System.Random.Next(System.Int32,System.Int32)"/>
         </member>
         <member name="M:Towel.Statics.RandomNextIntMinValueIntMaxValue.op_Implicit(System.Random)~Towel.Statics.RandomNextIntMinValueIntMaxValue">
@@ -32480,7 +32445,7 @@
             <typeparam name="T">The generic type of the values.</typeparam>
             <typeparam name="StepRef">The Step function.</typeparam>
         </member>
-        <member name="M:Towel.StepFromStepRef`2.Do(`0)">
+        <member name="M:Towel.StepFromStepRef`2.Invoke(`0)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
         <member name="M:Towel.StepFromStepRef`2.op_Implicit(`1)~Towel.StepFromStepRef{`0,`1}">
@@ -32521,7 +32486,7 @@
             <summary>Built in struct for runtime computations.</summary>
             <typeparam name="T">The generic type of the values.</typeparam>
         </member>
-        <member name="M:Towel.StepBreakRuntime`1.Do(`0)">
+        <member name="M:Towel.StepBreakRuntime`1.Invoke(`0)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
         <member name="M:Towel.StepBreakRuntime`1.op_Implicit(System.Func{`0,Towel.StepStatus})~Towel.StepBreakRuntime{`0}">
@@ -32533,7 +32498,7 @@
             <typeparam name="T">The generic type of the values.</typeparam>
             <typeparam name="Step">The Step function.</typeparam>
         </member>
-        <member name="M:Towel.StepBreakFromAction`2.Do(`0)">
+        <member name="M:Towel.StepBreakFromAction`2.Invoke(`0)">
             <summary>The invocation of the compile time delegate.</summary>
         </member>
         <member name="M:Towel.StepBreakFromAction`2.op_Implicit(`1)~Towel.StepBreakFromAction{`0,`1}">

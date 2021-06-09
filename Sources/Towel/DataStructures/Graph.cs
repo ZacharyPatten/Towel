@@ -93,7 +93,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="GraphSetOmnitree{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="GraphSetOmnitree{T, TEquate, THash}"/>.</returns>
-		public static GraphSetOmnitree<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>> New<T>(
+		public static GraphSetOmnitree<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
@@ -315,7 +315,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="GraphMap{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="GraphMap{T, TEquate, THash}"/>.</returns>
-		public static GraphMap<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>> New<T>(
+		public static GraphMap<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
@@ -520,7 +520,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
 		/// <typeparam name="V">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</returns>
-		public static GraphWeightedMap<V, W, FuncRuntime<V, V, bool>, FuncRuntime<V, int>> New<V, W>(
+		public static GraphWeightedMap<V, W, SFunc<V, V, bool>, SFunc<V, int>> New<V, W>(
 			Func<V, V, bool>? equate = null,
 			Func<V, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
@@ -668,7 +668,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
 		public void Stepper(Action<V> step) =>
-			Stepper<ActionRuntime<V>>(step);
+			Stepper<SAction<V>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
 		public StepStatus Stepper(Func<V, StepStatus> step) =>
@@ -690,7 +690,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
 		public void Edges(Action<(V, V)> step) =>
-			Edges<ActionRuntime<(V, V)>>(step);
+			Edges<SAction<(V, V)>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_XML"/>
 		public StepStatus EdgesBreak(Func<(V, V), StepStatus> step) =>
@@ -709,7 +709,7 @@ namespace Towel.DataStructures
 		{
 			internal Step _step;
 
-			public StepStatus Do(((MapHashLinked<W?, V, TEquate, THash> OutgoingEdges, SetHashLinked<V, TEquate, THash> IncomingNodes), V) a)
+			public StepStatus Invoke(((MapHashLinked<W?, V, TEquate, THash> OutgoingEdges, SetHashLinked<V, TEquate, THash> IncomingNodes), V) a)
 			{
 				EdgesStep2<Step> step2 = new() { _a = a.Item2, _step = _step, };
 				return a.Item1.OutgoingEdges.PairsBreak<EdgesStep2<Step>>(step2);
@@ -722,10 +722,10 @@ namespace Towel.DataStructures
 			internal Step _step;
 			internal V _a;
 
-			public StepStatus Do((W?, V) a)
+			public StepStatus Invoke((W?, V) a)
 			{
 				var edge = (_a, a.Item2);
-				return _step.Do(edge);
+				return _step.Invoke(edge);
 			}
 		}
 

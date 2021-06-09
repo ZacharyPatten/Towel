@@ -349,7 +349,7 @@ namespace Towel
 		{
 			for (int i = start; i <= end; i++)
 			{
-				if (!equate.Do(a.Do(i), b.Do(i)))
+				if (!equate.Invoke(a.Invoke(i), b.Invoke(i)))
 				{
 					return false;
 				}
@@ -386,7 +386,7 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
 		public static bool Equate<T>(int start, int end, Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
-			Equate<T, FuncRuntime<T, T, bool>>(start, end, a, b, equate ?? Equate);
+			Equate<T, SFunc<T, T, bool>>(start, end, a, b, equate ?? Equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
@@ -422,7 +422,7 @@ namespace Towel
 			}
 			for (int i = start; i <= end; i++)
 			{
-				if (!equate.Do(a[i], b[i]))
+				if (!equate.Invoke(a[i], b[i]))
 				{
 					return false;
 				}

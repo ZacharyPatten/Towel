@@ -7,25 +7,25 @@ namespace Towel
 	{
 		#region Int32
 
-		public struct Int32Hash : IFunc<int, int> { public int Do(int a) => a; }
-		public struct Int32Equate : IFunc<int, int, bool> { public bool Do(int a, int b) => a == b; }
-		public struct Int32Compare : IFunc<int, int, CompareResult> { public CompareResult Do(int a, int b) => ToCompareResult(a.CompareTo(b)); }
-		internal struct Int32Increment : IFunc<int, int> { public int Do(int a) => a + 1; }
-		internal struct Int32Decrement : IFunc<int, int> { public int Do(int a) => a - 1; }
+		public struct Int32Hash : IFunc<int, int> { public int Invoke(int a) => a; }
+		public struct Int32Equate : IFunc<int, int, bool> { public bool Invoke(int a, int b) => a == b; }
+		public struct Int32Compare : IFunc<int, int, CompareResult> { public CompareResult Invoke(int a, int b) => ToCompareResult(a.CompareTo(b)); }
+		internal struct Int32Increment : IFunc<int, int> { public int Invoke(int a) => a + 1; }
+		internal struct Int32Decrement : IFunc<int, int> { public int Invoke(int a) => a - 1; }
 
 		#endregion
 
 		#region Char
 
-		public struct CharEquate : IFunc<char, char, bool> { public bool Do(char a, char b) => a == b; }
-		public struct CharHash : IFunc<char, int> { public int Do(char a) => a; }
+		public struct CharEquate : IFunc<char, char, bool> { public bool Invoke(char a, char b) => a == b; }
+		public struct CharHash : IFunc<char, int> { public int Invoke(char a) => a; }
 
 		#endregion
 
 		#region String
 
-		public struct StringEquate : IFunc<string, string, bool> { public bool Do(string a, string b) => a == b; }
-		public struct StringHash : IFunc<string, int> { public int Do(string a) => a.GetHashCode(); }
+		public struct StringEquate : IFunc<string, string, bool> { public bool Invoke(string a, string b) => a == b; }
+		public struct StringHash : IFunc<string, int> { public int Invoke(string a) => a.GetHashCode(); }
 
 		#endregion
 
@@ -34,7 +34,7 @@ namespace Towel
 			int Index;
 			T[] Array;
 
-			public void Do(T arg1) => Array[Index++] = arg1;
+			public void Invoke(T arg1) => Array[Index++] = arg1;
 
 			public static implicit operator FillArray<T>(T[] array) => new() { Array = array, };
 		}
@@ -43,7 +43,7 @@ namespace Towel
 			where Compare : struct, IFunc<T, T, CompareResult>
 		{
 			Compare _compare;
-			public CompareResult Do(T a, T b) => _compare.Do(b, a);
+			public CompareResult Invoke(T a, T b) => _compare.Invoke(b, a);
 			public static implicit operator CompareInvert<T, Compare>(Compare compare) => new() { _compare = compare, };
 		}
 
@@ -57,7 +57,7 @@ namespace Towel
 			internal T Value;
 
 			/// <summary>The invocation of the compile time delegate.</summary>
-			public CompareResult Do(T a) => CompareFunction.Do(a, Value);
+			public CompareResult Invoke(T a) => CompareFunction.Invoke(a, Value);
 
 			/// <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
 			/// <param name="value">The value for future values to be compared against.</param>
@@ -74,7 +74,7 @@ namespace Towel
 		{
 			/// <summary>Returns <see cref="StepStatus.Continue"/>.</summary>
 			/// <returns><see cref="StepStatus.Continue"/></returns>
-			public StepStatus Do() => Continue;
+			public StepStatus Invoke() => Continue;
 		}
 
 		/// <summary>Struct wrapper for the <see cref="Random.Next(int, int)"/> method as an <see cref="IFunc{T1, T2, TResult}"/>.</summary>
@@ -82,7 +82,7 @@ namespace Towel
 		{
 			internal Random _random;
 			/// <inheritdoc cref="Random.Next(int, int)"/>
-			public int Do(int minValue, int maxValue) => _random.Next(minValue, maxValue);
+			public int Invoke(int minValue, int maxValue) => _random.Next(minValue, maxValue);
 			/// <summary>Casts a <see cref="Random"/> to a struct wrapper.</summary>
 			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) => new() { _random = random, };
 		}
@@ -101,7 +101,7 @@ namespace Towel
 		internal struct Func_int_int_JaggedArray_Length0<T> : IFunc<int, int>
 		{
 			T[][] JaggedArray;
-			public int Do(int index) => JaggedArray[index].Length;
+			public int Invoke(int index) => JaggedArray[index].Length;
 
 			public static implicit operator Func_int_int_JaggedArray_Length0<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
 		}
@@ -109,7 +109,7 @@ namespace Towel
 		internal struct Func_int_int_T_JaggedArray_Get<T> : IFunc<int, int, T>
 		{
 			T[][] JaggedArray;
-			public T Do(int index1, int index2) => JaggedArray[index1][index2];
+			public T Invoke(int index1, int index2) => JaggedArray[index1][index2];
 
 			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
 		}

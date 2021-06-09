@@ -30,7 +30,7 @@ namespace Towel
 
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Random? random = null) =>
-			Shuffle<T, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, get, set, random);
+			Shuffle<T, SFunc<int, T>, SAction<int, T>>(start, end, get, set, random);
 
 		/// <inheritdoc cref="Shuffle_XML"/>
 		public static void Shuffle<T, Get, Set>(int start, int end, Get get = default, Set set = default, Random? random = null)
@@ -46,11 +46,11 @@ namespace Towel
 		{
 			for (int i = start; i <= end; i++)
 			{
-				int randomIndex = random.Do(start, end);
+				int randomIndex = random.Invoke(start, end);
 				// Swap
-				T temp = get.Do(i);
-				set.Do(i, get.Do(randomIndex));
-				set.Do(randomIndex, temp);
+				T temp = get.Invoke(i);
+				set.Invoke(i, get.Invoke(randomIndex));
+				set.Invoke(randomIndex, temp);
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace Towel
 		{
 			for (int i = 0; i < span.Length; i++)
 			{
-				int index = random.Do(0, span.Length);
+				int index = random.Invoke(0, span.Length);
 				Swap(ref span[i], ref span[index]);
 			}
 		}
@@ -105,7 +105,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortBubble<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortBubble<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -117,12 +117,12 @@ namespace Towel
 			{
 				for (int j = start; j <= end - 1; j++)
 				{
-					if (compare.Do(get.Do(j), get.Do(j + 1)) is Greater)
+					if (compare.Invoke(get.Invoke(j), get.Invoke(j + 1)) is Greater)
 					{
 						// Swap
-						T temp = get.Do(j + 1);
-						set.Do(j + 1, get.Do(j));
-						set.Do(j, temp);
+						T temp = get.Invoke(j + 1);
+						set.Invoke(j + 1, get.Invoke(j));
+						set.Invoke(j, temp);
 					}
 				}
 			}
@@ -130,7 +130,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortBubble<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortBubble<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubble<T, Compare>(Span<T> span, Compare compare = default)
@@ -140,7 +140,7 @@ namespace Towel
 			{
 				for (int j = 0; j <= span.Length - 2; j++)
 				{
-					if (compare.Do(span[j], span[j + 1]) is Greater)
+					if (compare.Invoke(span[j], span[j + 1]) is Greater)
 					{
 						Swap(ref span[j], ref span[j + 1]);
 					}
@@ -164,7 +164,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortSelection<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortSelection<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -177,21 +177,21 @@ namespace Towel
 				int min = i;
 				for (int j = i + 1; j <= end; j++)
 				{
-					if (compare.Do(get.Do(j), get.Do(min)) is Less)
+					if (compare.Invoke(get.Invoke(j), get.Invoke(min)) is Less)
 					{
 						min = j;
 					}
 				}
 				// Swap
-				T temp = get.Do(min);
-				set.Do(min, get.Do(i));
-				set.Do(i, temp);
+				T temp = get.Invoke(min);
+				set.Invoke(min, get.Invoke(i));
+				set.Invoke(i, temp);
 			}
 		}
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortSelection<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortSelection<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortSelection_XML"/>
 		public static void SortSelection<T, Compare>(Span<T> span, Compare compare = default)
@@ -202,7 +202,7 @@ namespace Towel
 				int min = i;
 				for (int j = i + 1; j < span.Length; j++)
 				{
-					if (compare.Do(span[j], span[min]) is Less)
+					if (compare.Invoke(span[j], span[min]) is Less)
 					{
 						min = j;
 					}
@@ -227,7 +227,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortInsertion<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortInsertion<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -237,19 +237,19 @@ namespace Towel
 		{
 			for (int i = start + 1; i <= end; i++)
 			{
-				T temp = get.Do(i);
+				T temp = get.Invoke(i);
 				int j = i;
-				for (; j > start && compare.Do(get.Do(j - 1), temp) is Greater; j--)
+				for (; j > start && compare.Invoke(get.Invoke(j - 1), temp) is Greater; j--)
 				{
-					set.Do(j, get.Do(j - 1));
+					set.Invoke(j, get.Invoke(j - 1));
 				}
-				set.Do(j, temp);
+				set.Invoke(j, temp);
 			}
 		}
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortInsertion<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortInsertion<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortInsertion_XML"/>
 		public static void SortInsertion<T, Compare>(Span<T> span, Compare compare = default)
@@ -259,7 +259,7 @@ namespace Towel
 			{
 				T temp = span[i];
 				int j;
-				for (j = i; j > 0 && compare.Do(span[j - 1], temp) is Greater; j--)
+				for (j = i; j > 0 && compare.Invoke(span[j - 1], temp) is Greater; j--)
 				{
 					span[j] = span[j - 1];
 				}
@@ -283,7 +283,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortQuick<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortQuick<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -297,17 +297,17 @@ namespace Towel
 			{
 				if (length > 1)
 				{
-					T pivot = get.Do(start);
+					T pivot = get.Invoke(start);
 					int i = start;
 					int j = start + length - 1;
 					int k = j;
 					while (i <= j)
 					{
-						if (compare.Do(get.Do(j), pivot) is Less)
+						if (compare.Invoke(get.Invoke(j), pivot) is Less)
 						{
 							Swap(i++, j);
 						}
-						else if (compare.Do(get.Do(j), pivot) is Equal)
+						else if (compare.Invoke(get.Invoke(j), pivot) is Equal)
 						{
 							j--;
 						}
@@ -322,15 +322,15 @@ namespace Towel
 			}
 			void Swap(int a, int b)
 			{
-				T temp = get.Do(a);
-				set.Do(a, get.Do(b));
-				set.Do(b, temp);
+				T temp = get.Invoke(a);
+				set.Invoke(a, get.Invoke(b));
+				set.Invoke(b, temp);
 			}
 		}
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortQuick<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortQuick<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortQuick_XML"/>
 		public static void SortQuick<T, Compare>(Span<T> span, Compare compare = default)
@@ -348,11 +348,11 @@ namespace Towel
 					int k = j;
 					while (i <= j)
 					{
-						if (compare.Do(span[j], pivot) is Less)
+						if (compare.Invoke(span[j], pivot) is Less)
 						{
 							Swap(ref span[i++], ref span[j]);
 						}
-						else if (compare.Do(span[j], pivot) is Equal)
+						else if (compare.Invoke(span[j], pivot) is Equal)
 						{
 							j--;
 						}
@@ -383,7 +383,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortMerge<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortMerge<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -406,26 +406,26 @@ namespace Towel
 					int k = 0;
 					while (i < start + half && j < start + length)
 					{
-						if (compare.Do(get.Do(i), get.Do(j)) is Greater)
+						if (compare.Invoke(get.Invoke(i), get.Invoke(j)) is Greater)
 						{
-							sorted[k++] = get.Do(j++);
+							sorted[k++] = get.Invoke(j++);
 						}
 						else
 						{
-							sorted[k++] = get.Do(i++);
+							sorted[k++] = get.Invoke(i++);
 						}
 					}
 					for (int h = 0; h < start + half - i; h++)
 					{
-						sorted[k + h] = get.Do(i + h);
+						sorted[k + h] = get.Invoke(i + h);
 					}
 					for (int h = 0; h < start + length - j; h++)
 					{
-						sorted[k + h] = get.Do(j + h);
+						sorted[k + h] = get.Invoke(j + h);
 					}
 					for (int h = 0; h < length; h++)
 					{
-						set.Do(start + h, sorted[0 + h]);
+						set.Invoke(start + h, sorted[0 + h]);
 					}
 				}
 			}
@@ -433,7 +433,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortMerge<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortMerge<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortMerge_XML"/>
 		public static void SortMerge<T, Compare>(Span<T> span, Compare compare = default)
@@ -454,7 +454,7 @@ namespace Towel
 					int k = 0;
 					while (i < half && j < span.Length)
 					{
-						if (compare.Do(span[i], span[j]) is Greater)
+						if (compare.Invoke(span[i], span[j]) is Greater)
 						{
 							sorted[k++] = span[j++];
 						}
@@ -495,7 +495,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortHeap<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortHeap<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -520,11 +520,11 @@ namespace Towel
 				int right = ((index + 1) * 2) + offset;
 				index += offset;
 				int largest = index;
-				if (left < heapSize && compare.Do(get.Do(left), get.Do(largest)) is Greater)
+				if (left < heapSize && compare.Invoke(get.Invoke(left), get.Invoke(largest)) is Greater)
 				{
 					largest = left;
 				}
-				if (right < heapSize && compare.Do(get.Do(right), get.Do(largest)) is Greater)
+				if (right < heapSize && compare.Invoke(get.Invoke(right), get.Invoke(largest)) is Greater)
 				{
 					largest = right;
 				}
@@ -536,15 +536,15 @@ namespace Towel
 			}
 			void Swap(int a, int b)
 			{
-				T temp = get.Do(a);
-				set.Do(a, get.Do(b));
-				set.Do(b, temp);
+				T temp = get.Invoke(a);
+				set.Invoke(a, get.Invoke(b));
+				set.Invoke(b, temp);
 			}
 		}
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortHeap<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortHeap<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortHeap_XML"/>
 		public static void SortHeap<T, Compare>(Span<T> span, Compare compare = default)
@@ -569,11 +569,11 @@ namespace Towel
 				int right = ((index + 1) * 2) + offset;
 				index += offset;
 				int largest = index;
-				if (left < heapSize && compare.Do(span[left], span[largest]) is Greater)
+				if (left < heapSize && compare.Invoke(span[left], span[largest]) is Greater)
 				{
 					largest = left;
 				}
-				if (right < heapSize && compare.Do(span[right], span[largest]) is Greater)
+				if (right < heapSize && compare.Invoke(span[right], span[largest]) is Greater)
 				{
 					largest = right;
 				}
@@ -601,7 +601,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortOddEven<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortOddEven<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -615,7 +615,7 @@ namespace Towel
 				sorted = true;
 				for (int i = start; i < end; i += 2)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					if (compare.Invoke(get.Invoke(i), get.Invoke(i + 1)) is Greater)
 					{
 						Swap(i, i + 1);
 						sorted = false;
@@ -623,7 +623,7 @@ namespace Towel
 				}
 				for (int i = start + 1; i < end; i += 2)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					if (compare.Invoke(get.Invoke(i), get.Invoke(i + 1)) is Greater)
 					{
 						Swap(i, i + 1);
 						sorted = false;
@@ -631,16 +631,16 @@ namespace Towel
 				}
 				void Swap(int a, int b)
 				{
-					T temp = get.Do(a);
-					set.Do(a, get.Do(b));
-					set.Do(b, temp);
+					T temp = get.Invoke(a);
+					set.Invoke(a, get.Invoke(b));
+					set.Invoke(b, temp);
 				}
 			}
 		}
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortOddEven<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortOddEven<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortOddEven_XML"/>
 		public static void SortOddEven<T, Compare>(Span<T> span, Compare compare = default)
@@ -652,7 +652,7 @@ namespace Towel
 				sorted = true;
 				for (int i = 0; i < span.Length - 1; i += 2)
 				{
-					if (compare.Do(span[i], span[i + 1]) is Greater)
+					if (compare.Invoke(span[i], span[i + 1]) is Greater)
 					{
 						Swap(ref span[i], ref span[i + 1]);
 						sorted = false;
@@ -660,7 +660,7 @@ namespace Towel
 				}
 				for (int i = 1; i < span.Length - 1; i += 2)
 				{
-					if (compare.Do(span[i], span[i + 1]) is Greater)
+					if (compare.Invoke(span[i], span[i + 1]) is Greater)
 					{
 						Swap(ref span[i], ref span[i + 1]);
 						sorted = false;
@@ -750,7 +750,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null, Random? random = null) =>
-			SortBogo<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set, random);
+			SortBogo<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set, random);
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default, Random? random = null)
@@ -774,7 +774,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T>(Span<T> span, Func<T, T, CompareResult>? compare = null, Random? random = null) =>
-			SortBogo<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare, random ?? new Random());
+			SortBogo<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare, random ?? new Random());
 
 		/// <inheritdoc cref="SortBogo_XML"/>
 		public static void SortBogo<T, Compare>(Span<T> span, Compare compare = default, Random? random = null)
@@ -803,7 +803,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortSlow<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortSlow<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -821,12 +821,12 @@ namespace Towel
 				int mid = (i + j) / 2;
 				SortSlowRecursive(i, mid);
 				SortSlowRecursive(mid + 1, j);
-				if (compare.Do(get.Do(j), get.Do(mid)) is Less)
+				if (compare.Invoke(get.Invoke(j), get.Invoke(mid)) is Less)
 				{
 					// Swap
-					T temp = get.Do(j);
-					set.Do(j, get.Do(mid));
-					set.Do(mid, temp);
+					T temp = get.Invoke(j);
+					set.Invoke(j, get.Invoke(mid));
+					set.Invoke(mid, temp);
 				}
 				SortSlowRecursive(i, j - 1);
 			}
@@ -834,7 +834,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortSlow<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortSlow<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortSlow_XML"/>
 		public static void SortSlow<T, Compare>(Span<T> span, Compare compare = default)
@@ -850,7 +850,7 @@ namespace Towel
 				int mid = (i + j) / 2;
 				SortSlowRecursive(span, i, mid);
 				SortSlowRecursive(span, mid + 1, j);
-				if (compare.Do(span[j], span[mid]) is Less)
+				if (compare.Invoke(span[j], span[mid]) is Less)
 				{
 					Swap(ref span[j], ref span[mid]);
 				}
@@ -869,7 +869,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortGnome<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortGnome<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -880,16 +880,16 @@ namespace Towel
 			int i = start;
 			while (i <= end)
 			{
-				if (i == start || compare.Do(get.Do(i), get.Do(i - 1)) != Less)
+				if (i == start || compare.Invoke(get.Invoke(i), get.Invoke(i - 1)) != Less)
 				{
 					i++;
 				}
 				else
 				{
 					// Swap
-					T temp = get.Do(i);
-					set.Do(i, get.Do(i - 1));
-					set.Do(i - 1, temp);
+					T temp = get.Invoke(i);
+					set.Invoke(i, get.Invoke(i - 1));
+					set.Invoke(i - 1, temp);
 					i--;
 				}
 			}
@@ -897,7 +897,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortGnome<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortGnome<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortGnome_XML"/>
 		public static void SortGnome<T, Compare>(Span<T> span, Compare compare = default)
@@ -906,7 +906,7 @@ namespace Towel
 			int i = 0;
 			while (i < span.Length)
 			{
-				if (i == 0 || compare.Do(span[i], span[i - 1]) != Less)
+				if (i == 0 || compare.Invoke(span[i], span[i - 1]) != Less)
 				{
 					i++;
 				}
@@ -929,7 +929,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortComb<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortComb<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -950,11 +950,11 @@ namespace Towel
 				}
 				for (int i = start; i + gap <= end; i++)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + gap)) is Greater)
+					if (compare.Invoke(get.Invoke(i), get.Invoke(i + gap)) is Greater)
 					{
-						T temp = get.Do(i);
-						set.Do(i, get.Do(i + gap));
-						set.Do(i + gap, temp);
+						T temp = get.Invoke(i);
+						set.Invoke(i, get.Invoke(i + gap));
+						set.Invoke(i + gap, temp);
 						sorted = false;
 					}
 				}
@@ -963,7 +963,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortComb<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortComb<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortComb_XML"/>
 		public static void SortComb<T, Compare>(Span<T> span, Compare compare = default)
@@ -982,7 +982,7 @@ namespace Towel
 				}
 				for (int i = 0; i + gap < span.Length; i++)
 				{
-					if (compare.Do(span[i], span[i + gap]) is Greater)
+					if (compare.Invoke(span[i], span[i + gap]) is Greater)
 					{
 						Swap(ref span[i], ref span[i + gap]);
 						sorted = false;
@@ -1002,7 +1002,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortShell<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortShell<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -1015,20 +1015,20 @@ namespace Towel
 			{
 				for (int i = gap + start; i <= end; i++)
 				{
-					T temp = get.Do(i);
+					T temp = get.Invoke(i);
 					int j = i;
-					for (; j >= gap && compare.Do(get.Do(j - gap), temp) is Greater; j -= gap)
+					for (; j >= gap && compare.Invoke(get.Invoke(j - gap), temp) is Greater; j -= gap)
 					{
-						set.Do(j, get.Do(j - gap));
+						set.Invoke(j, get.Invoke(j - gap));
 					}
-					set.Do(j, temp);
+					set.Invoke(j, temp);
 				}
 			}
 		}
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortShell<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortShell<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortShell_XML"/>
 		public static void SortShell<T, Compare>(Span<T> span, Compare compare = default)
@@ -1041,7 +1041,7 @@ namespace Towel
 				{
 					T temp = span[i];
 					int j = i;
-					for (; j >= gap && compare.Do(span[j - gap], temp) is Greater; j -= gap)
+					for (; j >= gap && compare.Invoke(span[j - gap], temp) is Greater; j -= gap)
 					{
 						span[j] = span[j - gap];
 					}
@@ -1061,7 +1061,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortCocktail<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortCocktail<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -1074,11 +1074,11 @@ namespace Towel
 				bool swapped = false;
 				for (int i = start; i <= end - 1; i++)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					if (compare.Invoke(get.Invoke(i), get.Invoke(i + 1)) is Greater)
 					{
-						T temp = get.Do(i);
-						set.Do(i, get.Do(i + 1));
-						set.Do(i + 1, temp);
+						T temp = get.Invoke(i);
+						set.Invoke(i, get.Invoke(i + 1));
+						set.Invoke(i + 1, temp);
 						swapped = true;
 					}
 				}
@@ -1089,11 +1089,11 @@ namespace Towel
 				swapped = false;
 				for (int i = end - 1; i >= start; i--)
 				{
-					if (compare.Do(get.Do(i), get.Do(i + 1)) is Greater)
+					if (compare.Invoke(get.Invoke(i), get.Invoke(i + 1)) is Greater)
 					{
-						T temp = get.Do(i);
-						set.Do(i, get.Do(i + 1));
-						set.Do(i + 1, temp);
+						T temp = get.Invoke(i);
+						set.Invoke(i, get.Invoke(i + 1));
+						set.Invoke(i + 1, temp);
 						swapped = true;
 					}
 				}
@@ -1106,7 +1106,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortCocktail<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortCocktail<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortCocktail_XML"/>
 		public static void SortCocktail<T, Compare>(Span<T> span, Compare compare = default)
@@ -1117,7 +1117,7 @@ namespace Towel
 				bool swapped = false;
 				for (int i = 0; i < span.Length - 1; i++)
 				{
-					if (compare.Do(span[i], span[i + 1]) is Greater)
+					if (compare.Invoke(span[i], span[i + 1]) is Greater)
 					{
 						Swap(ref span[i], ref span[i + 1]);
 						swapped = true;
@@ -1130,7 +1130,7 @@ namespace Towel
 				swapped = false;
 				for (int i = span.Length - 2; i >= 0; i--)
 				{
-					if (compare.Do(span[i], span[i + 1]) is Greater)
+					if (compare.Invoke(span[i], span[i + 1]) is Greater)
 					{
 						Swap(ref span[i], ref span[i + 1]);
 						swapped = true;
@@ -1154,7 +1154,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortCycle_XML"/>
 		public static void SortCycle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortCycle<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, compare ?? Compare, get, set);
+			SortCycle<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
 
 		/// <inheritdoc cref="SortCycle_XML"/>
 		public static void SortCycle<T, Compare, Get, Set>(int start, int end, Compare compare = default, Get get = default, Set set = default)
@@ -1164,11 +1164,11 @@ namespace Towel
 		{
 			for (int i = start; i < end; i++)
 			{
-				T pivot = get.Do(i);
+				T pivot = get.Invoke(i);
 				int index = i;
 				for (int j = i + 1; j <= end; j++)
 				{
-					if (compare.Do(get.Do(j), pivot) is Less)
+					if (compare.Invoke(get.Invoke(j), pivot) is Less)
 					{
 						index++;
 					}
@@ -1177,35 +1177,35 @@ namespace Towel
 				{
 					continue;
 				}
-				while (compare.Do(pivot, get.Do(index)) is Equal)
+				while (compare.Invoke(pivot, get.Invoke(index)) is Equal)
 				{
 					index++;
 				}
 				if (index != i)
 				{
 					T temp = pivot;
-					pivot = get.Do(index);
-					set.Do(index, temp);
+					pivot = get.Invoke(index);
+					set.Invoke(index, temp);
 				}
 				while (index != i)
 				{
 					index = i;
 					for (int j = i + 1; j <= end; j++)
 					{
-						if (compare.Do(get.Do(j), pivot) is Less)
+						if (compare.Invoke(get.Invoke(j), pivot) is Less)
 						{
 							index++;
 						}
 					}
-					while (compare.Do(pivot, get.Do(index)) is Equal)
+					while (compare.Invoke(pivot, get.Invoke(index)) is Equal)
 					{
 						index += 1;
 					}
-					if (compare.Do(pivot, get.Do(index)) is not Equal)
+					if (compare.Invoke(pivot, get.Invoke(index)) is not Equal)
 					{
 						T temp = pivot;
-						pivot = get.Do(index);
-						set.Do(index, temp);
+						pivot = get.Invoke(index);
+						set.Invoke(index, temp);
 					}
 				}
 			}
@@ -1213,7 +1213,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortCycle_XML"/>
 		public static void SortCycle<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortCycle<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortCycle<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortCycle_XML"/>
 		public static void SortCycle<T, Compare>(Span<T> span, Compare compare = default)
@@ -1225,7 +1225,7 @@ namespace Towel
 				int index = i;
 				for (int j = i + 1; j < span.Length; j++)
 				{
-					if (compare.Do(span[j], pivot) is Less)
+					if (compare.Invoke(span[j], pivot) is Less)
 					{
 						index++;
 					}
@@ -1234,7 +1234,7 @@ namespace Towel
 				{
 					continue;
 				}
-				while (compare.Do(pivot, span[index]) is Equal)
+				while (compare.Invoke(pivot, span[index]) is Equal)
 				{
 					index++;
 				}
@@ -1247,16 +1247,16 @@ namespace Towel
 					index = i;
 					for (int j = i + 1; j < span.Length; j++)
 					{
-						if (compare.Do(span[j], pivot) is Less)
+						if (compare.Invoke(span[j], pivot) is Less)
 						{
 							index++;
 						}
 					}
-					while (compare.Do(pivot, span[index]) is Equal)
+					while (compare.Invoke(pivot, span[index]) is Equal)
 					{
 						index += 1;
 					}
-					if (compare.Do(pivot, span[index]) is not Equal)
+					if (compare.Invoke(pivot, span[index]) is not Equal)
 					{
 						Swap(ref span[index], ref pivot);
 					}
@@ -1275,7 +1275,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortPancake_XML"/>
 		public static void SortPancake<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortPancake<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortPancake<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortPancake_XML"/>
 		public static void SortPancake<T, Compare>(Span<T> span, Compare compare = default)
@@ -1303,7 +1303,7 @@ namespace Towel
 
 		/// <inheritdoc cref="SortStooge_XML"/>
 		public static void SortStooge<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
-			SortStooge<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			SortStooge<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="SortStooge_XML"/>
 		public static void SortStooge<T, Compare>(Span<T> span, Compare compare = default)
@@ -1313,7 +1313,7 @@ namespace Towel
 			{
 				return;
 			}
-			if (compare.Do(span[0], span[^1]) is Greater)
+			if (compare.Invoke(span[0], span[^1]) is Greater)
 			{
 				Swap(ref span[0], ref span[^1]);
 			}

@@ -166,7 +166,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <typeparam name="K">The type of keys used to look up values.</typeparam>
 		/// <returns>The new constructed <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</returns>
-		public static MapHashLinked<T, K, FuncRuntime<K, K, bool>, FuncRuntime<K, int>> New<T, K>(
+		public static MapHashLinked<T, K, SFunc<K, K, bool>, SFunc<K, int>> New<T, K>(
 			Func<K, K, bool>? equate = null,
 			Func<K, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
@@ -284,7 +284,7 @@ namespace Towel.DataStructures
 		#region Methods
 
 		internal int GetLocation(K key) =>
-			(_hash.Do(key) & int.MaxValue) % _table.Length;
+			(_hash.Invoke(key) & int.MaxValue) % _table.Length;
 
 		/// <summary>
 		/// Tries to add a value to the map.
@@ -299,7 +299,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
 					exception = new ArgumentException("Attempting to add a duplicate key to a map.", nameof(key));
 					return false;
@@ -337,7 +337,7 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(update));
 			}
-			AddOrUpdate<FuncRuntime<T, T>>(key, value, update);
+			AddOrUpdate<SFunc<T, T>>(key, value, update);
 		}
 
 		/// <summary>Adds or updates the value at the given key.</summary>
@@ -351,9 +351,9 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
-					node.Value = update.Do(node.Value);
+					node.Value = update.Invoke(node.Value);
 					return;
 				}
 			}
@@ -382,7 +382,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
 					node.Value = value;
 					return true;
@@ -397,7 +397,7 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(update));
 			}
-			return TryUpdate<FuncRuntime<T, T>>(key, update);
+			return TryUpdate<SFunc<T, T>>(key, update);
 		}
 
 		public bool TryUpdate<Update>(K key, Update update = default)
@@ -406,9 +406,9 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
-					node.Value = update.Do(node.Value);
+					node.Value = update.Invoke(node.Value);
 					return true;
 				}
 			}
@@ -421,7 +421,7 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentNullException(nameof(update));
 			}
-			return TryUpdate<FuncRuntime<T, T>>(key, out value, update);
+			return TryUpdate<SFunc<T, T>>(key, out value, update);
 		}
 
 		public bool TryUpdate<Update>(K key, out T? value, Update update = default)
@@ -430,9 +430,9 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
-					node.Value = update.Do(node.Value);
+					node.Value = update.Invoke(node.Value);
 					value = node.Value;
 					return true;
 				}
@@ -451,7 +451,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
 					value = node.Value;
 					exception = null;
@@ -474,7 +474,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
 					node.Value = value;
 					return;
@@ -531,7 +531,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
 					if (previous is null)
 					{
@@ -566,7 +566,7 @@ namespace Towel.DataStructures
 				{
 					temp[i] = node.Next;
 
-					int hashCode = _hash.Do(node.Key);
+					int hashCode = _hash.Invoke(node.Key);
 					int location = (hashCode & int.MaxValue) % _table.Length;
 
 					node.Next = _table[location];
@@ -607,7 +607,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Key, key))
+				if (_equate.Invoke(node.Key, key))
 				{
 					return true;
 				}
@@ -646,7 +646,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="Stepper_XML"/>
 		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
+			Stepper<SAction<T>>(step);
 
 		/// <inheritdoc cref="Stepper_XML"/>
 		public void StepperRef<Step>(Step step = default)
@@ -706,7 +706,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="Keys_XML"/>
 		public void Keys(Action<K> step) =>
-			Keys<ActionRuntime<K>>(step);
+			Keys<SAction<K>>(step);
 
 		/// <inheritdoc cref="Keys_XML"/>
 		public void Keys<Step>(Step step = default)
@@ -725,7 +725,7 @@ namespace Towel.DataStructures
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					if (step.Do(node.Key) is Break)
+					if (step.Invoke(node.Key) is Break)
 					{
 						return Break;
 					}
@@ -763,7 +763,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="Pairs_XML"/>
 		public void Pairs(Action<(T Value, K Key)> step) =>
-			Pairs<ActionRuntime<(T Value, K Key)>>(step);
+			Pairs<SAction<(T Value, K Key)>>(step);
 
 		/// <inheritdoc cref="Pairs_XML"/>
 		public void Pairs<Step>(Step step = default)
@@ -772,7 +772,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="Pairs_XML"/>
 		public StepStatus PairsBreak(Func<(T Value, K Key), StepStatus> step) =>
-			PairsBreak<FuncRuntime<(T Value, K Key), StepStatus>>(step);
+			PairsBreak<SFunc<(T Value, K Key), StepStatus>>(step);
 
 		/// <inheritdoc cref="Pairs_XML"/>
 		public StepStatus PairsBreak<Step>(Step step = default)
@@ -783,7 +783,7 @@ namespace Towel.DataStructures
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
 					var value = (node.Value, node.Key);
-					if (step.Do(value) is Break)
+					if (step.Invoke(value) is Break)
 					{
 						return Break;
 					}

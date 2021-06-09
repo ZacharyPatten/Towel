@@ -74,7 +74,7 @@ namespace Towel_Generating
 				if (i is 0)
 				{
 					code.AppendLine($@"	/// <inheritdoc cref=""System.Action""/>");
-					code.AppendLine($@"	public struct SAction");
+					code.AppendLine($@"	public struct SAction : IAction");
 					code.AppendLine($@"	{{");
 					code.AppendLine($@"		internal Action Action;");
 					code.AppendLine($@"");
@@ -89,7 +89,7 @@ namespace Towel_Generating
 				else
 				{
 					code.AppendLine($@"	/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/>");
-					code.AppendLine($@"	public struct SAction<{Join(1..I, n => $"T{n}", ", ")}>");
+					code.AppendLine($@"	public struct SAction<{Join(1..I, n => $"T{n}", ", ")}> : IAction<{Join(1..I, n => $"T{n}", ", ")}>");
 					code.AppendLine($@"	{{");
 					code.AppendLine($@"		internal Action<{Join(1..I, n => $"T{n}", ", ")}> Action;");
 					code.AppendLine($@"");

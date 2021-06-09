@@ -27,7 +27,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="AvlTreeLinked{T, TCompare}"/>.</returns>
-		public static AvlTreeLinked<T, FuncRuntime<T, T, CompareResult>> New<T>(
+		public static AvlTreeLinked<T, SFunc<T, T, CompareResult>> New<T>(
 			Func<T, T, CompareResult>? compare = null) =>
 			new(compare ?? Compare);
 	}
@@ -170,7 +170,7 @@ namespace Towel.DataStructures
 					_count++;
 					return new Node(value: value);
 				}
-				CompareResult compareResult = _compare.Do(node.Value, value);
+				CompareResult compareResult = _compare.Invoke(node.Value, value);
 				switch (compareResult)
 				{
 					case Less:    node.RightChild = Add(node.RightChild); break;
@@ -214,7 +214,7 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to look for.</param>
 		/// <returns>Whether or not the AVL tree contains the value.</returns>
 		public bool Contains(T value) =>
-			Contains(x => _compare.Do(x, value));
+			Contains(x => _compare.Invoke(x, value));
 
 		/// <summary>
 		/// Determines if this structure contains an item by a given key.
@@ -224,7 +224,7 @@ namespace Towel.DataStructures
 		/// <returns>True of contained, False if not.</returns>
 		public bool Contains(Func<T, CompareResult> sift) =>
 			sift is null ? throw new ArgumentNullException(nameof(sift)) :
-			Contains<FuncRuntime<T, CompareResult>>(sift);
+			Contains<SFunc<T, CompareResult>>(sift);
 
 		/// <summary>
 		/// Determines if this structure contains an item by a given key.
@@ -238,7 +238,7 @@ namespace Towel.DataStructures
 			Node? node = _root;
 			while (node is not null)
 			{
-				CompareResult compareResult = sift.Do(node.Value);
+				CompareResult compareResult = sift.Invoke(node.Value);
 				switch (compareResult)
 				{
 					case Less:    node = node.RightChild;  break;
@@ -266,7 +266,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the get succeeded or false if not.</returns>
 		public bool TryGet(out T? value, out Exception? exception, Func<T, CompareResult> sift) =>
-			TryGet<FuncRuntime<T, CompareResult>>(out value, out exception, sift);
+			TryGet<SFunc<T, CompareResult>>(out value, out exception, sift);
 
 		/// <summary>
 		/// Tries to get a value.
@@ -283,7 +283,7 @@ namespace Towel.DataStructures
 			Node? node = _root;
 			while (node is not null)
 			{
-				CompareResult compareResult = sift.Do(node.Value);
+				CompareResult compareResult = sift.Invoke(node.Value);
 				switch (compareResult)
 				{
 					case Less:    node = node.LeftChild;  break;
@@ -319,7 +319,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
 		public bool TryRemove(out Exception? exception, Func<T, CompareResult> sift) =>
-			TryRemove<FuncRuntime<T, CompareResult>>(out exception, sift);
+			TryRemove<SFunc<T, CompareResult>>(out exception, sift);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="sift">The compare delegate.</param>
@@ -333,7 +333,7 @@ namespace Towel.DataStructures
 			{
 				if (node is not null)
 				{
-					CompareResult compareResult = sift.Do(node.Value);
+					CompareResult compareResult = sift.Invoke(node.Value);
 					switch (compareResult)
 					{
 						case Less:    node.RightChild = Remove(node.RightChild); break;
@@ -389,7 +389,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
+			Stepper<SAction<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
@@ -443,7 +443,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void Stepper(T minimum, T maximum, Action<T> step) =>
-			Stepper<ActionRuntime<T>>(minimum, maximum, step);
+			Stepper<SAction<T>>(minimum, maximum, step);
 
 		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperRef<Step>(T minimum, T maximum, Step step = default)
@@ -475,11 +475,11 @@ namespace Towel.DataStructures
 			{
 				if (node is not null)
 				{
-					if (_compare.Do(node.Value, minimum) is Less)
+					if (_compare.Invoke(node.Value, minimum) is Less)
 					{
 						return Stepper(node.RightChild);
 					}
-					else if (_compare.Do(node.Value, maximum) is Greater)
+					else if (_compare.Invoke(node.Value, maximum) is Greater)
 					{
 						return Stepper(node.LeftChild);
 					}
@@ -494,7 +494,7 @@ namespace Towel.DataStructures
 				}
 				return Continue;
 			}
-			if (_compare.Do(minimum, maximum) is Greater)
+			if (_compare.Invoke(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
@@ -512,7 +512,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public void StepperReverse(Action<T> step) =>
-			StepperReverse<ActionRuntime<T>>(step);
+			StepperReverse<SAction<T>>(step);
 
 		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
 		public void StepperReverseRef<Step>(Step step = default)
@@ -566,7 +566,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperReverse(T minimum, T maximum, Action<T> step) =>
-			StepperReverse<ActionRuntime<T>>(minimum, maximum, step);
+			StepperReverse<SAction<T>>(minimum, maximum, step);
 
 		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
 		public virtual void StepperReverseRef<Step>(T minimum, T maximum, Step step = default)
@@ -598,11 +598,11 @@ namespace Towel.DataStructures
 			{
 				if (node is not null)
 				{
-					if (_compare.Do(node.Value, minimum) is Less)
+					if (_compare.Invoke(node.Value, minimum) is Less)
 					{
 						return StepperReverse(node.RightChild);
 					}
-					else if (_compare.Do(node.Value, maximum) is Greater)
+					else if (_compare.Invoke(node.Value, maximum) is Greater)
 					{
 						return StepperReverse(node.LeftChild);
 					}
@@ -617,7 +617,7 @@ namespace Towel.DataStructures
 				}
 				return Continue;
 			}
-			if (_compare.Do(minimum, maximum) is Greater)
+			if (_compare.Invoke(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}

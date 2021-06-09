@@ -4153,7 +4153,7 @@ namespace Towel.DataStructures
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -5804,7 +5804,7 @@ namespace Towel.DataStructures
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -7596,7 +7596,7 @@ namespace Towel.DataStructures
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -9531,7 +9531,7 @@ namespace Towel.DataStructures
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -11611,7 +11611,7 @@ namespace Towel.DataStructures
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -13838,7 +13838,7 @@ namespace Towel.DataStructures
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -16214,7 +16214,7 @@ namespace Towel.DataStructures
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -17851,7 +17851,7 @@ namespace Towel.DataStructures
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{
@@ -19518,7 +19518,7 @@ namespace Towel.DataStructures
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{
@@ -21359,7 +21359,7 @@ namespace Towel.DataStructures
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{
@@ -23374,7 +23374,7 @@ namespace Towel.DataStructures
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{
@@ -25563,7 +25563,7 @@ namespace Towel.DataStructures
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{
@@ -27926,7 +27926,7 @@ namespace Towel.DataStructures
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{
@@ -30463,7 +30463,7 @@ namespace Towel.DataStructures
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{

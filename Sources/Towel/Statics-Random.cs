@@ -88,7 +88,7 @@ namespace Towel
 			}
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				int roll = random.Do(minValue, maxValue - i - excludeCount);
+				int roll = random.Invoke(minValue, maxValue - i - excludeCount);
 				if (roll < minValue || roll >= maxValue - i - excludeCount)
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
@@ -99,7 +99,7 @@ namespace Towel
 					roll++;
 					node = node.Next;
 				}
-				step.Do(roll);
+				step.Invoke(roll);
 			}
 		}
 
@@ -140,13 +140,13 @@ namespace Towel
 			}
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				int rollIndex = random.Do(0, pool);
+				int rollIndex = random.Invoke(0, pool);
 				if (rollIndex < 0 || rollIndex >= pool)
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
 				int roll = span[rollIndex];
-				step.Do(roll);
+				step.Invoke(roll);
 			}
 		}
 
@@ -171,7 +171,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			Next<ActionRuntime<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			Next<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
@@ -190,7 +190,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextRollTracking<ActionRuntime<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextRollTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
@@ -209,7 +209,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextPoolTracking<ActionRuntime<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextPoolTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"></inheritdoc>
@@ -345,7 +345,7 @@ namespace Towel
 			Node<int>? head = null;
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				int roll = random.Do(minValue, maxValue - i);
+				int roll = random.Invoke(minValue, maxValue - i);
 				if (roll < minValue || roll >= maxValue - i)
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
@@ -358,7 +358,7 @@ namespace Towel
 					previous = node;
 					node = node.Next;
 				}
-				step.Do(roll);
+				step.Invoke(roll);
 				if (previous is null)
 				{
 					head = new Node<int>() { Value = roll, Next = head, };
@@ -407,14 +407,14 @@ namespace Towel
 			}
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				int rollIndex = random.Do(0, pool);
+				int rollIndex = random.Invoke(0, pool);
 				if (rollIndex < 0 || rollIndex >= pool)
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
 				int roll = span[rollIndex];
 				span[rollIndex] = span[--pool];
-				step.Do(roll);
+				step.Invoke(roll);
 			}
 		}
 
@@ -439,7 +439,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUnique<ActionRuntime<int>, Random>(count, minValue, maxValue, random, step);
+			NextUnique<SAction<int>, Random>(count, minValue, maxValue, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, Action{int}, Random)"></inheritdoc>
@@ -458,7 +458,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniqueRollTracking<ActionRuntime<int>, Random>(count, minValue, maxValue, random, step);
+			NextUniqueRollTracking<SAction<int>, Random>(count, minValue, maxValue, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, Action{int}, Random)"></inheritdoc>
@@ -477,7 +477,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniquePoolTracking<ActionRuntime<int>, Random>(count, minValue, maxValue, random, step);
+			NextUniquePoolTracking<SAction<int>, Random>(count, minValue, maxValue, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"></inheritdoc>
@@ -688,7 +688,7 @@ namespace Towel
 			}
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				int roll = random.Do(minValue, maxValue - i - excludeCount);
+				int roll = random.Invoke(minValue, maxValue - i - excludeCount);
 				if (roll < minValue || roll >= maxValue - i - excludeCount)
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
@@ -701,7 +701,7 @@ namespace Towel
 					previous = node;
 					node = node.Next;
 				}
-				step.Do(roll);
+				step.Invoke(roll);
 				if (previous is null)
 				{
 					head = new Node<int>() { Value = roll, Next = head, };
@@ -764,14 +764,14 @@ namespace Towel
 			}
 			for (int i = 0; i < count; i++) // Θ(count)
 			{
-				int rollIndex = random.Do(0, pool);
+				int rollIndex = random.Invoke(0, pool);
 				if (rollIndex < 0 || rollIndex >= pool)
 				{
 					throw new ArgumentException("The Random provided returned a value outside the requested range.");
 				}
 				int roll = span[rollIndex];
 				span[rollIndex] = span[--pool];
-				step.Do(roll);
+				step.Invoke(roll);
 			}
 		}
 
@@ -796,7 +796,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUnique<ActionRuntime<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextUnique<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
@@ -815,7 +815,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniqueRollTracking<ActionRuntime<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextUniqueRollTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
@@ -834,7 +834,7 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniquePoolTracking<ActionRuntime<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextUniquePoolTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>

@@ -21,7 +21,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="SetHashLinked{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="SetHashLinked{T, TEquate, THash}"/>.</returns>
-		public static SetHashLinked<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>> New<T>(
+		public static SetHashLinked<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
@@ -134,7 +134,7 @@ namespace Towel.DataStructures
 		#region Methods
 
 		internal int GetLocation(T value) =>
-			(_hash.Do(value) & int.MaxValue) % _table.Length;
+			(_hash.Invoke(value) & int.MaxValue) % _table.Length;
 
 		/// <summary>
 		/// Adds a value to the set.
@@ -147,7 +147,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(value);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Value, value))
+				if (_equate.Invoke(node.Value, value))
 				{
 					exception = new ArgumentException("Attempting to add a duplicate value to a set.", nameof(value));
 					return false;
@@ -203,7 +203,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(value);
 			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
 			{
-				if (_equate.Do(node.Value, value))
+				if (_equate.Invoke(node.Value, value))
 				{
 					if (previous is null)
 					{
@@ -276,7 +276,7 @@ namespace Towel.DataStructures
 			int location = GetLocation(value);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
-				if (_equate.Do(node.Value, value))
+				if (_equate.Invoke(node.Value, value))
 				{
 					return true;
 				}
@@ -301,7 +301,7 @@ namespace Towel.DataStructures
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					if (step.Do(node.Value) is Break)
+					if (step.Invoke(node.Value) is Break)
 					{
 						return Break;
 					}

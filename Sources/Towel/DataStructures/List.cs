@@ -40,7 +40,7 @@ namespace Towel.DataStructures
 		/// <param name="iList">The <see cref="IList{T}"/> to remove elements from.</param>
 		/// <param name="predicate">The predicate for selecting removals from the <see cref="IList{T}"/>.</param>
 		public static void RemoveAll<T>(this IList<T> iList, Func<T, bool> predicate) =>
-			iList.RemoveAll<FuncRuntime<T, bool>>(predicate);
+			iList.RemoveAll<SFunc<T, bool>>(predicate);
 
 		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
 		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
@@ -48,7 +48,7 @@ namespace Towel.DataStructures
 		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
 		/// <returns>True if the predicated element was found and removed. False if not.</returns>
 		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate) =>
-			iList.TryRemoveFirst<FuncRuntime<T, bool>>(out _, predicate);
+			iList.TryRemoveFirst<SFunc<T, bool>>(out _, predicate);
 
 		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
 		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
@@ -57,14 +57,14 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <returns>True if the predicated element was found and removed. False if not.</returns>
 		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate, out Exception? exception) =>
-			iList.TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
+			iList.TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Removes the first equality by object reference.</summary>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public static void RemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate)
 		{
-			if (!iList.TryRemoveFirst<FuncRuntime<T, bool>>(out Exception? exception, predicate))
+			if (!iList.TryRemoveFirst<SFunc<T, bool>>(out Exception? exception, predicate))
 			{
 				throw exception ?? new ArgumentNullException(nameof(exception), $"{nameof(TryRemoveFirst)} failed but the {nameof(exception)} is null");
 			}
@@ -261,7 +261,7 @@ namespace Towel.DataStructures
 		{
 			if (_head is not null)
 			{
-				while (predicate.Do(_head!.Value))
+				while (predicate.Invoke(_head!.Value))
 				{
 					_head = _head.Next;
 					_count--;
@@ -269,7 +269,7 @@ namespace Towel.DataStructures
 				Node? tail = null;
 				for (Node? node = _head; node!.Next is not null; node = node.Next)
 				{
-					if (predicate.Do(node.Next.Value))
+					if (predicate.Invoke(node.Next.Value))
 					{
 						if (node.Next.Equals(_tail))
 						{
@@ -298,7 +298,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
 		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception? exception) =>
-			TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
+			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
@@ -310,7 +310,7 @@ namespace Towel.DataStructures
 		{
 			for (Node? node = _head, previous = null; node is not null; previous = node, node = node.Next)
 			{
-				if (predicate.Do(node.Value))
+				if (predicate.Invoke(node.Value))
 				{
 					if (previous is null)
 					{
@@ -336,7 +336,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
+			Stepper<SAction<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
@@ -623,7 +623,7 @@ namespace Towel.DataStructures
 			int removed = 0;
 			for (int i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_array[i]))
+				if (predicate.Invoke(_array[i]))
 				{
 					removed++;
 				}
@@ -681,7 +681,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <returns>True if the item was found and removed. False if not.</returns>
 		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception? exception) =>
-			TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
+			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
@@ -694,7 +694,7 @@ namespace Towel.DataStructures
 			int i;
 			for (i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_array[i]))
+				if (predicate.Invoke(_array[i]))
 				{
 					Remove(i);
 					exception = null;
@@ -712,7 +712,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
+			Stepper<SAction<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)

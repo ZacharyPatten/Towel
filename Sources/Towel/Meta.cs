@@ -965,7 +965,7 @@ namespace Towel
 
 		#region GetXmlDocumentation
 
-		internal static SetHashLinked<Assembly, FuncRuntime<Assembly, Assembly, bool>, FuncRuntime<Assembly, int>> loadedAssemblies = SetHashLinked.New<Assembly>();
+		internal static ISet<Assembly> loadedAssemblies = SetHashLinked.New<Assembly>();
 		internal static MapHashLinked<string, string, StringEquate, StringHash> loadedXmlDocumentation = new();
 
 		internal static void LoadXmlDocumentation(Assembly assembly)

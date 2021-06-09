@@ -389,7 +389,7 @@ namespace Towel
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T>(this T[] array, Action<T> step) =>
-			Stepper<T, ActionRuntime<T>>(array, step);
+			Stepper<T, SAction<T>>(array, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
@@ -465,7 +465,7 @@ namespace Towel
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T>(this T[] array, int start, int end, Action<T> step) =>
-			Stepper<T, ActionRuntime<T>>(array, start, end, step);
+			Stepper<T, SAction<T>>(array, start, end, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>

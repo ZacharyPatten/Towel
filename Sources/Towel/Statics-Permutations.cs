@@ -36,11 +36,11 @@ namespace Towel
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T>(int start, int end, Action action, Func<int, T> get, Action<int, T> set) =>
-			PermuteRecursive<T, ActionRuntime, StepStatusContinue, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, action, default, get, set);
+			PermuteRecursive<T, SAction, StepStatusContinue, SFunc<int, T>, SAction<int, T>>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T>(int start, int end, Action action, Func<StepStatus> status, Func<int, T> get, Action<int, T> set) =>
-			PermuteRecursive<T, ActionRuntime, FuncRuntime<StepStatus>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, action, status, get, set);
+			PermuteRecursive<T, SAction, SFunc<StepStatus>, SFunc<int, T>, SAction<int, T>>(start, end, action, status, get, set);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T, Action, Get, Set>(int start, int end, Action action = default, Get get = default, Set set = default)
@@ -61,8 +61,8 @@ namespace Towel
 			{
 				if (a == b)
 				{
-					action.Do();
-					return status.Do();
+					action.Invoke();
+					return status.Invoke();
 				}
 				for (int i = a; i <= b; i++)
 				{
@@ -77,15 +77,15 @@ namespace Towel
 			}
 			void Swap(int a, int b)
 			{
-				T temp = get.Do(a);
-				set.Do(a, get.Do(b));
-				set.Do(b, temp);
+				T temp = get.Invoke(a);
+				set.Invoke(a, get.Invoke(b));
+				set.Invoke(b, temp);
 			}
 		}
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T>(Span<T> span, Action action) =>
-			PermuteRecursive<T, ActionRuntime, StepStatusContinue>(span, action);
+			PermuteRecursive<T, SAction, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T, Action>(Span<T> span, Action action = default)
@@ -95,7 +95,7 @@ namespace Towel
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T, Status>(Span<T> span, Action action, Status status = default)
 			where Status : struct, IFunc<StepStatus> =>
-			PermuteRecursive<T, ActionRuntime, Status>(span, action, status);
+			PermuteRecursive<T, SAction, Status>(span, action, status);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
 		public static void PermuteRecursive<T, Action, Status>(Span<T> span, Action action = default, Status status = default)
@@ -107,8 +107,8 @@ namespace Towel
 			{
 				if (a == b)
 				{
-					action.Do();
-					return status.Do();
+					action.Invoke();
+					return status.Invoke();
 				}
 				for (int i = a; i <= b; i++)
 				{
@@ -131,11 +131,11 @@ namespace Towel
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T>(int start, int end, Action action, Func<int, T> get, Action<int, T> set) =>
-			PermuteIterative<T, ActionRuntime, StepStatusContinue, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, action, default, get, set);
+			PermuteIterative<T, SAction, StepStatusContinue, SFunc<int, T>, SAction<int, T>>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T>(int start, int end, Action action, Func<StepStatus> status, Func<int, T> get, Action<int, T> set) =>
-			PermuteIterative<T, ActionRuntime, FuncRuntime<StepStatus>, FuncRuntime<int, T>, ActionRuntime<int, T>>(start, end, action, status, get, set);
+			PermuteIterative<T, SAction, SFunc<StepStatus>, SFunc<int, T>, SAction<int, T>>(start, end, action, status, get, set);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T, Action, Get, Set>(int start, int end, Action action = default, Get get = default, Set set = default)
@@ -151,13 +151,13 @@ namespace Towel
 			where Get : struct, IFunc<int, T>
 			where Set : struct, IAction<int, T>
 		{
-			action.Do();
+			action.Invoke();
 			int[] indeces = new int[end + 2 - start];
 			for (int i = 0; i < indeces.Length; i++)
 			{
 				indeces[i] = i;
 			}
-			for (int i = start + 1; i < end + 1 && status.Do() is Continue; action.Do())
+			for (int i = start + 1; i < end + 1 && status.Invoke() is Continue; action.Invoke())
 			{
 				indeces[i]--;
 				Swap(i, i % 2 == 1 ? indeces[i] : 0);
@@ -168,15 +168,15 @@ namespace Towel
 			}
 			void Swap(int a, int b)
 			{
-				T temp = get.Do(a);
-				set.Do(a, get.Do(b));
-				set.Do(b, temp);
+				T temp = get.Invoke(a);
+				set.Invoke(a, get.Invoke(b));
+				set.Invoke(b, temp);
 			}
 		}
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T>(Span<T> span, Action action) =>
-			PermuteIterative<T, ActionRuntime, StepStatusContinue>(span, action);
+			PermuteIterative<T, SAction, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T, Action>(Span<T> span, Action action = default)
@@ -186,20 +186,20 @@ namespace Towel
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T, Status>(Span<T> span, Action action, Status status = default)
 			where Status : struct, IFunc<StepStatus> =>
-			PermuteIterative<T, ActionRuntime, Status>(span, action, status);
+			PermuteIterative<T, SAction, Status>(span, action, status);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
 		public static void PermuteIterative<T, Action, Status>(Span<T> span, Action action = default, Status status = default)
 			where Action : struct, IAction
 			where Status : struct, IFunc<StepStatus>
 		{
-			action.Do();
+			action.Invoke();
 			int[] indeces = new int[span.Length - 1 + 2];
 			for (int i = 0; i < indeces.Length; i++)
 			{
 				indeces[i] = i;
 			}
-			for (int i = 1; i < span.Length && status.Do() is Continue; action.Do())
+			for (int i = 1; i < span.Length && status.Invoke() is Continue; action.Invoke())
 			{
 				indeces[i]--;
 				Swap(span, i, i % 2 == 1 ? indeces[i] : 0);

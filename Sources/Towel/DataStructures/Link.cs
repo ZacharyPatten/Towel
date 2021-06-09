@@ -100,7 +100,7 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
 			return Continue;
 		}
 
@@ -220,7 +220,7 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
 			return Continue;
 		}
 
@@ -347,8 +347,8 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
 			return Continue;
 		}
 
@@ -478,8 +478,8 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
 			return Continue;
 		}
 
@@ -616,9 +616,9 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
 			return Continue;
 		}
 
@@ -758,9 +758,9 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
 			return Continue;
 		}
 
@@ -907,10 +907,10 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
 			return Continue;
 		}
 
@@ -1060,10 +1060,10 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
 			return Continue;
 		}
 
@@ -1220,11 +1220,11 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
-			if (step.Do(Value5) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
+			if (step.Invoke(Value5) is Break) return Break;
 			return Continue;
 		}
 
@@ -1384,11 +1384,11 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
-			if (step.Do(Value5) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
+			if (step.Invoke(Value5) is Break) return Break;
 			return Continue;
 		}
 
@@ -1555,12 +1555,12 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
-			if (step.Do(Value5) is Break) return Break;
-			if (step.Do(Value6) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
+			if (step.Invoke(Value5) is Break) return Break;
+			if (step.Invoke(Value6) is Break) return Break;
 			return Continue;
 		}
 
@@ -1730,12 +1730,12 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
-			if (step.Do(Value5) is Break) return Break;
-			if (step.Do(Value6) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
+			if (step.Invoke(Value5) is Break) return Break;
+			if (step.Invoke(Value6) is Break) return Break;
 			return Continue;
 		}
 
@@ -1912,13 +1912,13 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
-			if (step.Do(Value5) is Break) return Break;
-			if (step.Do(Value6) is Break) return Break;
-			if (step.Do(Value7) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
+			if (step.Invoke(Value5) is Break) return Break;
+			if (step.Invoke(Value6) is Break) return Break;
+			if (step.Invoke(Value7) is Break) return Break;
 			return Continue;
 		}
 
@@ -2098,13 +2098,13 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<object, StepStatus>
 		{
-			if (step.Do(Value1) is Break) return Break;
-			if (step.Do(Value2) is Break) return Break;
-			if (step.Do(Value3) is Break) return Break;
-			if (step.Do(Value4) is Break) return Break;
-			if (step.Do(Value5) is Break) return Break;
-			if (step.Do(Value6) is Break) return Break;
-			if (step.Do(Value7) is Break) return Break;
+			if (step.Invoke(Value1) is Break) return Break;
+			if (step.Invoke(Value2) is Break) return Break;
+			if (step.Invoke(Value3) is Break) return Break;
+			if (step.Invoke(Value4) is Break) return Break;
+			if (step.Invoke(Value5) is Break) return Break;
+			if (step.Invoke(Value6) is Break) return Break;
+			if (step.Invoke(Value7) is Break) return Break;
 			return Continue;
 		}
 

@@ -77,7 +77,7 @@ namespace Towel
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
-			return SearchBinary<T, FuncRuntime<int, T>, FuncRuntime<T, CompareResult>>(0, length, get, sift);
+			return SearchBinary<T, SFunc<int, T>, SFunc<T, CompareResult>>(0, length, get, sift);
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
@@ -102,8 +102,8 @@ namespace Towel
 			while (low <= hi)
 			{
 				int median = low + (hi - low) / 2;
-				T value = get.Do(median);
-				CompareResult compareResult = sift.Do(value);
+				T value = get.Invoke(median);
+				CompareResult compareResult = sift.Invoke(value);
 				switch (compareResult)
 				{
 					case Less: low = median + 1; break;
@@ -120,13 +120,13 @@ namespace Towel
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult>? compare = default) =>
-			SearchBinary<T, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
+			SearchBinary<T, SiftFromCompareAndValue<T, SFunc<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, SFunc<T, T, CompareResult>>(element, compare ?? Compare));
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, Func<T, CompareResult> sift)
 		{
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
-			return SearchBinary<T, FuncRuntime<T, CompareResult>>(span, sift);
+			return SearchBinary<T, SFunc<T, CompareResult>>(span, sift);
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
@@ -148,7 +148,7 @@ namespace Towel
 			{
 				int median = low + (hi - low) / 2;
 				T value = span[median];
-				CompareResult compareResult = sift.Do(value);
+				CompareResult compareResult = sift.Invoke(value);
 				switch (compareResult)
 				{
 					case Less: low = median + 1; break;
@@ -315,14 +315,14 @@ namespace Towel
 		internal struct AStarPriorityCompare<Node, Numeric> : IFunc<AstarNode<Node, Numeric>, AstarNode<Node, Numeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
-			public CompareResult Do(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
+			public CompareResult Invoke(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
 				Compare(b.Priority, a.Priority);
 		}
 
 		internal struct DijkstraPriorityCompare<Node, Numeric> : IFunc<DijkstraNode<Node, Numeric>, DijkstraNode<Node, Numeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
-			public CompareResult Do(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>
+			public CompareResult Invoke(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>
 				Compare(b.Priority, a.Priority);
 		}
 

@@ -210,7 +210,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
+			Stepper<SAction<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)
@@ -507,7 +507,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
+			Stepper<SAction<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public void StepperRef<Step>(Step step = default)

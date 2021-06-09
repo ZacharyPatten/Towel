@@ -18,17 +18,17 @@ namespace Towel_Benchmarking
 
 	public struct EquatePerson : IFunc<Person, Person, bool>
 	{
-		public bool Do(Person a, Person b) => a.Id == b.Id;
+		public bool Invoke(Person a, Person b) => a.Id == b.Id;
 	}
 
 	public struct HashPerson : IFunc<Person, int>
 	{
-		public int Do(Person a) => a.Id.GetHashCode();
+		public int Invoke(Person a) => a.Id.GetHashCode();
 	}
 
 	public struct ComparePersonFirstName : IFunc<Person, Person, CompareResult>
 	{
-		public CompareResult Do(Person a, Person b) => Compare(a.FirstName, b.FirstName);
+		public CompareResult Invoke(Person a, Person b) => Compare(a.FirstName, b.FirstName);
 	}
 
 	public static partial class RandomData

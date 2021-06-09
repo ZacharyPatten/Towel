@@ -441,7 +441,7 @@ namespace Towel.Mathematics
 		/// <para>- <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.</para>
 		/// </returns>
 		public (bool Success, Fraction<T> Value) TryParse(string @string, Func<string, (bool, T)> tryParse = null) =>
-			TryParse<FuncRuntime<string, (bool, T)>>(@string, tryParse ?? Statics.TryParse<T>);
+			TryParse<SFunc<string, (bool, T)>>(@string, tryParse ?? Statics.TryParse<T>);
 
 		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <see cref="Fraction{T}"/>.</summary>
 		/// <typeparam name="TryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</typeparam>
@@ -460,8 +460,8 @@ namespace Towel.Mathematics
 				int divideIndex = @string.IndexOf("/");
 				string numeratorString = @string.Substring(0, divideIndex - 1);
 				string denominatorString = @string[(divideIndex + 1)..];
-				var (numeratorSuccess, numerator) = tryParse.Do(@string);
-				var (denominatorSuccess, denominator) = tryParse.Do(@string);
+				var (numeratorSuccess, numerator) = tryParse.Invoke(@string);
+				var (denominatorSuccess, denominator) = tryParse.Invoke(@string);
 				if (numeratorSuccess && denominatorSuccess)
 				{
 					return (true, new Fraction<T>(numerator, denominator));
@@ -469,7 +469,7 @@ namespace Towel.Mathematics
 			}
 			else
 			{
-				var (success, value) = tryParse.Do(@string);
+				var (success, value) = tryParse.Invoke(@string);
 				if (success)
 				{
 					return (true, new Fraction<T>(value));

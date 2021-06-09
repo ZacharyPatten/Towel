@@ -146,7 +146,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public static void Stepper<T>(this IDataStructure<T> dataStructure, Action<T> step) =>
-			dataStructure.Stepper<T, ActionRuntime<T>>(step);
+			dataStructure.Stepper<T, SAction<T>>(step);
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public static void Stepper<T, TStep>(this IDataStructure<T> dataStructure, TStep step = default)
@@ -155,7 +155,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
 		public static StepStatus StepperBreak<T>(this IDataStructure<T> dataStructure, Func<T, StepStatus> step) =>
-			dataStructure.StepperBreak<FuncRuntime<T, StepStatus>>(step);
+			dataStructure.StepperBreak<SFunc<T, StepStatus>>(step);
 
 		/// <summary>Gets the stepper for this data structure.</summary>
 		/// <returns>The stepper for this data structure.</returns>

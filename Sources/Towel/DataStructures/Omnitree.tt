@@ -2059,7 +2059,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			{
 				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
 				{
-					if (step.Do(list.Value) is Break) return Break;
+					if (step.Invoke(list.Value) is Break) return Break;
 				}
 			}
 			else if (node is Branch branch)
@@ -3968,7 +3968,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		{
 			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
 			{
-				if (step.Do(list.Value) is Break) return Break;
+				if (step.Invoke(list.Value) is Break) return Break;
 			}
 			if (node.Children is not null)
 			{

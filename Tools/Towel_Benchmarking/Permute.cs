@@ -25,6 +25,6 @@ namespace Towel_Benchmarking
 		[Benchmark] public void RecursiveStruct() => PermuteRecursive<int, NoOp>(array);
 		[Benchmark] public void IterativeStruct() => PermuteIterative<int, NoOp>(array);
 
-		struct NoOp : IAction { public void Do() { } }
+		struct NoOp : IAction { public void Invoke() { } }
 	}
 }

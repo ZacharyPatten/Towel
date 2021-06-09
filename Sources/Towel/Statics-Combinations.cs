@@ -32,7 +32,7 @@ namespace Towel
 		/// <param name="indexPossibilities">The possible element values at each index.</param>
 		/// <param name="valueAt">The action to perform on each possible combination.</param>
 		public static void Combinations<T>(int length, Action_ReadOnlySpan<T> action, Func<int, int> indexPossibilities, Func<int, int, T> valueAt) =>
-			Combinations<T, Action_ReadOnlySpan_Runtime<T>, FuncRuntime<int, int>, FuncRuntime<int, int, T>>(length, action, indexPossibilities, valueAt);
+			Combinations<T, Action_ReadOnlySpan_Runtime<T>, SFunc<int, int>, SFunc<int, int, T>>(length, action, indexPossibilities, valueAt);
 
 		/// <summary>Iterates through all combinations of the provided per-index element values.</summary>
 		/// <typeparam name="T">The element type of the combinations to iterate.</typeparam>
@@ -57,7 +57,7 @@ namespace Towel
 			for (int i = 0; i < span.Length; i++)
 			{
 				digits[i] = 0;
-				span[i] = valueAt.Do(i, 0);
+				span[i] = valueAt.Invoke(i, 0);
 			}
 			while (true)
 			{
@@ -70,15 +70,15 @@ namespace Towel
 						return;
 					}
 					digits[digit]++;
-					if (digits[digit] >= indexPossibilities.Do(digit))
+					if (digits[digit] >= indexPossibilities.Invoke(digit))
 					{
 						digits[digit] = 0;
-						span[digit] = valueAt.Do(digit, digits[digit]);
+						span[digit] = valueAt.Invoke(digit, digits[digit]);
 						digit++;
 					}
 					else
 					{
-						span[digit] = valueAt.Do(digit, digits[digit]);
+						span[digit] = valueAt.Invoke(digit, digits[digit]);
 						break;
 					}
 				}

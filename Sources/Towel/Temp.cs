@@ -36,7 +36,7 @@ namespace Towel
 		internal StepRef StepRefFunction;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(T value) => StepRefFunction.Do(ref value);
+		public void Invoke(T value) => StepRefFunction.Do(ref value);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="stepRef">The runtime Step delegate.</param>
@@ -76,7 +76,7 @@ namespace Towel
 		internal Step StepFunction;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
-		public void Do(ref T value) => StepFunction.Do(value);
+		public void Do(ref T value) => StepFunction.Invoke(value);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>
@@ -91,7 +91,7 @@ namespace Towel
 		internal Func<T, StepStatus> StepBreak;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(T value) => StepBreak(value);
+		public StepStatus Invoke(T value) => StepBreak(value);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="stepBreak">The runtime Step delegate.</param>
@@ -108,7 +108,7 @@ namespace Towel
 		internal Step StepFunction;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(T value) { StepFunction.Do(value); return Continue; }
+		public StepStatus Invoke(T value) { StepFunction.Invoke(value); return Continue; }
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>
@@ -148,7 +148,7 @@ namespace Towel
 		internal Step StepFunction;
 
 		/// <summary>The invocation of the compile time delegate.</summary>
-		public StepStatus Do(ref T value) => StepFunction.Do(value);
+		public StepStatus Do(ref T value) => StepFunction.Invoke(value);
 
 		/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 		/// <param name="step">The runtime Step delegate.</param>

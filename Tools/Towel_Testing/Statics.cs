@@ -2383,45 +2383,45 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => -5; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -5, 0, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, -5, 0, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => -500; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, -500, 0, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < -500 || i >= 0));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion
@@ -2434,7 +2434,7 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2444,7 +2444,7 @@ namespace Towel_Testing
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2478,10 +2478,10 @@ namespace Towel_Testing
 				}
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion
@@ -2494,7 +2494,7 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2504,7 +2504,7 @@ namespace Towel_Testing
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2538,10 +2538,10 @@ namespace Towel_Testing
 				}
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion
@@ -2554,45 +2554,45 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, -5, 0, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, -5, 0, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, -500, 0, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < -500 || i >= 0));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<SFunc<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<SFunc<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<SFunc<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion

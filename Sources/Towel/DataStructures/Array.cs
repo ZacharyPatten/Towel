@@ -269,7 +269,7 @@ namespace Towel.DataStructures
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
-					if (step.Do(array[i]) is Break)
+					if (step.Invoke(array[i]) is Break)
 					{
 						return Break;
 					}

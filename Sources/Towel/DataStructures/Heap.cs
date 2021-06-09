@@ -48,7 +48,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="HeapArray{T, TCompare}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="HeapArray{T, TCompare}"/>.</returns>
-		public static HeapArray<T, FuncRuntime<T, T, CompareResult>> New<T>(
+		public static HeapArray<T, SFunc<T, T, CompareResult>> New<T>(
 			Func<T, T, CompareResult>? compare = null,
 			int? minimumCapacity = null) =>
 			new(compare ?? Compare, minimumCapacity);
@@ -199,7 +199,7 @@ namespace Towel.DataStructures
 			int i;
 			for (i = 1; i <= _count; i++)
 			{
-				if (_compare.Do(item, _array[i]) is Equal)
+				if (_compare.Invoke(item, _array[i]) is Equal)
 				{
 					break;
 				}
@@ -233,7 +233,7 @@ namespace Towel.DataStructures
 		internal void ShiftUp(int index)
 		{
 			int parent;
-			while ((parent = Parent(index)) > 0 && _compare.Do(_array[index], _array[parent]) is Greater)
+			while ((parent = Parent(index)) > 0 && _compare.Invoke(_array[index], _array[parent]) is Greater)
 			{
 				Swap(ref _array[index], ref _array[parent]);
 				index = parent;
@@ -251,11 +251,11 @@ namespace Towel.DataStructures
 			while ((leftChild = LeftChild(index)) <= _count)
 			{
 				int down = leftChild;
-				if ((rightChild = RightChild(index)) <= _count && _compare.Do(_array[rightChild], _array[leftChild]) is Greater)
+				if ((rightChild = RightChild(index)) <= _count && _compare.Invoke(_array[rightChild], _array[leftChild]) is Greater)
 				{
 					down = rightChild;
 				}
-				if (_compare.Do(_array[down], _array[index]) is Less)
+				if (_compare.Invoke(_array[down], _array[index]) is Less)
 				{
 					break;
 				}

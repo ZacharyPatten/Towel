@@ -49,7 +49,7 @@ namespace Towel_Benchmarking
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubbleArray<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
-			SortBubble<T, FuncRuntime<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
+			SortBubble<T, SFunc<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
 		public static void SortBubbleArray<T, Compare>(T[] array, int start, int end, Compare compare = default)
@@ -60,14 +60,14 @@ namespace Towel_Benchmarking
 	public struct GetIndexArray<T> : IFunc<int, T>
 	{
 		internal T[] Array;
-		public T Do(int index) => Array[index];
+		public T Invoke(int index) => Array[index];
 		public static implicit operator GetIndexArray<T>(T[] array) => new() { Array = array, };
 	}
 
 	public struct SetIndexArray<T> : IAction<int, T>
 	{
 		internal T[] Array;
-		public void Do(int index, T value) => Array[index] = value;
+		public void Invoke(int index, T value) => Array[index] = value;
 		public static implicit operator SetIndexArray<T>(T[] array) => new() { Array = array, };
 	}
 }

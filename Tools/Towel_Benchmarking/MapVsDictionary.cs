@@ -31,12 +31,12 @@ namespace Towel_Benchmarking
 
 		struct IntHash : IFunc<int, int>
 		{
-			public int Do(int a) => a;
+			public int Invoke(int a) => a;
 		}
 
 		struct IntEquate : IFunc<int, int, bool>
 		{
-			public bool Do(int a, int b) => a == b;
+			public bool Invoke(int a, int b) => a == b;
 		}
 
 		[Benchmark] public void Dictionary()
@@ -96,12 +96,12 @@ namespace Towel_Benchmarking
 
 		struct IntHash : IFunc<int, int>
 		{
-			public int Do(int a) => a;
+			public int Invoke(int a) => a;
 		}
 
 		struct IntEquate : IFunc<int, int, bool>
 		{
-			public bool Do(int a, int b) => a == b;
+			public bool Invoke(int a, int b) => a == b;
 		}
 
 		[Benchmark]

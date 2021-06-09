@@ -103,7 +103,7 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="TrieLinkedHashLinked{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="TrieLinkedHashLinked{T, TEquate, THash}"/>.</returns>
-		public static TrieLinkedHashLinked<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>> New<T>(
+		public static TrieLinkedHashLinked<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
@@ -112,7 +112,7 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
 		/// <returns>The new constructed <see cref="TrieLinkedHashLinked{T, D, TEquate, THash}"/>.</returns>
-		public static TrieLinkedHashLinked<T, D, FuncRuntime<T, T, bool>, FuncRuntime<T, int>> New<T, D>(
+		public static TrieLinkedHashLinked<T, D, SFunc<T, T, bool>, SFunc<T, int>> New<T, D>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
@@ -351,7 +351,7 @@ namespace Towel.DataStructures
 			{
 				if (node.IsLeaf)
 				{
-					if (step.Do(stepper) is Break)
+					if (step.Invoke(stepper) is Break)
 					{
 						return Break;
 					}
@@ -714,7 +714,7 @@ namespace Towel.DataStructures
 			{
 				if (node.HasValue)
 				{
-					if (step.Do(stepper) is Break)
+					if (step.Invoke(stepper) is Break)
 					{
 						return Break;
 					}
