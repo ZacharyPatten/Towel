@@ -23,7 +23,7 @@
 	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="License"><img src="https://img.shields.io/badge/license-MIT-green.svg" title="Go To License" alt="License"/></a>
 </p>
 
-> _**Note** This project has a goal of keeping up-to-date on modern coding practices rather than maintaining backwards compatibility, such as targetting the latest non-preview version of .NET._
+> _**Note** This project has a goal of keeping up-to-date on modern coding practices rather than maintaining backwards compatibility such as targetting the latest non-preview version of .NET and embracing favorable breaking changes ("Semantic Versioning" is not being respected at this time)._
 
 ## Getting Started
 
@@ -191,9 +191,9 @@
 > {
 > 	internal static Func<T, T, T> Function = (T a, T b) =>
 > 	{
-> 		ParameterExpression A = Expression.Parameter(typeof(T));
-> 		ParameterExpression B = Expression.Parameter(typeof(T));
-> 		Expression BODY = Expression.Add(A, B);
+> 		var A = Expression.Parameter(typeof(T));
+> 		var B = Expression.Parameter(typeof(T));
+> 		var BODY = Expression.Add(A, B);
 > 		Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
 > 		return Function(a, b);
 > 	};
