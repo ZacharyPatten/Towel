@@ -15427,30 +15427,11 @@
         <member name="M:Towel.Extensions.Replace(System.String,System.ValueTuple{System.String,System.String}[])">
             <summary>Returns a new <see cref="T:System.String"/> in which all occurrences of Unicode <see cref="T:System.String"/> patterns in this instance are replaced with a relative Unicode <see cref="T:System.String"/> replacements.</summary>
             <remarks>Uses Regex without a timeout.</remarks>
-            <param name="this">The <see cref="T:System.String"/> to perform the replacements on.</param>
+            <param name="original">The <see cref="T:System.String"/> to perform the replacements on.</param>
             <param name="rules">The patterns and relative replacements to apply to this <see cref="T:System.String"/>.</param>
             <returns>A new <see cref="T:System.String"/> in which all occurrences of Unicode <see cref="T:System.String"/> patterns in this instance are replaced with a relative Unicode <see cref="T:System.String"/> replacements.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if any of the parameters are null or contain null values.</exception>
             <exception cref="T:System.ArgumentException">Thrown if <paramref name="rules"/> is empty, <paramref name="rules"/> contains empty patterns, or <paramref name="rules"/> contains duplicate patterns.</exception>
-        </member>
-        <member name="M:Towel.Extensions.ReplaceCached(System.String,System.ValueTuple{System.String,System.String}[])">
-            <summary>Returns a new <see cref="T:System.String"/> in which all occurrences of Unicode <see cref="T:System.String"/> patterns in this instance are replaced with a relative Unicode <see cref="T:System.String"/> replacements. Caches internal values relative to the instance of rules.</summary>
-            <remarks>Uses Regex without a timeout. This method is not thread-safe.</remarks>
-            <param name="this">The <see cref="T:System.String"/> to perform the replacements on.</param>
-            <param name="rules">The patterns and relative replacements to apply to this <see cref="T:System.String"/>.</param>
-            <returns>A new <see cref="T:System.String"/> in which all occurrences of Unicode <see cref="T:System.String"/> patterns in this instance are replaced with a relative Unicode <see cref="T:System.String"/> replacements.</returns>
-            <exception cref="T:System.ArgumentNullException">Thrown if any of the parameters are null or contain null values.</exception>
-            <exception cref="T:System.ArgumentException">Thrown if <paramref name="rules"/> is empty, <paramref name="rules"/> contains empty patterns, or <paramref name="rules"/> contains duplicate patterns.</exception>
-        </member>
-        <member name="F:Towel.Extensions.ReplaceCachedCache">
-            <summary>Cache for the <see cref="M:Towel.Extensions.ReplaceCached(System.String,System.ValueTuple{System.String,System.String}[])"/> method.</summary>
-        </member>
-        <member name="M:Towel.Extensions.ClearReplaceCache">
-            <summary>Clears the cache for the <see cref="M:Towel.Extensions.ReplaceCached(System.String,System.ValueTuple{System.String,System.String}[])"/> method.</summary>
-        </member>
-        <member name="M:Towel.Extensions.RemoveFromReplaceCache(System.ValueTuple{System.String,System.String}[])">
-            <summary>Removes a rule set from the <see cref="M:Towel.Extensions.ReplaceCached(System.String,System.ValueTuple{System.String,System.String}[])"/> method cache if it exists.</summary>
-            <param name="rules">The rule set to remove from the cache.</param>
         </member>
         <member name="M:Towel.Extensions.ContainsAny(System.String,System.Char[])">
             <summary>Checks if a string contains any of a collections on characters.</summary>

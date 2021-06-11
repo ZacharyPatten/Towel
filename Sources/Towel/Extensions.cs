@@ -13,81 +13,33 @@ namespace Towel
 	{
 		#region System.String
 
-		#region Replace + ReplaceCached (multiple replace)
+		#region Replace (multiple replace)
 
 		/// <summary>Returns a new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements.</summary>
 		/// <remarks>Uses Regex without a timeout.</remarks>
-		/// <param name="this">The <see cref="string"/> to perform the replacements on.</param>
+		/// <param name="original">The <see cref="string"/> to perform the replacements on.</param>
 		/// <param name="rules">The patterns and relative replacements to apply to this <see cref="string"/>.</param>
 		/// <returns>A new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements.</returns>
 		/// <exception cref="ArgumentNullException">Thrown if any of the parameters are null or contain null values.</exception>
 		/// <exception cref="ArgumentException">Thrown if <paramref name="rules"/> is empty, <paramref name="rules"/> contains empty patterns, or <paramref name="rules"/> contains duplicate patterns.</exception>
-		public static string Replace(this string @this, params (string Pattern, string Replacement)[] rules) => ReplaceBase(@this, rules, false);
-
-		/// <summary>Returns a new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements. Caches internal values relative to the instance of rules.</summary>
-		/// <remarks>Uses Regex without a timeout. This method is not thread-safe.</remarks>
-		/// <param name="this">The <see cref="string"/> to perform the replacements on.</param>
-		/// <param name="rules">The patterns and relative replacements to apply to this <see cref="string"/>.</param>
-		/// <returns>A new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements.</returns>
-		/// <exception cref="ArgumentNullException">Thrown if any of the parameters are null or contain null values.</exception>
-		/// <exception cref="ArgumentException">Thrown if <paramref name="rules"/> is empty, <paramref name="rules"/> contains empty patterns, or <paramref name="rules"/> contains duplicate patterns.</exception>
-		public static string ReplaceCached(this string @this, params (string Pattern, string Replacement)[] rules) => ReplaceBase(@this, rules, true);
-
-		/// <summary>Cache for the <see cref="ReplaceCached"/> method.</summary>
-		private readonly static System.Collections.Generic.Dictionary<object, (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet)> ReplaceCachedCache = new();
-
-		private static string ReplaceBase(string @this, (string Pattern, string Replacement)[] rules, bool cached)
+		public static string Replace(this string original, params (string A, string B)[] rules)
 		{
-			if (@this is null) throw new ArgumentNullException(nameof(@this));
+			if (original is null) throw new ArgumentNullException(nameof(original));
 			if (rules is null) throw new ArgumentNullException(nameof(rules));
-			if (rules.Length <= 0) throw new ArgumentException($"{nameof(rules)}.{nameof(rules.Length)} <= 0");
-			if (!cached || !ReplaceCachedCache.TryGetValue(rules, out (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet) regexAndRuleSet))
+			if (rules.Length is 0) throw new ArgumentException(paramName: nameof(rules), message: $"{nameof(rules)}.{nameof(rules.Length)} is 0");
+			MapHashLinked<string, string, StringEquate, StringHash> map = new(expectedCount: rules.Length);
+			foreach (var (a, b) in rules)
 			{
-				regexAndRuleSet.RuleSet = new System.Collections.Generic.Dictionary<string, string>(rules.Length);
-				foreach (var (Pattern, Replacement) in rules)
+				if (a is null) throw new ArgumentNullException(paramName: nameof(rules), message: $"{nameof(rules)} contains null {nameof(a)}s");
+				if (b is null) throw new ArgumentNullException(paramName: nameof(rules), message: $"{nameof(rules)} contains null {nameof(b)}s");
+				if (a.Length is 0) throw new ArgumentException(paramName: nameof(rules), message: $"{nameof(rules)} contains 0 length {nameof(a)}s");
+				if (!map.TryAdd(a, b))
 				{
-					if (Pattern is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Pattern)}s");
-					if (Replacement is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Replacement)}s");
-					if (Pattern == string.Empty) throw new ArgumentException($"{nameof(rules)} contains empty {nameof(Pattern)}s", nameof(rules));
-					#warning TODO: TryAdd when available
-					if (regexAndRuleSet.RuleSet.ContainsKey(Pattern))
-					{
-						throw new ArgumentException($"{nameof(rules)} contains duplicate {nameof(Pattern)}s");
-					}
-					else
-					{
-						regexAndRuleSet.RuleSet.Add(Pattern, Replacement);
-					}
-				}
-				string regexPattern = string.Join("|", System.Linq.Enumerable.Select(rules, rule => Regex.Escape(rule.Pattern)));
-				RegexOptions regexOptions = cached ? RegexOptions.Compiled : RegexOptions.None;
-
-				// NOTE:
-				// Regex has a matchTimeout parameter that prevents security threats of long-running
-				// regex patterns. However, an overload with a TimeSpan parameter likely is not required as
-				// this impementation is not allowing special syntax in the regex. It is only flat strings
-				// that are OR-ed together.
-
-				regexAndRuleSet.Regex = new Regex(regexPattern, regexOptions);
-				if (cached)
-				{
-					ReplaceCachedCache.Add(rules, regexAndRuleSet);
+					throw new ArgumentException($"{nameof(rules)} contains duplicate {nameof(a)}s");
 				}
 			}
-			return regexAndRuleSet.Regex.Replace(@this, match => regexAndRuleSet.RuleSet[match.Value]);
-		}
-
-		/// <summary>Clears the cache for the <see cref="ReplaceCached"/> method.</summary>
-		public static void ClearReplaceCache() => ReplaceCachedCache.Clear();
-
-		/// <summary>Removes a rule set from the <see cref="ReplaceCached"/> method cache if it exists.</summary>
-		/// <param name="rules">The rule set to remove from the cache.</param>
-		public static void RemoveFromReplaceCache((string Pattern, string Replacement)[] rules)
-		{
-			if (ReplaceCachedCache.ContainsKey(rules))
-			{
-				ReplaceCachedCache.Remove(rules);
-			}
+			string regexPattern = string.Join("|", map.GetKeys());
+			return Regex.Replace(original, regexPattern, match => map[match.Value], RegexOptions.None, Regex.InfiniteMatchTimeout);
 		}
 
 		#endregion
