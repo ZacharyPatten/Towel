@@ -322,7 +322,7 @@ namespace Towel.Measurements
 <# { int baseUnitIndex = 0; foreach (var numerator in measurement.Item2) { #>
                 if (<#= numerator #>Units<#= baseUnitIndex + 1 #> != _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
                 {
-					measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
+                    measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
                     //if (<#= numerator #>Units<#= baseUnitIndex + 1 #> < _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
                     //{
                     //    measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
@@ -336,14 +336,15 @@ namespace Towel.Measurements
 <# foreach (var denominator in measurement.Item3) { #>
                 if (<#= denominator #>Units<#= baseUnitIndex + 1 #> != _<#= denominator #>Units<#= baseUnitIndex + 1 #>)
                 {
-                    if (<#= denominator #>Units<#= baseUnitIndex + 1 #> > _<#= denominator #>Units<#= baseUnitIndex + 1 #>)
-                    {
-                        measurement = <#= denominator #><T>.Table[(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    }
-                    else
-                    {
-                        measurement = <#= denominator #><T>.Table[(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    }
+                    measurement = <#= denominator #><T>.Table[(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
+                    //if (<#= denominator #>Units<#= baseUnitIndex + 1 #> > _<#= denominator #>Units<#= baseUnitIndex + 1 #>)
+                    //{
+                    //    measurement = <#= denominator #><T>.Table[(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
+                    //}
+                    //else
+                    //{
+                    //    measurement = <#= denominator #><T>.Table[(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
+                    //}
                 }
 <# baseUnitIndex++; } #>
 <# } #>
