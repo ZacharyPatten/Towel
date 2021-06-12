@@ -3625,7 +3625,7 @@ namespace Towel.Mathematics
 			if (operationMatch.Success)
 			{
 				string operationMatch_Value = operationMatch.Value;
-				string operation = operationMatch_Value.Substring(0, operationMatch_Value.IndexOf('(') - 1);
+				string operation = operationMatch_Value[..operationMatch_Value.IndexOf('(')];
 				Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
 				string parenthesisMatch_Value = parenthesisMatch.Value;
 				ListArray<string> operandSplits = SplitOperands(parenthesisMatch_Value[1..^1]);
