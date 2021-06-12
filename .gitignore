@@ -6,6 +6,7 @@
 # XML documentation files generated on build
 **/Towel.xml
 **/Towel_Testing.xml
+**/CommandLine.xml
 
 # User-specific files
 *.suo
