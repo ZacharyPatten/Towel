@@ -201,8 +201,8 @@ namespace Towel_Generating
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"			// Axis {j}");
-					code.AppendLine($@"			!(a.Max{j}.Exists && b.Min{j}.Exists && compare{j}.Do(a.Max{j}.Value, b.Min{j}.Value) is Less) &&");
-					code.AppendLine($@"			!(a.Min{j}.Exists && b.Max{j}.Exists && compare{j}.Do(a.Min{j}.Value, b.Max{j}.Value) is Greater){(j == i ? ";" : " &&")}");
+					code.AppendLine($@"			!(a.Max{j}.Exists && b.Min{j}.Exists && compare{j}.Invoke(a.Max{j}.Value, b.Min{j}.Value) is Less) &&");
+					code.AppendLine($@"			!(a.Min{j}.Exists && b.Max{j}.Exists && compare{j}.Invoke(a.Min{j}.Value, b.Max{j}.Value) is Greater){(j == i ? ";" : " &&")}");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Checks if <paramref name=""a""/> contain <paramref name=""b""/>.</summary>");
@@ -227,8 +227,8 @@ namespace Towel_Generating
 				}
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			!(a.Min{j}.Exists && compare{j}.Do(b.Axis{j}, a.Min{j}.Value) is Less) &&");
-					code.AppendLine($@"			!(a.Max{j}.Exists && compare{j}.Do(b.Axis{j}, a.Max{j}.Value) is Greater){(j == i ? ";" : " &&")}");
+					code.AppendLine($@"			!(a.Min{j}.Exists && compare{j}.Invoke(b.Axis{j}, a.Min{j}.Value) is Less) &&");
+					code.AppendLine($@"			!(a.Max{j}.Exists && compare{j}.Invoke(b.Axis{j}, a.Max{j}.Value) is Greater){(j == i ? ";" : " &&")}");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Checks if <paramref name=""a""/> contains all of <paramref name=""b""/>.</summary>");
@@ -254,8 +254,8 @@ namespace Towel_Generating
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"			(a.Min{j}.Exists && !b.Min{j}.Exists) && (a.Max{j}.Exists && !b.Max{j}.Exists) &&");
-					code.AppendLine($@"			(b.Min{j}.Exists && a.Min{j}.Exists && compare{j}.Do(a.Min{j}.Value, b.Min{j}.Value) is not Less) &&");
-					code.AppendLine($@"			(b.Max{j}.Exists && a.Max{j}.Exists && compare{j}.Do(a.Max{j}.Value, b.Max{j}.Value) is not Greater){(j == i ? ";" : " &&")}");
+					code.AppendLine($@"			(b.Min{j}.Exists && a.Min{j}.Exists && compare{j}.Invoke(a.Min{j}.Value, b.Min{j}.Value) is not Less) &&");
+					code.AppendLine($@"			(b.Max{j}.Exists && a.Max{j}.Exists && compare{j}.Invoke(a.Max{j}.Value, b.Max{j}.Value) is not Greater){(j == i ? ";" : " &&")}");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Checks if two vectors are equal.</summary>");
@@ -276,7 +276,7 @@ namespace Towel_Generating
 				}
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			compare{j}.Do(a.Axis{j}, b.Axis{j}) is Equal{(j == i ? ";" : " &&")}");
+					code.AppendLine($@"			compare{j}.Invoke(a.Axis{j}, b.Axis{j}) is Equal{(j == i ? ";" : " &&")}");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Checks if a bounds straddles a point if the point extended as a plane along each dimension.</summary>");
@@ -301,8 +301,8 @@ namespace Towel_Generating
 				}
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			(!a.Min{j}.Exists || (a.Min{j}.Exists && compare{j}.Do(a.Min{j}.Value, b.Axis{j}) is not Greater)) &&");
-					code.AppendLine($@"			(!a.Max{j}.Exists || (a.Max{j}.Exists && compare{j}.Do(a.Max{j}.Value, b.Axis{j}) is not Less)){(j == i ? ";" : " ||")}");
+					code.AppendLine($@"			(!a.Min{j}.Exists || (a.Min{j}.Exists && compare{j}.Invoke(a.Min{j}.Value, b.Axis{j}) is not Greater)) &&");
+					code.AppendLine($@"			(!a.Max{j}.Exists || (a.Max{j}.Exists && compare{j}.Invoke(a.Max{j}.Value, b.Axis{j}) is not Less)){(j == i ? ";" : " ||")}");
 				}
 				code.AppendLine($@"");
 
@@ -736,7 +736,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			{{");
 				code.AppendLine($@"				for (Node node = Head; node is not null; node = node.Next)");
 				code.AppendLine($@"				{{");
-				code.AppendLine($@"					yield return locate.Do(node.Value);");
+				code.AppendLine($@"					yield return locate.Invoke(node.Value);");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"		}}");
@@ -856,14 +856,13 @@ namespace Towel_Generating
 
 				#region Add
 
-				code.AppendLine($@"		#region Add");
+				code.AppendLine($@"		#region TryAdd");
 				code.AppendLine($@"");
-				code.AppendLine($@"		public bool TryAdd(T value, out Exception? exception)");
+				code.AppendLine($@"		public (bool Success, Exception? Exception) TryAdd(T value)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (_top.Count is int.MaxValue)");
 				code.AppendLine($@"			{{");
-				code.AppendLine($@"				exception = new(""Omnitree.Count is int.MaxValue"");");
-				code.AppendLine($@"				return false;");
+				code.AppendLine($@"				return (false, new(""Omnitree.Count is int.MaxValue""));");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
 				code.AppendLine($@"			Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> location = FullLocate(value);");
@@ -876,8 +875,7 @@ namespace Towel_Generating
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
 				code.AppendLine($@"			Add(value, _top, location, 0);");
-				code.AppendLine($@"			exception = null;");
-				code.AppendLine($@"			return true;");
+				code.AppendLine($@"			return (true, null);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Recursive version of the add function.</summary>");
@@ -949,7 +947,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			new(");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"				_subdivide{j}.Do((leaf.Count, depth, leaf.GetEnumerable<Axis{j}, Locate{j}>(_locate{j}), (leaf.Bounds.Min{j}, leaf.Bounds.Max{j}))){(j == i ? ");" : ",")}");
+					code.AppendLine($@"				_subdivide{j}.Invoke((leaf.Count, depth, leaf.GetEnumerable<Axis{j}, Locate{j}>(_locate{j}), (leaf.Bounds.Min{j}, leaf.Bounds.Max{j}))){(j == i ? ");" : ",")}");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
@@ -1012,7 +1010,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			int removals = 0;");
 				code.AppendLine($@"			if (node is Leaf leaf)");
 				code.AppendLine($@"			{{");
-				code.AppendLine($@"				while (leaf.Head is not null && predicate.Do(leaf.Head.Value))");
+				code.AppendLine($@"				while (leaf.Head is not null && predicate.Invoke(leaf.Head.Value))");
 				code.AppendLine($@"				{{");
 				code.AppendLine($@"					leaf.Head = leaf.Head.Next;");
 				code.AppendLine($@"					removals++;");
@@ -1022,7 +1020,7 @@ namespace Towel_Generating
 				code.AppendLine($@"					Leaf.Node list = leaf.Head;");
 				code.AppendLine($@"					while (list.Next is not null)");
 				code.AppendLine($@"					{{");
-				code.AppendLine($@"						if (predicate.Do(list.Next.Value))");
+				code.AppendLine($@"						if (predicate.Invoke(list.Next.Value))");
 				code.AppendLine($@"						{{");
 				code.AppendLine($@"							list.Next = list.Next.Next;");
 				code.AppendLine($@"							removals++;");
@@ -1237,7 +1235,7 @@ namespace Towel_Generating
 				code.AppendLine($@"					while (!(current_node is null))");
 				code.AppendLine($@"					{{");
 				code.AppendLine($@"						Leaf.Node temp_previous = current_node;");
-				code.AppendLine($@"						if (Omnitree.ContainsCheck(bounds, FullLocate(current_node.Value), {Join(1..I, n => $"_compare{n}", ", ")})  && predicate.Do(current_node.Value))");
+				code.AppendLine($@"						if (Omnitree.ContainsCheck(bounds, FullLocate(current_node.Value), {Join(1..I, n => $"_compare{n}", ", ")})  && predicate.Invoke(current_node.Value))");
 				code.AppendLine($@"						{{");
 				code.AppendLine($@"							removals++;");
 				code.AppendLine($@"							if (current_node == leaf.Head)");
@@ -1439,7 +1437,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			int child = 0;");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			if (!bounds.Min{j}.Exists || _compare{j}.Do(bounds.Min{j}.Value, pointOfDivision.Axis{j}) is not Less) child += 1 << {j - 1};");
+					code.AppendLine($@"			if (!bounds.Min{j}.Exists || _compare{j}.Invoke(bounds.Min{j}.Value, pointOfDivision.Axis{j}) is not Less) child += 1 << {j - 1};");
 				}
 				code.AppendLine($@"			return child;");
 				code.AppendLine($@"		}}");
@@ -1453,7 +1451,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			int child = 0;");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			if (_compare{j}.Do(vector.Axis{j}, pointOfDivision.Axis{j}) is not Less) child += 1 << {j - 1};");
+					code.AppendLine($@"			if (_compare{j}.Invoke(vector.Axis{j}, pointOfDivision.Axis{j}) is not Less) child += 1 << {j - 1};");
 				}
 				code.AppendLine($@"			return child;");
 				code.AppendLine($@"		}}");
@@ -1545,7 +1543,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		internal Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> FullLocate(T value) => new(");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			_locate{j}.Do(value){(j == i ? ");" : ",")}");
+					code.AppendLine($@"			_locate{j}.Invoke(value){(j == i ? ");" : ",")}");
 				}
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
@@ -1562,7 +1560,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		public void Stepper(Action<T> step)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
-				code.AppendLine($@"			Stepper<ActionRuntime<T>>(step);");
+				code.AppendLine($@"			Stepper<SAction<T>>(step);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
@@ -1575,7 +1573,7 @@ namespace Towel_Generating
 				#warning TODO: kill the following method
 				code.AppendLine($@"		#warning TODO: kill the following method");
 				code.AppendLine($@"		internal void Stepper(Action<T> step, Node node) =>");
-				code.AppendLine($@"			Stepper<ActionRuntime<T>>(_top, step);");
+				code.AppendLine($@"			Stepper<SAction<T>>(_top, step);");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
 				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
@@ -1589,7 +1587,7 @@ namespace Towel_Generating
 				code.AppendLine($@"				Leaf.Node list = leaf.Head;");
 				code.AppendLine($@"				while (list is not null)");
 				code.AppendLine($@"				{{");
-				code.AppendLine($@"					step.Do(list.Value);");
+				code.AppendLine($@"					step.Invoke(list.Value);");
 				code.AppendLine($@"					list = list.Next;");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
@@ -1616,7 +1614,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		public StepStatus StepperBreak(Func<T, StepStatus> step)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
-				code.AppendLine($@"			return StepperBreak<FuncRuntime<T, StepStatus>>(step);");
+				code.AppendLine($@"			return StepperBreak<SFunc<T, StepStatus>>(step);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
@@ -1638,7 +1636,7 @@ namespace Towel_Generating
 				code.AppendLine($@"				Leaf.Node list = leaf.Head;");
 				code.AppendLine($@"				while (list is not null)");
 				code.AppendLine($@"				{{");
-				code.AppendLine($@"					if (step.Do(list.Value) is Break)");
+				code.AppendLine($@"					if (step.Invoke(list.Value) is Break)");
 				code.AppendLine($@"					{{");
 				code.AppendLine($@"						return Break;");
 				code.AppendLine($@"					}}");
@@ -1681,7 +1679,7 @@ namespace Towel_Generating
 				}
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
-				code.AppendLine($@"			Stepper<ActionRuntime<T>>(_top, new(");
+				code.AppendLine($@"			Stepper<SAction<T>>(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
@@ -1703,7 +1701,7 @@ namespace Towel_Generating
 				}
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
-				code.AppendLine($@"			Stepper<ActionRuntime<T>>(_top, new(");
+				code.AppendLine($@"			Stepper<SAction<T>>(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
@@ -1772,7 +1770,7 @@ namespace Towel_Generating
 				code.AppendLine($@"				{{");
 				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, FullLocate(list.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
 				code.AppendLine($@"					{{");
-				code.AppendLine($@"						step.Do(list.Value);");
+				code.AppendLine($@"						step.Invoke(list.Value);");
 				code.AppendLine($@"					}}");
 				code.AppendLine($@"				}}");
 				code.AppendLine($@"			}}");
@@ -1816,7 +1814,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			Func<T, StepStatus> step)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
-				code.AppendLine($@"			return StepperBreak<FuncRuntime<T, StepStatus>>(_top, new(");
+				code.AppendLine($@"			return StepperBreak<SFunc<T, StepStatus>>(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
@@ -1839,7 +1837,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			Func<T, StepStatus> step)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
-				code.AppendLine($@"			return StepperBreak<FuncRuntime<T, StepStatus>>(_top, new(");
+				code.AppendLine($@"			return StepperBreak<SFunc<T, StepStatus>>(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
@@ -1908,7 +1906,7 @@ namespace Towel_Generating
 				code.AppendLine($@"				{{");
 				code.AppendLine($@"					if (Omnitree.ContainsCheck(bounds, FullLocate(list.Value), {Join(1..I, n => $"_compare{n}", ", ")}))");
 				code.AppendLine($@"					{{");
-				code.AppendLine($@"						if (step.Do(list.Value) is Break)");
+				code.AppendLine($@"						if (step.Invoke(list.Value) is Break)");
 				code.AppendLine($@"						{{");
 				code.AppendLine($@"							return Break;");
 				code.AppendLine($@"						}}");
@@ -2027,7 +2025,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		public void Remove(T removal, Func<T, T, bool> equate) => throw new NotImplementedException();");
 				code.AppendLine($@"		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => throw new NotImplementedException();");
 				code.AppendLine($@"		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => throw new NotImplementedException();");
-				code.AppendLine($@"		public bool TryRemove(T value, out Exception exception) => throw new NotImplementedException();");
+				code.AppendLine($@"		public (bool Success, Exception? Exception) TryRemove(T value) => throw new NotImplementedException();");
 
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");

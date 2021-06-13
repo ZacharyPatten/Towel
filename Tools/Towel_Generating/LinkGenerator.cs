@@ -138,7 +138,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		{{");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			if (step.Do(Value{j}) is Break) return Break;");
+					code.AppendLine($@"			if (step.Invoke(Value{j}) is Break) return Break;");
 				}
 				code.AppendLine($@"			return Continue;");
 				code.AppendLine($@"		}}");
@@ -289,7 +289,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		{{");
 				for (int j = 1; j <= i; j++)
 				{
-					code.AppendLine($@"			if (step.Do(Value{j}) is Break) return Break;");
+					code.AppendLine($@"			if (step.Invoke(Value{j}) is Break) return Break;");
 				}
 				code.AppendLine($@"			return Continue;");
 				code.AppendLine($@"		}}");
