@@ -6,6 +6,11 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="IGraph{T}"/>.</summary>
 	public static class Graph
 	{
+		/// <summary>Adds an edge to a graph.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="graph">The data structure to add the value to.</param>
+		/// <param name="a">The start of the edge.</param>
+		/// <param name="b">The end of the edge.</param>
 		public static void Add<T>(this IGraph<T> graph, T a, T b)
 		{
 			var (success, exception) = graph.TryAdd(a, b);
@@ -15,9 +20,9 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Removes a value.</summary>
+		/// <summary>Removes a value from a graph.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="graph">The structure to remove the value from.</param>
+		/// <param name="graph">The data structure to remove the value from.</param>
 		/// <param name="value">The value to be removed.</param>
 		public static void Remove<T>(this IGraph<T> graph, T value)
 		{
@@ -28,6 +33,11 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Removes an edge from a graph.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="graph">The data structure to remove the value from.</param>
+		/// <param name="a">The start of the edge.</param>
+		/// <param name="b">The end of the edge.</param>
 		public static void Remove<T>(this IGraph<T> graph, T a, T b)
 		{
 			var (success, exception) = graph.TryRemove(a, b);
@@ -117,6 +127,8 @@ namespace Towel.DataStructures
 
 	/// <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
+	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
+	/// <typeparam name="THash">The type of the hash function.</typeparam>
 	public class GraphSetOmnitree<T, TEquate, THash> : IGraph<T>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
@@ -126,7 +138,7 @@ namespace Towel.DataStructures
 		internal SetHashLinked<T, TEquate, THash> _nodes;
 		internal OmnitreePointsLinked<Edge, T, T> _edges;
 
-		#region Edge
+		#region Nested Types
 
 		/// <summary>Represents an edge in a graph.</summary>
 		internal class Edge
@@ -334,6 +346,8 @@ namespace Towel.DataStructures
 
 	/// <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
 	/// <typeparam name="T">The generic node type of this graph.</typeparam>
+	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
+	/// <typeparam name="THash">The type of the hash function.</typeparam>
 	public class GraphMap<T, TEquate, THash> : IGraph<T>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
@@ -523,7 +537,7 @@ namespace Towel.DataStructures
 		/// <param name="start">The starting point of the edge to add</param>
 		/// <param name="end">The ending point of the edge to add</param>
 		/// <param name="weight">The weight of the edge</param>
-		void Add(V start, V end, W weight) => GraphWeightedMap.Add(this, start, end, weight);
+		void Add(V start, V end, W weight) => GraphWeighted.Add(this, start, end, weight);
 
 		(bool Success, Exception? Exception) IGraph<V>.TryAdd(V start, V end) => TryAdd(start, end, default);
 		/// <summary>Adds a weighted edge to the graph </summary>
@@ -549,17 +563,9 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	/// <summary>Static helpers for <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
-	public static class GraphWeightedMap
+	/// <summary>Static helpers for <see cref="IGraphWeighted{V, W}"/>.</summary>
+	public static class GraphWeighted
 	{
-		/// <summary>Constructs a new <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
-		/// <typeparam name="V">The type of values stored in this data structure.</typeparam>
-		/// <returns>The new constructed <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</returns>
-		public static GraphWeightedMap<V, W, SFunc<V, V, bool>, SFunc<V, int>> New<V, W>(
-			Func<V, V, bool>? equate = null,
-			Func<V, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
-
 		public static void Add<V, W>(this IGraphWeighted<V, W> graph, V start, V end, W? weight)
 		{
 			var (success, exception) = graph.TryAdd(start, end, weight);
@@ -570,11 +576,26 @@ namespace Towel.DataStructures
 		}
 	}
 
+	/// <summary>Static helpers for <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
+	public static class GraphWeightedMap
+	{
+		/// <summary>Constructs a new <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
+		/// <typeparam name="V">The type of values stored in this data structure.</typeparam>
+		/// <typeparam name="W">The type of weight stored in the edges in this data structure.</typeparam>
+		/// <returns>The new constructed <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</returns>
+		public static GraphWeightedMap<V, W, SFunc<V, V, bool>, SFunc<V, int>> New<V, W>(
+			Func<V, V, bool>? equate = null,
+			Func<V, int>? hash = null) =>
+			new(equate ?? Equate, hash ?? DefaultHash);
+	}
+
 	/// <summary>
 	/// Implements a weighted graph. Implements a Dictionary of Nodes and edges
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
+	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
+	/// <typeparam name="THash">The type of the hash function.</typeparam>
 	public class GraphWeightedMap<V, W, TEquate, THash> : IGraphWeighted<V, W>,
 		DataStructure.IEquating<V, TEquate>,
 		DataStructure.IHashing<V, THash>
@@ -586,6 +607,9 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
+		/// <summary>Constructs a new graph.</summary>
+		/// <param name="equate">The function for equality checking <typeparamref name="V"/> values.</param>
+		/// <param name="hash">The function for hasching <typeparamref name="V"/> values.</param>
 		public GraphWeightedMap(TEquate equate = default, THash hash = default)
 		{
 			_map = new(equate, hash);
@@ -619,7 +643,7 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <inheritdoc/>
-		public void Add(V start, V end, W weight) => GraphWeightedMap.Add(this, start, end, weight);
+		public void Add(V start, V end, W weight) => GraphWeighted.Add(this, start, end, weight);
 
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(V value)

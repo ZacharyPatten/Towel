@@ -6,7 +6,6 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The type of values to store in the set.</typeparam>
 	public interface ISet<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.IAuditable<T>,
 		DataStructure.IAddable<T>,
 		DataStructure.IRemovable<T>,
@@ -29,10 +28,9 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
 	/// <typeparam name="T">The type of values to store in the set.</typeparam>
-	/// <typeparam name="TEquate">The function for equality comparing values.</typeparam>
-	/// <typeparam name="THash">The function for computing hash codes.</typeparam>
+	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
+	/// <typeparam name="THash">The type of the hash function.</typeparam>
 	public class SetHashLinked<T, TEquate, THash> : ISet<T>,
-		// Structure Properties
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
 		where TEquate : struct, IFunc<T, T, bool>

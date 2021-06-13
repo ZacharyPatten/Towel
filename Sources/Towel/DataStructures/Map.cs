@@ -182,8 +182,8 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	/// <typeparam name="TEquate">The equate function.</typeparam>
-	/// <typeparam name="THash">The hash function.</typeparam>
+	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
+	/// <typeparam name="THash">The type of the hash function.</typeparam>
 	public class MapHashLinked<T, K, TEquate, THash> : IMap<T, K>,
 		// Structure Properties
 		DataStructure.IEquating<K, TEquate>,
