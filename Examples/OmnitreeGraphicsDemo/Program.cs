@@ -482,7 +482,7 @@ void main()
 
 		private static void KeyDown(IKeyboard keyboard, Key key, int arg3)
 		{
-			if (key == Key.Escape)
+			if (key is Key.Escape)
 			{
 				window.Close();
 			}

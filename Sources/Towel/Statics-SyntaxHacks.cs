@@ -520,15 +520,9 @@ namespace Towel
 			/// <summary>Converts a universal quantification to an Action&lt;Action&lt;T&gt;&gt;.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator Action<Action<T>>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepper();
-			/// <summary>Converts a universal quantification to an <see cref="StepperRef{T}"/>.</summary>
-			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator StepperRef<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRef();
 			/// <summary>Converts a universal quantification to an Func&lt;Func&lt;T, StepStatus&gt;, StepStatus&gt;.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator Func<Func<T, StepStatus>, StepStatus>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperBreak();
-			/// <summary>Converts a universal quantification to an <see cref="StepperRefBreak{T}"/>.</summary>
-			/// <param name="universalQuantification">The universal quantification to be converted.</param>
-			public static implicit operator StepperRefBreak<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value.ToStepperRefBreak();
 			/// <summary>Converts a universal quantification to an <see cref="Array{T}"/>.</summary>
 			/// <param name="universalQuantification">The universal quantification to be converted.</param>
 			public static implicit operator Towel.DataStructures.Array<T>(UniversalQuantification<T> universalQuantification) => universalQuantification.Value;

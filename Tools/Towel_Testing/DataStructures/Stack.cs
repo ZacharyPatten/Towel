@@ -50,7 +50,7 @@ namespace Towel_Testing.DataStructures
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				IStack<int> stack = new Stack();
 				values.Stepper(i => stack.Push(i));
-				Assert.IsTrue(stack.Stepper().Count() == values.Length);
+				Assert.IsTrue(stack.Count == values.Length);
 				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
@@ -67,7 +67,7 @@ namespace Towel_Testing.DataStructures
 				values.Stepper(i => stack.Push(i));
 				stack.Pop();
 				stack.Pop();
-				Assert.IsTrue(stack.Stepper().Count() == expectedValues.Length);
+				Assert.IsTrue(stack.Count == expectedValues.Length);
 				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
@@ -86,7 +86,7 @@ namespace Towel_Testing.DataStructures
 					stack.Pop();
 					stack.Push(i);
 				});
-				Assert.IsTrue(stack.Stepper().Count() == values.Length);
+				Assert.IsTrue(stack.Count == values.Length);
 				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				stack.Stepper(i =>

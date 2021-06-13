@@ -766,12 +766,12 @@ namespace DataStructures
 				Console.WriteLine("    in a Set and edges are stored in an Omnitree (aka Quadtree).");
 				Console.WriteLine();
 
-				IGraph<int> graphSetOmnitree = GraphSetOmnitree.New<int>();
+				IGraph<int> graph = GraphSetOmnitree.New<int>();
 
 				Console.WriteLine($"    Adding Nodes (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
-					graphSetOmnitree.Add(i);
+					graph.Add(i);
 				}
 
 				int edgesPerNode = 3;
@@ -792,30 +792,30 @@ namespace DataStructures
 					int randomEdgeCount = random.Next(edgesPerNode + 1);
 					for (int j = 0; j < randomEdgeCount; j++)
 					{
-						graphSetOmnitree.Add(i, heap.Dequeue().Item1);
+						graph.Add(i, heap.Dequeue().Item1);
 					}
 				}
 
 				Console.Write("    Nodes (Traversal): ");
-				graphSetOmnitree.Stepper(Console.Write);
+				graph.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine("    Edges (Traversal): ");
-				graphSetOmnitree.Edges(edge => Console.WriteLine($"      {edge.Item1}->{edge.Item2}"));
+				graph.Edges(edge => Console.WriteLine($"      {edge.Item1}->{edge.Item2}"));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
 				Console.Write($"    Neighbors ({a}):");
-				graphSetOmnitree.Neighbors(a, i => Console.Write($" {i}"));
+				graph.Neighbors(a, i => Console.Write($" {i}"));
 				Console.WriteLine();
 
 				int b = random.Next(0, test / 2);
 				int c = random.Next(test / 2, test);
-				Console.WriteLine($"    Are Adjacent ({b}, {c}): {graphSetOmnitree.Adjacent(b, c)}");
-				Console.WriteLine($"    Node Count: {graphSetOmnitree.NodeCount}");
-				Console.WriteLine($"    Edge Count: {graphSetOmnitree.EdgeCount}");
+				Console.WriteLine($"    Are Adjacent ({b}, {c}): {graph.Adjacent(b, c)}");
+				Console.WriteLine($"    Node Count: {graph.NodeCount}");
+				Console.WriteLine($"    Edge Count: {graph.EdgeCount}");
 
-				graphSetOmnitree.Clear();
+				graph.Clear();
 
 				Pause();
 			}
@@ -857,7 +857,7 @@ namespace DataStructures
 				}
 
 				Console.WriteLine("    Traversal:");
-				trie.Stepper((stepper, value) => Console.WriteLine($"      {stepper.ConcatToString()}: {value}"));
+				trie.Stepper(pair => Console.WriteLine($"      {pair.Item1.ConcatToString()}: {pair.Item2}"));
 
 				//// The "foreach" enumeration works for tries, but it is not optimized
 				//// and you should prefer the stepper function (it is faster).

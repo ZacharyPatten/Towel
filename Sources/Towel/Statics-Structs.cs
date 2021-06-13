@@ -29,14 +29,21 @@ namespace Towel
 
 		#endregion
 
-		internal struct FillArray<T> : IAction<T>
+		/// <summary>Built in struct for runtime computations.</summary>
+		/// <typeparam name="T">The generic type of the values.</typeparam>
+		/// <typeparam name="Step">The Step function.</typeparam>
+		public struct StepBreakFromAction<T, Step> : IFunc<T, StepStatus>
+			where Step : struct, IAction<T>
 		{
-			int Index;
-			T[] Array;
+			internal Step StepFunction;
 
-			public void Invoke(T arg1) => Array[Index++] = arg1;
+			/// <summary>The invocation of the compile time delegate.</summary>
+			public StepStatus Invoke(T value) { StepFunction.Invoke(value); return Continue; }
 
-			public static implicit operator FillArray<T>(T[] array) => new() { Array = array, };
+			/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
+			/// <param name="step">The runtime Step delegate.</param>
+			public static implicit operator StepBreakFromAction<T, Step>(Step step) =>
+				new() { StepFunction = step, };
 		}
 
 		public struct CompareInvert<T, Compare> : IFunc<T, T, CompareResult>
@@ -98,6 +105,18 @@ namespace Towel
 			public static implicit operator Action_ReadOnlySpan_Runtime<T>(Action_ReadOnlySpan<T> @delegate) => new() { Delegate = @delegate, };
 		}
 
+		#region Arrays
+
+		internal struct FillArray<T> : IAction<T>
+		{
+			int Index;
+			T[] Array;
+
+			public void Invoke(T arg1) => Array[Index++] = arg1;
+
+			public static implicit operator FillArray<T>(T[] array) => new() { Array = array, };
+		}
+
 		internal struct Func_int_int_JaggedArray_Length0<T> : IFunc<int, int>
 		{
 			T[][] JaggedArray;
@@ -113,5 +132,7 @@ namespace Towel
 
 			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
 		}
+
+		#endregion
 	}
 }

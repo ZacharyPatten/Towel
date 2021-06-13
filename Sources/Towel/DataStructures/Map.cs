@@ -26,47 +26,36 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to get a value by key.</summary>
 		/// <param name="key">The key of the value to get.</param>
-		/// <param name="value">The value if found or default.</param>
-		/// <param name="exception">The exception that occured if not found.</param>
 		/// <returns>True if the key was found or false if not.</returns>
-		bool TryGet(K key, out T? value, out Exception? exception);
+		(bool Success, T? Value, Exception? Exception) TryGet(K key);
+
 		/// <summary>Sets value in the map.</summary>
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be set.</param>
-		void Set(K key, T value);
+		(bool Success, Exception? Exception) TrySet(K key, T value);
+
 		/// <summary>Tries to add a value to the map.</summary>
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occured if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		bool TryAdd(K key, T value, out Exception? exception);
-		/// <summary>Steps through all the values in the map.</summary>
-		/// <param name="step">The action to perform on all the values.</param>
-		void Stepper(StepRef<T> step);
-		/// <summary>Steps through all the values in the map.</summary>
-		/// <param name="step">The action to perform on all the values.</param>
-		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(StepRefBreak<T> step);
+		(bool Success, Exception? Exception) TryAdd(K key, T value);
 
+		/// <summary>Gets an enumerator that will traverse the keys of the map.</summary>
+		/// <returns>An enumerator that will traverse the keys of the map.</returns>
 		public System.Collections.Generic.IEnumerable<K> GetKeys();
-		/// <summary>Steps through all the keys.</summary>
-		/// <param name="step">The action to perform on all the keys.</param>
-		void Keys(Action<K> step);
+
 		/// <summary>Steps through all the keys.</summary>
 		/// <param name="step">The action to perform on all the keys.</param>
 		/// <returns>The status of the stepper.</returns>
-		StepStatus KeysBreak(Func<K, StepStatus> step);
-		/// <summary>
-		/// This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
-		/// </summary>
+		StepStatus KeysBreak<Step>(Step step = default)
+			where Step : struct, IFunc<K, StepStatus>;
+
+		/// <summary>Gets an enumerator that will traverse the pairs of the map.</summary>
+		/// <returns>An enumerator that will traverse the pairs of the map.</returns>
 		public System.Collections.Generic.IEnumerable<(T Value, K Key)> GetPairs();
-		/// <summary>Steps through all the keys and values.</summary>
-		/// <param name="step">The action to perform on all the keys and values.</param>
-		void Pairs(Action<(T Value, K Key)> step);
-		/// <summary>Steps through all the keys and values.</summary>
-		/// <param name="step">The action to perform on all the keys and values.</param>
-		/// <returns>The status of the stepper.</returns>
-		StepStatus PairsBreak(Func<(T Value, K Key), StepStatus> step);
+
+		StepStatus PairsBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<(T Value, K Key), StepStatus>;
 
 		#endregion
 	}
@@ -78,16 +67,6 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Tries to get a value in a map by key.</summary>
-		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <param name="map">The map to get the value from.</param>
-		/// <param name="key">The key of the value to get.</param>
-		/// <param name="value">The value of the provided key in the map or default.</param>
-		/// <returns>True if the key was found or false if not found.</returns>
-		public static bool TryAdd<T, K>(this IMap<T, K> map, K key, T value) =>
-			map.TryAdd(key, value, out _);
-
 		/// <summary>Gets a value in a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
 		/// <typeparam name="K">The type of keys in the map.</typeparam>
@@ -97,7 +76,8 @@ namespace Towel.DataStructures
 		/// <returns>The value of the provided key in the map.</returns>
 		public static void Add<T, K>(this IMap<T, K> map, K key, T value)
 		{
-			if (!map.TryAdd(key, value, out Exception? exception))
+			var (success, exception) = map.TryAdd(key, value);
+			if (!success)
 			{
 				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
 			}
@@ -105,37 +85,38 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		#region Set
+
+		/// <summary>Sets a value in a map relative to a key.</summary>
+		/// <typeparam name="T">The type of the value.</typeparam>
+		/// <typeparam name="K">The type of the key.</typeparam>
+		/// <param name="map">The map to set the value in.</param>
+		/// <param name="key">The key.</param>
+		/// <param name="value">The value.</param>
+		public static void Set<T, K>(this IMap<T, K> map, K key, T value)
+		{
+			var (success, exception) = map.TrySet(key, value);
+			if (!success)
+			{
+				throw exception ?? new ArgumentException($"{nameof(Set)} failed but the {nameof(exception)} is null");
+			}
+			return;
+		}
+
+		#endregion
+
 		#region Get
 
-		/// <summary>Tries to get a value in a map by key.</summary>
-		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <param name="map">The map to get the value from.</param>
-		/// <param name="key">The key of the value to get.</param>
-		/// <param name="default">The default value to return if the value is not found.</param>
-		/// <returns>The value if found or the defautl value.</returns>
-		public static T TryGet<T, K>(this IMap<T, K> map, K key, T @default) =>
-			map.TryGet(key, out T? value, out _) ? value! : @default;
-
-		/// <summary>Tries to get a value in a map by key.</summary>
-		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <param name="map">The map to get the value from.</param>
-		/// <param name="key">The key of the value to get.</param>
-		/// <param name="value">The value of the provided key in the map or default.</param>
-		/// <returns>True if the key was found or false if not found.</returns>
-		public static bool TryGet<T, K>(this IMap<T, K> map, K key, out T? value) =>
-			map.TryGet(key, out value, out _);
-
-		/// <summary>Gets a value in a map by key.</summary>
-		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <param name="map">The map to get the value from.</param>
-		/// <param name="key">The key of the value to get.</param>
-		/// <returns>The value of the provided key in the map.</returns>
+		/// <summary>Gets a value in a map relative to a key.</summary>
+		/// <typeparam name="T">The type of the value.</typeparam>
+		/// <typeparam name="K">The type of the key.</typeparam>
+		/// <param name="map">The map to set the value in.</param>
+		/// <param name="key">The key.</param>
+		/// <returns>The value relative to the key.</returns>
 		public static T Get<T, K>(this IMap<T, K> map, K key)
 		{
-			if (!map.TryGet(key, out T? value, out Exception? exception))
+			var (success, value, exception) = map.TryGet(key);
+			if (!success)
 			{
 				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
 			}
@@ -146,13 +127,39 @@ namespace Towel.DataStructures
 
 		#region Stepper and IEnumerable
 
-		/// <summary>Gets the stepper for this data structure.</summary>
-		/// <returns>The stepper for this data structure.</returns>
-		public static Action<Action<K>> Keys<T, K>(this IMap<T, K> dataStructure) => dataStructure.Keys;
+		public static void Keys<T, K>(this IMap<T, K> map, Action<K> step)
+		{
+			if (step is null) throw new ArgumentNullException(nameof(step));
+			map.Keys<T, K, SAction<K>>(step);
+		}
 
-		/// <summary>Gets the stepper for this data structure.</summary>
-		/// <returns>The stepper for this data structure.</returns>
-		public static Func<Func<K, StepStatus>, StepStatus> KeysBreak<T, K>(this IMap<T, K> dataStructure) => dataStructure.KeysBreak;
+		public static void Keys<T, K, Step>(this IMap<T, K> map, Step step = default)
+			where Step : struct, IAction<K> =>
+			map.KeysBreak<StepBreakFromAction<K, Step>>(step);
+
+
+		public static StepStatus KeysBreak<T, K>(this IMap<T, K> map, Func<K, StepStatus> step)
+		{
+			if (step is null) throw new ArgumentNullException(nameof(step));
+			return map.KeysBreak<SFunc<K, StepStatus>>(step);
+		}
+
+		public static void Pairs<T, K>(this IMap<T, K> map, Action<(T Value, K Key)> step)
+		{
+			if (step is null) throw new ArgumentNullException(nameof(step));
+			map.Pairs<T, K, SAction<(T Value, K Key)>>(step);
+		}
+
+		public static void Pairs<T, K, Step>(this IMap<T, K> map, Step step = default)
+			where Step : struct, IAction<(T Value, K Key)> =>
+			map.PairsBreak<StepBreakFromAction<(T Value, K Key), Step>>(step);
+
+
+		public static StepStatus PairsBreak<T, K>(this IMap<T, K> map, Func<(T Value, K Key), StepStatus> step)
+		{
+			if (step is null) throw new ArgumentNullException(nameof(step));
+			return map.PairsBreak<SFunc<(T Value, K Key), StepStatus>>(step);
+		}
 
 		#endregion
 
@@ -277,7 +284,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets the value of a specified key.</summary>
 		/// <param name="key">The key to get the value of.</param>
 		/// <returns>The value of the key.</returns>
-		public T this[K key] { get => this.Get(key); set => Set(key, value); }
+		public T this[K key] { get => this.Get(key); set => this.Set(key, value); }
 
 		#endregion
 
@@ -286,29 +293,18 @@ namespace Towel.DataStructures
 		internal int GetLocation(K key) =>
 			(_hash.Invoke(key) & int.MaxValue) % _table.Length;
 
-		/// <summary>
-		/// Tries to add a value to the map.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="key">The key of the value.</param>
-		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occured if the add failed.</param>
-		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(K key, T value, out Exception? exception)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryAdd(K key, T value)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Invoke(node.Key, key))
 				{
-					exception = new ArgumentException("Attempting to add a duplicate key to a map.", nameof(key));
-					return false;
+					return (false, new ArgumentException("Attempting to add a duplicate key to a map.", nameof(key)));
 				}
 			}
-			_table[location] = new Node(
-				value: value,
-				key: key,
-				next: _table[location]);
+			_table[location] = new Node(value: value, key: key, next: _table[location]);
 			_count++;
 			if (_count > _table.Length * _maxLoadFactor)
 			{
@@ -323,8 +319,7 @@ namespace Towel.DataStructures
 					Resize(tableSize);
 				}
 			}
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds or updates the value at the given key.</summary>
@@ -377,30 +372,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		public bool TryUpdate(K key, T value)
-		{
-			int location = GetLocation(key);
-			for (Node? node = _table[location]; node is not null; node = node.Next)
-			{
-				if (_equate.Invoke(node.Key, key))
-				{
-					node.Value = value;
-					return true;
-				}
-			}
-			return false;
-		}
-
-		public bool TryUpdate(K key, Func<T, T> update)
-		{
-			if (update is null)
-			{
-				throw new ArgumentNullException(nameof(update));
-			}
-			return TryUpdate<SFunc<T, T>>(key, update);
-		}
-
-		public bool TryUpdate<Update>(K key, Update update = default)
+		public (bool Success, T? Value) TryUpdate<Update>(K key, Update update = default)
 			where Update : struct, IFunc<T, T>
 		{
 			int location = GetLocation(key);
@@ -409,67 +381,28 @@ namespace Towel.DataStructures
 				if (_equate.Invoke(node.Key, key))
 				{
 					node.Value = update.Invoke(node.Value);
-					return true;
+					return (true, node.Value);
 				}
 			}
-			return false;
+			return (false, default);
 		}
 
-		public bool TryUpdate(K key, out T? value, Func<T, T> update)
-		{
-			if (update is null)
-			{
-				throw new ArgumentNullException(nameof(update));
-			}
-			return TryUpdate<SFunc<T, T>>(key, out value, update);
-		}
-
-		public bool TryUpdate<Update>(K key, out T? value, Update update = default)
-			where Update : struct, IFunc<T, T>
+		/// <inheritdoc/>
+		public (bool Success, T? Value, Exception? Exception) TryGet(K key)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Invoke(node.Key, key))
 				{
-					node.Value = update.Invoke(node.Value);
-					value = node.Value;
-					return true;
+					return (true, node.Value, null);
 				}
 			}
-			value = default;
-			return false;
+			return (false, default, new ArgumentException("Attempting to get a value from the map that has not been added.", nameof(key)));
 		}
 
-		/// <summary>Tries to get a value by key.</summary>
-		/// <param name="key">The key of the value to get.</param>
-		/// <param name="value">The value if found or default.</param>
-		/// <param name="exception">The exception that occured if not found.</param>
-		/// <returns>True if the key was found or false if not.</returns>
-		public bool TryGet(K key, out T? value, out Exception? exception)
-		{
-			int location = GetLocation(key);
-			for (Node? node = _table[location]; node is not null; node = node.Next)
-			{
-				if (_equate.Invoke(node.Key, key))
-				{
-					value = node.Value;
-					exception = null;
-					return true;
-				}
-			}
-			value = default;
-			exception = new ArgumentException("Attempting to get a value from the map that has not been added.", nameof(key));
-			return false;
-		}
-
-		/// <summary>
-		/// Sets value in the map.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="key">The key of the value.</param>
-		/// <param name="value">The value to be set.</param>
-		public void Set(K key, T value)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TrySet(K key, T value)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
@@ -477,7 +410,7 @@ namespace Towel.DataStructures
 				if (_equate.Invoke(node.Key, key))
 				{
 					node.Value = value;
-					return;
+					return (true, null);
 				}
 			}
 			_table[location] = new Node(
@@ -498,35 +431,33 @@ namespace Towel.DataStructures
 					Resize(tableSize);
 				}
 			}
+			return (true, null);
 		}
 
-		/// <summary>Tries to remove a keyed value.</summary>
-		/// <param name="key">The key of the value to remove.</param>
-		/// <param name="exception">The exception that occurred if the removal failed.</param>
-		/// <returns>True if the removal was successful for false if not.</returns>
-		public bool TryRemove(K key, out Exception? exception)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryRemove(K key)
 		{
-			if (TryRemoveWithoutTrim(key, out exception))
+			var (success, exception) = TryRemoveWithoutTrim(key);
+			if (!success)
 			{
-				if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
-				{
-					int tableSize = (int)(_count * (1 / _maxLoadFactor));
-					while (!IsPrime(tableSize))
-					{
-						tableSize++;
-					}
-					Resize(tableSize);
-				}
-				return true;
+				return (false, exception);
 			}
-			return false;
+			else if (_table.Length > 2 && _count < _table.Length * _minLoadFactor)
+			{
+				int tableSize = (int)(_count * (1 / _maxLoadFactor));
+				while (!IsPrime(tableSize))
+				{
+					tableSize++;
+				}
+				Resize(tableSize);
+			}
+			return (true, null);
 		}
 
 		/// <summary>Tries to remove a keyed value without shrinking the hash table.</summary>
 		/// <param name="key">The key of the value to remove.</param>
-		/// <param name="exception">The exception that occurred if the removal failed.</param>
 		/// <returns>True if the removal was successful for false if not.</returns>
-		public bool TryRemoveWithoutTrim(K key, out Exception? exception)
+		public (bool Success, Exception? Exception) TryRemoveWithoutTrim(K key)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
@@ -542,12 +473,10 @@ namespace Towel.DataStructures
 						previous.Next = node.Next;
 					}
 					_count--;
-					exception = null;
-					return true;
+					return (true, null);
 				}
 			}
-			exception = new ArgumentException("Attempting to remove a key that is no in a map.", nameof(key));
-			return false;
+			return (false, new ArgumentException("Attempting to remove a key that is no in a map.", nameof(key)));
 		}
 
 		internal void Resize(int tableSize)
@@ -596,12 +525,7 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this map.</returns>
 		public MapHashLinked<T, K, TEquate, THash> Clone() => new(this);
 
-		/// <summary>
-		/// Determines if a value has been added to a map.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="key">The key of the value to look for in the map.</param>
-		/// <returns>True if the value has been added to the map or false if not.</returns>
+		/// <inheritdoc/>
 		public bool Contains(K key)
 		{
 			int location = GetLocation(key);
@@ -615,70 +539,24 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <summary>
-		/// Removes all the values in the map.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_table = new Node[2];
 			_count = 0;
 		}
 
-		#region Stepper
+		#region Stepper and IEnumerable
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
-		/// <summary>Invokes a method for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The method to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		internal static void Stepper_XML() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-
-		/// <inheritdoc cref="Stepper_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="Stepper_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<SAction<T>>(step);
-
-		/// <inheritdoc cref="Stepper_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="Stepper_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="Stepper_XML"/>
+		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="Stepper_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) =>
-			StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="Stepper_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) =>
-			StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="Stepper_XML"/>
-		internal StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T>
+			where Step : struct, IFunc<T, StepStatus>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					if (step.Do(ref node.Value) is Break)
+					if (step.Invoke(node.Value) is Break)
 					{
 						return Break;
 					}
@@ -687,37 +565,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		#endregion
-
-
-		#region Keys
-
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
-		/// <summary>Invokes a method for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The method to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		internal static void Keys_XML() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-
-		/// <inheritdoc cref="Keys_XML"/>
-		public void Keys(Action<K> step) =>
-			Keys<SAction<K>>(step);
-
-		/// <inheritdoc cref="Keys_XML"/>
-		public void Keys<Step>(Step step = default)
-			where Step : struct, IAction<K> =>
-			KeysBreak<StepBreakFromAction<K, Step>>(step);
-
-		/// <inheritdoc cref="Keys_XML"/>
-		public StepStatus KeysBreak(Func<K, StepStatus> step) =>
-			KeysBreak<StepBreakRuntime<K>>(step);
-
-		/// <inheritdoc cref="Keys_XML"/>
+		/// <inheritdoc/>
 		public StepStatus KeysBreak<Step>(Step step = default)
 			where Step : struct, IFunc<K, StepStatus>
 		{
@@ -734,6 +582,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerable<K> GetKeys()
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -745,36 +594,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region Pairs
-
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
-		/// <summary>Invokes a method for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The method to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		internal static void Pairs_XML() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-
-		/// <inheritdoc cref="Pairs_XML"/>
-		public void Pairs(Action<(T Value, K Key)> step) =>
-			Pairs<SAction<(T Value, K Key)>>(step);
-
-		/// <inheritdoc cref="Pairs_XML"/>
-		public void Pairs<Step>(Step step = default)
-			where Step : struct, IAction<(T Value, K Key)> =>
-			PairsBreak<StepBreakFromAction<(T Value, K Key), Step>>(step);
-
-		/// <inheritdoc cref="Pairs_XML"/>
-		public StepStatus PairsBreak(Func<(T Value, K Key), StepStatus> step) =>
-			PairsBreak<SFunc<(T Value, K Key), StepStatus>>(step);
-
-		/// <inheritdoc cref="Pairs_XML"/>
+		/// <inheritdoc/>
 		public StepStatus PairsBreak<Step>(Step step = default)
 			where Step : struct, IFunc<(T Value, K Key), StepStatus>
 		{
@@ -782,8 +602,7 @@ namespace Towel.DataStructures
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
 				{
-					var value = (node.Value, node.Key);
-					if (step.Invoke(value) is Break)
+					if (step.Invoke((node.Value, node.Key)) is Break)
 					{
 						return Break;
 					}
@@ -792,9 +611,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>
-		/// This property is similar to the GetEnumerator() of System.Collection.Generic.Dictionary in that it conviniently exposes the Key and the Value as pairs in a foreach loop.
-		/// </summary>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerable<(T Value, K Key)> GetPairs()
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -806,12 +623,9 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for the map.</summary>
-		/// <returns>The enumerator for the map.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _table.Length; i++)
@@ -822,6 +636,8 @@ namespace Towel.DataStructures
 				}
 			}
 		}
+
+		#endregion
 
 		/// <summary>
 		/// Puts all the values in this map into an array.

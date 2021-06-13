@@ -897,7 +897,8 @@ namespace Towel
 		{
 			if (type.IsGenericParameter)
 			{
-				return methodGenericMap.TryGet(type.Name, out int methodIndex)
+				var (success, methodIndex, exception) = methodGenericMap.TryGet(type.Name);
+				return success
 					? "``" + methodIndex
 					: "`" + typeGenericMap[type.Name];
 			}
@@ -1029,8 +1030,7 @@ namespace Towel
 			_ = type ?? throw new ArgumentNullException(nameof(type));
 			_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
 			LoadXmlDocumentation(type.Assembly);
-			loadedXmlDocumentation.TryGet(type.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(type.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a method.</summary>
@@ -1042,8 +1042,7 @@ namespace Towel
 			_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
 			_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
 			LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(methodInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(methodInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a constructor.</summary>
@@ -1055,8 +1054,7 @@ namespace Towel
 			_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
 			_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
 			LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(constructorInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(constructorInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a property.</summary>
@@ -1069,8 +1067,7 @@ namespace Towel
 			_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
 			_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
 			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(propertyInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(propertyInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a field.</summary>
@@ -1083,8 +1080,7 @@ namespace Towel
 			_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
 			_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
 			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(fieldInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(fieldInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on an event.</summary>
@@ -1097,8 +1093,7 @@ namespace Towel
 			_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
 			_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
 			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(eventInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(eventInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a member.</summary>

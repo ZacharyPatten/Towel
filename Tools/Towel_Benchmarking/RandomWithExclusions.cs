@@ -96,7 +96,7 @@ namespace Towel_Benchmarking
 			{
 				if (MinValue <= exclude && exclude < MaxValue)
 				{
-					excluded.TryAdd(exclude, out _);
+					excluded.TryAdd(exclude);
 				}
 			}
 			int[] pool = new int[MaxValue - MinValue - excluded.Count];

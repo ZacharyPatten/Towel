@@ -771,29 +771,6 @@ namespace BasicsAndExtensions
 				});
 				Console.WriteLine();
 
-				/// If allowed on the data, you can mutate the values during traversal
-				/// with "StepperRef" methods that use "ref" parameters.
-				StepperRef<int> stepperRef = Ɐ(0, 1, 2);
-				Console.Write("    stepperRef values:");
-				stepperRef((ref int value) =>
-				{
-					value++;
-					Console.Write(" " + value);
-				});
-				Console.WriteLine();
-
-				/// The "StepperRefBreak" methods are the combination of
-				/// allowing both value mutability and traversal breakability.
-				StepperRefBreak<int> stepperRefBreak = Ɐ(0, 1, 2, 3, 4, 5);
-				Console.Write("    stepperRefBreak values:");
-				stepperRefBreak((ref int value) =>
-				{
-					value++;
-					Console.Write(" " + value);
-					return value >= 3 ? Break : Continue;
-				});
-				Console.WriteLine();
-
 				/// Steppers can be defined as functions without a backing data structure.
 				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
 				Console.Write("    stepperFunctional values:");
@@ -822,9 +799,7 @@ namespace BasicsAndExtensions
 				System.Collections.Generic.Queue<int>       h = Ɐ(1, 2, 3);
 				System.Collections.Generic.SortedSet<int>   i = Ɐ(1, 2, 3);
 				Action<Action<int>>                         j = Ɐ(1, 2, 3);
-				StepperRef<int>                             k = Ɐ(1, 2, 3);
 				Func<Func<int, StepStatus>, StepStatus>     l = Ɐ(1, 2, 3);
-				StepperRefBreak<int>                        m = Ɐ(1, 2, 3);
 				Towel.DataStructures.Array<int>             n = Ɐ(1, 2, 3);
 				Towel.DataStructures.ListArray<int>         o = Ɐ(1, 2, 3);
 

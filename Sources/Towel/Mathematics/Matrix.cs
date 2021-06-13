@@ -2583,28 +2583,6 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Steppers
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<T> step) => _matrix.Stepper(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _matrix.Stepper(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, StepStatus> step) => _matrix.StepperBreak(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _matrix.Stepper(step);
-
-		#endregion
-
 		#region Overrides
 
 		///// <summary>Prints out a string representation of this matrix.</summary>

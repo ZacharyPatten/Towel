@@ -88,7 +88,8 @@ namespace Towel
 					return;
 				}
 				arg = arg[2..];
-				if (!parameterMap.TryGet(arg, out int index))
+				var (success, index, exception) = parameterMap.TryGet(arg);
+				if (!success)
 				{
 					Console.Error.WriteLine($"Invalid parameter --{arg} in index {i}.");
 					return;

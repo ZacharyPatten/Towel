@@ -14,33 +14,14 @@ namespace Towel.DataStructures
 		/// <param name="trie">The trie to add the value to.</param>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
-		/// <returns>True if the add was successful or false if not.</returns>
-		public static bool TryAdd<K, T>(this ITrie<K, T> trie, T value, Action<Action<K>> stepper) =>
-			trie.TryAdd(value, stepper, out _);
-
-		/// <summary>Adds a value.</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="K">The type of the keys.</typeparam>
-		/// <param name="trie">The trie to add the value to.</param>
-		/// <param name="value">The value to be added.</param>
-		/// <param name="stepper">The keys of the relative value.</param>
 		public static void Add<T, K>(this ITrie<K, T> trie, T value, Action<Action<K>> stepper)
 		{
-			if (!trie.TryAdd(value, stepper, out Exception exception))
+			var (success, exception) = trie.TryAdd(value, stepper);
+			if (!success)
 			{
-				throw exception;
+				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null");
 			}
 		}
-
-		/// <summary>Tries to get a value.</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="K">The type of the keys.</typeparam>
-		/// <param name="trie">The trie to get the value from.</param>
-		/// <param name="stepper">The keys of the relative value.</param>
-		/// <param name="value">The value if found.</param>
-		/// <returns>True if the get was successful or false if not.</returns>
-		public static bool TryGet<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper, out T value) =>
-			trie.TryGet(stepper, out value, out _);
 
 		/// <summary>Gets a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -48,19 +29,15 @@ namespace Towel.DataStructures
 		/// <param name="trie">The trie to get the value from.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>The value.</returns>
-		public static T Get<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper) =>
-			trie.TryGet(stepper, out T value, out Exception exception)
-			? value
-			: throw exception;
-
-		/// <summary>Tries to removes a value.</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="K">The type of the keys.</typeparam>
-		/// <param name="trie">The trie to remove the value from.</param>
-		/// <param name="stepper">The keys of the relative value.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper) =>
-			trie.TryRemove(stepper, out _);
+		public static T Get<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper)
+		{
+			var (success, value, exception) = trie.TryGet(stepper);
+			if (!success)
+			{
+				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
+			}
+			return value;
+		}
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
@@ -69,9 +46,10 @@ namespace Towel.DataStructures
 		/// <param name="stepper">The keys to store the value relative to.</param>
 		public static void Remove<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper)
 		{
-			if (!trie.TryRemove(stepper, out Exception exception))
+			var (success, exception) = trie.TryRemove(stepper);
+			if (!success)
 			{
-				throw exception;
+				throw exception ?? new ArgumentException($"{nameof(Remove)} failed but the {nameof(exception)} is null");
 			}
 		}
 
@@ -85,16 +63,10 @@ namespace Towel.DataStructures
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAddable<Action<Action<T>>>,
-		DataStructure.IRemovable<Action<Action<T>>>
+		DataStructure.IRemovable<Action<Action<T>>>,
+		DataStructure.IAuditable<Action<Action<T>>>
 	{
-		#region Members
-
-		/// <summary>Determines if the trie contains the relative keys.</summary>
-		/// <param name="stepper">The relative keys.</param>
-		/// <returns>True if the trie contains th relative keys or false if not.</returns>
-		bool Contains(Action<Action<T>> stepper);
-
-		#endregion
+		
 	}
 
 	/// <summary>Static helpers.</summary>
@@ -167,18 +139,14 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Add
+		#region TryAdd
 
-		/// <summary>Tries to add a value to the trie.</summary>
-		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
-		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(Action<Action<T>> stepper, out Exception? exception)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryAdd(Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
-				exception = new ArgumentNullException(nameof(stepper));
-				return false;
+				return (false, new ArgumentNullException(nameof(stepper)));
 			}
 			IStack<Node> stack = new StackLinked<Node>();
 			Node? node = null;
@@ -199,21 +167,18 @@ namespace Towel.DataStructures
 			});
 			if (node is null)
 			{
-				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Stepper was empty.", nameof(stepper)));
 			}
 			else if (node.IsLeaf)
 			{
-				exception = new ArgumentException("Attempted to add an already existing item.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Attempted to add an already existing item.", nameof(stepper)));
 			}
 			else
 			{
 				node.IsLeaf = true;
 				stack.Stepper(n => n.Count++);
 				_count++;
-				exception = null;
-				return true;
+				return (true, null);
 			}
 		}
 
@@ -221,22 +186,18 @@ namespace Towel.DataStructures
 
 		#region Remove
 
-		/// <summary>Tries to remove a value.</summary>
-		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(Action<Action<T>> stepper, out Exception? exception)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryRemove(Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
-				exception = new ArgumentNullException(nameof(stepper));
-				return false;
+				return (false, new ArgumentNullException(nameof(stepper)));
 			}
 			var pathStack = new StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)>();
 			T finalKey = default;
 			MapHashLinked<Node, T, TEquate, THash>? finalMap = null;
 			Node? node = null;
-			Exception? capturedException = null;
+			Exception? exception = null;
 			stepper(key =>
 			{
 				finalKey = key;
@@ -247,24 +208,21 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					capturedException ??= new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
+					exception ??= new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
 				}
 				pathStack.Push((finalKey, finalMap, node));
 			});
-			if (capturedException is not null)
+			if (exception is not null)
 			{
-				exception = capturedException;
-				return false;
+				return (false, exception);
 			}
 			else if (node is null)
 			{
-				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Stepper was empty.", nameof(stepper)));
 			}
 			else if (!node.IsLeaf)
 			{
-				exception = new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper)));
 			}
 			else
 			{
@@ -283,8 +241,7 @@ namespace Towel.DataStructures
 					}
 				}
 				_count--;
-				exception = null;
-				return true;
+				return (true, null);
 			}
 		}
 
@@ -292,9 +249,7 @@ namespace Towel.DataStructures
 
 		#region Contains
 
-		/// <summary>Determines if the trie contains the relative keys.</summary>
-		/// <param name="stepper">The relative keys.</param>
-		/// <returns>True if the trie contains th relative keys or false if not.</returns>
+		/// <inheritdoc/>
 		public bool Contains(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
@@ -364,13 +319,12 @@ namespace Towel.DataStructures
 			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>
-			GetEnumerator();
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for the trie.</summary>
-		/// <returns>The enumerator for the trie.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<Action<Action<T>>> GetEnumerator()
 		{
+			#warning TODO: can be optimized?
 			IList<Action<Action<T>>> list = new ListLinked<Action<Action<T>>>();
 			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
@@ -384,46 +338,35 @@ namespace Towel.DataStructures
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
-	public interface ITrie<T, D> : IDataStructure<Action<Action<T>>>,
+	public interface ITrie<T, D> : IDataStructure<(Action<Action<T>>, D)>,
 		// Structure Properties
 		DataStructure.ICountable,
-		DataStructure.IClearable
+		DataStructure.IClearable,
+		DataStructure.IAuditable<Action<Action<T>>>
 	{
 		#region Members
 
-		/// <summary>Steps through all the additional data in the trie.</summary>
-		/// <param name="step">The step function of the iteration.</param>
-		void Stepper(Action<Action<Action<T>>, D> step);
-
-		/// <summary>Steps through all the additional data in the trie.</summary>
-		/// <param name="step">The step function of the iteration.</param>
-		/// <returns>The status of the stepper.</returns>
-		StepStatus Stepper(Func<Action<Action<T>>, D, StepStatus> step);
+		///// <summary>Steps through all the additional data in the trie.</summary>
+		///// <param name="step">The step function of the iteration.</param>
+		///// <returns>The status of the stepper.</returns>
+		//StepStatus StepperBreak<TStep>(TStep step = default)
+		//	where TStep : struct, IFunc<(Action<Action<T>>, D), StepStatus>;
 
 		/// <summary>Tries to add a value to the trie.</summary>
 		/// <param name="value">The value to add.</param>
 		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		bool TryAdd(D value, Action<Action<T>> stepper, out Exception exception);
+		(bool Success, Exception? Exception) TryAdd(D value, Action<Action<T>> stepper);
 
 		/// <summary>Tries to get a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="value">The value if found.</param>
-		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		bool TryGet(Action<Action<T>> stepper, out D value, out Exception exception);
+		(bool Success, D Value, Exception? Exception) TryGet(Action<Action<T>> stepper);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		bool TryRemove(Action<Action<T>> stepper, out Exception exception);
-
-		/// <summary>Determines if the trie contains the relative keys.</summary>
-		/// <param name="stepper">The relative keys.</param>
-		/// <returns>True if the trie contains th relative keys or false if not.</returns>
-		bool Contains(Action<Action<T>> stepper);
+		(bool Success, Exception? Exception) TryRemove(Action<Action<T>> stepper);
 
 		#endregion
 	}
@@ -483,17 +426,12 @@ namespace Towel.DataStructures
 
 		#region Add
 
-		/// <summary>Tries to add a value to the trie.</summary>
-		/// <param name="value">The value to add.</param>
-		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
-		/// <returns>True if the value was added or false if not.</returns>
-		public bool TryAdd(D value, Action<Action<T>> stepper, out Exception exception)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryAdd(D value, Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
-				exception = new ArgumentNullException(nameof(stepper));
-				return false;
+				return (false, new ArgumentNullException(nameof(stepper)));
 			}
 			IStack<Node> stack = new StackLinked<Node>();
 			Node? node = null;
@@ -514,13 +452,11 @@ namespace Towel.DataStructures
 			});
 			if (node is null)
 			{
-				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Stepper was empty.", nameof(stepper)));
 			}
 			else if (node.HasValue)
 			{
-				exception = new ArgumentException("Attempted to add an already existing item.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Attempted to add an already existing item.", nameof(stepper)));
 			}
 			else
 			{
@@ -528,8 +464,7 @@ namespace Towel.DataStructures
 				node.HasValue = true;
 				stack.Stepper(n => n.Count++);
 				_count++;
-				exception = null;
-				return true;
+				return (true, null);
 			}
 		}
 
@@ -539,16 +474,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to get a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
-		/// <param name="value">The value if found.</param>
-		/// <param name="exception">The exception that occurred if the get failed.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryGet(Action<Action<T>> stepper, out D value, out Exception? exception)
+		public (bool Success, D? Value, Exception? Exception) TryGet(Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
-				value = default;
-				exception = new ArgumentNullException(nameof(stepper));
-				return false;
+				return (false, default, new ArgumentNullException(nameof(stepper)));
 			}
 			Node? node = null;
 			stepper(key =>
@@ -567,21 +498,15 @@ namespace Towel.DataStructures
 			});
 			if (node is null)
 			{
-				value = default;
-				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
-				return false;
+				return (false, default, new ArgumentException("Stepper was empty.", nameof(stepper)));
 			}
 			else if (!node.HasValue)
 			{
-				value = default;
-				exception = new ArgumentException("Attempted to get a non-existing item.", nameof(stepper));
-				return false;
+				return (false, default, new ArgumentException("Attempted to get a non-existing item.", nameof(stepper)));
 			}
 			else
 			{
-				value = node.Value;
-				exception = null;
-				return true;
+				return (true, node.Value, null);
 			}
 		}
 
@@ -590,12 +515,11 @@ namespace Towel.DataStructures
 		#region Remove
 
 		/// <inheritdoc/>
-		public bool TryRemove(Action<Action<T>> stepper, out Exception? exception)
+		public (bool Success, Exception? Exception) TryRemove(Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
-				exception = new ArgumentNullException(nameof(stepper));
-				return false;
+				return (false, new ArgumentNullException(nameof(stepper)));
 			}
 			var pathStack = new StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)>();
 			T finalKey;
@@ -618,18 +542,15 @@ namespace Towel.DataStructures
 			});
 			if (capturedException is not null)
 			{
-				exception = capturedException;
-				return false;
+				return (false, capturedException);
 			}
 			else if (node is null)
 			{
-				exception = new ArgumentException("Stepper was empty.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Stepper was empty.", nameof(stepper)));
 			}
 			else if (!node.HasValue)
 			{
-				exception = new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
-				return false;
+				return (false, new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper)));
 			}
 			else
 			{
@@ -648,8 +569,7 @@ namespace Towel.DataStructures
 					}
 				}
 				_count--;
-				exception = null;
-				return true;
+				return (true, null);
 			}
 		}
 
@@ -657,9 +577,7 @@ namespace Towel.DataStructures
 
 		#region Contains
 
-		/// <summary>Determines if the trie contains the relative keys.</summary>
-		/// <param name="stepper">The relative keys.</param>
-		/// <returns>True if the trie contains th relative keys or false if not.</returns>
+		/// <inheritdoc/>
 		public bool Contains(Action<Action<T>> stepper)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
@@ -708,61 +626,18 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<Action<Action<T>>, StepStatus>
+			where TStep : struct, IFunc<(Action<Action<T>>, D), StepStatus>
 		{
 			StepStatus Stepper(Node node, Action<Action<T>> stepper)
 			{
 				if (node.HasValue)
 				{
-					if (step.Invoke(stepper) is Break)
+					if (step.Invoke((stepper, node.Value)) is Break)
 					{
 						return Break;
 					}
 				}
-				return node.Map.PairsBreak(pair =>
-					Stepper(pair.Value, x => { stepper(x); x(pair.Key); }) is Break
-						? Break
-						: Continue);
-			}
-			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<Action<Action<T>>, D> step)
-		{
-			void Stepper(Node node, Action<Action<T>> stepper)
-			{
-				if (node.HasValue)
-				{
-					step(stepper, node.Value);
-				}
-				node.Map.Pairs(pair =>
-				{
-					Stepper(pair.Value, x => { stepper(x); x(pair.Key); });
-				});
-			}
-			_map.Pairs(pair => Stepper(pair.Value, x => x(pair.Key)));
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<Action<Action<T>>, D, StepStatus> step)
-		{
-			StepStatus Stepper(Node node, Action<Action<T>> stepper)
-			{
-				if (node.HasValue)
-				{
-					if (step(stepper, node.Value) is Break)
-					{
-						return Break;
-					}
-				}
-				return node.Map.PairsBreak(pair =>
-					Stepper(pair.Value, x => { stepper(x); x(pair.Key); }) is Break
-						? Break
-						: Continue);
+				return node.Map.PairsBreak(pair => Stepper(pair.Value, x => { stepper(x); x(pair.Key); }));
 			}
 			return _map.PairsBreak(pair => Stepper(pair.Value, x => x(pair.Key)));
 		}
@@ -770,11 +645,11 @@ namespace Towel.DataStructures
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() =>
 			GetEnumerator();
 
-		/// <summary>Gets the enumerator for the trie.</summary>
-		/// <returns>The enumerator for the trie.</returns>
-		public System.Collections.Generic.IEnumerator<Action<Action<T>>> GetEnumerator()
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerator<(Action<Action<T>>, D)> GetEnumerator()
 		{
-			IList<Action<Action<T>>> list = new ListLinked<Action<Action<T>>>();
+			#warning TODO: optimized
+			IList<(Action<Action<T>>, D)> list = new ListLinked<(Action<Action<T>>, D)>();
 			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
 		}

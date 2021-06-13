@@ -13,8 +13,8 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <summary>Enqueues an item into the heap.</summary>
-		/// <param name="addition"></param>
-		void Enqueue(T addition);
+		/// <param name="value"></param>
+		void Enqueue(T value);
 		/// <summary>Removes and returns the highest priority item.</summary>
 		/// <returns>The highest priority item from the queue.</returns>
 		T Dequeue();
@@ -96,10 +96,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>
-		/// The comparison function being utilized by this structure.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public TCompare Compare => _compare;
 
 		/// <summary>
@@ -126,10 +123,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// The number of items in the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
 		#endregion
@@ -151,12 +145,8 @@ namespace Towel.DataStructures
 		/// <returns>The index of the parent of the provided item.</returns>
 		internal static int Parent(int child) => child / 2;
 
-		/// <summary>
-		/// Enqueue an item into the priority queue and let it works its magic.
-		/// <para>Runtime: O(ln(n)), Ω(1), ε(ln(n))</para>
-		/// </summary>
-		/// <param name="addition">The item to be added.</param>
-		public void Enqueue(T addition)
+		/// <inheritdoc/>
+		public void Enqueue(T value)
 		{
 			if (_count + 1 >= _array.Length)
 			{
@@ -167,15 +157,11 @@ namespace Towel.DataStructures
 				Array.Resize<T>(ref _array, _array.Length > int.MaxValue / 2 ? int.MaxValue : _array.Length * 2);
 			}
 			_count++;
-			_array[_count] = addition;
+			_array[_count] = value;
 			ShiftUp(_count);
 		}
 
-		/// <summary>
-		/// Dequeues the item with the highest priority.
-		/// <para>Runtime: O(ln(n))</para>
-		/// </summary>
-		/// <returns>The item of the highest priority.</returns>
+		/// <inheritdoc/>
 		public T Dequeue()
 		{
 			if (_count > 0)
@@ -212,10 +198,7 @@ namespace Towel.DataStructures
 			ShiftDown(i);
 		}
 
-		/// <summary>
-		/// Get the highest priority element without removing it.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public T Peek()
 		{
 			if (_count > 0)
@@ -276,8 +259,7 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator of the heap.</summary>
-		/// <returns>The enumerator of the heap.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 1; i <= _count; i++)
@@ -286,19 +268,10 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _array.Stepper(1, _count + 1, step);
-
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus> =>
 			_array.StepperBreak(1, _count + 1, step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(1, _count + 1, step);
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>

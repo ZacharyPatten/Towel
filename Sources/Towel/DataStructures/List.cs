@@ -194,42 +194,22 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>
-		/// Adds an item to the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="value">The item to add to the list.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
-		/// <returns>True if the add succeeded or false if not.</returns>
-		public bool TryAdd(T value, out Exception? exception)
-		{
-			Add(value);
-			exception = null;
-			return true;
-		}
-
-		/// <summary>
-		/// Adds an item to the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="addition">The item to add to the list.</param>
-		public void Add(T addition)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			if (_tail is null)
 			{
-				_head = _tail = new Node(value: addition);
+				_head = _tail = new Node(value: value);
 			}
 			else
 			{
-				_tail = _tail.Next = new Node(value: addition);
+				_tail = _tail.Next = new Node(value: value);
 			}
 			_count++;
+			return (true, null);
 		}
 
-		/// <summary>
-		/// Resets the list to an empty state.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_head = null;
@@ -329,44 +309,14 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<SAction<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) =>
-			StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T>
+			where Step : struct, IFunc<T, StepStatus>
 		{
 			for (Node? node = _head; node is not null; node = node.Next)
 			{
 				T temp = node.Value;
-				if (step.Do(ref temp) is Break)
+				if (step.Invoke(temp) is Break)
 				{
 					node.Value = temp;
 					return Break;
@@ -378,8 +328,7 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for this list.</summary>
-		/// <returns>The enumerator for this list.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (Node? node = _head; node is not null; node = node.Next)
@@ -500,23 +449,20 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
 		/// </summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurrs if the add fails.</param>
 		/// <returns>True if the add succeds or false if not.</returns>
 		/// <exception cref="InvalidOperationException"><see cref="Count"/> == <see cref="CurrentCapacity"/> &amp;&amp; <see cref="CurrentCapacity"/> &gt; <see cref="int.MaxValue"/> / 2</exception>
-		public bool TryAdd(T value, out Exception? exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			if (_count == _array.Length)
 			{
 				if (_array.Length > int.MaxValue / 2)
 				{
-					exception = new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2");
-					return false;
+					return (false, new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2"));
 				}
 				Array.Resize<T>(ref _array, _array.Length * 2);
 			}
 			_array[_count++] = value;
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item at a given index.</summary>
@@ -705,39 +651,10 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<SAction<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
+		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T> =>
-			_array.StepperRefBreak(0, _count, step);
+			_array.StepperBreak(0, _count, step);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 

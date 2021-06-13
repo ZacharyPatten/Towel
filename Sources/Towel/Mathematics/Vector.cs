@@ -1303,60 +1303,6 @@ namespace Towel.Mathematics
 
 		#endregion
 
-		#region Steppers
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<T> step)
-		{
-			for (int i = 0; i < _vector.Length; i++)
-			{
-				step(_vector[i]);
-			}
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < _vector.Length; i++)
-			{
-				step(ref _vector[i]);
-			}
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, StepStatus> step)
-		{
-			for (int i = 0; i < _vector.Length; i++)
-			{
-				if (step(_vector[i]) is Break)
-				{
-					return Break;
-				}
-			}
-			return Continue;
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			for (int i = 0; i < _vector.Length; i++)
-			{
-				if (step(ref _vector[i]) is Break)
-				{
-					return Break;
-				}
-			}
-			return Continue;
-		}
-
-		#endregion
-
 		#region Overrides
 
 		/// <summary>Computes a hash code from the values of this matrix.</summary>

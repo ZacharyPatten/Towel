@@ -33,7 +33,7 @@ namespace Towel.DataStructures
 		/// <summary>Adds a node to the tree.</summary>
 		/// <param name="addition">The node to be added.</param>
 		/// <param name="parent">The parent of the node to be added.</param>
-		void Add(T addition, T parent);
+		(bool Success, Exception? Exception) TryAdd(T addition, T parent);
 
 		#endregion
 	}
@@ -60,8 +60,8 @@ namespace Towel.DataStructures
 		where TEquate : struct, IFunc<T, T, bool>
 		where THash : struct, IFunc<T, int>
 	{
-		internal T _head;
-		internal MapHashLinked<Node, T, TEquate, THash> _tree;
+		internal T _top;
+		internal MapHashLinked<Node, T, TEquate, THash> _map;
 
 		#region Node
 
@@ -81,12 +81,12 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		public TreeMap(T head, TEquate equate = default, THash hash = default)
+		public TreeMap(T top, TEquate equate = default, THash hash = default)
 		{
-			_head = head;
-			_tree = new(equate, hash)
+			_top = top;
+			_map = new(equate, hash)
 			{
-				{ _head, new Node(default, new(equate, hash)) }
+				{ _top, new Node(default, new(equate, hash)) }
 			};
 		}
 
@@ -94,8 +94,8 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to clone.</param>
 		internal TreeMap(TreeMap<T, TEquate, THash> tree)
 		{
-			_head = tree._head;
-			_tree = tree._tree.Clone();
+			_top = tree._top;
+			_map = tree._map.Clone();
 		}
 
 		#endregion
@@ -103,16 +103,16 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>The head of the tree.</summary>
-		public T Head => _head;
+		public T Head => _top;
 
 		/// <summary>The hash function being used (was passed into the constructor).</summary>
-		public THash Hash => _tree.Hash;
+		public THash Hash => _map.Hash;
 
 		/// <summary>The equate function being used (was passed into the constructor).</summary>
-		public TEquate Equate => _tree.Equate;
+		public TEquate Equate => _map.Equate;
 
 		/// <summary>The number of nodes in this tree.</summary>
-		public int Count => _tree.Count;
+		public int Count => _map.Count;
 
 		#endregion
 
@@ -124,14 +124,16 @@ namespace Towel.DataStructures
 		/// <returns>True if the node is a child of the parent; False if not.</returns>
 		public bool IsChildOf(T node, T parent)
 		{
-			if (_tree.TryGet(parent, out Node? nodeData))
+			if (!_map.Contains(node))
 			{
-				return nodeData.Children.Contains(node);
+				throw new ArgumentException(paramName: nameof(node), message: "Check for a parent-child relationship of non-existing node.");
 			}
-			else
+			var (success, value,exception) = _map.TryGet(parent);
+			if (!success)
 			{
-				throw new InvalidOperationException("Attempting to get the children of a non-existing node");
+				throw new ArgumentException(paramName: nameof(parent), message: "Check for a parent-child relationship of non-existing node.", innerException: exception);
 			}
+			return value!.Children.Contains(node);
 		}
 
 		/// <summary>Gets the parent of a given node.</summary>
@@ -139,14 +141,16 @@ namespace Towel.DataStructures
 		/// <returns>The parent of the given child.</returns>
 		public T Parent(T child)
 		{
-			if (_tree.TryGet(child, out Node? node))
+			if (Equate.Invoke(child, _top))
 			{
-				return node.Parent;
+				throw new InvalidOperationException("Attempting to get the parent of the top of the tree.");
 			}
-			else
+			var (success, value, exception) = _map.TryGet(child);
+			if (!success)
 			{
-				throw new InvalidOperationException("Attempting to get the parent of a non-existing node");
+				throw new InvalidOperationException("Attempting to get the parent of a non-existing node.", innerException: exception);
 			}
+			return value!.Parent!;
 		}
 
 		/// <summary>Stepper function for the children of a given node.</summary>
@@ -154,77 +158,77 @@ namespace Towel.DataStructures
 		/// <param name="step">The step function.</param>
 		public void Children(T parent, Action<T> step)
 		{
-			if (_tree.TryGet(parent, out Node? node))
+			var (success, value, exception) = _map.TryGet(parent);
+			if (!success)
 			{
-				node.Children.Stepper(step);
+				throw new ArgumentException(paramName: nameof(parent), message: "Attepting to step through the children of a none-existing parent.", innerException: exception);
 			}
-			else
-			{
-				throw new InvalidOperationException("Attempting to get the children of a non-existing node");
-			}
+			value!.Children.Stepper(step);
 		}
 
 		/// <summary>Adds a node to the tree.</summary>
-		/// <param name="addition">The node to be added.</param>
+		/// <param name="node">The node to be added.</param>
 		/// <param name="parent">The parent of the node to be added.</param>
-		public void Add(T addition, T parent)
+		public (bool Success, Exception? Exception) TryAdd(T node, T parent)
 		{
-			if (_tree.TryGet(parent, out Node? node))
+			if (_map.Contains(node))
 			{
-				_tree.Add(addition, new Node(parent, new(Equate, Hash)));
-				node.Children.Add(addition);
+				return (false, new ArgumentException(paramName: nameof(node), message: "Adding an already-existing node to a tree."));
 			}
-			else
+			var (success, value, exception) = _map.TryGet(parent);
+			if (!success)
 			{
-				throw new InvalidOperationException("Attempting to add a node to a non-existing parent");
+				return (false, new ArgumentException(paramName: nameof(parent), message: "Adding a node to a non-existant parent in a tree.", innerException: exception));
 			}
+			_map.Add(node, new Node(parent, new(Equate, Hash)));
+			value!.Children.Add(node);
+			return (true, null);
 		}
 
 
 		/// <summary>Removes a node from the tree and all the child nodes.</summary>
-		/// <param name="removal">The node to be removed.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		public bool TryRemove(T removal, out Exception? exception)
+		/// <param name="node">The node to be removed.</param>
+		public (bool Success, Exception? Exception) TryRemove(T node)
 		{
-			if (_tree.TryGet(removal, out Node? node))
+			if (Equate.Invoke(node, _top))
 			{
-				_tree[node.Parent].Children.Remove(removal);
-				RemoveRecursive(removal);
-				exception = null;
-				return true;
+				return (false, new ArgumentException(paramName: nameof(node), message: "Attempting to remove the top of the tree."));
 			}
-			else
+
+			var (success, value, exception) = _map.TryGet(node);
+			if (!success)
 			{
-				exception = new InvalidOperationException("Attempting to remove a non-existing node");
-				return false;
+				return (false, new InvalidOperationException("Attempting to remove a non-existing node", exception));
 			}
+			_map[value!.Parent!].Children.Remove(node);
+			RemoveRecursive(node);
+			return (true, null);
 		}
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus> =>
-			_tree.KeysBreak(step);
+			_map.KeysBreak(step);
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
+
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+		{
+			throw new NotImplementedException();
+		}
 
 		/// <summary>Creates a shallow clone of this data structure.</summary>
 		/// <returns>A shallow clone of this data structure.</returns>
 		public TreeMap<T, TEquate, THash> Clone() => new(this);
 
-		System.Collections.IEnumerator
-			System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new NotImplementedException();
-		}
-
-		System.Collections.Generic.IEnumerator<T>
-			System.Collections.Generic.IEnumerable<T>.GetEnumerator()
-		{
-			throw new NotImplementedException();
-		}
-
 		internal void RemoveRecursive(T current)
 		{
-			_tree[current].Children.Stepper(child => RemoveRecursive(child));
-			_tree.Remove(current);
+			_map[current].Children.Stepper(child => RemoveRecursive(child));
+			_map.Remove(current);
 		}
 
 		#endregion

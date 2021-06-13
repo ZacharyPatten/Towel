@@ -1369,17 +1369,15 @@ namespace Towel
 			{
 				return false;
 			}
-			MapHashLinked<int, T, Equate, Hash> counts = new(
-				equate: equate,
-				hash: hash,
-				expectedCount: a.Length);
+			MapHashLinked<int, T, Equate, Hash> counts = new(equate: equate, hash: hash, expectedCount: a.Length);
 			foreach (T value in a)
 			{
 				counts.AddOrUpdate<Int32Increment>(value, 1);
 			}
 			foreach (T value in b)
 			{
-				if (!counts.TryUpdate<Int32Decrement>(value, out int count) || count is -1)
+				var (success, count) = counts.TryUpdate<Int32Decrement>(value);
+				if (!success || count is -1)
 				{
 					return false;
 				}
@@ -1466,13 +1464,10 @@ namespace Towel
 			where Equate : struct, IFunc<T, T, bool>
 			where Hash : struct, IFunc<T, int>
 		{
-			SetHashLinked<T, Equate, Hash> set = new(
-				equate: equate,
-				hash: hash,
-				expectedCount: span.Length);
+			SetHashLinked<T, Equate, Hash> set = new(equate: equate, hash: hash, expectedCount: span.Length);
 			foreach (T element in span)
 			{
-				if (!set.TryAdd(element))
+				if (!set.TryAdd(element).Success)
 				{
 					return true;
 				}

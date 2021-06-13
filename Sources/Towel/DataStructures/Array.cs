@@ -108,15 +108,6 @@ namespace Towel.DataStructures
 
 		#region Stepper And IEnumerable
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _array.Stepper(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(step);
-
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step)
 			where TStep : struct, IFunc<T, StepStatus> =>
@@ -278,45 +269,9 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < _elements.Length; i++)
-			{
-				T[] array = _elements[i];
-				int arrayLength = array.Length;
-				for (int j = 0; j < arrayLength; j++)
-				{
-					step(ref array[j]);
-				}
-			}
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			for (int i = 0; i < _elements.Length; i++)
-			{
-				T[] array = _elements[i];
-				int arrayLength = array.Length;
-				for (int j = 0; j < arrayLength; j++)
-				{
-					if (step(ref array[i]) is Break)
-					{
-						return Break;
-					}
-				}
-			}
-			return Continue;
-		}
-
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for this array.</summary>
-		/// <returns>The enumerator for this array.</returns>
+		/// <inheritdoc/>
 		public IEnumerator<T> GetEnumerator()
 		{
 			foreach (T[] array in _elements)

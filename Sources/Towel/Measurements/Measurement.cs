@@ -187,7 +187,8 @@ namespace Towel.Measurements
 					numerator = matchValue.Equals("*");
 					continue;
 				}
-				if (!UnitStringToEnumMap.TryGet(match.Value, out Enum @enum))
+				var (success, @enum, exception) = UnitStringToEnumMap.TryGet(match.Value);
+				if (!success)
 				{
 					measurement = default;
 					return false;

@@ -16,7 +16,7 @@ namespace Towel_Benchmarking
 			IMap<int, int> map = MapHashLinked.New<int, int>();
 			for (int i = 0; i < N; i++)
 			{
-				map.TryAdd(i, i, out _);
+				map.Add(i, i);
 			}
 		}
 
@@ -25,7 +25,7 @@ namespace Towel_Benchmarking
 			MapHashLinked<int, int, IntEquate, IntHash> map = new();
 			for (int i = 0; i < N; i++)
 			{
-				map.TryAdd(i, i, out _);
+				map.Add(i, i);
 			}
 		}
 
