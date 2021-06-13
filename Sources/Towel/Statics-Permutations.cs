@@ -43,18 +43,18 @@ namespace Towel
 			PermuteRecursive<T, SAction, SFunc<StepStatus>, SFunc<int, T>, SAction<int, T>>(start, end, action, status, get, set);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Action, Get, Set>(int start, int end, Action action = default, Get get = default, Set set = default)
-			where Action : struct, IAction
-			where Get : struct, IFunc<int, T>
-			where Set : struct, IAction<int, T> =>
-			PermuteRecursive<T, Action, StepStatusContinue, Get, Set>(start, end, action, default, get, set);
+		public static void PermuteRecursive<T, TAction, TGet, TSet>(int start, int end, TAction action = default, TGet get = default, TSet set = default)
+			where TAction : struct, IAction
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T> =>
+			PermuteRecursive<T, TAction, StepStatusContinue, TGet, TSet>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Action, Status, Get, Set>(int start, int end, Action action = default, Status status = default, Get get = default, Set set = default)
-			where Action : struct, IAction
-			where Status : struct, IFunc<StepStatus>
-			where Get : struct, IFunc<int, T>
-			where Set : struct, IAction<int, T>
+		public static void PermuteRecursive<T, TAction, TStatus, TGet, TSet>(int start, int end, TAction action = default, TStatus status = default, TGet get = default, TSet set = default)
+			where TAction : struct, IAction
+			where TStatus : struct, IFunc<StepStatus>
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
 		{
 			Permute(start, end);
 			StepStatus Permute(int a, int b)
@@ -88,19 +88,19 @@ namespace Towel
 			PermuteRecursive<T, SAction, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Action>(Span<T> span, Action action = default)
-			where Action : struct, IAction =>
-			PermuteRecursive<T, Action, StepStatusContinue>(span, action);
+		public static void PermuteRecursive<T, TAction>(Span<T> span, TAction action = default)
+			where TAction : struct, IAction =>
+			PermuteRecursive<T, TAction, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Status>(Span<T> span, Action action, Status status = default)
-			where Status : struct, IFunc<StepStatus> =>
-			PermuteRecursive<T, SAction, Status>(span, action, status);
+		public static void PermuteRecursive<T, TStatus>(Span<T> span, Action action, TStatus status = default)
+			where TStatus : struct, IFunc<StepStatus> =>
+			PermuteRecursive<T, SAction, TStatus>(span, action, status);
 
 		/// <inheritdoc cref="PermuteRecursive_XML"/>
-		public static void PermuteRecursive<T, Action, Status>(Span<T> span, Action action = default, Status status = default)
-			where Action : struct, IAction
-			where Status : struct, IFunc<StepStatus>
+		public static void PermuteRecursive<T, TAction, TStatus>(Span<T> span, TAction action = default, TStatus status = default)
+			where TAction : struct, IAction
+			where TStatus : struct, IFunc<StepStatus>
 		{
 			Permute(span, 0, span.Length - 1);
 			StepStatus Permute(Span<T> span, int a, int b)
@@ -138,18 +138,18 @@ namespace Towel
 			PermuteIterative<T, SAction, SFunc<StepStatus>, SFunc<int, T>, SAction<int, T>>(start, end, action, status, get, set);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Action, Get, Set>(int start, int end, Action action = default, Get get = default, Set set = default)
-			where Action : struct, IAction
-			where Get : struct, IFunc<int, T>
-			where Set : struct, IAction<int, T> =>
-			PermuteIterative<T, Action, StepStatusContinue, Get, Set>(start, end, action, default, get, set);
+		public static void PermuteIterative<T, TAction, TGet, TSet>(int start, int end, TAction action = default, TGet get = default, TSet set = default)
+			where TAction : struct, IAction
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T> =>
+			PermuteIterative<T, TAction, StepStatusContinue, TGet, TSet>(start, end, action, default, get, set);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Action, Status, Get, Set>(int start, int end, Action action = default, Status status = default, Get get = default, Set set = default)
-			where Action : struct, IAction
-			where Status : struct, IFunc<StepStatus>
-			where Get : struct, IFunc<int, T>
-			where Set : struct, IAction<int, T>
+		public static void PermuteIterative<T, TAction, TStatus, TGet, TSet>(int start, int end, TAction action = default, TStatus status = default, TGet get = default, TSet set = default)
+			where TAction : struct, IAction
+			where TStatus : struct, IFunc<StepStatus>
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
 		{
 			action.Invoke();
 			int[] indeces = new int[end + 2 - start];
@@ -189,9 +189,9 @@ namespace Towel
 			PermuteIterative<T, SAction, Status>(span, action, status);
 
 		/// <inheritdoc cref="PermuteIterative_XML"/>
-		public static void PermuteIterative<T, Action, Status>(Span<T> span, Action action = default, Status status = default)
-			where Action : struct, IAction
-			where Status : struct, IFunc<StepStatus>
+		public static void PermuteIterative<T, TAction, TStatus>(Span<T> span, TAction action = default, TStatus status = default)
+			where TAction : struct, IAction
+			where TStatus : struct, IFunc<StepStatus>
 		{
 			action.Invoke();
 			int[] indeces = new int[span.Length - 1 + 2];

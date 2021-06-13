@@ -31,36 +31,36 @@ namespace Towel
 
 		/// <summary>Built in struct for runtime computations.</summary>
 		/// <typeparam name="T">The generic type of the values.</typeparam>
-		/// <typeparam name="Step">The Step function.</typeparam>
-		public struct StepBreakFromAction<T, Step> : IFunc<T, StepStatus>
-			where Step : struct, IAction<T>
+		/// <typeparam name="TStep">The Step function.</typeparam>
+		public struct StepBreakFromAction<T, TStep> : IFunc<T, StepStatus>
+			where TStep : struct, IAction<T>
 		{
-			internal Step StepFunction;
+			internal TStep StepFunction;
 
 			/// <summary>The invocation of the compile time delegate.</summary>
 			public StepStatus Invoke(T value) { StepFunction.Invoke(value); return Continue; }
 
 			/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 			/// <param name="step">The runtime Step delegate.</param>
-			public static implicit operator StepBreakFromAction<T, Step>(Step step) =>
+			public static implicit operator StepBreakFromAction<T, TStep>(TStep step) =>
 				new() { StepFunction = step, };
 		}
 
-		public struct CompareInvert<T, Compare> : IFunc<T, T, CompareResult>
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public struct CompareInvert<T, TCompare> : IFunc<T, T, CompareResult>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
-			Compare _compare;
+			TCompare _compare;
 			public CompareResult Invoke(T a, T b) => _compare.Invoke(b, a);
-			public static implicit operator CompareInvert<T, Compare>(Compare compare) => new() { _compare = compare, };
+			public static implicit operator CompareInvert<T, TCompare>(TCompare compare) => new() { _compare = compare, };
 		}
 
 		/// <summary>Built in Compare struct for runtime computations.</summary>
 		/// <typeparam name="T">The generic type of the values to compare.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		public struct SiftFromCompareAndValue<T, Compare> : IFunc<T, CompareResult>
-			where Compare : struct, IFunc<T, T, CompareResult>
+		/// <typeparam name="TCompare">The compare function.</typeparam>
+		public struct SiftFromCompareAndValue<T, TCompare> : IFunc<T, CompareResult>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
-			internal Compare CompareFunction;
+			internal TCompare CompareFunction;
 			internal T Value;
 
 			/// <summary>The invocation of the compile time delegate.</summary>
@@ -69,7 +69,7 @@ namespace Towel
 			/// <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
 			/// <param name="value">The value for future values to be compared against.</param>
 			/// <param name="compare">The compare function.</param>
-			public SiftFromCompareAndValue(T value, Compare compare = default)
+			public SiftFromCompareAndValue(T value, TCompare compare = default)
 			{
 				Value = value;
 				CompareFunction = compare;

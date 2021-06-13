@@ -335,17 +335,17 @@ namespace Towel
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
 		/// <typeparam name="A">The first sequence of the equate.</typeparam>
 		/// <typeparam name="B">The second sequence of the equate.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index to equate from.</param>
 		/// <param name="end">The inclusive ending index to equate to.</param>
 		/// <param name="a">The first sequence of the equate.</param>
 		/// <param name="b">The second sequence of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, A, B, Equate>(int start, int end, A a = default, B b = default, Equate equate = default)
+		public static bool Equate<T, A, B, TEquate>(int start, int end, A a = default, B b = default, TEquate equate = default)
 			where A : struct, IFunc<int, T>
 			where B : struct, IFunc<int, T>
-			where Equate : struct, IFunc<T, T, bool>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			for (int i = start; i <= end; i++)
 			{
@@ -368,14 +368,14 @@ namespace Towel
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="a">The first span of the equate.</param>
 		/// <param name="b">The second span of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, Equate>(Span<T> a, Span<T> b, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool> =>
-			Equate<T, Equate>(0, a.Length - 1, a, b, equate);
+		public static bool Equate<T, TEquate>(Span<T> a, Span<T> b, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool> =>
+			Equate<T, TEquate>(0, a.Length - 1, a, b, equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
@@ -390,15 +390,15 @@ namespace Towel
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index to equate from.</param>
 		/// <param name="end">The inclusive ending index to equate to.</param>
 		/// <param name="a">The first span of the equate.</param>
 		/// <param name="b">The second span of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, Equate>(int start, int end, Span<T> a, Span<T> b, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool Equate<T, TEquate>(int start, int end, Span<T> a, Span<T> b, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (start < 0)
 			{

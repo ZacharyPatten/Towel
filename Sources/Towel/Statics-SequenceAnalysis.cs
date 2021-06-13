@@ -14,8 +14,8 @@ namespace Towel
 		public static (int Index, T Value) Maximum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			Maximum<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static (int Index, T Value) Maximum<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static (int Index, T Value) Maximum<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -45,8 +45,8 @@ namespace Towel
 		public static T MaximumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
 			MaximumValue<T, SFunc<T, T, CompareResult>>(a, b, compare ?? Compare);
 
-		public static T MaximumValue<T, Compare>(T a, T b, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
+		public static T MaximumValue<T, TCompare>(T a, T b, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			compare.Invoke(b, a) is Greater ? b : a;
 
 		public static T MaximumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -55,8 +55,8 @@ namespace Towel
 		public static T MaximumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MaximumValue<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static T MaximumValue<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T MaximumValue<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -83,8 +83,8 @@ namespace Towel
 		public static int MaximumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MaximumIndex<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static int MaximumIndex<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static int MaximumIndex<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -111,8 +111,8 @@ namespace Towel
 		public static (int Index, T Value) Minimum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			Minimum<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static (int Index, T Value) Minimum<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static (int Index, T Value) Minimum<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -142,8 +142,8 @@ namespace Towel
 		public static T MinimumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
 			MinimumValue<T, SFunc<T, T, CompareResult>>(a, b, compare ?? Compare);
 
-		public static T MinimumValue<T, Compare>(T a, T b, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
+		public static T MinimumValue<T, TCompare>(T a, T b, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			compare.Invoke(b, a) is Less ? b : a;
 
 		public static T MinimumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -152,8 +152,8 @@ namespace Towel
 		public static T MinimumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MinimumValue<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static T MinimumValue<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T MinimumValue<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -180,8 +180,8 @@ namespace Towel
 		public static int MinimumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MinimumIndex<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static int MinimumIndex<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static int MinimumIndex<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -248,8 +248,8 @@ namespace Towel
 			maximum = max!;
 		}
 
-		public static ((int MinIndex, T MinValue), (int MaxIndex, T MaxValue)) Range<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static ((int MinIndex, T MinValue), (int MaxIndex, T MaxValue)) Range<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -980,10 +980,10 @@ namespace Towel
 		public static void FilterOrdered<T>(int start, int end, Func<int, T> get, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
 			FilterOrdered<T, SFunc<int, T>, SAction<T>, SFunc<T, T, CompareResult>>(start, end, get, step, compare ?? Compare);
 
-		public static void FilterOrdered<T, Get, Step, Compare>(int start, int end, Get get = default, Step step = default, Compare compare = default)
-			where Get : struct, IFunc<int, T>
-			where Step : struct, IAction<T>
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static void FilterOrdered<T, TGet, TStep, TCompare>(int start, int end, TGet get = default, TStep step = default, TCompare compare = default)
+			where TGet : struct, IFunc<int, T>
+			where TStep : struct, IAction<T>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (start <= end)
 			{
@@ -1001,9 +1001,9 @@ namespace Towel
 		public static void FilterOrdered<T>(ReadOnlySpan<T> span, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
 			FilterOrdered<T, SAction<T>, SFunc<T, T, CompareResult>>(span, step, compare ?? Compare);
 
-		public static void FilterOrdered<T, Step, Compare>(ReadOnlySpan<T> span, Step step = default, Compare compare = default)
-			where Step : struct, IAction<T>
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static void FilterOrdered<T, TStep, TCompare>(ReadOnlySpan<T> span, TStep step = default, TCompare compare = default)
+			where TStep : struct, IAction<T>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (!span.IsEmpty)
 			{
@@ -1061,8 +1061,8 @@ namespace Towel
 			IsOrdered<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
-		public static bool IsOrdered<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static bool IsOrdered<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			for (int i = 1; i < span.Length; i++)
 			{
@@ -1079,8 +1079,8 @@ namespace Towel
 			IsOrdered<T, SFunc<T, T, CompareResult>>(enumerable, compare ?? Compare);
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
-		public static bool IsOrdered<T, Compare>(this System.Collections.Generic.IEnumerable<T> enumerable, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static bool IsOrdered<T, TCompare>(this System.Collections.Generic.IEnumerable<T> enumerable, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			System.Collections.Generic.IEnumerator<T> enumerator = enumerable.GetEnumerator();
 			T previous = enumerator.Current;
@@ -1111,28 +1111,28 @@ namespace Towel
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="Get">The get index function of the sequence.</typeparam>
+		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, Get>(int start, int end, Get get = default, Func<T, T, bool>? equate = default)
-			where Get : struct, IFunc<int, T> =>
-			IsPalindrome<T, Get, SFunc<T, T, bool>>(start, end, get, equate ?? Equate);
+		public static bool IsPalindrome<T, TGet>(int start, int end, TGet get = default, Func<T, T, bool>? equate = default)
+			where TGet : struct, IFunc<int, T> =>
+			IsPalindrome<T, TGet, SFunc<T, T, bool>>(start, end, get, equate ?? Equate);
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
-		/// <typeparam name="Get">The get index function of the sequence.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
+		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, Get, Equate>(int start, int end, Get get = default, Equate equate = default)
-			where Get : struct, IFunc<int, T>
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsPalindrome<T, TGet, TEquate>(int start, int end, TGet get = default, TEquate equate = default)
+			where TGet : struct, IFunc<int, T>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			int middle = (end - start) / 2 + start;
 			for (int i = start; i <= middle; i++)
@@ -1161,12 +1161,12 @@ namespace Towel
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="span">The span to check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, Equate>(ReadOnlySpan<T> span, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsPalindrome<T, TEquate>(ReadOnlySpan<T> span, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			int middle = span.Length / 2;
 			for (int i = 0; i < middle; i++)
@@ -1243,8 +1243,8 @@ namespace Towel
 			IsInterleavedRecursive<char, CharEquate>(a, b, c);
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
-		public static bool IsInterleavedRecursive<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsInterleavedRecursive<T, TEquate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (a.Length + b.Length != c.Length)
 			{
@@ -1273,8 +1273,8 @@ namespace Towel
 			IsInterleavedIterative<char, CharEquate>(a, b, c);
 
 		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
-		public static bool IsInterleavedIterative<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsInterleavedIterative<T, TEquate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (a.Length + b.Length != c.Length)
 			{
@@ -1350,16 +1350,16 @@ namespace Towel
 
 		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="Equate">The function for determining equality of elements.</typeparam>
-		/// <typeparam name="Hash">The function for hashing the elements.</typeparam>
+		/// <typeparam name="TEquate">The function for determining equality of elements.</typeparam>
+		/// <typeparam name="THash">The function for hashing the elements.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
 		/// <param name="equate">The function for determining equality of elements.</param>
 		/// <param name="hash">The function for hashing the elements.</param>
 		/// <returns>True if both spans contain the same number of each element.</returns>
-		public static bool IsReorderOf<T, Equate, Hash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Equate equate = default, Hash hash = default)
-			where Equate : struct, IFunc<T, T, bool>
-			where Hash : struct, IFunc<T, int>
+		public static bool IsReorderOf<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int>
 		{
 			if (a.IsEmpty && b.IsEmpty)
 			{
@@ -1369,7 +1369,7 @@ namespace Towel
 			{
 				return false;
 			}
-			MapHashLinked<int, T, Equate, Hash> counts = new(equate: equate, hash: hash, expectedCount: a.Length);
+			MapHashLinked<int, T, TEquate, THash> counts = new(equate: equate, hash: hash, expectedCount: a.Length);
 			foreach (T value in a)
 			{
 				counts.AddOrUpdate<Int32Increment>(value, 1);
@@ -1401,26 +1401,26 @@ namespace Towel
 
 		/// <summary>Determines if neither span contains an element the other does not.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="Equate">The function for determining equality of elements.</typeparam>
-		/// <typeparam name="Hash">The function for hashing the elements.</typeparam>
+		/// <typeparam name="TEquate">The function for determining equality of elements.</typeparam>
+		/// <typeparam name="THash">The function for hashing the elements.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
 		/// <param name="equate">The function for determining equality of elements.</param>
 		/// <param name="hash">The function for hashing the elements.</param>
 		/// <returns>True if neither span contains an element the other does not.</returns>
-		public static bool SetEquals<T, Equate, Hash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Equate equate = default, Hash hash = default)
-			where Equate : struct, IFunc<T, T, bool>
-			where Hash : struct, IFunc<T, int>
+		public static bool SetEquals<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int>
 		{
 			if (a.IsEmpty && b.IsEmpty)
 			{
 				return true;
 			}
-			SetHashLinked<T, Equate, Hash> a_counts = new(
+			SetHashLinked<T, TEquate, THash> a_counts = new(
 				equate: equate,
 				hash: hash,
 				expectedCount: a.Length);
-			SetHashLinked<T, Equate, Hash> b_counts = new(
+			SetHashLinked<T, TEquate, THash> b_counts = new(
 				equate: equate,
 				hash: hash,
 				expectedCount: a.Length);
@@ -1454,17 +1454,17 @@ namespace Towel
 
 		/// <summary>Determines if the span contains any duplicate elements.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="Equate">The function for equating elements.</typeparam>
-		/// <typeparam name="Hash">The function for hashing elements.</typeparam>
+		/// <typeparam name="TEquate">The function for equating elements.</typeparam>
+		/// <typeparam name="THash">The function for hashing elements.</typeparam>
 		/// <param name="span">The span to look for duplicates in.</param>
 		/// <param name="equate">The function for equating elements.</param>
 		/// <param name="hash">The function for hashing elements.</param>
 		/// <returns>True if the span contains duplicates.</returns>
-		public static bool ContainsDuplicates<T, Equate, Hash>(Span<T> span, Equate equate = default, Hash hash = default)
-			where Equate : struct, IFunc<T, T, bool>
-			where Hash : struct, IFunc<T, int>
+		public static bool ContainsDuplicates<T, TEquate, THash>(Span<T> span, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int>
 		{
-			SetHashLinked<T, Equate, Hash> set = new(equate: equate, hash: hash, expectedCount: span.Length);
+			SetHashLinked<T, TEquate, THash> set = new(equate: equate, hash: hash, expectedCount: span.Length);
 			foreach (T element in span)
 			{
 				if (!set.TryAdd(element).Success)
@@ -1490,13 +1490,13 @@ namespace Towel
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="Equate">The function for equating elements.</typeparam>
+		/// <typeparam name="TEquate">The function for equating elements.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="value">The value to look for.</param>
 		/// <param name="equate">The function for equating elements.</param>
 		/// <returns>True if the value was found.</returns>
-		public static bool Contains<T, Equate>(Span<T> span, T value, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool Contains<T, TEquate>(Span<T> span, T value, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			foreach (T element in span)
 			{
@@ -1551,16 +1551,16 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetLeast<T, Compare>(System.Collections.Generic.IEnumerable<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T[] GetLeast<T, TCompare>(System.Collections.Generic.IEnumerable<T> values, int count)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (values is null) throw new ArgumentNullException(nameof(values));
 			if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} <= 0");
-			HeapArray<T, Compare> heap = new(minimumCapacity: count + 1);
+			HeapArray<T, TCompare> heap = new(minimumCapacity: count + 1);
 			foreach (T value in values)
 			{
 				heap.Enqueue(value);
@@ -1576,17 +1576,17 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetLeast<T, Compare>(ReadOnlySpan<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T[] GetLeast<T, TCompare>(ReadOnlySpan<T> values, int count)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (values.IsEmpty) throw new ArgumentException($"{nameof(values)}.{nameof(values.IsEmpty)}", nameof(values));
 			if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} <= 0");
 			if (count > values.Length) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} > {nameof(values)}.{nameof(values.Length)}");
-			HeapArray<T, Compare> heap = new(minimumCapacity: count + 1);
+			HeapArray<T, TCompare> heap = new(minimumCapacity: count + 1);
 			foreach (T value in values)
 			{
 				heap.Enqueue(value);
@@ -1600,23 +1600,23 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetGreatest<T, Compare>(System.Collections.Generic.IEnumerable<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			GetLeast<T, CompareInvert<T, Compare>>(values, count);
+		public static T[] GetGreatest<T, TCompare>(System.Collections.Generic.IEnumerable<T> values, int count)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			GetLeast<T, CompareInvert<T, TCompare>>(values, count);
 
 		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetGreatest<T, Compare>(ReadOnlySpan<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			GetLeast<T, CompareInvert<T, Compare>>(values, count);
+		public static T[] GetGreatest<T, TCompare>(ReadOnlySpan<T> values, int count)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			GetLeast<T, CompareInvert<T, TCompare>>(values, count);
 
 		#endregion
 
