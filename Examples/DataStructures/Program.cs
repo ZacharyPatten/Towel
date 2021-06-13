@@ -21,7 +21,7 @@ namespace DataStructures
 				Console.WriteLine("  Link------------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    A \"Link\" is like a System.Tuple that implements");
-				Console.WriteLine("    Towel.DataStructures.DataStructure. A Link/Tuple is");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. A Link/Tuple is");
 				Console.WriteLine("    used when you have a small, known-sized set of objects");
 				Console.WriteLine("    that you want to bundle together without making a custom");
 				Console.WriteLine("    custom class.");
@@ -45,10 +45,10 @@ namespace DataStructures
 			{
 				Console.WriteLine("  Array---------------------------------");
 				Console.WriteLine();
-				Console.WriteLine("    An Array<T> is just a wrapper for arrays that implements");
-				Console.WriteLine("    Towel.DataStructures.DataStructure. An array is used when");
-				Console.WriteLine("    dealing with static-sized, known-sized sets of data. Arrays");
-				Console.WriteLine("    can be sorted along 1 dimensions for binary searching algorithms.");
+				Console.WriteLine(@$"    An Array<T> is just a wrapper for arrays that implements");
+				Console.WriteLine(@$"    Towel.DataStructures.IDataStructure<T>. An array is used when");
+				Console.WriteLine(@$"    dealing with static-sized, known-sized sets of data. Arrays");
+				Console.WriteLine(@$"    can be sorted along 1 dimensions for binary searching algorithms.");
 				Console.WriteLine();
 
 				IArray<int> array = new Array<int>(test);
@@ -75,7 +75,7 @@ namespace DataStructures
 				Console.WriteLine("  List---------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An List is like an IList that implements");
-				Console.WriteLine("    Towel.DataStructures.DataStructure. \"ListArray\" is");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. \"ListArray\" is");
 				Console.WriteLine("    the array implementation while \"ListLinked\" is the");
 				Console.WriteLine("    the linked-list implementation. An List is used");
 				Console.WriteLine("    when dealing with an unknown quantity of data that you");
@@ -132,7 +132,7 @@ namespace DataStructures
 				Console.WriteLine("  Stack---------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An \"Stack\" is a Stack that implements");
-				Console.WriteLine("    Towel.DataStructures.DataStructure. \"StackArray\" is");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. \"StackArray\" is");
 				Console.WriteLine("    the array implementation while \"StackLinked\" is the");
 				Console.WriteLine("    the linked-list implementation. A Stack is used");
 				Console.WriteLine("    specifically when you need the algorithm provided by the Push");
@@ -192,7 +192,7 @@ namespace DataStructures
 				Console.WriteLine("  Queue---------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An \"Queue\" is a Queue that implements");
-				Console.WriteLine("    Towel.DataStructures.DataStructure. \"QueueArray\" is");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. \"QueueArray\" is");
 				Console.WriteLine("    the array implementation while \"QueueLinked\" is the");
 				Console.WriteLine("    the linked-list implementation. A Queue/Stack is used");
 				Console.WriteLine("    specifically when you need the algorithm provided by the Queue");
@@ -252,7 +252,7 @@ namespace DataStructures
 				Console.WriteLine("  Heap---------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An \"Heap\" is a binary tree that stores items based on priorities.");
-				Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
+				Console.WriteLine("    It implements Towel.DataStructures.IDataStructure<T> like the others.");
 				Console.WriteLine("    It uses sifting algorithms to move nodes vertically through itself.");
 				Console.WriteLine("    It is often the best data structure for standard priority queues.");
 				Console.WriteLine("    \"HeapArray\" is an implementation where the tree has been flattened");
@@ -321,7 +321,7 @@ namespace DataStructures
 				Console.WriteLine("  AvlTree------------------------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An AVL Tree is a sorted binary tree.");
-				Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
+				Console.WriteLine("    It implements Towel.DataStructures.IDataStructure<T> like the others.");
 				Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
 				Console.WriteLine("    It is very similar to an Red Black tree, but uses a different sorting algorithm.");
 				Console.WriteLine();
@@ -378,7 +378,7 @@ namespace DataStructures
 				Console.WriteLine("  Red-Black Tree------------------------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An Red-Black Tree is a sorted binary tree.");
-				Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
+				Console.WriteLine("    It implements Towel.DataStructures.IDataStructure<T> like the others.");
 				Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
 				Console.WriteLine("    It is very similar to an AVL tree, but uses a different sorting algorithm.");
 				Console.WriteLine();

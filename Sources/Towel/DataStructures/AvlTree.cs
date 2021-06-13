@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using Towel;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
+	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IAvlTree<T> : ISortedBinaryTree<T>
 	{
 		
@@ -16,7 +17,7 @@ namespace Towel.DataStructures
 	public interface IAvlTree<T, TCompare> : IAvlTree<T>, ISortedBinaryTree<T, TCompare>
 		where TCompare : struct, IFunc<T, T, CompareResult> { }
 
-	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
+	/// <summary>Static helpers for <see cref="IAvlTree{T}"/> and <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class AvlTree
 	{
 		
@@ -43,7 +44,7 @@ namespace Towel.DataStructures
 		internal int _count;
 		internal TCompare _compare;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -152,8 +153,6 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region TryAdd
-
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
@@ -192,40 +191,16 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>
-		/// Clones the AVL tree.
-		/// <para>Runtime: θ(n)</para>
-		/// </summary>
-		/// <returns>A clone of the AVL tree.</returns>
+		/// <summary>Clones the tree.</summary>
+		/// <returns>A clone of the tree.</returns>
 		public AvlTreeLinked<T, TCompare> Clone() => new(this);
 
-		/// <summary>
-		/// Determines if the AVL tree contains a value.
-		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
-		/// </summary>
-		/// <param name="value">The value to look for.</param>
-		/// <returns>Whether or not the AVL tree contains the value.</returns>
-		public bool Contains(T value) =>
-			Contains(x => _compare.Invoke(x, value));
+		/// <inheritdoc/>
+		public bool Contains(T value) => ContainsSift<SiftFromCompareAndValue<T, TCompare>>(new(value, Compare));
 
-		/// <summary>
-		/// Determines if this structure contains an item by a given key.
-		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
-		/// </summary>
-		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
-		/// <returns>True of contained, False if not.</returns>
-		public bool Contains(Func<T, CompareResult> sift) =>
-			sift is null ? throw new ArgumentNullException(nameof(sift)) :
-			Contains<SFunc<T, CompareResult>>(sift);
-
-		/// <summary>
-		/// Determines if this structure contains an item by a given key.
-		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
-		/// </summary>
-		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
-		/// <returns>True of contained, False if not.</returns>
-		public bool Contains<Sift>(Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		/// <inheritdoc/>
+		public bool ContainsSift<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node? node = _root;
 			while (node is not null)
@@ -245,13 +220,9 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		#endregion
-
-		#region TryGet
-
 		/// <inheritdoc/>
-		public (bool Success, T? Value, Exception? Exception) TryGet<Sift>(Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		public (bool Success, T? Value, Exception? Exception) TryGet<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node? node = _root;
 			while (node is not null)
@@ -268,16 +239,12 @@ namespace Towel.DataStructures
 			return (false, default, new InvalidOperationException("Attempting to get a non-existing value from an AVL tree."));
 		}
 
-		#endregion
-
-		#region TryRemove
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryRemove(T value) => TryRemoveSift<SiftFromCompareAndValue<T, TCompare>>(new(value, Compare));
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryRemove(T value) => SortedBinaryTree.TryRemove(this, value);
-
-		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryRemove<Sift>(Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		public (bool Success, Exception? Exception) TryRemoveSift<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Exception? exception = null;
 			Node? Remove(Node? node)
@@ -326,10 +293,6 @@ namespace Towel.DataStructures
 			}
 			return (exception is null, exception);
 		}
-
-		#endregion
-
-		#region Stepper And IEnumerable
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
@@ -436,7 +399,7 @@ namespace Towel.DataStructures
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <inheritdoc/>
-		public IEnumerator<T> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			#warning TODO: can this be optimized?
 			IList<T> list = new ListLinked<T>();
@@ -444,15 +407,11 @@ namespace Towel.DataStructures
 			return list.GetEnumerator();
 		}
 
-		#endregion
-
-		#region Helpers
-
-		internal static Node? Balance(Node node)
+		internal static Node Balance(Node node)
 		{
 			static Node RotateSingleLeft(Node node)
 			{
-				Node? temp = node.RightChild;
+				Node temp = node.RightChild!;
 				node.RightChild = temp.LeftChild;
 				temp.LeftChild = node;
 				SetHeight(node);
@@ -462,7 +421,7 @@ namespace Towel.DataStructures
 
 			static Node RotateDoubleLeft(Node node)
 			{
-				Node? temp = node.RightChild.LeftChild;
+				Node temp = node.RightChild!.LeftChild!;
 				node.RightChild.LeftChild = temp.RightChild;
 				temp.RightChild = node.RightChild;
 				node.RightChild = temp.LeftChild;
@@ -475,7 +434,7 @@ namespace Towel.DataStructures
 
 			static Node RotateSingleRight(Node node)
 			{
-				Node? temp = node.LeftChild;
+				Node temp = node.LeftChild!;
 				node.LeftChild = temp.RightChild;
 				temp.RightChild = node;
 				SetHeight(node);
@@ -483,9 +442,9 @@ namespace Towel.DataStructures
 				return temp;
 			}
 
-			static Node? RotateDoubleRight(Node node)
+			static Node RotateDoubleRight(Node node)
 			{
-				Node? temp = node.LeftChild.RightChild;
+				Node temp = node.LeftChild!.RightChild!;
 				node.LeftChild.RightChild = temp.LeftChild;
 				temp.LeftChild = node.LeftChild;
 				node.LeftChild = temp.RightChild;
@@ -498,13 +457,13 @@ namespace Towel.DataStructures
 
 			if (Height(node.LeftChild) == Height(node.RightChild) + 2)
 			{
-				return Height(node.LeftChild.LeftChild) > Height(node.RightChild)
+				return Height(node.LeftChild!.LeftChild) > Height(node.RightChild)
 					? RotateSingleRight(node)
 					: RotateDoubleRight(node);
 			}
 			else if (Height(node.RightChild) == Height(node.LeftChild) + 2)
 			{
-				return Height(node.RightChild.RightChild) > Height(node.LeftChild)
+				return Height(node.RightChild!.RightChild) > Height(node.LeftChild)
 					? RotateSingleLeft(node)
 					: RotateDoubleLeft(node);
 			}
@@ -530,7 +489,7 @@ namespace Towel.DataStructures
 			if (node.LeftChild is null)
 			{
 				leftMost = node;
-				return node.RightChild;
+				return node.RightChild!;
 			}
 			node.LeftChild = RemoveLeftMost(node.LeftChild, out leftMost);
 			SetHeight(node);
@@ -547,7 +506,7 @@ namespace Towel.DataStructures
 			if (node.RightChild is null)
 			{
 				rightMost = node;
-				return node.LeftChild;
+				return node.LeftChild!;
 			}
 			node.RightChild = RemoveRightMost(node.RightChild, out rightMost);
 			SetHeight(node);
@@ -561,8 +520,6 @@ namespace Towel.DataStructures
 		/// <param name="node">The tree to have its height adjusted.</param>
 		internal static void SetHeight(Node node) =>
 			node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
-
-		#endregion
 
 		#endregion
 	}

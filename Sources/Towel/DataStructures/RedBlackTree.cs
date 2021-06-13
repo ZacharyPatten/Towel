@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
+	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IRedBlackTree<T> : ISortedBinaryTree<T>
 	{
 		
@@ -15,7 +16,7 @@ namespace Towel.DataStructures
 	public interface IRedBlackTree<T, TCompare> : IRedBlackTree<T>, ISortedBinaryTree<T, TCompare>
 		where TCompare : struct, IFunc<T, T, CompareResult> { }
 
-	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
+	/// <summary>Static helpers for <see cref="IRedBlackTree{T}"/> and <see cref="IRedBlackTree{T, TCompare}"/>.</summary>
 	public static class RedBlackTree
 	{
 		
@@ -40,28 +41,28 @@ namespace Towel.DataStructures
 	{
 		internal const bool Red = true;
 		internal const bool Black = false;
-		internal readonly Node _sentinelNode = new(value: default, color: Black);
+		internal readonly Node _sentinelNode = new(value: default!, color: Black, leftChild: null!, rightChild: null!);
 
 		internal TCompare _compare;
 		internal int _count;
 		internal Node _root;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
 			internal T Value;
 			internal bool Color;
 			internal Node? Parent;
-			internal Node? LeftChild;
-			internal Node? RightChild;
+			internal Node LeftChild;
+			internal Node RightChild;
 
 			public Node(
 				T value,
+				Node leftChild,
+				Node rightChild,
 				bool color = Red,
-				Node? parent = null,
-				Node? leftChild = null,
-				Node? rightChild = null)
+				Node? parent = null)
 			{
 				Value = value;
 				Color = color;
@@ -87,7 +88,7 @@ namespace Towel.DataStructures
 		/// <param name="tree">The tree to be cloned.</param>
 		internal RedBlackTreeLinked(RedBlackTreeLinked<T, TCompare> tree)
 		{
-			Node Clone(Node node, Node parent)
+			Node Clone(Node node, Node? parent)
 			{
 				if (node == _sentinelNode)
 				{
@@ -96,9 +97,11 @@ namespace Towel.DataStructures
 				Node clone = new(
 					value: node.Value,
 					color: node.Color,
-					parent: parent);
-				clone.LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild, clone);
-				clone.RightChild = node.RightChild is null ? null : Clone(node.RightChild, clone);
+					parent: parent,
+					leftChild: null!,
+					rightChild: null!);
+				clone.LeftChild = node.LeftChild == _sentinelNode ? _sentinelNode : Clone(node.LeftChild, clone);
+				clone.RightChild = node.RightChild == _sentinelNode ? _sentinelNode : Clone(node.RightChild, clone);
 				return clone;
 			}
 			_compare = tree._compare;
@@ -110,7 +113,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Gets the current least item in the tree.</summary>
+		/// <inheritdoc/>
 		public T CurrentLeast
 		{
 			get
@@ -128,7 +131,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Gets the current greated item in the tree.</summary>
+		/// <inheritdoc/>
 		public T CurrentGreatest
 		{
 			get
@@ -146,19 +149,17 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>The number of items in this data structure.</summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
-		/// <summary>The comparison function being utilized by this structure.</summary>
+		/// <inheritdoc/>
 		public TCompare Compare => _compare;
 
 		#endregion
 
 		#region Methods
 
-		/// <summary>Tries to add a value to the Red-Black tree.</summary>
-		/// <param name="value">The value to be added to the Red-Black tree.</param>
-		/// <returns>True if the add was successful or false if not.</returns>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Exception? exception = null;
@@ -218,16 +219,16 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <summary>Clones the tree.</summary>
+		/// <returns>A clone of the tree.</returns>
 		public RedBlackTreeLinked<T, TCompare> Clone() => new(this);
 
 		/// <inheritdoc/>
-		public bool Contains(T value) => Contains(new SiftFromCompareAndValue<T, TCompare>(value, _compare));
+		public bool Contains(T value) => ContainsSift<SiftFromCompareAndValue<T, TCompare>>(new(value, Compare));
 
 		/// <inheritdoc/>
-		public bool Contains<Sift>(Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		public bool ContainsSift<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node node = _root;
 			while (node != _sentinelNode && node is not null)
@@ -245,8 +246,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, T? Value, Exception? Exception) TryGet<Sift>(Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		public (bool Success, T? Value, Exception? Exception) TryGet<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node node = _root;
 			while (node != _sentinelNode)
@@ -266,11 +267,12 @@ namespace Towel.DataStructures
 			return (false, default, new ArgumentException("Attempting to get a non-existing value."));
 		}
 
-		public (bool Success, Exception? Exception) TryRemove(T value) => SortedBinaryTree.TryRemove(this, value);
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryRemove(T value) => TryRemoveSift<SiftFromCompareAndValue<T, TCompare>>(new(value, Compare));
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryRemove<Sift>(Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		public (bool Success, Exception? Exception) TryRemoveSift<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node node;
 			node = _root;
@@ -346,13 +348,11 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#region Stepper And IEnumerable
-
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus>
 		{
-			StepStatus Stepper(Node? node)
+			StepStatus Stepper(Node node)
 			{
 				if (node != _sentinelNode)
 				{
@@ -370,7 +370,7 @@ namespace Towel.DataStructures
 		public virtual StepStatus StepperBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IFunc<T, StepStatus>
 		{
-			StepStatus Stepper(Node? node)
+			StepStatus Stepper(Node node)
 			{
 				if (node != _sentinelNode)
 				{
@@ -403,7 +403,7 @@ namespace Towel.DataStructures
 		public StepStatus StepperReverseBreak<Step>(Step step = default)
 			where Step : struct, IFunc<T, StepStatus>
 		{
-			StepStatus StepperReverse(Node? node)
+			StepStatus StepperReverse(Node node)
 			{
 				if (node != _sentinelNode)
 				{
@@ -421,7 +421,7 @@ namespace Towel.DataStructures
 		public virtual StepStatus StepperReverseBreak<Step>(T minimum, T maximum, Step step = default)
 			where Step : struct, IFunc<T, StepStatus>
 		{
-			StepStatus StepperReverse(Node? node)
+			StepStatus StepperReverse(Node node)
 			{
 				if (node != _sentinelNode)
 				{
@@ -453,39 +453,37 @@ namespace Towel.DataStructures
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <inheritdoc/>
-		public IEnumerator<T> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			Node? GetNextNode(Node current)
+			Node? GetNextNode(Node node)
 			{
-				if (current.RightChild is not null && current.RightChild != _sentinelNode)
+				if (node.RightChild != _sentinelNode)
 				{
-					return GetLeftMostNode(current.RightChild);
+					return GetLeftMostNode(node.RightChild);
 				}
-				var parent = current.Parent;
-				while (parent is not null && current == parent.RightChild)
+				var parent = node.Parent;
+				while (parent is not null && node == parent.RightChild)
 				{
-					current = parent;
+					node = parent;
 					parent = parent.Parent;
 				}
 				return parent;
 			}
-
-			for (var current = GetLeftMostNode(_root); current is not null; current = GetNextNode(current))
+			if (_count > 0)
 			{
-				yield return current.Value;
+				for (var node = GetLeftMostNode(_root); node is not null; node = GetNextNode(node))
+				{
+					yield return node.Value;
+				}
 			}
 		}
-
-		#endregion
-
-		#region Helpers
 
 		internal void BalanceAddition(Node balancing)
 		{
 			Node temp;
-			while (balancing != _root && balancing.Parent.Color == Red)
+			while (balancing != _root && balancing.Parent!.Color == Red)
 			{
-				if (balancing.Parent == balancing.Parent.Parent.LeftChild)
+				if (balancing.Parent == balancing.Parent.Parent!.LeftChild)
 				{
 					temp = balancing.Parent.Parent.RightChild;
 					if (temp is not null && temp.Color == Red)
@@ -502,8 +500,8 @@ namespace Towel.DataStructures
 							balancing = balancing.Parent;
 							RotateLeft(balancing);
 						}
-						balancing.Parent.Color = Black;
-						balancing.Parent.Parent.Color = Red;
+						balancing.Parent!.Color = Black;
+						balancing.Parent.Parent!.Color = Red;
 						RotateRight(balancing.Parent.Parent);
 					}
 				}
@@ -524,8 +522,8 @@ namespace Towel.DataStructures
 							balancing = balancing.Parent;
 							RotateRight(balancing);
 						}
-						balancing.Parent.Color = Black;
-						balancing.Parent.Parent.Color = Red;
+						balancing.Parent!.Color = Black;
+						balancing.Parent.Parent!.Color = Red;
 						RotateLeft(balancing.Parent.Parent);
 					}
 				}
@@ -582,7 +580,7 @@ namespace Towel.DataStructures
 			Node temp;
 			while (balancing != _root && balancing.Color == Black)
 			{
-				if (balancing == balancing.Parent.LeftChild)
+				if (balancing == balancing.Parent!.LeftChild)
 				{
 					temp = balancing.Parent.RightChild;
 					if (temp.Color == Red)
@@ -656,8 +654,6 @@ namespace Towel.DataStructures
 			}
 			return node;
 		}
-
-		#endregion
 
 		#endregion
 	}

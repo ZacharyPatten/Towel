@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using Towel;
+using static Towel.Statics;
 using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
@@ -129,6 +131,45 @@ namespace Towel_Testing.DataStructures
 				Extensions.Iterate(100, i => tree.Remove(i));
 				Assert.IsTrue(tree.Count is 0);
 			}
+		}
+
+		[TestMethod]
+		public void GetEnumerable_Testing()
+		{
+			#pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
+			{
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				Assert.IsTrue(tree.Count() is 0);
+			}
+			{
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				Assert.IsTrue(tree.TryAdd(1).Success);
+				Assert.IsTrue(tree.Count() is 1);
+				Assert.IsTrue(tree.SequenceEqual(Ɐ(1)));
+			}
+			{
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				Assert.IsTrue(tree.TryAdd(1).Success);
+				Assert.IsTrue(tree.TryAdd(2).Success);
+				Assert.IsTrue(tree.TryAdd(3).Success);
+				Assert.IsTrue(tree.Count() is 3);
+				Assert.IsTrue(tree.SequenceEqual(Ɐ(1, 2, 3)));
+			}
+			{
+				IRedBlackTree<int> tree = RedBlackTreeLinked.New<int>();
+				Assert.IsTrue(tree.TryAdd(1).Success);
+				Assert.IsTrue(tree.TryAdd(2).Success);
+				Assert.IsTrue(tree.TryAdd(3).Success);
+				Assert.IsTrue(tree.TryAdd(4).Success);
+				Assert.IsTrue(tree.TryAdd(5).Success);
+				Assert.IsTrue(tree.TryAdd(6).Success);
+				Assert.IsTrue(tree.TryAdd(7).Success);
+				Assert.IsTrue(tree.TryAdd(8).Success);
+				Assert.IsTrue(tree.TryAdd(9).Success);
+				Assert.IsTrue(tree.Count() is 9);
+				Assert.IsTrue(tree.SequenceEqual(Ɐ(1, 2, 3, 4, 5, 6, 7, 8, 9)));
+			}
+			#pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
 		}
 	}
 }
