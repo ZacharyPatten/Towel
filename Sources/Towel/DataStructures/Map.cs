@@ -182,8 +182,8 @@ namespace Towel.DataStructures
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
 	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
-	/// <typeparam name="THash">The type of the hash function.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="K"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="K"/> values.</typeparam>
 	public class MapHashLinked<T, K, TEquate, THash> : IMap<T, K>,
 		// Structure Properties
 		DataStructure.IEquating<K, TEquate>,
@@ -223,8 +223,8 @@ namespace Towel.DataStructures
 		/// Constructs a hashed map.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		/// <param name="equate">The equate delegate.</param>
-		/// <param name="hash">The hashing function.</param>
+		/// <param name="equate">The function for quality checking <typeparamref name="K"/> values.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="K"/> values.</param>
 		/// <param name="expectedCount">The expected count of the map.</param>
 		public MapHashLinked(
 			TEquate equate = default,

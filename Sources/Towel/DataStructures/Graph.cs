@@ -127,8 +127,8 @@ namespace Towel.DataStructures
 
 	/// <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
-	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
-	/// <typeparam name="THash">The type of the hash function.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class GraphSetOmnitree<T, TEquate, THash> : IGraph<T>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
@@ -291,7 +291,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public void Neighbors(T node, Action<T?> step)
+		public void Neighbors(T node, Action<T> step)
 		{
 			if (!_nodes.Contains(node))
 			{
@@ -562,6 +562,13 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="IGraphWeighted{V, W}"/>.</summary>
 	public static class GraphWeighted
 	{
+		/// <summary>Adds an edge to a weighted graph</summary>
+		/// <typeparam name="V">The generic node type of this graph.</typeparam>
+		/// <typeparam name="W">The generic weight type of this graph.</typeparam>
+		/// <param name="graph">The data structure to add the value to.</param>
+		/// <param name="start">The starting point of the edge.</param>
+		/// <param name="end">The ending point of the edge.</param>
+		/// <param name="weight">The weight of the edge.</param>
 		public static void Add<V, W>(this IGraphWeighted<V, W> graph, V start, V end, W? weight)
 		{
 			var (success, exception) = graph.TryAdd(start, end, weight);
@@ -590,8 +597,8 @@ namespace Towel.DataStructures
 	/// </summary>
 	/// <typeparam name="V">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
-	/// <typeparam name="THash">The type of the hash function.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="V"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="V"/> values.</typeparam>
 	public class GraphWeightedMap<V, W, TEquate, THash> : IGraphWeighted<V, W>,
 		DataStructure.IEquating<V, TEquate>,
 		DataStructure.IHashing<V, THash>
@@ -653,10 +660,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Adds a weighted edge to the graph </summary>
-		/// <param name="start">The starting point of the edge to add</param>
-		/// <param name="end">The ending point of the edge to add</param>
-		/// <param name="weight">The weight of the edge</param>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(V start, V end, W? weight)
 		{
 			var x = _map.TryGet(start);
@@ -675,11 +679,7 @@ namespace Towel.DataStructures
 			return (true, null);
 		}
 
-		/// <summary>Checks if b is adjacent to a.</summary>
-		/// <param name="a">The starting point of the edge to check.</param>
-		/// <param name="b">The ending point of the edge to check.</param>
-		/// <param name="weight">The weight of the edge, if it exists.</param>
-		/// <returns>True if b is adjacent to a; False if not</returns>
+		/// <inheritdoc/>
 		public bool Adjacent(V a, V b, out W? weight)
 		{
 			var (success, value, exception) = _map.TryGet(a);
@@ -701,23 +701,16 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Checks if b is adjacent to a.</summary>
-		/// <param name="a">The starting point of the edge to check.</param>
-		/// <param name="b">The ending point of the edge to check.</param>
-		/// <returns>True if b is adjacent to a; False if not</returns>
+		/// <inheritdoc/>
 		public bool Adjacent(V a, V b) => Adjacent(a, b, out var _);
 
-		/// <summary>Removes all edges and nodes</summary>
+		/// <inheritdoc/>
 		public void Clear() => _map.Clear();
 
-		/// <summary> Performs action via a delegate for every neighbour of a node </summary>
-		/// <param name="a">The node to scan neighbours for</param>
-		/// <param name="function">The delegate function to act on the node</param>
+		/// <inheritdoc/>
 		public void Neighbors(V a, Action<V> function) => _map[a].OutgoingEdges.Keys(function);
 
-		/// <summary>Removes any edge between the given nodes.</summary>
-		/// <param name="start">The node on the start of the edge</param>
-		/// <param name="end">The node on the end of the edge</param>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(V start, V end)
 		{
 			if (!_map.Contains(start)) return (false, new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(start)));
@@ -727,8 +720,6 @@ namespace Towel.DataStructures
 			_edges--;
 			return (true, null);
 		}
-
-		#region Stepper and IEnumerable
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
@@ -773,8 +764,6 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<V> GetEnumerator() =>
 			_map.GetKeys().GetEnumerator();
-
-		#endregion
 
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(V node)

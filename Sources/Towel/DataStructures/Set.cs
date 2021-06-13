@@ -27,9 +27,9 @@ namespace Towel.DataStructures
 	}
 
 	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
-	/// <typeparam name="T">The type of values to store in the set.</typeparam>
-	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
-	/// <typeparam name="THash">The type of the hash function.</typeparam>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class SetHashLinked<T, TEquate, THash> : ISet<T>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
@@ -62,12 +62,9 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>
-		/// Constructs a hashed set.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="equate">The equate delegate.</param>
-		/// <param name="hash">The hashing function.</param>
+		/// <summary>Constructs a hashed set.</summary>
+		/// <param name="equate">The function for quality checking <typeparamref name="T"/> values.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		/// <param name="expectedCount">The expected count of the set.</param>
 		public SetHashLinked(
 			TEquate equate = default,

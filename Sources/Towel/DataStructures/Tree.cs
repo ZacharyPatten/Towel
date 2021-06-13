@@ -13,7 +13,7 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>The head of the tree.</summary>
-		T Head { get; }
+		T Top { get; }
 
 		#endregion
 
@@ -30,6 +30,11 @@ namespace Towel.DataStructures
 		/// <param name="step">The step function.</param>
 		void Children(T parent, Action<T> step);
 
+		/// <summary>Gets the parent of a given node.</summary>
+		/// <param name="child">The child to get the parent of.</param>
+		/// <returns>The parent of the given child.</returns>
+		T Parent(T child);
+
 		/// <summary>Adds a node to the tree.</summary>
 		/// <param name="addition">The node to be added.</param>
 		/// <param name="parent">The parent of the node to be added.</param>
@@ -38,7 +43,7 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	/// <summary>Static helpers.</summary>
+	/// <summary>Static members for the <see cref="TreeMap{T, TEquate, THash}"/> type.</summary>
 	public static class TreeMap
 	{
 		/// <summary>Constructs a new <see cref="TreeMap{T, TEquate, THash}"/>.</summary>
@@ -53,6 +58,8 @@ namespace Towel.DataStructures
 
 	/// <summary>A generic tree data structure using a dictionary to store node data.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class TreeMap<T, TEquate, THash> : ITree<T>,
 		// Structure Properties
 		DataStructure.IHashing<T, THash>,
@@ -81,6 +88,10 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
+		/// <summary>Constructs a new tree.</summary>
+		/// <param name="top">The top of the tree.</param>
+		/// <param name="equate">The function for quality checking <typeparamref name="T"/> values.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		public TreeMap(T top, TEquate equate = default, THash hash = default)
 		{
 			_top = top;
@@ -102,26 +113,23 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The head of the tree.</summary>
-		public T Head => _top;
+		/// <inheritdoc/>
+		public T Top => _top;
 
-		/// <summary>The hash function being used (was passed into the constructor).</summary>
+		/// <inheritdoc/>
 		public THash Hash => _map.Hash;
 
-		/// <summary>The equate function being used (was passed into the constructor).</summary>
+		/// <inheritdoc/>
 		public TEquate Equate => _map.Equate;
 
-		/// <summary>The number of nodes in this tree.</summary>
+		/// <inheritdoc/>
 		public int Count => _map.Count;
 
 		#endregion
 
 		#region Methods
 
-		/// <summary>Determines if a node is the child of another node.</summary>
-		/// <param name="node">The child to check the parent of.</param>
-		/// <param name="parent">The parent to check the child of.</param>
-		/// <returns>True if the node is a child of the parent; False if not.</returns>
+		/// <inheritdoc/>
 		public bool IsChildOf(T node, T parent)
 		{
 			if (!_map.Contains(node))
@@ -136,9 +144,7 @@ namespace Towel.DataStructures
 			return value!.Children.Contains(node);
 		}
 
-		/// <summary>Gets the parent of a given node.</summary>
-		/// <param name="child">The child to get the parent of.</param>
-		/// <returns>The parent of the given child.</returns>
+		/// <inheritdoc/>
 		public T Parent(T child)
 		{
 			if (Equate.Invoke(child, _top))
@@ -153,9 +159,7 @@ namespace Towel.DataStructures
 			return value!.Parent!;
 		}
 
-		/// <summary>Stepper function for the children of a given node.</summary>
-		/// <param name="parent">The node to step through the children of.</param>
-		/// <param name="step">The step function.</param>
+		/// <inheritdoc/>
 		public void Children(T parent, Action<T> step)
 		{
 			var (success, value, exception) = _map.TryGet(parent);
@@ -166,9 +170,7 @@ namespace Towel.DataStructures
 			value!.Children.Stepper(step);
 		}
 
-		/// <summary>Adds a node to the tree.</summary>
-		/// <param name="node">The node to be added.</param>
-		/// <param name="parent">The parent of the node to be added.</param>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T node, T parent)
 		{
 			if (_map.Contains(node))
@@ -186,8 +188,7 @@ namespace Towel.DataStructures
 		}
 
 
-		/// <summary>Removes a node from the tree and all the child nodes.</summary>
-		/// <param name="node">The node to be removed.</param>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(T node)
 		{
 			if (Equate.Invoke(node, _top))

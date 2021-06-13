@@ -70,11 +70,8 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>
-		/// Constructs an AVL Tree.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="compare">The comparison function for sorting the items.</param>
+		/// <summary>Constructs an AVL Tree.</summary>
+		/// <param name="compare">The comparison function for sorting <typeparamref name="T"/> values.</param>
 		public AvlTreeLinked(TCompare compare = default)
 		{
 			_root = null;
@@ -101,10 +98,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>
-		/// Gets the current least item in the avl tree.
-		/// <para>Runtime: θ(ln(Count))</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public T CurrentLeast
 		{
 			get
@@ -119,10 +113,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Gets the current greated item in the avl tree.
-		/// <para>Runtime: θ(ln(Count))</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public T CurrentGreatest
 		{
 			get
@@ -137,16 +128,10 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// The comparison function being utilized by this structure.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public TCompare Compare => _compare;
 
-		/// <summary>
-		/// Gets the number of elements in the collection.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
 		#endregion
@@ -401,7 +386,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			#warning TODO: can this be optimized?
+			#warning TODO: optimized using stack
 			IList<T> list = new ListLinked<T>();
 			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();

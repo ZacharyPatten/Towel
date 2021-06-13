@@ -50,16 +50,15 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>
-		/// Creates an instance of a stack.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Constructs a new stack.</summary>
 		public StackLinked()
 		{
 			_top = null;
 			_count = 0;
 		}
 
+		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <param name="stack">The stack to clone.</param>
 		internal StackLinked(StackLinked<T> stack)
 		{
 			if (stack._top is not null)
@@ -92,10 +91,7 @@ namespace Towel.DataStructures
 		/// <returns>A shallow clone of this data structure.</returns>
 		public StackLinked<T> Clone() => new(this);
 
-		/// <summary>
-		/// Converts the structure into an array.
-		/// <para>Runtime: Θ(n)</para>
-		/// </summary>
+		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public T[] ToArray()
 		{
@@ -193,21 +189,15 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>
-		/// Creates an instance of a ListArray, and sets it's minimum capacity.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Constructs a new stack.</summary>
 		public StackArray()
 		{
 			_array = new T[DefaultMinimumCapacity];
 			_count = 0;
 		}
 
-		/// <summary>
-		/// Creates an instance of a ListArray, and sets it's minimum capacity.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
+		/// <summary>Constructs a new stack.</summary>
+		/// <param name="minimumCapacity">The minimum capacity of the stack.</param>
 		public StackArray(int minimumCapacity)
 		{
 			if (minimumCapacity <= 0)
@@ -226,6 +216,8 @@ namespace Towel.DataStructures
 			_minimumCapacity = minimumCapacity;
 		}
 
+		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <param name="stack">The stack to clone.</param>
 		internal StackArray(StackArray<T> stack)
 		{
 			_array = (T[])stack._array.Clone();
@@ -237,17 +229,10 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>
-		/// Gets the current capacity of the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Gets the current capacity of the list.</summary>
 		public int CurrentCapacity => _array.Length;
 
-		/// <summary>
-		/// Allows you to adjust the minimum capacity of this list.
-		/// <para>Runtime (get): O(1)</para>
-		/// <para>Runtime (set): O(n), Ω(1)</para>
-		/// </summary>
+		/// <summary>Allows you to adjust the minimum capacity of this list.</summary>
 		public int? MinimumCapacity
 		{
 			get => _minimumCapacity;
@@ -276,11 +261,11 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <summary>Constructs a clone of this stack.</summary>
+		/// <returns>A clone of this stack.</returns>
 		public StackArray<T> Clone() => new(this);
 
-		/// <summary>Converts the list array into a standard array.</summary>
+		/// <summary>Converts this data structure to an array.</summary>
 		/// <returns>A standard array of all the elements.</returns>
 		public T[] ToArray() => _array.AsSpan(0, _count).ToArray();
 
@@ -330,8 +315,7 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for this stack.</summary>
-		/// <returns>The enumerator for this stack.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _count; i++)
