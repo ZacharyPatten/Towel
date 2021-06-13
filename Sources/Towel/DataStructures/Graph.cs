@@ -533,18 +533,14 @@ namespace Towel.DataStructures
 	{
 		#region Methods
 
-		/// <summary>Adds a weighted edge to the graph </summary>
-		/// <param name="start">The starting point of the edge to add</param>
-		/// <param name="end">The ending point of the edge to add</param>
-		/// <param name="weight">The weight of the edge</param>
-		void Add(V start, V end, W weight) => GraphWeighted.Add(this, start, end, weight);
-
 		(bool Success, Exception? Exception) IGraph<V>.TryAdd(V start, V end) => TryAdd(start, end, default);
+
 		/// <summary>Adds a weighted edge to the graph </summary>
 		/// <param name="start">The starting point of the edge to add</param>
 		/// <param name="end">The ending point of the edge to add</param>
 		/// <param name="weight">The weight of the edge</param>
 		(bool Success, Exception? Exception) TryAdd(V start, V end, W? weight);
+
 		/// <summary>Checks if b is adjacent to a.</summary>
 		/// <param name="a">The starting point of the edge to check.</param>
 		/// <param name="b">The ending point of the edge to check.</param>
@@ -641,9 +637,6 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-
-		/// <inheritdoc/>
-		public void Add(V start, V end, W weight) => GraphWeighted.Add(this, start, end, weight);
 
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(V value)
