@@ -49,16 +49,30 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Invokes a function on every edge in the graph.</summary>
+		/// <typeparam name="T">The type of values stored in this graph.</typeparam>
+		/// <param name="graph">The graph to traverse the edges of.</param>
+		/// <param name="step">The function on every edge in the graph.</param>
 		public static void Edges<T>(this IGraph<T> graph, Action<(T, T)> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
 			graph.Edges<T, SAction<(T, T)>>(step);
 		}
 
+		/// <summary>Invokes a function on every edge in the graph.</summary>
+		/// <typeparam name="T">The type of values stored in this graph.</typeparam>
+		/// <typeparam name="TStep">The type of the step function.</typeparam>
+		/// <param name="graph">The graph to traverse the edges of.</param>
+		/// <param name="step">The function on every edge in the graph.</param>
 		public static void Edges<T, TStep>(this IGraph<T> graph, TStep step = default)
 			where TStep : struct, IAction<(T, T)> =>
 			graph.EdgesBreak<StepBreakFromAction<(T, T), TStep>>(step);
 
+		/// <summary>Invokes a function on every edge in the graph.</summary>
+		/// <typeparam name="T">The type of values stored in this graph.</typeparam>
+		/// <param name="graph">The graph to traverse the edges of.</param>
+		/// <param name="step">The function on every edge in the graph.</param>
+		/// <returns>The status of iteration.</returns>
 		public static StepStatus EdgesBreak<T>(this IGraph<T> graph, Func<(T, T), StepStatus> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
@@ -532,54 +546,52 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	/// <summary>
-	/// A weighted graph data structure that stores nodes, edges with their corresponding weights. 
-	/// </summary>
-	/// <typeparam name="V">The generic node type of this graph.</typeparam>
+	/// <summary>A weighted graph data structure that stores nodes, edges with their corresponding weights.</summary>
+	/// <typeparam name="T">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	public interface IGraphWeighted<V, W> : IGraph<V>
+	public interface IGraphWeighted<T, W> : IGraph<T>
 	{
 		#region Methods
 
-		(bool Success, Exception? Exception) IGraph<V>.TryAdd(V start, V end) => TryAdd(start, end, default);
+		(bool Success, Exception? Exception) IGraph<T>.TryAdd(T start, T end) => TryAdd(start, end, default);
 
 		/// <summary>Adds a weighted edge to the graph </summary>
 		/// <param name="start">The starting point of the edge to add</param>
 		/// <param name="end">The ending point of the edge to add</param>
 		/// <param name="weight">The weight of the edge</param>
-		(bool Success, Exception? Exception) TryAdd(V start, V end, W? weight);
+		(bool Success, Exception? Exception) TryAdd(T start, T end, W? weight);
 
 		/// <summary>Checks if b is adjacent to a.</summary>
 		/// <param name="a">The starting point of the edge to check.</param>
 		/// <param name="b">The ending point of the edge to check.</param>
 		/// <param name="weight">The weight of the edge, if it exists.</param>
 		/// <returns>True if b is adjacent to a; False if not</returns>
-		bool Adjacent(V a, V b, out W? weight);
+		bool Adjacent(T a, T b, out W? weight);
 
 		/// <summary>Enumerates and returns all edges present in the graph</summary>
 		/// <returns>Array of Tuple of nodes that represent an edge</returns>
-		(V, V)[] EdgesToArray();
+		(T, T)[] EdgesToArray();
 
 		/// <summary>Enumerates and returns all edges present in the graph</summary>
 		/// <returns>Array of Tuple of nodes and weight that represent an edge</returns>
-		(V, V, W?)[] EdgesAndWeightsToArray();
+		(T, T, W?)[] EdgesAndWeightsToArray();
 
 		#endregion
 	}
 
-	/// <summary>Static helpers for <see cref="IGraphWeighted{V, W}"/>.</summary>
+	/// <summary>Static helpers for <see cref="IGraphWeighted{T, W}"/>.</summary>
 	public static class GraphWeighted
 	{
 		#region Extension Methods
 
 		/// <summary>Adds an edge to a weighted graph</summary>
-		/// <typeparam name="V">The generic node type of this graph.</typeparam>
+		/// <typeparam name="T">The generic node type of this graph.</typeparam>
 		/// <typeparam name="W">The generic weight type of this graph.</typeparam>
 		/// <param name="graph">The data structure to add the value to.</param>
 		/// <param name="start">The starting point of the edge.</param>
 		/// <param name="end">The ending point of the edge.</param>
 		/// <param name="weight">The weight of the edge.</param>
-		public static void Add<V, W>(this IGraphWeighted<V, W> graph, V start, V end, W? weight)
+		public static void Add<T, W>(this IGraphWeighted<T, W> graph, T start, T end, W? weight)
 		{
 			var (success, exception) = graph.TryAdd(start, end, weight);
 			if (!success)
@@ -591,52 +603,50 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	/// <summary>Static helpers for <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
+	/// <summary>Static helpers for <see cref="GraphWeightedMap{T, W, TEquate, THash}"/>.</summary>
 	public static class GraphWeightedMap
 	{
 		#region Extension Methods
 
 		/// <summary>Constructs a new <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
-		/// <typeparam name="V">The type of values stored in this data structure.</typeparam>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <typeparam name="W">The type of weight stored in the edges in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</returns>
-		public static GraphWeightedMap<V, W, SFunc<V, V, bool>, SFunc<V, int>> New<V, W>(
-			Func<V, V, bool>? equate = null,
-			Func<V, int>? hash = null) =>
+		public static GraphWeightedMap<T, W, SFunc<T, T, bool>, SFunc<T, int>> New<T, W>(
+			Func<T, T, bool>? equate = null,
+			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
 
 		#endregion
 	}
 
-	/// <summary>
-	/// Implements a weighted graph. Implements a Dictionary of Nodes and edges
-	/// </summary>
-	/// <typeparam name="V">The generic node type of this graph.</typeparam>
+	/// <summary>Implements a weighted graph. Implements a Dictionary of Nodes and edges.</summary>
+	/// <typeparam name="T">The generic node type of this graph.</typeparam>
 	/// <typeparam name="W">The generic weight type of this graph.</typeparam>
-	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="V"/> values.</typeparam>
-	/// <typeparam name="THash">The type of function for hashing <typeparamref name="V"/> values.</typeparam>
-	public class GraphWeightedMap<V, W, TEquate, THash> : IGraphWeighted<V, W>,
-		ICloneable<GraphWeightedMap<V, W, TEquate, THash>>,
-		DataStructure.IEquating<V, TEquate>,
-		DataStructure.IHashing<V, THash>
-		where TEquate : struct, IFunc<V, V, bool>
-		where THash : struct, IFunc<V, int>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
+	public class GraphWeightedMap<T, W, TEquate, THash> : IGraphWeighted<T, W>,
+		ICloneable<GraphWeightedMap<T, W, TEquate, THash>>,
+		DataStructure.IEquating<T, TEquate>,
+		DataStructure.IHashing<T, THash>
+		where TEquate : struct, IFunc<T, T, bool>
+		where THash : struct, IFunc<T, int>
 	{
-		internal MapHashLinked<(MapHashLinked<W?, V, TEquate, THash> OutgoingEdges, SetHashLinked<V, TEquate, THash> IncomingNodes), V, TEquate, THash> _map;
+		internal MapHashLinked<(MapHashLinked<W?, T, TEquate, THash> OutgoingEdges, SetHashLinked<T, TEquate, THash> IncomingNodes), T, TEquate, THash> _map;
 		internal int _edges;
 
 		#region Constructors
 
 		/// <summary>Constructs a new graph.</summary>
-		/// <param name="equate">The function for equality checking <typeparamref name="V"/> values.</param>
-		/// <param name="hash">The function for hasching <typeparamref name="V"/> values.</param>
+		/// <param name="equate">The function for equality checking <typeparamref name="T"/> values.</param>
+		/// <param name="hash">The function for hasching <typeparamref name="T"/> values.</param>
 		public GraphWeightedMap(TEquate equate = default, THash hash = default)
 		{
 			_map = new(equate, hash);
 			_edges = 0;
 		}
 
-		internal GraphWeightedMap(GraphWeightedMap<V, W, TEquate, THash> graph)
+		internal GraphWeightedMap(GraphWeightedMap<T, W, TEquate, THash> graph)
 		{
 			_edges = graph._edges;
 			_map = graph._map.Clone();
@@ -663,7 +673,7 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryAdd(V value)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			#warning TODO: change this so that it does not allocate the new collections until necessary
 			var (success, exception) = _map.TryAdd(value, (new(Equate, Hash), new(Equate, Hash)));
@@ -678,7 +688,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryAdd(V start, V end, W? weight)
+		public (bool Success, Exception? Exception) TryAdd(T start, T end, W? weight)
 		{
 			var x = _map.TryGet(start);
 			if (!x.Success)
@@ -697,7 +707,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public bool Adjacent(V a, V b, out W? weight)
+		public bool Adjacent(T a, T b, out W? weight)
 		{
 			var (success, value, exception) = _map.TryGet(a);
 
@@ -719,16 +729,16 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public bool Adjacent(V a, V b) => Adjacent(a, b, out var _);
+		public bool Adjacent(T a, T b) => Adjacent(a, b, out var _);
 
 		/// <inheritdoc/>
 		public void Clear() => _map.Clear();
 
 		/// <inheritdoc/>
-		public void Neighbors(V a, Action<V> function) => _map[a].OutgoingEdges.Keys(function);
+		public void Neighbors(T a, Action<T> function) => _map[a].OutgoingEdges.Keys(function);
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryRemove(V start, V end)
+		public (bool Success, Exception? Exception) TryRemove(T start, T end)
 		{
 			if (!_map.Contains(start)) return (false, new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(start)));
 			if (!_map.Contains(end)) return (false, new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(end)));
@@ -740,36 +750,36 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<V, StepStatus> =>
+			where Step : struct, IFunc<T, StepStatus> =>
 			_map.KeysBreak<Step>(step);
 
 		/// <inheritdoc/>
 		public StepStatus EdgesBreak<Step>(Step step = default)
-			where Step : struct, IFunc<(V, V), StepStatus>
+			where Step : struct, IFunc<(T, T), StepStatus>
 		{
 			EdgesStep<Step> step2 = new() { _step = step, };
 			return _map.PairsBreak<EdgesStep<Step>>(step2);
 		}
 
-		internal struct EdgesStep<Step> : IFunc<((MapHashLinked<W?, V, TEquate, THash> OutgoingEdges, SetHashLinked<V, TEquate, THash> IncomingNodes), V), StepStatus>
-			where Step : struct, IFunc<(V, V), StepStatus>
+		internal struct EdgesStep<Step> : IFunc<((MapHashLinked<W?, T, TEquate, THash> OutgoingEdges, SetHashLinked<T, TEquate, THash> IncomingNodes), T), StepStatus>
+			where Step : struct, IFunc<(T, T), StepStatus>
 		{
 			internal Step _step;
 
-			public StepStatus Invoke(((MapHashLinked<W?, V, TEquate, THash> OutgoingEdges, SetHashLinked<V, TEquate, THash> IncomingNodes), V) a)
+			public StepStatus Invoke(((MapHashLinked<W?, T, TEquate, THash> OutgoingEdges, SetHashLinked<T, TEquate, THash> IncomingNodes), T) a)
 			{
 				EdgesStep2<Step> step2 = new() { _a = a.Item2, _step = _step, };
 				return a.Item1.OutgoingEdges.PairsBreak<EdgesStep2<Step>>(step2);
 			}
 		}
 
-		internal struct EdgesStep2<Step> : IFunc<(W?, V), StepStatus>
-			where Step : struct, IFunc<(V, V), StepStatus>
+		internal struct EdgesStep2<Step> : IFunc<(W?, T), StepStatus>
+			where Step : struct, IFunc<(T, T), StepStatus>
 		{
 			internal Step _step;
-			internal V _a;
+			internal T _a;
 
-			public StepStatus Invoke((W?, V) a)
+			public StepStatus Invoke((W?, T) a)
 			{
 				var edge = (_a, a.Item2);
 				return _step.Invoke(edge);
@@ -779,11 +789,11 @@ namespace Towel.DataStructures
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<V> GetEnumerator() =>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator() =>
 			_map.GetKeys().GetEnumerator();
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryRemove(V node)
+		public (bool Success, Exception? Exception) TryRemove(T node)
 		{
 			if (!_map.Contains(node))
 			{
@@ -804,17 +814,17 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public GraphWeightedMap<V, W, TEquate, THash> Clone() => new(this);
+		public GraphWeightedMap<T, W, TEquate, THash> Clone() => new(this);
 
 		/// <inheritdoc/>
-		public V[] ToArray() =>
+		public T[] ToArray() =>
 			#warning TODO: optimize
 			System.Linq.Enumerable.ToArray(_map.GetKeys());
 
 		/// <inheritdoc/>
-		public (V, V)[] EdgesToArray()
+		public (T, T)[] EdgesToArray()
 		{
-			ListArray<(V, V)> edgelist=new();
+			ListArray<(T, T)> edgelist=new();
 			foreach(var (adjacencies, start) in _map.GetPairs())
 			{
 				foreach(var (_, end) in adjacencies.OutgoingEdges.GetPairs())
@@ -826,9 +836,9 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (V, V, W?)[] EdgesAndWeightsToArray()
+		public (T, T, W?)[] EdgesAndWeightsToArray()
 		{
-			ListArray<(V, V, W?)> edgelist = new();
+			ListArray<(T, T, W?)> edgelist = new();
 			foreach(var (adjacencies, start) in _map.GetPairs())
 			{
 				foreach(var (weight, end) in adjacencies.OutgoingEdges.GetPairs())

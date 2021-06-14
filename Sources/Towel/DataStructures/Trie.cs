@@ -95,6 +95,8 @@ namespace Towel.DataStructures
 
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class TrieLinkedHashLinked<T, TEquate, THash> : ITrie<T>,
 		ICloneable<TrieLinkedHashLinked<T, TEquate, THash>>,
 		DataStructure.IEquating<T, TEquate>,
@@ -371,6 +373,8 @@ namespace Towel.DataStructures
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class TrieLinkedHashLinked<T, D, TEquate, THash> : ITrie<T, D>,
 		ICloneable<TrieLinkedHashLinked<T, D, TEquate, THash>>,
 		DataStructure.ICountable,

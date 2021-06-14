@@ -775,6 +775,7 @@ namespace BasicsAndExtensions
 				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
 				Console.Write("    stepperFunctional values:");
 				stepperFunctional(value => Console.Write(" " + value));
+				Console.WriteLine();
 
 				Pause();
 			}
