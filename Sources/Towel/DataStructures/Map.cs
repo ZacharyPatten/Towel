@@ -618,11 +618,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Puts all the values in this map into an array.
-		/// <para>Runtime: Θ(n)</para>
-		/// </summary>
-		/// <returns>An array with all the values in the map.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			T[] array = new T[_count];

@@ -89,11 +89,10 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public StackLinked<T> Clone() => new(this);
 
-		/// <summary>Converts the structure into an array.</summary>
-		/// <returns>An array containing all the item in the structure.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				return Array.Empty<T>();
 			}
@@ -262,9 +261,8 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public StackArray<T> Clone() => new(this);
 
-		/// <summary>Converts this data structure to an array.</summary>
-		/// <returns>A standard array of all the elements.</returns>
-		public T[] ToArray() => _array.AsSpan(0, _count).ToArray();
+		/// <inheritdoc/>
+		public T[] ToArray() => _count is 0 ? Array.Empty<T>() : _array[.._count];
 
 		/// <inheritdoc/>
 		public void Push(T addition)

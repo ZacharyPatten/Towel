@@ -4328,6 +4328,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector) =>
@@ -5986,6 +5989,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -7786,6 +7792,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -9729,6 +9738,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -11817,6 +11829,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -14052,6 +14067,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -16437,6 +16455,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector) =>
@@ -18010,6 +18031,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -19695,6 +19719,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -21554,6 +21581,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -23587,6 +23617,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -25794,6 +25827,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -28175,6 +28211,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 
@@ -30730,6 +30769,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 

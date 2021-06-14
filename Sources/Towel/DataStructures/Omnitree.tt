@@ -2230,6 +2230,9 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
@@ -4137,6 +4140,9 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
 
 		#region Helpers
 

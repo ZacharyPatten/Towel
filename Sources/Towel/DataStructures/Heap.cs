@@ -254,8 +254,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public void Clear() => _count = 0;
 
-		/// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
-		/// <returns>The array of priority-sorted items.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray() => _array[1..(_count + 1)];
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();

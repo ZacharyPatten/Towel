@@ -336,6 +336,9 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _nodes.GetEnumerator();
 
+		/// <inheritdoc/>
+		public T[] ToArray() => _nodes.ToArray();
+
 		#endregion
 	}
 
@@ -501,8 +504,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public GraphMap<T, TEquate, THash> Clone() => new(this);
 
-		/// <summary>Gets an with all the nodes of th graph in it.</summary>
-		/// <returns>An array with all the nodes of th graph in it.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			#warning TODO: Make a "K[] KeysToArray()" method on MapHashLinked
@@ -804,9 +806,10 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public GraphWeightedMap<V, W, TEquate, THash> Clone() => new(this);
 
-		/// <summary>Returns an array of nodes in this graph</summary>
-		/// <returns>Array of nodes of this graph</returns>
-		public V[] ToArray() => System.Linq.Enumerable.ToArray(_map.GetKeys());
+		/// <inheritdoc/>
+		public V[] ToArray() =>
+			#warning TODO: optimize
+			System.Linq.Enumerable.ToArray(_map.GetKeys());
 
 		/// <inheritdoc/>
 		public (V, V)[] EdgesToArray()

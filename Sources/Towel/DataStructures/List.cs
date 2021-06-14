@@ -332,14 +332,10 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Converts the list into a standard array.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <returns>A standard array of all the items.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				return Array.Empty<T>();
 			}
@@ -662,8 +658,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Converts the list array into a standard array.</summary>
-		/// <returns>A standard array of all the elements.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray() => _count is 0 ? Array.Empty<T>() : _array[.._count];
 
 		/// <summary>Resizes this allocation to the current count.</summary>

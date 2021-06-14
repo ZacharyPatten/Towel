@@ -3,14 +3,20 @@ using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
-	/// <summary>Polymorphism base for all data structures in the Towel framework.</summary>
+	/// <summary>Polymorphism base for all data structures in Towel.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IDataStructure<T> : ISteppable<T>, System.Collections.Generic.IEnumerable<T>
 	{
+		#region Methods
 
+		/// <summary>Constructs an array with the values of this data structure.</summary>
+		/// <returns>An array with the values of this data structure.</returns>
+		T[] ToArray();
+
+		#endregion
 	}
 
-	/// <summary>Contains extension methods for the Structure interface.</summary>
+	/// <summary>Contains static members for <see cref="IDataStructure{T}"/>.</summary>
 	public static class DataStructure
 	{
 		#region Interfaces

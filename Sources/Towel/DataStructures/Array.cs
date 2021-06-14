@@ -108,9 +108,8 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)_array).GetEnumerator();
 
-		/// <summary>Converts the structure into an array.</summary>
-		/// <returns>An array containing all the item in the structure.</returns>
-		public T[] ToArray() => _array;
+		/// <inheritdoc/>
+		public T[] ToArray() => Length is 0 ? Array.Empty<T>() : _array[..];
 
 		#endregion
 	}
@@ -127,7 +126,7 @@ namespace Towel.DataStructures
 		// Don’t use a multi-dimensional array here because then we can’t right size the last
 		// block and we have to do range checking on our own and since there will then be 
 		// exception throwing in our code there is a good chance that the JIT won’t inline.
-		internal T[][] _elements;
+		internal T[][] _blocks;
 		internal ulong _length;
 
 		#region Constructors
@@ -140,10 +139,10 @@ namespace Towel.DataStructures
 				numBlocks += 1;
 			}
 			_length = bigArray.Length;
-			_elements = new T[numBlocks][];
+			_blocks = new T[numBlocks][];
 			for (int i = 0; i < numBlocks; i++)
 			{
-				_elements[i] = bigArray._elements[i].Clone() as T[];
+				_blocks[i] = bigArray._blocks[i].Clone() as T[];
 			}
 		}
 
@@ -169,14 +168,14 @@ namespace Towel.DataStructures
 
 
 			_length = size;
-			_elements = new T[numBlocks][];
+			_blocks = new T[numBlocks][];
 			for (int i = 0; i < (numBlocks - 1); i++)
 			{
-				_elements[i] = new T[BLOCK_SIZE];
+				_blocks[i] = new T[BLOCK_SIZE];
 			}
 			// by making sure to make the last block right sized then we get the range checks 
 			// for free with the normal array range checks and don’t have to add our own
-			_elements[numBlocks - 1] = new T[size % (ulong)BLOCK_SIZE];
+			_blocks[numBlocks - 1] = new T[size % (ulong)BLOCK_SIZE];
 		}
 
 		#endregion
@@ -210,13 +209,13 @@ namespace Towel.DataStructures
 			{
 				int blockNum = (int)(index >> BLOCK_SIZE_LOG2);
 				int elementNumberInBlock = (int)(index & (BLOCK_SIZE - 1));
-				return _elements[blockNum][elementNumberInBlock];
+				return _blocks[blockNum][elementNumberInBlock];
 			}
 			set
 			{
 				int blockNum = (int)(index >> BLOCK_SIZE_LOG2);
 				int elementNumberInBlock = (int)(index & (BLOCK_SIZE - 1));
-				_elements[blockNum][elementNumberInBlock] = value;
+				_blocks[blockNum][elementNumberInBlock] = value;
 			}
 		}
 
@@ -231,9 +230,9 @@ namespace Towel.DataStructures
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus>
 		{
-			for (int i = 0; i < _elements.Length; i++)
+			for (int i = 0; i < _blocks.Length; i++)
 			{
-				T[] array = _elements[i];
+				T[] array = _blocks[i];
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
@@ -251,13 +250,32 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			foreach (T[] array in _elements)
+			foreach (T[] array in _blocks)
 			{
 				foreach (T value in array)
 				{
 					yield return value;
 				}
 			}
+		}
+
+		/// <inheritdoc/>
+		public T[] ToArray()
+		{
+			if (_length > int.MaxValue)
+			{
+				throw new InvalidOperationException("Can't convert ArrayJagged<T> to array. Length > int.MaxValue.");
+			}
+			T[] array = new T[_length];
+			int i = 0;
+			foreach (T[] segment in _blocks)
+			{
+				foreach (T value in array)
+				{
+					array[i++] = value;
+				}
+			}
+			return array;
 		}
 
 		#endregion

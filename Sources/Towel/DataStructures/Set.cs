@@ -300,11 +300,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Puts all the values in this set into an array.
-		/// <para>Runtime: Θ(<see cref="Count"/> + <see cref="TableSize"/>)</para>
-		/// </summary>
-		/// <returns>An array with all the values in the set.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			T[] array = new T[_count];

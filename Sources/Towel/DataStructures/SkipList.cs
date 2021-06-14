@@ -366,8 +366,7 @@ namespace Towel.DataStructures
 		}
 		#endregion
 		#region public T[] ToArray()
-		/// <summary>Converts the structure into an array.</summary>
-		/// <returns>An array containing all the item in the structure.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			T[] array = new T[this._count];

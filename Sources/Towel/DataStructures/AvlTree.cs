@@ -513,6 +513,16 @@ namespace Towel.DataStructures
 		internal static void SetHeight(Node node) =>
 			node.Height = Math.Max(Height(node.LeftChild), Height(node.RightChild)) + 1;
 
+		/// <inheritdoc/>
+		public T[] ToArray()
+		{
+			#warning TODO: optimized
+			T[] array = new T[_count];
+			int i = 0;
+			this.Stepper(x => array[i++] = x);
+			return array;
+		}
+
 		#endregion
 	}
 }

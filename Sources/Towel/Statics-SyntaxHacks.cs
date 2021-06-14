@@ -363,12 +363,12 @@ namespace Towel
 			/// <summary>The number of values in this universal quantification.</summary>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public int Length => Value.Length;
-
 			/// <inheritdoc/>
 			public StepStatus StepperBreak<TStep>(TStep step = default)
 				where TStep : struct, IFunc<T, StepStatus> =>
 				Value.StepperBreak(step);
-
+			/// <inheritdoc/>
+			public T[] ToArray() => Value;
 			#endregion
 
 			#region System.Collections.Generic.IList<T>

@@ -110,11 +110,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>
-		/// Converts the list into a standard array.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <returns>A standard array of all the items.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			if (_count == 0)
@@ -329,11 +325,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>
-		/// Converts the list array into a standard array.
-		/// <para>Runtime: O(<see cref="Count"/>)</para>
-		/// </summary>
-		/// <returns>A standard array of all the elements.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			if (_count <= 0)

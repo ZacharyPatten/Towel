@@ -111,8 +111,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Link<T1> Clone() => new(Value1);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1 };
 
 		/// <inheritdoc/>
@@ -230,8 +229,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public LinkStruct<T1> Clone() => new(Value1);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1 };
 
 		/// <inheritdoc/>
@@ -357,8 +355,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Link<T1, T2> Clone() => new(Value1, Value2);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2 };
 
 		/// <inheritdoc/>
@@ -487,8 +484,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public LinkStruct<T1, T2> Clone() => new(Value1, Value2);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2 };
 
 		/// <inheritdoc/>
@@ -625,8 +621,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Link<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3 };
 
 		/// <inheritdoc/>
@@ -766,8 +761,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public LinkStruct<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3 };
 
 		/// <inheritdoc/>
@@ -915,8 +909,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4 };
 
 		/// <inheritdoc/>
@@ -1067,8 +1060,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public LinkStruct<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4 };
 
 		/// <inheritdoc/>
@@ -1227,8 +1219,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5 };
 
 		/// <inheritdoc/>
@@ -1390,8 +1381,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public LinkStruct<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5 };
 
 		/// <inheritdoc/>
@@ -1561,8 +1551,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6 };
 
 		/// <inheritdoc/>
@@ -1735,8 +1724,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public LinkStruct<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6 };
 
 		/// <inheritdoc/>
@@ -1917,8 +1905,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6, Value7 };
 
 		/// <inheritdoc/>
@@ -2102,8 +2089,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public LinkStruct<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
 
-		/// <summary>Converts the link into an array.</summary>
-		/// <returns>An array containing the values of the link.</returns>
+		/// <inheritdoc/>
 		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6, Value7 };
 
 		/// <inheritdoc/>

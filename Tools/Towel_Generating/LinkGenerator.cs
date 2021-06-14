@@ -150,8 +150,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		/// <inheritdoc/>");
 				code.AppendLine($@"		public Link<{Join(1..I, n => $"T{n}", ", ")}> Clone() => new({Join(1..I, n => $"Value{n}", ", ")});");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Converts the link into an array.</summary>");
-				code.AppendLine($@"		/// <returns>An array containing the values of the link.</returns>");
+				code.AppendLine($@"		/// <inheritdoc/>");
 				code.AppendLine($@"		public object[] ToArray() => new object[] {{ {Join(1..I, n => $"Value{n}", ", ")} }};");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <inheritdoc/>");
@@ -300,8 +299,7 @@ namespace Towel_Generating
 				code.AppendLine($@"		/// <inheritdoc/>");
 				code.AppendLine($@"		public LinkStruct<{Join(1..I, n => $"T{n}", ", ")}> Clone() => new({Join(1..I, n => $"Value{n}", ", ")});");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Converts the link into an array.</summary>");
-				code.AppendLine($@"		/// <returns>An array containing the values of the link.</returns>");
+				code.AppendLine($@"		/// <inheritdoc/>");
 				code.AppendLine($@"		public object[] ToArray() => new object[] {{ {Join(1..I, n => $"Value{n}", ", ")} }};");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <inheritdoc/>");

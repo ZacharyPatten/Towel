@@ -126,7 +126,7 @@ namespace Towel.DataStructures
 		public TEquate Equate => _map.Equate;
 
 		/// <inheritdoc/>
-		public int Count => _map.Count;
+		public int Count => _map.Count + 1;
 
 		#endregion
 
@@ -232,6 +232,16 @@ namespace Towel.DataStructures
 		{
 			_map[current].Children.Stepper(child => RemoveRecursive(child));
 			_map.Remove(current);
+		}
+
+		/// <inheritdoc/>
+		public T[] ToArray()
+		{
+			#warning TODO: optimized
+			T[] array = new T[Count];
+			int i = 0;
+			this.Stepper(x => array[i++] = x);
+			return array;
 		}
 
 		#endregion

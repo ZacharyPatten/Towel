@@ -326,6 +326,16 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public TrieLinkedHashLinked<T, TEquate, THash> Clone() => new(this);
 
+		/// <inheritdoc/>
+		public Action<Action<T>>[] ToArray()
+		{
+			#warning TODO: optimized
+			Action<Action<T>>[] array = new Action<Action<T>>[_count];
+			int i = 0;
+			this.Stepper(x => array[i++] = x);
+			return array;
+		}
+
 		#endregion
 	}
 
@@ -419,8 +429,6 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Add
-
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(D value, Action<Action<T>> stepper)
 		{
@@ -463,14 +471,8 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region Get
-
-		/// <summary>Tries to get a value.</summary>
-		/// <param name="stepper">The relative keys of the value.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public (bool Success, D? Value, Exception? Exception) TryGet(Action<Action<T>> stepper)
+		/// <inheritdoc/>
+		public (bool Success, D Value, Exception? Exception) TryGet(Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
@@ -504,10 +506,6 @@ namespace Towel.DataStructures
 				return (true, node.Value, null);
 			}
 		}
-
-		#endregion
-
-		#region Remove
 
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(Action<Action<T>> stepper)
@@ -568,10 +566,6 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region Contains
-
 		/// <inheritdoc/>
 		public bool Contains(Action<Action<T>> stepper)
 		{
@@ -604,20 +598,12 @@ namespace Towel.DataStructures
 			return node.HasValue;
 		}
 
-		#endregion
-
-		#region Clear
-
 		/// <inheritdoc/>
 		public void Clear()
 		{
 			_count = 0;
 			_map.Clear();
 		}
-
-		#endregion
-
-		#region Stepper And IEnumerable
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
@@ -649,10 +635,18 @@ namespace Towel.DataStructures
 			return list.GetEnumerator();
 		}
 
-		#endregion
-
 		/// <inheritdoc/>
 		public TrieLinkedHashLinked<T, D, TEquate, THash> Clone() => new(this);
+
+		/// <inheritdoc/>
+		public (Action<Action<T>>, D)[] ToArray()
+		{
+			#warning TODO: optimized
+			(Action<Action<T>>, D)[] array = new (Action<Action<T>>, D)[_count];
+			int i = 0;
+			this.Stepper(x => array[i++] = x);
+			return array;
+		}
 
 		#endregion
 	}

@@ -129,11 +129,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>
-		/// Converts the list into a standard array.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <returns>A standard array of all the items.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			if (_count == 0)
