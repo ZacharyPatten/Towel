@@ -7,7 +7,6 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>
 	/// <typeparam name="K">The type of keys used to look up items in this structure.</typeparam>
 	public interface IMap<T, K> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAuditable<K>,
@@ -63,9 +62,7 @@ namespace Towel.DataStructures
 	/// <summary>Static Extension class for Map interface implementers.</summary>
 	public static class Map
 	{
-		#region Extensions
-
-		#region Add
+		#region Extensions Methods
 
 		/// <summary>Gets a value in a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
@@ -83,10 +80,6 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region Set
-
 		/// <summary>Sets a value in a map relative to a key.</summary>
 		/// <typeparam name="T">The type of the value.</typeparam>
 		/// <typeparam name="K">The type of the key.</typeparam>
@@ -103,10 +96,6 @@ namespace Towel.DataStructures
 			return;
 		}
 
-		#endregion
-
-		#region Get
-
 		/// <summary>Gets a value in a map relative to a key.</summary>
 		/// <typeparam name="T">The type of the value.</typeparam>
 		/// <typeparam name="K">The type of the key.</typeparam>
@@ -122,10 +111,6 @@ namespace Towel.DataStructures
 			}
 			return value!;
 		}
-
-		#endregion
-
-		#region Stepper and IEnumerable
 
 		public static void Keys<T, K>(this IMap<T, K> map, Action<K> step)
 		{
@@ -162,13 +147,13 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
-
-		#endregion
 	}
 
 	/// <summary>Static helpers.</summary>
 	public static class MapHashLinked
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <typeparam name="K">The type of keys used to look up values.</typeparam>
@@ -177,6 +162,8 @@ namespace Towel.DataStructures
 			Func<K, K, bool>? equate = null,
 			Func<K, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
+
+		#endregion
 	}
 
 	/// <summary>An unsorted structure of unique items.</summary>
@@ -185,7 +172,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="K"/> values.</typeparam>
 	/// <typeparam name="THash">The type of function for hashing <typeparamref name="K"/> values.</typeparam>
 	public class MapHashLinked<T, K, TEquate, THash> : IMap<T, K>,
-		// Structure Properties
+		ICloneable<MapHashLinked<T, K, TEquate, THash>>,
 		DataStructure.IEquating<K, TEquate>,
 		DataStructure.IHashing<K, THash>
 		where TEquate : struct, IFunc<K, K, bool>
@@ -199,7 +186,7 @@ namespace Towel.DataStructures
 		internal Node?[] _table;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -518,11 +505,7 @@ namespace Towel.DataStructures
 			Resize(tableSize);
 		}
 
-		/// <summary>
-		/// Creates a shallow clone of this map.
-		/// <para>Runtime: Θ(n)</para>
-		/// </summary>
-		/// <returns>A shallow clone of this map.</returns>
+		/// <inheritdoc/>
 		public MapHashLinked<T, K, TEquate, THash> Clone() => new(this);
 
 		/// <inheritdoc/>
@@ -545,8 +528,6 @@ namespace Towel.DataStructures
 			_table = new Node[2];
 			_count = 0;
 		}
-
-		#region Stepper and IEnumerable
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<Step>(Step step = default)
@@ -636,8 +617,6 @@ namespace Towel.DataStructures
 				}
 			}
 		}
-
-		#endregion
 
 		/// <summary>
 		/// Puts all the values in this map into an array.

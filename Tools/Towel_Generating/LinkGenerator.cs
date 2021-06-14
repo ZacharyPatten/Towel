@@ -28,10 +28,14 @@ namespace Towel_Generating
 			code.AppendLine($@"	/// <summary>Represents a link between objects.</summary>");
 			code.AppendLine($@"	public interface Link : IDataStructure<object>, System.Runtime.CompilerServices.ITuple");
 			code.AppendLine($@"	{{");
+			code.AppendLine($@"		#region Properties");
+			code.AppendLine($@"");
 			code.AppendLine($@"		int System.Runtime.CompilerServices.ITuple.Length => Size;");
 			code.AppendLine($@"");
 			code.AppendLine($@"		/// <summary>The number of values in the tuple.</summary>");
 			code.AppendLine($@"		int Size {{ get; }}");
+			code.AppendLine($@"");
+			code.AppendLine($@"		#endregion");
 			code.AppendLine($@"	}}");
 			for (int i = 1, I = 2; i <= size; i++, I++)
 			{
@@ -41,7 +45,7 @@ namespace Towel_Generating
 				{
 					code.AppendLine($@"	/// <typeparam name=""T{j}"">The type of #{j} value in the link.</typeparam>");
 				}
-				code.AppendLine($@"	public class Link<{Join(1..I, n => $"T{n}", ", ")}> : Link");
+				code.AppendLine($@"	public class Link<{Join(1..I, n => $"T{n}", ", ")}> : Link, ICloneable<Link<{Join(1..I, n => $"T{n}", ", ")}>>");
 				code.AppendLine($@"	{{");
 				for (int j = 1; j <= i; j++)
 				{
@@ -143,8 +147,7 @@ namespace Towel_Generating
 				code.AppendLine($@"			return Continue;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Clones the link.</summary>");
-				code.AppendLine($@"		/// <returns>A clone of the link.</returns>");
+				code.AppendLine($@"		/// <inheritdoc/>");
 				code.AppendLine($@"		public Link<{Join(1..I, n => $"T{n}", ", ")}> Clone() => new({Join(1..I, n => $"Value{n}", ", ")});");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Converts the link into an array.</summary>");
@@ -192,7 +195,7 @@ namespace Towel_Generating
 				{
 					code.AppendLine($@"	/// <typeparam name=""T{j}"">The type of #{j} value in the link.</typeparam>");
 				}
-				code.AppendLine($@"	public struct LinkStruct<{Join(1..I, n => $"T{n}", ", ")}> : Link");
+				code.AppendLine($@"	public struct LinkStruct<{Join(1..I, n => $"T{n}", ", ")}> : Link, ICloneable<LinkStruct<{Join(1..I, n => $"T{n}", ", ")}>>");
 				code.AppendLine($@"	{{");
 				for (int j = 1; j <= i; j++)
 				{
@@ -294,9 +297,8 @@ namespace Towel_Generating
 				code.AppendLine($@"			return Continue;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Clones the link.</summary>");
-				code.AppendLine($@"		/// <returns>A clone of the link.</returns>");
-				code.AppendLine($@"		public Link<{Join(1..I, n => $"T{n}", ", ")}> Clone() => new({Join(1..I, n => $"Value{n}", ", ")});");
+				code.AppendLine($@"		/// <inheritdoc/>");
+				code.AppendLine($@"		public LinkStruct<{Join(1..I, n => $"T{n}", ", ")}> Clone() => new({Join(1..I, n => $"Value{n}", ", ")});");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Converts the link into an array.</summary>");
 				code.AppendLine($@"		/// <returns>An array containing the values of the link.</returns>");

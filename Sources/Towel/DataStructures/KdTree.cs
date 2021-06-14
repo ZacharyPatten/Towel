@@ -87,7 +87,7 @@ namespace Towel.DataStructures
 		//  it needs to we'll have our list!
 
 		// nested types
-		#region Node
+		#region Nested Types
 		/// <summary>Can be a leaf or a branch.</summary>
 		public class Node
 		{

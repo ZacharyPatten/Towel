@@ -6,7 +6,6 @@ namespace Towel.DataStructures
 	/// <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IHeap<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
@@ -32,19 +31,21 @@ namespace Towel.DataStructures
 		DataStructure.IComparing<T, TCompare>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
-		
+
 	}
 
 
 	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class Heap
 	{
-		
+
 	}
 
 	/// <summary>Static helpers for <see cref="HeapArray{T, TCompare}"/>.</summary>
 	public static class HeapArray
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="HeapArray{T, TCompare}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="HeapArray{T, TCompare}"/>.</returns>
@@ -52,12 +53,15 @@ namespace Towel.DataStructures
 			Func<T, T, CompareResult>? compare = null,
 			int? minimumCapacity = null) =>
 			new(compare ?? Compare, minimumCapacity);
+
+		#endregion
 	}
 
 	/// <summary>A heap with static priorities implemented as a array.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public class HeapArray<T, TCompare> : IHeap<T, TCompare>, IHeap<T>
+	public class HeapArray<T, TCompare> : IHeap<T, TCompare>, IHeap<T>,
+		ICloneable<HeapArray<T, TCompare>>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const int _root = 1; // The root index of the heap.
@@ -247,10 +251,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Returns this queue to an empty state.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear() => _count = 0;
 
 		/// <summary>Converts the heap into an array using pre-order traversal (WARNING: items are not ordered).</summary>
@@ -273,8 +274,7 @@ namespace Towel.DataStructures
 			where TStep : struct, IFunc<T, StepStatus> =>
 			_array.StepperBreak(1, _count + 1, step);
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public HeapArray<T, TCompare> Clone() => new(this);
 
 		#endregion

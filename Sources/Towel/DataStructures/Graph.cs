@@ -6,6 +6,8 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="IGraph{T}"/>.</summary>
 	public static class Graph
 	{
+		#region Extension Methods
+
 		/// <summary>Adds an edge to a graph.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <param name="graph">The data structure to add the value to.</param>
@@ -62,12 +64,13 @@ namespace Towel.DataStructures
 			if (step is null) throw new ArgumentNullException(nameof(step));
 			return graph.EdgesBreak<SFunc<(T, T), StepStatus>>(step);
 		}
+
+		#endregion
 	}
 
 	/// <summary>A graph data structure that stores nodes and edges.</summary>
 	/// <typeparam name="T">The generic node type to store in the graph.</typeparam>
 	public interface IGraph<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.IRemovable<T>,
 		DataStructure.IClearable
@@ -116,6 +119,8 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="GraphSetOmnitree{T, TEquate, THash}"/>.</summary>
 	public static class GraphSetOmnitree
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="GraphSetOmnitree{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="GraphSetOmnitree{T, TEquate, THash}"/>.</returns>
@@ -123,6 +128,8 @@ namespace Towel.DataStructures
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
+
+		#endregion
 	}
 
 	/// <summary>Stores the graph as a set-hash of nodes and quadtree of edges.</summary>
@@ -130,6 +137,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
 	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class GraphSetOmnitree<T, TEquate, THash> : IGraph<T>,
+		ICloneable<GraphSetOmnitree<T, TEquate, THash>>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
 		where TEquate : struct, IFunc<T, T, bool>
@@ -302,8 +310,7 @@ namespace Towel.DataStructures
 				None, None);
 		}
 
-		/// <summary>Clones this data structure.</summary>
-		/// <returns>A clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public GraphSetOmnitree<T, TEquate, THash> Clone() => new(this);
 
 		/// <inheritdoc/>
@@ -335,6 +342,8 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="GraphMap{T, TEquate, THash}"/>.</summary>
 	public static class GraphMap
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="GraphMap{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="GraphMap{T, TEquate, THash}"/>.</returns>
@@ -342,6 +351,8 @@ namespace Towel.DataStructures
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
+
+		#endregion
 	}
 
 	/// <summary>Stores a graph as a map and nested map (adjacency matrix).</summary>
@@ -349,6 +360,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="TEquate">The type of the equate function.</typeparam>
 	/// <typeparam name="THash">The type of the hash function.</typeparam>
 	public class GraphMap<T, TEquate, THash> : IGraph<T>,
+		ICloneable<GraphMap<T, TEquate, THash>>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
 		where TEquate : struct, IFunc<T, T, bool>
@@ -396,8 +408,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>Adds a node to the graph.</summary>
-		/// <param name="node">The node to add to the graph.</param>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T node)
 		{
 			var (success, exception) = _map.TryAdd(node, (new(Equate, Hash), new(Equate, Hash)));
@@ -408,9 +419,7 @@ namespace Towel.DataStructures
 			return (true, null);
 		}
 
-		/// <summary>Adds an edge to the graph.</summary>
-		/// <param name="start">The starting point of the edge.</param>
-		/// <param name="end">The ending point of the edge.</param>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T start, T end)
 		{
 			if (!_map.Contains(start))
@@ -432,9 +441,7 @@ namespace Towel.DataStructures
 			return (true, null);
 		}
 
-		/// <summary>Removes a node from the graph.</summary>
-		/// <param name="node">The node to remove from the graph.</param>
-		/// <returns>True if the remove succeeded or false if not.</returns>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(T node)
 		{
 			if (!_map.Contains(node))
@@ -491,8 +498,7 @@ namespace Towel.DataStructures
 				#warning TODO: use structs instead of delegates
 				pair.Value.Outgoing.StepperBreak(b => step.Invoke((pair.Key, b))));
 
-		/// <summary>Constructs a clone of this <see cref="GraphMap{T, TEquate, THash}"/>.</summary>
-		/// <returns>A clone of this <see cref="GraphMap{T, TEquate, THash}"/>.</returns>
+		/// <inheritdoc/>
 		public GraphMap<T, TEquate, THash> Clone() => new(this);
 
 		/// <summary>Gets an with all the nodes of th graph in it.</summary>
@@ -562,6 +568,8 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="IGraphWeighted{V, W}"/>.</summary>
 	public static class GraphWeighted
 	{
+		#region Extension Methods
+
 		/// <summary>Adds an edge to a weighted graph</summary>
 		/// <typeparam name="V">The generic node type of this graph.</typeparam>
 		/// <typeparam name="W">The generic weight type of this graph.</typeparam>
@@ -577,11 +585,15 @@ namespace Towel.DataStructures
 				throw exception ?? new ArgumentException(message: $"{nameof(Add)} failed but the {nameof(exception)} is null", innerException: exception);
 			}
 		}
+
+		#endregion
 	}
 
 	/// <summary>Static helpers for <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
 	public static class GraphWeightedMap
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="GraphWeightedMap{V, W, TEquate, THash}"/>.</summary>
 		/// <typeparam name="V">The type of values stored in this data structure.</typeparam>
 		/// <typeparam name="W">The type of weight stored in the edges in this data structure.</typeparam>
@@ -590,6 +602,8 @@ namespace Towel.DataStructures
 			Func<V, V, bool>? equate = null,
 			Func<V, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
+
+		#endregion
 	}
 
 	/// <summary>
@@ -600,6 +614,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="V"/> values.</typeparam>
 	/// <typeparam name="THash">The type of function for hashing <typeparamref name="V"/> values.</typeparam>
 	public class GraphWeightedMap<V, W, TEquate, THash> : IGraphWeighted<V, W>,
+		ICloneable<GraphWeightedMap<V, W, TEquate, THash>>,
 		DataStructure.IEquating<V, TEquate>,
 		DataStructure.IHashing<V, THash>
 		where TEquate : struct, IFunc<V, V, bool>
@@ -786,8 +801,7 @@ namespace Towel.DataStructures
 			return (true, null);
 		}
 
-		/// <summary>Clones the graph.</summary>
-		/// <returns>A clone of the graph.</returns>
+		/// <inheritdoc/>
 		public GraphWeightedMap<V, W, TEquate, THash> Clone() => new(this);
 
 		/// <summary>Returns an array of nodes in this graph</summary>

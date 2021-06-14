@@ -12,15 +12,19 @@ namespace Towel.DataStructures
 	/// <summary>Represents a link between objects.</summary>
 	public interface Link : IDataStructure<object>, System.Runtime.CompilerServices.ITuple
 	{
+		#region Properties
+
 		int System.Runtime.CompilerServices.ITuple.Length => Size;
 
 		/// <summary>The number of values in the tuple.</summary>
 		int Size { get; }
+
+		#endregion
 	}
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	public class Link<T1> : Link
+	public class Link<T1> : Link, ICloneable<Link<T1>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -104,8 +108,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
+		/// <inheritdoc/>
 		public Link<T1> Clone() => new(Value1);
 
 		/// <summary>Converts the link into an array.</summary>
@@ -140,7 +143,7 @@ namespace Towel.DataStructures
 
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	public struct LinkStruct<T1> : Link
+	public struct LinkStruct<T1> : Link, ICloneable<LinkStruct<T1>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -224,9 +227,8 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
-		public Link<T1> Clone() => new(Value1);
+		/// <inheritdoc/>
+		public LinkStruct<T1> Clone() => new(Value1);
 
 		/// <summary>Converts the link into an array.</summary>
 		/// <returns>An array containing the values of the link.</returns>
@@ -261,7 +263,7 @@ namespace Towel.DataStructures
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	public class Link<T1, T2> : Link
+	public class Link<T1, T2> : Link, ICloneable<Link<T1, T2>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -352,8 +354,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
+		/// <inheritdoc/>
 		public Link<T1, T2> Clone() => new(Value1, Value2);
 
 		/// <summary>Converts the link into an array.</summary>
@@ -392,7 +393,7 @@ namespace Towel.DataStructures
 	/// <summary>Represents a link between objects.</summary>
 	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2> : Link
+	public struct LinkStruct<T1, T2> : Link, ICloneable<LinkStruct<T1, T2>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -483,9 +484,8 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
-		public Link<T1, T2> Clone() => new(Value1, Value2);
+		/// <inheritdoc/>
+		public LinkStruct<T1, T2> Clone() => new(Value1, Value2);
 
 		/// <summary>Converts the link into an array.</summary>
 		/// <returns>An array containing the values of the link.</returns>
@@ -524,7 +524,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	public class Link<T1, T2, T3> : Link
+	public class Link<T1, T2, T3> : Link, ICloneable<Link<T1, T2, T3>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -622,8 +622,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
+		/// <inheritdoc/>
 		public Link<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
 
 		/// <summary>Converts the link into an array.</summary>
@@ -666,7 +665,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
 	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3> : Link
+	public struct LinkStruct<T1, T2, T3> : Link, ICloneable<LinkStruct<T1, T2, T3>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -764,9 +763,8 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
-		public Link<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
+		/// <inheritdoc/>
+		public LinkStruct<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
 
 		/// <summary>Converts the link into an array.</summary>
 		/// <returns>An array containing the values of the link.</returns>
@@ -809,7 +807,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4> : Link
+	public class Link<T1, T2, T3, T4> : Link, ICloneable<Link<T1, T2, T3, T4>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -914,8 +912,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
+		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
 
 		/// <summary>Converts the link into an array.</summary>
@@ -962,7 +959,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
 	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4> : Link
+	public struct LinkStruct<T1, T2, T3, T4> : Link, ICloneable<LinkStruct<T1, T2, T3, T4>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -1067,9 +1064,8 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
-		public Link<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
+		/// <inheritdoc/>
+		public LinkStruct<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
 
 		/// <summary>Converts the link into an array.</summary>
 		/// <returns>An array containing the values of the link.</returns>
@@ -1116,7 +1112,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4, T5> : Link
+	public class Link<T1, T2, T3, T4, T5> : Link, ICloneable<Link<T1, T2, T3, T4, T5>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -1228,8 +1224,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
+		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
 
 		/// <summary>Converts the link into an array.</summary>
@@ -1280,7 +1275,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
 	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4, T5> : Link
+	public struct LinkStruct<T1, T2, T3, T4, T5> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -1392,9 +1387,8 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
-		public Link<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
+		/// <inheritdoc/>
+		public LinkStruct<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
 
 		/// <summary>Converts the link into an array.</summary>
 		/// <returns>An array containing the values of the link.</returns>
@@ -1445,7 +1439,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4, T5, T6> : Link
+	public class Link<T1, T2, T3, T4, T5, T6> : Link, ICloneable<Link<T1, T2, T3, T4, T5, T6>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -1564,8 +1558,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
+		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
 
 		/// <summary>Converts the link into an array.</summary>
@@ -1620,7 +1613,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
 	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4, T5, T6> : Link
+	public struct LinkStruct<T1, T2, T3, T4, T5, T6> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5, T6>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -1739,9 +1732,8 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
-		public Link<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
+		/// <inheritdoc/>
+		public LinkStruct<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
 
 		/// <summary>Converts the link into an array.</summary>
 		/// <returns>An array containing the values of the link.</returns>
@@ -1796,7 +1788,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
 	/// <typeparam name="T7">The type of #7 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4, T5, T6, T7> : Link
+	public class Link<T1, T2, T3, T4, T5, T6, T7> : Link, ICloneable<Link<T1, T2, T3, T4, T5, T6, T7>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -1922,8 +1914,7 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
+		/// <inheritdoc/>
 		public Link<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
 
 		/// <summary>Converts the link into an array.</summary>
@@ -1982,7 +1973,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
 	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
 	/// <typeparam name="T7">The type of #7 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4, T5, T6, T7> : Link
+	public struct LinkStruct<T1, T2, T3, T4, T5, T6, T7> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5, T6, T7>>
 	{
 		/// <summary>The #1 value of the link.</summary>
 		public T1 Value1 { get; set; }
@@ -2108,9 +2099,8 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Clones the link.</summary>
-		/// <returns>A clone of the link.</returns>
-		public Link<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
+		/// <inheritdoc/>
+		public LinkStruct<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
 
 		/// <summary>Converts the link into an array.</summary>
 		/// <returns>An array containing the values of the link.</returns>

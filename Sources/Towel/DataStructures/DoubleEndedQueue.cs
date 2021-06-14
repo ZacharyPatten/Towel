@@ -6,7 +6,6 @@ using static Towel.Syntax;
 namespace Towel.DataStructures
 {
 	public interface IDoubleEndedQueue<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
@@ -28,7 +27,7 @@ namespace Towel.DataStructures
 		internal Node _tail;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		/// <summary>This class just holds the data for each individual node of the list.</summary>
 		internal class Node

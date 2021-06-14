@@ -8,7 +8,6 @@ namespace Towel.DataStructures
 	/// <summary>Sorted linear data structure.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
 	public interface IOrder<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAddable<T>,

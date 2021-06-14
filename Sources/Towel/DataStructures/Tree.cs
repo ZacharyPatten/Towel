@@ -6,7 +6,6 @@ namespace Towel.DataStructures
 	/// <summary>A generic tree data structure.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>
 	public interface ITree<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IRemovable<T>
 	{
@@ -46,6 +45,8 @@ namespace Towel.DataStructures
 	/// <summary>Static members for the <see cref="TreeMap{T, TEquate, THash}"/> type.</summary>
 	public static class TreeMap
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="TreeMap{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="TreeMap{T, TEquate, THash}"/>.</returns>
@@ -54,6 +55,8 @@ namespace Towel.DataStructures
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(head, equate ?? Equate, hash ?? DefaultHash);
+
+		#endregion
 	}
 
 	/// <summary>A generic tree data structure using a dictionary to store node data.</summary>
@@ -61,7 +64,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
 	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class TreeMap<T, TEquate, THash> : ITree<T>,
-		// Structure Properties
+		ICloneable<TreeMap<T, TEquate, THash>>,
 		DataStructure.IHashing<T, THash>,
 		DataStructure.IEquating<T, TEquate>
 		where TEquate : struct, IFunc<T, T, bool>
@@ -70,7 +73,7 @@ namespace Towel.DataStructures
 		internal T _top;
 		internal MapHashLinked<Node, T, TEquate, THash> _map;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -222,8 +225,7 @@ namespace Towel.DataStructures
 			throw new NotImplementedException();
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public TreeMap<T, TEquate, THash> Clone() => new(this);
 
 		internal void RemoveRecursive(T current)

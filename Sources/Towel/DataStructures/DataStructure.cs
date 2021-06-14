@@ -7,7 +7,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IDataStructure<T> : ISteppable<T>, System.Collections.Generic.IEnumerable<T>
 	{
-		
+
 	}
 
 	/// <summary>Contains extension methods for the Structure interface.</summary>

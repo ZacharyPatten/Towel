@@ -6,12 +6,11 @@ namespace Towel.DataStructures
 	/// <summary>A primitive dynamic sized data structure.</summary>
 	/// <typeparam name="T">The type of items to store in the list.</typeparam>
 	public interface IList<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
-		#region Members
+		#region Methods
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
@@ -33,7 +32,7 @@ namespace Towel.DataStructures
 	/// <summary>Contains static extension methods for IList types.</summary>
 	public static class List
 	{
-		#region Extensions
+		#region Extensions Methods
 
 		/// <summary>Removes all predicated values from an <see cref="IList{T}"/>.</summary>
 		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
@@ -128,13 +127,13 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
 	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	public class ListLinked<T> : IList<T>
+	public class ListLinked<T> : IList<T>, ICloneable<ListLinked<T>>
 	{
 		internal int _count;
 		internal Node? _head;
 		internal Node? _tail;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -217,11 +216,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>
-		/// Creates a shallow clone of this data structure.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public ListLinked<T> Clone() => new(this);
 
 		/// <summary>Removes the first equality by object reference.</summary>
@@ -361,7 +356,7 @@ namespace Towel.DataStructures
 
 	/// <summary>A list implemented as a growing array.</summary>
 	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	public class ListArray<T> : IList<T>
+	public class ListArray<T> : IList<T>, ICloneable<ListArray<T>>
 	{
 		internal T[] _array;
 		internal int _count;
@@ -502,8 +497,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public ListArray<T> Clone() => new(this);
 
 		/// <summary>

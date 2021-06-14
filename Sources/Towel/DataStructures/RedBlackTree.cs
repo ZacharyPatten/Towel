@@ -7,36 +7,43 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IRedBlackTree<T> : ISortedBinaryTree<T>
 	{
-		
+
 	}
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 	public interface IRedBlackTree<T, TCompare> : IRedBlackTree<T>, ISortedBinaryTree<T, TCompare>
-		where TCompare : struct, IFunc<T, T, CompareResult> { }
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+
+	}
 
 	/// <summary>Static helpers for <see cref="IRedBlackTree{T}"/> and <see cref="IRedBlackTree{T, TCompare}"/>.</summary>
 	public static class RedBlackTree
 	{
-		
+
 	}
 
 	/// <summary>Static helpers for <see cref="RedBlackTreeLinked{T, TCompare}"/>.</summary>
 	public static class RedBlackTreeLinked
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="RedBlackTreeLinked{T, TCompare}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="RedBlackTreeLinked{T, TCompare}"/>.</returns>
 		public static RedBlackTreeLinked<T, SFunc<T, T, CompareResult>> New<T>(
 			Func<T, T, CompareResult>? compare = null) =>
 			new(compare ?? Compare);
+
+		#endregion
 	}
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public class RedBlackTreeLinked<T, TCompare> : IRedBlackTree<T, TCompare>
+	public class RedBlackTreeLinked<T, TCompare> : IRedBlackTree<T, TCompare>, ICloneable<RedBlackTreeLinked<T, TCompare>>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const bool Red = true;
@@ -219,8 +226,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>Clones the tree.</summary>
-		/// <returns>A clone of the tree.</returns>
+		/// <inheritdoc/>
 		public RedBlackTreeLinked<T, TCompare> Clone() => new(this);
 
 		/// <inheritdoc/>

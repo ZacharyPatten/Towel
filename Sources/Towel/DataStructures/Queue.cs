@@ -6,7 +6,6 @@ namespace Towel.DataStructures
 	/// <summary>Implements First-In-First-Out queue data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public interface IQueue<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
@@ -36,13 +35,13 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements First-In-First-Out queue data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class QueueLinked<T> : IQueue<T>
+	public class QueueLinked<T> : IQueue<T>, ICloneable<QueueLinked<T>>
 	{
 		internal Node? _head;
 		internal Node? _tail;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -130,8 +129,7 @@ namespace Towel.DataStructures
 			return array;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public QueueLinked<T> Clone() => new(this);
 
 		/// <inheritdoc/>
@@ -209,7 +207,7 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements First-In-First-Out queue data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class QueueArray<T> : IQueue<T>
+	public class QueueArray<T> : IQueue<T>, ICloneable<QueueArray<T>>
 	{
 		const int DefaultMinimumCapacity = 1;
 
@@ -350,8 +348,7 @@ namespace Towel.DataStructures
 			return array;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public QueueArray<T> Clone() => new(this);
 
 		/// <inheritdoc/>

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -26,11 +24,12 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public interface IArray<T> : IArray<T, int>
 	{
+
 	}
 
 	/// <summary>Contiguous fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class Array<T> : IArray<T>
+	public class Array<T> : IArray<T>, ICloneable<Array<T>>
 	{
 		internal T[] _array;
 
@@ -56,9 +55,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Allows indexed access of the array.</summary>
-		/// <param name="index">The index of the array to get/set.</param>
-		/// <returns>The value at the desired index.</returns>
+		/// <inheritdoc/>
 		public T this[int index]
 		{
 			get
@@ -98,43 +95,29 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Clone
-
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public Array<T> Clone() => (T[])_array.Clone();
-
-		#endregion
-
-		#region Stepper And IEnumerable
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step)
 			where TStep : struct, IFunc<T, StepStatus> =>
 			_array.StepperBreak(step);
 
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for the array.</summary>
-		/// <returns>The enumerator for the array.</returns>
-		public IEnumerator<T> GetEnumerator() => ((IEnumerable<T>)_array).GetEnumerator();
-
-		#endregion
-
-		#region ToArray
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)_array).GetEnumerator();
 
 		/// <summary>Converts the structure into an array.</summary>
 		/// <returns>An array containing all the item in the structure.</returns>
 		public T[] ToArray() => _array;
 
 		#endregion
-
-		#endregion
 	}
 
 	/// <summary>An array implemented as a jagged array to allow for a number of elements > Int.MaxValue.</summary>
 	/// <typeparam name="T">The generic type of value to store in the array.</typeparam>
-	public class ArrayJagged<T> : IArray<T, ulong>
+	public class ArrayJagged<T> : IArray<T, ulong>, ICloneable<ArrayJagged<T>>
 	{
 		// BLOCK_SIZE must be a power of 2, and we want it to be big enough that we allocate
 		// blocks in the large object heap so that they don’t move.
@@ -200,7 +183,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>The length of the array.</summary>
+		/// <inheritdoc/>
 		public ulong Length => _length;
 
 		/// <summary>Gets and sets the value at a particual index.</summary>
@@ -218,9 +201,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Gets and sets the value at a particual index.</summary>
-		/// <param name="index">The index of the value to get or set.</param>
-		/// <returns>The value at the provided index.</returns>
+		/// <inheritdoc/>
 		public T this[ulong index]
 		{
 			// these must be _very_ simple in order to ensure that they get inlined into
@@ -243,12 +224,8 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>Clones this array.</summary>
-		/// <returns>A clone of the array.</returns>
-		public ArrayJagged<T> Clone() =>
-			new(this);
-
-		#region Stepper And IEnumerable
+		/// <inheritdoc/>
+		public ArrayJagged<T> Clone() => new(this);
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
@@ -269,10 +246,10 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <inheritdoc/>
-		public IEnumerator<T> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			foreach (T[] array in _elements)
 			{
@@ -282,8 +259,6 @@ namespace Towel.DataStructures
 				}
 			}
 		}
-
-		#endregion
 
 		#endregion
 	}

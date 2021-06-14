@@ -97,7 +97,9 @@ namespace Towel.DataStructures
 		/// <typeparam name="T">The generic type of the bound.</typeparam>
 		public struct Bound<T>
 		{
+			/// <summary>Whether or not the bounds exists.</summary>
 			public bool Exists { get; internal set; }
+			/// <summary>The value of the bound if it exists or default if it does not.</summary>
 			public T? Value { get; internal set; }
 
 			/// <summary>Represents a null bound meaning it does not exist.</summary>

@@ -6,7 +6,6 @@ namespace Towel.DataStructures
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface ISortedBinaryTree<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.IRemovable<T>,
 		DataStructure.ICountable,
@@ -74,7 +73,7 @@ namespace Towel.DataStructures
 		
 	}
 
-	/// <summary>Static members for ISortedBinaryTree.</summary>
+	/// <summary>Static members for <see cref="ISortedBinaryTree{T}"/> and <see cref="ISortedBinaryTree{T, TCompare}"/>.</summary>
 	public static class SortedBinaryTree
 	{
 		#region Extension Methods

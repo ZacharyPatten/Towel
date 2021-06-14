@@ -3,18 +3,18 @@ using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
-	/// <summary>Extension methods for trie data structures.</summary>
+	/// <summary>Extension methods for <see cref="ITrie{T}"/> and <see cref="ITrie{T, D}"/>.</summary>
 	public static class Trie
 	{
-		#region Extensions
+		#region Extensions Methods
 
 		/// <summary>Adds a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <typeparam name="D">The type of the data.</typeparam>
 		/// <param name="trie">The trie to add the value to.</param>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
-		public static void Add<T, K>(this ITrie<K, T> trie, T value, Action<Action<K>> stepper)
+		public static void Add<T, D>(this ITrie<T, D> trie, D value, Action<Action<T>> stepper)
 		{
 			var (success, exception) = trie.TryAdd(value, stepper);
 			if (!success)
@@ -25,11 +25,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <typeparam name="D">The type of the data.</typeparam>
 		/// <param name="trie">The trie to get the value from.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>The value.</returns>
-		public static T Get<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper)
+		public static D Get<T, D>(this ITrie<T, D> trie, Action<Action<T>> stepper)
 		{
 			var (success, value, exception) = trie.TryGet(stepper);
 			if (!success)
@@ -41,10 +41,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="K">The type of the keys.</typeparam>
+		/// <typeparam name="D">The type of the data.</typeparam>
 		/// <param name="trie">The trie to remove the value from.</param>
 		/// <param name="stepper">The keys to store the value relative to.</param>
-		public static void Remove<K, T>(this ITrie<K, T> trie, Action<Action<K>> stepper)
+		public static void Remove<T, D>(this ITrie<T, D> trie, Action<Action<T>> stepper)
 		{
 			var (success, exception) = trie.TryRemove(stepper);
 			if (!success)
@@ -59,7 +59,6 @@ namespace Towel.DataStructures
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	public interface ITrie<T> : IDataStructure<Action<Action<T>>>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAddable<Action<Action<T>>>,
@@ -72,6 +71,8 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers.</summary>
 	public static class TrieLinkedHashLinked
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="TrieLinkedHashLinked{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="TrieLinkedHashLinked{T, TEquate, THash}"/>.</returns>
@@ -88,12 +89,14 @@ namespace Towel.DataStructures
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
+
+		#endregion
 	}
 
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	public class TrieLinkedHashLinked<T, TEquate, THash> : ITrie<T>,
-		// Structure Properties
+		ICloneable<TrieLinkedHashLinked<T, TEquate, THash>>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
 		where TEquate : struct, IFunc<T, T, bool>
@@ -102,7 +105,7 @@ namespace Towel.DataStructures
 		internal MapHashLinked<Node, T, TEquate, THash> _map;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -124,6 +127,14 @@ namespace Towel.DataStructures
 			_map = new(equate, hash);
 		}
 
+		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <param name="trie">The trie to clone.</param>
+		public TrieLinkedHashLinked(TrieLinkedHashLinked<T, TEquate, THash> trie)
+		{
+			_count = trie._count;
+			_map = trie._map.Clone();
+		}
+
 		#endregion
 
 		#region Properties
@@ -138,8 +149,6 @@ namespace Towel.DataStructures
 		#endregion
 
 		#region Methods
-
-		#region TryAdd
 
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(Action<Action<T>> stepper)
@@ -181,10 +190,6 @@ namespace Towel.DataStructures
 				return (true, null);
 			}
 		}
-
-		#endregion
-
-		#region Remove
 
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(Action<Action<T>> stepper)
@@ -245,10 +250,6 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
-
-		#region Contains
-
 		/// <inheritdoc/>
 		public bool Contains(Action<Action<T>> stepper)
 		{
@@ -283,20 +284,12 @@ namespace Towel.DataStructures
 			return node.IsLeaf;
 		}
 
-		#endregion
-
-		#region Clear
-
 		/// <inheritdoc/>
 		public void Clear()
 		{
 			_count = 0;
 			_map.Clear();
 		}
-
-		#endregion
-
-		#region Stepper And IEnumerable
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
@@ -330,7 +323,8 @@ namespace Towel.DataStructures
 			return list.GetEnumerator();
 		}
 
-		#endregion
+		/// <inheritdoc/>
+		public TrieLinkedHashLinked<T, TEquate, THash> Clone() => new(this);
 
 		#endregion
 	}
@@ -339,18 +333,11 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
 	public interface ITrie<T, D> : IDataStructure<(Action<Action<T>>, D)>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAuditable<Action<Action<T>>>
 	{
-		#region Members
-
-		///// <summary>Steps through all the additional data in the trie.</summary>
-		///// <param name="step">The step function of the iteration.</param>
-		///// <returns>The status of the stepper.</returns>
-		//StepStatus StepperBreak<TStep>(TStep step = default)
-		//	where TStep : struct, IFunc<(Action<Action<T>>, D), StepStatus>;
+		#region Methods
 
 		/// <summary>Tries to add a value to the trie.</summary>
 		/// <param name="value">The value to add.</param>
@@ -375,7 +362,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
 	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
 	public class TrieLinkedHashLinked<T, D, TEquate, THash> : ITrie<T, D>,
-		// Structure Properties
+		ICloneable<TrieLinkedHashLinked<T, D, TEquate, THash>>,
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IEquating<T, TEquate>,
@@ -386,7 +373,7 @@ namespace Towel.DataStructures
 		internal MapHashLinked<Node, T, TEquate, THash> _map;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -407,6 +394,14 @@ namespace Towel.DataStructures
 		{
 			_count = 0;
 			_map = new(equate, hash);
+		}
+
+		/// <summary>This constructor is for cloning purposes.</summary>
+		/// <param name="trie">The trie to clone.</param>
+		public TrieLinkedHashLinked(TrieLinkedHashLinked<T, D, TEquate, THash> trie)
+		{
+			_count = trie._count;
+			_map = trie._map.Clone();
 		}
 
 		#endregion
@@ -655,6 +650,9 @@ namespace Towel.DataStructures
 		}
 
 		#endregion
+
+		/// <inheritdoc/>
+		public TrieLinkedHashLinked<T, D, TEquate, THash> Clone() => new(this);
 
 		#endregion
 	}

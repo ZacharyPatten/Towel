@@ -12,11 +12,14 @@ namespace Towel.DataStructures
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
+
 	}
 
 	/// <summary>Static helpers for <see cref="SetHashLinked{T, Equate, THash}"/>.</summary>
 	public class SetHashLinked
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="SetHashLinked{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="SetHashLinked{T, TEquate, THash}"/>.</returns>
@@ -24,6 +27,8 @@ namespace Towel.DataStructures
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? DefaultHash);
+
+		#endregion
 	}
 
 	/// <summary>An unsorted structure of unique items implemented as a hashed table of linked lists.</summary>
@@ -31,6 +36,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
 	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
 	public class SetHashLinked<T, TEquate, THash> : ISet<T>,
+		ICloneable<SetHashLinked<T, TEquate, THash>>,
 		DataStructure.IEquating<T, TEquate>,
 		DataStructure.IHashing<T, THash>
 		where TEquate : struct, IFunc<T, T, bool>
@@ -44,7 +50,7 @@ namespace Towel.DataStructures
 		internal Node?[] _table;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -159,9 +165,7 @@ namespace Towel.DataStructures
 			return (true, null);
 		}
 
-		/// <summary>Tries to remove a value from the set.</summary>
-		/// <param name="value">The value to remove.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			var (success, exception) = TryRemoveWithoutTrim(value);
@@ -242,19 +246,10 @@ namespace Towel.DataStructures
 			Resize(tableSize);
 		}
 
-		/// <summary>
-		/// Creates a shallow clone of this set.
-		/// <para>Runtime: Θ(n)</para>
-		/// </summary>
-		/// <returns>A shallow clone of this set.</returns>
+		/// <inheritdoc/>
 		public SetHashLinked<T, TEquate, THash> Clone() => new(this);
 
-		/// <summary>
-		/// Determines if a value has been added to a set.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="value">The value to look for in the set.</param>
-		/// <returns>True if the value has been added to the set or false if not.</returns>
+		/// <inheritdoc/>
 		public bool Contains(T value)
 		{
 			int location = GetLocation(value);
@@ -268,10 +263,7 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <summary>
-		/// Removes all the values in the set.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_table = new Node[2];
@@ -296,8 +288,7 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for the set.</summary>
-		/// <returns>The enumerator for the set.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0; i < _table.Length; i++)

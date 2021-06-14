@@ -8,14 +8,17 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	public interface IAvlTree<T> : ISortedBinaryTree<T>
 	{
-		
+
 	}
 
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 	public interface IAvlTree<T, TCompare> : IAvlTree<T>, ISortedBinaryTree<T, TCompare>
-		where TCompare : struct, IFunc<T, T, CompareResult> { }
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+
+	}
 
 	/// <summary>Static helpers for <see cref="IAvlTree{T}"/> and <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class AvlTree
@@ -26,18 +29,23 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
 	public static class AvlTreeLinked
 	{
+		#region Extension Methods
+
 		/// <summary>Constructs a new <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <returns>The new constructed <see cref="AvlTreeLinked{T, TCompare}"/>.</returns>
 		public static AvlTreeLinked<T, SFunc<T, T, CompareResult>> New<T>(
 			Func<T, T, CompareResult>? compare = null) =>
 			new(compare ?? Compare);
+
+		#endregion
 	}
 
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
-	public class AvlTreeLinked<T, TCompare> : IAvlTree<T, TCompare>
+	public class AvlTreeLinked<T, TCompare> : IAvlTree<T, TCompare>,
+		ICloneable<AvlTreeLinked<T, TCompare>>
 		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal Node? _root;
@@ -176,8 +184,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>Clones the tree.</summary>
-		/// <returns>A clone of the tree.</returns>
+		/// <inheritdoc/>
 		public AvlTreeLinked<T, TCompare> Clone() => new(this);
 
 		/// <inheritdoc/>

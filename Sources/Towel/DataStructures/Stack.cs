@@ -6,7 +6,6 @@ namespace Towel.DataStructures
 	/// <summary>Implements a First-In-Last-Out stack data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public interface IStack<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
@@ -27,12 +26,12 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements a First-In-Last-Out stack data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class StackLinked<T> : IStack<T>
+	public class StackLinked<T> : IStack<T>, ICloneable<StackLinked<T>>
 	{
 		internal Node? _top;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -87,8 +86,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public StackLinked<T> Clone() => new(this);
 
 		/// <summary>Converts the structure into an array.</summary>
@@ -179,7 +177,7 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements a First-In-Last-Out stack data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class StackArray<T> : IStack<T>
+	public class StackArray<T> : IStack<T>, ICloneable<StackArray<T>>
 	{
 		const int DefaultMinimumCapacity = 1;
 
@@ -261,8 +259,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>Constructs a clone of this stack.</summary>
-		/// <returns>A clone of this stack.</returns>
+		/// <inheritdoc/>
 		public StackArray<T> Clone() => new(this);
 
 		/// <summary>Converts this data structure to an array.</summary>

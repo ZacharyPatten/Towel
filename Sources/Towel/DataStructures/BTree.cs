@@ -8,7 +8,6 @@ namespace Towel.DataStructures
 	/// <summary>A self-sorting binary tree based on grouping nodes together at the same height.</summary>
 	/// <typeparam name="T">The generic type of this data structure.</typeparam>
 	public interface IBTree<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.IClearable,
 		//DataStructure.IAddable<T>,
 		DataStructure.ICountable,
@@ -121,7 +120,7 @@ namespace Towel.DataStructures
 		internal int _node_size;
 		internal Compare<T, T> _compare;
 
-#region Node
+#region Nested Types
 
 		/// <summary>A BTree node can contain multiple items and children.</summary>
 		public class Node
