@@ -196,7 +196,7 @@ void main()
 
 			#region Object Generation
 
-			const int size = 100;
+			const int size = 50;
 			_objects = new ListArray<Cube>();
 			for (int i = -size; i < size; i += 10)
 			{

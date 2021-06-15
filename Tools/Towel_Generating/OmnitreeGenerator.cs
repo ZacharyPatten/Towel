@@ -2022,6 +2022,7 @@ namespace Towel_Generating
 				#warning Not Implemented Methods
 				code.AppendLine($@"		#warning Not Implemented Methods");
 
+				code.AppendLine($@"		public T[] ToArray() => throw new NotImplementedException();");
 				code.AppendLine($@"		public void Remove(T removal, Func<T, T, bool> equate) => throw new NotImplementedException();");
 				code.AppendLine($@"		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => throw new NotImplementedException();");
 				code.AppendLine($@"		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => throw new NotImplementedException();");
