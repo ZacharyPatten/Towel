@@ -1376,7 +1376,7 @@ namespace Towel
 			}
 			foreach (T value in b)
 			{
-				var (success, exception, count) = counts.TryUpdate<Int32Decrement>(value);
+				var (success, _, _, count) = counts.TryUpdate<Int32Decrement>(value);
 				if (!success || count is -1)
 				{
 					return false;

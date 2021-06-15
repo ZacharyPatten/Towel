@@ -12,6 +12,7 @@ namespace Towel
 		public struct Int32Compare : IFunc<int, int, CompareResult> { public CompareResult Invoke(int a, int b) => ToCompareResult(a.CompareTo(b)); }
 		internal struct Int32Increment : IFunc<int, int> { public int Invoke(int a) => a + 1; }
 		internal struct Int32Decrement : IFunc<int, int> { public int Invoke(int a) => a - 1; }
+		internal struct Int32Add : IFunc<int, int> { internal int Value; public int Invoke(int a) => a + Value; public static implicit operator Int32Add(int value) => new() { Value = value }; }
 
 		#endregion
 

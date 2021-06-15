@@ -39,7 +39,7 @@ namespace Towel.DataStructures
 		/// <para>- Success: true if the key+value was set or false if not.</para>
 		/// <para>- Exception: the exception that occured if the set failed.</para>
 		/// </returns>
-		(bool Success, Exception? Exception) TrySet(K key, T value);
+		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TrySet(K key, T value);
 
 		/// <summary>Tries to add a value to the map.</summary>
 		/// <param name="key">The key of the value.</param>
@@ -52,15 +52,32 @@ namespace Towel.DataStructures
 		(bool Success, Exception? Exception) TryAdd(K key, T value);
 
 		/// <summary>Tries to update a value in the map the relative key exists.</summary>
+		/// <typeparam name="TRemovePredicate">The predicate determining if the pair should be removed.</typeparam>
+		/// <typeparam name="TUpdate">The type of function to update the value.</typeparam>
+		/// <param name="key">The key of the value to update.</param>
+		/// <param name="update">The function to update the value relative to the key.</param>
+		/// <param name="removePredicate">The predicate determining if the pair should be removed.</param>
+		/// <returns>
+		/// <para>- Success: true if the key was found or false if not.</para>
+		/// <para>- Exception: the exception that occured if the add failed.</para>
+		/// <para>- OldValue: the non-updated value if the key was found or default if not.</para>
+		/// <para>- NewValue: the updated value if the key was found or default if not.</para>
+		/// </returns>
+		(bool Success, Exception? Exception, bool? Removed, T? OldValue, T? NewValue) TryRemoveOrUpdate<TRemovePredicate, TUpdate>(K key, TRemovePredicate removePredicate = default, TUpdate update = default)
+			where TRemovePredicate : struct, IFunc<T, bool>
+			where TUpdate : struct, IFunc<T, T>;
+
+		/// <summary>Tries to update a value in the map the relative key exists.</summary>
 		/// <typeparam name="TUpdate">The type of function to update the value.</typeparam>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
 		/// <returns>
 		/// <para>- Success: true if the key was found or false if not.</para>
 		/// <para>- Exception: the exception that occured if the add failed.</para>
-		/// <para>- Value: the value if the key was found or default if not.</para>
+		/// <para>- OldValue: the non-updated value if the key was found or default if not.</para>
+		/// <para>- NewValue: the updated value if the key was found or default if not.</para>
 		/// </returns>
-		(bool Success, Exception? Exception, T? Value) TryUpdate<TUpdate>(K key, TUpdate update = default)
+		(bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<TUpdate>(K key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>;
 
 		/// <summary>Adds or updates the value at the given key.</summary>
@@ -72,7 +89,7 @@ namespace Towel.DataStructures
 		/// <para>- Success: true if the value was added or updated or false if not.</para>
 		/// <para>- Exception: the exception that occured if the add or update failed.</para>
 		/// </returns>
-		(bool Success, Exception? Exception) TryAddOrUpdate<TUpdate>(K key, T value, TUpdate update = default)
+		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<TUpdate>(K key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>;
 
 		/// <summary>Gets an enumerator that will traverse the keys of the map.</summary>
@@ -96,7 +113,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets an array with all the pairs in the map.</summary>
 		/// <returns>An array with all the pairs in the map.</returns>
-		(T, K)[] PairsToArray();
+		(T Value, K Key)[] PairsToArray();
 
 		/// <summary>Performs a function on every pair in a map.</summary>
 		/// <typeparam name="TStep">The type of the step function.</typeparam>
@@ -119,7 +136,7 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
-		public static void Update<T, K>(this IMap<T, K> map, K key, Func<T, T> update) =>
+		public static (T OldeValue, T NewValue) Update<T, K>(this IMap<T, K> map, K key, Func<T, T> update) =>
 			map.Update<T, K, SFunc<T, T>>(key, update);
 
 		/// <summary>Adds or updates the value at the given key.</summary>
@@ -129,7 +146,7 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to add or update.</param>
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
-		public static void AddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update) =>
+		public static (bool Existed, T? OldValue) AddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update) =>
 			map.AddOrUpdate<T, K, SFunc<T, T>>(key, value, update);
 
 		/// <summary>Updates a value in the map the relative key exists.</summary>
@@ -139,14 +156,15 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
-		public static void Update<T, K, TUpdate>(this IMap<T, K> map, K key, TUpdate update = default)
+		public static (T OldeValue, T NewValue) Update<T, K, TUpdate>(this IMap<T, K> map, K key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
-			var (success, exception, value) = map.TryUpdate(key, update);
+			var (success, exception, oldValue, newValue) = map.TryUpdate(key, update);
 			if (!success)
 			{
 				throw exception ?? new ArgumentException($"{nameof(Update)} failed but the {nameof(exception)} is null"); ;
 			}
+			return (oldValue!, newValue!);
 		}
 
 		/// <summary>Adds or updates the value at the given key.</summary>
@@ -157,14 +175,15 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to add or update.</param>
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
-		public static void AddOrUpdate<T, K, TUpdate>(this IMap<T, K> map, K key, T value, TUpdate update = default)
+		public static (bool Existed, T? OldValue) AddOrUpdate<T, K, TUpdate>(this IMap<T, K> map, K key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
-			var (success, exception) = map.TryAddOrUpdate(key, value, update);
+			var (success, exception, existed, oldValue) = map.TryAddOrUpdate(key, value, update);
 			if (!success)
 			{
 				throw exception ?? new ArgumentException($"{nameof(AddOrUpdate)} failed but the {nameof(exception)} is null"); ;
 			}
+			return (existed!.Value, oldValue);
 		}
 
 		/// <summary>Tries to update a value in the map the relative key exists.</summary>
@@ -178,7 +197,7 @@ namespace Towel.DataStructures
 		/// <para>- Exception: the exception that occured if the add failed.</para>
 		/// <para>- Value: the value if the key was found or default if not.</para>
 		/// </returns>
-		public static (bool Success, Exception? Exception, T? Value) TryUpdate<T, K>(this IMap<T, K> map, K key, Func<T, T> update)
+		public static (bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<T, K>(this IMap<T, K> map, K key, Func<T, T> update)
 		{
 			if (update is null) throw new ArgumentNullException(nameof(update));
 			return map.TryUpdate<SFunc<T, T>>(key, update);
@@ -195,7 +214,7 @@ namespace Towel.DataStructures
 		/// <para>- Success: true if the value was added or updated or false if not.</para>
 		/// <para>- Exception: the exception that occured if the add or update failed.</para>
 		/// </returns>
-		public static (bool Success, Exception? Exception) TryAddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update)
+		public static (bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update)
 		{
 			if (update is null) throw new ArgumentNullException(nameof(update));
 			return map.TryAddOrUpdate<SFunc<T, T>>(key, value, update);
@@ -223,14 +242,14 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to set the value in.</param>
 		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
-		public static void Set<T, K>(this IMap<T, K> map, K key, T value)
+		public static (bool Existed, T? OldValue) Set<T, K>(this IMap<T, K> map, K key, T value)
 		{
-			var (success, exception) = map.TrySet(key, value);
+			var (success, exception, existed, oldValue) = map.TrySet(key, value);
 			if (!success)
 			{
 				throw exception ?? new ArgumentException($"{nameof(Set)} failed but the {nameof(exception)} is null");
 			}
-			return;
+			return (existed!.Value, oldValue);
 		}
 
 		/// <summary>Gets a value in a map relative to a key.</summary>
@@ -446,8 +465,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		internal int GetLocation(K key) =>
-			(_hash.Invoke(key) & int.MaxValue) % _table.Length;
+		internal int GetLocation(K key) => (_hash.Invoke(key) & int.MaxValue) % _table.Length;
 
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(K key, T value)
@@ -479,7 +497,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryAddOrUpdate<TUpdate>(K key, T value, TUpdate update = default)
+		public (bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<TUpdate>(K key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
 			int location = GetLocation(key);
@@ -487,8 +505,9 @@ namespace Towel.DataStructures
 			{
 				if (_equate.Invoke(node.Key, key))
 				{
+					T oldValue = node.Value;
 					node.Value = update.Invoke(node.Value);
-					return (true, null);
+					return (true, null, true, oldValue);
 				}
 			}
 			_table[location] = new Node(
@@ -509,11 +528,46 @@ namespace Towel.DataStructures
 					Resize(tableSize);
 				}
 			}
-			return (true, null);
+			return (true, null, false, default);
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception, T? Value) TryUpdate<TUpdate>(K key, TUpdate update = default)
+		public (bool Success, Exception? Exception, bool? Removed, T? OldValue, T? NewValue) TryRemoveOrUpdate<TRemovePredicate, TUpdate>(K key, TRemovePredicate removePredicate = default, TUpdate update = default)
+			where TRemovePredicate : struct, IFunc<T, bool>
+			where TUpdate : struct, IFunc<T, T>
+		{
+			int location = GetLocation(key);
+
+			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
+			{
+				if (_equate.Invoke(node.Key, key))
+				{
+					if (removePredicate.Invoke(node.Value))
+					{
+						if (previous is null)
+						{
+							_table[location] = node.Next;
+						}
+						else
+						{
+							previous.Next = node.Next;
+						}
+						_count--;
+						return (true, null, true, node.Value, default);
+					}
+					else
+					{
+						T oldValue = node.Value;
+						node.Value = update.Invoke(node.Value);
+						return (true, null, false, oldValue, node.Value);
+					}
+				}
+			}
+			return (false, new ArgumentException(paramName: nameof(key), message: "key not found"), default, default, default);
+		}
+
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<TUpdate>(K key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
 			int location = GetLocation(key);
@@ -521,11 +575,12 @@ namespace Towel.DataStructures
 			{
 				if (_equate.Invoke(node.Key, key))
 				{
+					T oldValue = node.Value;
 					node.Value = update.Invoke(node.Value);
-					return (true, null, node.Value);
+					return (true, null, oldValue, node.Value);
 				}
 			}
-			return (false, new ArgumentException(paramName: nameof(key), message: "key not found"), default);
+			return (false, new ArgumentException(paramName: nameof(key), message: "key not found"), default, default);
 		}
 
 		/// <inheritdoc/>
@@ -543,15 +598,16 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TrySet(K key, T value)
+		public (bool Success, Exception? Exception, bool? Existed, T? OldValue) TrySet(K key, T value)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
 			{
 				if (_equate.Invoke(node.Key, key))
 				{
+					T oldValue = node.Value;
 					node.Value = value;
-					return (true, null);
+					return (true, null, true, oldValue);
 				}
 			}
 			_table[location] = new Node(
@@ -572,7 +628,7 @@ namespace Towel.DataStructures
 					Resize(tableSize);
 				}
 			}
-			return (true, null);
+			return (true, null, false, default);
 		}
 
 		/// <inheritdoc/>
@@ -801,9 +857,9 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (T, K)[] PairsToArray()
+		public (T Value, K Key)[] PairsToArray()
 		{
-			(T, K)[] array = new (T, K)[_count];
+			(T Value, K Key)[] array = new (T Value, K Key)[_count];
 			for (int i = 0, index = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)

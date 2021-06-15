@@ -516,6 +516,42 @@ namespace DataStructures
 			}
 			#endregion
 
+			#region Bag
+			{
+				Console.WriteLine("  Bag---------------------------------");
+				Console.WriteLine();
+				Console.WriteLine("    An \"Bag\" is a data structure that stores counts of values.");
+				Console.WriteLine("    You can add multiples of the same value and it will track");
+				Console.WriteLine("    how many of each value has been added.");
+				Console.WriteLine();
+
+				IBag<int> bag = BagMap.New<int>();
+
+				int[] values = { 1, 2, 3, 2, 0, -1, 3, 2, 7, 9, 2 };
+
+				Console.WriteLine($"    bag.Add({string.Join(", ", values)})...");
+				foreach (int value in values)
+				{
+					bag.Add(value);
+				}
+
+				Console.WriteLine($"    bag.Count -> {bag.Count}");
+				Console.WriteLine($"    bag[3] -> {bag[3]}");
+				Console.WriteLine($"    bag[6] -> {bag[6]}");
+				Console.WriteLine($"    bag.Contains(1) -> {bag.Contains(1)}");
+				Console.WriteLine($"    foreach (var (count, value) in bag.GetCounts())");
+				foreach (var (count, value) in bag.GetCounts())
+				{
+					Console.WriteLine($"      (value: {value}, count: {count})");
+				}
+				bag.Remove(3);
+				Console.WriteLine($"    bag.Remove(3); bag[3] -> {bag[3]}");
+				Console.WriteLine($"    bag.Count -> {bag.Count}");
+
+				Pause();
+			}
+			#endregion
+
 			#region OmnitreePoints
 			{
 				Console.WriteLine("  OmnitreePoints--------------------------------------");
