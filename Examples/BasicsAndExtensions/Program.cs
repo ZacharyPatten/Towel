@@ -313,6 +313,7 @@ namespace BasicsAndExtensions
 				int[] b = { 1, -1, 2, -2, 3, -3 };
 				Console.Write($"    FilterOrdered({string.Join(", ", b)}) ->");
 				FilterOrdered<int>(b, i => Console.Write(" " + i));
+				Console.WriteLine();
 
 				Pause();
 			}

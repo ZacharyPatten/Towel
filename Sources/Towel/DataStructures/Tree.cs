@@ -139,7 +139,7 @@ namespace Towel.DataStructures
 			{
 				throw new ArgumentException(paramName: nameof(node), message: "Check for a parent-child relationship of non-existing node.");
 			}
-			var (success, value,exception) = _map.TryGet(parent);
+			var (success, exception, value) = _map.TryGet(parent);
 			if (!success)
 			{
 				throw new ArgumentException(paramName: nameof(parent), message: "Check for a parent-child relationship of non-existing node.", innerException: exception);
@@ -154,7 +154,7 @@ namespace Towel.DataStructures
 			{
 				throw new InvalidOperationException("Attempting to get the parent of the top of the tree.");
 			}
-			var (success, value, exception) = _map.TryGet(child);
+			var (success, exception, value) = _map.TryGet(child);
 			if (!success)
 			{
 				throw new InvalidOperationException("Attempting to get the parent of a non-existing node.", innerException: exception);
@@ -165,7 +165,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public void Children(T parent, Action<T> step)
 		{
-			var (success, value, exception) = _map.TryGet(parent);
+			var (success, exception, value) = _map.TryGet(parent);
 			if (!success)
 			{
 				throw new ArgumentException(paramName: nameof(parent), message: "Attepting to step through the children of a none-existing parent.", innerException: exception);
@@ -180,7 +180,7 @@ namespace Towel.DataStructures
 			{
 				return (false, new ArgumentException(paramName: nameof(node), message: "Adding an already-existing node to a tree."));
 			}
-			var (success, value, exception) = _map.TryGet(parent);
+			var (success, exception, value) = _map.TryGet(parent);
 			if (!success)
 			{
 				return (false, new ArgumentException(paramName: nameof(parent), message: "Adding a node to a non-existant parent in a tree.", innerException: exception));
@@ -199,7 +199,7 @@ namespace Towel.DataStructures
 				return (false, new ArgumentException(paramName: nameof(node), message: "Attempting to remove the top of the tree."));
 			}
 
-			var (success, value, exception) = _map.TryGet(node);
+			var (success, exception, value) = _map.TryGet(node);
 			if (!success)
 			{
 				return (false, new InvalidOperationException("Attempting to remove a non-existing node", exception));

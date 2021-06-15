@@ -17,27 +17,27 @@ namespace Towel.Mathematics
 
 		#region Properties
 
-		internal int Length { get { return _matrix.Length; } }
+		internal int Length => _matrix.Length;
 		/// <summary>The number of rows in the matrix.</summary>
-		public int Rows { get { return _rows; } }
+		public int Rows => _rows;
 		/// <summary>The number of columns in the matrix.</summary>
-		public int Columns { get { return _columns; } }
+		public int Columns => _columns;
 		/// <summary>Determines if the matrix is square.</summary>
-		public bool IsSquare { get { return _rows == _columns; } }
+		public bool IsSquare => _rows == _columns;
 		/// <summary>Determines if the matrix is a vector.</summary>
-		public bool IsVector { get { return _columns == 1; } }
+		public bool IsVector { get { return _columns is 1; } }
 		/// <summary>Determines if the matrix is a 2 component vector.</summary>
-		public bool Is2x1 { get { return _rows == 2 && _columns == 1; } }
+		public bool Is2x1 => _rows is 2 && _columns is 1;
 		/// <summary>Determines if the matrix is a 3 component vector.</summary>
-		public bool Is3x1 { get { return _rows == 3 && _columns == 1; } }
+		public bool Is3x1 => _rows is 3 && _columns is 1;
 		/// <summary>Determines if the matrix is a 4 component vector.</summary>
-		public bool Is4x1 { get { return _rows == 4 && _columns == 1; } }
+		public bool Is4x1 => _rows is 4 && _columns is 1;
 		/// <summary>Determines if the matrix is a 2 square matrix.</summary>
-		public bool Is2x2 { get { return _rows == 2 && _columns == 2; } }
+		public bool Is2x2 => _rows is 2 && _columns is 2;
 		/// <summary>Determines if the matrix is a 3 square matrix.</summary>
-		public bool Is3x3 { get { return _rows == 3 && _columns == 3; } }
+		public bool Is3x3 => _rows is 3 && _columns is 3;
 		/// <summary>Determines if the matrix is a 4 square matrix.</summary>
-		public bool Is4x4 { get { return _rows == 4 && _columns == 4; } }
+		public bool Is4x4 => _rows is 4 && _columns is 4;
 
 		/// <summary>Standard row-major matrix indexing.</summary>
 		/// <param name="row">The row index.</param>
@@ -470,7 +470,7 @@ namespace Towel.Mathematics
 			// Note: the reasoning behind using MatrixElementFraction is to account for
 			// rounding errors such as 2.00...01 instead of 2
 
-			if (n == 1)
+			if (n is 1)
 			{
 				return matrix.Get(0, 0);
 			}
@@ -525,7 +525,7 @@ namespace Towel.Mathematics
 		internal static T GetDeterminantLaplace(Matrix<T> a, int n)
 		{
 			T determinant = Constant<T>.Zero;
-			if (n == 1)
+			if (n is 1)
 			{
 				return a.Get(0, 0);
 			}
@@ -1146,7 +1146,7 @@ namespace Towel.Mathematics
 			{
 				throw new ArgumentOutOfRangeException(nameof(b), b, "!(" + nameof(b) + " >= 0)");
 			}
-			if (b == 0)
+			if (b is 0)
 			{
 				if (c is not null && c._matrix.Length == a._matrix.Length)
 				{
@@ -1958,7 +1958,7 @@ namespace Towel.Mathematics
 			{
 				b = new Matrix<T>(dimension, dimension, Length);
 			}
-			if (dimension == 1)
+			if (dimension is 1)
 			{
 				b.Set(0, 0, Constant<T>.One);
 				return;
@@ -1969,7 +1969,7 @@ namespace Towel.Mathematics
 				for (int j = 0; j < dimension; j++)
 				{
 					GetCofactor(a, temp, i, j, dimension);
-					T sign = (i + j) % 2 == 0 ? Constant<T>.One : Constant<T>.NegativeOne;
+					T sign = (i + j) % 2 is 0 ? Constant<T>.One : Constant<T>.NegativeOne;
 					b.Set(j, i, Multiplication(sign, GetDeterminantGaussian(temp, dimension - 1)));
 				}
 			}
@@ -2186,7 +2186,7 @@ namespace Towel.Mathematics
 			//			p = upper[i, k] > 0 ? upper[i, k] : -upper[i, k];
 			//			k0 = i;
 			//		}
-			//	if (p == 0)
+			//	if (p is 0)
 			//		throw new System.Exception("The matrix is singular!");
 			//	pom1 = permutation[k];
 			//	permutation[k] = permutation[k0];
@@ -2236,11 +2236,11 @@ namespace Towel.Mathematics
 		{
 			_ = axis ?? throw new ArgumentNullException(nameof(axis));
 			_ = matrix ?? throw new ArgumentNullException(nameof(matrix));
-			if (axis._vector.Length != 3)
+			if (axis._vector.Length is not 3)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(axis) + "." + nameof(axis.Dimensions) + " == 3)");
 			}
-			if (matrix._rows != 4 || matrix._columns != 4)
+			if (matrix._rows is not 4 || matrix._columns is not 4)
 			{
 				throw new MathematicsException("Argument invalid !(" + nameof(matrix) + "." + nameof(matrix.Rows) + " == 4 && " + nameof(matrix) + "." + nameof(matrix.Columns) + " == 4)");
 			}

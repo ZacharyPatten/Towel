@@ -125,7 +125,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public T Pop()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				throw new InvalidOperationException("attempting to pop from an empty stack.");
 			}
@@ -147,8 +147,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (Node? node = _top; node is not null; node = node.Down)
 			{
@@ -281,7 +281,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public T Pop()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				throw new InvalidOperationException("attempting to pop from an empty stack.");
 			}
@@ -304,8 +304,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
 			_array.StepperBreak(0, _count, step);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();

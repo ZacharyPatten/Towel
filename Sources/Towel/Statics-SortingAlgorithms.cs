@@ -906,7 +906,7 @@ namespace Towel
 			int i = 0;
 			while (i < span.Length)
 			{
-				if (i == 0 || compare.Invoke(span[i], span[i - 1]) != Less)
+				if (i is 0 || compare.Invoke(span[i], span[i - 1]) != Less)
 				{
 					i++;
 				}

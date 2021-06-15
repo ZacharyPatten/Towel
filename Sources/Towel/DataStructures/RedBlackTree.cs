@@ -355,8 +355,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			StepStatus Stepper(Node node)
 			{
@@ -373,8 +373,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public virtual StepStatus StepperBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public virtual StepStatus StepperBreak<TStep>(T minimum, T maximum, TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			StepStatus Stepper(Node node)
 			{
@@ -406,8 +406,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperReverseBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public StepStatus StepperReverseBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			StepStatus StepperReverse(Node node)
 			{
@@ -424,8 +424,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public virtual StepStatus StepperReverseBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public virtual StepStatus StepperReverseBreak<TStep>(T minimum, T maximum, TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			StepStatus StepperReverse(Node node)
 			{

@@ -169,7 +169,7 @@ namespace Towel
 						{
 							MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
 							ParameterInfo[] parameters = genericMethodInfo.GetParameters();
-							if (parameters.Length == 2 &&
+							if (parameters.Length is 2 &&
 								parameters[0].ParameterType == typeof(string) &&
 								parameters[1].ParameterType == typeof(A).MakeByRefType())
 							{
@@ -273,7 +273,7 @@ namespace Towel
 		public static bool Equate<T>(T a, T b, params T[] c)
 		{
 			_ = c ?? throw new ArgumentNullException(nameof(c));
-			if (c.Length == 0) throw new ArgumentException("The array is empty.", nameof(c));
+			if (c.Length is 0) throw new ArgumentException("The array is empty.", nameof(c));
 			if (!Equate(a, b))
 			{
 				return false;
@@ -1069,7 +1069,7 @@ namespace Towel
 				{
 					static int SquareRoot(int x)
 					{
-						if (x == 0 || x == 1)
+						if (x is 0 || x is 1)
 						{
 							return x;
 						}

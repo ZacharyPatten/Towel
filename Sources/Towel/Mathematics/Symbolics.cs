@@ -3391,7 +3391,7 @@ namespace Towel.Mathematics
 					Match currentMatch = operatorMatches[currentOperatorMatch];
 					if (currentMatch.Index == i)
 					{
-						if (scope == 0)
+						if (scope is 0)
 						{
 							Match previousMatch = currentOperatorMatch != 0 ? operatorMatches[currentOperatorMatch - 1] : null;
 							Match nextMatch = currentOperatorMatch != operatorMatches.Count - 1 ? operatorMatches[currentOperatorMatch + 1] : null;
@@ -3470,7 +3470,7 @@ namespace Towel.Mathematics
 							}
 
 							if (IsUnaryLeftOperator())// first character in the expression
-													  //currentMatch.Index == 0 ||
+													  //currentMatch.Index is 0 ||
 													  //// nothing but white space to the left
 													  //(previousMatch is not null &&
 
@@ -3694,7 +3694,7 @@ namespace Towel.Mathematics
 					case '(': scope++; break;
 					case ')': scope--; break;
 					case ',':
-						if (scope == 0)
+						if (scope is 0)
 						{
 							operands.Add(@string[operandStart..i]);
 						}
@@ -3812,7 +3812,7 @@ namespace Towel.Mathematics
 			if (decimalIndex >= 0)
 			{
 				string wholeNumberString;
-				if (decimalIndex == 0)
+				if (decimalIndex is 0)
 				{
 					wholeNumberString = "0";
 				}

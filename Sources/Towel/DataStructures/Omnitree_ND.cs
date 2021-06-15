@@ -235,7 +235,7 @@ namespace Towel.DataStructures
 			for (int i = 0; i < bounds.Length; i++)
 			{
 				int adjuster = i / 2;
-				if (i % 2 == 0)
+				if (i % 2 is 0)
 					adjuster = -adjuster;
 				int adjustedMedianIndex = medianIndex + adjuster;
 				if (bounds[adjustedMedianIndex].Exists)
@@ -272,7 +272,7 @@ namespace Towel.DataStructures
 			{
 				ulong adjustedMedianIndex = medianIndex;
 				ulong adjuster = i / 2;
-				if (i % 2 == 0)
+				if (i % 2 is 0)
 					adjustedMedianIndex -= adjuster;
 				else
 					adjustedMedianIndex += adjuster;

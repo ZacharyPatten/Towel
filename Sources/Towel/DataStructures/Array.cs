@@ -114,7 +114,7 @@ namespace Towel.DataStructures
 		#endregion
 	}
 
-	/// <summary>An array implemented as a jagged array to allow for a number of elements > Int.MaxValue.</summary>
+	/// <summary>An array implemented as a jagged array to allow for a number of values greater than Int.MaxValue.</summary>
 	/// <typeparam name="T">The generic type of value to store in the array.</typeparam>
 	public class ArrayJagged<T> : IArray<T, ulong>, ICloneable<ArrayJagged<T>>
 	{
@@ -142,7 +142,7 @@ namespace Towel.DataStructures
 			_blocks = new T[numBlocks][];
 			for (int i = 0; i < numBlocks; i++)
 			{
-				_blocks[i] = bigArray._blocks[i].Clone() as T[];
+				_blocks[i] = (T[])bigArray._blocks[i].Clone();
 			}
 		}
 
@@ -157,7 +157,7 @@ namespace Towel.DataStructures
 		// maximum BigArray size = BLOCK_SIZE * Int.MaxValue
 		public ArrayJagged(ulong size)
 		{
-			if (size == 0)
+			if (size is 0)
 				return;
 
 			int numBlocks = (int)(size / BLOCK_SIZE);

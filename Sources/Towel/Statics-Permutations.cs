@@ -160,8 +160,8 @@ namespace Towel
 			for (int i = start + 1; i < end + 1 && status.Invoke() is Continue; action.Invoke())
 			{
 				indeces[i]--;
-				Swap(i, i % 2 == 1 ? indeces[i] : 0);
-				for (i = 1; indeces[i] == 0; i++)
+				Swap(i, i % 2 is 1 ? indeces[i] : 0);
+				for (i = 1; indeces[i] is 0; i++)
 				{
 					indeces[i] = i;
 				}
@@ -202,8 +202,8 @@ namespace Towel
 			for (int i = 1; i < span.Length && status.Invoke() is Continue; action.Invoke())
 			{
 				indeces[i]--;
-				Swap(span, i, i % 2 == 1 ? indeces[i] : 0);
-				for (i = 1; indeces[i] == 0; i++)
+				Swap(span, i, i % 2 is 1 ? indeces[i] : 0);
+				for (i = 1; indeces[i] is 0; i++)
 				{
 					indeces[i] = i;
 				}

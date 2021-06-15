@@ -113,7 +113,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				return Array.Empty<T>();
 			}
@@ -174,8 +174,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (Node? node = _head; node is not null; node = node.Next)
 			{
@@ -372,7 +372,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public T Dequeue()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				throw new InvalidOperationException("attempting to queue from an empty queue.");
 			}
@@ -409,8 +409,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
 			{

@@ -238,7 +238,7 @@ namespace Towel.DataStructures
 				{
 					var (k, m, n) = pathStack.Pop();
 					n.Count--;
-					if (remove && n.Count == 0)
+					if (remove && n.Count is 0)
 					{
 						m.Remove(k);
 					}
@@ -556,7 +556,7 @@ namespace Towel.DataStructures
 				{
 					var (k, m, n) = pathStack.Pop();
 					n.Count--;
-					if (remove && n.Count == 0)
+					if (remove && n.Count is 0)
 					{
 						m.Remove(k);
 					}

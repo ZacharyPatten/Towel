@@ -392,7 +392,7 @@ namespace Towel
 			_ = values ?? throw new ArgumentNullException(nameof(values));
 			// standard algorithm (sort and grab middle value)
 			SortMerge(values, compare);
-			if (values.Length % 2 == 1) // odd... just grab middle value
+			if (values.Length % 2 is 1) // odd... just grab middle value
 			{
 				return values[values.Length / 2];
 			}
@@ -439,7 +439,7 @@ namespace Towel
 		//public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
 		//{
 		//    // this is an optimized median algorithm, but it only works on odd sets without duplicates
-		//    if (hash is not null && equate is not null && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
+		//    if (hash is not null && equate is not null && values.Length % 2 is 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
 		//    {
 		//        int medianIndex = 0;
 		//        OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
@@ -477,8 +477,8 @@ namespace Towel
 		//{
 		//    do
 		//    {
-		//        while (compare(a[i], x) == Comparison.Less) i++;
-		//        while (compare(a[j], x) == Comparison.Greater) j--;
+		//        while (compare(a[i], x) is Less) i++;
+		//        while (compare(a[j], x) is Greater) j--;
 		//        T t = a[i];
 		//        a[i] = a[j];
 		//        a[j] = t;
@@ -1208,8 +1208,8 @@ namespace Towel
 		/// <summary>
 		/// <para>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
-		/// meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
-		/// while retaining the order of the respective elements. Uses a recursive algorithm.
+		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/> 
+		/// while retaining the order of the respective values. Uses a recursive algorithm.
 		/// </para>
 		/// <para>Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)</para>
 		/// <para>Memory: O(1)</para>
@@ -1219,8 +1219,8 @@ namespace Towel
 
 		/// <summary>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
-		/// meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
-		/// while retaining the order of the respective elements. Uses a interative algorithm.
+		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/> 
+		/// while retaining the order of the respective values. Uses a interative algorithm.
 		/// <para>Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)</para>
 		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
 		/// </summary>
@@ -1286,10 +1286,10 @@ namespace Towel
 				for (int j = 0; j <= b.Length; ++j)
 				{
 					d[i, j] =
-						(i == 0 && j == 0) ||
+						(i is 0 && j is 0) ||
 						(
-							i == 0 ? (equate.Invoke(b[j - 1], c[j - 1]) && d[i, j - 1]) :
-							j == 0 ? (equate.Invoke(a[i - 1], c[i - 1]) && d[i - 1, j]) :
+							i is 0 ? (equate.Invoke(b[j - 1], c[j - 1]) && d[i, j - 1]) :
+							j is 0 ? (equate.Invoke(a[i - 1], c[i - 1]) && d[i - 1, j]) :
 							equate.Invoke(a[i - 1], c[i + j - 1]) && !equate.Invoke(b[j - 1], c[i + j - 1]) ? d[i - 1, j] :
 							!equate.Invoke(a[i - 1], c[i + j - 1]) && equate.Invoke(b[j - 1], c[i + j - 1]) ? d[i, j - 1] :
 							equate.Invoke(a[i - 1], c[i + j - 1]) && equate.Invoke(b[j - 1], c[i + j - 1]) && (d[i - 1, j] || d[i, j - 1])
@@ -1297,18 +1297,18 @@ namespace Towel
 
 					#region expanded version
 
-					//if (i == 0 && j == 0)
+					//if (i is 0 && j is 0)
 					//{
 					//	d[i, j] = true;
 					//}
-					//else if (i == 0)
+					//else if (i is 0)
 					//{
 					//	if (equate.Do(b[j - 1], c[j - 1]))
 					//	{
 					//		d[i, j] = d[i, j - 1];
 					//	}
 					//}
-					//else if (j == 0)
+					//else if (j is 0)
 					//{
 					//	if (equate.Do(a[i - 1], c[i - 1]))
 					//	{
@@ -1342,20 +1342,20 @@ namespace Towel
 		/// <typeparam name="T">The element type of each span.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if both spans contain the same number of each element.</returns>
 		public static bool IsReorderOf<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
 			IsReorderOf<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
 
 		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="TEquate">The function for determining equality of elements.</typeparam>
-		/// <typeparam name="THash">The function for hashing the elements.</typeparam>
+		/// <typeparam name="TEquate">The function for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The function for hashing the values.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if both spans contain the same number of each element.</returns>
 		public static bool IsReorderOf<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
 			where TEquate : struct, IFunc<T, T, bool>
@@ -1372,11 +1372,11 @@ namespace Towel
 			MapHashLinked<int, T, TEquate, THash> counts = new(equate: equate, hash: hash, expectedCount: a.Length);
 			foreach (T value in a)
 			{
-				counts.AddOrUpdate<Int32Increment>(value, 1);
+				counts.AddOrUpdate<int, T, Int32Increment>(value, 1);
 			}
 			foreach (T value in b)
 			{
-				var (success, count) = counts.TryUpdate<Int32Decrement>(value);
+				var (success, exception, count) = counts.TryUpdate<Int32Decrement>(value);
 				if (!success || count is -1)
 				{
 					return false;
@@ -1393,20 +1393,20 @@ namespace Towel
 		/// <typeparam name="T">The element type of each span.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if neither span contains an element the other does not.</returns>
 		public static bool SetEquals<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = default, Func<T, int>? hash = default) =>
 			SetEquals<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
 
 		/// <summary>Determines if neither span contains an element the other does not.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="TEquate">The function for determining equality of elements.</typeparam>
-		/// <typeparam name="THash">The function for hashing the elements.</typeparam>
+		/// <typeparam name="TEquate">The function for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The function for hashing the values.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if neither span contains an element the other does not.</returns>
 		public static bool SetEquals<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
 			where TEquate : struct, IFunc<T, T, bool>
@@ -1443,22 +1443,22 @@ namespace Towel
 
 		#region ContainsDuplicates
 
-		/// <summary>Determines if the span contains any duplicate elements.</summary>
+		/// <summary>Determines if the span contains any duplicate values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
 		/// <param name="span">The span to look for duplicates in.</param>
-		/// <param name="equate">The function for equating elements.</param>
-		/// <param name="hash">The function for hashing elements.</param>
+		/// <param name="equate">The function for equating values.</param>
+		/// <param name="hash">The function for hashing values.</param>
 		/// <returns>True if the span contains duplicates.</returns>
 		public static bool ContainsDuplicates<T>(Span<T> span, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
 			ContainsDuplicates<T, SFunc<T, T, bool>, SFunc<T, int>>(span, equate ?? Statics.Equate, hash ?? DefaultHash);
 
-		/// <summary>Determines if the span contains any duplicate elements.</summary>
+		/// <summary>Determines if the span contains any duplicate values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="TEquate">The function for equating elements.</typeparam>
-		/// <typeparam name="THash">The function for hashing elements.</typeparam>
+		/// <typeparam name="TEquate">The function for equating values.</typeparam>
+		/// <typeparam name="THash">The function for hashing values.</typeparam>
 		/// <param name="span">The span to look for duplicates in.</param>
-		/// <param name="equate">The function for equating elements.</param>
-		/// <param name="hash">The function for hashing elements.</param>
+		/// <param name="equate">The function for equating values.</param>
+		/// <param name="hash">The function for hashing values.</param>
 		/// <returns>True if the span contains duplicates.</returns>
 		public static bool ContainsDuplicates<T, TEquate, THash>(Span<T> span, TEquate equate = default, THash hash = default)
 			where TEquate : struct, IFunc<T, T, bool>
@@ -1483,17 +1483,17 @@ namespace Towel
 		/// <typeparam name="T">The element type of the span.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="value">The value to look for.</param>
-		/// <param name="equate">The function for equating elements.</param>
+		/// <param name="equate">The function for equating values.</param>
 		/// <returns>True if the value was found.</returns>
 		public static bool Contains<T>(Span<T> span, T value, Func<T, T, bool>? equate = null) =>
 			Contains<T, SFunc<T, T, bool>>(span, value, equate ?? Statics.Equate);
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="TEquate">The function for equating elements.</typeparam>
+		/// <typeparam name="TEquate">The function for equating values.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="value">The value to look for.</param>
-		/// <param name="equate">The function for equating elements.</param>
+		/// <param name="equate">The function for equating values.</param>
 		/// <returns>True if the value was found.</returns>
 		public static bool Contains<T, TEquate>(Span<T> span, T value, TEquate equate = default)
 			where TEquate : struct, IFunc<T, T, bool>
@@ -1515,7 +1515,7 @@ namespace Towel
 		/// <summary>Determines if a span contains any predicated values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
 		/// <param name="span">The span to scan for predicated values in.</param>
-		/// <param name="predicate">The predicate of the elements.</param>
+		/// <param name="predicate">The predicate of the values.</param>
 		/// <returns>True if a predicated was found.</returns>
 		public static bool Any<T>(Span<T> span, Func<T, bool> predicate)
 		{
@@ -1528,7 +1528,7 @@ namespace Towel
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="Predicate">The function for equating elements.</typeparam>
+		/// <typeparam name="Predicate">The function for equating values.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="predicate">The value to look for.</param>
 		/// <returns>True if a predicated was found.</returns>
@@ -1676,7 +1676,7 @@ namespace Towel
 		/// <param name="a">The first sequence of the zip.</param>
 		/// <param name="b">The second sequence of the zip.</param>
 		/// <returns>An <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s containing the values of <paramref name="a"/> and <paramref name="b"/>.</returns>
-		/// <exception cref="ArgumentException">Thrown when <paramref name="a"/> and <paramref name="b"/> don't have the same number of elements.</exception>
+		/// <exception cref="ArgumentException">Thrown when <paramref name="a"/> and <paramref name="b"/> don't have the same number of values.</exception>
 		/// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is null.</exception>
 		public static System.Collections.Generic.IEnumerable<(T1 A, T2 B)> Zip<T1, T2>(System.Collections.Generic.IEnumerable<T1> a, System.Collections.Generic.IEnumerable<T2> b)
 		{

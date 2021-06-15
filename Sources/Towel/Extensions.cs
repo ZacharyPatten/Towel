@@ -165,7 +165,7 @@ namespace Towel
 		{
 			_ = @string ?? throw new ArgumentNullException(nameof(@string));
 			_ = padding ?? throw new ArgumentNullException(nameof(padding));
-			if (padding.CompareTo(string.Empty) == 0)
+			if (padding.CompareTo(string.Empty) is 0)
 			{
 				return @string;
 			}
@@ -180,7 +180,7 @@ namespace Towel
 		{
 			_ = @string ?? throw new ArgumentNullException(nameof(@string));
 			_ = padding ?? throw new ArgumentNullException(nameof(padding));
-			if (padding.CompareTo(string.Empty) == 0)
+			if (padding.CompareTo(string.Empty) is 0)
 			{
 				return @string;
 			}

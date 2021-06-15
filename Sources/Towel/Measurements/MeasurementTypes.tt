@@ -131,7 +131,7 @@ using static Towel.Statics;
 namespace Towel.Measurements
 {
 <# { int measurementIndex = 0; foreach (var measurement in measurements) { #>
-<# bool isBaseUnit = measurement.Item2.Length + measurement.Item3.Length == 1; #>
+<# bool isBaseUnit = measurement.Item2.Length + measurement.Item3.Length is 1; #>
 <# bool isDerivedUnit = !isBaseUnit; #>
 <# var concatenatedBaseUnits = measurement.Item2.Concat(measurement.Item3); #>
 	#region <#= measurement.Item1 #>
@@ -199,7 +199,7 @@ namespace Towel.Measurements
 				);
 			return measurement[
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
-				<#= baseUnitIndex == 0 ? string.Empty : "," #> to<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+				<#= baseUnitIndex is 0 ? string.Empty : "," #> to<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
 <# baseUnitIndex++; } } #>
 				];
 		}
@@ -1187,7 +1187,7 @@ string bIndexString = null;
 	public static class MeasurementUnitsSyntaxTypes
 	{
 <# { int measurementIndex = 0; foreach (var measurement in measurements) { #>
-<# bool isBaseUnit = measurement.Item2.Length + measurement.Item3.Length == 1; #>
+<# bool isBaseUnit = measurement.Item2.Length + measurement.Item3.Length is 1; #>
 <# bool isDerivedUnit = !isBaseUnit; #>
 <# var concatenatedBaseUnits = measurement.Item2.Concat(measurement.Item3); #>
 		public struct <#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units : Measurement.IUnits<<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units>

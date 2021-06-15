@@ -35,14 +35,14 @@ namespace Towel.DataStructures
 		#region Extensions Methods
 
 		/// <summary>Removes all predicated values from an <see cref="IList{T}"/>.</summary>
-		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
-		/// <param name="iList">The <see cref="IList{T}"/> to remove elements from.</param>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
+		/// <param name="iList">The <see cref="IList{T}"/> to remove values from.</param>
 		/// <param name="predicate">The predicate for selecting removals from the <see cref="IList{T}"/>.</param>
 		public static void RemoveAll<T>(this IList<T> iList, Func<T, bool> predicate) =>
 			iList.RemoveAll<SFunc<T, bool>>(predicate);
 
 		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
-		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The <see cref="IList{T}"/> to remove an element from.</param>
 		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
 		/// <returns>True if the predicated element was found and removed. False if not.</returns>
@@ -50,7 +50,7 @@ namespace Towel.DataStructures
 			iList.TryRemoveFirst<SFunc<T, bool>>(out _, predicate);
 
 		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
-		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The <see cref="IList{T}"/> to remove an element from.</param>
 		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
 		/// <param name="exception">The exception that occured if the removal failed.</param>
@@ -305,8 +305,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (Node? node = _head; node is not null; node = node.Next)
 			{
@@ -552,7 +552,7 @@ namespace Towel.DataStructures
 		public void RemoveAllWithoutShrink<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				return;
 			}
@@ -620,12 +620,12 @@ namespace Towel.DataStructures
 			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
-		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
+		/// <typeparam name="TPredicate">The predicate to determine removal.</typeparam>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst<Predicate>(out Exception? exception, Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>
+		public bool TryRemoveFirst<TPredicate>(out Exception? exception, TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>
 		{
 			int i;
 			for (i = 0; i < _count; i++)
@@ -642,8 +642,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
 			_array.StepperBreak(0, _count, step);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();

@@ -13,14 +13,14 @@ namespace Towel
 #pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 #pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 		/// <summary>Performs a binary search on sorted indexed data.</summary>
-		/// <typeparam name="T">The type of elements to search through.</typeparam>
+		/// <typeparam name="T">The type of values to search through.</typeparam>
 		/// <typeparam name="Get">The function for getting an element at an index.</typeparam>
-		/// <typeparam name="Sift">The function for sifting through the elements.</typeparam>
+		/// <typeparam name="Sift">The function for sifting through the values.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
 		/// <param name="index">The starting index of the binary search.</param>
-		/// <param name="length">The number of elements to be searched after the starting <paramref name="index"/>.</param>
+		/// <param name="length">The number of values to be searched after the starting <paramref name="index"/>.</param>
 		/// <param name="get">The function for getting an element at an index.</param>
-		/// <param name="sift">The function for comparing the the elements to th desired target.</param>
+		/// <param name="sift">The function for comparing the the values to th desired target.</param>
 		/// <param name="array">The array search.</param>
 		/// <param name="element">The element to search for.</param>
 		/// <param name="compare">The compare function.</param>

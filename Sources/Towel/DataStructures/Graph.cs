@@ -114,18 +114,27 @@ namespace Towel.DataStructures
 		/// <summary>Adds an edge to the graph starting at a and ending at b.</summary>
 		/// <param name="start">The stating point of the edge to add.</param>
 		/// <param name="end">The ending point of the edge to add.</param>
+		/// <returns>
+		/// <para>- Success: true if the edge was added or false if not</para>
+		/// <para>- Exception: the exception that occured if the add failed</para>
+		/// </returns>
 		(bool Success, Exception? Exception) TryAdd(T start, T end);
 
 		/// <summary>Removes an edge from the graph.</summary>
 		/// <param name="start">The starting point of the edge to remove.</param>
 		/// <param name="end">The ending point of the edge to remove.</param>
+		/// <returns>
+		/// <para>- Success: true if the edge was removed or false if not</para>
+		/// <para>- Exception: the exception that occured if the remove failed</para>
+		/// </returns>
 		(bool Success, Exception? Exception) TryRemove(T start, T end);
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus EdgesBreak<Step>(Step step = default)
-			where Step : struct, IFunc<(T, T), StepStatus>;
+		/// <summary>Invokes a function on every edge in the graph.</summary>
+		/// <typeparam name="TStep">The type of the step function.</typeparam>
+		/// <param name="step">The function to perform on every edge in the graph.</param>
+		/// <returns>The status of the traversal.</returns>
+		StepStatus EdgesBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<(T, T), StepStatus>;
 
 		#endregion
 	}
@@ -384,7 +393,7 @@ namespace Towel.DataStructures
 		where THash : struct, IFunc<T, int>
 	{
 		internal MapHashLinked<(SetHashLinked<T, TEquate, THash> Incoming, SetHashLinked<T, TEquate, THash> Outgoing), T, TEquate, THash> _map;
-		internal int _edges;
+		internal int _edgeCount;
 
 		#region Constructors
 
@@ -393,7 +402,7 @@ namespace Towel.DataStructures
 		/// <param name="hash">The hash function for the data structure to use.</param>
 		public GraphMap(TEquate equate = default, THash hash = default)
 		{
-			_edges = 0;
+			_edgeCount = 0;
 			_map = new(equate, hash);
 		}
 
@@ -401,7 +410,7 @@ namespace Towel.DataStructures
 		/// <param name="graph">The graph to clone.</param>
 		internal GraphMap(GraphMap<T, TEquate, THash> graph)
 		{
-			_edges = graph._edges;
+			_edgeCount = graph._edgeCount;
 			_map = graph._map.Clone();
 		}
 
@@ -416,7 +425,7 @@ namespace Towel.DataStructures
 		public THash Hash => _map.Hash;
 
 		/// <inheritdoc/>
-		public int EdgeCount => _edges;
+		public int EdgeCount => _edgeCount;
 
 		/// <inheritdoc/>
 		public int NodeCount => _map.Count;
@@ -454,7 +463,7 @@ namespace Towel.DataStructures
 
 			_map[start].Outgoing.Add(end);
 			_map[end].Incoming.Add(start);
-			_edges++;
+			_edgeCount++;
 			return (true, null);
 		}
 
@@ -484,7 +493,7 @@ namespace Towel.DataStructures
 			{
 				_map[start].Outgoing.Remove(end);
 				_map[end].Incoming.Remove(start);
-				_edges--;
+				_edgeCount--;
 				return (true, null);
 			}
 			return (false, new InvalidOperationException("Removing a non-existing edge from the graph."));
@@ -539,7 +548,7 @@ namespace Towel.DataStructures
 		/// <summary>Clears this graph to an empty state.</summary>
 		public void Clear()
 		{
-			_edges = 0;
+			_edgeCount = 0;
 			_map = new(_map.Equate, _map.Hash);
 		}
 
@@ -633,7 +642,7 @@ namespace Towel.DataStructures
 		where THash : struct, IFunc<T, int>
 	{
 		internal MapHashLinked<(MapHashLinked<W?, T, TEquate, THash> OutgoingEdges, SetHashLinked<T, TEquate, THash> IncomingNodes), T, TEquate, THash> _map;
-		internal int _edges;
+		internal int _edgeCount;
 
 		#region Constructors
 
@@ -643,12 +652,12 @@ namespace Towel.DataStructures
 		public GraphWeightedMap(TEquate equate = default, THash hash = default)
 		{
 			_map = new(equate, hash);
-			_edges = 0;
+			_edgeCount = 0;
 		}
 
 		internal GraphWeightedMap(GraphWeightedMap<T, W, TEquate, THash> graph)
 		{
-			_edges = graph._edges;
+			_edgeCount = graph._edgeCount;
 			_map = graph._map.Clone();
 		}
 
@@ -663,7 +672,7 @@ namespace Towel.DataStructures
 		public THash Hash => _map.Hash;
 
 		/// <inheritdoc/>
-		public int EdgeCount => _edges;
+		public int EdgeCount => _edgeCount;
 
 		/// <inheritdoc/>
 		public int NodeCount => _map.Count;
@@ -702,15 +711,14 @@ namespace Towel.DataStructures
 			}
 			x.Value.OutgoingEdges.Add(end, weight);
 			y.Value.IncomingNodes.Add(start);
-			_edges++;
+			_edgeCount++;
 			return (true, null);
 		}
 
 		/// <inheritdoc/>
 		public bool Adjacent(T a, T b, out W? weight)
 		{
-			var (success, value, exception) = _map.TryGet(a);
-
+			var (success, exception, value) = _map.TryGet(a);
 			if (!success)
 			{
 				throw new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(a), innerException: exception);
@@ -744,39 +752,39 @@ namespace Towel.DataStructures
 			if (!_map.Contains(end)) return (false, new ArgumentException(message: "Vertex must be present in graph", paramName: nameof(end)));
 			_map[start].OutgoingEdges.Remove(end);
 			_map[end].IncomingNodes.Remove(start);
-			_edges--;
+			_edgeCount--;
 			return (true, null);
 		}
 
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			_map.KeysBreak<Step>(step);
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			_map.KeysBreak<TStep>(step);
 
 		/// <inheritdoc/>
-		public StepStatus EdgesBreak<Step>(Step step = default)
-			where Step : struct, IFunc<(T, T), StepStatus>
+		public StepStatus EdgesBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<(T, T), StepStatus>
 		{
-			EdgesStep<Step> step2 = new() { _step = step, };
-			return _map.PairsBreak<EdgesStep<Step>>(step2);
+			EdgesStep<TStep> step2 = new() { _step = step, };
+			return _map.PairsBreak<EdgesStep<TStep>>(step2);
 		}
 
-		internal struct EdgesStep<Step> : IFunc<((MapHashLinked<W?, T, TEquate, THash> OutgoingEdges, SetHashLinked<T, TEquate, THash> IncomingNodes), T), StepStatus>
-			where Step : struct, IFunc<(T, T), StepStatus>
+		internal struct EdgesStep<TStep> : IFunc<((MapHashLinked<W?, T, TEquate, THash> OutgoingEdges, SetHashLinked<T, TEquate, THash> IncomingNodes), T), StepStatus>
+			where TStep : struct, IFunc<(T, T), StepStatus>
 		{
-			internal Step _step;
+			internal TStep _step;
 
 			public StepStatus Invoke(((MapHashLinked<W?, T, TEquate, THash> OutgoingEdges, SetHashLinked<T, TEquate, THash> IncomingNodes), T) a)
 			{
-				EdgesStep2<Step> step2 = new() { _a = a.Item2, _step = _step, };
-				return a.Item1.OutgoingEdges.PairsBreak<EdgesStep2<Step>>(step2);
+				EdgesStep2<TStep> step2 = new() { _a = a.Item2, _step = _step, };
+				return a.Item1.OutgoingEdges.PairsBreak<EdgesStep2<TStep>>(step2);
 			}
 		}
 
-		internal struct EdgesStep2<Step> : IFunc<(W?, T), StepStatus>
-			where Step : struct, IFunc<(T, T), StepStatus>
+		internal struct EdgesStep2<TStep> : IFunc<(W?, T), StepStatus>
+			where TStep : struct, IFunc<(T, T), StepStatus>
 		{
-			internal Step _step;
+			internal TStep _step;
 			internal T _a;
 
 			public StepStatus Invoke((W?, T) a)
@@ -799,12 +807,10 @@ namespace Towel.DataStructures
 			{
 				return (false, new ArgumentException("Node does not exist in graph", nameof(node)));
 			}
-			//Remove all edges e, where e=(x, deleteNode)
 			foreach (var item in _map[node].IncomingNodes)
 			{
 				this.Remove(node, item);
 			}
-			//Remove all edges e, where e=(deleteNode, x)
 			foreach (var item in _map[node].OutgoingEdges.GetKeys())
 			{
 				this.Remove(node, item);
@@ -817,36 +823,36 @@ namespace Towel.DataStructures
 		public GraphWeightedMap<T, W, TEquate, THash> Clone() => new(this);
 
 		/// <inheritdoc/>
-		public T[] ToArray() =>
-			#warning TODO: optimize
-			System.Linq.Enumerable.ToArray(_map.GetKeys());
+		public T[] ToArray() => _map.KeysToArray();
 
 		/// <inheritdoc/>
 		public (T, T)[] EdgesToArray()
 		{
-			ListArray<(T, T)> edgelist=new();
+			(T, T)[] array = new(T, T)[_edgeCount];
+			int i = 0;
 			foreach(var (adjacencies, start) in _map.GetPairs())
 			{
 				foreach(var (_, end) in adjacencies.OutgoingEdges.GetPairs())
 				{
-					edgelist.Add((start, end));
+					array[i++] = (start, end);
 				}
 			}
-			return edgelist.ToArray();
+			return array;
 		}
 
 		/// <inheritdoc/>
 		public (T, T, W?)[] EdgesAndWeightsToArray()
 		{
-			ListArray<(T, T, W?)> edgelist = new();
+			(T, T, W?)[] array = new (T, T, W?)[_edgeCount];
+			int i = 0;
 			foreach(var (adjacencies, start) in _map.GetPairs())
 			{
 				foreach(var (weight, end) in adjacencies.OutgoingEdges.GetPairs())
 				{
-					edgelist.Add((start, end, weight));
+					array[i++] = (start, end, weight);
 				}
 			}
-			return edgelist.ToArray();
+			return array;
 		}
 
 		#endregion

@@ -84,7 +84,7 @@ namespace Towel.Mathematics
 		//public static Quaternion<T> FactoryFromAxisAngle(Vector axis, T angle)
 		//{
 		//	throw new System.NotImplementedException();
-		//	//if (axis.LengthSquared() == 0.0f)
+		//	//if (axis.LengthSquared() is 0.0f)
 		//	//	return FactoryIdentity;
 		//	//T sinAngleOverAxisLength = Calc.Sin(angle / 2) / axis.Length();
 		//	//return Quaternion<T>.Normalize(new Quaternion<T>(

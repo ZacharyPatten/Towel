@@ -594,7 +594,7 @@ namespace Towel
 		public static ENUM GetLastEnumValue<ENUM>()
 		{
 			ENUM[] values = (ENUM[])Enum.GetValues(typeof(ENUM));
-			if (values.Length == 0)
+			if (values.Length is 0)
 			{
 				throw new InvalidOperationException("Attempting to get the last enum value of an enum type with no values.");
 			}
@@ -881,8 +881,8 @@ namespace Towel
 				parametersString;
 
 			if (methodInfo is not null &&
-				(methodBase.Name == "op_Implicit" ||
-				methodBase.Name == "op_Explicit"))
+				(methodBase.Name is "op_Implicit" ||
+				methodBase.Name is "op_Explicit"))
 			{
 				key += "~" + GetXmlDocumenationFormattedString(methodInfo.ReturnType, true, typeGenericMap, methodGenericMap);
 			}
@@ -897,7 +897,7 @@ namespace Towel
 		{
 			if (type.IsGenericParameter)
 			{
-				var (success, methodIndex, exception) = methodGenericMap.TryGet(type.Name);
+				var (success, exception, methodIndex) = methodGenericMap.TryGet(type.Name);
 				return success
 					? "``" + methodIndex
 					: "`" + typeGenericMap[type.Name];
@@ -1003,7 +1003,7 @@ namespace Towel
 			using XmlReader xmlReader = XmlReader.Create(textReader);
 			while (xmlReader.Read())
 			{
-				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
+				if (xmlReader.NodeType is XmlNodeType.Element && xmlReader.Name is "member")
 				{
 					string? rawName = xmlReader["name"];
 					if (!string.IsNullOrWhiteSpace(rawName))
