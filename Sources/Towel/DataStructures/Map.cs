@@ -136,7 +136,7 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
-		public static (T OldeValue, T NewValue) Update<T, K>(this IMap<T, K> map, K key, Func<T, T> update) =>
+		public static (T OldValue, T NewValue) Update<T, K>(this IMap<T, K> map, K key, Func<T, T> update) =>
 			map.Update<T, K, SFunc<T, T>>(key, update);
 
 		/// <summary>Adds or updates the value at the given key.</summary>
@@ -156,7 +156,7 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
-		public static (T OldeValue, T NewValue) Update<T, K, TUpdate>(this IMap<T, K> map, K key, TUpdate update = default)
+		public static (T OldValue, T NewValue) Update<T, K, TUpdate>(this IMap<T, K> map, K key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
 			var (success, exception, oldValue, newValue) = map.TryUpdate(key, update);
