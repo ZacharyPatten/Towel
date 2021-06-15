@@ -1,8 +1,7 @@
 ﻿using Silk.NET.Input;
-using Silk.NET.Input.Common;
 using Silk.NET.OpenGL;
 using Silk.NET.Windowing;
-using Silk.NET.Windowing.Common;
+
 using System;
 using System.Drawing;
 using System.Linq;
@@ -50,7 +49,7 @@ namespace OmnitreeGraphicsDemo
 		private static float CameraYaw = -90f;
 		private static float CameraPitch = 0f;
 		private static float CameraZoom = 45f;
-		private static PointF LastMousePosition;
+		private static Vector2 LastMousePosition;
 
 		#endregion
 
@@ -166,13 +165,13 @@ void main()
 			ConsoleHelper.PromptPressToContinue();
 
 			var options = WindowOptions.Default;
-			options.Size = new Size(Width, Height);
+			options.Size = new Silk.NET.Maths.Vector2D<int>(800, 600);
 			options.Title = "Omnitree Graphics Demo";
 			window = Window.Create(options);
 
 			window.Load += OnLoad;
-			window.Update += OnUpdate;
 			window.Render += OnRender;
+			window.Update += OnUpdate;
 			window.Closing += OnClose;
 
 			window.Run();
@@ -197,12 +196,13 @@ void main()
 
 			#region Object Generation
 
+			const int size = 100;
 			_objects = new ListArray<Cube>();
-			for (int i = -50; i < 50; i += 10)
+			for (int i = -size; i < size; i += 10)
 			{
-				for (int j = -50; j < 50; j += 10)
+				for (int j = -size; j < size; j += 10)
 				{
-					for (int k = -50; k < 50; k += 10)
+					for (int k = -size; k < size; k += 10)
 					{
 						if (i == 0 && j == 0 && k == 0)
 						{
@@ -445,7 +445,7 @@ void main()
 			}
 		}
 
-		private static unsafe void OnMouseMove(IMouse mouse, PointF position)
+		private static unsafe void OnMouseMove(IMouse mouse, Vector2 position)
 		{
 			var lookSensitivity = 0.1f;
 			if (LastMousePosition == default) { LastMousePosition = position; }
