@@ -1082,7 +1082,7 @@ namespace Towel
 		public static bool IsOrdered<T, TCompare>(this System.Collections.Generic.IEnumerable<T> enumerable, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
-			System.Collections.Generic.IEnumerator<T> enumerator = enumerable.GetEnumerator();
+			using System.Collections.Generic.IEnumerator<T> enumerator = enumerable.GetEnumerator();
 			T previous = enumerator.Current;
 			while (enumerator.MoveNext())
 			{
