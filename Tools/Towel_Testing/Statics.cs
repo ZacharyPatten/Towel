@@ -2752,5 +2752,183 @@ namespace Towel_Testing
 		}
 
 		#endregion
+
+		#region IsOrdered
+
+		[TestMethod]
+		public void IsOrdered_Testing()
+		{
+			{
+				Assert.IsTrue(IsOrdered<int>(Ɐ<int>()));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 2)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 2, 3)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 1)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 1, 2)));
+
+				Assert.IsFalse(IsOrdered<int>(Ɐ(2, 1)));
+				Assert.IsFalse(IsOrdered<int>(Ɐ(3, 1, 2)));
+				Assert.IsFalse(IsOrdered<int>(Ɐ(1, 3, 2)));
+
+				Assert.IsTrue(IsOrdered<char>(Ɐ<char>()));
+				Assert.IsTrue(IsOrdered<char>("a"));
+				Assert.IsTrue(IsOrdered<char>("ab"));
+				Assert.IsTrue(IsOrdered<char>("abc"));
+				Assert.IsTrue(IsOrdered<char>("aa"));
+				Assert.IsTrue(IsOrdered<char>("aab"));
+
+				Assert.IsFalse(IsOrdered<char>("ba"));
+				Assert.IsFalse(IsOrdered<char>("cab"));
+				Assert.IsFalse(IsOrdered<char>("acb"));
+			}
+			{
+				Assert.IsTrue(Ɐ<int>().IsOrdered());
+				Assert.IsTrue(Ɐ(1).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 2).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 2, 3).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 1).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 1, 2).IsOrdered());
+
+				Assert.IsFalse(Ɐ(2, 1).IsOrdered());
+				Assert.IsFalse(Ɐ(3, 1, 2).IsOrdered());
+				Assert.IsFalse(Ɐ(1, 3, 2).IsOrdered());
+
+				Assert.IsTrue(Ɐ<char>().IsOrdered());
+				Assert.IsTrue("a".IsOrdered());
+				Assert.IsTrue("ab".IsOrdered());
+				Assert.IsTrue("abc".IsOrdered());
+				Assert.IsTrue("aa".IsOrdered());
+				Assert.IsTrue("aab".IsOrdered());
+
+				Assert.IsFalse("ba".IsOrdered());
+				Assert.IsFalse("cab".IsOrdered());
+				Assert.IsFalse("acb".IsOrdered());
+			}
+			{
+				int[] ints0 = Array.Empty<int>();
+				Assert.IsTrue(IsOrdered(0, ints0.Length - 1, i => ints0[i]));
+				int[] ints1 = { 1 };
+				Assert.IsTrue(IsOrdered(0, ints1.Length - 1, i => ints1[i]));
+				int[] ints2 = { 1, 2 };
+				Assert.IsTrue(IsOrdered(0, ints2.Length - 1, i => ints2[i]));
+				int[] ints3 = { 1, 2, 3 };
+				Assert.IsTrue(IsOrdered(0, ints3.Length - 1, i => ints3[i]));
+
+				int[] ints4 = { 2, 1 };
+				Assert.IsFalse(IsOrdered(0, ints4.Length - 1, i => ints4[i]));
+				int[] ints5 = { 3, 1, 2 };
+				Assert.IsFalse(IsOrdered(0, ints5.Length - 1, i => ints5[i]));
+				int[] ints6 = { 1, 3, 2 };
+				Assert.IsFalse(IsOrdered(0, ints6.Length - 1, i => ints6[i]));
+
+				string s0 = "";
+				Assert.IsTrue(IsOrdered(0, s0.Length - 1, i => s0[i]));
+				string s1 = "a";
+				Assert.IsTrue(IsOrdered(0, ints1.Length - 1, i => s1[i]));
+				string s2 = "ab";
+				Assert.IsTrue(IsOrdered(0, s2.Length - 1, i => s2[i]));
+				string s3 = "abc";
+				Assert.IsTrue(IsOrdered(0, s3.Length - 1, i => s3[i]));
+
+				string s4 = "ba";
+				Assert.IsFalse(IsOrdered(0, s4.Length - 1, i => s4[i]));
+				string s5 = "cab";
+				Assert.IsFalse(IsOrdered(0, s5.Length - 1, i => s5[i]));
+				string s6 = "acb";
+				Assert.IsFalse(IsOrdered(0, s6.Length - 1, i => s6[i]));
+			}
+		}
+
+		#endregion
+
+		#region FilterOrdered
+
+		[TestMethod]
+		public void FilterOrdered_Testing()
+		{
+			Assert.IsTrue(Equate<int>(Ɐ<int>().FilterOrdered().ToArray(), Ɐ<int>()));
+			Assert.IsTrue(Equate<int>(Ɐ(1).FilterOrdered().ToArray(), Ɐ(1)));
+			Assert.IsTrue(Equate<int>(Ɐ(1, 2).FilterOrdered().ToArray(), Ɐ(1, 2)));
+			Assert.IsTrue(Equate<int>(Ɐ(2, 1).FilterOrdered().ToArray(), Ɐ(2)));
+			Assert.IsTrue(Equate<int>(Ɐ(1, 2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
+			Assert.IsTrue(Equate<int>(Ɐ(1, -1, 2, -2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
+		}
+
+		#endregion
+
+		#region GetGreatest
+
+		[TestMethod]
+		public void GetGreatest_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => GetGreatest(Ɐ<int>(), 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), 0));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), -1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), 2));
+
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2), 1), Ɐ(2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(2, 1), 1), Ɐ(2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 3, 2), 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 2), Ɐ(3, 2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 2), Ɐ(3, 2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
+		}
+
+		#endregion
+
+		#region GetLeast
+
+		[TestMethod]
+		public void GetLeast_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => GetLeast(Ɐ<int>(), 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), 0));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), -1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), 2));
+
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(2, 1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 1, 2), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 2), Ɐ(1, 2)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 2), Ɐ(1, 2)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
+		}
+
+		#endregion
+
+		#region HammingDistance
+
+		[TestMethod]
+		public void HammingDistance_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => HammingDistance("a", ""));
+			Assert.ThrowsException<ArgumentException>(() => HammingDistance("", "a"));
+
+			Assert.IsTrue(HammingDistance("", "") is 0);
+			Assert.IsTrue(HammingDistance("a", "a") is 0);
+			Assert.IsTrue(HammingDistance("a", "b") is 1);
+			Assert.IsTrue(HammingDistance("aa", "aa") is 0);
+			Assert.IsTrue(HammingDistance("aa", "ab") is 1);
+			Assert.IsTrue(HammingDistance("aa", "bb") is 2);
+			Assert.IsTrue(HammingDistance("aaa", "aaa") is 0);
+			Assert.IsTrue(HammingDistance("aaa", "aab") is 1);
+			Assert.IsTrue(HammingDistance("aaa", "aba") is 1);
+			Assert.IsTrue(HammingDistance("aaa", "baa") is 1);
+			Assert.IsTrue(HammingDistance("aaa", "bab") is 2);
+			Assert.IsTrue(HammingDistance("aaa", "bba") is 2);
+			Assert.IsTrue(HammingDistance("aaa", "bbb") is 3);
+		}
+
+		#endregion
 	}
 }

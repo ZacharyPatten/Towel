@@ -364,7 +364,7 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
 		public static bool Equate<T>(Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
-			Equate<T>(0, a.Length - 1, a, b, equate);
+			Equate<T>(0, Math.Max(a.Length - 1, 0), a, b, equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
@@ -375,7 +375,7 @@ namespace Towel
 		/// <returns>True if the spans are equal; False if not.</returns>
 		public static bool Equate<T, TEquate>(Span<T> a, Span<T> b, TEquate equate = default)
 			where TEquate : struct, IFunc<T, T, bool> =>
-			Equate<T, TEquate>(0, a.Length - 1, a, b, equate);
+			Equate<T, TEquate>(0, Math.Max(a.Length - 1, 0), a, b, equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
@@ -404,6 +404,10 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(start), start, $@"{nameof(start)} < 0");
 			}
+			if (a.IsEmpty && b.IsEmpty && end is 0)
+			{
+				return true;
+			}
 			if (end >= Math.Min(a.Length, b.Length))
 			{
 				throw new ArgumentOutOfRangeException(nameof(end), end, $@"{nameof(end)} >= Min({nameof(a)}.{nameof(a.Length)} {a.Length}, {nameof(b)}.{nameof(b.Length)} {b.Length})");
@@ -411,10 +415,6 @@ namespace Towel
 			if (end < start)
 			{
 				throw new ArgumentOutOfRangeException($@"{nameof(end)} {end} < {nameof(start)} {start}");
-			}
-			if (a.IsEmpty && b.IsEmpty)
-			{
-				return true;
 			}
 			if (a.Length != b.Length)
 			{
