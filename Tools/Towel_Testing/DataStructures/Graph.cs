@@ -268,7 +268,7 @@ namespace Towel_Testing.DataStructures
 			var graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			var array = graph.ToArray();
-			CollectionAssert.AreEquivalent(new byte[] { 1, 2, 3, 4, 5 }, array);
+			CollectionAssert.AreEquivalent(new byte[]{1,2,3,4,5}, array);
 		}
 
 		[TestMethod]
@@ -300,7 +300,7 @@ namespace Towel_Testing.DataStructures
 			graph.Add((byte)2, (byte)3, 1);
 			graph.Add((byte)3, (byte)4, 1);
 			var array = graph.EdgesAndWeightsToArray();
-			CollectionAssert.AreEquivalent(new (byte, byte, int)[] { (1, 5, 1), (2, 5, 1), (3, 5, 1), (4, 5, 1), (1, 2, 1), (2, 3, 1), (3, 4, 1) }, array);
+			CollectionAssert.AreEquivalent(new (byte,byte,int)[]{(1,5,1),(2,5,1),(3,5,1),(4,5,1),(1,2,1),(2,3,1),(3,4,1)}, array);
 		}
 
 		[TestMethod]
