@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Towel.DataStructures;
 
 namespace Towel
@@ -403,12 +402,12 @@ namespace Towel
 		/// <typeparam name="Node">The Node type of the graph</typeparam>
 		/// <typeparam name="Numeric">The Numeric type of the weighted graph</typeparam>
 		/// <returns>IEnumerable of the ordered sequence of nodes from source to destination</returns>
-		public static IEnumerable<Node> AStarSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, SearchHeuristic<Node, Numeric> CustomHeuristic, out Numeric TotalWeight)
+		public static System.Collections.Generic.IEnumerable<Node> AStarSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, SearchHeuristic<Node, Numeric> CustomHeuristic, out Numeric TotalWeight)
 		{
 			ListArray<Node> path = new();
 			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: CustomHeuristic, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
 			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
-			if (graphPath != null) graphPath((x) => path.Add(x));
+			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
 		/// <summary>Perfoms A* Search on the graph and executes action on every node in path</summary>
@@ -424,7 +423,7 @@ namespace Towel
 		{
 			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: CustomHeuristic, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
 			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
-			if (graphPath != null && action != null) graphPath((x) => action(x));
+			if (graphPath != null && action != null) graphPath(n => action(n));
 		}
 
 		#endregion
@@ -510,12 +509,12 @@ namespace Towel
 		/// <typeparam name="Node">The Node Type of the graph</typeparam>
 		/// <typeparam name="Numeric">The Numeric Type of the graph</typeparam>
 		/// <returns>IEnumerable of the ordered nodes in path from source to destination</returns>
-		public static IEnumerable<Node> DijkstraSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, out Numeric TotalWeight)
+		public static System.Collections.Generic.IEnumerable<Node> DijkstraSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, out Numeric TotalWeight)
 		{
 			ListArray<Node> path = new();
 			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: (x) => Constant<Numeric>.Zero, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
 			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
-			if (graphPath != null) graphPath((x) => path.Add(x));
+			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
 
@@ -532,7 +531,7 @@ namespace Towel
 			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: (x) => Constant<Numeric>.Zero, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
 			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
 			if (action == null) return;
-			if (graphPath != null) graphPath((x) => action(x));
+			graphPath?.Invoke(n => action(n));
 		}
 
 		#endregion
@@ -612,11 +611,11 @@ namespace Towel
 		/// <param name="Destination">The node to search</param>
 		/// <typeparam name="Node">The Node Type of the Graph</typeparam>
 		/// <returns>IEnumerable of the Nodes found along the path</returns>
-		public static IEnumerable<Node> PerformBredthFirstSearch<Node>(this IGraph<Node> graph, Node Source, Node Destination)
+		public static System.Collections.Generic.IEnumerable<Node> PerformBredthFirstSearch<Node>(this IGraph<Node> graph, Node Source, Node Destination)
 		{
 			ListArray<Node> path = new();
 			var graphPath = SearchGraph<Node>(start: Source, graph: graph, goal: Destination);
-			if (graphPath != null) graphPath((x) => path.Add(x));
+			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
 		/// <summary>Performs Breadth First Search and executes the specified action on every ordered node to in the path searched.</summary>
@@ -630,7 +629,7 @@ namespace Towel
 			if (action != null)
 			{
 				var graphPath = SearchGraph<Node>(start: Source, graph: graph, goal: Destination);
-				if (action != null && graphPath != null) graphPath((x) => action(x));
+				if (action != null && graphPath != null) graphPath(n => action(n));
 			}
 		}
 

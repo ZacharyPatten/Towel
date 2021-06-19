@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -114,7 +113,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets enumerator of all neighbours of a node</summary>
 		/// <param name="node">The node to get neighbours of</param>
 		/// <returns>IEnumerable of all neighbours of the given node</returns>
-		public IEnumerable<T> GetNeighbours(T node);
+		System.Collections.Generic.IEnumerable<T> GetNeighbours(T node);
 
 		/// <summary>Adds an edge to the graph starting at a and ending at b.</summary>
 		/// <param name="start">The stating point of the edge to add.</param>
@@ -366,7 +365,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets enumerator of all neighbours of a node</summary>
 		/// <param name="node">The node to get neighbours of</param>
 		/// <returns>IEnumerable of all neighbours of the given node</returns>
-		public IEnumerable<T> GetNeighbours(T node)
+		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node)
 		{
 			ListArray<T> NodeList = new();
 			Neighbors(node, (x) => NodeList.Add(x));
@@ -561,7 +560,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets enumerator of all neighbours of a node</summary>
 		/// <param name="node">The node to get neighbours of</param>
 		/// <returns>IEnumerable of all neighbours of the given node</returns>
-		public IEnumerable<T> GetNeighbours(T node) => _map[node].Outgoing;
+		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node) => _map[node].Outgoing;
 
 		/// <summary>Clears this graph to an empty state.</summary>
 		public void Clear()
@@ -882,7 +881,7 @@ namespace Towel.DataStructures
 		/// <summary>Gets enumerator of all neighbours of a node</summary>
 		/// <param name="node">The node to get neighbours of</param>
 		/// <returns>IEnumerable of all neighbours of the given node</returns>
-		public IEnumerable<T> GetNeighbours(T node) => _map[node].OutgoingEdges.GetKeys();
+		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node) => _map[node].OutgoingEdges.GetKeys();
 
 		/// <summary>
 		/// Gets weight or cost between two nodes
