@@ -21,12 +21,12 @@ namespace BasicsAndExtensions
 				Console.WriteLine("  Multi String Replace -----------------------");
 				Console.WriteLine();
 
-				string original = "a b c d";
-				string modified = original.Replace(("a", "aaa"), ("c", "ccc"));
+				string a = "a b c d";
+				string b = a.Replace(("a", "aaa"), ("c", "ccc"));
 
-				Console.WriteLine("    original: \"a b c d\"");
-				Console.WriteLine($@"    original.Replace((""a"", ""aaa""), (""c"", ""ccc""): ""{modified}""");
-				Console.WriteLine();
+				Console.WriteLine($@"    a = ""{a}""");
+				Console.WriteLine($@"    a.Replace((""a"", ""aaa""), (""c"", ""ccc"")) -> ""{b}""");
+				Pause();
 			}
 			#endregion
 
@@ -42,14 +42,14 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  TryParse------------------------------------");
 				Console.WriteLine();
-				Console.WriteLine($"    TryParse(\"123.4\", out double a) := {a}d");
-				Console.WriteLine($"    TryParse(\"12.3\", out float b) := {b}f");
-				Console.WriteLine($"    TryParse(\"1\", out byte c) := {c}");
-				Console.WriteLine($"    TryParse(\"1234\", out int d) := {d}");
-				Console.WriteLine($"    TryParse(\"1234\", out Program e) := {e?.ToString() ?? "null"}");
-				Console.WriteLine($"    TryParse(\"Red\", out ConsoleColor f) := {f}");
-				Console.WriteLine($"    TryParse(\"Ordinal\", out StringComparison g) := {g}");
-				Console.WriteLine();
+				Console.WriteLine($"    TryParse(\"123.4\", out double a) -> {a}d");
+				Console.WriteLine($"    TryParse(\"12.3\", out float b) -> {b}f");
+				Console.WriteLine($"    TryParse(\"1\", out byte c) -> {c}");
+				Console.WriteLine($"    TryParse(\"1234\", out int d) -> {d}");
+				Console.WriteLine($"    TryParse(\"1234\", out Program e) -> {e?.ToString() ?? "null"}");
+				Console.WriteLine($"    TryParse(\"Red\", out ConsoleColor f) -> {f}");
+				Console.WriteLine($"    TryParse(\"Ordinal\", out StringComparison g) -> {g}");
+				Pause();
 			}
 			#endregion
 
@@ -64,83 +64,11 @@ namespace BasicsAndExtensions
 
 				Console.WriteLine("  Convert------------------------------------");
 				Console.WriteLine();
-				Console.WriteLine($"    Convert<int, double>(1234) := {a}d");
-				Console.WriteLine($"    Convert<int, float>(123) := {b}f");
-				Console.WriteLine($"    Convert<double, int>(123.4d) := {c}");
-				Console.WriteLine($"    Convert<float, int>(12.3f) := {d}");
-				Console.WriteLine();
-			}
-			#endregion
-
-			#region Stepper
-			{
-				Console.WriteLine("  Stepper------------------------------------");
-				Console.WriteLine();
-				Console.WriteLine("    A Towel.Stepper<T> in Towel is similar to a ");
-				Console.WriteLine("    System.Collections.Generic.IEnumerable<T> but");
-				Console.WriteLine("    it uses delegates rather than an enumerator.");
-				Console.WriteLine("    There are pros/cons to both methodologies.");
-				Console.WriteLine();
-
-				System.Collections.Generic.IEnumerable<int> iEnumerable = Ɐ(1, 2, 3);
-				Console.Write("    iEnumerable values:");
-				foreach (int value in iEnumerable)
-				{
-					Console.Write(" " + value);
-				}
-				Console.WriteLine();
-
-				Action<Action<int>> stepper = Ɐ(1, 2, 3);
-				Console.Write("    stepper values:");
-				stepper(value => Console.Write(" " + value));
-				Console.WriteLine();
-
-				/// You can "break" a foreach loop, but you cannot break a stepper traversal.
-				/// For this, there is another type of stepper that is breakable. "Towel.StepperBreak<T>"
-				/// is a breakable version of the stepper.
-
-				Func<Func<int, StepStatus>, StepStatus> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
-				Console.Write("    stepperBreak values:");
-				stepperBreak(value =>
-				{
-					Console.Write(" " + value);
-					return value >= 3 ? Break : Continue;
-				});
-				Console.WriteLine();
-
-				/// You cannot alter the values of an IEnumerable during iteration, however,
-				/// you can do so with a "Towel.StepperRef<T>".
-
-				StepperRef<int> stepperRef = Ɐ(0, 1, 2);
-				Console.Write("    stepperRef values:");
-				stepperRef((ref int value) =>
-				{
-					value++;
-					Console.Write(" " + value);
-				});
-				Console.WriteLine();
-
-				/// The "Towel.StepperRefBreak<T>" is a stepper type that allows for altering
-				/// values and breaking iteration.
-
-				StepperRefBreak<int> stepperRefBreak = Ɐ(0, 1, 2, 3, 4, 5);
-				Console.Write("    stepperRefBreak values:");
-				stepperRefBreak((ref int value) =>
-				{
-					value++;
-					Console.Write(" " + value);
-					return value >= 3 ? Break : Continue;
-				});
-				Console.WriteLine();
-
-				/// Here is an example of creating a stepper from only functions (no backing
-				/// data structure).
-				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
-				Console.Write("    stepperFunctional values:");
-				stepperFunctional(value => Console.Write(" " + value));
-
-				Console.WriteLine();
-				Console.WriteLine();
+				Console.WriteLine($"    Convert<int, double>(1234) -> {a}d");
+				Console.WriteLine($"    Convert<int, float>(123) -> {b}f");
+				Console.WriteLine($"    Convert<double, int>(123.4d) -> {c}");
+				Console.WriteLine($"    Convert<float, int>(12.3f) -> {d}");
+				Pause();
 			}
 			#endregion
 
@@ -149,18 +77,34 @@ namespace BasicsAndExtensions
 				Console.WriteLine("  Converting Decimal To Words---------------------------");
 				Console.WriteLine();
 
-				decimal value1 = 12345.6789m;
-				Console.WriteLine($"    Value1 = {value1}");
-				Console.WriteLine($"    Value1 To Words = {value1.ToEnglishWords()}");
+				decimal a = 12345.6789m;
+				Console.WriteLine($"    {a} -> {a.ToEnglishWords()}");
 
-				decimal value2 = 999.888m;
-				Console.WriteLine($"    Value2 = {value2}");
-				Console.WriteLine($"    Value2 To Words = {value2.ToEnglishWords()}");
+				decimal b = 999.888m;
+				Console.WriteLine($"    {b} -> {b.ToEnglishWords()}");
 
-				decimal value3 = 1111111.2m;
-				Console.WriteLine($"    Value3 = {value3}");
-				Console.WriteLine($"    Value3 To Words = {value3.ToEnglishWords()}");
+				decimal c = 1111111.2m;
+				Console.WriteLine($"    {c} -> {c.ToEnglishWords()}");
+
+				Pause();
+			}
+			#endregion
+
+			#region TryParse Roman Numeral
+			{
+				Console.WriteLine("  TryParse Roman Numeral--------------------------------");
 				Console.WriteLine();
+
+				string a = "I";
+				Console.WriteLine(@$"    {nameof(TryParseRomanNumeral)}(""{a}"") = {TryParseRomanNumeral(a)}");
+
+				string b = "XLII";
+				Console.WriteLine(@$"    {nameof(TryParseRomanNumeral)}(""{b}"") = {TryParseRomanNumeral(b)}");
+
+				string c = "invalid";
+				Console.WriteLine(@$"    {nameof(TryParseRomanNumeral)}(""{c}"") = {TryParseRomanNumeral(c)}");
+
+				Pause();
 			}
 			#endregion
 
@@ -171,9 +115,14 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    Note: this can be useful for runtime compilation from strings");
 				Console.WriteLine();
 
-				Console.WriteLine("    " + typeof(IOmnitreePoints<Vector<double>, double, double, double>).ConvertToCSharpSource());
-				Console.WriteLine("    " + typeof(Symbolics.Add).ConvertToCSharpSource());
+				Console.WriteLine(@$"    {typeof(IOmnitreePoints<Vector<double>, double, double, double>)}");
+				Console.WriteLine(@$"    {typeof(IOmnitreePoints<Vector<double>, double, double, double>).ConvertToCSharpSource()}");
 				Console.WriteLine();
+
+				Console.WriteLine(@$"    {typeof(Symbolics.Add)}");
+				Console.WriteLine(@$"    {typeof(Symbolics.Add).ConvertToCSharpSource()}");
+
+				Pause();
 			}
 			#endregion
 
@@ -213,7 +162,7 @@ namespace BasicsAndExtensions
 					Console.WriteLine($"        | {Name} |   {Weight}   |");
 				Console.WriteLine();
 				Console.WriteLine($"        Random Weighted Selection: {random.Next(weightedNames)}");
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -229,9 +178,10 @@ namespace BasicsAndExtensions
 				Meta.LoadXmlDocumentation(File.ReadAllText(Path.Combine("..", "..", "..", "..", "..", "Sources", "Towel", "Towel.xml")));
 
 				Console.Write("    XML Documentation On Towel.TagAttribute:");
-				Console.WriteLine(typeof(Towel.TagAttribute).GetDocumentation());
+				Console.WriteLine(typeof(TagAttribute).GetDocumentation());
 				Console.Write("    XML Documentation On Towel.Constant<float>.Pi:");
-				Console.WriteLine(typeof(Constant<float>).GetProperty(nameof(Constant<float>.Pi)).GetDocumentation());
+				Console.WriteLine(typeof(Constant<float>).GetProperty(nameof(Constant<float>.Pi))!.GetDocumentation());
+				Pause();
 			}
 			#endregion
 
@@ -309,56 +259,63 @@ namespace BasicsAndExtensions
 				//SortBogo<int>(dataSet);
 				//Console.WriteLine($"    Bogo:      {DataSetToString()}");
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
 			#region Get X Least/Greatest
 			{
+				Console.WriteLine("  Get X Least/Greatest--------------------------");
+				Console.WriteLine();
+
 				int[] a = { 10, 2, 9, 1, 8, 3 };
 				int count = 3;
 
-				Console.WriteLine("  Get X Least/Greatest--------------------------");
-				Console.WriteLine();
-				Console.WriteLine($"    GetLeast([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetLeast<int, IntCompare>(a.AsSpan(), count))}]");
-				Console.WriteLine($"    GetGreatest([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetGreatest<int, IntCompare>(a.AsSpan(), count))}]");
-				Console.WriteLine();
+				Console.WriteLine($"    GetLeast([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetLeast<int, Int32Compare>(a.AsSpan(), count))}]");
+				Console.WriteLine($"    GetGreatest([{string.Join(", ", a)}], {count}) -> [{string.Join(", ", GetGreatest<int, Int32Compare>(a.AsSpan(), count))}]");
+				Pause();
 			}
 			#endregion
 
 			#region IsOrdered
 			{
-				int[] a = { 1, 2, 3, 4, 5 }; // least to greatest
-				int[] b = { 5, 4, 3, 2, 1 }; // greatest to least
-				int[] c = { 1, 5, 3, 4, 2 }; // unordered
-				string[] d = { "a", "ba", "cba", "dcba", }; // least to greatest (strings)
-
 				Console.WriteLine("  IsOrdered------------------------------------");
 				Console.WriteLine();
-				Console.WriteLine($"    IsOrdered({string.Join(", ", a)}) := {IsOrdered<int>(a)}");
-				Console.WriteLine($"    IsOrdered({string.Join(", ", b)}, (a, b) => Compare(b, a)) := {IsOrdered<int>(b, (a, b) => Compare(b, a))}");
-				Console.WriteLine($"    IsOrdered({string.Join(", ", c)}) := {IsOrdered<int>(c)}");
-				Console.WriteLine($"    IsOrdered({string.Join(", ", d)}) := {IsOrdered<string>(d)}");
-				Console.WriteLine();
+
+				int[] a = { 1, 2, 3, 4, 5 }; // least to greatest
+				Console.WriteLine($"    IsOrdered({string.Join(", ", a)}) -> {IsOrdered<int>(a)}");
+
+				int[] b = { 5, 4, 3, 2, 1 }; // greatest to least
+				Console.WriteLine($"    IsOrdered({string.Join(", ", b)}, (a, b) => Compare(b, a)) -> {IsOrdered<int>(b, (a, b) => Compare(b, a))}");
+
+				int[] c = { 1, 5, 3, 4, 2 }; // unordered
+				Console.WriteLine($"    IsOrdered({string.Join(", ", c)}) -> {IsOrdered<int>(c)}");
+
+				string[] d = { "a", "ba", "cba", "dcba", }; // least to greatest (strings)
+				Console.WriteLine($"    IsOrdered({string.Join(", ", d)}) -> {IsOrdered<string>(d)}");
+				
+				Pause();
 			}
 			#endregion
 
 			#region FilterOrdered
 			{
-				int[] a = { 1, 2, 3 };
-				int[] b = { 1, -1, 2, -2, 3, -3 };
-
 				Console.WriteLine("  FilterOrdered------------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    Filters out values that are not in order.");
 				Console.WriteLine();
-				Console.Write($"    FilterOrdered({string.Join(", ", a)}) :=");
+
+				int[] a = { 1, 2, 3 };
+				Console.Write($"    FilterOrdered({string.Join(", ", a)}) ->");
 				FilterOrdered<int>(a, i => Console.Write(" " + i));
 				Console.WriteLine();
-				Console.Write($"    FilterOrdered({string.Join(", ", b)}) :=");
+
+				int[] b = { 1, -1, 2, -2, 3, -3 };
+				Console.Write($"    FilterOrdered({string.Join(", ", b)}) ->");
 				FilterOrdered<int>(b, i => Console.Write(" " + i));
 				Console.WriteLine();
-				Console.WriteLine();
+
+				Pause();
 			}
 			#endregion
 
@@ -378,7 +335,8 @@ namespace BasicsAndExtensions
 				Console.WriteLine($"      Found: {result.Found}");
 				Console.WriteLine($"      Index: {result.Index}");
 				Console.WriteLine($"      Value: {result.Value}");
-				Console.WriteLine();
+
+				Pause();
 			}
 			#endregion
 
@@ -393,7 +351,7 @@ namespace BasicsAndExtensions
 				int[] values = { 1, 2, 3, 4 };
 				Console.WriteLine($@"      IsPalindrome({{ {string.Join(", ", values)} }}): {IsPalindrome<int>(values)}");
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -414,7 +372,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine($@"      IsInterleavedRecursive(""{a}"", ""{b}"", ""{c}""): {IsInterleavedRecursive(a, b, c)}");
 				Console.WriteLine($@"      IsInterleavedIterative(""{a}"", ""{b}"", ""{c}""): {IsInterleavedIterative(a, b, c)}");
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -433,7 +391,7 @@ namespace BasicsAndExtensions
 				string abbbbc = "abbbbc";
 				Console.WriteLine($@"      IsReorderOf(""{aabbcc}"", ""{abbbbc}""): {IsReorderOf<char>(aabbcc, abbbbc)}");
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -446,7 +404,7 @@ namespace BasicsAndExtensions
 					string b = "barf";
 					Console.WriteLine($@"    HammingDistance(""{a}"", ""{b}""): {HammingDistance(a, b)}");
 				}
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -464,7 +422,7 @@ namespace BasicsAndExtensions
 					string b = "help";
 					Console.WriteLine($@"    Iterative(""{a}"", ""{b}""): {LevenshteinDistanceIterative(a, b)}");
 				}
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -478,50 +436,67 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    But ranges (1-3) and (7-9) could not be combined unless");
 				Console.WriteLine("    there were other ranges to fill in the (4-6) gap.");
 				Console.WriteLine();
+
+				// int ranges
+				Console.WriteLine("    Int Range Example:");
+				(int, int)[] intRanges = new[]
 				{
-					Console.WriteLine("    Int Range Example:");
-					Console.WriteLine();
-					(int, int)[] input = new[]
-					{
-						(1, 5),
-						(4, 7),
-						(15, 18),
-						(3, 10),
-					};
-					Console.WriteLine($"      Input:");
-					foreach (var range in input)
-					{
-						Console.WriteLine($"        {range}");
-					}
-					Console.WriteLine($"      CombineRanges:");
-					foreach (var range in CombineRanges(input))
-					{
-						Console.WriteLine($"        {range}");
-					}
-					Console.WriteLine();
-				}
+					(1,   5),
+					(4,   7),
+					(15, 18),
+					(3,  10),
+				};
+				foreach (var range in intRanges)
 				{
-					Console.WriteLine("    DateTime Range Example:");
-					Console.WriteLine();
-					(DateTime, DateTime)[] input = new[]
-					{
-						(new DateTime(2000, 1, 1), new DateTime(2002, 1, 1)),
-						(new DateTime(2000, 1, 1), new DateTime(2009, 1, 1)),
-						(new DateTime(2003, 1, 1), new DateTime(2009, 1, 1)),
-						(new DateTime(2011, 1, 1), new DateTime(2016, 1, 1)),
-					};
-					Console.WriteLine($"      Input:");
-					foreach (var range in input)
-					{
-						Console.WriteLine($"        {range}");
-					}
-					Console.WriteLine($"      CombineRanges:");
-					foreach (var range in CombineRanges(input))
-					{
-						Console.WriteLine($"        {range}");
-					}
-					Console.WriteLine();
+					Console.WriteLine($"      {range}");
 				}
+				Console.WriteLine($"    CombineRanges:");
+				foreach (var range in CombineRanges(intRanges))
+				{
+					Console.WriteLine($"      {range}");
+				}
+				Console.WriteLine();
+
+				// DateTime ranges
+				Console.WriteLine("    DateTime Range Example:");
+				(DateTime, DateTime)[] dateTimeRanges = new[]
+				{
+					(new DateTime(2000, 1, 1), new DateTime(2002, 1, 1)),
+					(new DateTime(2000, 1, 1), new DateTime(2009, 1, 1)),
+					(new DateTime(2003, 1, 1), new DateTime(2009, 1, 1)),
+					(new DateTime(2011, 1, 1), new DateTime(2016, 1, 1)),
+				};
+				foreach (var range in dateTimeRanges)
+				{
+					Console.WriteLine($"      {range}");
+				}
+				Console.WriteLine($"    CombineRanges:");
+				foreach (var range in CombineRanges(dateTimeRanges))
+				{
+					Console.WriteLine($"      {range}");
+				}
+				Console.WriteLine();
+
+				// string ranges
+				Console.WriteLine("    String Range Example:");
+				(string, string)[] stringRanges = new[]
+				{
+					("tux", "zebra"),
+					("a",   "hippo"),
+					("boy", "joust"),
+					("car",   "dog"),
+				};
+				foreach (var range in stringRanges)
+				{
+					Console.WriteLine($"      {range}");
+				}
+				Console.WriteLine($"    CombineRanges:");
+				foreach (var range in CombineRanges(stringRanges))
+				{
+					Console.WriteLine($"      {range}");
+				}
+
+				Pause();
 			}
 			#endregion
 
@@ -573,8 +548,42 @@ namespace BasicsAndExtensions
 						(Default,    () => Console.Write("Default"))
 					);
 				}
+
+				Pause();
+			}
+			#endregion
+
+			#region Tuple GetEnumerator Extensions
+			{
+				Console.WriteLine("  Tuple GetEnumerator Extensions-----------------");
 				Console.WriteLine();
+				Console.WriteLine(@$"    ""GetEnumerator"" extensions for tuples so");
+				Console.WriteLine(@$"    you can use ""foreach"" loop them.");
 				Console.WriteLine();
+
+				Console.Write("    Tuple 1 = (");
+				foreach (int value in (5, 7, 9, 11))
+				{
+					Console.Write($" {value}");
+				}
+				Console.WriteLine(" )");
+
+				Console.Write("    Tuple 2 = (");
+				foreach (object value in ('a', "howdy", -10, 3.33m))
+				{
+					Console.Write($" {value}");
+				}
+				Console.WriteLine(" )");
+
+				Console.Write("    Tuple 3 = (");
+				Tuple<int, int, int> tuple3 = new(4, 6, 8);
+				foreach (int value in tuple3)
+				{
+					Console.Write($" {value}");
+				}
+				Console.WriteLine(" )");
+
+				Pause();
 			}
 			#endregion
 
@@ -616,7 +625,7 @@ namespace BasicsAndExtensions
 				Console.Write("    Iterative (list):  ");
 				PermuteIterative(0, list.Count - 1, WriteList, () => (++i >= 3 ? Break : Continue), i => list[i], (i, v) => list[i] = v);
 				Console.WriteLine();
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -668,7 +677,8 @@ namespace BasicsAndExtensions
 						2 => "AB12"[j],
 					});
 				Console.WriteLine();
-				Console.WriteLine();
+
+				Pause();
 			}
 			#endregion
 
@@ -676,11 +686,10 @@ namespace BasicsAndExtensions
 			{
 				Console.WriteLine("  Chance syntax----------------------");
 				Console.WriteLine();
-
 				Console.WriteLine($"    20% Chance: {20% Chance}");
 				Console.WriteLine($"    50% Chance: {50% Chance}");
 				Console.WriteLine($"    70% Chance: {70% Chance}");
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -722,7 +731,54 @@ namespace BasicsAndExtensions
 						Console.WriteLine("    Inequality Syntax Error");
 					}
 				}
+				Pause();
+			}
+			#endregion
+
+			#region Stepper
+			{
+				Console.WriteLine("  Stepper------------------------------------");
 				Console.WriteLine();
+				Console.WriteLine(@"    A Towel has a lot of methods called ""Stepper""");
+				Console.WriteLine(@"    and ""StepperBreak"". These methods are essnetially");
+				Console.WriteLine(@"    the same as an ""IEnumerable<T>"", but rather than");
+				Console.WriteLine(@"    The methods returning the values, you instead pass");
+				Console.WriteLine(@"    the ""step"" code that you want to run on every value.");
+				Console.WriteLine(@"    There are pros and cons to both patterns. Here are some");
+				Console.WriteLine(@"    examples.");
+				Console.WriteLine();
+
+				System.Collections.Generic.IEnumerable<int> iEnumerable = Ɐ(1, 2, 3);
+				Console.Write("    iEnumerable values:");
+				foreach (int value in iEnumerable)
+				{
+					Console.Write(" " + value);
+				}
+				Console.WriteLine();
+
+				Action<Action<int>> stepper = Ɐ(1, 2, 3);
+				Console.Write("    stepper values:");
+				stepper(value => Console.Write(" " + value));
+				Console.WriteLine();
+
+				/// In order to break the traversal you can return a "StepStatus"
+				/// from a "StepperBreak" method.
+				Func<Func<int, StepStatus>, StepStatus> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
+				Console.Write("    stepperBreak values:");
+				stepperBreak(value =>
+				{
+					Console.Write(" " + value);
+					return value >= 3 ? Break : Continue;
+				});
+				Console.WriteLine();
+
+				/// Steppers can be defined as functions without a backing data structure.
+				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
+				Console.Write("    stepperFunctional values:");
+				stepperFunctional(value => Console.Write(" " + value));
+				Console.WriteLine();
+
+				Pause();
 			}
 			#endregion
 
@@ -745,11 +801,11 @@ namespace BasicsAndExtensions
 				System.Collections.Generic.Queue<int>       h = Ɐ(1, 2, 3);
 				System.Collections.Generic.SortedSet<int>   i = Ɐ(1, 2, 3);
 				Action<Action<int>>                         j = Ɐ(1, 2, 3);
-				StepperRef<int>                             k = Ɐ(1, 2, 3);
 				Func<Func<int, StepStatus>, StepStatus>     l = Ɐ(1, 2, 3);
-				StepperRefBreak<int>                        m = Ɐ(1, 2, 3);
 				Towel.DataStructures.Array<int>             n = Ɐ(1, 2, 3);
 				Towel.DataStructures.ListArray<int>         o = Ɐ(1, 2, 3);
+
+				Pause();
 			}
 			#endregion
 
@@ -758,6 +814,14 @@ namespace BasicsAndExtensions
 			Console.WriteLine("Example Complete...");
 			Console.WriteLine();
 			ConsoleHelper.PromptPressToContinue();
+		}
+
+		public static void Pause()
+		{
+			Console.WriteLine();
+			ConsoleHelper.PromptPressToContinue($"    Press[{ConsoleKey.Enter}] to continue...");
+			Console.WriteLine();
+			Console.WriteLine();
 		}
 	}
 }

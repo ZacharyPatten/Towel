@@ -283,8 +283,8 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		public static bool InclusionCheck<<#= chain_AxisX #>>(Omnitree.Bounds<<#= chain_AxisX #>> a, Omnitree.Bounds<<#= chain_AxisX #>> b,
 			<#= chain_Compare_AxisX_compareX #>) =>
 <# for (int j = 1; j <= i; j++) { #>
-			a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) == CompareResult.Less ? false :
-			a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) == CompareResult.Greater ? false :
+			a.Max<#= j #>.Exists && b.Min<#= j #>.Exists && compare<#= j #>(a.Max<#= j #>.Value, b.Min<#= j #>.Value) is Less ? false :
+			a.Min<#= j #>.Exists && b.Max<#= j #>.Exists && compare<#= j #>(a.Min<#= j #>.Value, b.Max<#= j #>.Value) is Greater ? false :
 <# } #>
 			true;
 
@@ -294,8 +294,8 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			<#= chain_Compare_AxisX_compareX #>) =>
 			// if the location is not outside the bounds, it must be inside
 <# for (int j = 1; j <= i; j++) { #>
-			bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) == CompareResult.Less ? false :
-			bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) == CompareResult.Greater ? false :
+			bounds.Min<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Min<#= j #>.Value) is CompareResult.Less ? false :
+			bounds.Max<#= j #>.Exists && compare<#= j #>(vector.Axis<#= j #>, bounds.Max<#= j #>.Value) is CompareResult.Greater ? false :
 <# } #>
 			true;
 
@@ -602,7 +602,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Branch parent, <#= child_index_type #> index)
 			{
 				Bounds = bounds;
@@ -1150,7 +1150,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //				}
 //			});
 //
-//			//if (depth == 1 && allowMultithreading)
+//			//if (depth is 1 && allowMultithreading)
 //			//{
 //			//	// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
 //			//	collection_map.Keys((<#= child_index_type #> key) => { parent[key] = new Leaf(Omnitree.Bounds<<#= chain_AxisX #>>.None, parent, key); });
@@ -1229,7 +1229,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# for (int j = 2; j <= i; j++) { #>, out int index<#= j #>
 <# } #>)
 //		{
-//			if (depth == 1)
+//			if (depth is 1)
 //			{
 <# for (int j = 1; j <= i; j++) { #>
 //				index<#= j #> = (count - 1) / 2;
@@ -1262,21 +1262,19 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -1291,7 +1289,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -1580,7 +1578,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -1667,7 +1665,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -1734,7 +1732,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -1804,7 +1802,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -1878,7 +1876,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -1898,13 +1896,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -2045,6 +2041,31 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -2207,6 +2228,9 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
@@ -2224,7 +2248,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 		{
 			<#= child_index_type #> child = 0;
 <# for (int j = 1; j <= i; j++) { #>
-			if (!(this._compare<#= j #>(vector.Axis<#= j #>, pointOfDivision.Axis<#= j #>) == CompareResult.Less))
+			if (!(this._compare<#= j #>(vector.Axis<#= j #>, pointOfDivision.Axis<#= j #>) is Less))
 				child += 1 << <#= j - 1 #>;
 <# } #>
 			return child;
@@ -2598,7 +2622,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Node parent, <#= child_index_type #> index)
 			{
 				Bounds = bounds;
@@ -3018,7 +3042,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 //				}
 //			});
 //
-//			if (depth == 1 && allowMultithreading)
+//			if (depth is 1 && allowMultithreading)
 //			{
 //				// NOTE: Must assign placeholders before multithreading so that the threads do not overwrite each other
 //				collection_map.Keys((<#= child_index_type #> key) => { parent[key] = new Node(Omnitree.Bounds<<#= chain_AxisX #>>.None, parent, key); });
@@ -3097,7 +3121,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 <# for (int j = 2; j <= i; j++) { #>, out int index<#= j #>
 <# } #>)
 //		{
-//			if (depth == 1)
+//			if (depth is 1)
 //			{
 <# for (int j = 1; j <= i; j++) { #>
 //				index<#= j #> = (count - 1) / 2;
@@ -3130,21 +3154,19 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -3159,7 +3181,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<<#= chain_AxisX #>>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -3214,7 +3236,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				<#= child_index_type #> child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -3472,7 +3494,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3557,7 +3579,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3628,7 +3650,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3748,7 +3770,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -3848,7 +3870,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3867,13 +3889,11 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -3932,6 +3952,27 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -4096,6 +4137,9 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<<#= chain_AxisX #>> bounds, Omnitree.Vector<<#= chain_AxisX #>> vector) =>
@@ -4117,7 +4161,7 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 			<#= child_index_type #> child = 0;
 <# for (int j = 1; j <= i; j++) { #>
-			if (!bounds.Min<#= j #>.Exists || !(this._compare<#= j #>(bounds.Min<#= j #>.Value, pointOfDivision.Axis<#= j #>) == CompareResult.Less))
+			if (!bounds.Min<#= j #>.Exists || !(this._compare<#= j #>(bounds.Min<#= j #>.Value, pointOfDivision.Axis<#= j #>) is Less))
 				child += 1 << <#= j - 1 #>;
 <# } #>
 			return child;

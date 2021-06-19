@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
@@ -26,11 +24,12 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public interface IArray<T> : IArray<T, int>
 	{
+
 	}
 
 	/// <summary>Contiguous fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class Array<T> : IArray<T>
+	public class Array<T> : IArray<T>, ICloneable<Array<T>>
 	{
 		internal T[] _array;
 
@@ -56,9 +55,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Allows indexed access of the array.</summary>
-		/// <param name="index">The index of the array to get/set.</param>
-		/// <returns>The value at the desired index.</returns>
+		/// <inheritdoc/>
 		public T this[int index]
 		{
 			get
@@ -98,56 +95,28 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		#region Clone
-
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public Array<T> Clone() => (T[])_array.Clone();
 
-		#endregion
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			_array.StepperBreak(step);
 
-		#region Stepper And IEnumerable
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<T> step) => _array.Stepper(step);
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)_array).GetEnumerator();
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step) => _array.Stepper(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, StepStatus> step) => _array.Stepper(step);
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step) => _array.Stepper(step);
-
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <summary>Gets the enumerator for the array.</summary>
-		/// <returns>The enumerator for the array.</returns>
-		public IEnumerator<T> GetEnumerator() => ((IEnumerable<T>)_array).GetEnumerator();
-
-		#endregion
-
-		#region ToArray
-
-		/// <summary>Converts the structure into an array.</summary>
-		/// <returns>An array containing all the item in the structure.</returns>
-		public T[] ToArray() => _array;
-
-		#endregion
+		/// <inheritdoc/>
+		public T[] ToArray() => Length is 0 ? Array.Empty<T>() : _array[..];
 
 		#endregion
 	}
 
-	/// <summary>An array implemented as a jagged array to allow for a number of elements > Int.MaxValue.</summary>
+	/// <summary>An array implemented as a jagged array to allow for a number of values greater than Int.MaxValue.</summary>
 	/// <typeparam name="T">The generic type of value to store in the array.</typeparam>
-	public class ArrayJagged<T> : IArray<T, ulong>
+	public class ArrayJagged<T> : IArray<T, ulong>, ICloneable<ArrayJagged<T>>
 	{
 		// BLOCK_SIZE must be a power of 2, and we want it to be big enough that we allocate
 		// blocks in the large object heap so that they don’t move.
@@ -157,7 +126,7 @@ namespace Towel.DataStructures
 		// Don’t use a multi-dimensional array here because then we can’t right size the last
 		// block and we have to do range checking on our own and since there will then be 
 		// exception throwing in our code there is a good chance that the JIT won’t inline.
-		internal T[][] _elements;
+		internal T[][] _blocks;
 		internal ulong _length;
 
 		#region Constructors
@@ -170,10 +139,10 @@ namespace Towel.DataStructures
 				numBlocks += 1;
 			}
 			_length = bigArray.Length;
-			_elements = new T[numBlocks][];
+			_blocks = new T[numBlocks][];
 			for (int i = 0; i < numBlocks; i++)
 			{
-				_elements[i] = bigArray._elements[i].Clone() as T[];
+				_blocks[i] = (T[])bigArray._blocks[i].Clone();
 			}
 		}
 
@@ -188,7 +157,7 @@ namespace Towel.DataStructures
 		// maximum BigArray size = BLOCK_SIZE * Int.MaxValue
 		public ArrayJagged(ulong size)
 		{
-			if (size == 0)
+			if (size is 0)
 				return;
 
 			int numBlocks = (int)(size / BLOCK_SIZE);
@@ -199,21 +168,21 @@ namespace Towel.DataStructures
 
 
 			_length = size;
-			_elements = new T[numBlocks][];
+			_blocks = new T[numBlocks][];
 			for (int i = 0; i < (numBlocks - 1); i++)
 			{
-				_elements[i] = new T[BLOCK_SIZE];
+				_blocks[i] = new T[BLOCK_SIZE];
 			}
 			// by making sure to make the last block right sized then we get the range checks 
 			// for free with the normal array range checks and don’t have to add our own
-			_elements[numBlocks - 1] = new T[size % (ulong)BLOCK_SIZE];
+			_blocks[numBlocks - 1] = new T[size % (ulong)BLOCK_SIZE];
 		}
 
 		#endregion
 
 		#region Properties
 
-		/// <summary>The length of the array.</summary>
+		/// <inheritdoc/>
 		public ulong Length => _length;
 
 		/// <summary>Gets and sets the value at a particual index.</summary>
@@ -231,9 +200,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Gets and sets the value at a particual index.</summary>
-		/// <param name="index">The index of the value to get or set.</param>
-		/// <returns>The value at the provided index.</returns>
+		/// <inheritdoc/>
 		public T this[ulong index]
 		{
 			// these must be _very_ simple in order to ensure that they get inlined into
@@ -242,13 +209,13 @@ namespace Towel.DataStructures
 			{
 				int blockNum = (int)(index >> BLOCK_SIZE_LOG2);
 				int elementNumberInBlock = (int)(index & (BLOCK_SIZE - 1));
-				return _elements[blockNum][elementNumberInBlock];
+				return _blocks[blockNum][elementNumberInBlock];
 			}
 			set
 			{
 				int blockNum = (int)(index >> BLOCK_SIZE_LOG2);
 				int elementNumberInBlock = (int)(index & (BLOCK_SIZE - 1));
-				_elements[blockNum][elementNumberInBlock] = value;
+				_blocks[blockNum][elementNumberInBlock] = value;
 			}
 		}
 
@@ -256,55 +223,20 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>Clones this array.</summary>
-		/// <returns>A clone of the array.</returns>
-		public ArrayJagged<T> Clone() =>
-			new(this);
+		/// <inheritdoc/>
+		public ArrayJagged<T> Clone() => new(this);
 
-		#region Stepper And IEnumerable
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(Action<T> step)
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
-			for (int i = 0; i < _elements.Length; i++)
+			for (int i = 0; i < _blocks.Length; i++)
 			{
-				T[] array = _elements[i];
+				T[] array = _blocks[i];
 				int arrayLength = array.Length;
 				for (int j = 0; j < arrayLength; j++)
 				{
-					step(array[j]);
-				}
-			}
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		public void Stepper(StepRef<T> step)
-		{
-			for (int i = 0; i < _elements.Length; i++)
-			{
-				T[] array = _elements[i];
-				int arrayLength = array.Length;
-				for (int j = 0; j < arrayLength; j++)
-				{
-					step(ref array[j]);
-				}
-			}
-		}
-
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(Func<T, StepStatus> step)
-		{
-			for (int i = 0; i < _elements.Length; i++)
-			{
-				T[] array = _elements[i];
-				int arrayLength = array.Length;
-				for (int j = 0; j < arrayLength; j++)
-				{
-					if (step(array[i]) is Break)
+					if (step.Invoke(array[i]) is Break)
 					{
 						return Break;
 					}
@@ -313,33 +245,12 @@ namespace Towel.DataStructures
 			return Continue;
 		}
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		public StepStatus Stepper(StepRefBreak<T> step)
-		{
-			for (int i = 0; i < _elements.Length; i++)
-			{
-				T[] array = _elements[i];
-				int arrayLength = array.Length;
-				for (int j = 0; j < arrayLength; j++)
-				{
-					if (step(ref array[i]) is Break)
-					{
-						return Break;
-					}
-				}
-			}
-			return Continue;
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <summary>Gets the enumerator for this array.</summary>
-		/// <returns>The enumerator for this array.</returns>
-		public IEnumerator<T> GetEnumerator()
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			foreach (T[] array in _elements)
+			foreach (T[] array in _blocks)
 			{
 				foreach (T value in array)
 				{
@@ -348,7 +259,24 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#endregion
+		/// <inheritdoc/>
+		public T[] ToArray()
+		{
+			if (_length > int.MaxValue)
+			{
+				throw new InvalidOperationException("Can't convert ArrayJagged<T> to array. Length > int.MaxValue.");
+			}
+			T[] array = new T[_length];
+			int i = 0;
+			foreach (T[] segment in _blocks)
+			{
+				foreach (T value in array)
+				{
+					array[i++] = value;
+				}
+			}
+			return array;
+		}
 
 		#endregion
 	}

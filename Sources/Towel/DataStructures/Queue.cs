@@ -6,7 +6,6 @@ namespace Towel.DataStructures
 	/// <summary>Implements First-In-First-Out queue data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public interface IQueue<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
@@ -36,13 +35,13 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements First-In-First-Out queue data structure using a linked list.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class QueueLinked<T> : IQueue<T>
+	public class QueueLinked<T> : IQueue<T>, ICloneable<QueueLinked<T>>
 	{
 		internal Node? _head;
 		internal Node? _tail;
 		internal int _count;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -92,42 +91,29 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>
-		/// The current newest element in the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public T Newest =>
 			_count <= 0 ? throw new InvalidOperationException("attempting to get the newest item in an empty queue") :
 			_tail is null ? throw new TowelBugException($"{nameof(Count)} is greater than 0 but {nameof(_tail)} is null") :
 			_tail.Value;
 
-		/// <summary>
-		/// The current oldest element in the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public T Oldest =>
 			_count <= 0 ? throw new InvalidOperationException("attempting to get the oldet item in an empty queue") :
 			_head is null ? throw new TowelBugException($"{nameof(Count)} is greater than 0 but {nameof(_head)} is null") :
 			_head.Value;
 
-		/// <summary>
-		/// Returns the number of items in the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
 		#endregion
 
 		#region Methods
 
-		/// <summary>
-		/// Converts the list into a standard array.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <returns>A standard array of all the items.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				return Array.Empty<T>();
 			}
@@ -139,15 +125,10 @@ namespace Towel.DataStructures
 			return array;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public QueueLinked<T> Clone() => new(this);
 
-		/// <summary>
-		/// Adds an item to the back of the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="enqueue">The item to add to the queue.</param>
+		/// <inheritdoc/>
 		public void Enqueue(T enqueue)
 		{
 			if (_tail is null)
@@ -161,11 +142,7 @@ namespace Towel.DataStructures
 			_count++;
 		}
 
-		/// <summary>
-		/// Removes the oldest item in the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <returns>The next item in the queue.</returns>
+		/// <inheritdoc/>
 		public T Dequeue()
 		{
 			if (_head is null)
@@ -182,20 +159,13 @@ namespace Towel.DataStructures
 			return value;
 		}
 
-		/// <summary>
-		/// Gets the next item in the queue without removing it.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <returns>The next item in the queue.</returns>
+		/// <inheritdoc/>
 		public T Peek() =>
 			_count <= 0 ? throw new InvalidOperationException("attempting to peek an empty queue") :
 			_head is null ? throw new TowelBugException($"{nameof(Count)} is greater than 0 but {nameof(_head)} is null") :
 			_head.Value;
 
-		/// <summary>
-		/// Resets the queue to an empty state.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_head = null;
@@ -203,44 +173,13 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) =>
-			StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) =>
-			StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
-			for (Node? current = _head; current is not null; current = current.Next)
+			for (Node? node = _head; node is not null; node = node.Next)
 			{
-				if (step.Do(ref current.Value) is Break)
+				if (step.Invoke(node.Value) is Break)
 				{
 					return Break;
 				}
@@ -250,16 +189,12 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>
-		/// Gets the enumerator for this queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <returns>The enumerator for the queue.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			for (Node? current = _head; current is not null; current = current.Next)
+			for (Node? node = _head; node is not null; node = node.Next)
 			{
-				yield return current.Value;
+				yield return node.Value;
 			}
 		}
 
@@ -268,7 +203,7 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements First-In-First-Out queue data structure using an array.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	public class QueueArray<T> : IQueue<T>
+	public class QueueArray<T> : IQueue<T>, ICloneable<QueueArray<T>>
 	{
 		const int DefaultMinimumCapacity = 1;
 
@@ -316,10 +251,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>
-		/// Gets the number of items in the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
 		/// <summary>
@@ -360,20 +292,12 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// The current newest <typeparamref name="T"/> in the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <exception cref="InvalidOperationException">Thrown when: _count &lt;= 0</exception>
+		/// <inheritdoc/>
 		public T Newest =>
 			_count <= 0 ? throw new InvalidOperationException("attempting to get the newest item in an empty queue") :
 			_array[(_start + _count - 1) % _array.Length];
 
-		/// <summary>
-		/// The current newest <typeparamref name="T"/> in the queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <exception cref="InvalidOperationException">Thrown when: _count &lt;= 0</exception>
+		/// <inheritdoc/>
 		public T Oldest =>
 			_count <= 0 ? throw new InvalidOperationException("attempting to get the oldet item in an empty queue") :
 			_array[_start];
@@ -401,11 +325,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>
-		/// Converts the list array into a standard array.
-		/// <para>Runtime: O(<see cref="Count"/>)</para>
-		/// </summary>
-		/// <returns>A standard array of all the elements.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			if (_count <= 0)
@@ -420,15 +340,10 @@ namespace Towel.DataStructures
 			return array;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public QueueArray<T> Clone() => new(this);
 
-		/// <summary>
-		/// Adds an item to the end of the list.
-		/// <para>Runtime: O(n), ε(1)</para>
-		/// </summary>
-		/// <param name="addition">The item to be added.</param>
+		/// <inheritdoc/>
 		public void Enqueue(T addition)
 		{
 			if (_count + 1 >= _array.Length)
@@ -454,13 +369,10 @@ namespace Towel.DataStructures
 			_count++;
 		}
 
-		/// <summary>
-		/// Removes the item at a specific index.
-		/// <para>Runtime: O(n), ε(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public T Dequeue()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				throw new InvalidOperationException("attempting to queue from an empty queue.");
 			}
@@ -484,60 +396,25 @@ namespace Towel.DataStructures
 			return element;
 		}
 
-		/// <summary>Gets the next item in the queue without removing it.</summary>
-		/// <returns>The next item in the queue.</returns>
+		/// <inheritdoc/>
 		public T Peek() =>
 			_count <= 0 ? throw new InvalidOperationException("attempting to peek an empty queue") :
 			_array[_start];
 
-		/// <summary>
-		/// Returns the queue to an empty state.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_count = 0;
 			_start = 0;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) =>
-			StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) =>
-			StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (int i = 0, index = _start; i < _count; i++, index = ++index >= _array.Length ? 0 : index)
 			{
-				if (step.Do(ref _array[index]) is Break)
+				if (step.Invoke(_array[index]) is Break)
 				{
 					return Break;
 				}
@@ -547,8 +424,7 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for this queue.</summary>
-		/// <returns>The enumerator for this queue.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (int i = 0, index = _start; i < _count; i++, index++)

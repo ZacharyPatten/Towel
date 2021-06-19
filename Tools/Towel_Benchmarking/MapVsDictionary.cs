@@ -13,10 +13,10 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void MapDelegates()
 		{
-			MapHashLinked<int, int> map = new();
+			IMap<int, int> map = MapHashLinked.New<int, int>();
 			for (int i = 0; i < N; i++)
 			{
-				map.TryAdd(i, i, out _);
+				map.Add(i, i);
 			}
 		}
 
@@ -25,18 +25,18 @@ namespace Towel_Benchmarking
 			MapHashLinked<int, int, IntEquate, IntHash> map = new();
 			for (int i = 0; i < N; i++)
 			{
-				map.TryAdd(i, i, out _);
+				map.Add(i, i);
 			}
 		}
 
 		struct IntHash : IFunc<int, int>
 		{
-			public int Do(int a) => a;
+			public int Invoke(int a) => a;
 		}
 
 		struct IntEquate : IFunc<int, int, bool>
 		{
-			public bool Do(int a, int b) => a == b;
+			public bool Invoke(int a, int b) => a == b;
 		}
 
 		[Benchmark] public void Dictionary()
@@ -55,15 +55,15 @@ namespace Towel_Benchmarking
 		[Params(10, 100, 1000, 10000)]
 		public int N;
 
-		MapHashLinked<int, int> mapHashLinked;
-		MapHashLinked<int, int, IntEquate, IntHash> mapHashLinkedStructs;
+		IMap<int, int> mapHashLinked;
+		IMap<int, int> mapHashLinkedStructs;
 		System.Collections.Generic.Dictionary<int, int> dictionary;
 		int temp;
 
 		[IterationSetup]
 		public void IterationSetup()
 		{
-			mapHashLinked = new MapHashLinked<int, int>();
+			mapHashLinked = MapHashLinked.New<int, int>();
 			mapHashLinkedStructs = new MapHashLinked<int, int, IntEquate, IntHash>();
 			dictionary = new System.Collections.Generic.Dictionary<int, int>();
 			for (int i = 0; i < N; i++)
@@ -96,12 +96,12 @@ namespace Towel_Benchmarking
 
 		struct IntHash : IFunc<int, int>
 		{
-			public int Do(int a) => a;
+			public int Invoke(int a) => a;
 		}
 
 		struct IntEquate : IFunc<int, int, bool>
 		{
-			public bool Do(int a, int b) => a == b;
+			public bool Invoke(int a, int b) => a == b;
 		}
 
 		[Benchmark]

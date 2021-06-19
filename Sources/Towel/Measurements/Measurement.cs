@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Towel.Mathematics;
 using Towel.DataStructures;
+using static Towel.Statics;
 
 namespace Towel.Measurements
 {
@@ -45,11 +46,14 @@ namespace Towel.Measurements
 
 		#region Attributes
 
+		[AttributeUsage(AttributeTargets.Method)]
 		internal class ParseableAttribute : Attribute
 		{
 			internal string Key;
 			internal ParseableAttribute(string key) { Key = key; }
 		}
+
+		[AttributeUsage(AttributeTargets.Enum)]
 		internal class ParseableUnitAttribute : Attribute { }
 
 		#endregion
@@ -65,8 +69,8 @@ namespace Towel.Measurements
 		{
 			// make a regex pattern with all the currently supported unit types and
 			// build the unit string to unit type string map
-			IList<string> strings = new ListArray<string>();
-			IMap<string, string> unitStringToUnitTypeString = new MapHashLinked<string, string>();
+			var strings = new ListArray<string>();
+			var unitStringToUnitTypeString = new MapHashLinked<string, string, StringEquate, StringHash>();
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
 			{
 				if (!type.IsEnum)
@@ -90,7 +94,7 @@ namespace Towel.Measurements
 			UnitStringToUnitTypeString = unitStringToUnitTypeString;
 
 			// make the Enum arrays to units map
-			IMap<Enum, string> unitStringToEnumMap = new MapHashLinked<Enum, string>();
+			IMap<Enum, string> unitStringToEnumMap = new MapHashLinked<Enum, string, StringEquate, StringHash>();
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<ParseableUnitAttribute>())
 			{
 				foreach (Enum @enum in Enum.GetValues(type))
@@ -111,7 +115,7 @@ namespace Towel.Measurements
 			internal static void BuildTypeSpecificParsingLibrary()
 			{
 				// make the delegates for constructing the measurements
-				IMap<Func<T, object[], object>, string> unitsStringsToFactoryFunctions = new MapHashLinked<Func<T, object[], object>, string>();
+				var unitsStringsToFactoryFunctions = new MapHashLinked<Func<T, object[], object>, string, StringEquate, StringHash>();
 				foreach (MethodInfo methodInfo in typeof(ParsingFunctions).GetMethods())
 				{
 					if (methodInfo.DeclaringType == typeof(ParsingFunctions))
@@ -136,7 +140,7 @@ namespace Towel.Measurements
 		/// <param name="measurement">The parsed measurement if successful or default if unsuccessful.</param>
 		/// <param name="tryParse">Explicit try parse function for the numeric type.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public static bool TryParse<T>(string @string, out object measurement, Func<string, (bool Success, T Value)> tryParse = null)
+		public static bool TryParse<T>(string @string, out object measurement, Func<string, (bool Success, T Value)>? tryParse = null)
 		{
 			if (!ParsingLibraryBuilt)
 			{
@@ -186,7 +190,8 @@ namespace Towel.Measurements
 					numerator = matchValue.Equals("*");
 					continue;
 				}
-				if (!UnitStringToEnumMap.TryGet(match.Value, out Enum @enum))
+				var (success, exception, @enum) = UnitStringToEnumMap.TryGet(match.Value);
+				if (!success)
 				{
 					measurement = default;
 					return false;
@@ -233,7 +238,7 @@ namespace Towel.Measurements
 			return true;
 		}
 
-		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Func<string, (bool Success, T Value)> tryParse = null)
+		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Func<string, (bool Success, T Value)>? tryParse = null)
 		{
 			if (!TryParse(@string, out object parsedMeasurment, tryParse) ||
 				!(parsedMeasurment is MEASUREMENT))

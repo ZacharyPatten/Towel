@@ -1,56 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
+using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
-	/// <summary>Polymorphism base for all data structures in the Towel framework.</summary>
-	/// <typeparam name="T">The type of the instances to store in this data structure.</typeparam>
-	public interface IDataStructure<T> : IEnumerable<T>
+	/// <summary>Polymorphism base for all data structures in Towel.</summary>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	public interface IDataStructure<T> : ISteppable<T>, System.Collections.Generic.IEnumerable<T>
 	{
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		void Stepper(Action<T> step);
+		#region Methods
 
-		/// <summary>Invokes a delegate for each entry in the data structure.</summary>
-		/// <param name="step">The delegate to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		StepStatus Stepper(Func<T, StepStatus> step);
-	}
-
-	/// <summary>Contains extension methods for the Structure interface.</summary>
-	public static class DataStructure
-	{
-		#region XML
-
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
-		/// <summary>
-		/// Invokes a method for each entry in the data structure.
-		/// <para>Runtime: O(n * step)</para>
-		/// </summary>
-		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The method to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		internal static void Stepper_O_n_step_XML() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
-		/// <summary>Invokes a method for each entry in the data structure.</summary>
-		/// <typeparam name="Step">The method to invoke on each item in the structure.</typeparam>
-		/// <param name="step">The method to invoke on each item in the structure.</param>
-		/// <returns>The resulting status of the iteration.</returns>
-		internal static void Stepper_XML() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		/// <summary>Constructs an array with the values of this data structure.</summary>
+		/// <returns>An array with the values of this data structure.</returns>
+		T[] ToArray();
 
 		#endregion
+	}
 
+	/// <summary>Contains static members for <see cref="IDataStructure{T}"/>.</summary>
+	public static class DataStructure
+	{
 		#region Interfaces
 
 		/// <summary>Property of a data structure (does it have a contains method).</summary>
@@ -63,20 +31,24 @@ namespace Towel.DataStructures
 			bool Contains(T value);
 		}
 
-		/// <summary>Property of a data structure (does it have a Hash property).</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IHashing<T>
+		/// <summary>Represents a type that is hashing values of type <typeparamref name="T"/>.</summary>
+		/// <typeparam name="T">The type of values this type is hashing.</typeparam>
+		/// <typeparam name="THash">The type that is hashing <typeparamref name="T"/> values.</typeparam>
+		public interface IHashing<T, THash>
+			where THash : struct, IFunc<T, int>
 		{
-			/// <summary>Gets the hashing function being used by the data structure.</summary>
-			Func<T, int> Hash { get; }
+			/// <summary>Gets the value of the type that is hashing <typeparamref name="T"/> values.</summary>
+			THash Hash { get; }
 		}
 
-		/// <summary>Property of a data structure (does it have a Compare property).</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IComparing<T, _Compare>
+		/// <summary>Represents a type that is comparing values of type <typeparamref name="T"/>.</summary>
+		/// <typeparam name="T">The type of values this type is comparing.</typeparam>
+		/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+		public interface IComparing<T, TCompare>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
-			/// <summary>Gets the comparing function of the data structure.</summary>
-			_Compare Compare { get; }
+			/// <summary>Gets the value of the comparer that is comparing <typeparamref name="T"/> values.</summary>
+			TCompare Compare { get; }
 		}
 
 		/// <summary>Property of a data structure (does it have a Add method).</summary>
@@ -85,9 +57,8 @@ namespace Towel.DataStructures
 		{
 			/// <summary>Tries to add a value to a data structure.</summary>
 			/// <param name="value">The value to add to the data structure.</param>
-			/// <param name="exception">The exception that occurred if the add failed.</param>
 			/// <returns>True if the value was added or false if not.</returns>
-			bool TryAdd(T value, out Exception? exception);
+			(bool Success, Exception? Exception) TryAdd(T value);
 		}
 
 		/// <summary>Property of a data structure (does it have a Romove method).</summary>
@@ -96,9 +67,8 @@ namespace Towel.DataStructures
 		{
 			/// <summary>Tries to remove a value.</summary>
 			/// <param name="value">The value to remove.</param>
-			/// <param name="exception">The exception that occurred if the remove failed.</param>
 			/// <returns>True if the value was removed or false if not.</returns>
-			bool TryRemove(T value, out Exception? exception);
+			(bool Success, Exception? Exception) TryRemove(T value);
 		}
 
 		/// <summary>Property of a data structure (does it have a Count method).</summary>
@@ -115,78 +85,35 @@ namespace Towel.DataStructures
 			void Clear();
 		}
 
-		/// <summary>Property of a data structure (does it have a Equate property).</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IEquating<T>
+		/// <summary>Represents a type that is equality checking values of type <typeparamref name="T"/>.</summary>
+		/// <typeparam name="T">The type of values this type is equality checking.</typeparam>
+		/// <typeparam name="TEquate">The type that is equality checking <typeparamref name="T"/> values.</typeparam>
+		public interface IEquating<T, TEquate>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
-			/// <summary>Gets the equating function of the data structure.</summary>
-			Func<T, T, bool> Equate { get; }
-		}
-
-		/// <summary>Property of a data structure (does it have a Stepper ref method).</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		public interface IStepperRef<T>
-		{
-			/// <summary>Steps through all the values.</summary>
-			/// <param name="step">The action to perform on each value.</param>
-			void Stepper(StepRef<T> step);
-			/// <summary>Invokes a delegate for each entry in the data structure (left to right).</summary>
-			/// <param name="step">The delegate to invoke on each item in the structure.</param>
-			/// <returns>The resulting status of the iteration.</returns>
-			StepStatus Stepper(StepRefBreak<T> step);
+			/// <summary>Gets the value of the type that is checking <typeparamref name="T"/> values for equality.</summary>
+			TEquate Equate { get; }
 		}
 
 		#endregion
 
 		#region Extension Methods
 
-		/// <summary>Gets the stepper for this data structure.</summary>
-		/// <returns>The stepper for this data structure.</returns>
-		public static Action<Action<T>> Stepper<T>(this IDataStructure<T> dataStructure) =>
-			dataStructure.Stepper;
-
-		/// <summary>Gets the stepper for this data structure.</summary>
-		/// <returns>The stepper for this data structure.</returns>
-		public static Func<Func<T, StepStatus>, StepStatus> StepperBreak<T>(this IDataStructure<T> dataStructure) =>
-			dataStructure.Stepper;
-
-		/// <summary>Adds a value.</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="structure">The structure to add the value to.</param>
-		/// <param name="value">The value to be added.</param>
-		/// <returns>True if the add was successful or false if not.</returns>
-		public static bool TryAdd<T>(this IAddable<T> structure, T value) =>
-			structure.TryAdd(value, out _);
-
-		/// <summary>Adds a value.</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="structure">The structure to add the value to.</param>
-		/// <param name="value">The value to be added.</param>
-		public static void Add<T>(this IAddable<T> structure, T value)
+		public static void Add<T>(this IAddable<T> addable, T value)
 		{
-			if (!structure.TryAdd(value, out Exception? exception))
+			var (success, exception) = addable.TryAdd(value);
+			if (!success)
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 
-		/// <summary>Tries to removes a value.</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="structure">The structure to remove the value from.</param>
-		/// <param name="value">The value to be removed.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public static bool TryRemove<T>(this IRemovable<T> structure, T value) =>
-			structure.TryRemove(value, out _);
-
-		/// <summary>Removes a value.</summary>
-		/// <typeparam name="T">The type of value.</typeparam>
-		/// <param name="structure">The structure to remove the value from.</param>
-		/// <param name="value">The value to be removed.</param>
-		public static void Remove<T>(this IRemovable<T> structure, T value)
+		public static void Remove<T>(this IRemovable<T> removable, T value)
 		{
-			if (!structure.TryRemove(value, out Exception? exception))
+			var (success, exception) = removable.TryRemove(value);
+			if (!success)
 			{
-				throw exception ?? new ArgumentException(nameof(exception), $"{nameof(Remove)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Remove)} failed but the {nameof(exception)} is null"); ;
 			}
 		}
 

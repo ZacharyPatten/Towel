@@ -9,7 +9,7 @@ namespace Towel
 		/// <summary>Generates a random <see cref="bool"/> value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <returns>A randomly generated <see cref="bool"/> value.</returns>
-		public static bool NextBool(this Random random) => random.Next(2) == 0;
+		public static bool NextBool(this Random random) => random.Next(2) is 0;
 
 		/// <summary>Generates a random <see cref="byte"/> value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
@@ -273,19 +273,19 @@ namespace Towel
 			Statics.NextPoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 		/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
-		public static void Next<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
-			where Step : struct, IAction<int> =>
-			Next<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+		public static void Next<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			Next<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
 		/// <inheritdoc cref="Next{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
-		public static void NextRollTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+		public static void NextRollTracking<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextRollTracking<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
 		/// <inheritdoc cref="Next{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
-		public static void NextPoolTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextPoolTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+		public static void NextPoolTracking<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextPoolTracking<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
 		#endregion
 
@@ -316,19 +316,19 @@ namespace Towel
 			Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
 
 		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"/>
-		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
+		public static void NextUnique<TStep>(this Random random, int count, int minValue, int maxValue, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextUnique<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, Step)"/>
-		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUniqueRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
+		public static void NextUniqueRollTracking<TStep>(this Random random, int count, int minValue, int maxValue, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextUniqueRollTracking<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
 		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, Step)"/>
-		public static void NextUniquePoolTracking<Step>(this Random random, int count, int minValue, int maxValue, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUniquePoolTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
+		public static void NextUniquePoolTracking<TStep>(this Random random, int count, int minValue, int maxValue, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextUniquePoolTracking<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random(), step);
 
 		#endregion
 
@@ -359,19 +359,19 @@ namespace Towel
 			Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
-		public static void NextUnique<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUnique<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+		public static void NextUnique<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextUnique<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
 		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
-		public static void NextUniqueRollTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUniqueRollTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+		public static void NextUniqueRollTracking<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextUniqueRollTracking<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
 		/// <inheritdoc cref="NextUnique{Step}(Random, int, int, int, ReadOnlySpan{int}, Step)"/>
-		public static void NextUniquePoolTracking<Step>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Step step = default)
-			where Step : struct, IAction<int> =>
-			NextUniquePoolTracking<Step, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
+		public static void NextUniquePoolTracking<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
+			where TStep : struct, IAction<int> =>
+			NextUniquePoolTracking<TStep, RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random(), step);
 
 		#endregion
 
@@ -443,7 +443,7 @@ namespace Towel
 				if (totalWeight < 0)
 					throw new ArgumentOutOfRangeException(nameof(totalWeight), $"The provided {nameof(totalWeight)} of the {nameof(pool)} was less than zero.");
 			}
-			if (totalWeight == 0)
+			if (totalWeight is 0)
 				throw new ArgumentOutOfRangeException(nameof(pool), $"The total weight of all values in the {nameof(pool)} was zero.");
 			if (double.IsInfinity(totalWeight.Value))
 				throw new ArgumentOutOfRangeException(nameof(pool), $"The total weight of all values in the {nameof(pool)} was an infinite double.");
@@ -480,7 +480,7 @@ namespace Towel
 		//		if (totalWeight < 0)
 		//			throw new ArgumentOutOfRangeException("The provided total weight of the pool was less than zero.");
 		//	}
-		//	if (totalWeight == 0)
+		//	if (totalWeight is 0)
 		//		throw new ArgumentOutOfRangeException("The total weight of all values in the pool was zero.");
 		//	if (double.IsInfinity(totalWeight.Value))
 		//		throw new ArgumentOutOfRangeException("The total weight of all values in the pool was an infinite double.");

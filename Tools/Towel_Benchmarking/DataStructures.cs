@@ -18,17 +18,17 @@ namespace Towel_Benchmarking
 
 	public struct EquatePerson : IFunc<Person, Person, bool>
 	{
-		public bool Do(Person a, Person b) => a.Id == b.Id;
+		public bool Invoke(Person a, Person b) => a.Id == b.Id;
 	}
 
 	public struct HashPerson : IFunc<Person, int>
 	{
-		public int Do(Person a) => a.Id.GetHashCode();
+		public int Invoke(Person a) => a.Id.GetHashCode();
 	}
 
 	public struct ComparePersonFirstName : IFunc<Person, Person, CompareResult>
 	{
-		public CompareResult Do(Person a, Person b) => Compare(a.FirstName, b.FirstName);
+		public CompareResult Invoke(Person a, Person b) => Compare(a.FirstName, b.FirstName);
 	}
 
 	public static partial class RandomData
@@ -177,7 +177,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void AvlTreeLinked_AddRunTime()
 		{
-			AvlTreeLinked<Person> tree = new(
+			IAvlTree<Person> tree = AvlTreeLinked.New<Person>(
 				(a, b) => Compare(a.FirstName, b.FirstName));
 			foreach (Person person in RandomTestData)
 			{
@@ -187,7 +187,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void AvlTreeLinked_AddCompileTime()
 		{
-			AvlTreeLinked<Person, ComparePersonFirstName> tree = new();
+			IAvlTree<Person> tree = new AvlTreeLinked<Person, ComparePersonFirstName>();
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);
@@ -198,7 +198,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void RedBlackTree_AddRunTime()
 		{
-			RedBlackTreeLinked<Person> tree = new((a, b) => Compare(a.FirstName, b.FirstName));
+			IRedBlackTree<Person> tree = RedBlackTreeLinked.New<Person>((a, b) => Compare(a.FirstName, b.FirstName));
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);
@@ -207,7 +207,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void RedBlackTree_AddCompileTime()
 		{
-			RedBlackTreeLinked<Person, ComparePersonFirstName> tree = new();
+			IRedBlackTree<Person> tree = new RedBlackTreeLinked<Person, ComparePersonFirstName>();
 			foreach (Person person in RandomTestData)
 			{
 				tree.Add(person);
@@ -218,7 +218,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void SetHashLinked_AddRunTime()
 		{
-			ISet<Person> set = new SetHashLinked<Person>(
+			ISet<Person> set = SetHashLinked.New<Person>(
 				(a, b) => a.Id == b.Id,
 				x => x.Id.GetHashCode());
 			foreach (Person person in RandomTestData)

@@ -17,110 +17,114 @@ namespace DataStructures
 			Console.WriteLine();
 
 			#region Link (aka Tuple)
+			{
+				Console.WriteLine("  Link------------------------------------");
+				Console.WriteLine();
+				Console.WriteLine("    A \"Link\" is like a System.Tuple that implements");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. A Link/Tuple is");
+				Console.WriteLine("    used when you have a small, known-sized set of objects");
+				Console.WriteLine("    that you want to bundle together without making a custom");
+				Console.WriteLine("    custom class.");
+				Console.WriteLine();
 
-			Console.WriteLine("  Link------------------------------------");
-			Console.WriteLine();
-			Console.WriteLine("    A \"Link\" is like a System.Tuple that implements");
-			Console.WriteLine("    Towel.DataStructures.DataStructure. A Link/Tuple is");
-			Console.WriteLine("    used when you have a small, known-sized set of objects");
-			Console.WriteLine("    that you want to bundle together without making a custom");
-			Console.WriteLine("    custom class.");
-			Console.WriteLine();
+				Link link = new Link<int, string, char, float, decimal>(1, "2", '3', 4f, 5m);
+				Console.Write("    Traversal: ");
+				link.Stepper(Console.Write);
+				Console.WriteLine();
 
-			Link link = new Link<int, int, int, int, int, int>(0, 1, 2, 3, 4, 5);
-			Console.Write("    Traversal: ");
-			link.Stepper(i => Console.Write(i));
-			Console.WriteLine();
+				Link linkStruct = new LinkStruct<int, string, char, float, decimal>(1, "2", '3', 4f, 5m);
+				Console.Write("    Traversal: ");
+				link.Stepper(Console.Write);
+				Console.WriteLine();
 
-			Console.WriteLine($"    Size: {link.Size}");
-			Console.WriteLine();
-
+				Pause();
+			}
 			#endregion
 
 			#region Array
-
-			Console.WriteLine("  Array---------------------------------");
-			Console.WriteLine();
-			Console.WriteLine("    An Array<T> is just a wrapper for arrays that implements");
-			Console.WriteLine("    Towel.DataStructures.DataStructure. An array is used when");
-			Console.WriteLine("    dealing with static-sized, known-sized sets of data. Arrays");
-			Console.WriteLine("    can be sorted along 1 dimensions for binary searching algorithms.");
-			Console.WriteLine();
-
-			IArray<int> array = new Array<int>(test);
-
-			Console.Write($"    Filling in (0-{test - 1})...");
-			for (int i = 0; i < test; i++)
 			{
-				array[i] = i;
+				Console.WriteLine("  Array---------------------------------");
+				Console.WriteLine();
+				Console.WriteLine(@$"    An Array<T> is just a wrapper for arrays that implements");
+				Console.WriteLine(@$"    Towel.DataStructures.IDataStructure<T>. An array is used when");
+				Console.WriteLine(@$"    dealing with static-sized, known-sized sets of data. Arrays");
+				Console.WriteLine(@$"    can be sorted along 1 dimensions for binary searching algorithms.");
+				Console.WriteLine();
+
+				IArray<int> array = new Array<int>(test);
+
+				Console.Write($"    Filling in (0-{test - 1})...");
+				for (int i = 0; i < test; i++)
+				{
+					array[i] = i;
+				}
+				Console.WriteLine();
+
+				Console.Write("    Traversal: ");
+				array.Stepper(Console.Write);
+				Console.WriteLine();
+
+				Console.WriteLine($"    Length: {array.Length}");
+
+				Pause();
 			}
-			Console.WriteLine();
-
-			Console.Write("    Traversal: ");
-			array.Stepper(i => Console.Write(i));
-			Console.WriteLine();
-
-			Console.WriteLine($"    Length: {array.Length}");
-
-			Console.WriteLine();
-
 			#endregion
 
 			#region List
-
-			Console.WriteLine("  List---------------------------------");
-			Console.WriteLine();
-			Console.WriteLine("    An List is like an IList that implements");
-			Console.WriteLine("    Towel.DataStructures.DataStructure. \"ListArray\" is");
-			Console.WriteLine("    the array implementation while \"ListLinked\" is the");
-			Console.WriteLine("    the linked-list implementation. An List is used");
-			Console.WriteLine("    when dealing with an unknown quantity of data that you");
-			Console.WriteLine("    will likely have to enumerate/step through everything. The");
-			Console.WriteLine("    ListArray shares the properties of an Array in");
-			Console.WriteLine("    that it can be relateively quickly sorted along 1 dimensions");
-			Console.WriteLine("    for binary search algorithms.");
-			Console.WriteLine();
-
-			// ListArray ---------------------------------------
-			IList<int> listArray = new ListArray<int>(test);
-
-			Console.Write($"    [ListArray] Adding (0-{test - 1})...");
-			for (int i = 0; i < test; i++)
 			{
-				listArray.Add(i);
+				Console.WriteLine("  List---------------------------------");
+				Console.WriteLine();
+				Console.WriteLine("    An List is like an IList that implements");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. \"ListArray\" is");
+				Console.WriteLine("    the array implementation while \"ListLinked\" is the");
+				Console.WriteLine("    the linked-list implementation. An List is used");
+				Console.WriteLine("    when dealing with an unknown quantity of data that you");
+				Console.WriteLine("    will likely have to enumerate/step through everything. The");
+				Console.WriteLine("    ListArray shares the properties of an Array in");
+				Console.WriteLine("    that it can be relateively quickly sorted along 1 dimensions");
+				Console.WriteLine("    for binary search algorithms.");
+				Console.WriteLine();
+
+				// ListArray ---------------------------------------
+				IList<int> listArray = new ListArray<int>(test);
+
+				Console.Write($"    [ListArray] Adding (0-{test - 1})...");
+				for (int i = 0; i < test; i++)
+				{
+					listArray.Add(i);
+				}
+				Console.WriteLine();
+
+				Console.Write("    [ListArray] Traversal: ");
+				listArray.Stepper(Console.Write);
+				Console.WriteLine();
+
+				Console.WriteLine($"    [ListArray] Count: {listArray.Count}");
+
+				listArray.Clear();
+
+				Console.WriteLine();
+
+				// ListLinked ---------------------------------------
+				IList<int> listLinked = new ListLinked<int>();
+
+				Console.Write($"    [ListLinked] Adding (0-{test - 1})...");
+				for (int i = 0; i < test; i++)
+				{
+					listLinked.Add(i);
+				}
+				Console.WriteLine();
+
+				Console.Write("    [ListLinked] Traversal: ");
+				listLinked.Stepper(Console.Write);
+				Console.WriteLine();
+
+				Console.WriteLine($"    [ListLinked] Count: {listLinked.Count}");
+
+				listLinked.Clear();
+
+				Pause();
 			}
-			Console.WriteLine();
-
-			Console.Write("    [ListArray] Traversal: ");
-			listArray.Stepper(i => Console.Write(i));
-			Console.WriteLine();
-
-			Console.WriteLine($"    [ListArray] Count: {listArray.Count}");
-
-			listArray.Clear();
-
-			Console.WriteLine();
-
-			// ListLinked ---------------------------------------
-			IList<int> listLinked = new ListLinked<int>();
-
-			Console.Write($"    [ListLinked] Adding (0-{test - 1})...");
-			for (int i = 0; i < test; i++)
-			{
-				listLinked.Add(i);
-			}
-			Console.WriteLine();
-
-			Console.Write("    [ListLinked] Traversal: ");
-			listLinked.Stepper(i => Console.Write(i));
-			Console.WriteLine();
-
-			Console.WriteLine($"    [ListLinked] Count: {listLinked.Count}");
-
-			listLinked.Clear();
-
-			Console.WriteLine();
-
 			#endregion
 
 			#region Stack
@@ -128,7 +132,7 @@ namespace DataStructures
 				Console.WriteLine("  Stack---------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An \"Stack\" is a Stack that implements");
-				Console.WriteLine("    Towel.DataStructures.DataStructure. \"StackArray\" is");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. \"StackArray\" is");
 				Console.WriteLine("    the array implementation while \"StackLinked\" is the");
 				Console.WriteLine("    the linked-list implementation. A Stack is used");
 				Console.WriteLine("    specifically when you need the algorithm provided by the Push");
@@ -145,7 +149,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [StackArray] Traversal: ");
-				stackArray.Stepper(i => Console.Write(i));
+				stackArray.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [StackArray] Pop: {stackArray.Pop()}");
@@ -168,7 +172,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [StackLinked] Traversal: ");
-				stackLinked.Stepper(i => Console.Write(i));
+				stackLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [StackLinked] Pop: {stackLinked.Pop()}");
@@ -179,7 +183,7 @@ namespace DataStructures
 
 				stackLinked.Clear();
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -188,7 +192,7 @@ namespace DataStructures
 				Console.WriteLine("  Queue---------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An \"Queue\" is a Queue that implements");
-				Console.WriteLine("    Towel.DataStructures.DataStructure. \"QueueArray\" is");
+				Console.WriteLine("    Towel.DataStructures.IDataStructure<T>. \"QueueArray\" is");
 				Console.WriteLine("    the array implementation while \"QueueLinked\" is the");
 				Console.WriteLine("    the linked-list implementation. A Queue/Stack is used");
 				Console.WriteLine("    specifically when you need the algorithm provided by the Queue");
@@ -205,7 +209,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [QueueArray] Traversal: ");
-				queueArray.Stepper(i => Console.Write(i));
+				queueArray.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [QueueArray] Dequeue: {queueArray.Dequeue()}");
@@ -228,7 +232,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    [QueueLinked] Traversal: ");
-				queueLinked.Stepper(i => Console.Write(i));
+				queueLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    [QueueLinked] Pop: {queueLinked.Dequeue()}");
@@ -239,7 +243,7 @@ namespace DataStructures
 
 				queueLinked.Clear();
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -248,7 +252,7 @@ namespace DataStructures
 				Console.WriteLine("  Heap---------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An \"Heap\" is a binary tree that stores items based on priorities.");
-				Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
+				Console.WriteLine("    It implements Towel.DataStructures.IDataStructure<T> like the others.");
 				Console.WriteLine("    It uses sifting algorithms to move nodes vertically through itself.");
 				Console.WriteLine("    It is often the best data structure for standard priority queues.");
 				Console.WriteLine("    \"HeapArray\" is an implementation where the tree has been flattened");
@@ -267,7 +271,7 @@ namespace DataStructures
 				}
 				Console.WriteLine();
 
-				HeapArray<int> heapArray = new(Priority);
+				IHeap<int> heapArray = HeapArray.New<int>(Priority);
 
 				Console.Write($"    [HeapArray] Enqueuing (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -284,32 +288,32 @@ namespace DataStructures
 
 				heapArray.Clear();
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
 			#region Tree
+			{
+				//Console.WriteLine("  Tree-----------------------------");
 
-			//Console.WriteLine("  Tree-----------------------------");
+				//Tree<int> tree_Map = new TreeMap<int>(0, Compute.Equal, Hash.Default);
 
-			//Tree<int> tree_Map = new TreeMap<int>(0, Compute.Equal, Hash.Default);
+				//for (int i = 1; i < test; i++)
+				//{
+				//    tree_Map.Add(i, i / Compute.SquareRoot(i));
+				//}
+				//Console.Write("    Children of 0 (root): ");
+				//tree_Map.Children(0, (int i) => { Console.Write(i + " "); });
+				//Console.WriteLine();
+				//Console.Write("    Children of " + ((int)System.Math.Sqrt(test) - 1) + " (root): ");
+				//tree_Map.Children(((int)System.Math.Sqrt(test) - 1), (int i) => { Console.Write(i + " "); });
+				//Console.WriteLine();
+				//Console.Write("    Traversal: ");
+				//tree_Map.Stepper((int i) => { Console.Write(i + " "); });
+				//Console.WriteLine();
 
-			//for (int i = 1; i < test; i++)
-			//{
-			//    tree_Map.Add(i, i / Compute.SquareRoot(i));
-			//}
-			//Console.Write("    Children of 0 (root): ");
-			//tree_Map.Children(0, (int i) => { Console.Write(i + " "); });
-			//Console.WriteLine();
-			//Console.Write("    Children of " + ((int)System.Math.Sqrt(test) - 1) + " (root): ");
-			//tree_Map.Children(((int)System.Math.Sqrt(test) - 1), (int i) => { Console.Write(i + " "); });
-			//Console.WriteLine();
-			//Console.Write("    Traversal: ");
-			//tree_Map.Stepper((int i) => { Console.Write(i + " "); });
-			//Console.WriteLine();
-
-			//Console.WriteLine();
-
+				//Pause();
+			}
 			#endregion
 
 			#region AVL Tree
@@ -317,12 +321,12 @@ namespace DataStructures
 				Console.WriteLine("  AvlTree------------------------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An AVL Tree is a sorted binary tree.");
-				Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
+				Console.WriteLine("    It implements Towel.DataStructures.IDataStructure<T> like the others.");
 				Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
 				Console.WriteLine("    It is very similar to an Red Black tree, but uses a different sorting algorithm.");
 				Console.WriteLine();
 
-				AvlTreeLinked<int> avlTree = new();
+				IAvlTree<int> avlTree = AvlTreeLinked.New<int>();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -332,7 +336,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				avlTree.Stepper(i => Console.Write(i));
+				avlTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				//// The "foreach" enumeration works for avl trees, but it is not optimized
@@ -348,13 +352,13 @@ namespace DataStructures
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
 				Console.Write($"    Ranged Traversal [{minimum}-{maximum}]: ");
-				avlTree.Stepper(minimum, maximum, i => Console.Write(i));
+				avlTree.Stepper(minimum, maximum, Console.Write);
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);
 				Console.Write($"    Remove({removal}): ");
 				avlTree.Remove(removal);
-				avlTree.Stepper(i => Console.Write(i));
+				avlTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int contains = random.Next(0, test);
@@ -365,7 +369,7 @@ namespace DataStructures
 
 				avlTree.Clear();
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -374,12 +378,12 @@ namespace DataStructures
 				Console.WriteLine("  Red-Black Tree------------------------------------------------");
 				Console.WriteLine();
 				Console.WriteLine("    An Red-Black Tree is a sorted binary tree.");
-				Console.WriteLine("    It implements Towel.DataStructures.DataStructure like the others.");
+				Console.WriteLine("    It implements Towel.DataStructures.IDataStructure<T> like the others.");
 				Console.WriteLine("    It allows for very fast 1D ranged queries/traversals.");
 				Console.WriteLine("    It is very similar to an AVL tree, but uses a different sorting algorithm.");
 				Console.WriteLine();
 
-				RedBlackTreeLinked<int> redBlackTree = new();
+				IRedBlackTree<int> redBlackTree = RedBlackTreeLinked.New<int>();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -389,19 +393,19 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				redBlackTree.Stepper(i => Console.Write(i));
+				redBlackTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
 				Console.Write($"    Ranged Traversal [{minimum}-{maximum}]: ");
-				redBlackTree.Stepper(minimum, maximum, i => Console.Write(i));
+				redBlackTree.Stepper(minimum, maximum, Console.Write);
 				Console.WriteLine();
 
 				int removal = random.Next(0, test);
 				Console.Write($"    Remove({removal}): ");
 				redBlackTree.Remove(removal);
-				redBlackTree.Stepper(i => Console.Write(i));
+				redBlackTree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int contains = random.Next(0, test);
@@ -412,24 +416,24 @@ namespace DataStructures
 
 				redBlackTree.Clear();
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
 			#region BTree
 			{
-				Console.WriteLine("  B Tree------------------------------------------------");
-				Console.WriteLine();
-				Console.WriteLine("    A B Tree is a sorted binary tree that allows multiple values to");
-				Console.WriteLine("    be stored per node. This makes it sort of a hybrid between a");
-				Console.WriteLine("    binary tree and an array. Because multiple values are stored ");
-				Console.WriteLine("    per node, it means less nodes must be traversed to completely");
-				Console.WriteLine("    traverse the values in the B tree.");
-				Console.WriteLine();
+				//Console.WriteLine("  B Tree------------------------------------------------");
+				//Console.WriteLine();
+				//Console.WriteLine("    A B Tree is a sorted binary tree that allows multiple values to");
+				//Console.WriteLine("    be stored per node. This makes it sort of a hybrid between a");
+				//Console.WriteLine("    binary tree and an array. Because multiple values are stored ");
+				//Console.WriteLine("    per node, it means less nodes must be traversed to completely");
+				//Console.WriteLine("    traverse the values in the B tree.");
+				//Console.WriteLine();
 
-				Console.WriteLine("    The generic B Tree in Towel is still in development.");
+				//Console.WriteLine("    The generic B Tree in Towel is still in development.");
 
-				Console.WriteLine();
+				//Pause();
 			}
 			#endregion
 
@@ -443,7 +447,7 @@ namespace DataStructures
 				Console.WriteLine("    been added to the set.");
 				Console.WriteLine();
 
-				ISet<int> setHashLinked = new SetHashLinked<int>();
+				ISet<int> setHashLinked = SetHashLinked.New<int>();
 
 				Console.Write($"    Adding (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
@@ -453,20 +457,20 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				setHashLinked.Stepper(i => Console.Write(i));
+				setHashLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
 				setHashLinked.Remove(a);
 				Console.Write($"    Remove({a}): ");
-				setHashLinked.Stepper(i => Console.Write(i));
+				setHashLinked.Stepper(Console.Write);
 				Console.WriteLine();
 
 				int b = random.Next(0, test);
 				Console.WriteLine($"    Contains({b}): {setHashLinked.Contains(b)}");
 				Console.WriteLine($"    Count: {setHashLinked.Count}");
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -483,7 +487,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				// Note: the first generic is the value, the second is the key
-				IMap<string, int> mapHashLinked = new MapHashLinked<string, int>();
+				IMap<string, int> mapHashLinked = MapHashLinked.New<string, int>();
 
 				Console.WriteLine("    Let's map each int to its word representation (ex 1 -> One).");
 
@@ -508,7 +512,43 @@ namespace DataStructures
 				Console.WriteLine($"    Contains({b}): {mapHashLinked.Contains(b)}");
 				Console.WriteLine($"    Count: {mapHashLinked.Count}");
 
+				Pause();
+			}
+			#endregion
+
+			#region Bag
+			{
+				Console.WriteLine("  Bag---------------------------------");
 				Console.WriteLine();
+				Console.WriteLine("    An \"Bag\" is a data structure that stores counts of values.");
+				Console.WriteLine("    You can add multiples of the same value and it will track");
+				Console.WriteLine("    how many of each value has been added.");
+				Console.WriteLine();
+
+				IBag<int> bag = BagMap.New<int>();
+
+				int[] values = { 1, 2, 3, 2, 0, -1, 3, 2, 7, 9, 2 };
+
+				Console.WriteLine($"    bag.Add({string.Join(", ", values)})...");
+				foreach (int value in values)
+				{
+					bag.Add(value);
+				}
+
+				Console.WriteLine($"    bag.Count -> {bag.Count}");
+				Console.WriteLine($"    bag[3] -> {bag[3]}");
+				Console.WriteLine($"    bag[6] -> {bag[6]}");
+				Console.WriteLine($"    bag.Contains(1) -> {bag.Contains(1)}");
+				Console.WriteLine($"    foreach (var (count, value) in bag.GetCounts())");
+				foreach (var (count, value) in bag.GetCounts())
+				{
+					Console.WriteLine($"      (value: {value}, count: {count})");
+				}
+				bag.Remove(3);
+				Console.WriteLine($"    bag.Remove(3); bag[3] -> {bag[3]}");
+				Console.WriteLine($"    bag.Count -> {bag.Count}");
+
+				Pause();
 			}
 			#endregion
 
@@ -545,7 +585,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				//// The "foreach" enumeration works for omnitrees, but it is not optimized
@@ -565,7 +605,7 @@ namespace DataStructures
 				Console.Write("    Spacial Traversal [" +
 					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
 					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: ");
-				omnitree.Stepper(i => Console.Write(i),
+				omnitree.Stepper(Console.Write,
 					minimumXZ, maximumXZ,
 					minimumY, maximumY,
 					minimumXZ, maximumXZ);
@@ -576,9 +616,9 @@ namespace DataStructures
 				int lookUp = random.Next(0, test);
 				string lookUpToString = lookUp.ToString();
 				Console.Write($"    Look Up ({lookUp}, \"{lookUpToString}\", {lookUp}m): ");
-				omnitree.Stepper(i => Console.Write(i),
+				omnitree.Stepper(Console.Write,
 					lookUp, lookUp,
-					lookUp.ToString(), lookUp.ToString(),
+					lookUpToString, lookUpToString,
 					lookUp, lookUp);
 				Console.WriteLine();
 
@@ -608,7 +648,7 @@ namespace DataStructures
 					removalMinimum, removalMaximum,
 					removalMinimumY, removalMaximumY,
 					removalMinimum, removalMaximum);
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
@@ -616,8 +656,7 @@ namespace DataStructures
 
 				omnitree.Clear();
 
-				Console.WriteLine();
-
+				Pause();
 			}
 			#endregion
 
@@ -659,7 +698,7 @@ namespace DataStructures
 				Console.WriteLine();
 
 				Console.Write("    Traversal: ");
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				//// The "foreach" enumeration works for omnitrees, but it is not optimized
@@ -679,7 +718,7 @@ namespace DataStructures
 				Console.Write("    Spacial Traversal [" +
 					$"({minimumXZ}, \"{minimumY}\", {minimumXZ}m)->" +
 					$"({maximumXZ}, \"{maximumY}\", {maximumXZ}m)]: ");
-				omnitree.StepperOverlapped(i => Console.Write(i),
+				omnitree.StepperOverlapped(Console.Write,
 					minimumXZ, maximumXZ,
 					minimumY, maximumY,
 					minimumXZ, maximumXZ);
@@ -690,7 +729,7 @@ namespace DataStructures
 				int lookUpXZ = random.Next(0, test);
 				string lookUpY = lookUpXZ.ToString();
 				Console.Write($"    Look Up ({lookUpXZ}, \"{lookUpY}\", {lookUpXZ}m): ");
-				omnitree.StepperOverlapped(i => Console.Write(i),
+				omnitree.StepperOverlapped(Console.Write,
 					lookUpXZ, lookUpXZ,
 					lookUpY, lookUpY,
 					lookUpXZ, lookUpXZ);
@@ -722,7 +761,7 @@ namespace DataStructures
 					removalMinimumXZ, removalMaximumXZ,
 					removalMinimumY, removalMaximumY,
 					removalMinimumXZ, removalMaximumXZ);
-				omnitree.Stepper(i => Console.Write(i));
+				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine($"    Dimensions: {omnitree.Dimensions}");
@@ -730,23 +769,23 @@ namespace DataStructures
 
 				omnitree.Clear();
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
 			#region KD Tree
 			{
-				Console.WriteLine("  KD Tree------------------------------------------------");
-				Console.WriteLine();
-				Console.WriteLine("    A KD Tree binary tree that stores points sorted along along an");
-				Console.WriteLine("    arbitrary number of dimensions. So it performs multidimensional");
-				Console.WriteLine("    sorting similar to the Omnitree (Quadtree/Octree) in Towel, but");
-				Console.WriteLine("    it uses a completely different algorithm and format.");
-				Console.WriteLine();
+				//Console.WriteLine("  KD Tree------------------------------------------------");
+				//Console.WriteLine();
+				//Console.WriteLine("    A KD Tree binary tree that stores points sorted along along an");
+				//Console.WriteLine("    arbitrary number of dimensions. So it performs multidimensional");
+				//Console.WriteLine("    sorting similar to the Omnitree (Quadtree/Octree) in Towel, but");
+				//Console.WriteLine("    it uses a completely different algorithm and format.");
+				//Console.WriteLine();
 
-				Console.WriteLine("    The generic KD Tree in Towel is still in development.");
+				//Console.WriteLine("    The generic KD Tree in Towel is still in development.");
 
-				Console.WriteLine();
+				//Pause();
 			}
 			#endregion
 
@@ -763,12 +802,12 @@ namespace DataStructures
 				Console.WriteLine("    in a Set and edges are stored in an Omnitree (aka Quadtree).");
 				Console.WriteLine();
 
-				IGraph<int> graphSetOmnitree = new GraphSetOmnitree<int>();
+				IGraph<int> graph = GraphSetOmnitree.New<int>();
 
 				Console.WriteLine($"    Adding Nodes (0-{test - 1})...");
 				for (int i = 0; i < test; i++)
 				{
-					graphSetOmnitree.Add(i);
+					graph.Add(i);
 				}
 
 				int edgesPerNode = 3;
@@ -776,7 +815,7 @@ namespace DataStructures
 				for (int i = 0; i < test; i++)
 				{
 					// lets use a heap to randomize the edges using random priorities
-					HeapArray<(int, int)> heap = new();
+					IHeap<(int, int)> heap = HeapArray.New<(int, int)>();
 					for (int j = 0; j < test; j++)
 					{
 						if (j != i)
@@ -789,32 +828,32 @@ namespace DataStructures
 					int randomEdgeCount = random.Next(edgesPerNode + 1);
 					for (int j = 0; j < randomEdgeCount; j++)
 					{
-						graphSetOmnitree.Add(i, heap.Dequeue().Item1);
+						graph.Add(i, heap.Dequeue().Item1);
 					}
 				}
 
 				Console.Write("    Nodes (Traversal): ");
-				graphSetOmnitree.Stepper(i => Console.Write(i));
+				graph.Stepper(Console.Write);
 				Console.WriteLine();
 
 				Console.WriteLine("    Edges (Traversal): ");
-				graphSetOmnitree.Edges(edge => Console.WriteLine($"      {edge.Item1}->{edge.Item2}"));
+				graph.Edges(edge => Console.WriteLine($"      {edge.Item1}->{edge.Item2}"));
 				Console.WriteLine();
 
 				int a = random.Next(0, test);
 				Console.Write($"    Neighbors ({a}):");
-				graphSetOmnitree.Neighbors(a, i => Console.Write($" {i}"));
+				graph.Neighbors(a, i => Console.Write($" {i}"));
 				Console.WriteLine();
 
 				int b = random.Next(0, test / 2);
 				int c = random.Next(test / 2, test);
-				Console.WriteLine($"    Are Adjacent ({b}, {c}): {graphSetOmnitree.Adjacent(b, c)}");
-				Console.WriteLine($"    Node Count: {graphSetOmnitree.NodeCount}");
-				Console.WriteLine($"    Edge Count: {graphSetOmnitree.EdgeCount}");
+				Console.WriteLine($"    Are Adjacent ({b}, {c}): {graph.Adjacent(b, c)}");
+				Console.WriteLine($"    Node Count: {graph.NodeCount}");
+				Console.WriteLine($"    Edge Count: {graph.EdgeCount}");
 
-				graphSetOmnitree.Clear();
+				graph.Clear();
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -844,7 +883,7 @@ namespace DataStructures
 					"nine",
 				};
 
-				ITrie<char, int> trie = new TrieLinkedHashLinked<char, int>();
+				ITrie<char, int> trie = TrieLinkedHashLinked.New<char, int>();
 
 				Console.WriteLine("    Adding...");
 				for (int i = 0; i < strings.Length; i++)
@@ -854,7 +893,7 @@ namespace DataStructures
 				}
 
 				Console.WriteLine("    Traversal:");
-				trie.Stepper((stepper, value) => Console.WriteLine($"      {stepper.ConcatToString()}: {value}"));
+				trie.Stepper(pair => Console.WriteLine($"      {pair.Item1.ConcatToString()}: {pair.Item2}"));
 
 				//// The "foreach" enumeration works for tries, but it is not optimized
 				//// and you should prefer the stepper function (it is faster).
@@ -878,7 +917,7 @@ namespace DataStructures
 
 				Console.WriteLine($"    Count: {trie.Count}");
 
-				Console.WriteLine();
+				Pause();
 			}
 			#endregion
 
@@ -886,6 +925,14 @@ namespace DataStructures
 			Console.WriteLine("Examples Complete...");
 			Console.WriteLine();
 			ConsoleHelper.PromptPressToContinue();
+		}
+
+		public static void Pause()
+		{
+			Console.WriteLine();
+			ConsoleHelper.PromptPressToContinue($"    Press[{ConsoleKey.Enter}] to continue...");
+			Console.WriteLine();
+			Console.WriteLine();
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace Towel_Testing.DataStructures
 		{
 			{ // int
 				const int count = 100000;
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				Extensions.Iterate(count, i => set.Add(i));
 				set.Add(int.MinValue);
 				set.Add(int.MaxValue);
@@ -29,7 +29,7 @@ namespace Towel_Testing.DataStructures
 
 			{ // string
 				const int count = 100000;
-				ISet<string> set = new SetHashLinked<string>();
+				ISet<string> set = SetHashLinked.New<string>();
 				Extensions.Iterate(count, i => set.Add(i.ToString()));
 				set.Add(int.MinValue.ToString());
 				set.Add(int.MaxValue.ToString());
@@ -50,7 +50,7 @@ namespace Towel_Testing.DataStructures
 		{
 			{ // int
 				const int count = 100000;
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				Extensions.Iterate(count, i => set.Add(i));
 				for (int i = 0; i < count; i += 3)
 				{
@@ -73,7 +73,7 @@ namespace Towel_Testing.DataStructures
 
 			{ // string
 				const int count = 100000;
-				ISet<string> set = new SetHashLinked<string>();
+				ISet<string> set = SetHashLinked.New<string>();
 				Extensions.Iterate(count, i => set.Add(i.ToString()));
 				for (int i = 0; i < count; i += 3)
 				{

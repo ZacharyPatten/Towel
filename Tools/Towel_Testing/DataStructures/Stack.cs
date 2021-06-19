@@ -50,8 +50,8 @@ namespace Towel_Testing.DataStructures
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				IStack<int> stack = new Stack();
 				values.Stepper(i => stack.Push(i));
-				Assert.IsTrue(stack.Stepper().Count() == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				Assert.IsTrue(stack.Count == values.Length);
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
 				{
@@ -67,8 +67,8 @@ namespace Towel_Testing.DataStructures
 				values.Stepper(i => stack.Push(i));
 				stack.Pop();
 				stack.Pop();
-				Assert.IsTrue(stack.Stepper().Count() == expectedValues.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				Assert.IsTrue(stack.Count == expectedValues.Length);
+				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
 				{
@@ -86,8 +86,8 @@ namespace Towel_Testing.DataStructures
 					stack.Pop();
 					stack.Push(i);
 				});
-				Assert.IsTrue(stack.Stepper().Count() == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				Assert.IsTrue(stack.Count == values.Length);
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				stack.Stepper(i =>
 				{
@@ -106,7 +106,7 @@ namespace Towel_Testing.DataStructures
 				IStack<int> stack = new Stack();
 				values.Stepper(i => stack.Push(i));
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in stack)
 				{
@@ -123,7 +123,7 @@ namespace Towel_Testing.DataStructures
 				stack.Pop();
 				stack.Pop();
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == expectedValues.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				foreach (int i in stack)
 				{
@@ -142,7 +142,7 @@ namespace Towel_Testing.DataStructures
 					stack.Push(i);
 				});
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == values.Length);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in stack)
 				{

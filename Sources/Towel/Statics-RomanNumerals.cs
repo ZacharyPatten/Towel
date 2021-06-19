@@ -1,4 +1,6 @@
-﻿namespace Towel
+﻿using System;
+
+namespace Towel
 {
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics
@@ -36,17 +38,16 @@
 			/* 6:M */ true,
 		};
 
-		/// <summary>Attempts to parse a Roman Numeral <see cref="string"/> into an <see cref="int"/> value.</summary>
-		/// <param name="string">The Roman Numeral <see cref="string"/> to parse into an <see cref="int"/> value.</param>
+		/// <summary>Attempts to parse a Roman Numeral string into an <see cref="int"/> value.</summary>
+		/// <param name="span">The Roman Numeral string to parse into an <see cref="int"/> value.</param>
 		/// <returns>
 		/// (<see cref="bool"/> Success, <see cref="int"/> Value)
 		/// <para>- <see cref="bool"/> Success: true if the parse was successful or false if not</para>
 		/// <para>- <see cref="int"/> Value: the parsed value if the parse was successful or default if not</para>
 		/// </returns>
-		public static (bool Success, int Value) TryParseRomanNumeral(string @string)
+		public static (bool Success, int Value) TryParseRomanNumeral(ReadOnlySpan<char> span)
 		{
-			if (@string is null ||
-				@string.Length < 1)
+			if (span.Length < 1)
 			{
 				return (false, default);
 			}
@@ -56,7 +57,7 @@
 			int? c = null;
 			int? d = null;
 			bool handled = false;
-			foreach (char @char in @string)
+			foreach (char @char in span)
 			{
 				switch (@char)
 				{

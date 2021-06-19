@@ -37,10 +37,9 @@ namespace Towel
 			else if (commandMatches.Count <= 0)
 			{
 				string arg = args[0].ToLower().Replace("-", "");
-				if (arg == "help" ||
-					arg == "h")
+				if (arg is "help" || arg is "h")
 				{
-					if (args.Length == 2)
+					if (args.Length is 2)
 					{
 						DefaultHelp(assembly, args[1]);
 					}
@@ -50,8 +49,8 @@ namespace Towel
 					}
 					return;
 				}
-				if (arg == "version" ||
-					arg == "v")
+				if (arg is "version" ||
+					arg is "v")
 				{
 					DefaultVersion(assembly);
 					return;
@@ -70,7 +69,7 @@ namespace Towel
 				throw new Exception("syntax error: relative command not static");
 			}
 
-			MapHashLinked<int, string> parameterMap = new();
+			MapHashLinked<int, string, StringEquate, StringHash> parameterMap = new();
 			int parameterCount = 0;
 			ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 			foreach (ParameterInfo parameterInfo in parameterInfos)
@@ -88,7 +87,8 @@ namespace Towel
 					return;
 				}
 				arg = arg[2..];
-				if (!parameterMap.TryGet(arg, out int index))
+				var (success, exception, index) = parameterMap.TryGet(arg);
+				if (!success)
 				{
 					Console.Error.WriteLine($"Invalid parameter --{arg} in index {i}.");
 					return;

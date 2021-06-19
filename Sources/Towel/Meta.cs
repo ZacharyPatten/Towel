@@ -594,7 +594,7 @@ namespace Towel
 		public static ENUM GetLastEnumValue<ENUM>()
 		{
 			ENUM[] values = (ENUM[])Enum.GetValues(typeof(ENUM));
-			if (values.Length == 0)
+			if (values.Length is 0)
 			{
 				throw new InvalidOperationException("Attempting to get the last enum value of an enum type with no values.");
 			}
@@ -837,7 +837,7 @@ namespace Towel
 
 			LoadXmlDocumentation(methodBase.DeclaringType.Assembly);
 
-			MapHashLinked<int, string> typeGenericMap = new();
+			MapHashLinked<int, string, StringEquate, StringHash> typeGenericMap = new();
 			Type[] typeGenericArguments = methodBase.DeclaringType.GetGenericArguments();
 			for (int i = 0; i < typeGenericArguments.Length; i++)
 			{
@@ -845,7 +845,7 @@ namespace Towel
 				typeGenericMap[typeGeneric.Name] = i;
 			}
 
-			MapHashLinked<int, string> methodGenericMap = new();
+			MapHashLinked<int, string, StringEquate, StringHash> methodGenericMap = new();
 			if (constructorInfo is null)
 			{
 				Type[] methodGenericArguments = methodBase.GetGenericArguments();
@@ -881,8 +881,8 @@ namespace Towel
 				parametersString;
 
 			if (methodInfo is not null &&
-				(methodBase.Name == "op_Implicit" ||
-				methodBase.Name == "op_Explicit"))
+				(methodBase.Name is "op_Implicit" ||
+				methodBase.Name is "op_Explicit"))
 			{
 				key += "~" + GetXmlDocumenationFormattedString(methodInfo.ReturnType, true, typeGenericMap, methodGenericMap);
 			}
@@ -892,12 +892,13 @@ namespace Towel
 		internal static string GetXmlDocumenationFormattedString(
 			Type type,
 			bool isMethodParameter,
-			MapHashLinked<int, string> typeGenericMap,
-			MapHashLinked<int, string> methodGenericMap)
+			MapHashLinked<int, string, StringEquate, StringHash> typeGenericMap,
+			MapHashLinked<int, string, StringEquate, StringHash> methodGenericMap)
 		{
 			if (type.IsGenericParameter)
 			{
-				return methodGenericMap.TryGet(type.Name, out int methodIndex)
+				var (success, exception, methodIndex) = methodGenericMap.TryGet(type.Name);
+				return success
 					? "``" + methodIndex
 					: "`" + typeGenericMap[type.Name];
 			}
@@ -965,8 +966,8 @@ namespace Towel
 
 		#region GetXmlDocumentation
 
-		internal static SetHashLinked<Assembly> loadedAssemblies = new();
-		internal static MapHashLinked<string, string> loadedXmlDocumentation = new();
+		internal static ISet<Assembly> loadedAssemblies = SetHashLinked.New<Assembly>();
+		internal static MapHashLinked<string, string, StringEquate, StringHash> loadedXmlDocumentation = new();
 
 		internal static void LoadXmlDocumentation(Assembly assembly)
 		{
@@ -1002,7 +1003,7 @@ namespace Towel
 			using XmlReader xmlReader = XmlReader.Create(textReader);
 			while (xmlReader.Read())
 			{
-				if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "member")
+				if (xmlReader.NodeType is XmlNodeType.Element && xmlReader.Name is "member")
 				{
 					string? rawName = xmlReader["name"];
 					if (!string.IsNullOrWhiteSpace(rawName))
@@ -1029,8 +1030,7 @@ namespace Towel
 			_ = type ?? throw new ArgumentNullException(nameof(type));
 			_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
 			LoadXmlDocumentation(type.Assembly);
-			loadedXmlDocumentation.TryGet(type.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(type.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a method.</summary>
@@ -1042,8 +1042,7 @@ namespace Towel
 			_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
 			_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
 			LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(methodInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(methodInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a constructor.</summary>
@@ -1055,8 +1054,7 @@ namespace Towel
 			_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
 			_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
 			LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(constructorInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(constructorInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a property.</summary>
@@ -1069,8 +1067,7 @@ namespace Towel
 			_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
 			_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
 			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(propertyInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(propertyInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a field.</summary>
@@ -1083,8 +1080,7 @@ namespace Towel
 			_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
 			_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
 			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(fieldInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(fieldInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on an event.</summary>
@@ -1097,8 +1093,7 @@ namespace Towel
 			_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
 			_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
 			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
-			loadedXmlDocumentation.TryGet(eventInfo.GetXmlName(), out string? documentation);
-			return documentation;
+			return loadedXmlDocumentation.TryGet(eventInfo.GetXmlName()).Value;
 		}
 
 		/// <summary>Gets the XML documentation on a member.</summary>

@@ -60,7 +60,7 @@ namespace CommandLine
 		/// <summary>This is a test method A.</summary>
 		/// <param name="a">The parameter a.</param>
 		[Command] public static void A(
-			string a = default)
+			string? a = default)
 		{
 			Console.WriteLine($"Method A Called.");
 			Console.WriteLine($"a: {a ?? "null"}");
@@ -70,7 +70,7 @@ namespace CommandLine
 		/// <param name="a">The parameter a.</param>
 		/// <param name="b">The parameter b.</param>
 		[Command] public static void B(
-			string a = default,
+			string? a = default,
 			int b = default)
 		{
 			Console.WriteLine($"Method B Called.");

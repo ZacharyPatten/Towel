@@ -587,12 +587,12 @@ namespace Towel.Measurements
 						{
 							metricDifference = -metricDifference;
 							T factor = Power(Constant<T>.Ten, Convert<int, T>(metricDifference));
-							conversionFactorTable[A][B] = x => Multiplication(factor, x);
+							conversionFactorTable[A][B] = x => Division(x, factor);
 						}
 						else
 						{
 							T factor = Power(Constant<T>.Ten, Convert<int, T>(metricDifference));
-							conversionFactorTable[A][B] = x => Multiplication(factor, x);
+							conversionFactorTable[A][B] = x => Multiplication(x, factor);
 						}
 					}
 					else if (A < B)

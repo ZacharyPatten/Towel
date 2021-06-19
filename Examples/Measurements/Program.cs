@@ -15,6 +15,45 @@ namespace Measurements
 			Console.WriteLine("==========================================");
 			Console.WriteLine();
 
+			#region Static Unit Conversion Methods
+			{
+				Console.WriteLine("  Static Conversion Methods-------------------------------");
+				Console.WriteLine();
+
+				var a = Measurement.Convert(7d,
+					from: Radians,
+					to: Degrees);
+
+				Console.WriteLine("    var a = Measurement.Convert(7d,");
+				Console.WriteLine("        from: Radians,");
+				Console.WriteLine("        to:   Degrees)");
+				Console.WriteLine();
+
+				var b = Measurement.Convert(8d,
+					from: Meters / Seconds,
+					to: Miles / Hours);
+
+				Console.WriteLine("    var b = Measurement.Convert(8d,");
+				Console.WriteLine("        from: Meters / Seconds,");
+				Console.WriteLine("        to:   Miles / Hours)");
+				Console.WriteLine();
+
+				var c = Measurement.Convert(9d,
+					from: Kilograms * Meters / Seconds / Seconds,
+					to: Grams * Miles / Hours / Hours);
+
+				Console.WriteLine("    var b = Measurement.Convert(9d,");
+				Console.WriteLine("        from: Kilograms * Meters / Seconds / Seconds,");
+				Console.WriteLine("        to:   Grams * Miles / Hours / Hours)");
+				Console.WriteLine();
+
+				Console.WriteLine($"    a: {a}");
+				Console.WriteLine($"    b: {b}");
+				Console.WriteLine($"    c: {c}");
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Specific Measurement Type Examples
 
 			#region Angle
@@ -303,29 +342,6 @@ namespace Measurements
 
 			#endregion
 
-			#region Static Unit Conversion Methods
-			{
-				// Examples of static measurement unit conversion methods
-
-				// Note: I strongly recommend using the measurement types
-				// versus just the conversion methods if you have the
-				// ability to do so. You don't have type-safeness with
-				// further operations you do with these values.
-
-				double result1 = Measurement.Convert(7d,
-					Radians,  // from
-					Degrees); // to
-
-				double result2 = Measurement.Convert(8d,
-					Meters / Seconds, // from
-					Miles / Hours);   // to
-
-				double result3 = Measurement.Convert(9d,
-					Kilograms * Meters / Seconds / Seconds, // from
-					Grams * Miles / Hours / Hours);         // to
-			}
-			#endregion
-
 			#region Syntax Sugar Example (removing the generic type via alias)
 
 			// If you hate seeing the "<float>" or "<double>" you can add syntax 
@@ -356,28 +372,42 @@ namespace Measurements
 			#endregion
 
 			#region Parsing
+			{
+				Console.WriteLine("  Parsing-------------------------------");
+				Console.WriteLine();
 
-			string angle1String = angle1.ToString();
-			Angle<double>.TryParse(angle1String, out Angle<double> angle1Parsed);
+				bool aSuccess = Angle<double>.TryParse(angle1.ToString(), out var a);
+				Console.WriteLine($"    Angle<double>.TryParse({angle1}, out var {nameof(a)})");
 
-			string length1String = length1.ToString();
-			Length<double>.TryParse(length1String, out Length<double> length1Parsed);
+				bool bSuccess = Length<double>.TryParse(length1.ToString(), out var b);
+				Console.WriteLine($"    Length<double>.TryParse({length1}, out var {nameof(b)})");
 
-			string density1String = density1.ToString();
-			Density<double>.TryParse(density1String, out Density<double> density1Parsed);
+				bool cSuccess = Density<double>.TryParse(density1.ToString(), out var c);
+				Console.WriteLine($"    Density<double>.TryParse({density1}, out var {nameof(c)})");
 
-			string speedString = "20.5 Meters / Seconds";
-			Speed<float>.TryParse(speedString, out Speed<float> parsedSpeed);
+				string speedString = "20.5 Meters / Seconds";
+				bool dSuccess = Speed<float>.TryParse(speedString, out var d);
+				Console.WriteLine($"    Speed<float>.TryParse({speedString}, out var {nameof(d)})");
 
-			string forceString = ".1234 Kilograms * Meters / Seconds / Seconds";
-			Force<decimal>.TryParse(forceString, out Force<decimal> parsedForce);
+				string forceString = ".1234 Kilograms * Meters / Seconds / Seconds";
+				bool eSuccess = Force<decimal>.TryParse(forceString, out var e);
+				Console.WriteLine($"    Force<decimal>.TryParse({forceString}, out var {nameof(e)})");
 
-			string densityString = "12.344 Kilograms / Centimeters / Centimeters / Centimeters";
-			Density<double>.TryParse(densityString, out Density<double> parsedDensity);
+				string densityString = "12.344 Kilograms / Centimeters / Centimeters / Centimeters";
+				bool fSuccess = Density<double>.TryParse(densityString, out var f);
+				Console.WriteLine($"    Density<decimal>.TryParse({densityString}, out var {nameof(f)})");
 
+				Console.WriteLine();
+				Console.WriteLine($"    a: {aSuccess}, {a}");
+				Console.WriteLine($"    b: {bSuccess}, {b}");
+				Console.WriteLine($"    c: {cSuccess}, {c}");
+				Console.WriteLine($"    d: {dSuccess}, {d}");
+				Console.WriteLine($"    e: {eSuccess}, {e}");
+				Console.WriteLine($"    f: {fSuccess}, {f}");
+				Console.WriteLine();
+			}
 			#endregion
 
-			Console.WriteLine();
 			Console.WriteLine("=================================================");
 			Console.WriteLine("Example Complete...");
 			Console.WriteLine();

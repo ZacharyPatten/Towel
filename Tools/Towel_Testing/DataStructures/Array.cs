@@ -26,17 +26,5 @@ namespace Towel_Testing.DataStructures
 			}
 			Assert.IsTrue(x[0] is 60);
 		}
-
-		// this looks like a test for "SortBubble" more than a test of "Array"
-		#if false
-		[TestMethod] public void TestName()
-		{
-			Array<int> x = new(10);
-			for (int i = 0; i < 10; i++) x[i] = 100 - 2 * i;
-			SortBubble(0, 9, (i) => x[i], (i, val) => x[i] = val);
-			var sorted = x.ToArray();
-			Assert.IsTrue(Equate<int>(new int[] { 82, 84, 86, 88, 90, 92, 94, 96, 98, 100 }, sorted));
-		}
-		#endif
 	}
 }

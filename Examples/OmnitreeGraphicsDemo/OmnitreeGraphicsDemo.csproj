@@ -4,11 +4,10 @@
 		<TargetFramework>net5.0</TargetFramework>
 		<IsPackable>false</IsPackable>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Silk.NET.Input.Desktop" Version="2.0.0-preview" />
-		<PackageReference Include="Silk.NET.OpenGL" Version="2.0.0-preview" />
-		<PackageReference Include="Silk.NET.Windowing.Common" Version="2.0.0-preview" />
 		<ProjectReference Include="..\..\Sources\Towel\Towel.csproj" />
+		<PackageReference Include="Silk.NET" Version="2.5.0" />
 	</ItemGroup>
 </Project>

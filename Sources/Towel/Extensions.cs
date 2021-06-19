@@ -13,81 +13,34 @@ namespace Towel
 	{
 		#region System.String
 
-		#region Replace + ReplaceCached (multiple replace)
+		#region Replace (multiple replace)
 
 		/// <summary>Returns a new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements.</summary>
 		/// <remarks>Uses Regex without a timeout.</remarks>
-		/// <param name="this">The <see cref="string"/> to perform the replacements on.</param>
+		/// <param name="original">The <see cref="string"/> to perform the replacements on.</param>
 		/// <param name="rules">The patterns and relative replacements to apply to this <see cref="string"/>.</param>
 		/// <returns>A new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements.</returns>
 		/// <exception cref="ArgumentNullException">Thrown if any of the parameters are null or contain null values.</exception>
 		/// <exception cref="ArgumentException">Thrown if <paramref name="rules"/> is empty, <paramref name="rules"/> contains empty patterns, or <paramref name="rules"/> contains duplicate patterns.</exception>
-		public static string Replace(this string @this, params (string Pattern, string Replacement)[] rules) => ReplaceBase(@this, rules, false);
-
-		/// <summary>Returns a new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements. Caches internal values relative to the instance of rules.</summary>
-		/// <remarks>Uses Regex without a timeout. This method is not thread-safe.</remarks>
-		/// <param name="this">The <see cref="string"/> to perform the replacements on.</param>
-		/// <param name="rules">The patterns and relative replacements to apply to this <see cref="string"/>.</param>
-		/// <returns>A new <see cref="string"/> in which all occurrences of Unicode <see cref="string"/> patterns in this instance are replaced with a relative Unicode <see cref="string"/> replacements.</returns>
-		/// <exception cref="ArgumentNullException">Thrown if any of the parameters are null or contain null values.</exception>
-		/// <exception cref="ArgumentException">Thrown if <paramref name="rules"/> is empty, <paramref name="rules"/> contains empty patterns, or <paramref name="rules"/> contains duplicate patterns.</exception>
-		public static string ReplaceCached(this string @this, params (string Pattern, string Replacement)[] rules) => ReplaceBase(@this, rules, true);
-
-		/// <summary>Cache for the <see cref="ReplaceCached"/> method.</summary>
-		private readonly static System.Collections.Generic.Dictionary<object, (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet)> ReplaceCachedCache = new();
-
-		private static string ReplaceBase(string @this, (string Pattern, string Replacement)[] rules, bool cached)
+		public static string Replace(this string original, params (string A, string B)[] rules)
 		{
-			if (@this is null) throw new ArgumentNullException(nameof(@this));
+			if (original is null) throw new ArgumentNullException(nameof(original));
 			if (rules is null) throw new ArgumentNullException(nameof(rules));
-			if (rules.Length <= 0) throw new ArgumentException($"{nameof(rules)}.{nameof(rules.Length)} <= 0");
-			if (!cached || !ReplaceCachedCache.TryGetValue(rules, out (Regex Regex, System.Collections.Generic.Dictionary<string, string> RuleSet) regexAndRuleSet))
+			if (rules.Length is 0) throw new ArgumentException(paramName: nameof(rules), message: $"{nameof(rules)}.{nameof(rules.Length)} is 0");
+			MapHashLinked<string, string, StringEquate, StringHash> map = new(expectedCount: rules.Length);
+			foreach (var (a, b) in rules)
 			{
-				regexAndRuleSet.RuleSet = new System.Collections.Generic.Dictionary<string, string>(rules.Length);
-				foreach (var (Pattern, Replacement) in rules)
+				if (a is null) throw new ArgumentNullException(paramName: nameof(rules), message: $"{nameof(rules)} contains null {nameof(a)}s");
+				if (b is null) throw new ArgumentNullException(paramName: nameof(rules), message: $"{nameof(rules)} contains null {nameof(b)}s");
+				if (a.Length is 0) throw new ArgumentException(paramName: nameof(rules), message: $"{nameof(rules)} contains 0 length {nameof(a)}s");
+				var (success, exception) = map.TryAdd(a, b);
+				if (!success)
 				{
-					if (Pattern is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Pattern)}s");
-					if (Replacement is null) throw new ArgumentNullException(nameof(rules), $"{nameof(rules)} contains null {nameof(Replacement)}s");
-					if (Pattern == string.Empty) throw new ArgumentException($"{nameof(rules)} contains empty {nameof(Pattern)}s", nameof(rules));
-					// TODO: TryAdd when available
-					if (regexAndRuleSet.RuleSet.ContainsKey(Pattern))
-					{
-						throw new ArgumentException($"{nameof(rules)} contains duplicate {nameof(Pattern)}s");
-					}
-					else
-					{
-						regexAndRuleSet.RuleSet.Add(Pattern, Replacement);
-					}
-				}
-				string regexPattern = string.Join("|", System.Linq.Enumerable.Select(rules, rule => Regex.Escape(rule.Pattern)));
-				RegexOptions regexOptions = cached ? RegexOptions.Compiled : RegexOptions.None;
-
-				// NOTE:
-				// Regex has a matchTimeout parameter that prevents security threats of long-running
-				// regex patterns. However, an overload with a TimeSpan parameter likely is not required as
-				// this impementation is not allowing special syntax in the regex. It is only flat strings
-				// that are OR-ed together.
-
-				regexAndRuleSet.Regex = new Regex(regexPattern, regexOptions);
-				if (cached)
-				{
-					ReplaceCachedCache.Add(rules, regexAndRuleSet);
+					throw new ArgumentException($"{nameof(rules)} contains duplicate {nameof(a)}s", exception);
 				}
 			}
-			return regexAndRuleSet.Regex.Replace(@this, match => regexAndRuleSet.RuleSet[match.Value]);
-		}
-
-		/// <summary>Clears the cache for the <see cref="ReplaceCached"/> method.</summary>
-		public static void ClearReplaceCache() => ReplaceCachedCache.Clear();
-
-		/// <summary>Removes a rule set from the <see cref="ReplaceCached"/> method cache if it exists.</summary>
-		/// <param name="rules">The rule set to remove from the cache.</param>
-		public static void RemoveFromReplaceCache((string Pattern, string Replacement)[] rules)
-		{
-			if (ReplaceCachedCache.ContainsKey(rules))
-			{
-				ReplaceCachedCache.Remove(rules);
-			}
+			string regexPattern = string.Join("|", map.GetKeys());
+			return Regex.Replace(original, regexPattern, match => map[match.Value], RegexOptions.None, Regex.InfiniteMatchTimeout);
 		}
 
 		#endregion
@@ -105,7 +58,7 @@ namespace Towel
 				throw new InvalidOperationException("Attempting a contains check with an empty set.");
 			}
 
-			SetHashLinked<char> set = new();
+			SetHashLinked<char, CharEquate, CharHash> set = new();
 			foreach (char c in chars)
 			{
 				set.Add(c);
@@ -212,7 +165,7 @@ namespace Towel
 		{
 			_ = @string ?? throw new ArgumentNullException(nameof(@string));
 			_ = padding ?? throw new ArgumentNullException(nameof(padding));
-			if (padding.CompareTo(string.Empty) == 0)
+			if (padding.CompareTo(string.Empty) is 0)
 			{
 				return @string;
 			}
@@ -227,7 +180,7 @@ namespace Towel
 		{
 			_ = @string ?? throw new ArgumentNullException(nameof(@string));
 			_ = padding ?? throw new ArgumentNullException(nameof(padding));
-			if (padding.CompareTo(string.Empty) == 0)
+			if (padding.CompareTo(string.Empty) is 0)
 			{
 				return @string;
 			}
@@ -369,172 +322,195 @@ namespace Towel
 
 		#endregion
 
+		#region Span
+
+		#region Stepper
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static void Stepper<T>(this ReadOnlySpan<T> span, Action<T> step) =>
+			Stepper<T, SAction<T>>(span, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static void Stepper<T, Step>(this ReadOnlySpan<T> span, Step step = default)
+			where Step : struct, IAction<T> =>
+			StepperBreak<T, StepBreakFromAction<T, Step>>(span, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static StepStatus StepperBreak<T>(this ReadOnlySpan<T> span, Func<T, StepStatus> step)
+		{
+			if (step is null) throw new ArgumentNullException(nameof(step));
+			return StepperBreak<T, SFunc<T, StepStatus>>(span, step);
+		}
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static StepStatus StepperBreak<T, Step>(this ReadOnlySpan<T> span, Step step = default)
+			where Step : struct, IFunc<T, StepStatus> =>
+			StepperBreak<T, Step>(span, 0, span.Length, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static void Stepper<T>(this ReadOnlySpan<T> span, int start, int end, Action<T> step) =>
+			Stepper<T, SAction<T>>(span, start, end, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static void Stepper<T, Step>(this ReadOnlySpan<T> span, int start, int end, Step step = default)
+			where Step : struct, IAction<T> =>
+			StepperBreak<T, StepBreakFromAction<T, Step>>(span, start, end, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static StepStatus Stepper<T>(this ReadOnlySpan<T> span, int start, int end, Func<T, StepStatus> step) =>
+			StepperBreak<T, SFunc<T, StepStatus>>(span, start, end, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static StepStatus StepperBreak<T, Step>(this ReadOnlySpan<T> span, int start, int end, Step step = default)
+			where Step : struct, IFunc<T, StepStatus>
+		{
+			for (int i = start; i < end; i++)
+			{
+				if (step.Invoke(span[i]) is Break)
+				{
+					return Break;
+				}
+			}
+			return Continue;
+		}
+
+		#endregion
+
+		#endregion
+
 		#region Array
 
 		#region Stepper
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="span">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T, Step>(this T[] array, Step step = default)
+		public static void Stepper<T>(this T[] span, Action<T> step) =>
+			Stepper<T, SAction<T>>(span, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static void Stepper<T, Step>(this T[] span, Step step = default)
 			where Step : struct, IAction<T> =>
-			StepperRef<T, StepToStepRef<T, Step>>(array, step);
+			StepperBreak<T, StepBreakFromAction<T, Step>>(span, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="span">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, Action<T> step) =>
-			Stepper<T, ActionRuntime<T>>(array, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static void StepperRef<T, Step>(this T[] array, Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<T, StepRefBreakFromStepRef<T, Step>>(array, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, StepRef<T> step) =>
-			StepperRef<T, StepRefRuntime<T>>(array, step);
+		public static StepStatus StepperBreak<T>(this T[] span, Func<T, StepStatus> step)
+		{
+			if (step is null) throw new ArgumentNullException(nameof(step));
+			return StepperBreak<T, SFunc<T, StepStatus>>(span, step);
+		}
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="span">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperBreak<T, Step>(this T[] array, Step step = default)
+		public static StepStatus StepperBreak<T, Step>(this T[] span, Step step = default)
 			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(array, step);
+			StepperBreak<T, Step>(span, 0, span.Length, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, Func<T, StepStatus> step) =>
-			StepperBreak<T, StepBreakRuntime<T>>(array, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, StepRefBreak<T> step) =>
-			StepperRefBreak<T, StepRefBreakRuntime<T>>(array, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperRefBreak<T, Step>(this T[] array, Step step = default)
-			where Step : struct, IStepRefBreak<T> =>
-			StepperRefBreak<T, Step>(array, 0, array.Length, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="span">The array to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T, Step>(this T[] array, int start, int end, Step step = default)
+		public static void Stepper<T>(this T[] span, int start, int end, Action<T> step) =>
+			Stepper<T, SAction<T>>(span, start, end, step);
+
+		/// <summary>Traverses an array and performs an operation on each value.</summary>
+		/// <typeparam name="T">The element type in the array.</typeparam>
+		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
+		/// <param name="span">The array to traverse.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The non-inclusive ending index.</param>
+		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <returns>The status of the traversal.</returns>
+		public static void Stepper<T, Step>(this T[] span, int start, int end, Step step = default)
 			where Step : struct, IAction<T> =>
-			StepperRef<T, StepToStepRef<T, Step>>(array, start, end, step);
+			StepperBreak<T, StepBreakFromAction<T, Step>>(span, start, end, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="span">The array to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, int start, int end, Action<T> step) =>
-			Stepper<T, ActionRuntime<T>>(array, start, end, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static void StepperRef<T, Step>(this T[] array, int start, int end, Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<T,StepRefBreakFromStepRef<T, Step>>(array, start, end, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static void Stepper<T>(this T[] array, int start, int end, StepRef<T> step) =>
-			StepperRef<T, StepRefRuntime<T>>(array, start, end, step);
+		public static StepStatus Stepper<T>(this T[] span, int start, int end, Func<T, StepStatus> step) =>
+			StepperBreak<T, SFunc<T, StepStatus>>(span, start, end, step);
 
 		/// <summary>Traverses an array and performs an operation on each value.</summary>
 		/// <typeparam name="T">The element type in the array.</typeparam>
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
+		/// <param name="span">The array to traverse.</param>
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperBreak<T, Step>(this T[] array, int start, int end, Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<T, StepRefBreakFromStepBreak<T, Step>>(array, start, end, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, int start, int end, Func<T, StepStatus> step) =>
-			StepperBreak<T, StepBreakRuntime<T>>(array, start, end, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] array, int start, int end, StepRefBreak<T> step) =>
-			StepperRefBreak<T, StepRefBreakRuntime<T>>(array, start, end, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="array">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperRefBreak<T, Step>(this T[] array, int start, int end, Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		public static StepStatus StepperBreak<T, Step>(this T[] span, int start, int end, Step step = default)
+			where Step : struct, IFunc<T, StepStatus>
 		{
 			for (int i = start; i < end; i++)
 			{
-				if (step.Do(ref array[i]) is Break)
+				if (step.Invoke(span[i]) is Break)
 				{
 					return Break;
 				}
@@ -700,12 +676,8 @@ namespace Towel
 
 		#region Enum (Generic)
 
-		/// <summary>Returns an indication whether a constant with a specified value exists in a specified enumeration.</summary>
-		/// <typeparam name="T">The type of the enum.</typeparam>
-		/// <param name="value">The value to determine if it is defined.</param>
-		/// <returns>true if a constant in enumType has a value equal to value; otherwise, false.</returns>
-		public static bool IsDefined<T>(this T value) where T : Enum =>
-			Enum.IsDefined(typeof(T), value);
+		/// <inheritdoc cref="Enum.IsDefined{TEnum}"/>
+		public static bool IsDefined<TEnum>(this TEnum value) where TEnum : struct, Enum => Enum.IsDefined<TEnum>(value);
 
 		#endregion
 
@@ -869,36 +841,6 @@ namespace Towel
 				return Continue;
 			};
 
-		/// <summary>Converts an array into a stepper delegate./></summary>
-		/// <typeparam name="T">The generic type being iterated.</typeparam>
-		/// <param name="array">The array to convert.</param>
-		/// <returns>The stepper delegate comparable to the array provided.</returns>
-		public static StepperRef<T> ToStepperRef<T>(this T[] array) =>
-			step =>
-			{
-				for (int i = 0; i < array.Length; i++)
-				{
-					step(ref array[i]);
-				}
-			};
-
-		/// <summary>Converts an array into a stepper delegate./></summary>
-		/// <typeparam name="T">The generic type being iterated.</typeparam>
-		/// <param name="array">The array to convert.</param>
-		/// <returns>The stepper delegate comparable to the array provided.</returns>
-		public static StepperRefBreak<T> ToStepperRefBreak<T>(this T[] array) =>
-			step =>
-			{
-				for (int i = 0; i < array.Length; i++)
-				{
-					if (step(ref array[i]) is Break)
-					{
-						return Break;
-					};
-				}
-				return Continue;
-			};
-
 		/// <summary>Converts the stepper into an array.</summary>
 		/// <typeparam name="T">The generic type of the stepper.</typeparam>
 		/// <param name="stepper">The stepper to convert.</param>
@@ -959,7 +901,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this Func<Func<T, StepStatus>, StepStatus> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
-			SetHashLinked<T> set = new(equate, hash);
+			var set = SetHashLinked.New(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))
@@ -986,7 +928,7 @@ namespace Towel
 		public static bool ContainsDuplicates<T>(this Action<Action<T>> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			bool duplicateFound = false;
-			SetHashLinked<T> set = new(equate, hash);
+			var set = SetHashLinked.New(equate, hash);
 			stepper(x =>
 			{
 				if (set.Contains(x))

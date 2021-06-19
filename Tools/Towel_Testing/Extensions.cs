@@ -17,30 +17,14 @@ namespace Towel_Testing
 
 			Assert.AreEqual("aaa bbb c d e", "a b c d e".Replace(("a", "aaa"), ("b", "bbb"), ("aaa", "ERROR")));
 
-			Assert.ThrowsException<ArgumentNullException>(() => Extensions.Replace(null, ("a", "b")));
-			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(null));
-			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace((null, "a")));
-			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(("a", null)));
+			Assert.ThrowsException<ArgumentNullException>(() => Extensions.Replace(null!, ("a", "b")));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(null!));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace((null!, "a")));
+			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(("a", null!)));
 
 			Assert.ThrowsException<ArgumentException>(() => string.Empty.Replace());
 			Assert.ThrowsException<ArgumentException>(() => string.Empty.Replace(("a", "b"), ("a", "c")));
 			Assert.ThrowsException<ArgumentException>(() => string.Empty.Replace((string.Empty, "a")));
-		}
-
-		[TestMethod] public void String_ReplaceCached()
-		{
-			Assert.AreEqual("aaa bbb c ddd e", "a b c d e".ReplaceCached(("a", "aaa"), ("b", "bbb"), ("d", "ddd")));
-
-			Assert.AreEqual("aaa bbb c d e", "a b c d e".ReplaceCached(("a", "aaa"), ("b", "bbb"), ("aaa", "ERROR")));
-
-			Assert.ThrowsException<ArgumentNullException>(() => Extensions.ReplaceCached(null, ("a", "b")));
-			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.ReplaceCached(null));
-			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.ReplaceCached((null, "a")));
-			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.ReplaceCached(("a", null)));
-
-			Assert.ThrowsException<ArgumentException>(() => string.Empty.ReplaceCached());
-			Assert.ThrowsException<ArgumentException>(() => string.Empty.ReplaceCached(("a", "b"), ("a", "c")));
-			Assert.ThrowsException<ArgumentException>(() => string.Empty.ReplaceCached((string.Empty, "a")));
 		}
 
 		#endregion
@@ -109,19 +93,19 @@ namespace Towel_Testing
 			{ // test shifting from maxValue
 				int i = 999;
 				TestingRandom random = new(() => i--);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(5, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from 0
 				TestingRandom random = new(() => 0);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
 			{ // test shifting from inner value
 				TestingRandom random = new(() => 7);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(5, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 5);
 			}
@@ -129,7 +113,7 @@ namespace Towel_Testing
 				Random random = new();
 				for (int i = 0; i < 10000; i++)
 				{
-					ISet<int> set = new SetHashLinked<int>();
+					ISet<int> set = SetHashLinked.New<int>();
 					random.NextUnique(5, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 					Assert.IsTrue(set.Count == 5);
 				}
@@ -150,19 +134,19 @@ namespace Towel_Testing
 			{ // test shifting from maxValue
 				int i = 999;
 				TestingRandom random = new(() => i--);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(100, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from 0
 				TestingRandom random = new(() => 0);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
 			{ // test shifting from inner value
 				TestingRandom random = new(() => 7);
-				ISet<int> set = new SetHashLinked<int>();
+				ISet<int> set = SetHashLinked.New<int>();
 				random.NextUnique(100, 0, 1000, i => { Assert.IsFalse(set.Contains(i)); set.Add(i); });
 				Assert.IsTrue(set.Count == 100);
 			}
@@ -170,7 +154,7 @@ namespace Towel_Testing
 				Random random = new();
 				for (int i = 0; i < 10000; i++)
 				{
-					ISet<int> set = new SetHashLinked<int>();
+					ISet<int> set = SetHashLinked.New<int>();
 					random.NextUnique(100, 0, 1000, j => { Assert.IsFalse(set.Contains(j)); set.Add(j); });
 					Assert.IsTrue(set.Count == 100);
 				}

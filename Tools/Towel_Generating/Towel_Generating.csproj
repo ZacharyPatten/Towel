@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<IsPackable>false</IsPackable>
 		<TargetFramework>net5.0</TargetFramework>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Towel" Version="1.0.19-alpha" />
+		<PackageReference Include="Towel" Version="1.0.29" />
 	</ItemGroup>
 </Project>

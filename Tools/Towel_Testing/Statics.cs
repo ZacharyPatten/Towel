@@ -44,12 +44,10 @@ namespace Towel_Testing
 			#endif
 		}
 
-		#pragma warning disable IDE0060 // Remove unused parameter
-		public static void sourceofTest<T>(string result, T expression, [CallerArgumentExpression("expression")] string expected = default) =>
-			Assert.IsTrue(result == expected);
-		public static string sourceofTempTest<T>(T expression, [CallerArgumentExpression("expression")] string expected = default) =>
-			expected;
-		#pragma warning restore IDE0060 // Remove unused parameter
+		#if false
+		public static void sourceofTest<T>(string result, T expression, [CallerArgumentExpression("expression")] string expected = default) => Assert.IsTrue(result == expected);
+		#endif
+		public static string sourceofTempTest<T>(T expression, [CallerArgumentExpression("expression")] string expected = default) => expected;
 
 		#pragma warning restore IDE1006 // Naming Styles
 
@@ -704,14 +702,16 @@ namespace Towel_Testing
 
 		[TestMethod] public void IsPrime_Testing()
 		{
-			// I would like to add more test cases.
-
-			ISet<int> primeNumbers = new SetHashLinked<int>()
+			int[] values =
 			{
 				2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101,
 				103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199,
 			};
-
+			ISet<int> primeNumbers = SetHashLinked.New<int>();
+			foreach (int i in values)
+			{
+				primeNumbers.Add(i);
+			}
 			for (int i = 2; i < 200; i++)
 			{
 				if (primeNumbers.Contains(i))
@@ -851,57 +851,57 @@ namespace Towel_Testing
 					}
 				}
 			}
-			{ // RefNumeric<int>
+			{ // Ref<int>
 				bool isOdd = false;
 				for (int i = -100; i < 100; i++)
 				{
-					Assert.IsTrue(isOdd == IsOdd(new RefNumeric<int>(i)));
+					Assert.IsTrue(isOdd == IsOdd<Ref<int>>(i));
 					isOdd = !isOdd;
 				}
 			}
-			{ // RefNumeric<float>
+			{ // Ref<float>
 				bool isOdd = false;
 				for (float i = -100f; i < 100; i++)
 				{
-					Assert.IsTrue(isOdd == IsOdd<RefNumeric<float>>(i));
+					Assert.IsTrue(isOdd == IsOdd<Ref<float>>(i));
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
 					float randomRatio = (float)random.NextDouble();
 					if (randomRatio > 0d)
 					{
-						Assert.IsFalse(IsOdd<RefNumeric<float>>(i + randomRatio));
+						Assert.IsFalse(IsOdd<Ref<float>>(i + randomRatio));
 					}
 				}
 				random.NextDouble();
 			}
-			{ // RefNumeric<double>
+			{ // Ref<double>
 				bool isOdd = false;
 				for (double i = -100; i < 100d; i++)
 				{
-					Assert.IsTrue(isOdd == IsOdd<RefNumeric<double>>(i));
+					Assert.IsTrue(isOdd == IsOdd<Ref<double>>(i));
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
 					double randomRatio = random.NextDouble();
 					if (randomRatio > 0d)
 					{
-						Assert.IsFalse(IsOdd<RefNumeric<double>>(i + randomRatio));
+						Assert.IsFalse(IsOdd<Ref<double>>(i + randomRatio));
 					}
 				}
 			}
-			{ // RefNumeric<decimal>
+			{ // Ref<decimal>
 				bool isOdd = false;
 				for (decimal i = -100; i < 100m; i++)
 				{
-					Assert.IsTrue(isOdd == IsOdd<RefNumeric<decimal>>(i));
+					Assert.IsTrue(isOdd == IsOdd<Ref<decimal>>(i));
 					isOdd = !isOdd;
 
 					// only whole numbers can be even... test a random rational value
 					decimal randomRatio = random.NextDecimal(0, 10000) / 10000;
 					if (randomRatio > 0m)
 					{
-						Assert.IsFalse(IsOdd<RefNumeric<decimal>>(i + randomRatio));
+						Assert.IsFalse(IsOdd<Ref<decimal>>(i + randomRatio));
 					}
 				}
 			}
@@ -955,47 +955,48 @@ namespace Towel_Testing
 				Assert.IsTrue(AbsoluteValue(2m) == 2m);
 				Assert.IsTrue(AbsoluteValue(3m) == 3m);
 			}
-			{ // RefNumeric<int>
-				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(-3))._value == 3);
-				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(-2))._value == 2);
-				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(-1))._value == 1);
-				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(0))._value == 0);
-				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(1))._value == 1);
-				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(2))._value == 2);
-				Assert.IsTrue(AbsoluteValue(new RefNumeric<int>(3))._value == 3);
+			{ // Ref<int>
+
+				Assert.IsTrue(AbsoluteValue<Ref<int>>(-3) == 3);
+				Assert.IsTrue(AbsoluteValue<Ref<int>>(-2) == 2);
+				Assert.IsTrue(AbsoluteValue<Ref<int>>(-1) == 1);
+				Assert.IsTrue(AbsoluteValue<Ref<int>>( 0) == 0);
+				Assert.IsTrue(AbsoluteValue<Ref<int>>( 1) == 1);
+				Assert.IsTrue(AbsoluteValue<Ref<int>>( 2) == 2);
+				Assert.IsTrue(AbsoluteValue<Ref<int>>( 3) == 3);
 			}
-			{ // RefNumeric<float>
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-3f) == 3f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-2f) == 2f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-1f) == 1f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(-0.5f) == 0.5f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(0f) == 0f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(0.5f) == 0.5f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(1f) == 1f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(2f) == 2f);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<float>>(3f) == 3f);
+			{ // Ref<float>
+				Assert.IsTrue(AbsoluteValue<Ref<float>>(-3f) == 3f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>(-2f) == 2f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>(-1f) == 1f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>(-0.5f) == 0.5f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>( 0f) == 0f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>( 0.5f) == 0.5f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>( 1f) == 1f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>( 2f) == 2f);
+				Assert.IsTrue(AbsoluteValue<Ref<float>>( 3f) == 3f);
 			}
-			{ // RefNumeric<double>
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-3d) == 3d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-2d) == 2d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-1d) == 1d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(-0.5d) == 0.5d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(0d) == 0d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(0.5d) == 0.5d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(1d) == 1d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(2d) == 2d);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<double>>(3d) == 3d);
+			{ // Ref<double>
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(-3d) == 3d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(-2d) == 2d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(-1d) == 1d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(-0.5d) == 0.5d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(0d) == 0d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(0.5d) == 0.5d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(1d) == 1d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(2d) == 2d);
+				Assert.IsTrue(AbsoluteValue<Ref<double>>(3d) == 3d);
 			}
-			{ // RefNumeric<decimal>
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-3m) == 3m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-2m) == 2m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-1m) == 1m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(-0.5m) == 0.5m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(0m) == 0m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(0.5m) == 0.5m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(1m) == 1m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(2m) == 2m);
-				Assert.IsTrue(AbsoluteValue<RefNumeric<decimal>>(3m) == 3m);
+			{ // Ref<decimal>
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(-3m) == 3m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(-2m) == 2m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(-1m) == 1m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(-0.5m) == 0.5m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(0m) == 0m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(0.5m) == 0.5m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(1m) == 1m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(2m) == 2m);
+				Assert.IsTrue(AbsoluteValue<Ref<decimal>>(3m) == 3m);
 			}
 		}
 
@@ -1431,25 +1432,25 @@ namespace Towel_Testing
 				Assert.IsTrue(Clamp(9m, 3m, 7m) == 7m);
 			}
 
-			{ // RefNumeric<int>
-				Assert.IsTrue(Clamp(new RefNumeric<int>(5), new RefNumeric<int>(3), new RefNumeric<int>(7)) == new RefNumeric<int>(5));
-				Assert.IsTrue(Clamp(new RefNumeric<int>(3), new RefNumeric<int>(5), new RefNumeric<int>(7)) == new RefNumeric<int>(5));
-				Assert.IsTrue(Clamp(new RefNumeric<int>(9), new RefNumeric<int>(3), new RefNumeric<int>(7)) == new RefNumeric<int>(7));
+			{ // Ref<int>
+				Assert.IsTrue(Clamp<Ref<int>>(5, 3, 7) == 5);
+				Assert.IsTrue(Clamp<Ref<int>>(3, 5, 7) == 5);
+				Assert.IsTrue(Clamp<Ref<int>>(9, 3, 7) == 7);
 			}
-			{ // RefNumeric<float>
-				Assert.IsTrue(Clamp<RefNumeric<float>>(5f, 3f, 7f) == 5f);
-				Assert.IsTrue(Clamp<RefNumeric<float>>(3f, 5f, 7f) == 5f);
-				Assert.IsTrue(Clamp<RefNumeric<float>>(9f, 3f, 7f) == 7f);
+			{ // Ref<float>
+				Assert.IsTrue(Clamp<Ref<float>>(5f, 3f, 7f) == 5f);
+				Assert.IsTrue(Clamp<Ref<float>>(3f, 5f, 7f) == 5f);
+				Assert.IsTrue(Clamp<Ref<float>>(9f, 3f, 7f) == 7f);
 			}
-			{ // RefNumeric<double>
-				Assert.IsTrue(Clamp<RefNumeric<double>>(5d, 3d, 7d) == 5d);
-				Assert.IsTrue(Clamp<RefNumeric<double>>(3d, 5d, 7d) == 5d);
-				Assert.IsTrue(Clamp<RefNumeric<double>>(9d, 3d, 7d) == 7d);
+			{ // Ref<double>
+				Assert.IsTrue(Clamp<Ref<double>>(5d, 3d, 7d) == 5d);
+				Assert.IsTrue(Clamp<Ref<double>>(3d, 5d, 7d) == 5d);
+				Assert.IsTrue(Clamp<Ref<double>>(9d, 3d, 7d) == 7d);
 			}
-			{ // RefNumeric<decimal>
-				Assert.IsTrue(Clamp<RefNumeric<decimal>>(5m, 3m, 7m) == 5m);
-				Assert.IsTrue(Clamp<RefNumeric<decimal>>(3m, 5m, 7m) == 5m);
-				Assert.IsTrue(Clamp<RefNumeric<decimal>>(9m, 3m, 7m) == 7m);
+			{ // Ref<decimal>
+				Assert.IsTrue(Clamp<Ref<decimal>>(5m, 3m, 7m) == 5m);
+				Assert.IsTrue(Clamp<Ref<decimal>>(3m, 5m, 7m) == 5m);
+				Assert.IsTrue(Clamp<Ref<decimal>>(9m, 3m, 7m) == 7m);
 			}
 		}
 
@@ -1880,7 +1881,7 @@ namespace Towel_Testing
 		public void BubbleSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortBubble<int, IntCompare>(span);
+			SortBubble<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1888,7 +1889,7 @@ namespace Towel_Testing
 		public void InsertionSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortInsertion<int, IntCompare>(span);
+			SortInsertion<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1896,7 +1897,7 @@ namespace Towel_Testing
 		public void SelectionSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortInsertion<int, IntCompare>(span);
+			SortInsertion<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1904,7 +1905,7 @@ namespace Towel_Testing
 		public void MergeSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortMerge<int, IntCompare>(span);
+			SortMerge<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1912,7 +1913,7 @@ namespace Towel_Testing
 		public void QuickSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortQuick<int, IntCompare>(span);
+			SortQuick<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1920,7 +1921,7 @@ namespace Towel_Testing
 		public void HeapSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortHeap<int, IntCompare>(span);
+			SortHeap<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1928,7 +1929,7 @@ namespace Towel_Testing
 		public void OddEvenSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortOddEven<int, IntCompare>(span);
+			SortOddEven<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1936,7 +1937,7 @@ namespace Towel_Testing
 		public void SlowSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortSlow<int, IntCompare>(span);
+			SortSlow<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1944,7 +1945,7 @@ namespace Towel_Testing
 		public void GnomeSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortGnome<int, IntCompare>(span);
+			SortGnome<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1952,7 +1953,7 @@ namespace Towel_Testing
 		public void CombSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortComb<int, IntCompare>(span);
+			SortComb<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1960,7 +1961,7 @@ namespace Towel_Testing
 		public void ShellSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortShell<int, IntCompare>(span);
+			SortShell<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1968,14 +1969,14 @@ namespace Towel_Testing
 		public void CocktailSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortCocktail<int, IntCompare>(span);
+			SortCocktail<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
 		[TestMethod] public void CycleSpan_Test()
 		{
 			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortCycle<int, IntCompare>(span);
+			SortCycle<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -1983,7 +1984,7 @@ namespace Towel_Testing
 		public void BogoSpan_Test()
 		{
 			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
-			SortBogo<int, IntCompare>(span);
+			SortBogo<int, Int32Compare>(span);
 			IsOrdered<int>(span);
 		}
 
@@ -2286,7 +2287,7 @@ namespace Towel_Testing
 			Assert.IsTrue(SetEquals<char>(null, ""));
 			Assert.IsTrue(SetEquals<char>("", null));
 
-			Assert.IsTrue(SetEquals<int>(new int[0], new int[0]));
+			Assert.IsTrue(SetEquals<int>(Array.Empty<int>(), Array.Empty<int>()));
 			Assert.IsTrue(SetEquals<int>(new[] { 1 }, new[] { 1 }));
 			Assert.IsTrue(SetEquals<int>(new[] { 1, 2 }, new[] { 1, 2 }));
 			Assert.IsTrue(SetEquals<int>(new[] { 1, 2 }, new[] { 2, 1 }));
@@ -2382,45 +2383,45 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => -5; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -5, 0, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, -5, 0, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => -500; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, -500, 0, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < -500 || i >= 0));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion
@@ -2433,7 +2434,7 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2443,7 +2444,7 @@ namespace Towel_Testing
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2477,10 +2478,10 @@ namespace Towel_Testing
 				}
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion
@@ -2493,7 +2494,7 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2503,7 +2504,7 @@ namespace Towel_Testing
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniqueRollTracking<FuncRuntime<int, int, int>>(
+				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(
 					count: 5,
 					minValue: 0,
 					maxValue: 10,
@@ -2537,10 +2538,10 @@ namespace Towel_Testing
 				}
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<FuncRuntime<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentException>(() => NextUniqueRollTracking<SFunc<int, int, int>>(2, 0, 2, excluded: new[] { 0 }, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion
@@ -2553,45 +2554,45 @@ namespace Towel_Testing
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, -5, 0, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, -5, 0, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 5, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 5, next);
 				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			// count > sqrt(max - min)
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, -500, 0, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, -500, 0, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < -500 || i >= 0));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
-				int[] output = NextUniquePoolTracking<FuncRuntime<int, int, int>>(5, 0, 500, next);
+				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 500, next);
 				Assert.IsTrue(output.Length is 5);
 				Assert.IsTrue(!Any<int>(output, i => i < 0 || i >= 500));
 				Assert.IsTrue(!ContainsDuplicates<int>(output));
 			}
 			// exceptions
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
-			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<FuncRuntime<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<SFunc<int, int, int>>(-1, 0, 1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<SFunc<int, int, int>>(1, 0, -1, new Func<int, int, int>((_, _) => default)));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextUniquePoolTracking<SFunc<int, int, int>>(2, 0, 1, new Func<int, int, int>((_, _) => default)));
 		}
 
 		#endregion
@@ -2606,14 +2607,14 @@ namespace Towel_Testing
 			{
 				(int, int)[] a = new[]
 				{
-					(1, 5),
-					(4, 7),
+					(1,   5),
+					(4,   7),
 					(15, 18),
-					(3, 10),
+					(3,  10),
 				};
 				(int, int)[] b = new[]
 				{
-					(1, 10),
+					(1,  10),
 					(15, 18),
 				};
 				Assert.IsTrue(SetEquals<(int, int)>(CombineRanges(a).ToArray(), b));
@@ -2637,7 +2638,7 @@ namespace Towel_Testing
 				(string, string)[] a = new[]
 				{
 					("tux", "zebra"),
-					("a", "hippo"),
+					("a",   "hippo"),
 					("boy", "joust"),
 					("car", "dog"),
 				};
@@ -2654,7 +2655,7 @@ namespace Towel_Testing
 
 		#region Zip
 
-		#if false
+#if false
 
 		[TestMethod] public void Zip_Testing()
 		{
@@ -2679,7 +2680,254 @@ namespace Towel_Testing
 			}
 		}
 
-		#endif
+#endif
+
+		#endregion
+
+		#region TryParseRomanNumeral
+
+		[TestMethod]
+		public void TryParseRomanNumeral_Testing()
+		{
+			Assert.IsTrue(TryParseRomanNumeral("I")       is (true,    1));
+			Assert.IsTrue(TryParseRomanNumeral("II")      is (true,    2));
+			Assert.IsTrue(TryParseRomanNumeral("III")     is (true,    3));
+			Assert.IsTrue(TryParseRomanNumeral("IV")      is (true,    4));
+			Assert.IsTrue(TryParseRomanNumeral("V")       is (true,    5));
+			Assert.IsTrue(TryParseRomanNumeral("VI")      is (true,    6));
+			Assert.IsTrue(TryParseRomanNumeral("VII")     is (true,    7));
+			Assert.IsTrue(TryParseRomanNumeral("VIII")    is (true,    8));
+			Assert.IsTrue(TryParseRomanNumeral("IX")      is (true,    9));
+			Assert.IsTrue(TryParseRomanNumeral("X")       is (true,   10));
+			Assert.IsTrue(TryParseRomanNumeral("XI")      is (true,   11));
+			Assert.IsTrue(TryParseRomanNumeral("XII")     is (true,   12));
+			Assert.IsTrue(TryParseRomanNumeral("XIII")    is (true,   13));
+			Assert.IsTrue(TryParseRomanNumeral("XIV")     is (true,   14));
+			Assert.IsTrue(TryParseRomanNumeral("XV")      is (true,   15));
+			Assert.IsTrue(TryParseRomanNumeral("XVI")     is (true,   16));
+			Assert.IsTrue(TryParseRomanNumeral("XVII")    is (true,   17));
+			Assert.IsTrue(TryParseRomanNumeral("XVIII")   is (true,   18));
+			Assert.IsTrue(TryParseRomanNumeral("XIX")     is (true,   19));
+			Assert.IsTrue(TryParseRomanNumeral("XX")      is (true,   20));
+			Assert.IsTrue(TryParseRomanNumeral("XXI")     is (true,   21));
+			Assert.IsTrue(TryParseRomanNumeral("XXII")    is (true,   22));
+			Assert.IsTrue(TryParseRomanNumeral("XXIII")   is (true,   23));
+			Assert.IsTrue(TryParseRomanNumeral("XXIV")    is (true,   24));
+			Assert.IsTrue(TryParseRomanNumeral("XXV")     is (true,   25));
+			Assert.IsTrue(TryParseRomanNumeral("XXVI")    is (true,   26));
+			Assert.IsTrue(TryParseRomanNumeral("XXVII")   is (true,   27));
+			Assert.IsTrue(TryParseRomanNumeral("XXVIII")  is (true,   28));
+			Assert.IsTrue(TryParseRomanNumeral("XXIX")    is (true,   29));
+			Assert.IsTrue(TryParseRomanNumeral("XXX")     is (true,   30));
+			Assert.IsTrue(TryParseRomanNumeral("XXXI")    is (true,   31));
+			Assert.IsTrue(TryParseRomanNumeral("XXXII")   is (true,   32));
+			Assert.IsTrue(TryParseRomanNumeral("XXXIII")  is (true,   33));
+			Assert.IsTrue(TryParseRomanNumeral("XXXIV")   is (true,   34));
+			Assert.IsTrue(TryParseRomanNumeral("XXXV")    is (true,   35));
+			Assert.IsTrue(TryParseRomanNumeral("XXXVI")   is (true,   36));
+			Assert.IsTrue(TryParseRomanNumeral("XXXVII")  is (true,   37));
+			Assert.IsTrue(TryParseRomanNumeral("XXXVIII") is (true,   38));
+			Assert.IsTrue(TryParseRomanNumeral("XXXIX")   is (true,   39));
+			Assert.IsTrue(TryParseRomanNumeral("XL")      is (true,   40));
+			Assert.IsTrue(TryParseRomanNumeral("XLI")     is (true,   41));
+			Assert.IsTrue(TryParseRomanNumeral("XLII")    is (true,   42));
+			Assert.IsTrue(TryParseRomanNumeral("XLIII")   is (true,   43));
+			Assert.IsTrue(TryParseRomanNumeral("XLIV")    is (true,   44));
+			Assert.IsTrue(TryParseRomanNumeral("XLV")     is (true,   45));
+			Assert.IsTrue(TryParseRomanNumeral("XLVI")    is (true,   46));
+			Assert.IsTrue(TryParseRomanNumeral("XLVII")   is (true,   47));
+			Assert.IsTrue(TryParseRomanNumeral("XLVIII")  is (true,   48));
+			Assert.IsTrue(TryParseRomanNumeral("XLIX")    is (true,   49));
+			Assert.IsTrue(TryParseRomanNumeral("L")       is (true,   50));
+			Assert.IsTrue(TryParseRomanNumeral("C")       is (true,  100));
+			Assert.IsTrue(TryParseRomanNumeral("D")       is (true,  500));
+			Assert.IsTrue(TryParseRomanNumeral("M")       is (true, 1000));
+
+			Assert.IsTrue(TryParseRomanNumeral(null)  is (false, default(int)));
+			Assert.IsTrue(TryParseRomanNumeral("")    is (false, default(int)));
+			Assert.IsTrue(TryParseRomanNumeral("a")   is (false, default(int)));
+			Assert.IsTrue(TryParseRomanNumeral("aI")  is (false, default(int)));
+			Assert.IsTrue(TryParseRomanNumeral("Ia")  is (false, default(int)));
+			Assert.IsTrue(TryParseRomanNumeral("aIa") is (false, default(int)));
+		}
+
+		#endregion
+
+		#region IsOrdered
+
+		[TestMethod]
+		public void IsOrdered_Testing()
+		{
+			{
+				Assert.IsTrue(IsOrdered<int>(Ɐ<int>()));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 2)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 2, 3)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 1)));
+				Assert.IsTrue(IsOrdered<int>(Ɐ(1, 1, 2)));
+
+				Assert.IsFalse(IsOrdered<int>(Ɐ(2, 1)));
+				Assert.IsFalse(IsOrdered<int>(Ɐ(3, 1, 2)));
+				Assert.IsFalse(IsOrdered<int>(Ɐ(1, 3, 2)));
+
+				Assert.IsTrue(IsOrdered<char>(Ɐ<char>()));
+				Assert.IsTrue(IsOrdered<char>("a"));
+				Assert.IsTrue(IsOrdered<char>("ab"));
+				Assert.IsTrue(IsOrdered<char>("abc"));
+				Assert.IsTrue(IsOrdered<char>("aa"));
+				Assert.IsTrue(IsOrdered<char>("aab"));
+
+				Assert.IsFalse(IsOrdered<char>("ba"));
+				Assert.IsFalse(IsOrdered<char>("cab"));
+				Assert.IsFalse(IsOrdered<char>("acb"));
+			}
+			{
+				Assert.IsTrue(Ɐ<int>().IsOrdered());
+				Assert.IsTrue(Ɐ(1).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 2).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 2, 3).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 1).IsOrdered());
+				Assert.IsTrue(Ɐ(1, 1, 2).IsOrdered());
+
+				Assert.IsFalse(Ɐ(2, 1).IsOrdered());
+				Assert.IsFalse(Ɐ(3, 1, 2).IsOrdered());
+				Assert.IsFalse(Ɐ(1, 3, 2).IsOrdered());
+
+				Assert.IsTrue(Ɐ<char>().IsOrdered());
+				Assert.IsTrue("a".IsOrdered());
+				Assert.IsTrue("ab".IsOrdered());
+				Assert.IsTrue("abc".IsOrdered());
+				Assert.IsTrue("aa".IsOrdered());
+				Assert.IsTrue("aab".IsOrdered());
+
+				Assert.IsFalse("ba".IsOrdered());
+				Assert.IsFalse("cab".IsOrdered());
+				Assert.IsFalse("acb".IsOrdered());
+			}
+			{
+				int[] ints0 = Array.Empty<int>();
+				Assert.IsTrue(IsOrdered(0, ints0.Length - 1, i => ints0[i]));
+				int[] ints1 = { 1 };
+				Assert.IsTrue(IsOrdered(0, ints1.Length - 1, i => ints1[i]));
+				int[] ints2 = { 1, 2 };
+				Assert.IsTrue(IsOrdered(0, ints2.Length - 1, i => ints2[i]));
+				int[] ints3 = { 1, 2, 3 };
+				Assert.IsTrue(IsOrdered(0, ints3.Length - 1, i => ints3[i]));
+
+				int[] ints4 = { 2, 1 };
+				Assert.IsFalse(IsOrdered(0, ints4.Length - 1, i => ints4[i]));
+				int[] ints5 = { 3, 1, 2 };
+				Assert.IsFalse(IsOrdered(0, ints5.Length - 1, i => ints5[i]));
+				int[] ints6 = { 1, 3, 2 };
+				Assert.IsFalse(IsOrdered(0, ints6.Length - 1, i => ints6[i]));
+
+				string s0 = "";
+				Assert.IsTrue(IsOrdered(0, s0.Length - 1, i => s0[i]));
+				string s1 = "a";
+				Assert.IsTrue(IsOrdered(0, ints1.Length - 1, i => s1[i]));
+				string s2 = "ab";
+				Assert.IsTrue(IsOrdered(0, s2.Length - 1, i => s2[i]));
+				string s3 = "abc";
+				Assert.IsTrue(IsOrdered(0, s3.Length - 1, i => s3[i]));
+
+				string s4 = "ba";
+				Assert.IsFalse(IsOrdered(0, s4.Length - 1, i => s4[i]));
+				string s5 = "cab";
+				Assert.IsFalse(IsOrdered(0, s5.Length - 1, i => s5[i]));
+				string s6 = "acb";
+				Assert.IsFalse(IsOrdered(0, s6.Length - 1, i => s6[i]));
+			}
+		}
+
+		#endregion
+
+		#region FilterOrdered
+
+		[TestMethod]
+		public void FilterOrdered_Testing()
+		{
+			Assert.IsTrue(Equate<int>(Ɐ<int>().FilterOrdered().ToArray(), Ɐ<int>()));
+			Assert.IsTrue(Equate<int>(Ɐ(1).FilterOrdered().ToArray(), Ɐ(1)));
+			Assert.IsTrue(Equate<int>(Ɐ(1, 2).FilterOrdered().ToArray(), Ɐ(1, 2)));
+			Assert.IsTrue(Equate<int>(Ɐ(2, 1).FilterOrdered().ToArray(), Ɐ(2)));
+			Assert.IsTrue(Equate<int>(Ɐ(1, 2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
+			Assert.IsTrue(Equate<int>(Ɐ(1, -1, 2, -2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
+		}
+
+		#endregion
+
+		#region GetGreatest
+
+		[TestMethod]
+		public void GetGreatest_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => GetGreatest(Ɐ<int>(), 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), 0));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), -1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), 2));
+
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2), 1), Ɐ(2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(2, 1), 1), Ɐ(2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 3, 2), 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 2), Ɐ(3, 2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 2), Ɐ(3, 2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
+		}
+
+		#endregion
+
+		#region GetLeast
+
+		[TestMethod]
+		public void GetLeast_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => GetLeast(Ɐ<int>(), 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), 0));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), -1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), 2));
+
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(2, 1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 1, 2), 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 2), Ɐ(1, 2)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 2), Ɐ(1, 2)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
+		}
+
+		#endregion
+
+		#region HammingDistance
+
+		[TestMethod]
+		public void HammingDistance_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => HammingDistance("a", ""));
+			Assert.ThrowsException<ArgumentException>(() => HammingDistance("", "a"));
+
+			Assert.IsTrue(HammingDistance("", "") is 0);
+			Assert.IsTrue(HammingDistance("a", "a") is 0);
+			Assert.IsTrue(HammingDistance("a", "b") is 1);
+			Assert.IsTrue(HammingDistance("aa", "aa") is 0);
+			Assert.IsTrue(HammingDistance("aa", "ab") is 1);
+			Assert.IsTrue(HammingDistance("aa", "bb") is 2);
+			Assert.IsTrue(HammingDistance("aaa", "aaa") is 0);
+			Assert.IsTrue(HammingDistance("aaa", "aab") is 1);
+			Assert.IsTrue(HammingDistance("aaa", "aba") is 1);
+			Assert.IsTrue(HammingDistance("aaa", "baa") is 1);
+			Assert.IsTrue(HammingDistance("aaa", "bab") is 2);
+			Assert.IsTrue(HammingDistance("aaa", "bba") is 2);
+			Assert.IsTrue(HammingDistance("aaa", "bbb") is 3);
+		}
 
 		#endregion
 	}

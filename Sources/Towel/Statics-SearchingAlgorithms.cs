@@ -14,14 +14,14 @@ namespace Towel
 #pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 #pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 		/// <summary>Performs a binary search on sorted indexed data.</summary>
-		/// <typeparam name="T">The type of elements to search through.</typeparam>
+		/// <typeparam name="T">The type of values to search through.</typeparam>
 		/// <typeparam name="Get">The function for getting an element at an index.</typeparam>
-		/// <typeparam name="Sift">The function for sifting through the elements.</typeparam>
+		/// <typeparam name="Sift">The function for sifting through the values.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
 		/// <param name="index">The starting index of the binary search.</param>
-		/// <param name="length">The number of elements to be searched after the starting <paramref name="index"/>.</param>
+		/// <param name="length">The number of values to be searched after the starting <paramref name="index"/>.</param>
 		/// <param name="get">The function for getting an element at an index.</param>
-		/// <param name="sift">The function for comparing the the elements to th desired target.</param>
+		/// <param name="sift">The function for comparing the the values to th desired target.</param>
 		/// <param name="array">The array search.</param>
 		/// <param name="element">The element to search for.</param>
 		/// <param name="compare">The compare function.</param>
@@ -39,52 +39,18 @@ namespace Towel
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
-#if false // keeping this for future reference; array types are supports by the ReadOnlySpan<T> overloads
-
-		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T>(T[] array, T element, Func<T, T, CompareResult> compare = default)
-		{
-			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return SearchBinary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(0, array.Length, array, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
-		}
-
-		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T, Compare>(T[] array, T element, Compare compare = default)
-			where Compare : IFunc<T, T, CompareResult>
-		{
-			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return SearchBinary<T, GetIndexArray<T>, SiftFromCompareAndValue<T, Compare>>(0, array.Length, array, new SiftFromCompareAndValue<T, Compare>(element, compare));
-		}
-
-		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T>(T[] array, Func<T, CompareResult> sift)
-		{
-			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return SearchBinary<T, GetIndexArray<T>, FuncRuntime<T, CompareResult>>(0, array.Length, array, sift);
-		}
-
-		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T Value) SearchBinary<T, Sift>(T[] array, Sift sift = default)
-			where Sift : IFunc<T, CompareResult>
-		{
-			_ = array ?? throw new ArgumentNullException(nameof(array));
-			return SearchBinary<T, GetIndexArray<T>, Sift>(0, array.Length, array, sift);
-		}
-
-#endif
-
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
-			return SearchBinary<T, FuncRuntime<int, T>, FuncRuntime<T, CompareResult>>(0, length, get, sift);
+			return SearchBinary<T, SFunc<int, T>, SFunc<T, CompareResult>>(0, length, get, sift);
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T? Value) SearchBinary<T, Get, Sift>(int index, int length, Get get = default, Sift sift = default)
-			where Get : struct, IFunc<int, T>
-			where Sift : struct, IFunc<T, CompareResult>
+		public static (bool Found, int Index, T? Value) SearchBinary<T, TGet, TSift>(int index, int length, TGet get = default, TSift sift = default)
+			where TGet : struct, IFunc<int, T>
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			if (length <= 0)
 			{
@@ -103,8 +69,8 @@ namespace Towel
 			while (low <= hi)
 			{
 				int median = low + (hi - low) / 2;
-				T value = get.Do(median);
-				CompareResult compareResult = sift.Do(value);
+				T value = get.Invoke(median);
+				CompareResult compareResult = sift.Invoke(value);
 				switch (compareResult)
 				{
 					case Less: low = median + 1; break;
@@ -113,7 +79,7 @@ namespace Towel
 					default:
 						throw compareResult.IsDefined()
 						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-						: new ArgumentException($"Invalid {nameof(Sift)} function; an undefined {nameof(CompareResult)} was returned.", nameof(sift));
+						: new ArgumentException($"Invalid {nameof(TSift)} function; an undefined {nameof(CompareResult)} was returned.", nameof(sift));
 				}
 			}
 			return (false, Math.Min(low, hi), default);
@@ -121,23 +87,23 @@ namespace Towel
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult>? compare = default) =>
-			SearchBinary<T, SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, FuncRuntime<T, T, CompareResult>>(element, compare ?? Compare));
+			SearchBinary<T, SiftFromCompareAndValue<T, SFunc<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, SFunc<T, T, CompareResult>>(element, compare ?? Compare));
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, Func<T, CompareResult> sift)
 		{
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
-			return SearchBinary<T, FuncRuntime<T, CompareResult>>(span, sift);
+			return SearchBinary<T, SFunc<T, CompareResult>>(span, sift);
 		}
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T? Value) SearchBinary<T, Compare>(ReadOnlySpan<T> span, T element, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SearchBinary<T, SiftFromCompareAndValue<T, Compare>>(span, new SiftFromCompareAndValue<T, Compare>(element, compare));
+		public static (bool Found, int Index, T? Value) SearchBinary<T, TCompare>(ReadOnlySpan<T> span, T element, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			SearchBinary<T, SiftFromCompareAndValue<T, TCompare>>(span, new SiftFromCompareAndValue<T, TCompare>(element, compare));
 
 		/// <inheritdoc cref="SearchBinary_XML"/>
-		public static (bool Found, int Index, T? Value) SearchBinary<T, Sift>(ReadOnlySpan<T> span, Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		public static (bool Found, int Index, T? Value) SearchBinary<T, TSift>(ReadOnlySpan<T> span, TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -149,7 +115,7 @@ namespace Towel
 			{
 				int median = low + (hi - low) / 2;
 				T value = span[median];
-				CompareResult compareResult = sift.Do(value);
+				CompareResult compareResult = sift.Invoke(value);
 				switch (compareResult)
 				{
 					case Less: low = median + 1; break;
@@ -158,7 +124,7 @@ namespace Towel
 					default:
 						throw compareResult.IsDefined()
 						? (Exception)new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-						: new ArgumentException($"Invalid {nameof(Sift)} function; an undefined {nameof(CompareResult)} was returned.", nameof(sift));
+						: new ArgumentException($"Invalid {nameof(TSift)} function; an undefined {nameof(CompareResult)} was returned.", nameof(sift));
 				}
 			}
 			return (false, Math.Min(low, hi), default);
@@ -316,14 +282,14 @@ namespace Towel
 		internal struct AStarPriorityCompare<Node, Numeric> : IFunc<AstarNode<Node, Numeric>, AstarNode<Node, Numeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
-			public CompareResult Do(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
+			public CompareResult Invoke(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
 				Compare(b.Priority, a.Priority);
 		}
 
 		internal struct DijkstraPriorityCompare<Node, Numeric> : IFunc<DijkstraNode<Node, Numeric>, DijkstraNode<Node, Numeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
-			public CompareResult Do(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>
+			public CompareResult Invoke(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>
 				Compare(b.Priority, a.Priority);
 		}
 
@@ -428,9 +394,7 @@ namespace Towel
 			totalCost = default;
 			return null; // goal node was not reached (no path exists)
 		}
-		/// <summary>
-		/// Perfoms A* Search on the graph
-		/// </summary>
+		/// <summary>Perfoms A* Search on the graph</summary>
 		/// <param name="graph">The weighted graph object</param>
 		/// <param name="Source">The node to begin search from</param>
 		/// <param name="Destination">The node to search</param>
@@ -447,9 +411,7 @@ namespace Towel
 			if (graphPath != null) graphPath((x) => path.Add(x));
 			return path;
 		}
-		/// <summary>
-		/// Perfoms A* Search on the graph and executes action on every node in path
-		/// </summary>
+		/// <summary>Perfoms A* Search on the graph and executes action on every node in path</summary>
 		/// <param name="graph">The weighted graph object</param>
 		/// <param name="Source">The node to begin search from</param>
 		/// <param name="Destination">The node to search</param>
@@ -539,9 +501,8 @@ namespace Towel
 			}
 			return null; // goal node was not reached (no path exists)
 		}
-		/// <summary>
-		/// Performs Dijkstra search on graph
-		/// </summary>
+
+		/// <summary>Performs Dijkstra search on graph</summary>
 		/// <param name="graph">The weighted graph object to search</param>
 		/// <param name="Source">The node to begin searching from</param>
 		/// <param name="Destination">The node to search</param>
@@ -557,9 +518,8 @@ namespace Towel
 			if (graphPath != null) graphPath((x) => path.Add(x));
 			return path;
 		}
-		/// <summary>
-		/// Performs Dijkstra Search and executes action on every node in path
-		/// </summary>
+
+		/// <summary>Performs Dijkstra Search and executes action on every node in path</summary>
 		/// <param name="graph">The weighted graph object to search</param>
 		/// <param name="Source">The node to begin searching from</param>
 		/// <param name="Destination">The destination node to search</param>
@@ -646,9 +606,7 @@ namespace Towel
 			}
 			return null; // goal node was not reached (no path exists)
 		}
-		/// <summary>
-		/// Performs Breadth First Search and returns the path as ordered sequence of nodes
-		/// </summary>
+		/// <summary>Performs Breadth First Search and returns the path as ordered sequence of nodes</summary>
 		/// <param name="graph">The IGraph object</param>
 		/// <param name="Source">The node to begin the Breadth First Search from</param>
 		/// <param name="Destination">The node to search</param>
@@ -661,9 +619,7 @@ namespace Towel
 			if (graphPath != null) graphPath((x) => path.Add(x));
 			return path;
 		}
-		/// <summary>
-		/// Performs Breadth First Search and executes the specified action on every ordered node to in the path searched.
-		/// </summary>
+		/// <summary>Performs Breadth First Search and executes the specified action on every ordered node to in the path searched.</summary>
 		/// <param name="graph">The IGraph object</param>
 		/// <param name="Source">The node to begin Breadth First Search from</param>
 		/// <param name="Destination">The node to search</param>

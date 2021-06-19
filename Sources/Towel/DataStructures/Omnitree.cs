@@ -172,8 +172,8 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<Axis1>(Omnitree.Bounds<Axis1> a, Omnitree.Bounds<Axis1> b,
 			Func<Axis1, Axis1, CompareResult> compare1) =>
-			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less ? false :
-			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater ? false :
+			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) is Less ? false :
+			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) is Greater ? false :
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
@@ -181,8 +181,8 @@ namespace Towel.DataStructures
 		public static bool EncapsulationCheck<Axis1>(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector,
 			Func<Axis1, Axis1, CompareResult> compare1) =>
 			// if the location is not outside the bounds, it must be inside
-			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less ? false :
-			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater ? false :
+			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) is CompareResult.Less ? false :
+			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) is CompareResult.Greater ? false :
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
@@ -411,10 +411,10 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<Axis1, Axis2>(Omnitree.Bounds<Axis1, Axis2> a, Omnitree.Bounds<Axis1, Axis2> b,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2) =>
-			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less ? false :
-			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater ? false :
-			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less ? false :
-			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater ? false :
+			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) is Less ? false :
+			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) is Greater ? false :
+			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) is Less ? false :
+			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) is Greater ? false :
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
@@ -422,10 +422,10 @@ namespace Towel.DataStructures
 		public static bool EncapsulationCheck<Axis1, Axis2>(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2) =>
 			// if the location is not outside the bounds, it must be inside
-			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less ? false :
-			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater ? false :
-			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less ? false :
-			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater ? false :
+			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) is CompareResult.Less ? false :
+			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) is CompareResult.Greater ? false :
+			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) is CompareResult.Less ? false :
+			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) is CompareResult.Greater ? false :
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
@@ -716,12 +716,12 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<Axis1, Axis2, Axis3>(Omnitree.Bounds<Axis1, Axis2, Axis3> a, Omnitree.Bounds<Axis1, Axis2, Axis3> b,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3) =>
-			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less ? false :
-			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater ? false :
-			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less ? false :
-			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater ? false :
-			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less ? false :
-			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater ? false :
+			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) is Less ? false :
+			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) is Greater ? false :
+			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) is Less ? false :
+			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) is Greater ? false :
+			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) is Less ? false :
+			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) is Greater ? false :
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
@@ -729,12 +729,12 @@ namespace Towel.DataStructures
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3>(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3) =>
 			// if the location is not outside the bounds, it must be inside
-			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less ? false :
-			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater ? false :
-			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less ? false :
-			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater ? false :
-			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less ? false :
-			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater ? false :
+			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) is CompareResult.Less ? false :
+			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) is CompareResult.Greater ? false :
+			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) is CompareResult.Less ? false :
+			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) is CompareResult.Greater ? false :
+			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) is CompareResult.Less ? false :
+			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) is CompareResult.Greater ? false :
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
@@ -1087,14 +1087,14 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> b,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4) =>
-			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less ? false :
-			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater ? false :
-			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less ? false :
-			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater ? false :
-			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less ? false :
-			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater ? false :
-			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less ? false :
-			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater ? false :
+			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) is Less ? false :
+			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) is Greater ? false :
+			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) is Less ? false :
+			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) is Greater ? false :
+			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) is Less ? false :
+			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) is Greater ? false :
+			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) is Less ? false :
+			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) is Greater ? false :
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
@@ -1102,14 +1102,14 @@ namespace Towel.DataStructures
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4) =>
 			// if the location is not outside the bounds, it must be inside
-			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less ? false :
-			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater ? false :
-			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less ? false :
-			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater ? false :
-			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less ? false :
-			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater ? false :
-			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less ? false :
-			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater ? false :
+			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) is CompareResult.Less ? false :
+			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) is CompareResult.Greater ? false :
+			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) is CompareResult.Less ? false :
+			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) is CompareResult.Greater ? false :
+			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) is CompareResult.Less ? false :
+			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) is CompareResult.Greater ? false :
+			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) is CompareResult.Less ? false :
+			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) is CompareResult.Greater ? false :
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
@@ -1524,16 +1524,16 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> b,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4, Func<Axis5, Axis5, CompareResult> compare5) =>
-			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less ? false :
-			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater ? false :
-			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less ? false :
-			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater ? false :
-			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less ? false :
-			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater ? false :
-			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less ? false :
-			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater ? false :
-			a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less ? false :
-			a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater ? false :
+			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) is Less ? false :
+			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) is Greater ? false :
+			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) is Less ? false :
+			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) is Greater ? false :
+			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) is Less ? false :
+			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) is Greater ? false :
+			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) is Less ? false :
+			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) is Greater ? false :
+			a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) is Less ? false :
+			a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) is Greater ? false :
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
@@ -1541,16 +1541,16 @@ namespace Towel.DataStructures
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4, Func<Axis5, Axis5, CompareResult> compare5) =>
 			// if the location is not outside the bounds, it must be inside
-			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less ? false :
-			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater ? false :
-			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less ? false :
-			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater ? false :
-			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less ? false :
-			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater ? false :
-			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less ? false :
-			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater ? false :
-			bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less ? false :
-			bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater ? false :
+			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) is CompareResult.Less ? false :
+			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) is CompareResult.Greater ? false :
+			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) is CompareResult.Less ? false :
+			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) is CompareResult.Greater ? false :
+			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) is CompareResult.Less ? false :
+			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) is CompareResult.Greater ? false :
+			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) is CompareResult.Less ? false :
+			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) is CompareResult.Greater ? false :
+			bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) is CompareResult.Less ? false :
+			bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) is CompareResult.Greater ? false :
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
@@ -2027,18 +2027,18 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> b,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4, Func<Axis5, Axis5, CompareResult> compare5, Func<Axis6, Axis6, CompareResult> compare6) =>
-			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less ? false :
-			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater ? false :
-			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less ? false :
-			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater ? false :
-			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less ? false :
-			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater ? false :
-			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less ? false :
-			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater ? false :
-			a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less ? false :
-			a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater ? false :
-			a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less ? false :
-			a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater ? false :
+			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) is Less ? false :
+			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) is Greater ? false :
+			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) is Less ? false :
+			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) is Greater ? false :
+			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) is Less ? false :
+			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) is Greater ? false :
+			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) is Less ? false :
+			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) is Greater ? false :
+			a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) is Less ? false :
+			a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) is Greater ? false :
+			a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) is Less ? false :
+			a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) is Greater ? false :
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
@@ -2046,18 +2046,18 @@ namespace Towel.DataStructures
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4, Func<Axis5, Axis5, CompareResult> compare5, Func<Axis6, Axis6, CompareResult> compare6) =>
 			// if the location is not outside the bounds, it must be inside
-			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less ? false :
-			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater ? false :
-			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less ? false :
-			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater ? false :
-			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less ? false :
-			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater ? false :
-			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less ? false :
-			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater ? false :
-			bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less ? false :
-			bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater ? false :
-			bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less ? false :
-			bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater ? false :
+			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) is CompareResult.Less ? false :
+			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) is CompareResult.Greater ? false :
+			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) is CompareResult.Less ? false :
+			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) is CompareResult.Greater ? false :
+			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) is CompareResult.Less ? false :
+			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) is CompareResult.Greater ? false :
+			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) is CompareResult.Less ? false :
+			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) is CompareResult.Greater ? false :
+			bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) is CompareResult.Less ? false :
+			bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) is CompareResult.Greater ? false :
+			bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) is CompareResult.Less ? false :
+			bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) is CompareResult.Greater ? false :
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
@@ -2596,20 +2596,20 @@ namespace Towel.DataStructures
 		/// <returns>True if the spaces overlap; False if not.</returns>
 		public static bool InclusionCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> a, Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> b,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4, Func<Axis5, Axis5, CompareResult> compare5, Func<Axis6, Axis6, CompareResult> compare6, Func<Axis7, Axis7, CompareResult> compare7) =>
-			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) == CompareResult.Less ? false :
-			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) == CompareResult.Greater ? false :
-			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) == CompareResult.Less ? false :
-			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) == CompareResult.Greater ? false :
-			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) == CompareResult.Less ? false :
-			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) == CompareResult.Greater ? false :
-			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) == CompareResult.Less ? false :
-			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) == CompareResult.Greater ? false :
-			a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) == CompareResult.Less ? false :
-			a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) == CompareResult.Greater ? false :
-			a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) == CompareResult.Less ? false :
-			a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) == CompareResult.Greater ? false :
-			a.Max7.Exists && b.Min7.Exists && compare7(a.Max7.Value, b.Min7.Value) == CompareResult.Less ? false :
-			a.Min7.Exists && b.Max7.Exists && compare7(a.Min7.Value, b.Max7.Value) == CompareResult.Greater ? false :
+			a.Max1.Exists && b.Min1.Exists && compare1(a.Max1.Value, b.Min1.Value) is Less ? false :
+			a.Min1.Exists && b.Max1.Exists && compare1(a.Min1.Value, b.Max1.Value) is Greater ? false :
+			a.Max2.Exists && b.Min2.Exists && compare2(a.Max2.Value, b.Min2.Value) is Less ? false :
+			a.Min2.Exists && b.Max2.Exists && compare2(a.Min2.Value, b.Max2.Value) is Greater ? false :
+			a.Max3.Exists && b.Min3.Exists && compare3(a.Max3.Value, b.Min3.Value) is Less ? false :
+			a.Min3.Exists && b.Max3.Exists && compare3(a.Min3.Value, b.Max3.Value) is Greater ? false :
+			a.Max4.Exists && b.Min4.Exists && compare4(a.Max4.Value, b.Min4.Value) is Less ? false :
+			a.Min4.Exists && b.Max4.Exists && compare4(a.Min4.Value, b.Max4.Value) is Greater ? false :
+			a.Max5.Exists && b.Min5.Exists && compare5(a.Max5.Value, b.Min5.Value) is Less ? false :
+			a.Min5.Exists && b.Max5.Exists && compare5(a.Min5.Value, b.Max5.Value) is Greater ? false :
+			a.Max6.Exists && b.Min6.Exists && compare6(a.Max6.Value, b.Min6.Value) is Less ? false :
+			a.Min6.Exists && b.Max6.Exists && compare6(a.Min6.Value, b.Max6.Value) is Greater ? false :
+			a.Max7.Exists && b.Min7.Exists && compare7(a.Max7.Value, b.Min7.Value) is Less ? false :
+			a.Min7.Exists && b.Max7.Exists && compare7(a.Min7.Value, b.Max7.Value) is Greater ? false :
 			true;
 
 		/// <summary>Checks if a space encapsulates a point.</summary>
@@ -2617,20 +2617,20 @@ namespace Towel.DataStructures
 		public static bool EncapsulationCheck<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector,
 			Func<Axis1, Axis1, CompareResult> compare1, Func<Axis2, Axis2, CompareResult> compare2, Func<Axis3, Axis3, CompareResult> compare3, Func<Axis4, Axis4, CompareResult> compare4, Func<Axis5, Axis5, CompareResult> compare5, Func<Axis6, Axis6, CompareResult> compare6, Func<Axis7, Axis7, CompareResult> compare7) =>
 			// if the location is not outside the bounds, it must be inside
-			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) == CompareResult.Less ? false :
-			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) == CompareResult.Greater ? false :
-			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) == CompareResult.Less ? false :
-			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) == CompareResult.Greater ? false :
-			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) == CompareResult.Less ? false :
-			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) == CompareResult.Greater ? false :
-			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) == CompareResult.Less ? false :
-			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) == CompareResult.Greater ? false :
-			bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) == CompareResult.Less ? false :
-			bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) == CompareResult.Greater ? false :
-			bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) == CompareResult.Less ? false :
-			bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) == CompareResult.Greater ? false :
-			bounds.Min7.Exists && compare7(vector.Axis7, bounds.Min7.Value) == CompareResult.Less ? false :
-			bounds.Max7.Exists && compare7(vector.Axis7, bounds.Max7.Value) == CompareResult.Greater ? false :
+			bounds.Min1.Exists && compare1(vector.Axis1, bounds.Min1.Value) is CompareResult.Less ? false :
+			bounds.Max1.Exists && compare1(vector.Axis1, bounds.Max1.Value) is CompareResult.Greater ? false :
+			bounds.Min2.Exists && compare2(vector.Axis2, bounds.Min2.Value) is CompareResult.Less ? false :
+			bounds.Max2.Exists && compare2(vector.Axis2, bounds.Max2.Value) is CompareResult.Greater ? false :
+			bounds.Min3.Exists && compare3(vector.Axis3, bounds.Min3.Value) is CompareResult.Less ? false :
+			bounds.Max3.Exists && compare3(vector.Axis3, bounds.Max3.Value) is CompareResult.Greater ? false :
+			bounds.Min4.Exists && compare4(vector.Axis4, bounds.Min4.Value) is CompareResult.Less ? false :
+			bounds.Max4.Exists && compare4(vector.Axis4, bounds.Max4.Value) is CompareResult.Greater ? false :
+			bounds.Min5.Exists && compare5(vector.Axis5, bounds.Min5.Value) is CompareResult.Less ? false :
+			bounds.Max5.Exists && compare5(vector.Axis5, bounds.Max5.Value) is CompareResult.Greater ? false :
+			bounds.Min6.Exists && compare6(vector.Axis6, bounds.Min6.Value) is CompareResult.Less ? false :
+			bounds.Max6.Exists && compare6(vector.Axis6, bounds.Max6.Value) is CompareResult.Greater ? false :
+			bounds.Min7.Exists && compare7(vector.Axis7, bounds.Min7.Value) is CompareResult.Less ? false :
+			bounds.Max7.Exists && compare7(vector.Axis7, bounds.Max7.Value) is CompareResult.Greater ? false :
 			true;
 
 		/// <summary>Checks if a space (left) encapsulates another space (right).</summary>
@@ -3039,7 +3039,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1> bounds, Branch parent, int index)
 			{
 				Bounds = bounds;
@@ -3367,21 +3367,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -3396,7 +3394,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -3674,7 +3672,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3763,7 +3761,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3830,7 +3828,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3902,7 +3900,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -3978,7 +3976,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -3998,13 +3996,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -4139,6 +4135,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -4305,6 +4326,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector) =>
@@ -4319,7 +4343,7 @@ namespace Towel.DataStructures
 		internal int DetermineChildIndex(Omnitree.Vector<Axis1> pointOfDivision, Omnitree.Vector<Axis1> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
 			return child;
 		}
@@ -4569,7 +4593,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2> bounds, Branch parent, int index)
 			{
 				Bounds = bounds;
@@ -4926,21 +4950,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -4955,7 +4977,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -5282,7 +5304,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -5377,7 +5399,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -5444,7 +5466,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -5520,7 +5542,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -5600,7 +5622,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -5620,13 +5642,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -5765,6 +5785,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -5941,6 +5986,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector) =>
@@ -5956,9 +6004,9 @@ namespace Towel.DataStructures
 		internal int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2> pointOfDivision, Omnitree.Vector<Axis1, Axis2> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
 			return child;
 		}
@@ -6238,7 +6286,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Branch parent, int index)
 			{
 				Bounds = bounds;
@@ -6624,21 +6672,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -6653,7 +6699,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -7031,7 +7077,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -7132,7 +7178,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -7199,7 +7245,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -7279,7 +7325,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -7363,7 +7409,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -7383,13 +7429,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -7532,6 +7576,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -7718,6 +7787,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector) =>
@@ -7734,11 +7806,11 @@ namespace Towel.DataStructures
 		internal int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
 			return child;
 		}
@@ -8048,7 +8120,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Branch parent, int index)
 			{
 				Bounds = bounds;
@@ -8463,21 +8535,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -8492,7 +8562,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -8923,7 +8993,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -9030,7 +9100,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -9097,7 +9167,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -9181,7 +9251,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -9269,7 +9339,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -9289,13 +9359,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -9442,6 +9510,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -9638,6 +9731,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector) =>
@@ -9655,13 +9751,13 @@ namespace Towel.DataStructures
 		internal int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
 			return child;
 		}
@@ -10001,7 +10097,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Branch parent, int index)
 			{
 				Bounds = bounds;
@@ -10445,21 +10541,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -10474,7 +10568,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -10960,7 +11054,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -11073,7 +11167,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -11140,7 +11234,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -11228,7 +11322,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -11320,7 +11414,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -11340,13 +11434,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -11497,6 +11589,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -11703,6 +11820,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector) =>
@@ -11721,15 +11841,15 @@ namespace Towel.DataStructures
 		internal int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
-			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == CompareResult.Less))
+			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) is Less))
 				child += 1 << 4;
 			return child;
 		}
@@ -12099,7 +12219,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Branch parent, int index)
 			{
 				Bounds = bounds;
@@ -12572,21 +12692,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -12601,7 +12719,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -13144,7 +13262,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -13263,7 +13381,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -13330,7 +13448,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -13422,7 +13540,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -13518,7 +13636,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -13538,13 +13656,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -13699,6 +13815,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -13915,6 +14056,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector) =>
@@ -13934,17 +14078,17 @@ namespace Towel.DataStructures
 		internal int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
-			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == CompareResult.Less))
+			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) is Less))
 				child += 1 << 4;
-			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) == CompareResult.Less))
+			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) is Less))
 				child += 1 << 5;
 			return child;
 		}
@@ -14344,7 +14488,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Branch parent, int index)
 			{
 				Bounds = bounds;
@@ -14846,21 +14990,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -14875,7 +15017,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Branch(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Leaf.Node list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, LocateVector(list.Value), 0);
 			}
@@ -15477,7 +15619,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -15602,7 +15744,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -15669,7 +15811,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -15765,7 +15907,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < branch.Children.Length; )
 					{
 						removals += this.Remove(branch.Children[i], bounds);
-						if (branch.Children[i].Count == 0)
+						if (branch.Children[i].Count is 0)
 							branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -15865,7 +16007,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Remove(branch.Children[i], bounds, where);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -15885,13 +16027,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -16050,6 +16190,31 @@ namespace Towel.DataStructures
 				foreach (Node child in (node as Branch).Children)
 					this.Stepper(step, child);
 			}
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			StepStatus status = StepStatus.Continue;
+			if (node is Leaf leaf)
+			{
+				for (Leaf.Node list = leaf.Head; list is not null; list = list.Next)
+				{
+					if (step.Invoke(list.Value) is Break) return Break;
+				}
+			}
+			else if (node is Branch branch)
+			{
+				foreach (Node child in branch.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -16276,6 +16441,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector) =>
@@ -16296,19 +16464,19 @@ namespace Towel.DataStructures
 		internal int DetermineChildIndex(Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> pointOfDivision, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector)
 		{
 			int child = 0;
-			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!(this._compare1(vector.Axis1, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!(this._compare2(vector.Axis2, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!(this._compare3(vector.Axis3, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!(this._compare4(vector.Axis4, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
-			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) == CompareResult.Less))
+			if (!(this._compare5(vector.Axis5, pointOfDivision.Axis5) is Less))
 				child += 1 << 4;
-			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) == CompareResult.Less))
+			if (!(this._compare6(vector.Axis6, pointOfDivision.Axis6) is Less))
 				child += 1 << 5;
-			if (!(this._compare7(vector.Axis7, pointOfDivision.Axis7) == CompareResult.Less))
+			if (!(this._compare7(vector.Axis7, pointOfDivision.Axis7) is Less))
 				child += 1 << 6;
 			return child;
 		}
@@ -16691,7 +16859,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1> bounds, Node parent, int index)
 			{
 				Bounds = bounds;
@@ -16880,21 +17048,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -16909,7 +17075,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -16964,7 +17130,7 @@ namespace Towel.DataStructures
 				int child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -17204,7 +17370,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -17291,7 +17457,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -17362,7 +17528,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -17486,7 +17652,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -17590,7 +17756,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -17609,13 +17775,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -17665,6 +17829,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -17831,6 +18016,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1> bounds, Omnitree.Vector<Axis1> vector) =>
@@ -17849,7 +18037,7 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
 			return child;
 		}
@@ -18236,7 +18424,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2> bounds, Node parent, int index)
 			{
 				Bounds = bounds;
@@ -18462,21 +18650,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -18491,7 +18677,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -18546,7 +18732,7 @@ namespace Towel.DataStructures
 				int child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -18822,7 +19008,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -18915,7 +19101,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -18986,7 +19172,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -19119,7 +19305,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -19231,7 +19417,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -19250,13 +19436,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -19311,6 +19495,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -19497,6 +19702,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2> bounds, Omnitree.Vector<Axis1, Axis2> vector) =>
@@ -19516,9 +19724,9 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
 			return child;
 		}
@@ -19955,7 +20163,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Node parent, int index)
 			{
 				Bounds = bounds;
@@ -20218,21 +20426,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -20247,7 +20453,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -20302,7 +20508,7 @@ namespace Towel.DataStructures
 				int child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -20614,7 +20820,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -20713,7 +20919,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -20784,7 +20990,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -20926,7 +21132,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -21046,7 +21252,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -21065,13 +21271,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -21131,6 +21335,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -21337,6 +21562,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3> bounds, Omnitree.Vector<Axis1, Axis2, Axis3> vector) =>
@@ -21357,11 +21585,11 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
 			return child;
 		}
@@ -21848,7 +22076,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Node parent, int index)
 			{
 				Bounds = bounds;
@@ -22148,21 +22376,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -22177,7 +22403,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -22232,7 +22458,7 @@ namespace Towel.DataStructures
 				int child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -22580,7 +22806,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -22685,7 +22911,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -22756,7 +22982,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -22907,7 +23133,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -23035,7 +23261,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -23054,13 +23280,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -23125,6 +23349,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -23351,6 +23596,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> vector) =>
@@ -23372,13 +23620,13 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
 			return child;
 		}
@@ -23915,7 +24163,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Node parent, int index)
 			{
 				Bounds = bounds;
@@ -24252,21 +24500,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -24281,7 +24527,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -24336,7 +24582,7 @@ namespace Towel.DataStructures
 				int child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -24720,7 +24966,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -24831,7 +25077,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -24902,7 +25148,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -25062,7 +25308,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -25198,7 +25444,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -25217,13 +25463,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -25293,6 +25537,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -25539,6 +25804,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> vector) =>
@@ -25561,15 +25829,15 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
-			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == CompareResult.Less))
+			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) is Less))
 				child += 1 << 4;
 			return child;
 		}
@@ -26156,7 +26424,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Node parent, int index)
 			{
 				Bounds = bounds;
@@ -26530,21 +26798,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -26559,7 +26825,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -26614,7 +26880,7 @@ namespace Towel.DataStructures
 				int child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -27034,7 +27300,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -27151,7 +27417,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -27222,7 +27488,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -27391,7 +27657,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -27535,7 +27801,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -27554,13 +27820,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -27635,6 +27899,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -27901,6 +28186,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> vector) =>
@@ -27924,17 +28212,17 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
-			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == CompareResult.Less))
+			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) is Less))
 				child += 1 << 4;
-			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) == CompareResult.Less))
+			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) is Less))
 				child += 1 << 5;
 			return child;
 		}
@@ -28571,7 +28859,7 @@ namespace Towel.DataStructures
 			/// <summary>Constructs a node.</summary>
 			/// <param name="bounds">The bounds of this node.</param>
 			/// <param name="parent">The parent of this node.</param>
-			/// <param name="index">The number of elements stored in this node and its children.</param>
+			/// <param name="index">The number of values stored in this node and its children.</param>
 			internal Node(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Node parent, int index)
 			{
 				Bounds = bounds;
@@ -28982,21 +29270,19 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add a value.</summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			Add(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item to the tree.</summary>
 		/// <param name="addition">The item to be added.</param>
 		public void Add(T addition)
 		{
-			if (this._top.Count == int.MaxValue)
-				throw new System.InvalidOperationException("(Count == int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
+			if (this._top.Count is int.MaxValue)
+				throw new System.InvalidOperationException("(Count is int.MaxValue) max Omnitree size reached (change ints to longs if you need to).");
 
 			// dynamic tree sizes
 			Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);
@@ -29011,7 +29297,7 @@ namespace Towel.DataStructures
 				// create the new branch from the median values
 				this._top = new Node(DetermineMedians(top), Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>.None, null, -1);
 
-				// iterate through the elements and add them to the appropriate children
+				// iterate through the values and add them to the appropriate children
 				for (Node.ValueNode list = top.Head; list is not null; list = list.Next)
 					Add(list.Value, this._top, GetBoundings(list.Value), 0);
 			}
@@ -29066,7 +29352,7 @@ namespace Towel.DataStructures
 				int child_index = this.DetermineChildIndex(node.PointOfDivision.Value, bounds); // determine the child "index" (0 through 2^Dimensions) the addition belongs in
 				
 				// if -1, then the bounds of the addition straddle the point of division (keep it in current node)
-				if (child_index == -1)
+				if (child_index is -1)
 				{
 					node.Add(addition);
 					return;
@@ -29522,7 +29808,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -29645,7 +29931,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < branch.Children.Length; )
 				{
 					removals += this.Update(branch.Children[i], depth + 1);
-					if (branch.Children[i].Count == 0)
+					if (branch.Children[i].Count is 0)
 						branch.Children[i] = branch.Children[branch.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -29716,7 +30002,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.Remove(node.Children[i], where);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -29894,7 +30180,7 @@ namespace Towel.DataStructures
 					for (int i = 0; i + skipped < node.Children.Length; )
 					{
 						removals += this.RemoveBase(node.Children[i], bounds, spatialCheck);
-						if (node.Children[i].Count == 0)
+						if (node.Children[i].Count is 0)
 							node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 						else
 							i++;
@@ -30046,7 +30332,7 @@ namespace Towel.DataStructures
 				for (int i = 0; i + skipped < node.Children.Length; )
 				{
 					removals += this.RemoveBase(node.Children[i], bounds, where, spatialCheck);
-					if (node.Children[i].Count == 0)
+					if (node.Children[i].Count is 0)
 						node.Children[i] = node.Children[node.Children.Length - skipped++ - 1];
 					else
 						i++;
@@ -30065,13 +30351,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception exception)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
 			Remove(value);
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Removes all instances of a given value.</summary>
@@ -30151,6 +30435,27 @@ namespace Towel.DataStructures
 			if (node.Children is not null)
 				foreach (Node child in node.Children)
 					this.Stepper(step, child);
+		}
+
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak(_top, step);
+
+		internal StepStatus StepperBreak<TStep>(Node node, TStep step)
+			where TStep : struct, IFunc<T, StepStatus>
+		{
+			for (Node.ValueNode list = node.Head; list is not null; list = list.Next)
+			{
+				if (step.Invoke(list.Value) is Break) return Break;
+			}
+			if (node.Children is not null)
+			{
+				foreach (Node child in node.Children)
+				{
+					if (StepperBreak(child, step) is Break) return Break;
+				}
+			}
+			return Continue;
 		}
 
 		/// <summary>Traverses every item in the tree and performs the delegate in them.</summary>
@@ -30437,6 +30742,9 @@ namespace Towel.DataStructures
 
 		#endregion
 
+		/// <inheritdoc/>
+		public T[] ToArray() => throw new NotImplementedException();
+
 		#region Helpers
 
 		internal bool StraddlesLines(Omnitree.Bounds<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> bounds, Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> vector) =>
@@ -30461,19 +30769,19 @@ namespace Towel.DataStructures
 				return -1;
 
 			int child = 0;
-			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) == CompareResult.Less))
+			if (!bounds.Min1.Exists || !(this._compare1(bounds.Min1.Value, pointOfDivision.Axis1) is Less))
 				child += 1 << 0;
-			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) == CompareResult.Less))
+			if (!bounds.Min2.Exists || !(this._compare2(bounds.Min2.Value, pointOfDivision.Axis2) is Less))
 				child += 1 << 1;
-			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) == CompareResult.Less))
+			if (!bounds.Min3.Exists || !(this._compare3(bounds.Min3.Value, pointOfDivision.Axis3) is Less))
 				child += 1 << 2;
-			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) == CompareResult.Less))
+			if (!bounds.Min4.Exists || !(this._compare4(bounds.Min4.Value, pointOfDivision.Axis4) is Less))
 				child += 1 << 3;
-			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) == CompareResult.Less))
+			if (!bounds.Min5.Exists || !(this._compare5(bounds.Min5.Value, pointOfDivision.Axis5) is Less))
 				child += 1 << 4;
-			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) == CompareResult.Less))
+			if (!bounds.Min6.Exists || !(this._compare6(bounds.Min6.Value, pointOfDivision.Axis6) is Less))
 				child += 1 << 5;
-			if (!bounds.Min7.Exists || !(this._compare7(bounds.Min7.Value, pointOfDivision.Axis7) == CompareResult.Less))
+			if (!bounds.Min7.Exists || !(this._compare7(bounds.Min7.Value, pointOfDivision.Axis7) is Less))
 				child += 1 << 6;
 			return child;
 		}

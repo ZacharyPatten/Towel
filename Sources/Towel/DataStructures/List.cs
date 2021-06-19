@@ -6,12 +6,11 @@ namespace Towel.DataStructures
 	/// <summary>A primitive dynamic sized data structure.</summary>
 	/// <typeparam name="T">The type of items to store in the list.</typeparam>
 	public interface IList<T> : IDataStructure<T>,
-		// Structure Properties
 		DataStructure.IAddable<T>,
 		DataStructure.ICountable,
 		DataStructure.IClearable
 	{
-		#region Members
+		#region Methods
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
@@ -33,38 +32,38 @@ namespace Towel.DataStructures
 	/// <summary>Contains static extension methods for IList types.</summary>
 	public static class List
 	{
-		#region Extensions
+		#region Extensions Methods
 
 		/// <summary>Removes all predicated values from an <see cref="IList{T}"/>.</summary>
-		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
-		/// <param name="iList">The <see cref="IList{T}"/> to remove elements from.</param>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
+		/// <param name="iList">The <see cref="IList{T}"/> to remove values from.</param>
 		/// <param name="predicate">The predicate for selecting removals from the <see cref="IList{T}"/>.</param>
 		public static void RemoveAll<T>(this IList<T> iList, Func<T, bool> predicate) =>
-			iList.RemoveAll<FuncRuntime<T, bool>>(predicate);
+			iList.RemoveAll<SFunc<T, bool>>(predicate);
 
 		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
-		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The <see cref="IList{T}"/> to remove an element from.</param>
 		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
 		/// <returns>True if the predicated element was found and removed. False if not.</returns>
 		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate) =>
-			iList.TryRemoveFirst<FuncRuntime<T, bool>>(out _, predicate);
+			iList.TryRemoveFirst<SFunc<T, bool>>(out _, predicate);
 
 		/// <summary>Tries to removes the first predicated value from an <see cref="IList{T}"/>.</summary>
-		/// <typeparam name="T">The generic type of elements inside the <see cref="IList{T}"/>.</typeparam>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The <see cref="IList{T}"/> to remove an element from.</param>
 		/// <param name="predicate">The predicate for selecting the removal from the <see cref="IList{T}"/>.</param>
 		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <returns>True if the predicated element was found and removed. False if not.</returns>
 		public static bool TryRemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate, out Exception? exception) =>
-			iList.TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
+			iList.TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Removes the first equality by object reference.</summary>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public static void RemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate)
 		{
-			if (!iList.TryRemoveFirst<FuncRuntime<T, bool>>(out Exception? exception, predicate))
+			if (!iList.TryRemoveFirst<SFunc<T, bool>>(out Exception? exception, predicate))
 			{
 				throw exception ?? new ArgumentNullException(nameof(exception), $"{nameof(TryRemoveFirst)} failed but the {nameof(exception)} is null");
 			}
@@ -128,13 +127,13 @@ namespace Towel.DataStructures
 
 	/// <summary>Implements a growing, singularly-linked list data structure that inherits InterfaceTraversable.</summary>
 	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	public class ListLinked<T> : IList<T>
+	public class ListLinked<T> : IList<T>, ICloneable<ListLinked<T>>
 	{
 		internal int _count;
 		internal Node? _head;
 		internal Node? _tail;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
@@ -194,42 +193,22 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>
-		/// Adds an item to the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="value">The item to add to the list.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
-		/// <returns>True if the add succeeded or false if not.</returns>
-		public bool TryAdd(T value, out Exception? exception)
-		{
-			Add(value);
-			exception = null;
-			return true;
-		}
-
-		/// <summary>
-		/// Adds an item to the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
-		/// <param name="addition">The item to add to the list.</param>
-		public void Add(T addition)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			if (_tail is null)
 			{
-				_head = _tail = new Node(value: addition);
+				_head = _tail = new Node(value: value);
 			}
 			else
 			{
-				_tail = _tail.Next = new Node(value: addition);
+				_tail = _tail.Next = new Node(value: value);
 			}
 			_count++;
+			return (true, null);
 		}
 
-		/// <summary>
-		/// Resets the list to an empty state.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_head = null;
@@ -237,11 +216,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>
-		/// Creates a shallow clone of this data structure.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public ListLinked<T> Clone() => new(this);
 
 		/// <summary>Removes the first equality by object reference.</summary>
@@ -261,7 +236,7 @@ namespace Towel.DataStructures
 		{
 			if (_head is not null)
 			{
-				while (predicate.Do(_head!.Value))
+				while (predicate.Invoke(_head!.Value))
 				{
 					_head = _head.Next;
 					_count--;
@@ -269,7 +244,7 @@ namespace Towel.DataStructures
 				Node? tail = null;
 				for (Node? node = _head; node!.Next is not null; node = node.Next)
 				{
-					if (predicate.Do(node.Next.Value))
+					if (predicate.Invoke(node.Next.Value))
 					{
 						if (node.Next.Equals(_tail))
 						{
@@ -298,7 +273,7 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
 		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception? exception) =>
-			TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
+			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
 		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
@@ -310,7 +285,7 @@ namespace Towel.DataStructures
 		{
 			for (Node? node = _head, previous = null; node is not null; previous = node, node = node.Next)
 			{
-				if (predicate.Do(node.Value))
+				if (predicate.Invoke(node.Value))
 				{
 					if (previous is null)
 					{
@@ -329,44 +304,14 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) =>
-			StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (Node? node = _head; node is not null; node = node.Next)
 			{
 				T temp = node.Value;
-				if (step.Do(ref temp) is Break)
+				if (step.Invoke(temp) is Break)
 				{
 					node.Value = temp;
 					return Break;
@@ -378,8 +323,7 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Gets the enumerator for this list.</summary>
-		/// <returns>The enumerator for this list.</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
 			for (Node? node = _head; node is not null; node = node.Next)
@@ -388,14 +332,10 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Converts the list into a standard array.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
-		/// <returns>A standard array of all the items.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				return Array.Empty<T>();
 			}
@@ -412,7 +352,7 @@ namespace Towel.DataStructures
 
 	/// <summary>A list implemented as a growing array.</summary>
 	/// <typeparam name="T">The type of objects to be placed in the list.</typeparam>
-	public class ListArray<T> : IList<T>
+	public class ListArray<T> : IList<T>, ICloneable<ListArray<T>>
 	{
 		internal T[] _array;
 		internal int _count;
@@ -500,23 +440,20 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
 		/// </summary>
 		/// <param name="value">The value to be added.</param>
-		/// <param name="exception">The exception that occurrs if the add fails.</param>
 		/// <returns>True if the add succeds or false if not.</returns>
 		/// <exception cref="InvalidOperationException"><see cref="Count"/> == <see cref="CurrentCapacity"/> &amp;&amp; <see cref="CurrentCapacity"/> &gt; <see cref="int.MaxValue"/> / 2</exception>
-		public bool TryAdd(T value, out Exception? exception)
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			if (_count == _array.Length)
 			{
 				if (_array.Length > int.MaxValue / 2)
 				{
-					exception = new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2");
-					return false;
+					return (false, new InvalidOperationException($"{nameof(Count)} == {nameof(CurrentCapacity)} && {nameof(CurrentCapacity)} > {nameof(Int32)}.{nameof(int.MaxValue)} / 2"));
 				}
 				Array.Resize<T>(ref _array, _array.Length * 2);
 			}
 			_array[_count++] = value;
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
 		/// <summary>Adds an item at a given index.</summary>
@@ -556,8 +493,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
+		/// <inheritdoc/>
 		public ListArray<T> Clone() => new(this);
 
 		/// <summary>
@@ -616,14 +552,14 @@ namespace Towel.DataStructures
 		public void RemoveAllWithoutShrink<Predicate>(Predicate predicate = default)
 			where Predicate : struct, IFunc<T, bool>
 		{
-			if (_count == 0)
+			if (_count is 0)
 			{
 				return;
 			}
 			int removed = 0;
 			for (int i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_array[i]))
+				if (predicate.Invoke(_array[i]))
 				{
 					removed++;
 				}
@@ -681,20 +617,20 @@ namespace Towel.DataStructures
 		/// <param name="exception">The exception that occured if the removal failed.</param>
 		/// <returns>True if the item was found and removed. False if not.</returns>
 		public bool TryRemoveFirst(Func<T, bool> predicate, out Exception? exception) =>
-			TryRemoveFirst<FuncRuntime<T, bool>>(out exception, predicate);
+			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
-		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
+		/// <typeparam name="TPredicate">The predicate to determine removal.</typeparam>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst<Predicate>(out Exception? exception, Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>
+		public bool TryRemoveFirst<TPredicate>(out Exception? exception, TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>
 		{
 			int i;
 			for (i = 0; i < _count; i++)
 			{
-				if (predicate.Do(_array[i]))
+				if (predicate.Invoke(_array[i]))
 				{
 					Remove(i);
 					exception = null;
@@ -705,39 +641,10 @@ namespace Towel.DataStructures
 			return false;
 		}
 
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T> =>
-			_array.StepperRefBreak(0, _count, step);
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			_array.StepperBreak(0, _count, step);
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -751,8 +658,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Converts the list array into a standard array.</summary>
-		/// <returns>A standard array of all the elements.</returns>
+		/// <inheritdoc/>
 		public T[] ToArray() => _count is 0 ? Array.Empty<T>() : _array[.._count];
 
 		/// <summary>Resizes this allocation to the current count.</summary>

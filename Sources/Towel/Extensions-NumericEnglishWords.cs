@@ -99,24 +99,24 @@ namespace Towel
 
 		internal static string ToEnglishWords(ReadOnlySpan<char> number)
 		{
-			if (number.Length == 1 && number[0] == '0')
+			if (number.Length is 1 && number[0] is '0')
 			{
 				return "Zero";
 			}
 			StringBuilder stringBuilder = new();
 			bool spaceNeeded = false;
-			if (number[0] == '-')
+			if (number[0] is '-')
 			{
 				Append("Negative");
 				spaceNeeded = true;
 				number = number[1..];
 			}
-			if (number[0] == '0')
+			if (number[0] is '0')
 			{
 				number = number[1..];
 			}
 			int decimalIndex = number.IndexOf('.');
-			if (decimalIndex != 0)
+			if (decimalIndex is not 0)
 			{
 				ReadOnlySpan<char> wholeNumber = decimalIndex >= 0
 					? number[0..decimalIndex]
@@ -159,7 +159,7 @@ namespace Towel
 				// In the number 12345 the digit groups are the following: 12, 345
 
 				int mod3 = wholeNumber.Length % 3;
-				int digitGroup = wholeNumber.Length / 3 + (mod3 == 0 ? 0 : 1);
+				int digitGroup = wholeNumber.Length / 3 + (mod3 is 0 ? 0 : 1);
 				while (digitGroup > 0)
 				{
 					int i__X = (wholeNumber.Length - (digitGroup - 1) * 3) - 1; // index of ones digit
@@ -197,11 +197,11 @@ namespace Towel
 				if (ten > 0)
 				{
 					AppendLeadingSpace();
-					if (one == 0)
+					if (one is 0)
 					{
 						Append(ToEnglishWordsTen[ten]);
 					}
-					else if (ten == 1)
+					else if (ten is 1)
 					{
 						Append(ToEnglishWordsTeen[one]);
 					}

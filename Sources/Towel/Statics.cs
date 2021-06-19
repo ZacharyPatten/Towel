@@ -22,10 +22,10 @@ namespace Towel
 		{
 			internal static Func<T, T, T, T> Function = (a, b, c) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				ParameterExpression C = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Add(Expression.Multiply(A, B), C);
+				var A = Expression.Parameter(typeof(T));
+				var B = Expression.Parameter(typeof(T));
+				var C = Expression.Parameter(typeof(T));
+				var BODY = Expression.Add(Expression.Multiply(A, B), C);
 				Function = Expression.Lambda<Func<T, T, T, T>>(BODY, A, B, C).Compile();
 				return Function(a, b, c);
 			};
@@ -36,11 +36,11 @@ namespace Towel
 		{
 			internal static Func<T, T, T, T, T> Function = (a, b, c, d) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				ParameterExpression C = Expression.Parameter(typeof(T));
-				ParameterExpression D = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Subtract(D, Expression.Divide(Expression.Multiply(A, B), C));
+				var A = Expression.Parameter(typeof(T));
+				var B = Expression.Parameter(typeof(T));
+				var C = Expression.Parameter(typeof(T));
+				var D = Expression.Parameter(typeof(T));
+				var BODY = Expression.Subtract(D, Expression.Divide(Expression.Multiply(A, B), C));
 				Function = Expression.Lambda<Func<T, T, T, T, T>>(BODY, A, B, C, D).Compile();
 				return Function(a, b, c, d);
 			};
@@ -49,7 +49,7 @@ namespace Towel
 		internal static T OperationOnStepper<T>(Action<Action<T>> stepper, Func<T, T, T> operation)
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
-			T result = default;
+			T? result = default;
 			bool assigned = false;
 			stepper(a =>
 			{
@@ -92,19 +92,19 @@ namespace Towel
 #pragma warning disable IDE1006 // Naming Styles
 
 		/// <summary>Gets the file path of the current location in source code.</summary>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
 		/// <returns>The file path of the current location in source code.</returns>
-		public static string sourcefilepath([CallerFilePath] string DEFAULT = default) => DEFAULT;
+		public static string sourcefilepath([CallerFilePath] string @default = default!) => @default;
 
 		/// <summary>Gets the member name of the current location in source code.</summary>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerMemberNameAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerMemberNameAttribute"/>.</param>
 		/// <returns>The member name of the current location in source code.</returns>
-		public static string sourcemembername([CallerMemberName] string DEFAULT = default) => DEFAULT;
+		public static string sourcemembername([CallerMemberName] string @default = default!) => @default;
 
 		/// <summary>Gets the line number of the current location in source code.</summary>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerLineNumberAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerLineNumberAttribute"/>.</param>
 		/// <returns>The line number of the current location in source code.</returns>
-		public static int sourcelinenumber([CallerLineNumber] int DEFAULT = default) => DEFAULT;
+		public static int sourcelinenumber([CallerLineNumber] int @default = default) => @default;
 
 #if false
 		/// <summary>Gets the source code and evaluation of an expression.</summary>
@@ -142,7 +142,7 @@ namespace Towel
 		/// <para>- <typeparamref name="A"/> Value: The value if the parse was successful or default if not.</para>
 		/// </returns>
 		public static (bool Success, A? Value) TryParse<A>(string @string) =>
-			(TryParseImplementation<A>.Function(@string, out A value), value);
+			(TryParseImplementation<A>.Function(@string, out A? value), value);
 
 		internal static class TryParseImplementation<A>
 		{
@@ -169,7 +169,7 @@ namespace Towel
 						{
 							MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
 							ParameterInfo[] parameters = genericMethodInfo.GetParameters();
-							if (parameters.Length == 2 &&
+							if (parameters.Length is 2 &&
 								parameters[0].ParameterType == typeof(string) &&
 								parameters[1].ParameterType == typeof(A).MakeByRefType())
 							{
@@ -273,7 +273,7 @@ namespace Towel
 		public static bool Equate<T>(T a, T b, params T[] c)
 		{
 			_ = c ?? throw new ArgumentNullException(nameof(c));
-			if (c.Length == 0) throw new ArgumentException("The array is empty.", nameof(c));
+			if (c.Length is 0) throw new ArgumentException("The array is empty.", nameof(c));
 			if (!Equate(a, b))
 			{
 				return false;
@@ -292,13 +292,12 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				// todo: add a type safe meethodinfo look up
-				// todo: I need to kill this try-catch...
+				#warning TODO: kill this try catch
 				try
 				{
-					ParameterExpression A = Expression.Parameter(typeof(A));
-					ParameterExpression B = Expression.Parameter(typeof(B));
-					Expression BODY = Expression.Equal(A, B);
+					var A = Expression.Parameter(typeof(A));
+					var B = Expression.Parameter(typeof(B));
+					var BODY = Expression.Equal(A, B);
 					Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 					return Function(a, b);
 				}
@@ -312,17 +311,17 @@ namespace Towel
 					EquateImplementation<A, B, bool>.Function = 
 						(typeof(A).IsValueType, typeof(B).IsValueType) switch
 						{
-							(true, true)   => (A, B) => A.Equals(B),
-							(true, false)  => (A, B) => A.Equals(B),
-							(false, true)  => (A, B) => B.Equals(A),
+							(true, true)   => (A, B) => A!.Equals(B),
+							(true, false)  => (A, B) => A!.Equals(B),
+							(false, true)  => (A, B) => B!.Equals(A),
 							(false, false) =>
 								(A, B) =>
 									(A, B) switch
 									{
 										(null, null) => true,
-										(_, null) => false,
-										(null, _) => false,
-										_ => A.Equals(B),
+										(_,    null) => false,
+										(null,    _) => false,
+										_            => A.Equals(B),
 									},
 						};
 					return Function!(a, b);
@@ -336,21 +335,21 @@ namespace Towel
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
 		/// <typeparam name="A">The first sequence of the equate.</typeparam>
 		/// <typeparam name="B">The second sequence of the equate.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index to equate from.</param>
 		/// <param name="end">The inclusive ending index to equate to.</param>
 		/// <param name="a">The first sequence of the equate.</param>
 		/// <param name="b">The second sequence of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, A, B, Equate>(int start, int end, A a = default, B b = default, Equate equate = default)
+		public static bool Equate<T, A, B, TEquate>(int start, int end, A a = default, B b = default, TEquate equate = default)
 			where A : struct, IFunc<int, T>
 			where B : struct, IFunc<int, T>
-			where Equate : struct, IFunc<T, T, bool>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			for (int i = start; i <= end; i++)
 			{
-				if (!equate.Do(a.Do(i), b.Do(i)))
+				if (!equate.Invoke(a.Invoke(i), b.Invoke(i)))
 				{
 					return false;
 				}
@@ -365,54 +364,18 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
 		public static bool Equate<T>(Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
-			Equate<T>(0, a.Length - 1, a, b, equate);
+			Equate<T, SFunc<T, T, bool>>(a, b, equate ?? Equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="a">The first span of the equate.</param>
 		/// <param name="b">The second span of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, Equate>(Span<T> a, Span<T> b, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool> =>
-			Equate<T, Equate>(0, a.Length - 1, a, b, equate);
-
-		/// <summary>Determines if two spans are equal.</summary>
-		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <param name="start">The inclusive starting index to equate from.</param>
-		/// <param name="end">The inclusive ending index to equate to.</param>
-		/// <param name="a">The first span of the equate.</param>
-		/// <param name="b">The second span of the equate.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T>(int start, int end, Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
-			Equate<T, FuncRuntime<T, T, bool>>(start, end, a, b, equate ?? Equate);
-
-		/// <summary>Determines if two spans are equal.</summary>
-		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
-		/// <param name="start">The inclusive starting index to equate from.</param>
-		/// <param name="end">The inclusive ending index to equate to.</param>
-		/// <param name="a">The first span of the equate.</param>
-		/// <param name="b">The second span of the equate.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, Equate>(int start, int end, Span<T> a, Span<T> b, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool Equate<T, TEquate>(Span<T> a, Span<T> b, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
-			if (start < 0)
-			{
-				throw new ArgumentOutOfRangeException(nameof(start), start, $@"{nameof(start)} < 0");
-			}
-			if (end >= Math.Min(a.Length, b.Length))
-			{
-				throw new ArgumentOutOfRangeException(nameof(end), end, $@"{nameof(end)} >= Min({nameof(a)}.{nameof(a.Length)} {a.Length}, {nameof(b)}.{nameof(b.Length)} {b.Length})");
-			}
-			if (end < start)
-			{
-				throw new ArgumentOutOfRangeException($@"{nameof(end)} {end} < {nameof(start)} {start}");
-			}
 			if (a.IsEmpty && b.IsEmpty)
 			{
 				return true;
@@ -421,9 +384,9 @@ namespace Towel
 			{
 				return false;
 			}
-			for (int i = start; i <= end; i++)
+			for (int i = 0; i < a.Length; i++)
 			{
-				if (!equate.Do(a[i], b[i]))
+				if (!equate.Invoke(a[i], b[i]))
 				{
 					return false;
 				}
@@ -457,9 +420,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.NotEqual(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.NotEqual(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -491,9 +454,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.LessThan(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.LessThan(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -525,9 +488,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.GreaterThan(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.GreaterThan(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -559,9 +522,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.LessThanOrEqual(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.LessThanOrEqual(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -593,9 +556,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.GreaterThanOrEqual(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.GreaterThanOrEqual(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -638,10 +601,10 @@ namespace Towel
 					}
 					else
 					{
-						ParameterExpression A = Expression.Parameter(typeof(A));
-						ParameterExpression B = Expression.Parameter(typeof(B));
+						var A = Expression.Parameter(typeof(A));
+						var B = Expression.Parameter(typeof(B));
 
-						Expression? lessThanPredicate =
+						var lessThanPredicate =
 							typeof(A).IsPrimitive && typeof(B).IsPrimitive
 							? Expression.LessThan(A, B)
 							: Meta.GetLessThanMethod<A, B, bool>() is not null
@@ -650,7 +613,7 @@ namespace Towel
 									? Expression.GreaterThan(B, A)
 									: null;
 
-						Expression? greaterThanPredicate =
+						var greaterThanPredicate =
 							typeof(A).IsPrimitive && typeof(B).IsPrimitive
 							? Expression.GreaterThan(A, B)
 							: Meta.GetGreaterThanMethod<A, B, bool>() is not null
@@ -664,8 +627,8 @@ namespace Towel
 							throw new NotSupportedException("You attempted a comparison operation with unsupported types.");
 						}
 
-						LabelTarget RETURN = Expression.Label(typeof(CompareResult));
-						Expression BODY = Expression.Block(
+						var RETURN = Expression.Label(typeof(CompareResult));
+						var BODY = Expression.Block(
 							Expression.IfThen(
 									lessThanPredicate,
 									Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
@@ -705,8 +668,8 @@ namespace Towel
 		{
 			internal static Func<A, B> Function = a =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				Expression BODY = Expression.Negate(A);
+				var A = Expression.Parameter(typeof(A));
+				var BODY = Expression.Negate(A);
 				Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
 				return Function(a);
 			};
@@ -755,9 +718,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.Add(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.Add(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -806,9 +769,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.Subtract(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.Subtract(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -857,9 +820,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.Multiply(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.Multiply(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -908,9 +871,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.Divide(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.Divide(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -959,9 +922,9 @@ namespace Towel
 		{
 			internal static Func<A, B, C> Function = (a, b) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				ParameterExpression B = Expression.Parameter(typeof(B));
-				Expression BODY = Expression.Modulo(A, B);
+				var A = Expression.Parameter(typeof(A));
+				var B = Expression.Parameter(typeof(B));
+				var BODY = Expression.Modulo(A, B);
 				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
@@ -1016,9 +979,9 @@ namespace Towel
 				// optimization for specific known types
 				if (TypeDescriptor.GetConverter(typeof(T)).CanConvertTo(typeof(double)))
 				{
-					ParameterExpression A = Expression.Parameter(typeof(T));
-					ParameterExpression B = Expression.Parameter(typeof(T));
-					MethodInfo? Math_Pow = typeof(Math).GetMethod(nameof(Math.Pow));
+					var A = Expression.Parameter(typeof(T));
+					var B = Expression.Parameter(typeof(T));
+					var Math_Pow = typeof(Math).GetMethod(nameof(Math.Pow));
 					if (Math_Pow is not null)
 					{
 						Expression BODY = Expression.Convert(Expression.Call(Math_Pow, Expression.Convert(A, typeof(double)), Expression.Convert(B, typeof(double))), typeof(T));
@@ -1070,7 +1033,7 @@ namespace Towel
 				{
 					static int SquareRoot(int x)
 					{
-						if (x == 0 || x == 1)
+						if (x is 0 || x is 1)
 						{
 							return x;
 						}
@@ -1157,15 +1120,15 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo? methodInfo = Meta.GetIsIntegerMethod<T>();
+				var methodInfo = Meta.GetIsIntegerMethod<T>();
 				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Equal(
+				var A = Expression.Parameter(typeof(T));
+				var BODY = Expression.Equal(
 					Expression.Modulo(A, Expression.Constant(Constant<T>.One)),
 					Expression.Constant(Constant<T>.Zero));
 				Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
@@ -1188,15 +1151,15 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo? methodInfo = Meta.GetIsNonNegativeMethod<T>();
+				var methodInfo = Meta.GetIsNonNegativeMethod<T>();
 				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.GreaterThanOrEqual(A, Expression.Constant(Constant<T>.Zero));
+				var A = Expression.Parameter(typeof(T));
+				var BODY = Expression.GreaterThanOrEqual(A, Expression.Constant(Constant<T>.Zero));
 				Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
 				return Function(a);
 			};
@@ -1247,15 +1210,15 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo? methodInfo = Meta.GetIsPositiveMethod<T>();
+				var methodInfo = Meta.GetIsPositiveMethod<T>();
 				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.GreaterThan(A, Expression.Constant(Constant<T>.Zero));
+				var A = Expression.Parameter(typeof(T));
+				var BODY = Expression.GreaterThan(A, Expression.Constant(Constant<T>.Zero));
 				Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
 				return Function(a);
 			};
@@ -1283,8 +1246,8 @@ namespace Towel
 					return Function(a);
 				}
 
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				Expression BODY = Expression.Equal(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.Zero));
+				var A = Expression.Parameter(typeof(T));
+				var BODY = Expression.Equal(Expression.Modulo(A, Expression.Constant(Constant<T>.Two)), Expression.Constant(Constant<T>.Zero));
 				Function = Expression.Lambda<Func<T, bool>>(BODY, A).Compile();
 				return Function(a);
 			};
@@ -1305,14 +1268,14 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo? methodInfo = Meta.GetIsOddMethod<T>();
+				var methodInfo = Meta.GetIsOddMethod<T>();
 				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
 					return Function(a);
 				}
 
-				ParameterExpression A = Expression.Parameter(typeof(T));
+				var A = Expression.Parameter(typeof(T));
 				Expression BODY =
 					Expression.Block(
 						Expression.IfThen(
@@ -1339,7 +1302,7 @@ namespace Towel
 		{
 			internal static Func<T, bool> Function = a =>
 			{
-				MethodInfo? methodInfo = Meta.GetIsPrimeMethod<T>();
+				var methodInfo = Meta.GetIsPrimeMethod<T>();
 				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, bool>>();
@@ -1434,19 +1397,19 @@ namespace Towel
 		/// <param name="leniency">The allowed distance between the values to still be considered equal.</param>
 		/// <returns>True if the values are within the allowed leniency of each other. False if not.</returns>
 		public static bool EqualToLeniency<T>(T a, T b, T leniency) =>
-			// TODO: add an ArgumentOutOfBounds check on leniency
+			#warning TODO: add an ArgumentOutOfBounds check on leniency
 			EqualToLeniencyImplementation<T>.Function(a, b, leniency);
 
 		internal static class EqualToLeniencyImplementation<T>
 		{
 			internal static Func<T, T, T, bool> Function = (T a, T b, T c) =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(T));
-				ParameterExpression B = Expression.Parameter(typeof(T));
-				ParameterExpression C = Expression.Parameter(typeof(T));
-				ParameterExpression D = Expression.Variable(typeof(T));
-				LabelTarget RETURN = Expression.Label(typeof(bool));
-				Expression BODY = Expression.Block(Ɐ(D),
+				var A = Expression.Parameter(typeof(T));
+				var B = Expression.Parameter(typeof(T));
+				var C = Expression.Parameter(typeof(T));
+				var D = Expression.Variable(typeof(T));
+				var RETURN = Expression.Label(typeof(bool));
+				var BODY = Expression.Block(Ɐ(D),
 					Expression.Assign(D, Expression.Subtract(A, B)),
 					Expression.IfThenElse(
 						Expression.LessThan(D, Expression.Constant(Constant<T>.Zero)),
@@ -1541,7 +1504,7 @@ namespace Towel
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			bool assigned = false;
-			T answer = default;
+			T? answer = default;
 			stepper(parameter =>
 			{
 				if (Equate(parameter, Constant<T>.Zero))
@@ -1621,7 +1584,7 @@ namespace Towel
 		{
 			internal static Func<T, T> Function = a =>
 			{
-				MethodInfo? methodInfo = Meta.GetFactorialMethod<T>();
+				var methodInfo = Meta.GetFactorialMethod<T>();
 				if (methodInfo is not null)
 				{
 					Function = methodInfo.CreateDelegate<Func<T, T>>();

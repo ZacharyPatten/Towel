@@ -9,13 +9,13 @@ namespace Towel
 		#region Maximum
 
 		public static (int Index, T Value) Maximum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
-			Maximum<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+			Maximum<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
 		public static (int Index, T Value) Maximum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
-			Maximum<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			Maximum<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static (int Index, T Value) Maximum<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static (int Index, T Value) Maximum<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -24,7 +24,7 @@ namespace Towel
 			int index = 0;
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i], span[index]) is Greater)
+				if (compare.Invoke(span[i], span[index]) is Greater)
 				{
 					index = i;
 				}
@@ -43,20 +43,20 @@ namespace Towel
 		/// <param name="compare">The second operand of the maximum operation.</param>
 		/// <returns>The computed maximum of the provided values.</returns>
 		public static T MaximumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
-			MaximumValue<T, FuncRuntime<T, T, CompareResult>>(a, b, compare ?? Compare);
+			MaximumValue<T, SFunc<T, T, CompareResult>>(a, b, compare ?? Compare);
 
-		public static T MaximumValue<T, Compare>(T a, T b, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			compare.Do(b, a) is Greater ? b : a;
+		public static T MaximumValue<T, TCompare>(T a, T b, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			compare.Invoke(b, a) is Greater ? b : a;
 
 		public static T MaximumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
-			MaximumValue<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+			MaximumValue<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
 		public static T MaximumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
-			MaximumValue<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			MaximumValue<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static T MaximumValue<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T MaximumValue<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -65,7 +65,7 @@ namespace Towel
 			T max = span[0];
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i], max) is Greater)
+				if (compare.Invoke(span[i], max) is Greater)
 				{
 					max = span[i];
 				}
@@ -78,13 +78,13 @@ namespace Towel
 		#region MaximumIndex
 
 		public static int MaximumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
-			MaximumIndex<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+			MaximumIndex<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
 		public static int MaximumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
-			MaximumIndex<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			MaximumIndex<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static int MaximumIndex<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static int MaximumIndex<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -93,7 +93,7 @@ namespace Towel
 			int max = 0;
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i], span[max]) is Greater)
+				if (compare.Invoke(span[i], span[max]) is Greater)
 				{
 					max = i;
 				}
@@ -106,13 +106,13 @@ namespace Towel
 		#region Minimum
 
 		public static (int Index, T Value) Minimum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
-			Minimum<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+			Minimum<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
 		public static (int Index, T Value) Minimum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
-			Minimum<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			Minimum<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static (int Index, T Value) Minimum<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static (int Index, T Value) Minimum<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -121,7 +121,7 @@ namespace Towel
 			int index = 0;
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i], span[index]) is Less)
+				if (compare.Invoke(span[i], span[index]) is Less)
 				{
 					index = i;
 				}
@@ -140,20 +140,20 @@ namespace Towel
 		/// <param name="compare">The second operand of the minimum operation.</param>
 		/// <returns>The computed minimum of the provided values.</returns>
 		public static T MinimumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
-			MinimumValue<T, FuncRuntime<T, T, CompareResult>>(a, b, compare ?? Compare);
+			MinimumValue<T, SFunc<T, T, CompareResult>>(a, b, compare ?? Compare);
 
-		public static T MinimumValue<T, Compare>(T a, T b, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			compare.Do(b, a) is Less ? b : a;
+		public static T MinimumValue<T, TCompare>(T a, T b, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			compare.Invoke(b, a) is Less ? b : a;
 
 		public static T MinimumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
-			MinimumValue<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+			MinimumValue<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
 		public static T MinimumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
-			MinimumValue<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			MinimumValue<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static T MinimumValue<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T MinimumValue<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -162,7 +162,7 @@ namespace Towel
 			T min = span[0];
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i], min) is Less)
+				if (compare.Invoke(span[i], min) is Less)
 				{
 					min = span[i];
 				}
@@ -175,13 +175,13 @@ namespace Towel
 		#region MinimumIndex
 
 		public static int MinimumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
-			MinimumIndex<T, FuncRuntime<T, T, CompareResult>>(values, compare ?? Compare);
+			MinimumIndex<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
 		public static int MinimumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
-			MinimumIndex<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			MinimumIndex<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		public static int MinimumIndex<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static int MinimumIndex<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -190,7 +190,7 @@ namespace Towel
 			int min = 0;
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i], span[min]) is Less)
+				if (compare.Invoke(span[i], span[min]) is Less)
 				{
 					min = i;
 				}
@@ -248,8 +248,8 @@ namespace Towel
 			maximum = max!;
 		}
 
-		public static ((int MinIndex, T MinValue), (int MaxIndex, T MaxValue)) Range<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static ((int MinIndex, T MinValue), (int MaxIndex, T MaxValue)) Range<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
 			{
@@ -259,11 +259,11 @@ namespace Towel
 			int maxIndex = 0;
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i], span[minIndex]) is Less)
+				if (compare.Invoke(span[i], span[minIndex]) is Less)
 				{
 					minIndex = i;
 				}
-				if (compare.Do(span[i], span[maxIndex]) is Greater)
+				if (compare.Invoke(span[i], span[maxIndex]) is Greater)
 				{
 					maxIndex = i;
 				}
@@ -321,7 +321,7 @@ namespace Towel
 		public static void Mode<T>(Action<Action<T>> stepper, Action<T> step, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			int maxOccurences = -1;
-			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
+			IMap<int, T> map = MapHashLinked.New<int, T>(equate, hash);
 			stepper(a =>
 			{
 				if (map.Contains(a))
@@ -392,7 +392,7 @@ namespace Towel
 			_ = values ?? throw new ArgumentNullException(nameof(values));
 			// standard algorithm (sort and grab middle value)
 			SortMerge(values, compare);
-			if (values.Length % 2 == 1) // odd... just grab middle value
+			if (values.Length % 2 is 1) // odd... just grab middle value
 			{
 				return values[values.Length / 2];
 			}
@@ -439,7 +439,7 @@ namespace Towel
 		//public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
 		//{
 		//    // this is an optimized median algorithm, but it only works on odd sets without duplicates
-		//    if (hash is not null && equate is not null && values.Length % 2 == 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
+		//    if (hash is not null && equate is not null && values.Length % 2 is 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
 		//    {
 		//        int medianIndex = 0;
 		//        OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
@@ -477,8 +477,8 @@ namespace Towel
 		//{
 		//    do
 		//    {
-		//        while (compare(a[i], x) == Comparison.Less) i++;
-		//        while (compare(a[j], x) == Comparison.Greater) j--;
+		//        while (compare(a[i], x) is Less) i++;
+		//        while (compare(a[j], x) is Greater) j--;
 		//        T t = a[i];
 		//        a[i] = a[j];
 		//        a[j] = t;
@@ -698,7 +698,7 @@ namespace Towel
 		/// <returns>The occurence map of the data.</returns>
 		public static IMap<int, T> Occurences<T>(Action<Action<T>> stepper, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
-			IMap<int, T> map = new MapHashLinked<int, T>(equate, hash);
+			IMap<int, T> map = MapHashLinked.New<int, T>(equate, hash);
 			stepper(a =>
 			{
 				if (map.Contains(a))
@@ -743,7 +743,7 @@ namespace Towel
 			int distance = 0;
 			for (int i = 0; i < length; i++)
 			{
-				if (!equals.Do(a.Do(i), b.Do(i)))
+				if (!equals.Invoke(a.Invoke(i), b.Invoke(i)))
 				{
 					distance++;
 				}
@@ -778,7 +778,7 @@ namespace Towel
 			int distance = 0;
 			for (int i = 0; i < a.Length; i++)
 			{
-				if (!equals.Do(a[i], b[i]))
+				if (!equals.Invoke(a[i], b[i]))
 				{
 					distance++;
 				}
@@ -828,7 +828,7 @@ namespace Towel
 					bi >= b_length ? 0 :
 					1 + LDR(ai, _bi) :
 				bi >= b_length ? 1 + LDR(_ai, bi) :
-				equals.Do(a.Do(ai), b.Do(bi)) ? LDR(_ai, _bi) :
+				equals.Invoke(a.Invoke(ai), b.Invoke(bi)) ? LDR(_ai, _bi) :
 				1 + MinimumValue(default, LDR(ai, _bi), LDR(_ai, bi), LDR(_ai, _bi));
 			}
 			return LDR(0, 0);
@@ -866,7 +866,7 @@ namespace Towel
 					bi >= b.Length ? 0 :
 					1 + LDR(a, b, ai, _bi) :
 				bi >= b.Length ? 1 + LDR(a, b, _ai, bi) :
-				equals.Do(a[ai], b[bi]) ? LDR(a, b, _ai, _bi) :
+				equals.Invoke(a[ai], b[bi]) ? LDR(a, b, _ai, _bi) :
 				1 + MinimumValue(default, LDR(a, b, ai, _bi), LDR(a, b, _ai, bi), LDR(a, b, _ai, _bi));
 			}
 			return LDR(a, b, 0, 0);
@@ -921,7 +921,7 @@ namespace Towel
 					matrix[ai, bi] = MinimumValue(default,
 						matrix[_ai, bi] + 1,
 						matrix[ai, _bi] + 1,
-						!equals.Do(a.Do(_ai), b.Do(_bi)) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
+						!equals.Invoke(a.Invoke(_ai), b.Invoke(_bi)) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
 				}
 			}
 			return matrix[a_length - 1, b_length - 1];
@@ -967,7 +967,7 @@ namespace Towel
 					matrix[ai, bi] = MinimumValue(default,
 						matrix[_ai, bi] + 1,
 						matrix[ai, _bi] + 1,
-						!equals.Do(a[_ai], b[_bi]) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
+						!equals.Invoke(a[_ai], b[_bi]) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
 				}
 			}
 			return matrix[a_length - 1, b_length - 1];
@@ -978,42 +978,64 @@ namespace Towel
 		#region FilterOrdered
 
 		public static void FilterOrdered<T>(int start, int end, Func<int, T> get, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
-			FilterOrdered<T, FuncRuntime<int, T>, ActionRuntime<T>, FuncRuntime<T, T, CompareResult>>(start, end, get, step, compare ?? Compare);
+			FilterOrdered<T, SFunc<int, T>, SAction<T>, SFunc<T, T, CompareResult>>(start, end, get, step, compare ?? Compare);
 
-		public static void FilterOrdered<T, Get, Step, Compare>(int start, int end, Get get = default, Step step = default, Compare compare = default)
-			where Get : struct, IFunc<int, T>
-			where Step : struct, IAction<T>
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static void FilterOrdered<T, TGet, TStep, TCompare>(int start, int end, TGet get = default, TStep step = default, TCompare compare = default)
+			where TGet : struct, IFunc<int, T>
+			where TStep : struct, IAction<T>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (start <= end)
 			{
-				step.Do(get.Do(start));
+				step.Invoke(get.Invoke(start));
 			}
 			for (int i = start; i <= end; i++)
 			{
-				if (compare.Do(get.Do(i - 1), get.Do(i)) is not Greater)
+				if (compare.Invoke(get.Invoke(i - 1), get.Invoke(i)) is not Greater)
 				{
-					step.Do(get.Do(i));
+					step.Invoke(get.Invoke(i));
 				}
 			}
 		}
 
 		public static void FilterOrdered<T>(ReadOnlySpan<T> span, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
-			FilterOrdered<T, ActionRuntime<T>, FuncRuntime<T, T, CompareResult>>(span, step, compare ?? Compare);
+			FilterOrdered<T, SAction<T>, SFunc<T, T, CompareResult>>(span, step, compare ?? Compare);
 
-		public static void FilterOrdered<T, Step, Compare>(ReadOnlySpan<T> span, Step step = default, Compare compare = default)
-			where Step : struct, IAction<T>
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static void FilterOrdered<T, TStep, TCompare>(ReadOnlySpan<T> span, TStep step = default, TCompare compare = default)
+			where TStep : struct, IAction<T>
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (!span.IsEmpty)
 			{
-				step.Do(span[0]);
+				step.Invoke(span[0]);
 			}
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i - 1], span[i]) is not Greater)
+				if (compare.Invoke(span[i - 1], span[i]) is not Greater)
 				{
-					step.Do(span[i]);
+					step.Invoke(span[i]);
+				}
+			}
+		}
+
+		public static System.Collections.Generic.IEnumerable<T> FilterOrdered<T>(this System.Collections.Generic.IEnumerable<T> enumerable, Func<T, T, CompareResult>? compare = null) =>
+			FilterOrdered<T, SFunc<T, T, CompareResult>>(enumerable, compare ?? Compare);
+
+		public static System.Collections.Generic.IEnumerable<T> FilterOrdered<T, TCompare>(this System.Collections.Generic.IEnumerable<T> enumerable, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
+		{
+			using System.Collections.Generic.IEnumerator<T> enumerator = enumerable.GetEnumerator();
+			if (enumerator.MoveNext())
+			{
+				T previous = enumerator.Current;
+				yield return enumerator.Current;
+				while (enumerator.MoveNext())
+				{
+					if (compare.Invoke(previous, enumerator.Current) is not Greater)
+					{
+						yield return enumerator.Current;
+					}
+					previous = enumerator.Current;
 				}
 			}
 		}
@@ -1039,7 +1061,7 @@ namespace Towel
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
 		public static bool IsOrdered<T>(int start, int end, Func<int, T> get, Func<T, T, CompareResult>? compare = null) =>
-			IsOrdered<T, FuncRuntime<T, T, CompareResult>, FuncRuntime<int, T>>(start, end, compare ?? Compare, get);
+			IsOrdered<T, SFunc<T, T, CompareResult>, SFunc<int, T>>(start, end, compare ?? Compare, get);
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
 		public static bool IsOrdered<T, Compare, Get>(int start, int end, Compare compare = default, Get get = default)
@@ -1048,7 +1070,7 @@ namespace Towel
 		{
 			for (int i = start + 1; i <= end; i++)
 			{
-				if (compare.Do(get.Do(i - 1), get.Do(i)) is Greater)
+				if (compare.Invoke(get.Invoke(i - 1), get.Invoke(i)) is Greater)
 				{
 					return false;
 				}
@@ -1058,15 +1080,15 @@ namespace Towel
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
 		public static bool IsOrdered<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
-			IsOrdered<T, FuncRuntime<T, T, CompareResult>>(span, compare ?? Compare);
+			IsOrdered<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
-		public static bool IsOrdered<T, Compare>(ReadOnlySpan<T> span, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static bool IsOrdered<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			for (int i = 1; i < span.Length; i++)
 			{
-				if (compare.Do(span[i - 1], span[i]) is Greater)
+				if (compare.Invoke(span[i - 1], span[i]) is Greater)
 				{
 					return false;
 				}
@@ -1076,17 +1098,21 @@ namespace Towel
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
 		public static bool IsOrdered<T>(this System.Collections.Generic.IEnumerable<T> enumerable, Func<T, T, CompareResult>? compare = null) =>
-			IsOrdered<T, FuncRuntime<T, T, CompareResult>>(enumerable, compare ?? Compare);
+			IsOrdered<T, SFunc<T, T, CompareResult>>(enumerable, compare ?? Compare);
 
 		/// <inheritdoc cref="IsOrdered_XML"/>
-		public static bool IsOrdered<T, Compare>(this System.Collections.Generic.IEnumerable<T> enumerable, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static bool IsOrdered<T, TCompare>(this System.Collections.Generic.IEnumerable<T> enumerable, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
-			System.Collections.Generic.IEnumerator<T> enumerator = enumerable.GetEnumerator();
+			using System.Collections.Generic.IEnumerator<T> enumerator = enumerable.GetEnumerator();
+			if (!enumerator.MoveNext())
+			{
+				return true;
+			}
 			T previous = enumerator.Current;
 			while (enumerator.MoveNext())
 			{
-				if (compare.Do(previous, enumerator.Current) is Greater)
+				if (compare.Invoke(previous, enumerator.Current) is Greater)
 				{
 					return false;
 				}
@@ -1107,37 +1133,37 @@ namespace Towel
 		/// <param name="get">The get index function of the sequence.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
 		public static bool IsPalindrome<T>(int start, int end, Func<int, T> get, Func<T, T, bool>? equate = default) =>
-			IsPalindrome<T, FuncRuntime<int, T>, FuncRuntime<T, T, bool>>(start, end, get, equate ?? Equate);
+			IsPalindrome<T, SFunc<int, T>, SFunc<T, T, bool>>(start, end, get, equate ?? Equate);
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="Get">The get index function of the sequence.</typeparam>
+		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, Get>(int start, int end, Get get = default, Func<T, T, bool>? equate = default)
-			where Get : struct, IFunc<int, T> =>
-			IsPalindrome<T, Get, FuncRuntime<T, T, bool>>(start, end, get, equate ?? Equate);
+		public static bool IsPalindrome<T, TGet>(int start, int end, TGet get = default, Func<T, T, bool>? equate = default)
+			where TGet : struct, IFunc<int, T> =>
+			IsPalindrome<T, TGet, SFunc<T, T, bool>>(start, end, get, equate ?? Equate);
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
-		/// <typeparam name="Get">The get index function of the sequence.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
+		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, Get, Equate>(int start, int end, Get get = default, Equate equate = default)
-			where Get : struct, IFunc<int, T>
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsPalindrome<T, TGet, TEquate>(int start, int end, TGet get = default, TEquate equate = default)
+			where TGet : struct, IFunc<int, T>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			int middle = (end - start) / 2 + start;
 			for (int i = start; i <= middle; i++)
 			{
-				if (!equate.Do(get.Do(i), get.Do(end - i + start)))
+				if (!equate.Invoke(get.Invoke(i), get.Invoke(end - i + start)))
 				{
 					return false;
 				}
@@ -1157,21 +1183,21 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
 		public static bool IsPalindrome<T>(ReadOnlySpan<T> span, Func<T, T, bool>? equate = default) =>
-			IsPalindrome<T, FuncRuntime<T, T, bool>>(span, equate ?? Equate);
+			IsPalindrome<T, SFunc<T, T, bool>>(span, equate ?? Equate);
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="Equate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="span">The span to check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, Equate>(ReadOnlySpan<T> span, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsPalindrome<T, TEquate>(ReadOnlySpan<T> span, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			int middle = span.Length / 2;
 			for (int i = 0; i < middle; i++)
 			{
-				if (!equate.Do(span[i], span[^(i + 1)]))
+				if (!equate.Invoke(span[i], span[^(i + 1)]))
 				{
 					return false;
 				}
@@ -1208,8 +1234,8 @@ namespace Towel
 		/// <summary>
 		/// <para>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
-		/// meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
-		/// while retaining the order of the respective elements. Uses a recursive algorithm.
+		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/> 
+		/// while retaining the order of the respective values. Uses a recursive algorithm.
 		/// </para>
 		/// <para>Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)</para>
 		/// <para>Memory: O(1)</para>
@@ -1219,8 +1245,8 @@ namespace Towel
 
 		/// <summary>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
-		/// meaning that <paramref name="c"/> it contains all elements of <paramref name="a"/> and <paramref name="b"/> 
-		/// while retaining the order of the respective elements. Uses a interative algorithm.
+		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/> 
+		/// while retaining the order of the respective values. Uses a interative algorithm.
 		/// <para>Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)</para>
 		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
 		/// </summary>
@@ -1236,15 +1262,15 @@ namespace Towel
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
 		public static bool IsInterleavedRecursive<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool>? equate = default) =>
-			IsInterleavedRecursive<T, FuncRuntime<T, T, bool>>(a, b, c, equate ?? Equate);
+			IsInterleavedRecursive<T, SFunc<T, T, bool>>(a, b, c, equate ?? Equate);
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
 		public static bool IsInterleavedRecursive(ReadOnlySpan<char> a, ReadOnlySpan<char> b, ReadOnlySpan<char> c) =>
 			IsInterleavedRecursive<char, CharEquate>(a, b, c);
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
-		public static bool IsInterleavedRecursive<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsInterleavedRecursive<T, TEquate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (a.Length + b.Length != c.Length)
 			{
@@ -1256,8 +1282,8 @@ namespace Towel
 				(
 					!c.IsEmpty &&
 					(
-						(!a.IsEmpty && equate.Do(a[0], c[0]) && Implementation(a[1..], b, c[1..])) ||
-						(!b.IsEmpty && equate.Do(b[0], c[0]) && Implementation(a, b[1..], c[1..]))
+						(!a.IsEmpty && equate.Invoke(a[0], c[0]) && Implementation(a[1..], b, c[1..])) ||
+						(!b.IsEmpty && equate.Invoke(b[0], c[0]) && Implementation(a, b[1..], c[1..]))
 					)
 				);
 
@@ -1266,15 +1292,15 @@ namespace Towel
 
 		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
 		public static bool IsInterleavedIterative<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool>? equate = default) =>
-			IsInterleavedIterative<T, FuncRuntime<T, T, bool>>(a, b, c, equate ?? Equate);
+			IsInterleavedIterative<T, SFunc<T, T, bool>>(a, b, c, equate ?? Equate);
 
 		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
 		public static bool IsInterleavedIterative(ReadOnlySpan<char> a, ReadOnlySpan<char> b, ReadOnlySpan<char> c) =>
 			IsInterleavedIterative<char, CharEquate>(a, b, c);
 
 		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
-		public static bool IsInterleavedIterative<T, Equate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool IsInterleavedIterative<T, TEquate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (a.Length + b.Length != c.Length)
 			{
@@ -1286,29 +1312,29 @@ namespace Towel
 				for (int j = 0; j <= b.Length; ++j)
 				{
 					d[i, j] =
-						(i == 0 && j == 0) ||
+						(i is 0 && j is 0) ||
 						(
-							i == 0 ? (equate.Do(b[j - 1], c[j - 1]) && d[i, j - 1]) :
-							j == 0 ? (equate.Do(a[i - 1], c[i - 1]) && d[i - 1, j]) :
-							equate.Do(a[i - 1], c[i + j - 1]) && !equate.Do(b[j - 1], c[i + j - 1]) ? d[i - 1, j] :
-							!equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]) ? d[i, j - 1] :
-							equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]) && (d[i - 1, j] || d[i, j - 1])
+							i is 0 ? (equate.Invoke(b[j - 1], c[j - 1]) && d[i, j - 1]) :
+							j is 0 ? (equate.Invoke(a[i - 1], c[i - 1]) && d[i - 1, j]) :
+							equate.Invoke(a[i - 1], c[i + j - 1]) && !equate.Invoke(b[j - 1], c[i + j - 1]) ? d[i - 1, j] :
+							!equate.Invoke(a[i - 1], c[i + j - 1]) && equate.Invoke(b[j - 1], c[i + j - 1]) ? d[i, j - 1] :
+							equate.Invoke(a[i - 1], c[i + j - 1]) && equate.Invoke(b[j - 1], c[i + j - 1]) && (d[i - 1, j] || d[i, j - 1])
 						);
 
 					#region expanded version
 
-					//if (i == 0 && j == 0)
+					//if (i is 0 && j is 0)
 					//{
 					//	d[i, j] = true;
 					//}
-					//else if (i == 0)
+					//else if (i is 0)
 					//{
 					//	if (equate.Do(b[j - 1], c[j - 1]))
 					//	{
 					//		d[i, j] = d[i, j - 1];
 					//	}
 					//}
-					//else if (j == 0)
+					//else if (j is 0)
 					//{
 					//	if (equate.Do(a[i - 1], c[i - 1]))
 					//	{
@@ -1342,24 +1368,24 @@ namespace Towel
 		/// <typeparam name="T">The element type of each span.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if both spans contain the same number of each element.</returns>
 		public static bool IsReorderOf<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
-			IsReorderOf<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
+			IsReorderOf<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
 
 		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="Equate">The function for determining equality of elements.</typeparam>
-		/// <typeparam name="Hash">The function for hashing the elements.</typeparam>
+		/// <typeparam name="TEquate">The function for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The function for hashing the values.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if both spans contain the same number of each element.</returns>
-		public static bool IsReorderOf<T, Equate, Hash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Equate equate = default, Hash hash = default)
-			where Equate : struct, IFunc<T, T, bool>
-			where Hash : struct, IFunc<T, int>
+		public static bool IsReorderOf<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int>
 		{
 			if (a.IsEmpty && b.IsEmpty)
 			{
@@ -1369,17 +1395,15 @@ namespace Towel
 			{
 				return false;
 			}
-			MapHashLinked<int, T, Equate, Hash> counts = new(
-				equate: equate,
-				hash: hash,
-				expectedCount: a.Length);
+			MapHashLinked<int, T, TEquate, THash> counts = new(equate: equate, hash: hash, expectedCount: a.Length);
 			foreach (T value in a)
 			{
-				counts.AddOrUpdate<IntIncrement>(value, 1);
+				counts.AddOrUpdate<int, T, Int32Increment>(value, 1);
 			}
 			foreach (T value in b)
 			{
-				if (!counts.TryUpdate<IntDecrement>(value, out int count) || count is -1)
+				var (success, _, _, count) = counts.TryUpdate<Int32Decrement>(value);
+				if (!success || count is -1)
 				{
 					return false;
 				}
@@ -1395,34 +1419,34 @@ namespace Towel
 		/// <typeparam name="T">The element type of each span.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if neither span contains an element the other does not.</returns>
 		public static bool SetEquals<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = default, Func<T, int>? hash = default) =>
-			SetEquals<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
+			SetEquals<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
 
 		/// <summary>Determines if neither span contains an element the other does not.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="Equate">The function for determining equality of elements.</typeparam>
-		/// <typeparam name="Hash">The function for hashing the elements.</typeparam>
+		/// <typeparam name="TEquate">The function for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The function for hashing the values.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of elements.</param>
-		/// <param name="hash">The function for hashing the elements.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if neither span contains an element the other does not.</returns>
-		public static bool SetEquals<T, Equate, Hash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Equate equate = default, Hash hash = default)
-			where Equate : struct, IFunc<T, T, bool>
-			where Hash : struct, IFunc<T, int>
+		public static bool SetEquals<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int>
 		{
 			if (a.IsEmpty && b.IsEmpty)
 			{
 				return true;
 			}
-			SetHashLinked<T, Equate, Hash> a_counts = new(
+			SetHashLinked<T, TEquate, THash> a_counts = new(
 				equate: equate,
 				hash: hash,
 				expectedCount: a.Length);
-			SetHashLinked<T, Equate, Hash> b_counts = new(
+			SetHashLinked<T, TEquate, THash> b_counts = new(
 				equate: equate,
 				hash: hash,
 				expectedCount: a.Length);
@@ -1445,34 +1469,31 @@ namespace Towel
 
 		#region ContainsDuplicates
 
-		/// <summary>Determines if the span contains any duplicate elements.</summary>
+		/// <summary>Determines if the span contains any duplicate values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
 		/// <param name="span">The span to look for duplicates in.</param>
-		/// <param name="equate">The function for equating elements.</param>
-		/// <param name="hash">The function for hashing elements.</param>
+		/// <param name="equate">The function for equating values.</param>
+		/// <param name="hash">The function for hashing values.</param>
 		/// <returns>True if the span contains duplicates.</returns>
 		public static bool ContainsDuplicates<T>(Span<T> span, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
-			ContainsDuplicates<T, FuncRuntime<T, T, bool>, FuncRuntime<T, int>>(span, equate ?? Statics.Equate, hash ?? DefaultHash);
+			ContainsDuplicates<T, SFunc<T, T, bool>, SFunc<T, int>>(span, equate ?? Statics.Equate, hash ?? DefaultHash);
 
-		/// <summary>Determines if the span contains any duplicate elements.</summary>
+		/// <summary>Determines if the span contains any duplicate values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="Equate">The function for equating elements.</typeparam>
-		/// <typeparam name="Hash">The function for hashing elements.</typeparam>
+		/// <typeparam name="TEquate">The function for equating values.</typeparam>
+		/// <typeparam name="THash">The function for hashing values.</typeparam>
 		/// <param name="span">The span to look for duplicates in.</param>
-		/// <param name="equate">The function for equating elements.</param>
-		/// <param name="hash">The function for hashing elements.</param>
+		/// <param name="equate">The function for equating values.</param>
+		/// <param name="hash">The function for hashing values.</param>
 		/// <returns>True if the span contains duplicates.</returns>
-		public static bool ContainsDuplicates<T, Equate, Hash>(Span<T> span, Equate equate = default, Hash hash = default)
-			where Equate : struct, IFunc<T, T, bool>
-			where Hash : struct, IFunc<T, int>
+		public static bool ContainsDuplicates<T, TEquate, THash>(Span<T> span, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int>
 		{
-			SetHashLinked<T, Equate, Hash> set = new(
-				equate: equate,
-				hash: hash,
-				expectedCount: span.Length);
+			SetHashLinked<T, TEquate, THash> set = new(equate: equate, hash: hash, expectedCount: span.Length);
 			foreach (T element in span)
 			{
-				if (!set.TryAdd(element))
+				if (!set.TryAdd(element).Success)
 				{
 					return true;
 				}
@@ -1488,24 +1509,24 @@ namespace Towel
 		/// <typeparam name="T">The element type of the span.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="value">The value to look for.</param>
-		/// <param name="equate">The function for equating elements.</param>
+		/// <param name="equate">The function for equating values.</param>
 		/// <returns>True if the value was found.</returns>
 		public static bool Contains<T>(Span<T> span, T value, Func<T, T, bool>? equate = null) =>
-			Contains<T, FuncRuntime<T, T, bool>>(span, value, equate ?? Statics.Equate);
+			Contains<T, SFunc<T, T, bool>>(span, value, equate ?? Statics.Equate);
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="Equate">The function for equating elements.</typeparam>
+		/// <typeparam name="TEquate">The function for equating values.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="value">The value to look for.</param>
-		/// <param name="equate">The function for equating elements.</param>
+		/// <param name="equate">The function for equating values.</param>
 		/// <returns>True if the value was found.</returns>
-		public static bool Contains<T, Equate>(Span<T> span, T value, Equate equate = default)
-			where Equate : struct, IFunc<T, T, bool>
+		public static bool Contains<T, TEquate>(Span<T> span, T value, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			foreach (T element in span)
 			{
-				if (equate.Do(value, element))
+				if (equate.Invoke(value, element))
 				{
 					return true;
 				}
@@ -1520,7 +1541,7 @@ namespace Towel
 		/// <summary>Determines if a span contains any predicated values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
 		/// <param name="span">The span to scan for predicated values in.</param>
-		/// <param name="predicate">The predicate of the elements.</param>
+		/// <param name="predicate">The predicate of the values.</param>
 		/// <returns>True if a predicated was found.</returns>
 		public static bool Any<T>(Span<T> span, Func<T, bool> predicate)
 		{
@@ -1528,12 +1549,12 @@ namespace Towel
 			{
 				throw new ArgumentNullException(nameof(predicate));
 			}
-			return Any<T, FuncRuntime<T, bool>>(span, predicate);
+			return Any<T, SFunc<T, bool>>(span, predicate);
 		}
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="Predicate">The function for equating elements.</typeparam>
+		/// <typeparam name="Predicate">The function for equating values.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="predicate">The value to look for.</param>
 		/// <returns>True if a predicated was found.</returns>
@@ -1542,7 +1563,7 @@ namespace Towel
 		{
 			foreach (T element in span)
 			{
-				if (predicate.Do(element))
+				if (predicate.Invoke(element))
 				{
 					return true;
 				}
@@ -1556,16 +1577,17 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
 		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetLeast<T, Compare>(System.Collections.Generic.IEnumerable<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T[] GetLeast<T, TCompare>(System.Collections.Generic.IEnumerable<T> values, int count, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (values is null) throw new ArgumentNullException(nameof(values));
 			if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} <= 0");
-			HeapArray<T, Compare> heap = new(minimumCapacity: count + 1);
+			HeapArray<T, TCompare> heap = new(minimumCapacity: count + 1, compare: compare);
 			foreach (T value in values)
 			{
 				heap.Enqueue(value);
@@ -1581,17 +1603,18 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
 		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetLeast<T, Compare>(ReadOnlySpan<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult>
+		public static T[] GetLeast<T, TCompare>(ReadOnlySpan<T> values, int count, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (values.IsEmpty) throw new ArgumentException($"{nameof(values)}.{nameof(values.IsEmpty)}", nameof(values));
 			if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} <= 0");
 			if (count > values.Length) throw new ArgumentOutOfRangeException(nameof(count), count, $@"{nameof(count)} > {nameof(values)}.{nameof(values.Length)}");
-			HeapArray<T, Compare> heap = new(minimumCapacity: count + 1);
+			HeapArray<T, TCompare> heap = new(minimumCapacity: count + 1, compare: compare);
 			foreach (T value in values)
 			{
 				heap.Enqueue(value);
@@ -1605,23 +1628,61 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
 		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetGreatest<T, Compare>(System.Collections.Generic.IEnumerable<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			GetLeast<T, CompareInvert<T, Compare>>(values, count);
+		public static T[] GetGreatest<T, TCompare>(System.Collections.Generic.IEnumerable<T> values, int count, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			GetLeast<T, CompareInvert<T, TCompare>>(values, count, compare);
 
 		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="Compare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
 		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
-		public static T[] GetGreatest<T, Compare>(ReadOnlySpan<T> values, int count)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			GetLeast<T, CompareInvert<T, Compare>>(values, count);
+		public static T[] GetGreatest<T, TCompare>(ReadOnlySpan<T> values, int count, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			GetLeast<T, CompareInvert<T, TCompare>>(values, count, compare);
+
+		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
+		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetGreatest<T>(System.Collections.Generic.IEnumerable<T> values, int count, Func<T, T, CompareResult>? compare = null) =>
+			GetGreatest<T, SFunc<T, T, CompareResult>>(values, count, compare ?? Compare);
+
+		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
+		/// <returns>The <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetGreatest<T>(ReadOnlySpan<T> values, int count, Func<T, T, CompareResult>? compare = null) =>
+			GetGreatest<T, SFunc<T, T, CompareResult>>(values, count, compare ?? Compare);
+
+		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
+		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetLeast<T>(System.Collections.Generic.IEnumerable<T> values, int count, Func<T, T, CompareResult>? compare = null) =>
+			GetLeast<T, SFunc<T, T, CompareResult>>(values, count, compare ?? Compare);
+
+		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
+		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
+		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
+		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
+		/// <returns>The <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</returns>
+		public static T[] GetLeast<T>(ReadOnlySpan<T> values, int count, Func<T, T, CompareResult>? compare = null) =>
+			GetLeast<T, SFunc<T, T, CompareResult>>(values, count, compare ?? Compare);
 
 		#endregion
 
@@ -1681,7 +1742,7 @@ namespace Towel
 		/// <param name="a">The first sequence of the zip.</param>
 		/// <param name="b">The second sequence of the zip.</param>
 		/// <returns>An <see cref="System.Collections.Generic.IEnumerable{T}"/> of <see cref="ValueTuple{T1, T2}"/>'s containing the values of <paramref name="a"/> and <paramref name="b"/>.</returns>
-		/// <exception cref="ArgumentException">Thrown when <paramref name="a"/> and <paramref name="b"/> don't have the same number of elements.</exception>
+		/// <exception cref="ArgumentException">Thrown when <paramref name="a"/> and <paramref name="b"/> don't have the same number of values.</exception>
 		/// <exception cref="ArgumentNullException">Thrown when <paramref name="a"/> or <paramref name="b"/> is null.</exception>
 		public static System.Collections.Generic.IEnumerable<(T1 A, T2 B)> Zip<T1, T2>(System.Collections.Generic.IEnumerable<T1> a, System.Collections.Generic.IEnumerable<T2> b)
 		{

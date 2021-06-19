@@ -1,46 +1,75 @@
 ﻿using System;
-using System.Collections.Generic;
 using static Towel.Statics;
 
 namespace Towel.DataStructures
 {
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	public interface IRedBlackTree<T, _Compare> : ISortedBinaryTree<T, _Compare> { }
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	public interface IRedBlackTree<T> : ISortedBinaryTree<T>
+	{
 
-	/// <summary>Contains extension methods for the RedBlackTree interface.</summary>
-	public static class RedBlackTree { }
+	}
 
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	/// <typeparam name="_Compare">The compare delegate.</typeparam>
-	public class RedBlackTreeLinked<T, _Compare> : IRedBlackTree<T, _Compare>
-		where _Compare : struct, IFunc<T, T, CompareResult>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public interface IRedBlackTree<T, TCompare> : IRedBlackTree<T>, ISortedBinaryTree<T, TCompare>
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+
+	}
+
+	/// <summary>Static helpers for <see cref="IRedBlackTree{T}"/> and <see cref="IRedBlackTree{T, TCompare}"/>.</summary>
+	public static class RedBlackTree
+	{
+
+	}
+
+	/// <summary>Static helpers for <see cref="RedBlackTreeLinked{T, TCompare}"/>.</summary>
+	public static class RedBlackTreeLinked
+	{
+		#region Extension Methods
+
+		/// <summary>Constructs a new <see cref="RedBlackTreeLinked{T, TCompare}"/>.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <returns>The new constructed <see cref="RedBlackTreeLinked{T, TCompare}"/>.</returns>
+		public static RedBlackTreeLinked<T, SFunc<T, T, CompareResult>> New<T>(
+			Func<T, T, CompareResult>? compare = null) =>
+			new(compare ?? Compare);
+
+		#endregion
+	}
+
+	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
+	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+	/// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
+	public class RedBlackTreeLinked<T, TCompare> : IRedBlackTree<T, TCompare>, ICloneable<RedBlackTreeLinked<T, TCompare>>
+		where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal const bool Red = true;
 		internal const bool Black = false;
-		internal readonly Node _sentinelNode = new(value: default, color: Black);
+		internal readonly Node _sentinelNode = new(value: default!, color: Black, leftChild: null!, rightChild: null!);
 
-		internal _Compare _compare;
+		internal TCompare _compare;
 		internal int _count;
 		internal Node _root;
 
-		#region Node
+		#region Nested Types
 
 		internal class Node
 		{
 			internal T Value;
 			internal bool Color;
 			internal Node? Parent;
-			internal Node? LeftChild;
-			internal Node? RightChild;
+			internal Node LeftChild;
+			internal Node RightChild;
 
 			public Node(
 				T value,
+				Node leftChild,
+				Node rightChild,
 				bool color = Red,
-				Node? parent = null,
-				Node? leftChild = null,
-				Node? rightChild = null)
+				Node? parent = null)
 			{
 				Value = value;
 				Color = color;
@@ -56,7 +85,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new Red Black Tree.</summary>
 		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-		public RedBlackTreeLinked(_Compare compare = default)
+		public RedBlackTreeLinked(TCompare compare = default)
 		{
 			_root = _sentinelNode;
 			_compare = compare;
@@ -64,9 +93,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructor for cloning purposes.</summary>
 		/// <param name="tree">The tree to be cloned.</param>
-		internal RedBlackTreeLinked(RedBlackTreeLinked<T, _Compare> tree)
+		internal RedBlackTreeLinked(RedBlackTreeLinked<T, TCompare> tree)
 		{
-			Node Clone(Node node, Node parent)
+			Node Clone(Node node, Node? parent)
 			{
 				if (node == _sentinelNode)
 				{
@@ -75,9 +104,11 @@ namespace Towel.DataStructures
 				Node clone = new(
 					value: node.Value,
 					color: node.Color,
-					parent: parent);
-				clone.LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild, clone);
-				clone.RightChild = node.RightChild is null ? null : Clone(node.RightChild, clone);
+					parent: parent,
+					leftChild: null!,
+					rightChild: null!);
+				clone.LeftChild = node.LeftChild == _sentinelNode ? _sentinelNode : Clone(node.LeftChild, clone);
+				clone.RightChild = node.RightChild == _sentinelNode ? _sentinelNode : Clone(node.RightChild, clone);
 				return clone;
 			}
 			_compare = tree._compare;
@@ -89,7 +120,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>Gets the current least item in the tree.</summary>
+		/// <inheritdoc/>
 		public T CurrentLeast
 		{
 			get
@@ -107,7 +138,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>Gets the current greated item in the tree.</summary>
+		/// <inheritdoc/>
 		public T CurrentGreatest
 		{
 			get
@@ -125,64 +156,53 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>The number of items in this data structure.</summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
-		/// <summary>The comparison function being utilized by this structure.</summary>
-		public _Compare Compare => _compare;
+		/// <inheritdoc/>
+		public TCompare Compare => _compare;
 
 		#endregion
 
 		#region Methods
 
-		/// <summary>Tries to add a value to the Red-Black tree.</summary>
-		/// <param name="value">The value to be added to the Red-Black tree.</param>
-		/// <param name="exception">The exception that occurred if the add failed.</param>
-		/// <returns>True if the add was successful or false if not.</returns>
-		public bool TryAdd(T value, out Exception? exception)
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
-			Exception? capturedException = null;
-			Node addition = new(
-				value: value,
-				leftChild: _sentinelNode,
-				rightChild: _sentinelNode);
+			Exception? exception = null;
+			Node addition = new(value: value, leftChild: _sentinelNode, rightChild: _sentinelNode);
 			Node node = _root;
 			while (node != _sentinelNode)
 			{
 				addition.Parent = node;
-				CompareResult compareResult = _compare.Do(value, node.Value);
+				CompareResult compareResult = _compare.Invoke(value, node.Value);
 				switch (compareResult)
 				{
 					case Less:    node = node.LeftChild; break;
 					case Greater: node = node.RightChild; break;
 					case Equal:
-						capturedException = new ArgumentException($"Adding to add a duplicate value to a {nameof(RedBlackTreeLinked<T>)}: {value}.", nameof(value));
+						exception = new ArgumentException($"Adding to add a duplicate value to a {nameof(RedBlackTreeLinked<T, TCompare>)}: {value}.", nameof(value));
 						goto Break;
 					default:
-						capturedException = compareResult.IsDefined()
-							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+						exception = new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 						goto Break;
 				}
 			}
 			Break:
-			if (capturedException is not null)
+			if (exception is not null)
 			{
-				exception = capturedException;
-				return false;
+				return (false, exception);
 			}
 			if (addition.Parent is not null)
 			{
-				CompareResult compareResult = _compare.Do(addition.Value, addition.Parent.Value);
+				CompareResult compareResult = _compare.Invoke(addition.Value, addition.Parent.Value);
 				switch (compareResult)
 				{
 					case Less:    addition.Parent.LeftChild  = addition; break;
 					case Greater: addition.Parent.RightChild = addition; break;
-					case Equal:   capturedException = new CorruptedDataStructureException(); break;
+					case Equal:   exception = new CorruptedDataStructureException(); break;
 					default:
-						capturedException = compareResult.IsDefined()
-							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+						exception = new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 						break;
 				}
 			}
@@ -190,132 +210,81 @@ namespace Towel.DataStructures
 			{
 				_root = addition;
 			}
+			if (exception is not null)
+			{
+				return (false, exception);
+			}
 			BalanceAddition(addition);
 			_count += 1;
-			exception = null;
-			return true;
+			return (true, null);
 		}
 
-		/// <summary>Returns the tree to an empty state.</summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_root = _sentinelNode;
 			_count = 0;
 		}
 
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public RedBlackTreeLinked<T, _Compare> Clone() => new(this);
+		/// <inheritdoc/>
+		public RedBlackTreeLinked<T, TCompare> Clone() => new(this);
 
-		/// <summary>Determines if the tree contains a given value;</summary>
-		/// <param name="value">The value to see if the tree contains.</param>
-		/// <returns>True if the tree contains the value. False if not.</returns>
-		public bool Contains(T value) => Contains(new SiftFromCompareAndValue<T, _Compare>(value, _compare));
+		/// <inheritdoc/>
+		public bool Contains(T value) => ContainsSift<SiftFromCompareAndValue<T, TCompare>>(new(value, Compare));
 
-		/// <summary>
-		/// Determines if this structure contains an item by a given key.
-		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
-		/// </summary>
-		/// <param name="sift">The sorting technique (must synchronize with this structure's sorting).</param>
-		/// <returns>True of contained, False if not.</returns>
-		public bool Contains(Func<T, CompareResult> sift) =>
-			Contains<FuncRuntime<T, CompareResult>>(sift);
-
-		/// <summary>
-		/// Determines if this structure contains an item by a given key.
-		/// <para>Runtime: O(ln(Count)), Ω(1)</para>
-		/// </summary>
-		/// <typeparam name="Sift">The sifting method.</typeparam>
-		/// <param name="sift">The sifting method.</param>
-		/// <returns>True of contained, False if not.</returns>
-		public bool Contains<Sift>(Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		/// <inheritdoc/>
+		public bool ContainsSift<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node node = _root;
 			while (node != _sentinelNode && node is not null)
 			{
-				CompareResult compareResult = sift.Do(node.Value);
+				CompareResult compareResult = sift.Invoke(node.Value);
 				switch (compareResult)
 				{
 					case Less:    node = node.RightChild; break;
 					case Greater: node = node.LeftChild;  break;
 					case Equal:   return true;
-					default:
-						throw compareResult.IsDefined()
-							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+					default: throw new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 				}
 			}
 			return false;
 		}
 
-		/// <summary>Tries to get a value.</summary>
-		/// <param name="sift">The compare delegate.</param>
-		/// <param name="value">The value if it was found or default.</param>
-		/// <param name="exception">The exception that occurred if the get failed.</param>
-		/// <returns>True if the value was found or false if not.</returns>
-		public bool TryGet(out T? value, out Exception? exception, Func<T, CompareResult> sift) =>
-			TryGet<FuncRuntime<T, CompareResult>>(out value, out exception, sift);
-
-		/// <summary>Tries to get a value.</summary>
-		/// <typeparam name="Sift">The compare delegate.</typeparam>
-		/// <param name="sift">The compare delegate.</param>
-		/// <param name="value">The value if it was found or default.</param>
-		/// <param name="exception">The exception that occurred if the get failed.</param>
-		/// <returns>True if the value was found or false if not.</returns>
-		public bool TryGet<Sift>(out T? value, out Exception? exception, Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		/// <inheritdoc/>
+		public (bool Success, T? Value, Exception? Exception) TryGet<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node node = _root;
 			while (node != _sentinelNode)
 			{
-				CompareResult compareResult = sift.Do(node.Value);
+				CompareResult compareResult = sift.Invoke(node.Value);
 				switch (compareResult)
 				{
 					case Less:    node = node.LeftChild; break;
 					case Greater: node = node.RightChild; break;
-					case Equal:
-						value = node.Value;
-						exception = null;
-						return true;
+					case Equal: return (true, node.Value, null);
 					default:
 						throw compareResult.IsDefined()
 							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+							: new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned.");
 				}
 			}
-			value = default;
-			exception = new ArgumentException("Attempting to get a non-existing value.");
-			return false;
+			return (false, default, new ArgumentException("Attempting to get a non-existing value."));
 		}
 
-		/// <summary>Tries to remove a value.</summary>
-		/// <param name="value">The value to remove.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(T value, out Exception? exception) =>
-			TryRemove(out exception, new SiftFromCompareAndValue<T, _Compare>(value, _compare));
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryRemove(T value) => TryRemoveSift<SiftFromCompareAndValue<T, TCompare>>(new(value, Compare));
 
-		/// <summary>Tries to remove a value.</summary>
-		/// <param name="sift">The compare delegate.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove(out Exception? exception, Func<T, CompareResult> sift) =>
-			TryRemove<FuncRuntime<T, CompareResult>>(out exception, sift);
-
-		/// <summary>Tries to remove a value.</summary>
-		/// <typeparam name="Sift">The compare delegate.</typeparam>
-		/// <param name="sift">The compare delegate.</param>
-		/// <param name="exception">The exception that occurred if the remove failed.</param>
-		/// <returns>True if the remove was successful or false if not.</returns>
-		public bool TryRemove<Sift>(out Exception? exception, Sift sift = default)
-			where Sift : struct, IFunc<T, CompareResult>
+		/// <inheritdoc/>
+		public (bool Success, Exception? Exception) TryRemoveSift<TSift>(TSift sift = default)
+			where TSift : struct, IFunc<T, CompareResult>
 		{
 			Node node;
 			node = _root;
 			while (node != _sentinelNode)
 			{
-				CompareResult compareResult = sift.Do(node.Value);
+				CompareResult compareResult = sift.Invoke(node.Value);
 				switch (compareResult)
 				{
 					case Less:    node = node.RightChild; break;
@@ -323,21 +292,16 @@ namespace Towel.DataStructures
 					case Equal:
 						if (node == _sentinelNode)
 						{
-							exception = new ArgumentException("Attempting to remove a non-existing entry.");
-							return false;
+							return (false,  new ArgumentException("Attempting to remove a non-existing entry."));
 						}
 						Remove(node);
 						_count -= 1;
-						exception = null;
-						return true;
+						return (true, null);
 					default:
-						throw compareResult.IsDefined()
-							? new TowelBugException($"Unhandled {nameof(CompareResult)} value: {compareResult}.")
-							: new ArgumentException($"Invalid {nameof(_Compare)} function; an undefined {nameof(CompareResult)} was returned.", nameof(_Compare));
+						return (false, new ArgumentException($"Invalid {nameof(TCompare)} function; an undefined {nameof(CompareResult)} was returned."));
 				}
 			}
-			exception = new ArgumentException("Attempting to remove a non-existing entry.");
-			return false;
+			return (false, new ArgumentException("Attempting to remove a non-existing entry."));
 		}
 
 		internal void Remove(Node removal)
@@ -390,300 +354,142 @@ namespace Towel.DataStructures
 			}
 		}
 
-		#region Stepper And IEnumerable
-
-		#region Stepper
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperRef<StepToStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(Action<T> step) =>
-			Stepper<ActionRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void StepperRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public void Stepper(StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(Func<T, StepStatus> step) => StepperBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus Stepper(StepRefBreak<T> step) => StepperRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="DataStructure.Stepper_O_n_step_XML"/>
-		public StepStatus StepperRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			StepStatus Stepper(Node node)
 			{
 				if (node != _sentinelNode)
 				{
-					return
-						Stepper(node.LeftChild) is Break ? Break :
-						step.Do(ref node.Value) is Break ? Break :
-						Stepper(node.RightChild) is Break ? Break :
-						Continue;
+					if (Stepper(node.LeftChild) is Break ||
+						step.Invoke(node.Value) is Break ||
+						Stepper(node.RightChild) is Break)
+						return Break;
 				}
 				return Continue;
 			}
 			return Stepper(_root);
 		}
 
-		#endregion
-
-		#region Stepper (ranged)
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void Stepper<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperBreak<StepBreakFromAction<T, Step>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void Stepper(T minimum, T maximum, Action<T> step) =>
-			Stepper<ActionRuntime<T>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void StepperRef<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperRefBreak<StepRefBreakFromStepRef<T, Step>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void Stepper(T minimum, T maximum, StepRef<T> step) =>
-			StepperRef<StepRefRuntime<T>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus StepperBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus Stepper(T minimum, T maximum, Func<T, StepStatus> step) =>
-			StepperBreak<StepBreakRuntime<T>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus Stepper(T minimum, T maximum, StepRefBreak<T> step) =>
-			StepperRefBreak<StepRefBreakRuntime<T>>(minimum, maximum);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus StepperRefBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		/// <inheritdoc/>
+		public virtual StepStatus StepperBreak<TStep>(T minimum, T maximum, TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
-			if (_compare.Do(minimum, maximum) is Greater)
-			{
-				throw new InvalidOperationException($"{nameof(minimum)}[{minimum}] > {nameof(maximum)}[{maximum}]");
-			}
-
 			StepStatus Stepper(Node node)
 			{
 				if (node != _sentinelNode)
 				{
-					if (_compare.Do(node.Value, minimum) is Less)
+					if (_compare.Invoke(node.Value, minimum) is Less)
 					{
 						return Stepper(node.RightChild);
 					}
-					else if (_compare.Do(node.Value, maximum) is Greater)
+					else if (_compare.Invoke(node.Value, maximum) is Greater)
 					{
 						return Stepper(node.LeftChild);
 					}
 					else
 					{
-						return
-							Stepper(node.LeftChild) is Break ? Break :
-							step.Do(ref node.Value) is Break ? Break :
-							Stepper(node.RightChild) is Break ? Break :
-							Continue;
+						if (Stepper(node.LeftChild) is Break ||
+							step.Invoke(node.Value) is Break ||
+							Stepper(node.RightChild) is Break)
+							return Break;
 					}
 				}
 				return Continue;
 			}
-
+			if (_compare.Invoke(minimum, maximum) is Greater)
+			{
+				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
+			}
 			return Stepper(_root);
 		}
 
-		#endregion
-
-		#region StepperReverse
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public void StepperReverse<Step>(Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperReverseBreak<StepBreakFromAction<T, Step>>(step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public void StepperReverse(Action<T> step) =>
-			StepperReverse<ActionRuntime<T>>(step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public void StepperReverseRef<Step>(Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperReverseRefBreak<StepRefBreakFromStepRef<T, Step>>(step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public void StepperReverse(StepRef<T> step) =>
-			StepperReverseRef<StepRefRuntime<T>>(step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public StepStatus StepperReverseBreak<Step>(Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public StepStatus StepperReverse(Func<T, StepStatus> step) =>
-			StepperReverseBreak<StepBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public StepStatus StepperReverse(StepRefBreak<T> step) =>
-			StepperReverseRefBreak<StepRefBreakRuntime<T>>(step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_O_n_step_XML"/>
-		public StepStatus StepperReverseRefBreak<Step>(Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		/// <inheritdoc/>
+		public StepStatus StepperReverseBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (node is not null)
+				if (node != _sentinelNode)
 				{
-					return
-						StepperReverse(node.RightChild) is Break ? Break :
-						step.Do(ref node.Value) is Break ? Break :
-						StepperReverse(node.LeftChild) is Break ? Break :
-						Continue;
+					if (StepperReverse(node.LeftChild) is Break ||
+						step.Invoke(node.Value) is Break ||
+						StepperReverse(node.RightChild) is Break)
+						return Break;
 				}
 				return Continue;
 			}
 			return StepperReverse(_root);
 		}
 
-		#endregion
-
-		#region StepperReverse (ranged)
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void StepperReverse<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IAction<T> =>
-			StepperReverseBreak<StepBreakFromAction<T, Step>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void StepperReverse(T minimum, T maximum, Action<T> step) =>
-			StepperReverse<ActionRuntime<T>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void StepperReverseRef<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStepRef<T> =>
-			StepperReverseRefBreak<StepRefBreakFromStepRef<T, Step>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual void StepperReverse(T minimum, T maximum, StepRef<T> step) =>
-			StepperReverseRef<StepRefRuntime<T>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus StepperReverseBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IFunc<T, StepStatus> =>
-			StepperReverseRefBreak<StepRefBreakFromStepBreak<T, Step>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus StepperReverse(T minimum, T maximum, Func<T, StepStatus> step) =>
-			StepperReverseBreak<StepBreakRuntime<T>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus StepperReverse(T minimum, T maximum, StepRefBreak<T> step) =>
-			StepperReverseRefBreak<StepRefBreakRuntime<T>>(minimum, maximum, step);
-
-		/// <inheritdoc cref="SortedBinaryTree.Stepper_Reverse_MinMax_O_n_step_Ω_1_XML"/>
-		public virtual StepStatus StepperReverseRefBreak<Step>(T minimum, T maximum, Step step = default)
-			where Step : struct, IStepRefBreak<T>
+		/// <inheritdoc/>
+		public virtual StepStatus StepperReverseBreak<TStep>(T minimum, T maximum, TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>
 		{
 			StepStatus StepperReverse(Node node)
 			{
-				if (node is not null)
+				if (node != _sentinelNode)
 				{
-					if (_compare.Do(node.Value, minimum) is Less)
+					if (_compare.Invoke(node.Value, minimum) is Less)
 					{
 						return StepperReverse(node.RightChild);
 					}
-					else if (_compare.Do(node.Value, maximum) is Greater)
+					else if (_compare.Invoke(node.Value, maximum) is Greater)
 					{
 						return StepperReverse(node.LeftChild);
 					}
 					else
 					{
-						return
-							StepperReverse(node.RightChild) is Break ? Break :
-							step.Do(ref node.Value) is Break ? Break :
-							StepperReverse(node.LeftChild) is Break ? Break :
-							Continue;
+						if (StepperReverse(node.LeftChild) is Break ||
+							step.Invoke(node.Value) is Break ||
+							StepperReverse(node.RightChild) is Break)
+							return Break;
 					}
 				}
 				return Continue;
 			}
-			if (_compare.Do(minimum, maximum) is Greater)
+			if (_compare.Invoke(minimum, maximum) is Greater)
 			{
 				throw new InvalidOperationException("!(" + nameof(minimum) + " <= " + nameof(maximum) + ")");
 			}
 			return StepperReverse(_root);
 		}
 
-		#endregion
-
-		#region IEnumerable
-
-		/// <summary>Returns the IEnumerator for this data structure.</summary>
-		/// <returns>The IEnumerator for this data structure.</returns>
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>Returns the IEnumerator for this data structure.</summary>
-		/// <returns>The IEnumerator for this data structure.</returns>
-		/// <citation>
-		/// This method was provided by user CyrusNajmabadi from GitHub.
-		/// </citation>
-		public IEnumerator<T> GetEnumerator()
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			Node? GetNextNode(Node current)
+			Node? GetNextNode(Node node)
 			{
-				if (current.RightChild is not null && current.RightChild != _sentinelNode)
+				if (node.RightChild != _sentinelNode)
 				{
-					return GetLeftMostNode(current.RightChild);
+					return GetLeftMostNode(node.RightChild);
 				}
-				var parent = current.Parent;
-				while (parent is not null && current == parent.RightChild)
+				var parent = node.Parent;
+				while (parent is not null && node == parent.RightChild)
 				{
-					current = parent;
+					node = parent;
 					parent = parent.Parent;
 				}
 				return parent;
 			}
-
-			for (var current = GetLeftMostNode(_root); current is not null; current = GetNextNode(current))
+			if (_count > 0)
 			{
-				yield return current.Value;
+				for (var node = GetLeftMostNode(_root); node is not null; node = GetNextNode(node))
+				{
+					yield return node.Value;
+				}
 			}
 		}
-
-		#endregion
-
-		#endregion
-
-		#region Helpers
 
 		internal void BalanceAddition(Node balancing)
 		{
 			Node temp;
-			while (balancing != _root && balancing.Parent.Color == Red)
+			while (balancing != _root && balancing.Parent!.Color == Red)
 			{
-				if (balancing.Parent == balancing.Parent.Parent.LeftChild)
+				if (balancing.Parent == balancing.Parent.Parent!.LeftChild)
 				{
 					temp = balancing.Parent.Parent.RightChild;
 					if (temp is not null && temp.Color == Red)
@@ -700,8 +506,8 @@ namespace Towel.DataStructures
 							balancing = balancing.Parent;
 							RotateLeft(balancing);
 						}
-						balancing.Parent.Color = Black;
-						balancing.Parent.Parent.Color = Red;
+						balancing.Parent!.Color = Black;
+						balancing.Parent.Parent!.Color = Red;
 						RotateRight(balancing.Parent.Parent);
 					}
 				}
@@ -722,8 +528,8 @@ namespace Towel.DataStructures
 							balancing = balancing.Parent;
 							RotateRight(balancing);
 						}
-						balancing.Parent.Color = Black;
-						balancing.Parent.Parent.Color = Red;
+						balancing.Parent!.Color = Black;
+						balancing.Parent.Parent!.Color = Red;
 						RotateLeft(balancing.Parent.Parent);
 					}
 				}
@@ -780,7 +586,7 @@ namespace Towel.DataStructures
 			Node temp;
 			while (balancing != _root && balancing.Color == Black)
 			{
-				if (balancing == balancing.Parent.LeftChild)
+				if (balancing == balancing.Parent!.LeftChild)
 				{
 					temp = balancing.Parent.RightChild;
 					if (temp.Color == Red)
@@ -855,52 +661,15 @@ namespace Towel.DataStructures
 			return node;
 		}
 
-		#endregion
-
-		#endregion
-	}
-
-	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
-	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	public class RedBlackTreeLinked<T> : RedBlackTreeLinked<T, FuncRuntime<T, T, CompareResult>>
-	{
-		#region Constructors
-
-		/// <summary>Constructs a new Red Black Tree.</summary>
-		/// <param name="compare">The comparison method to be used when sorting the values of the tree.</param>
-		public RedBlackTreeLinked(Func<T, T, CompareResult> compare = null) : base(compare ?? Statics.Compare) { }
-
-		/// <summary>Constructor for cloning purposes.</summary>
-		/// <param name="tree">The tree to be cloned.</param>
-		internal RedBlackTreeLinked(RedBlackTreeLinked<T> tree)
+		/// <inheritdoc/>
+		public T[] ToArray()
 		{
-			Node Clone(Node node, Node parent)
-			{
-				if (node == _sentinelNode)
-				{
-					return _sentinelNode;
-				}
-				Node clone = new(
-					value: node.Value,
-					color: node.Color,
-					parent: parent);
-				clone.LeftChild = node.LeftChild is null ? null : Clone(node.LeftChild, clone);
-				clone.RightChild = node.RightChild is null ? null : Clone(node.RightChild, clone);
-				return clone;
-			}
-
-			_compare = tree._compare;
-			_count = tree._count;
-			_root = tree._root is null ? null : Clone(tree._root, null);
+			#warning TODO: optimized
+			T[] array = new T[_count];
+			int i = 0;
+			this.Stepper(x => array[i++] = x);
+			return array;
 		}
-
-		#endregion
-
-		#region Clone
-
-		/// <summary>Creates a shallow clone of this data structure.</summary>
-		/// <returns>A shallow clone of this data structure.</returns>
-		public new RedBlackTreeLinked<T> Clone() => new(this);
 
 		#endregion
 	}

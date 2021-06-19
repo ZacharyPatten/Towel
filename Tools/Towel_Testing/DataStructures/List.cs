@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using Towel;
 using Towel.DataStructures;
 
@@ -87,14 +88,14 @@ namespace Towel_Testing.DataStructures
 				List list = new();
 				list.Populate(count, i => values[i % values.Length]);
 				bool Predicate(T x) => x.Equals(values[0]);
-				int removals = list.Stepper().Where(Predicate).Count();
+				int removals = list.Count(Predicate);
 				if (removals == 0)
 				{
 					throw new TowelBugException("Testing Error.");
 				}
 				int fullCount = list.Count;
 				list.RemoveAll(x => x.Equals(values[0]));
-				int occurences = list.Stepper().Where(Predicate).Count();
+				int occurences = list.Count(Predicate);
 				Assert.IsTrue(occurences == 0);
 				Assert.IsTrue(list.Count == fullCount - removals);
 			}

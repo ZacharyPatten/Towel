@@ -36,16 +36,17 @@ namespace GraphSearch
 				//    (edge costs in parenthases)
 
 				// make a graph
-				IGraph<int> graph = new GraphSetOmnitree<int>()
-				{
-					// add nodes
-					0, 1, 2, 3,
-					// add edges
-					{ 0, 1 },
-					{ 1, 2 },
-					{ 2, 3 },
-					{ 0, 3 },
-				};
+				IGraph<int> graph = GraphSetOmnitree.New<int>();
+				// add nodes
+				graph.Add(0);
+				graph.Add(1);
+				graph.Add(2);
+				graph.Add(3);
+				// add edges
+				graph.Add(0, 1);
+				graph.Add(1, 2);
+				graph.Add(2, 3);
+				graph.Add(0, 3);
 
 				// make a heuristic function
 				static int Heuristic(int node) => node switch
@@ -178,7 +179,7 @@ namespace GraphSearch
 
 				// Make Path Finding Functions
 
-				SetHashLinked<Vector2> alreadyUsed = new();
+				ISet<Vector2> alreadyUsed = SetHashLinked.New<Vector2>();
 
 				void Neighbors(Vector2 currentLocation, Action<Vector2> neighbors)
 				{
@@ -280,7 +281,7 @@ namespace GraphSearch
 				float rockRadius = 20f;
 
 				// Make sure we don't re-use locations (must be wiped after running the algorithm)
-				ISet<Vector<float>> alreadyUsed = new SetHashLinked<Vector<float>>();
+				ISet<Vector<float>> alreadyUsed = SetHashLinked.New<Vector<float>>();
 
 				Vector<float> validationVectorStorage = null; // storage to prevent a ton of vectors from being allocated
 
@@ -441,56 +442,70 @@ namespace GraphSearch
 			}
 			#endregion
 
-			#region WeightedGraph and Static Graph search method showcase
-			System.Console.WriteLine("\n Beginning Weightedgraph example");
-			string graphbody = @"
-[A]--10->[B]--15->[C]
- |        |        |
- 5        20       2
- |        |        |
- V        V        V
-[D]--35->[E]--10->[F]
- |        |        |
- 55       30       65
- |        |        |
- V        V        V
-[G]--40->[H]--40->[I]
+			#region Weighted Graph Example
+			{
+				Console.WriteLine("  Weighted Graph Example-------------------");
+				Console.WriteLine();
+				Console.WriteLine("    Graph:");
+				Console.WriteLine();
+				Console.WriteLine("      [A]--10->[B]--15->[C]");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       5        20       2");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       V        V        V");
+				Console.WriteLine("      [D]--35->[E]--10->[F]");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       55       30       65");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       V        V        V");
+				Console.WriteLine("      [G]--40->[H]--40->[I]");
+				Console.WriteLine();
 
-			";
-			System.Console.WriteLine($"For the given graph: {graphbody}");
-			GraphWeightedMap<char, int> WeightedGraph = new();
-			for (char ch = 'A'; ch <= 'I'; ch++) WeightedGraph.Add(ch);//Add Nodes from A to I
-			WeightedGraph.Add('A', 'D', 5); //
-			WeightedGraph.Add('A', 'B', 10);//	[A]--10--[B]--15--[C]
-			WeightedGraph.Add('B', 'C', 15);//	 |        |        |
-			WeightedGraph.Add('B', 'E', 20);//	 5        20       20
-			WeightedGraph.Add('C', 'F', 20);//	 |        |        |
-			WeightedGraph.Add('D', 'E', 35);//	[D]--35--[E]--10--[F]
-			WeightedGraph.Add('D', 'G', 55);//	 |        |        |
-			WeightedGraph.Add('E', 'H', 30);//	 55       30       65
-			WeightedGraph.Add('E', 'F', 10);//	 |        |        |
-			WeightedGraph.Add('F', 'I', 65);//	[G]--40--[H]--40--[I]
-			WeightedGraph.Add('G', 'H', 40);//
-			WeightedGraph.Add('H', 'I', 40);//
+				IGraphWeighted<char, int> WeightedGraph = GraphWeightedMap.New<char, int>();
+				for (char ch = 'A'; ch <= 'I'; ch++)
+				{
+					WeightedGraph.Add(ch);
+				}
+				WeightedGraph.Add('A', 'D', 05);
+				WeightedGraph.Add('A', 'B', 10);
+				WeightedGraph.Add('B', 'C', 15);
+				WeightedGraph.Add('B', 'E', 20);
+				WeightedGraph.Add('C', 'F', 20);
+				WeightedGraph.Add('D', 'E', 35);
+				WeightedGraph.Add('D', 'G', 55);
+				WeightedGraph.Add('E', 'H', 30);
+				WeightedGraph.Add('E', 'F', 10);
+				WeightedGraph.Add('F', 'I', 65);
+				WeightedGraph.Add('G', 'H', 40);
+				WeightedGraph.Add('H', 'I', 40);
 
-			System.Console.WriteLine("Computing Breadth-First-Search from Node 'A' to 'C' :\n");
-			foreach (var node in WeightedGraph.PerformBredthFirstSearch('A', 'C')) System.Console.Write($"{node}, ");
-			System.Console.WriteLine("\nAlternative Delegate based Breadth-First-Search");
-			WeightedGraph.PerformBredthFirstSearch('A', 'C', (x) => System.Console.Write($"{x}, "));
+				Console.WriteLine("    Computing Breadth-First-Search from Node 'A' to 'C' :");
+				foreach (var node in WeightedGraph.PerformBredthFirstSearch('A', 'C'))
+				{
+					Console.Write($"{node}, ");
+				}
+				Console.WriteLine("    Alternative Delegate based Breadth-First-Search");
+				WeightedGraph.PerformBredthFirstSearch('A', 'C', n => Console.Write($"{n}, "));
 
-			System.Console.WriteLine("\n\n Computing Shortest Path via Dijkstra's Algorithm from 'A' to 'I'\n");
-			int totalcost;
-			foreach (var node in WeightedGraph.DijkstraSearch('A', 'I', out totalcost)) System.Console.Write($"{node}, ");
-			System.Console.WriteLine($"\nTotal cost = {totalcost}");
-			System.Console.WriteLine("Alternative Delegate based Dijkstra search");
-			WeightedGraph.DijkstraSearch('A', 'I', (x) => System.Console.Write($"{x}, "), out var _);
+				Console.WriteLine("    Computing Shortest Path via Dijkstra's Algorithm from 'A' to 'I'");
+				int totalcost;
+				foreach (var node in WeightedGraph.DijkstraSearch('A', 'I', out totalcost))
+				{
+					Console.Write($"{node}, ");
+				}
+				Console.WriteLine($"    Total cost = {totalcost}");
+				Console.WriteLine("    Alternative Delegate based Dijkstra search");
+				WeightedGraph.DijkstraSearch('A', 'I', n => Console.Write($"{n}, "), out var _);
 
-			System.Console.WriteLine("\n\n Computing Shortest Path via A* Algorithm from 'A' to 'I'\n");
-			foreach (var node in WeightedGraph.AStarSearch('A', 'I', (x) => 'I' - x, out totalcost)) System.Console.Write($"{node}, ");
-			System.Console.WriteLine($"\nTotal cost = {totalcost}");
-			System.Console.WriteLine("Alternative Delegate based A* Search");
-			WeightedGraph.AStarSearch('A', 'I', (x) => 'I' - x, (x) => System.Console.Write($"{x}, "), out var _);
-
+				Console.WriteLine("    Computing Shortest Path via A* Algorithm from 'A' to 'I'");
+				foreach (var node in WeightedGraph.AStarSearch('A', 'I', n => 'I' - n, out totalcost))
+				{
+					Console.Write($"{node}, ");
+				}
+				Console.WriteLine($"    Total cost = {totalcost}");
+				Console.WriteLine("    Alternative Delegate based A* Search");
+				WeightedGraph.AStarSearch('A', 'I', n => 'I' - n, n => Console.Write($"{n}, "), out var _);
+			}
 			#endregion
 
 			Console.WriteLine();

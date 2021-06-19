@@ -2,105 +2,79 @@
 using System.Reflection;
 using Towel;
 
-namespace Example
+BindingFlags bf =
+	BindingFlags.Public |
+	BindingFlags.NonPublic |
+	BindingFlags.Static |
+	BindingFlags.Instance;
+
+Type            type            = typeof(A);
+MethodInfo      methodInfo      = type.GetMethod(nameof(A.Method), bf)!;
+EventInfo       eventInfo       = type.GetEvent(nameof(A.Event))!;
+ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>())!;
+FieldInfo       fieldInfo       = type.GetField(nameof(A.Field), bf)!;
+PropertyInfo    propertyInfo    = type.GetProperty(nameof(A.Property), bf)!;
+ParameterInfo   parameterInfo   = methodInfo.GetParameters()[0];
+
+Console.WriteLine("You are runnning the TagAttributes example.");
+Console.WriteLine("============================================");
+Console.WriteLine();
+Console.WriteLine(@"  Towel has value-based ""tag"" attributes. Rather than making");
+Console.WriteLine(@"  custom attribute types, you can ""tag"" code members with");
+Console.WriteLine(@"  constant values.");
+Console.WriteLine();
+Console.WriteLine($@"  Lets look up the ""A"" tag on each");
+Console.WriteLine($@"  type of code member:");
+Console.WriteLine();
+Console.WriteLine($"  - type: {type.GetTag("A").Value}");
+Console.WriteLine($"  - method: {methodInfo.GetTag("A").Value}");
+Console.WriteLine($"  - event: {eventInfo.GetTag("A").Value}");
+Console.WriteLine($"  - constructor: {constructorInfo.GetTag("A").Value}");
+Console.WriteLine($"  - field: {fieldInfo.GetTag("A").Value}");
+Console.WriteLine($"  - property: {propertyInfo.GetTag("A").Value}");
+Console.WriteLine($"  - parameter: {parameterInfo.GetTag("A").Value}");
+Console.WriteLine();
+Console.WriteLine($@"  Of course you can use multiple tags per code member.");
+Console.WriteLine($@"  Lets look up the ""B"" tag on");
+Console.WriteLine($@"  on the same code members:");
+Console.WriteLine();
+Console.WriteLine($"  - type: {type.GetTag("B").Value}");
+Console.WriteLine($"  - method: {methodInfo.GetTag("B").Value}");
+Console.WriteLine($"  - event: {eventInfo.GetTag("B").Value}");
+Console.WriteLine($"  - constructor: {constructorInfo.GetTag("B").Value}");
+Console.WriteLine($"  - field: {fieldInfo.GetTag("B").Value}");
+Console.WriteLine($"  - property: {propertyInfo.GetTag("B").Value}");
+Console.WriteLine($"  - parameter: {parameterInfo.GetTag("B").Value}");
+Console.WriteLine();
+Console.WriteLine("============================================");
+Console.WriteLine("Example Complete...");
+Console.WriteLine();
+ConsoleHelper.PromptPressToContinue();
+
+[Tag("A", "works :)")]
+[Tag("B", "A")]
+public class A
 {
-	static class Program
-	{
-		const string MyTagA = "My Tag A";
-		const string MyTagB = "My Tag B";
+	[Tag("A", "works :3")]
+	[Tag("B", "E")]
+	public object? Field;
 
-		static void Main()
-		{
-			Console.WriteLine("You are runnning the TagAttributes example.");
-			Console.WriteLine("============================================");
-			Console.WriteLine();
-			Console.WriteLine(@"  Towel has value-based ""tag"" attributes. Rather than making");
-			Console.WriteLine(@"  custom attribute types, you can ""tag"" code members with");
-			Console.WriteLine(@"  constant values.");
-			Console.WriteLine();
+	[Tag("A", "works :b")]
+	[Tag("B", "F")]
+	public object? Property { get; set; }
 
-			// Reflection Code
-			Type type = typeof(A);
-			MethodInfo methodInfo = typeof(Program).GetMethod(nameof(Method),
-				BindingFlags.Public |
-				BindingFlags.NonPublic |
-				BindingFlags.Static |
-				BindingFlags.Instance);
-			EventInfo eventInfo = typeof(Program).GetEvent(nameof(Event));
-			ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>());
-			FieldInfo fieldInfo = typeof(A).GetField(nameof(A.Field),
-				BindingFlags.Public |
-				BindingFlags.NonPublic |
-				BindingFlags.Static |
-				BindingFlags.Instance);
-			PropertyInfo propertyInfo = typeof(A).GetProperty(nameof(A.Property),
-				BindingFlags.Public |
-				BindingFlags.NonPublic |
-				BindingFlags.Static |
-				BindingFlags.Instance);
-			ParameterInfo parameterInfo = methodInfo.GetParameters()[0];
+	[Tag("A", "works :O")]
+	[Tag("B", "D")]
+	public A() { }
 
-			Console.WriteLine($@"  Lets look up the ""{nameof(MyTagA)}"" tag on each");
-			Console.WriteLine($@"  type of code member:");
-			Console.WriteLine();
+	[Tag("A", "works :P")]
+	[Tag("B", "B")]
+	public static void Method(
+		[Tag("A", "works ;)")]
+		[Tag("B", "G")]
+		object a) => a.ToString();
 
-			// Looking Up MyTagA
-			Console.WriteLine($"  - type: {type.GetTag(MyTagA).Value}");
-			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagA).Value}");
-			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagA).Value}");
-			Console.WriteLine($"  - constructor: {constructorInfo.GetTag(MyTagA).Value}");
-			Console.WriteLine($"  - field: {fieldInfo.GetTag(MyTagA).Value}");
-			Console.WriteLine($"  - property: {propertyInfo.GetTag(MyTagA).Value}");
-			Console.WriteLine($"  - parameter: {parameterInfo.GetTag(MyTagA).Value}");
-
-			Console.WriteLine();
-			Console.WriteLine($@"  Of course you can use multiple tags per code member.");
-			Console.WriteLine($@"  Lets look up the ""{nameof(MyTagB)}"" tag on");
-			Console.WriteLine($@"  on the same code members:");
-			Console.WriteLine();
-
-			// Looking Up MyTagB
-			Console.WriteLine($"  - type: {type.GetTag(MyTagB).Value}");
-			Console.WriteLine($"  - method: {methodInfo.GetTag(MyTagB).Value}");
-			Console.WriteLine($"  - event: {eventInfo.GetTag(MyTagB).Value}");
-			Console.WriteLine($"  - constructor: {constructorInfo.GetTag(MyTagB).Value}");
-			Console.WriteLine($"  - field: {fieldInfo.GetTag(MyTagB).Value}");
-			Console.WriteLine($"  - property: {propertyInfo.GetTag(MyTagB).Value}");
-			Console.WriteLine($"  - parameter: {parameterInfo.GetTag(MyTagB).Value}");
-
-			Console.WriteLine();
-			Console.WriteLine("============================================");
-			Console.WriteLine("Example Complete...");
-			Console.WriteLine();
-			ConsoleHelper.PromptPressToContinue();
-		}
-
-		[Tag(MyTagA, "works :)")]
-		[Tag(MyTagB, "A")]
-		public class A
-		{
-			[Tag(MyTagA, "works :3")]
-			[Tag(MyTagB, "E")]
-			public object Field = new();
-
-			[Tag(MyTagA, "works :b")]
-			[Tag(MyTagB, "F")]
-			public object Property { get; set; }
-
-			[Tag(MyTagA, "works :O")]
-			[Tag(MyTagB, "D")]
-			public A() { }
-		}
-
-		[Tag(MyTagA, "works :P")]
-		[Tag(MyTagB, "B")]
-		public static void Method(
-			[Tag(MyTagA, "works ;)")]
-			[Tag(MyTagB, "G")]
-			object a) => a.ToString();
-
-		[Tag(MyTagA, "works :D")]
-		[Tag(MyTagB, "C")]
-		public static event Action Event;
-	}
+	[Tag("A", "works :D")]
+	[Tag("B", "C")]
+	public static event Action? Event;
 }
