@@ -15,6 +15,45 @@ namespace Measurements
 			Console.WriteLine("==========================================");
 			Console.WriteLine();
 
+			#region Static Unit Conversion Methods
+			{
+				Console.WriteLine("  Static Conversion Methods-------------------------------");
+				Console.WriteLine();
+
+				var a = Measurement.Convert(7d,
+					from: Radians,
+					to: Degrees);
+
+				Console.WriteLine("    var a = Measurement.Convert(7d,");
+				Console.WriteLine("        from: Radians,");
+				Console.WriteLine("        to:   Degrees)");
+				Console.WriteLine();
+
+				var b = Measurement.Convert(8d,
+					from: Meters / Seconds,
+					to: Miles / Hours);
+
+				Console.WriteLine("    var b = Measurement.Convert(8d,");
+				Console.WriteLine("        from: Meters / Seconds,");
+				Console.WriteLine("        to:   Miles / Hours)");
+				Console.WriteLine();
+
+				var c = Measurement.Convert(9d,
+					from: Kilograms * Meters / Seconds / Seconds,
+					to: Grams * Miles / Hours / Hours);
+
+				Console.WriteLine("    var b = Measurement.Convert(9d,");
+				Console.WriteLine("        from: Kilograms * Meters / Seconds / Seconds,");
+				Console.WriteLine("        to:   Grams * Miles / Hours / Hours)");
+				Console.WriteLine();
+
+				Console.WriteLine($"    a: {a}");
+				Console.WriteLine($"    b: {b}");
+				Console.WriteLine($"    c: {c}");
+				Console.WriteLine();
+			}
+			#endregion
+
 			#region Specific Measurement Type Examples
 
 			#region Angle
@@ -301,29 +340,6 @@ namespace Measurements
 
 			#endregion
 
-			#endregion
-
-			#region Static Unit Conversion Methods
-			{
-				// Examples of static measurement unit conversion methods
-
-				// Note: I strongly recommend using the measurement types
-				// versus just the conversion methods if you have the
-				// ability to do so. You don't have type-safeness with
-				// further operations you do with these values.
-
-				double result1 = Measurement.Convert(7d,
-					Radians,  // from
-					Degrees); // to
-
-				double result2 = Measurement.Convert(8d,
-					Meters / Seconds, // from
-					Miles / Hours);   // to
-
-				double result3 = Measurement.Convert(9d,
-					Kilograms * Meters / Seconds / Seconds, // from
-					Grams * Miles / Hours / Hours);         // to
-			}
 			#endregion
 
 			#region Syntax Sugar Example (removing the generic type via alias)
