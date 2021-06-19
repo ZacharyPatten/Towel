@@ -364,7 +364,7 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
 		public static bool Equate<T>(Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
-			Equate<T>(0, Math.Max(a.Length - 1, 0), a, b, equate);
+			Equate<T, SFunc<T, T, bool>>(a, b, equate ?? Equate);
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
@@ -374,53 +374,17 @@ namespace Towel
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
 		public static bool Equate<T, TEquate>(Span<T> a, Span<T> b, TEquate equate = default)
-			where TEquate : struct, IFunc<T, T, bool> =>
-			Equate<T, TEquate>(0, Math.Max(a.Length - 1, 0), a, b, equate);
-
-		/// <summary>Determines if two spans are equal.</summary>
-		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <param name="start">The inclusive starting index to equate from.</param>
-		/// <param name="end">The inclusive ending index to equate to.</param>
-		/// <param name="a">The first span of the equate.</param>
-		/// <param name="b">The second span of the equate.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T>(int start, int end, Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
-			Equate<T, SFunc<T, T, bool>>(start, end, a, b, equate ?? Equate);
-
-		/// <summary>Determines if two spans are equal.</summary>
-		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <typeparam name="TEquate">The element equate function.</typeparam>
-		/// <param name="start">The inclusive starting index to equate from.</param>
-		/// <param name="end">The inclusive ending index to equate to.</param>
-		/// <param name="a">The first span of the equate.</param>
-		/// <param name="b">The second span of the equate.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, TEquate>(int start, int end, Span<T> a, Span<T> b, TEquate equate = default)
 			where TEquate : struct, IFunc<T, T, bool>
 		{
-			if (start < 0)
-			{
-				throw new ArgumentOutOfRangeException(nameof(start), start, $@"{nameof(start)} < 0");
-			}
-			if (a.IsEmpty && b.IsEmpty && end is 0)
+			if (a.IsEmpty && b.IsEmpty)
 			{
 				return true;
-			}
-			if (end >= Math.Min(a.Length, b.Length))
-			{
-				throw new ArgumentOutOfRangeException(nameof(end), end, $@"{nameof(end)} >= Min({nameof(a)}.{nameof(a.Length)} {a.Length}, {nameof(b)}.{nameof(b.Length)} {b.Length})");
-			}
-			if (end < start)
-			{
-				throw new ArgumentOutOfRangeException($@"{nameof(end)} {end} < {nameof(start)} {start}");
 			}
 			if (a.Length != b.Length)
 			{
 				return false;
 			}
-			for (int i = start; i <= end; i++)
+			for (int i = 0; i < a.Length; i++)
 			{
 				if (!equate.Invoke(a[i], b[i]))
 				{
