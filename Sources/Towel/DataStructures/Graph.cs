@@ -368,7 +368,7 @@ namespace Towel.DataStructures
 		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node)
 		{
 			ListArray<T> NodeList = new();
-			Neighbors(node, (x) => NodeList.Add(x));
+			Neighbors(node, n => NodeList.Add(n));
 			return NodeList;
 		}
 
@@ -552,17 +552,13 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>
-		/// Enumerates through the nodes of the graph
-		/// </summary>
-		/// <returns>Enumerator object</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _map.GetKeys().GetEnumerator();
-		/// <summary>Gets enumerator of all neighbours of a node</summary>
-		/// <param name="node">The node to get neighbours of</param>
-		/// <returns>IEnumerable of all neighbours of the given node</returns>
+
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node) => _map[node].Outgoing;
 
-		/// <summary>Clears this graph to an empty state.</summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_edgeCount = 0;
@@ -671,7 +667,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new graph.</summary>
 		/// <param name="equate">The function for equality checking <typeparamref name="T"/> values.</param>
-		/// <param name="hash">The function for hasching <typeparamref name="T"/> values.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		public GraphWeightedMap(TEquate equate = default, THash hash = default)
 		{
 			_map = new(equate, hash);
@@ -878,17 +874,10 @@ namespace Towel.DataStructures
 			return array;
 		}
 
-		/// <summary>Gets enumerator of all neighbours of a node</summary>
-		/// <param name="node">The node to get neighbours of</param>
-		/// <returns>IEnumerable of all neighbours of the given node</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node) => _map[node].OutgoingEdges.GetKeys();
 
-		/// <summary>
-		/// Gets weight or cost between two nodes
-		/// </summary>
-		/// <param name="a">The node where the edge begins</param>
-		/// <param name="b">The node where the edge ends</param>
-		/// <returns>The weight between the nodes</returns>
+		/// <inheritdoc/>
 		public W GetWeight(T a, T b) => _map[a].OutgoingEdges[b] ?? throw new ArgumentException("No edge found between the queired nodes");
 
 		#endregion
