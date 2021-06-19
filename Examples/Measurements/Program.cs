@@ -372,28 +372,42 @@ namespace Measurements
 			#endregion
 
 			#region Parsing
+			{
+				Console.WriteLine("  Parsing-------------------------------");
+				Console.WriteLine();
 
-			string angle1String = angle1.ToString();
-			Angle<double>.TryParse(angle1String, out Angle<double> angle1Parsed);
+				bool aSuccess = Angle<double>.TryParse(angle1.ToString(), out var a);
+				Console.WriteLine($"    Angle<double>.TryParse({angle1}, out var {nameof(a)})");
 
-			string length1String = length1.ToString();
-			Length<double>.TryParse(length1String, out Length<double> length1Parsed);
+				bool bSuccess = Length<double>.TryParse(length1.ToString(), out var b);
+				Console.WriteLine($"    Length<double>.TryParse({length1}, out var {nameof(b)})");
 
-			string density1String = density1.ToString();
-			Density<double>.TryParse(density1String, out Density<double> density1Parsed);
+				bool cSuccess = Density<double>.TryParse(density1.ToString(), out var c);
+				Console.WriteLine($"    Density<double>.TryParse({density1}, out var {nameof(c)})");
 
-			string speedString = "20.5 Meters / Seconds";
-			Speed<float>.TryParse(speedString, out Speed<float> parsedSpeed);
+				string speedString = "20.5 Meters / Seconds";
+				bool dSuccess = Speed<float>.TryParse(speedString, out var d);
+				Console.WriteLine($"    Speed<float>.TryParse({speedString}, out var {nameof(d)})");
 
-			string forceString = ".1234 Kilograms * Meters / Seconds / Seconds";
-			Force<decimal>.TryParse(forceString, out Force<decimal> parsedForce);
+				string forceString = ".1234 Kilograms * Meters / Seconds / Seconds";
+				bool eSuccess = Force<decimal>.TryParse(forceString, out var e);
+				Console.WriteLine($"    Force<decimal>.TryParse({forceString}, out var {nameof(e)})");
 
-			string densityString = "12.344 Kilograms / Centimeters / Centimeters / Centimeters";
-			Density<double>.TryParse(densityString, out Density<double> parsedDensity);
+				string densityString = "12.344 Kilograms / Centimeters / Centimeters / Centimeters";
+				bool fSuccess = Density<double>.TryParse(densityString, out var f);
+				Console.WriteLine($"    Density<decimal>.TryParse({densityString}, out var {nameof(f)})");
 
+				Console.WriteLine();
+				Console.WriteLine($"    a: {aSuccess}, {a}");
+				Console.WriteLine($"    b: {bSuccess}, {b}");
+				Console.WriteLine($"    c: {cSuccess}, {c}");
+				Console.WriteLine($"    d: {dSuccess}, {d}");
+				Console.WriteLine($"    e: {eSuccess}, {e}");
+				Console.WriteLine($"    f: {fSuccess}, {f}");
+				Console.WriteLine();
+			}
 			#endregion
 
-			Console.WriteLine();
 			Console.WriteLine("=================================================");
 			Console.WriteLine("Example Complete...");
 			Console.WriteLine();
