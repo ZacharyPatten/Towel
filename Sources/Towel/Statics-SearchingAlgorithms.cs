@@ -393,6 +393,7 @@ namespace Towel
 			totalCost = default;
 			return null; // goal node was not reached (no path exists)
 		}
+
 		/// <summary>Perfoms A* Search on the graph</summary>
 		/// <param name="graph">The weighted graph object</param>
 		/// <param name="Source">The node to begin search from</param>
@@ -410,6 +411,7 @@ namespace Towel
 			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
+
 		/// <summary>Perfoms A* Search on the graph and executes action on every node in path</summary>
 		/// <param name="graph">The weighted graph object</param>
 		/// <param name="Source">The node to begin search from</param>
@@ -605,6 +607,7 @@ namespace Towel
 			}
 			return null; // goal node was not reached (no path exists)
 		}
+
 		/// <summary>Performs Breadth First Search and returns the path as ordered sequence of nodes</summary>
 		/// <param name="graph">The IGraph object</param>
 		/// <param name="Source">The node to begin the Breadth First Search from</param>
@@ -618,6 +621,7 @@ namespace Towel
 			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
+
 		/// <summary>Performs Breadth First Search and executes the specified action on every ordered node to in the path searched.</summary>
 		/// <param name="graph">The IGraph object</param>
 		/// <param name="Source">The node to begin Breadth First Search from</param>

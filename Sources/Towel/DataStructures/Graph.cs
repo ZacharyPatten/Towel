@@ -110,6 +110,7 @@ namespace Towel.DataStructures
 		/// <param name="a">The node to find all the adjacent node to.</param>
 		/// <param name="function">The delegate to perform on each adjacent node to a.</param>
 		void Neighbors(T a, Action<T> function);
+
 		/// <summary>Gets enumerator of all neighbours of a node</summary>
 		/// <param name="node">The node to get neighbours of</param>
 		/// <returns>IEnumerable of all neighbours of the given node</returns>
@@ -362,9 +363,8 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _nodes.GetEnumerator();
-		/// <summary>Gets enumerator of all neighbours of a node</summary>
-		/// <param name="node">The node to get neighbours of</param>
-		/// <returns>IEnumerable of all neighbours of the given node</returns>
+
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node)
 		{
 			ListArray<T> NodeList = new();

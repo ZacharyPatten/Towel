@@ -6,7 +6,7 @@
 		<PackageId>Towel</PackageId>
 		<PackageIcon>icon.png</PackageIcon>
 		<Authors>Zachary Patten</Authors>
-		<Description>A .NET library intended to add core functionality and make advanced topics as clean and simple as possible: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)</Description>
+		<Description>A .NET library intended to make coding a bit more towelerable: data structures, algorithms, mathematics, metadata, extensions, console, and more. :)</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>Towel, library, framework, algorithms, data-structures, mathematics, extensions</PackageTags>
 		<PackageProjectUrl></PackageProjectUrl>
