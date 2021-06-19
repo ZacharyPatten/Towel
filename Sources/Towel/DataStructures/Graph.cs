@@ -111,6 +111,11 @@ namespace Towel.DataStructures
 		/// <param name="function">The delegate to perform on each adjacent node to a.</param>
 		void Neighbors(T a, Action<T> function);
 
+		/// <summary>Gets enumerator of all neighbours of a node</summary>
+		/// <param name="node">The node to get neighbours of</param>
+		/// <returns>IEnumerable of all neighbours of the given node</returns>
+		System.Collections.Generic.IEnumerable<T> GetNeighbours(T node);
+
 		/// <summary>Adds an edge to the graph starting at a and ending at b.</summary>
 		/// <param name="start">The stating point of the edge to add.</param>
 		/// <param name="end">The ending point of the edge to add.</param>
@@ -360,6 +365,14 @@ namespace Towel.DataStructures
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _nodes.GetEnumerator();
 
 		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node)
+		{
+			ListArray<T> NodeList = new();
+			Neighbors(node, n => NodeList.Add(n));
+			return NodeList;
+		}
+
+		/// <inheritdoc/>
 		public T[] ToArray() => _nodes.ToArray();
 
 		#endregion
@@ -502,14 +515,14 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public bool Adjacent(T a, T b)
 		{
-			if(_map.Contains(a) && _map.Contains(b)) return _map[a].Outgoing.Contains(b);
+			if (_map.Contains(a) && _map.Contains(b)) return _map[a].Outgoing.Contains(b);
 			else return false;
 		}
 
 		/// <inheritdoc/>
 		public void Neighbors(T a, Action<T> step)
 		{
-			foreach(var node in _map[a].Outgoing) step(node);
+			foreach (var node in _map[a].Outgoing) step(node);
 		}
 
 		/// <inheritdoc/>
@@ -539,13 +552,13 @@ namespace Towel.DataStructures
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-		/// <summary>
-		/// Enumerates through the nodes of the graph
-		/// </summary>
-		/// <returns>Enumerator object</returns>
+		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => _map.GetKeys().GetEnumerator();
 
-		/// <summary>Clears this graph to an empty state.</summary>
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node) => _map[node].Outgoing;
+
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_edgeCount = 0;
@@ -576,6 +589,12 @@ namespace Towel.DataStructures
 		/// <param name="weight">The weight of the edge, if it exists.</param>
 		/// <returns>True if b is adjacent to a; False if not</returns>
 		bool Adjacent(T a, T b, out W? weight);
+
+		/// <summary>Gets the weight of an edge.</summary>
+		/// <param name="a">The starting node of the edge.</param>
+		/// <param name="b">The ending node of the edge.</param>
+		/// <returns>The weight of the edge.</returns>
+		W GetWeight(T a, T b);
 
 		/// <summary>Enumerates and returns all edges present in the graph</summary>
 		/// <returns>Array of Tuple of nodes that represent an edge</returns>
@@ -648,7 +667,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new graph.</summary>
 		/// <param name="equate">The function for equality checking <typeparamref name="T"/> values.</param>
-		/// <param name="hash">The function for hasching <typeparamref name="T"/> values.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		public GraphWeightedMap(TEquate equate = default, THash hash = default)
 		{
 			_map = new(equate, hash);
@@ -854,6 +873,12 @@ namespace Towel.DataStructures
 			}
 			return array;
 		}
+
+		/// <inheritdoc/>
+		public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node) => _map[node].OutgoingEdges.GetKeys();
+
+		/// <inheritdoc/>
+		public W GetWeight(T a, T b) => _map[a].OutgoingEdges[b] ?? throw new ArgumentException("No edge found between the queired nodes");
 
 		#endregion
 	}

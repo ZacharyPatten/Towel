@@ -382,7 +382,7 @@ namespace GraphSearch
 						out float aStarTotalPathCost);
 
 				// Flush the already used markers before running the DijkstraPath algorithm.
-				// Normally you won't run two algorithms for the same graph/location, but 
+				// Normally you won't run two algorithms for the same graph/location, but
 				// we are running both algorithms in this example to demonstrate the
 				// differences between them.
 
@@ -417,7 +417,7 @@ namespace GraphSearch
 						});
 
 				// NOTE: If there is no valid path, then "Search.Graph" will return "null."
-				// For this example, I know that there will be a valid path so I did not 
+				// For this example, I know that there will be a valid path so I did not
 				// include a null check.
 
 				// Lets convert the paths into arrays so you can look at them in the debugger. :)
@@ -435,10 +435,76 @@ namespace GraphSearch
 
 				bool IsAStarPathBetterThanijkstra = aStarTotalPathCost < dijkstraTotalCost;
 
-				// Notice that that the A* algorithm produces a less costly path than the DijkstraPath, 
+				// Notice that that the A* algorithm produces a less costly path than the DijkstraPath,
 				// meaning that it is faster. The DijkstraPath path went through the mud, but the A* path
 				// took the longer route around the other side of the rock, which ended up being faster
 				// than running through the mud.
+			}
+			#endregion
+
+			#region Weighted Graph Example
+			{
+				Console.WriteLine("  Weighted Graph Example-------------------");
+				Console.WriteLine();
+				Console.WriteLine("    Graph:");
+				Console.WriteLine();
+				Console.WriteLine("      [A]--10->[B]--15->[C]");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       5        20       2");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       V        V        V");
+				Console.WriteLine("      [D]--35->[E]--10->[F]");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       55       30       65");
+				Console.WriteLine("       |        |        |");
+				Console.WriteLine("       V        V        V");
+				Console.WriteLine("      [G]--40->[H]--40->[I]");
+				Console.WriteLine();
+
+				IGraphWeighted<char, int> WeightedGraph = GraphWeightedMap.New<char, int>();
+				for (char ch = 'A'; ch <= 'I'; ch++)
+				{
+					WeightedGraph.Add(ch);
+				}
+				WeightedGraph.Add('A', 'D', 05);
+				WeightedGraph.Add('A', 'B', 10);
+				WeightedGraph.Add('B', 'C', 15);
+				WeightedGraph.Add('B', 'E', 20);
+				WeightedGraph.Add('C', 'F', 20);
+				WeightedGraph.Add('D', 'E', 35);
+				WeightedGraph.Add('D', 'G', 55);
+				WeightedGraph.Add('E', 'H', 30);
+				WeightedGraph.Add('E', 'F', 10);
+				WeightedGraph.Add('F', 'I', 65);
+				WeightedGraph.Add('G', 'H', 40);
+				WeightedGraph.Add('H', 'I', 40);
+
+				Console.WriteLine("    Computing Breadth-First-Search from Node 'A' to 'C' :");
+				foreach (var node in WeightedGraph.PerformBredthFirstSearch('A', 'C'))
+				{
+					Console.Write($"{node}, ");
+				}
+				Console.WriteLine("    Alternative Delegate based Breadth-First-Search");
+				WeightedGraph.PerformBredthFirstSearch('A', 'C', n => Console.Write($"{n}, "));
+
+				Console.WriteLine("    Computing Shortest Path via Dijkstra's Algorithm from 'A' to 'I'");
+				int totalcost;
+				foreach (var node in WeightedGraph.DijkstraSearch('A', 'I', out totalcost))
+				{
+					Console.Write($"{node}, ");
+				}
+				Console.WriteLine($"    Total cost = {totalcost}");
+				Console.WriteLine("    Alternative Delegate based Dijkstra search");
+				WeightedGraph.DijkstraSearch('A', 'I', n => Console.Write($"{n}, "), out var _);
+
+				Console.WriteLine("    Computing Shortest Path via A* Algorithm from 'A' to 'I'");
+				foreach (var node in WeightedGraph.AStarSearch('A', 'I', n => 'I' - n, out totalcost))
+				{
+					Console.Write($"{node}, ");
+				}
+				Console.WriteLine($"    Total cost = {totalcost}");
+				Console.WriteLine("    Alternative Delegate based A* Search");
+				WeightedGraph.AStarSearch('A', 'I', n => 'I' - n, n => Console.Write($"{n}, "), out var _);
 			}
 			#endregion
 
