@@ -349,7 +349,7 @@ namespace Towel.DataStructures
 		public static MapHashLinked<T, K, SFunc<K, K, bool>, SFunc<K, int>> New<T, K>(
 			Func<K, K, bool>? equate = null,
 			Func<K, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
+			new(equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}

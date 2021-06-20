@@ -1312,7 +1312,7 @@ namespace Towel.Mathematics
 			int hashCode = default;
 			for (int i = 1; i < _vector.Length; i++)
 			{
-				hashCode = HashCode.Combine(hashCode, _vector[i]);
+				hashCode = HashCode.Combine(hashCode, Hash(_vector[i]));
 			}
 			return hashCode;
 		}

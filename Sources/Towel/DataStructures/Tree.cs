@@ -54,7 +54,7 @@ namespace Towel.DataStructures
 			T head,
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(head, equate ?? Equate, hash ?? DefaultHash);
+			new(head, equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}

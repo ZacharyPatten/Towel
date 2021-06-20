@@ -2585,10 +2585,6 @@ namespace Towel.Mathematics
 
 		#region Overrides
 
-		///// <summary>Prints out a string representation of this matrix.</summary>
-		///// <returns>A string representing this matrix.</returns>
-		//public override string? ToString() => base.ToString();
-
 		/// <summary>Matrixs a hash code from the values of this matrix.</summary>
 		/// <returns>A hash code for the matrix.</returns>
 		public override int GetHashCode()
@@ -2597,7 +2593,7 @@ namespace Towel.Mathematics
 			int hashCode = HashCode.Combine(_rows, _columns);
 			foreach (T value in _matrix)
 			{
-				hashCode = HashCode.Combine(hashCode, DefaultHash(value));
+				hashCode = HashCode.Combine(hashCode, Hash(value));
 			}
 			return hashCode;
 		}

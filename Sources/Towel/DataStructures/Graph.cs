@@ -155,7 +155,7 @@ namespace Towel.DataStructures
 		public static GraphSetOmnitree<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
+			new(equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}
@@ -389,7 +389,7 @@ namespace Towel.DataStructures
 		public static GraphMap<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
+			new(equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}
@@ -643,7 +643,7 @@ namespace Towel.DataStructures
 		public static GraphWeightedMap<T, W, SFunc<T, T, bool>, SFunc<T, int>> New<T, W>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
+			new(equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}

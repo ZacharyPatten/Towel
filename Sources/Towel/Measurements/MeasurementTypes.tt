@@ -107,7 +107,7 @@ foreach (var a in measurements)
 // Measurement Definitions:
 //
 <# { int measurementIndex = 0; foreach (var measurement in measurements) { #>
-//    <#= measurement.Item1 #>: <#= viewStrings[measurementIndex] #>
+//	<#= measurement.Item1 #>: <#= viewStrings[measurementIndex] #>
 <# measurementIndex++; } } #>
 
 #region Operators
@@ -116,11 +116,11 @@ foreach (var a in measurements)
 //
 <# { int measurementIndex = 0; foreach (var keyValue in multiplicationOperatorMappings) { #>
 <# foreach (var @operator in keyValue.Value) { #>
-//    <#= keyValue.Key #> * <#= @operator.Item1 #> = <#= @operator.Item2 #>
+//	<#= keyValue.Key #> * <#= @operator.Item1 #> = <#= @operator.Item2 #>
 <# } measurementIndex++; } } #>
 <# { int measurementIndex = 0; foreach (var keyValue in divisionOperatorMappings) { #>
 <# foreach (var @operator in keyValue.Value) { #>
-//    <#= keyValue.Key #> / <#= @operator.Item1 #> = <#= @operator.Item2 #>
+//	<#= keyValue.Key #> / <#= @operator.Item1 #> = <#= @operator.Item2 #>
 <# } measurementIndex++; } } #>
 
 #endregion
@@ -239,7 +239,7 @@ namespace Towel.Measurements
 		#region Constructors
 
 		/// <summary>Constructs an <#= measurement.Item1 #> with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the <#= measurement.Item1 #>.</param>
+		/// <param name="measurement">The measurement value of the <#= measurement.Item1 #>.</param>
 		/// <param name="units">The units of the <#= measurement.Item1 #>.</param>
 		public <#= measurement.Item1 #>(T measurement, MeasurementUnitsSyntaxTypes.<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units units) : this(measurement
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
@@ -249,8 +249,8 @@ namespace Towel.Measurements
 
 <# if (isDerivedUnit && false) { #>
 		/// <summary>Constructs an <#= measurement.Item1 #> with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the <#= measurement.Item1 #>.</param>
-        /// <param name="units">The units of the <#= measurement.Item1 #>.</param>
+		/// <param name="measurement">The measurement value of the <#= measurement.Item1 #>.</param>
+		/// <param name="units">The units of the <#= measurement.Item1 #>.</param>
 		public <#= measurement.Item1 #>(T measurement, <#= measurement.Item1 #>.Units units)
 		{
 			throw new NotImplementedException();
@@ -258,7 +258,7 @@ namespace Towel.Measurements
 <# } #>
 
 		/// <summary>Constructs an <#= measurement.Item1 #> with the measurement value and units.</summary>
-        /// <param name="measurement">The measurement value of the <#= measurement.Item1 #>.</param>
+		/// <param name="measurement">The measurement value of the <#= measurement.Item1 #>.</param>
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 		/// <param name="<#= baseUnit #>Units<#= baseUnitIndex + 1 #>">The units of the <#= measurement.Item1 #>.</param>
 <# baseUnitIndex++; } } #>
@@ -281,25 +281,25 @@ namespace Towel.Measurements
 
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 		/// <summary>The #<#= baseUnitIndex + 1 #> component of this measurements units.</summary>
-        public <#= baseUnit #>.Units <#= baseUnit #>Units<#= baseUnitIndex + 1 #>
-        {
-            get { return _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>; }
-            set
-            {
-                if (value != _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>)
-                {
+		public <#= baseUnit #>.Units <#= baseUnit #>Units<#= baseUnitIndex + 1 #>
+		{
+			get { return _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>; }
+			set
+			{
+				if (value != _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>)
+				{
 <# { int temp = 0; #>
-                    _measurement = this[<#= string.Join(", ", concatenatedBaseUnits.Select(x => baseUnitIndex + 1 == ++temp ? "value" : "_" + x + "Units" + temp)) #>];
+					_measurement = this[<#= string.Join(", ", concatenatedBaseUnits.Select(x => baseUnitIndex + 1 == ++temp ? "value" : "_" + x + "Units" + temp)) #>];
 <# } #>
-                    _<#= baseUnit #>Units<#= baseUnitIndex + 1 #> = value;
-                }
-            }
-        }
+					_<#= baseUnit #>Units<#= baseUnitIndex + 1 #> = value;
+				}
+			}
+		}
 
 <# baseUnitIndex++; } } #>
 		/// <summary>Gets the measurement in the specified units.</summary>
-        /// <param name="units">The units to get the measurement in.</param>
-        /// <returns>The measurement value in the specified units.</returns>
+		/// <param name="units">The units to get the measurement in.</param>
+		/// <returns>The measurement value in the specified units.</returns>
 		public T this[MeasurementUnitsSyntaxTypes.<#= isDerivedUnit ? measurement.Item1 + "Base" : measurement.Item1 #>Units units]
 		{
 <# { int temp = 0; #>
@@ -315,42 +315,42 @@ namespace Towel.Measurements
 <# { int temp = 0; #>
 		public T this[<#= string.Join(", ", concatenatedBaseUnits.Select(x => x + ".Units" + " " + x + "Units" + ++temp)) #>]
 <# } #>
-        {
-            get
-            {
-                T measurement = _measurement;
+		{
+			get
+			{
+				T measurement = _measurement;
 <# { int baseUnitIndex = 0; foreach (var numerator in measurement.Item2) { #>
-                if (<#= numerator #>Units<#= baseUnitIndex + 1 #> != _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
-                {
-                    measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    //if (<#= numerator #>Units<#= baseUnitIndex + 1 #> < _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
-                    //{
-                    //    measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    //}
-                    //else
-                    //{
-                    //    measurement = <#= numerator #><T>.Table[(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    //}
-                }
+				if (<#= numerator #>Units<#= baseUnitIndex + 1 #> != _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
+				{
+					measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
+					//if (<#= numerator #>Units<#= baseUnitIndex + 1 #> < _<#= numerator #>Units<#= baseUnitIndex + 1 #>)
+					//{
+					//	measurement = <#= numerator #><T>.Table[(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
+					//}
+					//else
+					//{
+					//	measurement = <#= numerator #><T>.Table[(int)<#= numerator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= numerator #>Units<#= baseUnitIndex + 1 #>](measurement);
+					//}
+				}
 <# baseUnitIndex++; } #>
 <# foreach (var denominator in measurement.Item3) { #>
-                if (<#= denominator #>Units<#= baseUnitIndex + 1 #> != _<#= denominator #>Units<#= baseUnitIndex + 1 #>)
-                {
-                    measurement = <#= denominator #><T>.Table[(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    //if (<#= denominator #>Units<#= baseUnitIndex + 1 #> > _<#= denominator #>Units<#= baseUnitIndex + 1 #>)
-                    //{
-                    //    measurement = <#= denominator #><T>.Table[(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    //}
-                    //else
-                    //{
-                    //    measurement = <#= denominator #><T>.Table[(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
-                    //}
-                }
+				if (<#= denominator #>Units<#= baseUnitIndex + 1 #> != _<#= denominator #>Units<#= baseUnitIndex + 1 #>)
+				{
+					measurement = <#= denominator #><T>.Table[(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
+					//if (<#= denominator #>Units<#= baseUnitIndex + 1 #> > _<#= denominator #>Units<#= baseUnitIndex + 1 #>)
+					//{
+					//	measurement = <#= denominator #><T>.Table[(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
+					//}
+					//else
+					//{
+					//	measurement = <#= denominator #><T>.Table[(int)<#= denominator #>Units<#= baseUnitIndex + 1 #>][(int)_<#= denominator #>Units<#= baseUnitIndex + 1 #>](measurement);
+					//}
+				}
 <# baseUnitIndex++; } #>
 <# } #>
-                return measurement;
-            }
-        }
+				return measurement;
+			}
+		}
 
 		#endregion
 <# //------------------------------------------------------------------------------------------- #>
@@ -372,16 +372,16 @@ namespace Towel.Measurements
 		#region Bases
 
 		internal static <#= measurement.Item1 #><T> MathBase(<#= measurement.Item1 #><T> a, T b, Func<T, T, T> func)
-        {
-            return new <#= measurement.Item1 #><T>(func(a._measurement, b)
+		{
+			return new <#= measurement.Item1 #><T>(func(a._measurement, b)
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 				, a._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>
 <# baseUnitIndex++; } } #>
 			);
-        }
+		}
 
-        internal static <#= measurement.Item1 #><T> MathBase(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b, Func<T, T, T> func)
-        {
+		internal static <#= measurement.Item1 #><T> MathBase(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b, Func<T, T, T> func)
+		{
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 			<#= baseUnit #>.Units <#= baseUnit #>Units<#= baseUnitIndex + 1 #> = a._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> <= b._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> ? a._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> : b._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>;
 <# baseUnitIndex++; } } #>
@@ -391,14 +391,14 @@ namespace Towel.Measurements
 <# { int temp = 0; #>
 			T B = b[<#= string.Join(", ", concatenatedBaseUnits.Select(x => x + "Units" + ++temp)) #>];
 <# } #>
-            T C = func(A, B);
+			T C = func(A, B);
 <# { int temp = 0; #>
 			return new <#= measurement.Item1 #><T>(C, <#= string.Join(", ", concatenatedBaseUnits.Select(x => x + "Units" + ++temp)) #>);
 <# } #>
-        }
+		}
 
-        internal static bool LogicBase(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b, Func<T, T, bool> func)
-        {
+		internal static bool LogicBase(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b, Func<T, T, bool> func)
+		{
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 			<#= baseUnit #>.Units <#= baseUnit #>Units<#= baseUnitIndex + 1 #> = a._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> <= b._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> ? a._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> : b._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>;
 <# baseUnitIndex++; } } #>
@@ -408,116 +408,116 @@ namespace Towel.Measurements
 <# { int temp = 0; #>
 			T B = b[<#= string.Join(", ", concatenatedBaseUnits.Select(x => x + "Units" + ++temp)) #>];
 <# } #>
-            return func(A, B);
-        }
+			return func(A, B);
+		}
 
 		#endregion
 
 		#region Add
 
-        /// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
-        /// <param name="a">The first operand of the addition.</param>
-        /// <param name="b">The second operand of the addition.</param>
-        /// <returns>The result of the addition operation.</returns>
-        public static <#= measurement.Item1 #><T> Add(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return MathBase(a, b, Statics.Addition);
-        }
+		/// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
+		/// <param name="a">The first operand of the addition.</param>
+		/// <param name="b">The second operand of the addition.</param>
+		/// <returns>The result of the addition operation.</returns>
+		public static <#= measurement.Item1 #><T> Add(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return MathBase(a, b, Statics.Addition);
+		}
 
-        /// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
-        /// <param name="a">The first operand of the addition.</param>
-        /// <param name="b">The second operand of the addition.</param>
-        /// <returns>The result of the addition operation.</returns>
-        public static <#= measurement.Item1 #><T> operator +(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return Add(a, b);
-        }
+		/// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
+		/// <param name="a">The first operand of the addition.</param>
+		/// <param name="b">The second operand of the addition.</param>
+		/// <returns>The result of the addition operation.</returns>
+		public static <#= measurement.Item1 #><T> operator +(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return Add(a, b);
+		}
 
-        /// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
-        /// <param name="b">The second operand of the addition.</param>
-        /// <returns>The result of the addition operation.</returns>
-        public <#= measurement.Item1 #><T> Add(<#= measurement.Item1 #><T> b)
-        {
-            return this + b;
-        }
+		/// <summary>Adds two <#= measurement.Item1 #> measurements.</summary>
+		/// <param name="b">The second operand of the addition.</param>
+		/// <returns>The result of the addition operation.</returns>
+		public <#= measurement.Item1 #><T> Add(<#= measurement.Item1 #><T> b)
+		{
+			return this + b;
+		}
 
-        #endregion
+		#endregion
 
-        #region Subtract
+		#region Subtract
 
-        /// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
-        /// <param name="a">The first operand of the subtraction.</param>
-        /// <param name="b">The second operand of the subtraction.</param>
-        /// <returns>The result of the subtraction.</returns>
-        public static <#= measurement.Item1 #><T> Subtract(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return MathBase(a, b, Statics.Subtraction);
-        }
+		/// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
+		/// <param name="a">The first operand of the subtraction.</param>
+		/// <param name="b">The second operand of the subtraction.</param>
+		/// <returns>The result of the subtraction.</returns>
+		public static <#= measurement.Item1 #><T> Subtract(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return MathBase(a, b, Statics.Subtraction);
+		}
 
-        /// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
-        /// <param name="a">The first operand of the subtraction.</param>
-        /// <param name="b">The second operand of the subtraction.</param>
-        /// <returns>The result of the subtraction.</returns>
-        public static <#= measurement.Item1 #><T> operator -(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return Subtract(a, b);
-        }
+		/// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
+		/// <param name="a">The first operand of the subtraction.</param>
+		/// <param name="b">The second operand of the subtraction.</param>
+		/// <returns>The result of the subtraction.</returns>
+		public static <#= measurement.Item1 #><T> operator -(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return Subtract(a, b);
+		}
 
-        /// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
-        /// <param name="b">The second operand of the subtraction.</param>
-        /// <returns>The result of the subtraction.</returns>
-        public <#= measurement.Item1 #><T> Subtract(<#= measurement.Item1 #><T> b)
-        {
-            return this - b;
-        }
+		/// <summary>Subtracts two <#= measurement.Item1 #> measurements.</summary>
+		/// <param name="b">The second operand of the subtraction.</param>
+		/// <returns>The result of the subtraction.</returns>
+		public <#= measurement.Item1 #><T> Subtract(<#= measurement.Item1 #><T> b)
+		{
+			return this - b;
+		}
 
-        #endregion
+		#endregion
 
-        #region Multiply
+		#region Multiply
 
-        /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
-        /// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static <#= measurement.Item1 #><T> Multiply(<#= measurement.Item1 #><T> a, T b)
-        {
-            return MathBase(a, b, Statics.Multiplication);
-        }
+		/// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
+		/// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
+		/// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static <#= measurement.Item1 #><T> Multiply(<#= measurement.Item1 #><T> a, T b)
+		{
+			return MathBase(a, b, Statics.Multiplication);
+		}
 
-        /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
-        /// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static <#= measurement.Item1 #><T> Multiply(T b, <#= measurement.Item1 #><T> a)
-        {
-            return Multiply(a, b);
-        }
+		/// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
+		/// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
+		/// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static <#= measurement.Item1 #><T> Multiply(T b, <#= measurement.Item1 #><T> a)
+		{
+			return Multiply(a, b);
+		}
 
-        /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
-        /// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static <#= measurement.Item1 #><T> operator *(<#= measurement.Item1 #><T> a, T b)
-        {
-            return Multiply(a, b);
-        }
+		/// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
+		/// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
+		/// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static <#= measurement.Item1 #><T> operator *(<#= measurement.Item1 #><T> a, T b)
+		{
+			return Multiply(a, b);
+		}
 
-        /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
-        /// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public static <#= measurement.Item1 #><T> operator *(T b, <#= measurement.Item1 #><T> a)
-        {
-            return Multiply(b, a);
-        }
+		/// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
+		/// <param name="a">The <#= measurement.Item1 #> measurement to multiply.</param>
+		/// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public static <#= measurement.Item1 #><T> operator *(T b, <#= measurement.Item1 #><T> a)
+		{
+			return Multiply(b, a);
+		}
 
-        /// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
-        /// <param name="b">The scalar numeric value to multiply the measurement by.</param>
-        /// <returns>The result of the multiplication.</returns>
-        public <#= measurement.Item1 #><T> Add(T b)
-        {
-            return this * b;
-        }
+		/// <summary>Multiplies an <#= measurement.Item1 #> by a scalar numeric value.</summary>
+		/// <param name="b">The scalar numeric value to multiply the measurement by.</param>
+		/// <returns>The result of the multiplication.</returns>
+		public <#= measurement.Item1 #><T> Add(T b)
+		{
+			return this * b;
+		}
 <# foreach ((string, string) @operator in multiplicationOperatorMappings[measurement.Item1]) { #>
 
 		#region <#= measurement.Item1 #><T> * <#= @operator.Item1 #><T> = <#= @operator.Item2 #><T>
@@ -527,7 +527,7 @@ namespace Towel.Measurements
 		/// <param name="b">The <#= @operator.Item1 #> to multiply by.</param>
 		/// <returns>The <#= @operator.Item2 #> result of the multiplication.</returns>
 		public static <#= @operator.Item2 #><T> Multiply(<#= measurement.Item1 #><T> a, <#= @operator.Item1 #><T> b)
-        {
+		{
 <#
 
 var aBaseUnits = measurement.Item2.Concat(measurement.Item3).ToList();
@@ -677,38 +677,38 @@ string bIndexString = null;
 				, <#= (unitNonCollision.Item2 ? "a" : "b") + "._" + unitNonCollision.Item1 + "Units" + unitNonCollision.Item3 #>
 <# } #>
 				);
-        }
+		}
 
 		/// <summary>Mulitplies <#= measurement.Item1 #> by <#= @operator.Item1 #> resulting in <#= @operator.Item2 #>.</summary>
 		/// <param name="a">The <#= measurement.Item1 #> to be multiplied.</param>
 		/// <param name="b">The <#= @operator.Item1 #> to multiply by.</param>
 		/// <returns>The <#= @operator.Item2 #> result of the multiplication.</returns>
 		public static <#= @operator.Item2 #><T> operator *(<#= measurement.Item1 #><T> a, <#= @operator.Item1 #><T> b)
-        {
+		{
 			return Multiply(a, b);
-        }
+		}
 
 		/// <summary>Mulitplies <#= measurement.Item1 #> by <#= @operator.Item1 #> resulting in <#= @operator.Item2 #>.</summary>
 		/// <param name="b">The <#= @operator.Item1 #> to multiply by.</param>
 		/// <returns>The <#= @operator.Item2 #> result of the multiplication.</returns>
 		public <#= @operator.Item2 #><T> Multiply(<#= @operator.Item1 #><T> b)
-        {
+		{
 			return this * b;
-        }
+		}
 
 		#endregion
 <# } #>
 
-        #endregion
+		#endregion
 
-        #region Divide
+		#region Divide
 
 		/// <summary>Divides an <#= measurement.Item1 #> measurement by another <#= measurement.Item1 #> measurement resulting in a scalar numeric value.</summary>
-        /// <param name="a">The first operand of the division operation.</param>
-        /// <param name="b">The second operand of the division operation.</param>
-        /// <returns>The scalar numeric value result from the division.</returns>
-        public static T Divide(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
+		/// <param name="a">The first operand of the division operation.</param>
+		/// <param name="b">The second operand of the division operation.</param>
+		/// <returns>The scalar numeric value result from the division.</returns>
+		public static T Divide(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
 <# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
 			<#= baseUnit #>.Units <#= baseUnit #>Units<#= baseUnitIndex + 1 #> = a._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> <= b._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> ? a._<#= baseUnit #>Units<#= baseUnitIndex + 1 #> : b._<#= baseUnit #>Units<#= baseUnitIndex + 1 #>;
 <# baseUnitIndex++; } } #>
@@ -718,51 +718,51 @@ string bIndexString = null;
 <# { int temp = 0; #>
 			T B = b[<#= string.Join(", ", concatenatedBaseUnits.Select(x => x + "Units" + ++temp)) #>];
 <# } #>
-            return Statics.Division(A, B);
-        }
+			return Statics.Division(A, B);
+		}
 
-        /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
-        /// <param name="a">The <#= measurement.Item1 #> measurement to divide.</param>
-        /// <param name="b">The numeric scalar to divide by.</param>
-        /// <returns>The result of the division.</returns>
-        public static <#= measurement.Item1 #><T> Divide(<#= measurement.Item1 #><T> a, T b)
-        {
-            return MathBase(a, b, Statics.Division);
-        }
+		/// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
+		/// <param name="a">The <#= measurement.Item1 #> measurement to divide.</param>
+		/// <param name="b">The numeric scalar to divide by.</param>
+		/// <returns>The result of the division.</returns>
+		public static <#= measurement.Item1 #><T> Divide(<#= measurement.Item1 #><T> a, T b)
+		{
+			return MathBase(a, b, Statics.Division);
+		}
 
-        /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
-        /// <param name="a">The <#= measurement.Item1 #> measurement to divide.</param>
-        /// <param name="b">The numeric scalar to divide by.</param>
-        /// <returns>The result of the division.</returns>
-        public static <#= measurement.Item1 #><T> operator /(<#= measurement.Item1 #><T> a, T b)
-        {
-            return Divide(a, b);
-        }
+		/// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
+		/// <param name="a">The <#= measurement.Item1 #> measurement to divide.</param>
+		/// <param name="b">The numeric scalar to divide by.</param>
+		/// <returns>The result of the division.</returns>
+		public static <#= measurement.Item1 #><T> operator /(<#= measurement.Item1 #><T> a, T b)
+		{
+			return Divide(a, b);
+		}
 
-        /// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
-        /// <param name="b">The numeric scalar to divide by.</param>
-        /// <returns>The result of the division.</returns>
-        public <#= measurement.Item1 #><T> Divide(T b)
-        {
-            return this / b;
-        }
+		/// <summary>Divides this <#= measurement.Item1 #> measurement by a numaric scalar value.</summary>
+		/// <param name="b">The numeric scalar to divide by.</param>
+		/// <returns>The result of the division.</returns>
+		public <#= measurement.Item1 #><T> Divide(T b)
+		{
+			return this / b;
+		}
 
-        /// <summary>Divides an <#= measurement.Item1 #> measurement by another <#= measurement.Item1 #> measurement resulting in a scalar numeric value.</summary>
-        /// <param name="a">The first operand of the division operation.</param>
-        /// <param name="b">The second operand of the division operation.</param>
-        /// <returns>The scalar numeric value result from the division.</returns>
-        public static T operator /(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return Divide(a, b);
-        }
+		/// <summary>Divides an <#= measurement.Item1 #> measurement by another <#= measurement.Item1 #> measurement resulting in a scalar numeric value.</summary>
+		/// <param name="a">The first operand of the division operation.</param>
+		/// <param name="b">The second operand of the division operation.</param>
+		/// <returns>The scalar numeric value result from the division.</returns>
+		public static T operator /(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return Divide(a, b);
+		}
 
-        /// <summary>Divides an <#= measurement.Item1 #> measurement by another <#= measurement.Item1 #> measurement resulting in a scalar numeric value.</summary>
-        /// <param name="b">The second operand of the division operation.</param>
-        /// <returns>The scalar numeric value result from the division.</returns>
-        public T Divide(<#= measurement.Item1 #><T> b)
-        {
-            return this / b;
-        }
+		/// <summary>Divides an <#= measurement.Item1 #> measurement by another <#= measurement.Item1 #> measurement resulting in a scalar numeric value.</summary>
+		/// <param name="b">The second operand of the division operation.</param>
+		/// <returns>The scalar numeric value result from the division.</returns>
+		public T Divide(<#= measurement.Item1 #><T> b)
+		{
+			return this / b;
+		}
 <# foreach ((string, string) @operator in divisionOperatorMappings[measurement.Item1]) { #>
 
 <# if (measurement.Item1 == @operator.Item1) { continue; } #>
@@ -774,7 +774,7 @@ string bIndexString = null;
 		/// <param name="b">The <#= @operator.Item1 #> to divide by.</param>
 		/// <returns>The <#= @operator.Item2 #> result of the division.</returns>
 		public static <#= @operator.Item2 #><T> Divide(<#= measurement.Item1 #><T> a, <#= @operator.Item1 #><T> b)
-        {
+		{
 <#
 
 var aBaseUnits = measurement.Item2.Concat(measurement.Item3).ToList();
@@ -924,209 +924,209 @@ string bIndexString = null;
 				, <#= (unitNonCollision.Item2 ? "a" : "b") + "._" + unitNonCollision.Item1 + "Units" + unitNonCollision.Item3 #>
 <# } #>
 				);
-        }
+		}
 
 		/// <summary>Divides <#= measurement.Item1 #> by <#= @operator.Item1 #> resulting in <#= @operator.Item2 #>.</summary>
 		/// <param name="a">The <#= measurement.Item1 #> to be divided.</param>
 		/// <param name="b">The <#= @operator.Item1 #> to divide by.</param>
 		/// <returns>The <#= @operator.Item2 #> result of the division.</returns>
 		public static <#= @operator.Item2 #><T> operator /(<#= measurement.Item1 #><T> a, <#= @operator.Item1 #><T> b)
-        {
+		{
 			return Divide(a, b);
-        }
+		}
 
 		/// <summary>Divides <#= measurement.Item1 #> by <#= @operator.Item1 #> resulting in <#= @operator.Item2 #>.</summary>
 		/// <param name="b">The <#= @operator.Item1 #> to divide by.</param>
 		/// <returns>The <#= @operator.Item2 #> result of the division.</returns>
 		public <#= @operator.Item2 #><T> Divide(<#= @operator.Item1 #><T> b)
-        {
+		{
 			return this / b;
-        }
+		}
 
 		#endregion
 <# } #>
 
-        #endregion
+		#endregion
 
-        #region LessThan
+		#region LessThan
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the less than operation.</param>
-        /// <param name="b">The second operand of the less than operation.</param>
-        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
-        public static bool LessThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LogicBase(a, b, Statics.LessThan);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the less than operation.</param>
+		/// <param name="b">The second operand of the less than operation.</param>
+		/// <returns>True if the first operand is less than the second operand. False if not.</returns>
+		public static bool LessThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LogicBase(a, b, Statics.LessThan);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the less than operation.</param>
-        /// <param name="b">The second operand of the less than operation.</param>
-        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
-        public static bool operator <(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LessThan(a, b);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the less than operation.</param>
+		/// <param name="b">The second operand of the less than operation.</param>
+		/// <returns>True if the first operand is less than the second operand. False if not.</returns>
+		public static bool operator <(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LessThan(a, b);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="b">The second operand of the less than operation.</param>
-        /// <returns>True if the first operand is less than the second operand. False if not.</returns>
-        public bool LessThan(<#= measurement.Item1 #><T> b)
-        {
-            return this < b;
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is less than another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="b">The second operand of the less than operation.</param>
+		/// <returns>True if the first operand is less than the second operand. False if not.</returns>
+		public bool LessThan(<#= measurement.Item1 #><T> b)
+		{
+			return this < b;
+		}
 
-        #endregion
+		#endregion
 
-        #region GreaterThan
+		#region GreaterThan
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the greater than operation.</param>
-        /// <param name="b">The second operand of the greater than operation.</param>
-        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
-        public static bool GreaterThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LogicBase(a, b, Statics.GreaterThan);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the greater than operation.</param>
+		/// <param name="b">The second operand of the greater than operation.</param>
+		/// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+		public static bool GreaterThan(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LogicBase(a, b, Statics.GreaterThan);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the greater than operation.</param>
-        /// <param name="b">The second operand of the greater than operation.</param>
-        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
-        public static bool operator >(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return GreaterThan(a, b);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the greater than operation.</param>
+		/// <param name="b">The second operand of the greater than operation.</param>
+		/// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+		public static bool operator >(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return GreaterThan(a, b);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="b">The second operand of the greater than operation.</param>
-        /// <returns>True if the first operand is greater than the second operand. False if not.</returns>
-        public bool GreaterThan(<#= measurement.Item1 #><T> b)
-        {
-            return this > b;
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="b">The second operand of the greater than operation.</param>
+		/// <returns>True if the first operand is greater than the second operand. False if not.</returns>
+		public bool GreaterThan(<#= measurement.Item1 #><T> b)
+		{
+			return this > b;
+		}
 
-        #endregion
+		#endregion
 
-        #region LessThanOrEqual
+		#region LessThanOrEqual
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the less than or equal to operation.</param>
-        /// <param name="b">The second operand of the less than or equal to operation.</param>
-        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
-        public static bool LessThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LogicBase(a, b, Statics.LessThanOrEqual);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the less than or equal to operation.</param>
+		/// <param name="b">The second operand of the less than or equal to operation.</param>
+		/// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+		public static bool LessThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LogicBase(a, b, Statics.LessThanOrEqual);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the less than or equal to operation.</param>
-        /// <param name="b">The second operand of the less than or equal to operation.</param>
-        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
-        public static bool operator <=(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LessThanOrEqual(a, b);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the less than or equal to operation.</param>
+		/// <param name="b">The second operand of the less than or equal to operation.</param>
+		/// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+		public static bool operator <=(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LessThanOrEqual(a, b);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="b">The second operand of the less than or equal to operation.</param>
-        /// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
-        public bool LessThanOrEqual(<#= measurement.Item1 #><T> b)
-        {
-            return this <= b;
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is less than or equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="b">The second operand of the less than or equal to operation.</param>
+		/// <returns>True if the first operand is less than or equal to the second operand. False if not.</returns>
+		public bool LessThanOrEqual(<#= measurement.Item1 #><T> b)
+		{
+			return this <= b;
+		}
 
-        #endregion
+		#endregion
 
-        #region GreaterThanOrEqual
+		#region GreaterThanOrEqual
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the greater than or equal to operation.</param>
-        /// <param name="b">The second operand of the greater than or equal to operation.</param>
-        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
-        public static bool GreaterThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LogicBase(a, b, Statics.GreaterThanOrEqual);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the greater than or equal to operation.</param>
+		/// <param name="b">The second operand of the greater than or equal to operation.</param>
+		/// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+		public static bool GreaterThanOrEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LogicBase(a, b, Statics.GreaterThanOrEqual);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the greater than or equal to operation.</param>
-        /// <param name="b">The second operand of the greater than or equal to operation.</param>
-        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
-        public static bool operator >=(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return GreaterThanOrEqual(a, b);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the greater than or equal to operation.</param>
+		/// <param name="b">The second operand of the greater than or equal to operation.</param>
+		/// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+		public static bool operator >=(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return GreaterThanOrEqual(a, b);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="b">The second operand of the greater than or equal to operation.</param>
-        /// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
-        public bool GreaterThanOrEqual(<#= measurement.Item1 #><T> b)
-        {
-            return this >= b;
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is greater than or equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="b">The second operand of the greater than or equal to operation.</param>
+		/// <returns>True if the first operand is greater than or equal to the second operand. False if not.</returns>
+		public bool GreaterThanOrEqual(<#= measurement.Item1 #><T> b)
+		{
+			return this >= b;
+		}
 
-        #endregion
+		#endregion
 
-        #region Equal
+		#region Equal
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the equal to operation.</param>
-        /// <param name="b">The second operand of the equal to operation.</param>
-        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
-        public static bool Equal(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LogicBase(a, b, Statics.Equate);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the equal to operation.</param>
+		/// <param name="b">The second operand of the equal to operation.</param>
+		/// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+		public static bool Equal(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LogicBase(a, b, Statics.Equate);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the equal to operation.</param>
-        /// <param name="b">The second operand of the equal to operation.</param>
-        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
-        public static bool operator ==(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return Equal(a, b);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the equal to operation.</param>
+		/// <param name="b">The second operand of the equal to operation.</param>
+		/// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+		public static bool operator ==(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return Equal(a, b);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="b">The second operand of the equal to operation.</param>
-        /// <returns>True if the first operand is equal to the second operand. False if not.</returns>
-        public bool Equal(<#= measurement.Item1 #><T> b)
-        {
-            return this == b;
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="b">The second operand of the equal to operation.</param>
+		/// <returns>True if the first operand is equal to the second operand. False if not.</returns>
+		public bool Equal(<#= measurement.Item1 #><T> b)
+		{
+			return this == b;
+		}
 
-        #endregion
+		#endregion
 
-        #region NotEqual
+		#region NotEqual
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the not equal to operation.</param>
-        /// <param name="b">The second operand of the not equal to operation.</param>
-        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
-        public static bool NotEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return LogicBase(a, b, Statics.Inequate);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the not equal to operation.</param>
+		/// <param name="b">The second operand of the not equal to operation.</param>
+		/// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+		public static bool NotEqual(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return LogicBase(a, b, Statics.Inequate);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="a">The first operand of the not equal to operation.</param>
-        /// <param name="b">The second operand of the not equal to operation.</param>
-        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
-        public static bool operator !=(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
-        {
-            return NotEqual(a, b);
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="a">The first operand of the not equal to operation.</param>
+		/// <param name="b">The second operand of the not equal to operation.</param>
+		/// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+		public static bool operator !=(<#= measurement.Item1 #><T> a, <#= measurement.Item1 #><T> b)
+		{
+			return NotEqual(a, b);
+		}
 
-        /// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>
-        /// <param name="b">The second operand of the not equal to operation.</param>
-        /// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
-        public bool NotEqual(<#= measurement.Item1 #><T> b)
-        {
-            return this != b;
-        }
+		/// <summary>Determines if an <#= measurement.Item1 #> measurement is not equal to another <#= measurement.Item1 #> measurement.</summary>
+		/// <param name="b">The second operand of the not equal to operation.</param>
+		/// <returns>True if the first operand is not equal to the second operand. False if not.</returns>
+		public bool NotEqual(<#= measurement.Item1 #><T> b)
+		{
+			return this != b;
+		}
 
-        #endregion
+		#endregion
 
 		#endregion
 
@@ -1134,22 +1134,22 @@ string bIndexString = null;
 		#region Overrides
 
 		/// <summary>Base Equals override that performs a type and value equality check.</summary>
-        /// <param name="obj">The object to check for equality with.</param>
-        /// <returns>True if the types and values equal. False if not.</returns>
+		/// <param name="obj">The object to check for equality with.</param>
+		/// <returns>True if the types and values equal. False if not.</returns>
 		public override bool Equals(object obj)
-        {
-            if (obj is <#= measurement.Item1 #><T>)
-            {
-                return this == (<#= measurement.Item1 #><T>)obj;
-            }
-            return false;
-        }
+		{
+			if (obj is <#= measurement.Item1 #><T>)
+			{
+				return this == (<#= measurement.Item1 #><T>)obj;
+			}
+			return false;
+		}
 
 		/// <summary>Converts the <#= measurement.Item1 #> measurement to a string represenation.</summary>
-        /// <returns>The string representation of the measurement.</returns>
+		/// <returns>The string representation of the measurement.</returns>
 		public override string ToString()
-        {
-            return _measurement + " " +
+		{
+			return _measurement + " " +
 <# { int temp = 0; #>
 				<#= string.Join(" + \"*\" + ", measurement.Item2.Select(x => "_" + x + "Units" + ++temp)) #>
 <# if (measurement.Item3.Length > 0) { #>
@@ -1158,19 +1158,11 @@ string bIndexString = null;
 				<#= string.Join(" + \"/\" + ", measurement.Item3.Select(x => "_" + x + "Units" + ++temp)) #>
 <# } #>
 				;
-        }
+		}
 
 		/// <summary>Base hashing function for <#= measurement.Item1 #> measurements.</summary>
-        /// <returns>Computed hash code for this instance.</returns>
-        public override int GetHashCode()
-        {
-            return
-                _measurement.GetHashCode()
-<# { int baseUnitIndex = 0; foreach (var baseUnit in concatenatedBaseUnits) { #>
-				^ _<#= baseUnit #>Units<#= baseUnitIndex + 1 #>.GetHashCode()
-<# baseUnitIndex++; } } #>
-				;
-        }
+		/// <returns>Computed hash code for this instance.</returns>
+		public override int GetHashCode() => Hash(_measurement);
 
 		#endregion
 	}

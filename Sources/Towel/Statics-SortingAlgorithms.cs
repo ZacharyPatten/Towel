@@ -1147,7 +1147,7 @@ namespace Towel
 
 		#region SortCycle
 
-		/// <summary>Sorts values using the shell cycle algorithm.</summary>
+		/// <summary>Sorts values using the cycle algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortCycle_XML() => throw new DocumentationMethodException();
@@ -1268,7 +1268,7 @@ namespace Towel
 
 		#region SortPancake
 
-		/// <summary>Sorts values using the shell pancake algorithm.</summary>
+		/// <summary>Sorts values using the pancake algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortPancake_XML() => throw new DocumentationMethodException();
@@ -1296,7 +1296,7 @@ namespace Towel
 
 		#region SortStooge
 
-		/// <summary>Sorts values using the shell stooge algorithm.</summary>
+		/// <summary>Sorts values using the stooge algorithm.</summary>
 		/// <inheritdoc cref="Sort_XML"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		internal static void SortStooge_XML() => throw new DocumentationMethodException();

@@ -79,7 +79,7 @@ namespace Towel.DataStructures
 		public static TrieLinkedHashLinked<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
+			new(equate ?? Equate, hash ?? Hash);
 
 		/// <summary>Constructs a new <see cref="TrieLinkedHashLinked{T, D, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
@@ -88,7 +88,7 @@ namespace Towel.DataStructures
 		public static TrieLinkedHashLinked<T, D, SFunc<T, T, bool>, SFunc<T, int>> New<T, D>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
+			new(equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}

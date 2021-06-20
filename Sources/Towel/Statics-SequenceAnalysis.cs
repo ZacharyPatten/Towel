@@ -1372,7 +1372,7 @@ namespace Towel
 		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if both spans contain the same number of each element.</returns>
 		public static bool IsReorderOf<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
-			IsReorderOf<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
+			IsReorderOf<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? Hash);
 
 		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
@@ -1423,7 +1423,7 @@ namespace Towel
 		/// <param name="hash">The function for hashing the values.</param>
 		/// <returns>True if neither span contains an element the other does not.</returns>
 		public static bool SetEquals<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = default, Func<T, int>? hash = default) =>
-			SetEquals<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? DefaultHash);
+			SetEquals<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? Hash);
 
 		/// <summary>Determines if neither span contains an element the other does not.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
@@ -1476,7 +1476,7 @@ namespace Towel
 		/// <param name="hash">The function for hashing values.</param>
 		/// <returns>True if the span contains duplicates.</returns>
 		public static bool ContainsDuplicates<T>(Span<T> span, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
-			ContainsDuplicates<T, SFunc<T, T, bool>, SFunc<T, int>>(span, equate ?? Statics.Equate, hash ?? DefaultHash);
+			ContainsDuplicates<T, SFunc<T, T, bool>, SFunc<T, int>>(span, equate ?? Statics.Equate, hash ?? Hash);
 
 		/// <summary>Determines if the span contains any duplicate values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>

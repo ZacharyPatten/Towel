@@ -1163,22 +1163,18 @@ namespace Towel.Mathematics
 
 		#region Overrides
 
-		/// <summary>Converts the quaternion into a string.</summary>
-		/// <returns>The resulting string after the conversion.</returns>
-		public override string ToString() => base.ToString();
-
 		/// <summary>Computes a hash code from the values in this quaternion.</summary>
 		/// <returns>The computed hash code.</returns>
 		public override int GetHashCode() =>
-				_x.GetHashCode() ^
-				_y.GetHashCode() ^
-				_z.GetHashCode() ^
-				_w.GetHashCode();
+				Hash(_x) ^
+				Hash(_y) ^
+				Hash(_z) ^
+				Hash(_w);
 
 		/// <summary>Does a reference equality check.</summary>
 		/// <param name="other"></param>
 		/// <returns></returns>
-		public override bool Equals(object other) =>
+		public override bool Equals(object? other) =>
 			other is Quaternion<T> b && Equal(this, b);
 
 		#endregion

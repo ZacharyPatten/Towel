@@ -26,7 +26,7 @@ namespace Towel.DataStructures
 		public static SetHashLinked<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(equate ?? Equate, hash ?? DefaultHash);
+			new(equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}

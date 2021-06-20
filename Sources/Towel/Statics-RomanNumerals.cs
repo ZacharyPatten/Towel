@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Towel
 {
@@ -99,6 +100,39 @@ namespace Towel
 				result += RomanNumeralDigits[a];
 			}
 			return (true, result);
+		}
+
+		/// <summary>Converts an <see cref="int"/> <paramref name="value"/> to a roman numeral <see cref="string"/>?.</summary>
+		/// <param name="value">The value to represent as a roman numeral. [min: 1] [max: 3999]</param>
+		/// <returns>
+		/// (<see cref="bool"/> Success, <see cref="string"/>? RomanNumeral)
+		/// <para>- <see cref="bool"/> Success: true if <paramref name="value"/> was converted to a roman numeral <see cref="string"/>? or false if not.</para>
+		/// <para>- <see cref="string"/>? RomanNumeral: the resulting roman numeral <see cref="string"/>? if successful or null if not.</para>
+		/// </returns>
+		public static (bool Success, string? RomanNumeral) TryToRomanNumeral(int value)
+		{
+			if (value < 1 || value > 3999) return (false, null);
+			StringBuilder sb = new();
+			while (value > 0)
+			{
+				switch (value)
+				{
+					case >= 1000: sb.Append( 'M'); value -= 1000; break;
+					case >=  900: sb.Append("CM"); value -=  900; break;
+					case >=  500: sb.Append( 'D'); value -=  500; break;
+					case >=  400: sb.Append("CD"); value -=  400; break;
+					case >=  100: sb.Append( 'C'); value -=  100; break;
+					case >=   90: sb.Append("XC"); value -=   90; break;
+					case >=   50: sb.Append( 'L'); value -=   50; break;
+					case >=   40: sb.Append("XL"); value -=   40; break;
+					case >=   10: sb.Append( 'X'); value -=   10; break;
+					case >=    9: sb.Append("IX"); value -=    9; break;
+					case >=    5: sb.Append( 'V'); value -=    5; break;
+					case >=    4: sb.Append("IV"); value -=    4; break;
+					case >=    1: sb.Append( 'I'); value -=    1; break;
+				}
+			}
+			return (true, sb.ToString());
 		}
 	}
 }

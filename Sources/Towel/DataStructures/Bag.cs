@@ -168,7 +168,7 @@ namespace Towel.DataStructures
 		public static BagMap<T, MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>> New<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(new MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>(equate ?? Equate, hash ?? DefaultHash));
+			new(new MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>(equate ?? Equate, hash ?? Hash));
 
 		/// <summary>Constructs a new <see cref="BagMap{T, TMap}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
@@ -176,7 +176,7 @@ namespace Towel.DataStructures
 		public static BagMap<T, MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>> NewHashLinked<T>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(new MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>(equate ?? Equate, hash ?? DefaultHash));
+			new(new MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>(equate ?? Equate, hash ?? Hash));
 
 		#endregion
 	}

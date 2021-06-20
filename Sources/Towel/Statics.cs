@@ -199,7 +199,7 @@ namespace Towel
 		/// <typeparam name="T">The generic type of the hash operation.</typeparam>
 		/// <param name="value">The item to get the hash code of.</param>
 		/// <returns>The computed hash code using the base GetHashCode instance method.</returns>
-		public static int DefaultHash<T>(T value)
+		public static int Hash<T>(T value)
 		{
 			_ = value ?? throw new ArgumentNullException(nameof(value));
 			return value.GetHashCode();

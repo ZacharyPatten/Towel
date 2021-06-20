@@ -423,10 +423,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Gets the default hash code for this instance.</summary>
 		/// <returns>Teh computed hash code.</returns>
-		public override int GetHashCode()
-		{
-			return (int)((Numerator.GetHashCode() ^ Denominator.GetHashCode()) & 0xFFFFFFFF);
-		}
+		public override int GetHashCode() => HashCode.Combine(Hash(Numerator), Hash(Denominator));
 
 		#endregion
 
