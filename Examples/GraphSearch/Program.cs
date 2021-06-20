@@ -20,20 +20,20 @@ namespace GraphSearch
 			{
 				Console.WriteLine("  Graph Searching----------------------");
 				Console.WriteLine();
-
-				// visualization
-				//
-				//    [0]-----(1)---->[1]
-				//     |               |
-				//     |               |
-				//    (99)            (2)
-				//     |               |
-				//     |               |
-				//     v               v
-				//    [3]<----(5)-----[2]
-				//
-				//    [nodes in brackets]
-				//    (edge costs in parenthases)
+				Console.WriteLine("    Graph:");
+				Console.WriteLine();
+				Console.WriteLine("      [0]-----(1)---->[1]  ");
+				Console.WriteLine("       |               |   ");
+				Console.WriteLine("       |               |   ");
+				Console.WriteLine("      (99)            (2)  ");
+				Console.WriteLine("       |               |   ");
+				Console.WriteLine("       |               |   ");
+				Console.WriteLine("       v               v   ");
+				Console.WriteLine("      [3]<----(5)-----[2]  ");
+				Console.WriteLine();
+				Console.WriteLine("      [nodes in brackets]");
+				Console.WriteLine("      (edge costs in parenthases)");
+				Console.WriteLine();
 
 				// make a graph
 				IGraph<int> graph = GraphSetOmnitree.New<int>();
@@ -72,9 +72,9 @@ namespace GraphSearch
 				static bool Goal(int node) => node == 3;
 
 				// run the A* algorithm
-				Action<Action<int>> graphAStarPath = SearchGraph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost);
+				Action<Action<int>> graphAStarPath = SearchGraph(0, graph, Heuristic, Cost, Goal, out int graphAStarTotalCost)!;
 				// run the Dijkstra algorithm
-				Action<Action<int>> graphDijkstraPath = SearchGraph(0, graph, Heuristic, Goal);
+				Action<Action<int>> graphDijkstraPath = SearchGraph(0, graph, Heuristic, Goal)!;
 
 				// print the paths to the console
 				static void PrintPathToConsole(Action<Action<int>> path)
@@ -109,9 +109,9 @@ namespace GraphSearch
 				}
 
 				// run the A* algorithm
-				Action<Action<int>> functionAStarPath = SearchGraph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost);
+				Action<Action<int>> functionAStarPath = SearchGraph(0, Neighbors, Heuristic, Cost, Goal, out int functionAStarTotalCost)!;
 				// run the Dijkstra algorithm
-				Action<Action<int>> functionDdijkstraPath = SearchGraph(0, Neighbors, Heuristic, Goal);
+				Action<Action<int>> functionDdijkstraPath = SearchGraph(0, Neighbors, Heuristic, Goal)!;
 
 				Console.WriteLine("    Using Neighbors Function...");
 				Console.Write("    A* Path:       ");
@@ -218,7 +218,7 @@ namespace GraphSearch
 						enemyLocation,
 						Neighbors,
 						Heuristic,
-						Goal);
+						Goal)!;
 
 				// Print Path To Console
 
@@ -283,7 +283,7 @@ namespace GraphSearch
 				// Make sure we don't re-use locations (must be wiped after running the algorithm)
 				ISet<Vector<float>> alreadyUsed = SetHashLinked.New<Vector<float>>();
 
-				Vector<float> validationVectorStorage = null; // storage to prevent a ton of vectors from being allocated
+				Vector<float> validationVectorStorage = null!; // storage to prevent a ton of vectors from being allocated
 
 				// So, we just need to validate movement locations (make sure the path finding algorithm
 				// ignores locations inside the rock)
@@ -332,7 +332,7 @@ namespace GraphSearch
 					HandleNeighbor(new Vector<float>(x, y, z - distanceResolution)); // west
 				}
 
-				Vector<float> heuristicVectorStorage = null; // storage to prevent a ton of vectors from being allocated
+				Vector<float> heuristicVectorStorage = null!; // storage to prevent a ton of vectors from being allocated
 
 				// Heuristic function (how close are we to the goal)
 				float heuristicFunction(Vector<float> currentLocation)
@@ -347,7 +347,7 @@ namespace GraphSearch
 				Vector<float> mudLocation = new(15f, 0f, -70f);
 				float mudRadius = 30f;
 
-				Vector<float> costVectorStorage = null; // storage to prevent a ton of vectors from being allocated
+				Vector<float> costVectorStorage = null!; // storage to prevent a ton of vectors from being allocated
 
 				// Cost function
 				float costFunction(Vector<float> from, Vector<float> to)
@@ -360,7 +360,7 @@ namespace GraphSearch
 					return magnitude <= mudRadius ? 2f : 1f;
 				}
 
-				Vector<float> goalVectorStorage = null; // storage to prevent a ton of vectors from being allocated
+				Vector<float> goalVectorStorage = null!; // storage to prevent a ton of vectors from being allocated
 
 				// Goal function
 				bool goalFunction(Vector<float> currentLocation)
@@ -379,7 +379,7 @@ namespace GraphSearch
 						heuristicFunction,
 						costFunction,
 						goalFunction,
-						out float aStarTotalPathCost);
+						out float aStarTotalPathCost)!;
 
 				// Flush the already used markers before running the DijkstraPath algorithm.
 				// Normally you won't run two algorithms for the same graph/location, but
@@ -393,7 +393,7 @@ namespace GraphSearch
 						enemyLocation,
 						neighborFunction,
 						heuristicFunction,
-						goalFunction);
+						goalFunction)!;
 
 				// Note: the breadth-first-search algorithm is slow as balls. Lets try to run it
 				// but if it takes too long (say... over 2 seconds) we will cancel it.
@@ -414,7 +414,7 @@ namespace GraphSearch
 								return Goal;
 							else
 								return Continue;
-						});
+						})!;
 
 				// NOTE: If there is no valid path, then "Search.Graph" will return "null."
 				// For this example, I know that there will be a valid path so I did not
@@ -448,63 +448,71 @@ namespace GraphSearch
 				Console.WriteLine();
 				Console.WriteLine("    Graph:");
 				Console.WriteLine();
-				Console.WriteLine("      [A]--10->[B]--15->[C]");
-				Console.WriteLine("       |        |        |");
-				Console.WriteLine("       5        20       2");
-				Console.WriteLine("       |        |        |");
-				Console.WriteLine("       V        V        V");
-				Console.WriteLine("      [D]--35->[E]--10->[F]");
-				Console.WriteLine("       |        |        |");
-				Console.WriteLine("       55       30       65");
-				Console.WriteLine("       |        |        |");
-				Console.WriteLine("       V        V        V");
-				Console.WriteLine("      [G]--40->[H]--40->[I]");
+				Console.WriteLine("      [A]--10->[B]--15->[C]   ");
+				Console.WriteLine("       |        |        |    ");
+				Console.WriteLine("       5        20       2    ");
+				Console.WriteLine("       |        |        |    ");
+				Console.WriteLine("       V        V        V    ");
+				Console.WriteLine("      [D]--35->[E]--10->[F]   ");
+				Console.WriteLine("       |        |        |    ");
+				Console.WriteLine("       55       30       65   ");
+				Console.WriteLine("       |        |        |    ");
+				Console.WriteLine("       V        V        V    ");
+				Console.WriteLine("      [G]--40->[H]--40->[I]   ");
 				Console.WriteLine();
 
-				IGraphWeighted<char, int> WeightedGraph = GraphWeightedMap.New<char, int>();
+				IGraphWeighted<char, int> weightedGraph = GraphWeightedMap.New<char, int>();
 				for (char ch = 'A'; ch <= 'I'; ch++)
 				{
-					WeightedGraph.Add(ch);
+					weightedGraph.Add(ch);
 				}
-				WeightedGraph.Add('A', 'D', 05);
-				WeightedGraph.Add('A', 'B', 10);
-				WeightedGraph.Add('B', 'C', 15);
-				WeightedGraph.Add('B', 'E', 20);
-				WeightedGraph.Add('C', 'F', 20);
-				WeightedGraph.Add('D', 'E', 35);
-				WeightedGraph.Add('D', 'G', 55);
-				WeightedGraph.Add('E', 'H', 30);
-				WeightedGraph.Add('E', 'F', 10);
-				WeightedGraph.Add('F', 'I', 65);
-				WeightedGraph.Add('G', 'H', 40);
-				WeightedGraph.Add('H', 'I', 40);
+				weightedGraph.Add('A', 'D', 05);
+				weightedGraph.Add('A', 'B', 10);
+				weightedGraph.Add('B', 'C', 15);
+				weightedGraph.Add('B', 'E', 20);
+				weightedGraph.Add('C', 'F', 20);
+				weightedGraph.Add('D', 'E', 35);
+				weightedGraph.Add('D', 'G', 55);
+				weightedGraph.Add('E', 'H', 30);
+				weightedGraph.Add('E', 'F', 10);
+				weightedGraph.Add('F', 'I', 65);
+				weightedGraph.Add('G', 'H', 40);
+				weightedGraph.Add('H', 'I', 40);
 
-				Console.WriteLine("    Computing Breadth-First-Search from Node 'A' to 'C' :");
-				foreach (var node in WeightedGraph.PerformBredthFirstSearch('A', 'C'))
+				Console.Write("    Breadth-First-Search from Node 'A' to 'C': ");
+				foreach (var node in weightedGraph.PerformBredthFirstSearch('A', 'C'))
 				{
-					Console.Write($"{node}, ");
+					Console.Write($"{node} ");
 				}
-				Console.WriteLine("    Alternative Delegate based Breadth-First-Search");
-				WeightedGraph.PerformBredthFirstSearch('A', 'C', n => Console.Write($"{n}, "));
+				Console.WriteLine();
+				Console.Write("    Breadth-First-Search from Node 'A' to 'C' (action): ");
+				weightedGraph.PerformBredthFirstSearch('A', 'C', n => Console.Write($"{n}, "));
+				Console.WriteLine();
+				Console.WriteLine();
 
-				Console.WriteLine("    Computing Shortest Path via Dijkstra's Algorithm from 'A' to 'I'");
+				Console.Write("    Dijkstra's Algorithm from 'A' to 'I': ");
 				int totalcost;
-				foreach (var node in WeightedGraph.DijkstraSearch('A', 'I', out totalcost))
+				foreach (var node in weightedGraph.DijkstraSearch('A', 'I', out totalcost))
 				{
-					Console.Write($"{node}, ");
+					Console.Write($"{node} ");
 				}
+				Console.WriteLine();
+				Console.Write("    Dijkstra's Algorithm from 'A' to 'I' (action): ");
+				weightedGraph.DijkstraSearch('A', 'I', n => Console.Write($"{n} "), out var _);
+				Console.WriteLine();
 				Console.WriteLine($"    Total cost = {totalcost}");
-				Console.WriteLine("    Alternative Delegate based Dijkstra search");
-				WeightedGraph.DijkstraSearch('A', 'I', n => Console.Write($"{n}, "), out var _);
+				Console.WriteLine();
 
-				Console.WriteLine("    Computing Shortest Path via A* Algorithm from 'A' to 'I'");
-				foreach (var node in WeightedGraph.AStarSearch('A', 'I', n => 'I' - n, out totalcost))
+				Console.Write("    A* Algorithm from 'A' to 'I': ");
+				foreach (var node in weightedGraph.AStarSearch('A', 'I', n => 'I' - n, out totalcost))
 				{
-					Console.Write($"{node}, ");
+					Console.Write($"{node} ");
 				}
+				Console.WriteLine();
+				Console.Write("    A* Algorithm from 'A' to 'I' (action): ");
+				weightedGraph.AStarSearch('A', 'I', n => 'I' - n, n => Console.Write($"{n} "), out var _);
+				Console.WriteLine();
 				Console.WriteLine($"    Total cost = {totalcost}");
-				Console.WriteLine("    Alternative Delegate based A* Search");
-				WeightedGraph.AStarSearch('A', 'I', n => 'I' - n, n => Console.Write($"{n}, "), out var _);
 			}
 			#endregion
 
