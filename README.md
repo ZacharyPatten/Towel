@@ -915,7 +915,6 @@ Console.WriteLine("Value: " + Value);
 public class MyClass { }
 ```
 
-## Developer(s)
+## Maintainer(s)
 
-> <a href="https://github.com/ZacharyPatten" alt="Zachary Patten"><img src="https://img.shields.io/badge/Zachary-Patten-gray?style=flat-square&logo=github" title="Go To Profile" alt="Zachary Patten"/></a></br>
-> Howdy! I'm Zachary Patten. I like making code frameworks and teaching people how to code. I only work on Towel in my free time, but feel free to contact me if you have questions and I will respond when I am able. :)
+<a href="https://github.com/ZacharyPatten" alt="Zachary Patten"><img src="https://img.shields.io/badge/Zachary-Patten-gray?style=flat-square&logo=github" title="Go To Profile" alt="Zachary Patten"/></a></br>
