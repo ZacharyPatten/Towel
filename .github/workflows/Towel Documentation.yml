@@ -20,10 +20,10 @@ jobs:
       run: dotnet test --collect:"XPlat Code Coverage"
     - name: find coverage.cobertura.xml path
       run: find . -print | grep -i 'coverage.cobertura.xml' > COVERAGEPATH.txt
-    - name: variable to coverage.cobertura.xml
-      run: COVERAGEPATH=$(<COVERAGEPATH.txt)
     - name: move coverage.cobertura.xml file
-      run: mv $COVERAGEPATH coverage.cobertura.xml
+      run: |
+        COVERAGEPATH=$(<COVERAGEPATH.txt)
+        mv $COVERAGEPATH coverage.cobertura.xml
     - name: dotnet tool install reportgenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.11
     - uses: nikeee/docfx-action@v1.0.0
