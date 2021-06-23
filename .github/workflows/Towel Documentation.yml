@@ -8,22 +8,31 @@ on:
       - 'Sources/Towel/**'
       - 'Tools/docfx_project/**'
 jobs:
-  docfx:
-    runs-on: windows-latest
+  documentation:
+    runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
+    - name: setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.100
+    - name: dotnet build
+      run: dotnet build --configuration 'Release'
+    - name: dotnet test
+      run: dotnet test --collect:"XPlat Code Coverage"
+    - name: coverage report
+      run: |
+        find . -print | grep -i 'coverage.cobertura.xml' > COVERAGEPATH.txt
+        COVERAGEPATH=$(<COVERAGEPATH.txt)
+        mv $COVERAGEPATH coverage.cobertura.xml
+        dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.11
+        reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:Tools/docfx_project/_site/coveragereport" -reporttypes:Html
+        mv coverage.cobertura.xml Tools/docfx_project/_site/coveragereport/coverage.cobertura.xml
     - uses: actions/checkout@v2
     - uses: nikeee/docfx-action@v1.0.0
       name: docfx
       with:
         args: Tools/docfx_project/docfx.json
-    - name: coverage
-      run: |
-        dir /s /b coverage.cobertura.xml > COVERAGEPATH.xml
-        set /p COVERAGEPATH < COVERAGEPATH.xml
-        move %COVERAGEPATH% coverage.cobertura.xml
-        dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.11
-        reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:Tools/docfx_project/_site/coveragereport" -reporttypes:Html
-        move coverage.cobertura.xml Tools/docfx_project/_site/coveragereport/coverage.cobertura.xml
     - uses: maxheld83/ghpages@master
       name: gh-pages publish
       env:
