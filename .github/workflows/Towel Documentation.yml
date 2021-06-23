@@ -36,8 +36,12 @@ jobs:
       run: mkdir Tools/docfx_project/_site/coveragereport
     - name: generate coverage report
       run: reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:Tools/docfx_project/_site/coveragereport" -reporttypes:Html
-    - name: mv coverage.cobertura.xml
-      run: mv coverage.cobertura.xml Tools/docfx_project/_site/coveragereport/coverage.cobertura.xml
+    - name: extract coverage ratio
+      run: cat coverage.cobertura.xml | head -2 > coverage.xml
+    - name: tail coverage xml
+      run: echo "</coverage>" >> coverage.xml
+    - name: move coverage.xml
+      run: mv coverage.xml Tools/docfx_project/_site/coveragereport/coverage.xml
     - uses: maxheld83/ghpages@master
       name: gh-pages publish
       env:
