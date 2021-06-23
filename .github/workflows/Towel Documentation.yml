@@ -15,14 +15,9 @@ jobs:
     - name: setup dotnet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.100
+        dotnet-version: 5.0.301
     - name: dotnet test
       run: dotnet test --collect:"XPlat Code Coverage"
-    - uses: actions/checkout@v2
-    - uses: nikeee/docfx-action@v1.0.0
-      name: docfx
-      with:
-        args: Tools/docfx_project/docfx.json
     - name: find coverage.cobertura.xml path
       run: find . -print | grep -i 'coverage.cobertura.xml' > COVERAGEPATH.txt
     - name: variable to coverage.cobertura.xml
@@ -31,7 +26,11 @@ jobs:
       run: mv $COVERAGEPATH coverage.cobertura.xml
     - name: dotnet tool install reportgenerator
       run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.11
-    - name: reportgenerator
+    - uses: nikeee/docfx-action@v1.0.0
+      name: docfx
+      with:
+        args: Tools/docfx_project/docfx.json
+    - name: generate coverage report
       run: reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:Tools/docfx_project/_site/coveragereport" -reporttypes:Html
     - name: mv coverage.cobertura.xml
       run: mv coverage.cobertura.xml Tools/docfx_project/_site/coveragereport/coverage.cobertura.xml
