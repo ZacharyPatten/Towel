@@ -16,8 +16,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.100
-    - name: dotnet build
-      run: dotnet build --configuration 'Release'
+    - uses: actions/checkout@v2
+    - uses: nikeee/docfx-action@v1.0.0
+      name: docfx
+      with:
+        args: Tools/docfx_project/docfx.json
     - name: dotnet test
       run: dotnet test --collect:"XPlat Code Coverage"
     - name: coverage report
@@ -28,11 +31,6 @@ jobs:
         dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.11
         reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:Tools/docfx_project/_site/coveragereport" -reporttypes:Html
         mv coverage.cobertura.xml Tools/docfx_project/_site/coveragereport/coverage.cobertura.xml
-    - uses: actions/checkout@v2
-    - uses: nikeee/docfx-action@v1.0.0
-      name: docfx
-      with:
-        args: Tools/docfx_project/docfx.json
     - uses: maxheld83/ghpages@master
       name: gh-pages publish
       env:
