@@ -11,15 +11,15 @@ jobs:
   documentation:
     runs-on: ubuntu-latest
     steps:
-    - name: dotnet build
-      run: dotnet build --configuration 'Release'
-    - name: dotnet test
-      run: dotnet test --collect:"XPlat Code Coverage"
     - uses: actions/checkout@v2
     - name: setup dotnet
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.100
+    - name: dotnet build
+      run: dotnet build --configuration 'Release'
+    - name: dotnet test
+      run: dotnet test --collect:"XPlat Code Coverage"
     - uses: actions/checkout@v2
     - uses: nikeee/docfx-action@v1.0.0
       name: docfx
