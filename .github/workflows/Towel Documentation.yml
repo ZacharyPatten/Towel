@@ -26,13 +26,12 @@ jobs:
       with:
         args: Tools/docfx_project/docfx.json
     - name: coverage report
-      run: |
-        find . -print | grep -i 'coverage.cobertura.xml' > COVERAGEPATH.txt
-        COVERAGEPATH=$(<COVERAGEPATH.txt)
-        mv $COVERAGEPATH coverage.cobertura.xml
-        dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.11
-        reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:Tools/docfx_project/_site/coveragereport" -reporttypes:Html
-        mv coverage.cobertura.xml Tools/docfx_project/_site/coveragereport/coverage.cobertura.xml
+      run: find . -print | grep -i 'coverage.cobertura.xml' > COVERAGEPATH.txt
+      run: COVERAGEPATH=$(<COVERAGEPATH.txt)
+      run: mv $COVERAGEPATH coverage.cobertura.xml
+      run: dotnet tool install -g dotnet-reportgenerator-globaltool --version 4.8.11
+      run: reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:Tools/docfx_project/_site/coveragereport" -reporttypes:Html
+      run: mv coverage.cobertura.xml Tools/docfx_project/_site/coveragereport/coverage.cobertura.xml
     - uses: maxheld83/ghpages@master
       name: gh-pages publish
       env:
