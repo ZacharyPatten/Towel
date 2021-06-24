@@ -19,6 +19,7 @@
 	<a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" alt="Nuget Package"/></a>
 	<a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
 	<a href="https://github.com/ZacharyPatten/Towel/actions?query=workflow%3A%22Towel+Continuous+Integration%22" alt="Towel Continuous Integration"><img src="https://github.com/ZacharyPatten/Towel/workflows/Towel%20Continuous%20Integration/badge.svg" title="Go To Action" alt="Towel Continuous Integration"></a>
+	<a href="https://zacharypatten.github.io/Towel/coveragereport/index.html" alt="License"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report" alt="Coverage"/></a>
 	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" alt="Discord"/></a>
 	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="License"><img src="https://img.shields.io/badge/license-MIT-green.svg" title="Go To License" alt="License"/></a>
 </p>
@@ -97,9 +98,13 @@
 </summary>
 <p>
 
-> Towel has an API documentation reference that is generated with [docfx](https://github.com/dotnet/docfx). You can view the documentation here:</br>
+> Towel has an API documentation reference that is generated with [docfx](https://github.com/dotnet/docfx):</br>
 > https://zacharypatten.github.io/Towel/api/index.html</br>
 > <a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
+> 
+> Towel has test coverage documentation that is generated with [ReportGenerator](https://github.com/danielpalme/ReportGenerator):</br>
+> https://zacharypatten.github.io/Towel/coveragereport/index.html</br>
+> <a href="https://zacharypatten.github.io/Towel/coveragereport/index.html" alt="License"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report" alt="Coverage"/></a>
 > 
 > Here is Towel's benchmarking documentation:</br>
 > https://zacharypatten.github.io/Towel/articles/benchmarks.html
