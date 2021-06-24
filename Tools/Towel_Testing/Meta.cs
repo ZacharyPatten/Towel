@@ -13,7 +13,7 @@ namespace Towel_Testing
 		[TestMethod] public void Type_ConvertToCsharpSource()
 		{
 			{ // showGenericParameters = false
-				(Type, string)[] testCases = new (Type, string)[]
+				var tests = new (Type Type, string String)[]
 				{
 					(typeof(System.Int32), "System.Int32"),
 					(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
@@ -26,59 +26,65 @@ namespace Towel_Testing
 					(typeof(Towel_Testing.A.D<System.Object>.E<System.String>), "Towel_Testing.A.D<System.Object>.E<System.String>"),
 					(typeof(Towel.DataStructures.IOmnitreePoints<,,,>), "Towel.DataStructures.IOmnitreePoints<,,,>"),
 					(typeof(Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>), "Towel.DataStructures.IOmnitreePoints<System.Object, System.Int32, System.String, System.Double>"),
+					(typeof(System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.ValueTuple<System.Int32, System.Int32>>), "System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.ValueTuple<System.Int32, System.Int32>>"),
+					(typeof(Towel.StepStatus), "Towel.StepStatus"),
+					(typeof(System.Int32*), "System.Int32*"),
+					(typeof(System.Int32**), "System.Int32**"),
+					(typeof(System.Span<System.Int32>), "System.Span<System.Int32>"),
+					(typeof(System.Int32[]), "System.Int32[]"),
+					(typeof(System.Int32[][]), "System.Int32[][]"),
+					(typeof(System.Int32[][][]), "System.Int32[][][]"),
+					(typeof(System.Int32[,]), "System.Int32[,]"),
+					(typeof(System.Int32[,,]), "System.Int32[,,]"),
+					(typeof(System.Int32[,,,]), "System.Int32[,,,]"),
+					(typeof(System.Int32[][,,,][]), "System.Int32[][,,,][]"),
+					(typeof(System.Int32[,,,][][,,,]), "System.Int32[,,,][][,,,]"),
+					// special syntaxes
 					(typeof((int, int, int, int, int, int, int, int, int)), "System.ValueTuple<System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.Int32, System.ValueTuple<System.Int32, System.Int32>>"),
-					(typeof(StepStatus), "Towel.StepStatus"),
-					(typeof(int*), "System.Int32*"),
-					(typeof(int**), "System.Int32**"),
-					(typeof(Span<int>), "System.Span<System.Int32>"),
-					(typeof(int[]), "System.Int32[]"),
-					(typeof(int[][]), "System.Int32[][]"),
-					(typeof(int[][][]), "System.Int32[][][]"),
-					(typeof(int[,]), "System.Int32[,]"),
-					(typeof(int[,,]), "System.Int32[,,]"),
-					(typeof(int[,,,]), "System.Int32[,,,]"),
-					(typeof(int[][,,,][]), "System.Int32[][,,,][]"),
-					(typeof(int[,,,][][,,,]), "System.Int32[,,,][][,,,]"),
+					(typeof((int A, int B)), "System.ValueTuple<System.Int32, System.Int32>"),
+					(typeof(int), "System.Int32"),
+					(typeof(string), "System.String"),
+					(typeof(short), "System.Int16"),
 				};
-				foreach ((Type, string) testCase in testCases)
+				foreach (var test in tests)
 				{
 					string temp;
 					try
 					{
-						temp = testCase.Item1.ConvertToCSharpSource();
-						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
+						temp = test.Type.ConvertToCSharpSource();
+						Assert.IsTrue(temp.Equals(test.String), test.Type.ToString());
 					}
 					catch
 					{
 						Debugger.Break();
-						temp = testCase.Item1.ConvertToCSharpSource();
-						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
+						temp = test.Type.ConvertToCSharpSource();
+						Assert.IsTrue(temp.Equals(test.String), test.Type.ToString());
 					}
 				}
 			}
 
 			{ // showGenericParameters = true
-				(Type, string)[] testCases = new (Type, string)[]
+				var tests = new (Type Type, string String)[]
 				{
 					(typeof(System.Collections.Generic.List<>), "System.Collections.Generic.List<T>"),
 					(typeof(Towel.Mathematics.Symbolics.Constant<>), "Towel.Mathematics.Symbolics.Constant<T>"),
 					(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<AA>.E<BB>"),
 					(typeof(Towel.DataStructures.IOmnitreePoints<,,,>), "Towel.DataStructures.IOmnitreePoints<T, Axis1, Axis2, Axis3>"),
-					(typeof(Span<>), "System.Span<T>"),
+					(typeof(System.Span<>), "System.Span<T>"),
 				};
-				foreach ((Type, string) testCase in testCases)
+				foreach (var test in tests)
 				{
 					string temp;
 					try
 					{
-						temp = testCase.Item1.ConvertToCSharpSource(true);
-						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
+						temp = test.Type.ConvertToCSharpSource(true);
+						Assert.IsTrue(temp.Equals(test.String), test.Type.ToString());
 					}
 					catch
 					{
 						Debugger.Break();
-						temp = testCase.Item1.ConvertToCSharpSource(true);
-						Assert.IsTrue(temp.Equals(testCase.Item2), testCase.Item1.ToString());
+						temp = test.Type.ConvertToCSharpSource(true);
+						Assert.IsTrue(temp.Equals(test.String), test.Type.ToString());
 					}
 				}
 			}
@@ -94,17 +100,17 @@ namespace Towel_Testing
 			{
 				try
 				{
-					string xmlDocumentation = methodInfo.GetDocumentation();
+					string? xmlDocumentation = methodInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
-					string xmlDocumentation = methodInfo.GetDocumentation();
+					string? xmlDocumentation = methodInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
@@ -116,17 +122,17 @@ namespace Towel_Testing
 			{
 				try
 				{
-					string xmlDocumentation = type.GetDocumentation();
+					string? xmlDocumentation = type.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
-					string xmlDocumentation = type.GetDocumentation();
+					string? xmlDocumentation = type.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
@@ -138,17 +144,17 @@ namespace Towel_Testing
 			{
 				try
 				{
-					string xmlDocumentation = fieldInfo.GetDocumentation();
+					string? xmlDocumentation = fieldInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
-					string xmlDocumentation = fieldInfo.GetDocumentation();
+					string? xmlDocumentation = fieldInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
@@ -160,17 +166,17 @@ namespace Towel_Testing
 			{
 				try
 				{
-					string xmlDocumentation = constructorInfo.GetDocumentation();
+					string? xmlDocumentation = constructorInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
-					string xmlDocumentation = constructorInfo.GetDocumentation();
+					string? xmlDocumentation = constructorInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
@@ -182,17 +188,17 @@ namespace Towel_Testing
 			{
 				try
 				{
-					string xmlDocumentation = propertyInfo.GetDocumentation();
+					string? xmlDocumentation = propertyInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
-					string xmlDocumentation = propertyInfo.GetDocumentation();
+					string? xmlDocumentation = propertyInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
@@ -204,17 +210,17 @@ namespace Towel_Testing
 			{
 				try
 				{
-					string xmlDocumentation = eventInfo.GetDocumentation();
+					string? xmlDocumentation = eventInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 				catch
 				{
 					Debugger.Break();
-					string xmlDocumentation = eventInfo.GetDocumentation();
+					string? xmlDocumentation = eventInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
+					string? xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
 				}
 			}
@@ -222,8 +228,16 @@ namespace Towel_Testing
 
 		[TestMethod] public void ParameterInfo_GetDocumentation()
 		{
-			string Test1_a = typeof(XmlDocumentationFromParameter).GetMethod("Test1").GetParameters()[0].GetDocumentation();
-			Assert.IsTrue(Test1_a.Equals("<param name=\"a\">TEST a</param>"));
+			MethodInfo? methodInfo = typeof(XmlDocumentationFromParameter).GetMethod("Test1");
+			if (methodInfo is not null)
+			{
+				string? Test1_a = methodInfo.GetParameters()[0].GetDocumentation();
+				Assert.IsTrue(Test1_a == "<param name=\"a\">TEST a</param>");
+			}
+			else
+			{
+				Assert.Fail($"XmlDocumentationFromParameter.Test1 MethodInfo is null");
+			}
 		}
 
 		#endregion
@@ -346,67 +360,67 @@ namespace Towel_Testing
 		/// <summary>Test A</summary>
 		/// <returns>object</returns>
 		[XmlDocumentationFromMethod]
-		public object DocumentedMethodReturns() { return null; }
+		public object DocumentedMethodReturns() => throw new Exception();
 
 		/// <summary>Test B</summary>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod() { }
+		public void DocumentedMethod() => throw new Exception();
 
 		/// <summary>Test C</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod(object a) { }
+		public void DocumentedMethod(object a) => throw new Exception();
 
 		/// <summary>Test D</summary>
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod(object a, object b) { }
+		public void DocumentedMethod(object a, object b) => throw new Exception();
 
 		/// <summary>Test E</summary>
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		/// <param name="c">c</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod(object a, object b, object c) { }
+		public void DocumentedMethod(object a, object b, object c) => throw new Exception();
 
 		/// <summary>Test F</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod(params object[] a) { }
+		public void DocumentedMethod(params object[] a) => throw new Exception();
 
 		/// <summary>Test G</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethodOut(out object a) { a = null; }
+		public void DocumentedMethodOut(out object a) => throw new Exception();
 
 		/// <summary>Test H</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethodRef(ref object a) { }
+		public void DocumentedMethodRef(ref object a) => throw new Exception();
 
 		/// <summary>Test I</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethodIn(in object a) { }
+		public void DocumentedMethodIn(in object a) => throw new Exception();
 
 		/// <summary>Test J</summary>
 		/// <typeparam name="A">A</typeparam>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>() { }
+		public void DocumentedMethod<A>() => throw new Exception();
 
 		/// <summary>Test K</summary>
 		/// <typeparam name="A">A</typeparam>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a) { }
+		public void DocumentedMethod<A>(A a) => throw new Exception();
 
 		/// <summary>Test L</summary>
 		/// <typeparam name="A">A</typeparam>
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a, object b) { }
+		public void DocumentedMethod<A>(A a, object b) => throw new Exception();
 
 		/// <summary>Test M</summary>
 		/// <typeparam name="A">A</typeparam>
@@ -414,7 +428,7 @@ namespace Towel_Testing
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A, B>(A a, B b) { }
+		public void DocumentedMethod<A, B>(A a, B b) => throw new Exception();
 
 		/// <summary>Test N</summary>
 		/// <typeparam name="A">A</typeparam>
@@ -422,48 +436,48 @@ namespace Towel_Testing
 		/// <param name="b">b</param>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A, B>(B b, A a) { }
+		public void DocumentedMethod<A, B>(B b, A a) => throw new Exception();
 
 		/// <summary>Test U</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public unsafe void DocumentedMethod(int* a) { }
+		public unsafe void DocumentedMethod(int* a) => throw new Exception();
 
 		public class NestedType
 		{
 			/// <summary>Test O</summary>
 			[XmlDocumentationFromMethod]
-			public void DocumentedMethod() { }
+			public void DocumentedMethod() => throw new Exception();
 		}
 
 		public class NestedGenericType<A>
 		{
 			/// <summary>Test P</summary>
 			[XmlDocumentationFromMethod]
-			public void DocumentedMethod() { }
+			public void DocumentedMethod() => throw new Exception();
 
 			/// <summary>Test W</summary>
 			/// <param name="a">a</param>
 			[XmlDocumentationFromMethod]
-			public void DocumentedMethod(A a) { }
+			public void DocumentedMethod(A a) => throw new Exception();
 
 			/// <summary>Test X</summary>
 			/// <param name="a">a</param>
 			/// <param name="b">b</param>
 			[XmlDocumentationFromMethod]
-			public void DocumentedMethod<B>(A a, B b) { }
+			public void DocumentedMethod<B>(A a, B b) => throw new Exception();
 		}
 
 		/// <summary>Test Q</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod(NestedType a) { }
+		public void DocumentedMethod(NestedType a) => throw new Exception();
 
 		/// <summary>Test R</summary>
 		/// <typeparam name="A">A</typeparam>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(NestedGenericType<A> a) { }
+		public void DocumentedMethod<A>(NestedGenericType<A> a) => throw new Exception();
 
 		/// <summary>Test S</summary>
 		/// <typeparam name="A">A</typeparam>
@@ -471,7 +485,7 @@ namespace Towel_Testing
 		/// <param name="b">b</param>
 		/// <param name="c">c</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a, Action<Action<A>> b, A[] c) { }
+		public void DocumentedMethod<A>(A a, Action<Action<A>> b, A[] c) => throw new Exception();
 
 		/// <summary>Test T</summary>
 		/// <typeparam name="A">A</typeparam>
@@ -480,12 +494,12 @@ namespace Towel_Testing
 		/// <param name="c">c</param>
 		/// <param name="d">d</param>
 		[XmlDocumentationFromMethod]
-		public void DocumentedMethod<A>(A a, Action<Action<A>> b, A[] c, A[,] d) { }
+		public void DocumentedMethod<A>(A a, Action<Action<A>> b, A[] c, A[,] d) => throw new Exception();
 
 		/// <summary>Test V</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public unsafe void DocumentedMethod(ref int* a) { }
+		public unsafe void DocumentedMethod(ref int* a) => throw new Exception();
 
 		public class NestedGenericType2<A, B, C>
 		{
@@ -500,7 +514,7 @@ namespace Towel_Testing
 			/// <param name="e">e</param>
 			/// <param name="f">f</param>
 			[XmlDocumentationFromMethod]
-			public void DocumentedMethod<D, E, F>(A a, B b, C c, D d, E e, F f) { }
+			public void DocumentedMethod<D, E, F>(A a, B b, C c, D d, E e, F f) => throw new Exception();
 
 			/// <summary>Test X</summary>
 			/// <typeparam name="D">D</typeparam>
@@ -513,27 +527,27 @@ namespace Towel_Testing
 			/// <param name="e">e</param>
 			/// <param name="f">f</param>
 			[XmlDocumentationFromMethod]
-			public void DocumentedMethod<D, E, F>(A[] a, B[,] b, C[,,] c, D[] d, E[,] e, F[,,] f) { }
+			public void DocumentedMethod<D, E, F>(A[] a, B[,] b, C[,,] c, D[] d, E[,] e, F[,,] f) => throw new Exception();
 
 			/// <summary>Test DD.</summary>
 			/// <param name="a">a</param>
 			[XmlDocumentationFromMethod]
-			public static implicit operator bool(NestedGenericType2<A, B, C> a) { return false; }
+			public static implicit operator bool(NestedGenericType2<A, B, C> a) => throw new Exception();
 
 			/// <summary>Test EE.</summary>
 			/// <param name="a">a</param>
 			[XmlDocumentationFromMethod]
-			public static explicit operator int(NestedGenericType2<A, B, C> a) { return 0; }
+			public static explicit operator int(NestedGenericType2<A, B, C> a) => throw new Exception();
 
 			/// <summary>Test HH.</summary>
 			/// <param name="a">a</param>
 			[XmlDocumentationFromMethod]
-			public static implicit operator NestedGenericType2<A, B, C>(bool a) { return null; }
+			public static implicit operator NestedGenericType2<A, B, C>(bool a) => throw new Exception();
 
 			/// <summary>Test II.</summary>
 			/// <param name="a">a</param>
 			[XmlDocumentationFromMethod]
-			public static explicit operator NestedGenericType2<A, B, C>(int a) { return null; }
+			public static explicit operator NestedGenericType2<A, B, C>(int a) => throw new Exception();
 
 			public class NestedNestedGenericType3<D, E, F>
 			{
@@ -581,34 +595,34 @@ namespace Towel_Testing
 		/// <summary>Test BB.</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public static implicit operator bool(XmlDocumentationFromMethod a) { return false; }
+		public static implicit operator bool(XmlDocumentationFromMethod a) => throw new Exception();
 
 		/// <summary>Test CC.</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public static explicit operator int(XmlDocumentationFromMethod a) { return 0; }
+		public static explicit operator int(XmlDocumentationFromMethod a) => throw new Exception();
 
 		/// <summary>Test FF.</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public static implicit operator XmlDocumentationFromMethod(bool a) { return null; }
+		public static implicit operator XmlDocumentationFromMethod(bool a) => throw new Exception();
 
 		/// <summary>Test GG.</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromMethod]
-		public static explicit operator XmlDocumentationFromMethod(int a) { return null; }
+		public static explicit operator XmlDocumentationFromMethod(int a) => throw new Exception();
 
 		/// <summary>Test JJ.</summary>
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		[XmlDocumentationFromMethod]
-		public static XmlDocumentationFromMethod operator +(XmlDocumentationFromMethod a, XmlDocumentationFromMethod b) { return null; }
+		public static XmlDocumentationFromMethod operator +(XmlDocumentationFromMethod a, XmlDocumentationFromMethod b) => throw new Exception();
 
 		/// <summary>Test KK.</summary>
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		[XmlDocumentationFromMethod]
-		public static XmlDocumentationFromMethod operator +(XmlDocumentationFromMethod a, NestedGenericType2<bool, bool, bool> b) { return null; }
+		public static XmlDocumentationFromMethod operator +(XmlDocumentationFromMethod a, NestedGenericType2<bool, bool, bool> b) => throw new Exception();
 	}
 
 	#endregion
@@ -737,11 +751,11 @@ namespace Towel_Testing
 
 		/// <summary>Test B</summary>
 		[XmlDocumentationFromField]
-		public string FieldB;
+		public string? FieldB;
 
 		/// <summary>Test C</summary>
 		[XmlDocumentationFromField]
-		public Action FieldC;
+		public Action? FieldC;
 
 		/// <summary>Test D</summary>
 		[XmlDocumentationFromField]
@@ -749,11 +763,15 @@ namespace Towel_Testing
 
 		/// <summary>Test E</summary>
 		[XmlDocumentationFromField]
-		public static string FieldE;
+		public static string? FieldE;
 
 		/// <summary>Test F</summary>
 		[XmlDocumentationFromField]
-		public static Action FieldF;
+		public static Action? FieldF;
+
+		/// <summary>Test S</summary>
+		[XmlDocumentationFromField]
+		public int? FieldS;
 
 		public class NestedType
 		{
@@ -763,11 +781,11 @@ namespace Towel_Testing
 
 			/// <summary>Test H</summary>
 			[XmlDocumentationFromField]
-			public string FieldH;
+			public string? FieldH;
 
 			/// <summary>Test I</summary>
 			[XmlDocumentationFromField]
-			public Action FieldI;
+			public Action? FieldI;
 
 			/// <summary>Test J</summary>
 			[XmlDocumentationFromField]
@@ -775,11 +793,11 @@ namespace Towel_Testing
 
 			/// <summary>Test K</summary>
 			[XmlDocumentationFromField]
-			public static string FieldK;
+			public static string? FieldK;
 
 			/// <summary>Test L</summary>
 			[XmlDocumentationFromField]
-			public static Action FieldL;
+			public static Action? FieldL;
 		}
 
 		public class NestedTypeGeneric<A>
@@ -790,11 +808,11 @@ namespace Towel_Testing
 
 			/// <summary>Test N</summary>
 			[XmlDocumentationFromField]
-			public string FieldN;
+			public string? FieldN;
 
 			/// <summary>Test O</summary>
 			[XmlDocumentationFromField]
-			public Action FieldO;
+			public Action? FieldO;
 
 			/// <summary>Test P</summary>
 			[XmlDocumentationFromField]
@@ -802,11 +820,11 @@ namespace Towel_Testing
 
 			/// <summary>Test Q</summary>
 			[XmlDocumentationFromField]
-			public static string FieldQ;
+			public static string? FieldQ;
 
 			/// <summary>Test R</summary>
 			[XmlDocumentationFromField]
-			public static Action FieldR;
+			public static Action? FieldR;
 		}
 	}
 
@@ -821,80 +839,80 @@ namespace Towel_Testing
 	{
 		/// <summary>Test A</summary>
 		[XmlDocumentationFromProperty]
-		public int FieldA => default;
+		public int FieldA => throw new Exception();
 
 		/// <summary>Test B</summary>
 		[XmlDocumentationFromProperty]
-		public string FieldB => default;
+		public string FieldB => throw new Exception();
 
 		/// <summary>Test C</summary>
 		[XmlDocumentationFromProperty]
-		public Action FieldC => default;
+		public Action FieldC => throw new Exception();
 
 		/// <summary>Test D</summary>
 		[XmlDocumentationFromProperty]
-		public static int FieldD => default;
+		public static int FieldD => throw new Exception();
 
 		/// <summary>Test E</summary>
 		[XmlDocumentationFromProperty]
-		public static string FieldE => default;
+		public static string FieldE => throw new Exception();
 
 		/// <summary>Test F</summary>
 		[XmlDocumentationFromProperty]
-		public static Action FieldF => default;
+		public static Action FieldF => throw new Exception();
 
 		public class NestedType
 		{
 			/// <summary>Test G</summary>
 			[XmlDocumentationFromProperty]
-			public int FieldG => default;
+			public int FieldG => throw new Exception();
 
 			/// <summary>Test H</summary>
 			[XmlDocumentationFromProperty]
-			public string FieldH => default;
+			public string FieldH => throw new Exception();
 
 			/// <summary>Test I</summary>
 			[XmlDocumentationFromProperty]
-			public Action FieldI => default;
+			public Action FieldI => throw new Exception();
 
 			/// <summary>Test J</summary>
 			[XmlDocumentationFromProperty]
-			public static int FieldJ => default;
+			public static int FieldJ => throw new Exception();
 
 			/// <summary>Test K</summary>
 			[XmlDocumentationFromProperty]
-			public static string FieldK => default;
+			public static string FieldK => throw new Exception();
 
 			/// <summary>Test L</summary>
 			[XmlDocumentationFromProperty]
-			public static Action FieldL => default;
+			public static Action FieldL => throw new Exception();
 		}
 
 		public class NestedTypeGeneric<A>
 		{
 			/// <summary>Test M</summary>
 			[XmlDocumentationFromProperty]
-			public int FieldM => default;
+			public int FieldM => throw new Exception();
 
 			/// <summary>Test N</summary>
 			[XmlDocumentationFromProperty]
-			public string FieldN => default;
+			public string FieldN => throw new Exception();
 
 			/// <summary>Test O</summary>
 			[XmlDocumentationFromProperty]
-			public Action FieldO => default;
+			public Action FieldO => throw new Exception();
 
 			/// <summary>Test P</summary>
 			[XmlDocumentationFromProperty]
-			public static int FieldP => default;
+			public static int FieldP => throw new Exception();
 
 			/// <summary>Test Q</summary>
 			[XmlDocumentationFromProperty]
-			public static string FieldQ => default;
+			public static string FieldQ => throw new Exception();
 
 			/// <summary>Test R</summary>
 			[XmlDocumentationFromProperty]
-			public static Action FieldR => default;
+			public static Action FieldR => throw new Exception();
 		}
 	}
 
@@ -909,69 +927,69 @@ namespace Towel_Testing
 	{
 		/// <summary>Test A</summary>
 		[XmlDocumentationFromConstructor]
-		public XmlDocumentationFromConstructor() { }
+		public XmlDocumentationFromConstructor() => throw new Exception();
 
 		/// <summary>Test B</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromConstructor]
-		public XmlDocumentationFromConstructor(object a) { }
+		public XmlDocumentationFromConstructor(object a) => throw new Exception();
 
 		/// <summary>Test C</summary>
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		[XmlDocumentationFromConstructor]
-		public XmlDocumentationFromConstructor(object a, object b) { }
+		public XmlDocumentationFromConstructor(object a, object b) => throw new Exception();
 
 		/// <summary>Test D</summary>
 		/// <param name="a">a</param>
 		/// <param name="b">b</param>
 		/// <param name="c">c</param>
 		[XmlDocumentationFromConstructor]
-		public XmlDocumentationFromConstructor(object a, object b, object c) { }
+		public XmlDocumentationFromConstructor(object a, object b, object c) => throw new Exception();
 
 		/// <summary>Test E</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromConstructor]
-		public XmlDocumentationFromConstructor(params object[] a) { }
+		public XmlDocumentationFromConstructor(params object[] a) => throw new Exception();
 
 		/// <summary>Test F</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromConstructor]
-		public XmlDocumentationFromConstructor(out object a) { a = null; }
+		public XmlDocumentationFromConstructor(out object a) => throw new Exception();
 
 		/// <summary>Test G</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromConstructor]
-		public unsafe XmlDocumentationFromConstructor(int* a) { }
+		public unsafe XmlDocumentationFromConstructor(int* a) => throw new Exception();
 
 		public class NestedType
 		{
 			/// <summary>Test H</summary>
 			[XmlDocumentationFromConstructor]
-			public NestedType() { }
+			public NestedType() => throw new Exception();
 		}
 
 		public class NestedGenericType<A>
 		{
 			/// <summary>Test I</summary>
 			[XmlDocumentationFromConstructor]
-			public NestedGenericType() { }
+			public NestedGenericType() => throw new Exception();
 
 			/// <summary>Test L</summary>
 			/// <param name="a">a</param>
 			[XmlDocumentationFromConstructor]
-			public NestedGenericType(A a) { }
+			public NestedGenericType(A a) => throw new Exception();
 		}
 
 		/// <summary>Test J</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromConstructor]
-		public XmlDocumentationFromConstructor(NestedType a) { }
+		public XmlDocumentationFromConstructor(NestedType a) => throw new Exception();
 
 		/// <summary>Test K</summary>
 		/// <param name="a">a</param>
 		[XmlDocumentationFromConstructor]
-		public unsafe XmlDocumentationFromConstructor(ref int* a) { }
+		public unsafe XmlDocumentationFromConstructor(ref int* a) => throw new Exception();
 
 		public class NestedGenericType2<A, B, C>
 		{
@@ -980,14 +998,14 @@ namespace Towel_Testing
 			/// <param name="b">b</param>
 			/// <param name="c">c</param>
 			[XmlDocumentationFromConstructor]
-			public NestedGenericType2(A a, B b, C c) { }
+			public NestedGenericType2(A a, B b, C c) => throw new Exception();
 
 			/// <summary>Test M</summary>
 			/// <param name="a">a</param>
 			/// <param name="b">b</param>
 			/// <param name="c">c</param>
 			[XmlDocumentationFromConstructor]
-			public NestedGenericType2(A[] a, B[,] b, C[,,] c) { }
+			public NestedGenericType2(A[] a, B[,] b, C[,,] c) => throw new Exception();
 		}
 	}
 
@@ -1002,44 +1020,44 @@ namespace Towel_Testing
 	{
 		/// <summary>Test A</summary>
 		[XmlDocumentationFromEvent]
-		public event Action EventA;
+		public event Action? EventA;
 
 		/// <summary>Test B</summary>
 		[XmlDocumentationFromEvent]
-		public event Action<int> EventB;
+		public event Action<int>? EventB;
 
 		/// <summary>Test C</summary>
 		[XmlDocumentationFromEvent]
-		public event Func<int> EventC;
+		public event Func<int>? EventC;
 
 		public class NestedType
 		{
 			/// <summary>Test A</summary>
 			[XmlDocumentationFromEvent]
-			public event Action EventA;
+			public event Action? EventA;
 
 			/// <summary>Test B</summary>
 			[XmlDocumentationFromEvent]
-			public event Action<int> EventB;
+			public event Action<int>? EventB;
 
 			/// <summary>Test C</summary>
 			[XmlDocumentationFromEvent]
-			public event Func<int> EventC;
+			public event Func<int>? EventC;
 		}
 
 		public class NestedTypeGeneric<A>
 		{
 			/// <summary>Test A</summary>
 			[XmlDocumentationFromEvent]
-			public event Action EventA;
+			public event Action? EventA;
 
 			/// <summary>Test B</summary>
 			[XmlDocumentationFromEvent]
-			public event Action<A> EventB;
+			public event Action<A>? EventB;
 
 			/// <summary>Test C</summary>
 			[XmlDocumentationFromEvent]
-			public event Func<A> EventC;
+			public event Func<A>? EventC;
 		}
 	}
 
@@ -1054,7 +1072,7 @@ namespace Towel_Testing
 	{
 		/// <summary>Test1</summary>
 		/// <param name="a">TEST a</param>
-		public void Test1(object a) { }
+		public void Test1(object a) => throw new Exception();
 	}
 
 	#endregion
