@@ -58,9 +58,24 @@ namespace Towel_Benchmarking
 					"- name: Introduction",
 					"  href: intro.md",
 					"- name: Benchmarks",
-					"  href: #",
+					"  href: benchmarks.md",
 				};
 				File.WriteAllLines(tocPath, lines);
+			}
+			string? benchmarks_mdPath = default;
+			if (updateDocumentation)
+			{
+				benchmarks_mdPath = Path.Combine(thisPath, "..", "docfx_project", "articles", "benchmarks.md");
+				string[] lines =
+				{
+					"# Benchmarks",
+					"",
+					@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>",
+					"",
+					"The source code for all becnhmarks are in [Tools/ Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).",
+ 					"",
+				};
+				File.WriteAllLines(benchmarks_mdPath, lines);
 			}
 			foreach (Type type in Benchmarks)
 			{
@@ -94,10 +109,18 @@ namespace Towel_Benchmarking
 				{
 					string[] lines =
 					{
-						$"  - name: {type.GetTag(Name).Value}",
-						$"    href: benchmarks/{type.GetTag(OutputFile).Value}.md",
+						$"- name: {type.GetTag(Name).Value}",
+						$"  href: benchmarks/{type.GetTag(OutputFile).Value}.md",
 					};
 					File.AppendAllLines(tocPath!, lines);
+				}
+				if (updateDocumentation)
+				{
+					string[] lines =
+					{
+						$"- [{type.GetTag(Name).Value}]({type.GetTag(OutputFile).Value})",
+					};
+					File.AppendAllLines(benchmarks_mdPath!, lines);
 				}
 			}
 			Console.WriteLine("Benchmarking Complete. :)");
