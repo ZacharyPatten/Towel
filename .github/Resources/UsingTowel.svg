@@ -13,7 +13,7 @@
 		<rect width="103" height="20" fill="url(#s)"/>
 	</g>
 	<g fill="#fff" text-anchor="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" text-rendering="geometricPrecision" font-size="110">
-		<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" x="2px" width="19px" height="19px" viewBox="0 0 640 480">
+		<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" x="3px" width="19px" height="19px" viewBox="0 0 640 480">
 			<g>
 				<g>
 					<path d="m546,330.2373c0,0 14,-23 9,-74c-5,-51 -5,-31 -20,-89c-15,-58 -44,-87 -85,-88c-41,-1 -341,-2 -341,-2c0,0 -75,-2 -74,51c1,53 8,180 23,226c15,46 66,67 110,68c44,1 326,14 353,3c27,-11 45,-46 47,-59c2,-13 -22,-36 -22,-36z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#d6eadf"/>
