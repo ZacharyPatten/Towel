@@ -33,6 +33,7 @@ namespace Towel_Testing
 
 		[TestMethod] public void Decimal_ToEnglishWords()
 		{
+			Assert.IsTrue((       42m).ToEnglishWords() == "Forty-Two");
 			Assert.IsTrue((        0m).ToEnglishWords() == "Zero");
 			Assert.IsTrue((        1m).ToEnglishWords() == "One");
 			Assert.IsTrue((       -1m).ToEnglishWords() == "Negative One");

@@ -30,7 +30,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Run The Included Examples <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Run The Included Examples </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -73,7 +73,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Use Towel In Your .NET Projects <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Use Towel In Your .NET Projects </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -94,38 +94,30 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>View Documentation <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>View Documentation </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
-> Towel has an API documentation reference that is generated with [docfx](https://github.com/dotnet/docfx):</br>
+> [docfx](https://github.com/dotnet/docfx) generated API documentation reference:</br>
 > https://zacharypatten.github.io/Towel/api/index.html</br>
 > <a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
 > 
-> Towel has test coverage documentation that is generated with [ReportGenerator](https://github.com/danielpalme/ReportGenerator):</br>
+> [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report:</br>
 > https://zacharypatten.github.io/Towel/coveragereport/index.html</br>
 > <a href="https://zacharypatten.github.io/Towel/coveragereport/index.html" alt="License"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report" alt="Coverage"/></a>
 > 
-> Here is Towel's benchmarking documentation:</br>
+> [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) generated benchmarking:</br>
 > https://zacharypatten.github.io/Towel/articles/benchmarks.html
 > 
-> Here are some other documentation references:
+> Relevant Articles:
 > - [MSDN Accessing XML Documentation Via Reflection](https://docs.microsoft.com/en-us/archive/msdn-magazine/2019/october/csharp-accessing-xml-documentation-via-reflection)</br>
 > - [Beginner's Guide To Console Input In C#](https://gist.github.com/ZacharyPatten/798ed612d692a560bdd529367b6a7dbd)</br>
 > - [Generating Unique Random Data](https://gist.github.com/ZacharyPatten/c9b43a2c9e8a5a5523883e77410f742d)</br>
+> - [Random Generation (with efficient exclusions)](https://gist.github.com/ZacharyPatten/8de188b2bd358ab5c3517cbb55e83632)</br>
 > - [Omnitree](https://gist.github.com/ZacharyPatten/f21fc5c6835faea9be8ae4baab4e294e)</br>
 > - [C# Generic Math](https://gist.github.com/ZacharyPatten/8e1395a94928f2c7715cf939b0d0389c)</br>
-
-</p>
-</details>
-
-
-<details>
-<summary>
-:page_facing_up: <strong>Repository File Structure Overview <em>(Click To Expand)</em></strong>
-</summary>
-<p>
-
+>
+> Repository File Structure Overview:
 > - :file_folder: `.github` <sub>content regarding the GitHub repoistory.</sub>
 >   - :file_folder: `ISSUE_TEMPLATE` <sub>templates for issue submissions to the GitHub repository</sub>
 >   - :file_folder: `Resources` <sub>resources such as image files</sub>
@@ -151,10 +143,9 @@
 </p>
 </details>
 
-
 <details>
 <summary>
-:page_facing_up: <strong>Get Involved <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Get Involved </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -182,7 +173,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>How It Works <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>How It Works </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -315,7 +306,7 @@ symExp1.Substitute("x", 5);
 
 <details>
 <summary>
-:page_facing_up: <strong>Supported Measurements <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Supported Measurements </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -419,7 +410,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>Heap <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Heap </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -468,7 +459,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>AVL Tree <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>AVL Tree </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -519,7 +510,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>Red Black Tree <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Red Black Tree </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -568,7 +559,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>Omnitree <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Omnitree </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -706,7 +697,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>Tree <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Tree </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -719,7 +710,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>Graph <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Graph </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -756,7 +747,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 
 <details>
 <summary>
-:page_facing_up: <strong>Trie <em>(Click To Expand)</em></strong>
+:page_facing_up: <strong>Trie </strong><sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -837,7 +828,7 @@ SearchGraph<...>(...);
 IEnumerable<(T A, T B)> CombineRanges<T>(IEnumerable<(T A, T B)> ranges)
 ```
 
-> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html#sorting-algorithms) are included for the sorting algorithms._
+> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html) are included for the sorting algorithms._
 
 ## Extensions
 
@@ -861,10 +852,12 @@ string ConvertToCSharpSourceDefinition(this Type type);
 // Example: typeof(List<int>) -> "System.Collections.Generic.List<int>"
 
 string ToEnglishWords(this decimal @decimal);
-// Example: 12 -> "Twelve"
+// Example: 42 -> "Forty-Two"
 
 int TryParseRomanNumeral(string @string);
-// Example: "IX" -> 9
+// Example: "XLII" -> 42
+int TryToRomanNumeral(int value);
+// Example: 42 -> "XLII"
 
 // Reflection Extensions To Access XML Documentation
 string GetDocumentation(this Type type);
