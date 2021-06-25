@@ -7,13 +7,14 @@ using System.Linq;
 namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Random")]
-	public class Random_Benchmarks
+	[Tag(Program.OutputFile, nameof(RandomBenchmarks))]
+	public class RandomBenchmarks
 	{
 		[Params(10, 100, 1000, 10000, 100000)]
 		public int N;
 
-		Random random;
-		int[] array;
+		Random? random;
+		int[]? array;
 		double totalWeight;
 
 		[IterationSetup] public void IterationSetup()
@@ -47,9 +48,9 @@ namespace Towel_Benchmarking
 		//	});
 
 		[Benchmark] public void Next_IEnumerable_TotalWeight() =>
-			random.Next(array.Select(i => (i, (double)i)), totalWeight);
+			random!.Next(array!.Select(i => (i, (double)i)), totalWeight);
 
 		[Benchmark] public void Next_IEnumerable() =>
-			random.Next(array.Select(i => (i, (double)i)));
+			random!.Next(array!.Select(i => (i, (double)i)));
 	}
 }

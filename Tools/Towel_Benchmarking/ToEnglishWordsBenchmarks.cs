@@ -3,8 +3,9 @@ using Towel;
 
 namespace Towel_Benchmarking
 {
-	[Tag(Program.Name, "[Numeric] To English Words")]
-	public class ToEnglishWords_Benchmarks
+	[Tag(Program.Name, "decimal To English Words")]
+	[Tag(Program.OutputFile, nameof(ToEnglishWordsBenchmarks))]
+	public class ToEnglishWordsBenchmarks
 	{
 		[Params(10, 100, 1000, 10000, 100000)]
 		public decimal Range;

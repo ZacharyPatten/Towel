@@ -10,8 +10,8 @@ namespace Towel_Benchmarking
 {
 	public class Program
 	{
-		internal const string Name = "name";
-		//internal const string Path = "path";
+		internal const string Name = nameof(Name);
+		internal const string OutputFile = nameof(OutputFile);
 
 		public static void Main(string[] args)
 		{
@@ -27,58 +27,78 @@ namespace Towel_Benchmarking
 
 		static readonly Type[] Benchmarks =
 		{
-			typeof(Sort_Benchmarks),
-			typeof(DataStructures_Benchmarks),
-			typeof(Random_Benchmarks),
-			typeof(ToEnglishWords_Benchmarks),
-			typeof(Permute_Benchmarks),
-			typeof(MapVsDictionary_Add),
-			typeof(MapVsDictionary_LookUp),
-			typeof(SpanVsArraySorting),
-			typeof(RandomWithExclusions),
+			typeof(SortBenchmarks),
+			typeof(DataStructuresBenchmarks),
+			typeof(RandomBenchmarks),
+			typeof(ToEnglishWordsBenchmarks),
+			typeof(PermuteBenchmarks),
+			typeof(MapVsDictionaryAddBenchmarks),
+			typeof(MapVsDictionaryLookUpBenchmarks),
+			typeof(SpanVsArraySortingBenchmarks),
+			typeof(RandomWithExclusionsBenchmarks),
+			typeof(HeapGenericsVsDelegatesBenchmarks),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>
 		/// <param name="updateDocumentation">Whether or not to update the docfx documentation.</param>
-		/// <param name="documentationPath">The path to the docfx documentation file.</param>
+		/// <param name="refreshToc">Whether or not to refresh "toc.yml".</param>
+		/// <param name="tocPath">The path to the docfx documentation file.</param>
+		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True</example>
 		[Command] public static void run(
 			bool updateDocumentation = false,
-			string documentationPath = null)
+			bool refreshToc = false,
+			string? tocPath = null)
 		{
-			StringBuilder stringBuilder = new();
-			stringBuilder.AppendLine("# Benchmarks");
-			stringBuilder.AppendLine();
-			stringBuilder.AppendLine(@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>");
-			stringBuilder.AppendLine();
-			stringBuilder.AppendLine("The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).");
-			stringBuilder.AppendLine();
-
+			string thisPath = Path.GetDirectoryName(sourcefilepath())!;
+			if (refreshToc)
+			{
+				tocPath ??= Path.Combine(thisPath, "..", "docfx_project", "articles", "toc.yml");
+				string[] lines =
+				{
+					"- name: Introduction",
+					"  href: intro.md",
+					"- name: Benchmarks",
+					"  href: #",
+				};
+				File.WriteAllLines(tocPath, lines);
+			}
 			foreach (Type type in Benchmarks)
 			{
+				StringBuilder stringBuilder = new();
 				string output = RunBenchmarkAndGetMarkdownOutput(type);
 				stringBuilder.AppendLine($"# {type.GetTag(Name).Value ?? type.Name}");
+				stringBuilder.AppendLine();
+				stringBuilder.AppendLine(@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>");
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine("The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).");
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine(output);
-			}
-			if (updateDocumentation)
-			{
-				string thisPath = Path.GetDirectoryName(sourcefilepath());
-				documentationPath ??= Path.Combine(thisPath, "..", "docfx_project", "articles", "benchmarks.md");
-				if (Directory.Exists(Path.GetDirectoryName(documentationPath)))
+				if (updateDocumentation)
 				{
-					File.WriteAllText(documentationPath, stringBuilder.ToString());
+					string documentationPath = Path.Combine(thisPath, "..", "docfx_project", "articles", "benchmarks", type.GetTag(OutputFile).Value + ".md");
+					if (Directory.Exists(Path.GetDirectoryName(documentationPath)))
+					{
+						File.WriteAllText(documentationPath, stringBuilder.ToString());
+					}
+					else
+					{
+						Console.Error.WriteLine("ERROR: documentation path not found");
+						Console.Error.WriteLine($"    documentation path: {documentationPath}");
+					}
 				}
 				else
 				{
-					Console.Error.WriteLine("ERROR: documentation path not found");
-					Console.Error.WriteLine($"    documentation path: {documentationPath}");
+					Console.WriteLine(stringBuilder.ToString());
 				}
-			}
-			else
-			{
-				Console.WriteLine(stringBuilder.ToString());
+				if (refreshToc)
+				{
+					string[] lines =
+					{
+						$"  - name: {type.GetTag(Name).Value}",
+						$"    href: benchmarks/{type.GetTag(OutputFile).Value}.md",
+					};
+					File.AppendAllLines(tocPath!, lines);
+				}
 			}
 			Console.WriteLine("Benchmarking Complete. :)");
 		}
@@ -100,4 +120,69 @@ namespace Towel_Benchmarking
 			}
 		}
 	}
+
+	#region Shared Random Data Generation
+
+	public class Person
+	{
+		public Guid Id;
+		public string? FirstName;
+		public string? LastName;
+		public DateTime DateOfBirth;
+	}
+
+	public struct EquatePerson : IFunc<Person, Person, bool>
+	{
+		public bool Invoke(Person a, Person b) => a.Id == b.Id;
+	}
+
+	public struct HashPerson : IFunc<Person, int>
+	{
+		public int Invoke(Person a) => a.Id.GetHashCode();
+	}
+
+	public struct ComparePersonFirstName : IFunc<Person, Person, CompareResult>
+	{
+		public CompareResult Invoke(Person a, Person b) => Compare(a.FirstName, b.FirstName);
+	}
+
+	public static partial class RandomData
+	{
+		public static class DataStructures
+		{
+			public static Person[][] RandomData => GenerateBenchmarkData();
+
+			public static Person[][] GenerateBenchmarkData()
+			{
+				DateTime minimumBirthDate = new(1950, 1, 1);
+				DateTime maximumBirthDate = new(2000, 1, 1);
+
+				Random random = new(7);
+				Person[] GenerateData(int count)
+				{
+					Person[] data = new Person[count];
+					for (int i = 0; i < count; i++)
+					{
+						data[i] = new Person()
+						{
+							Id = Guid.NewGuid(),
+							FirstName = random.NextEnglishAlphabeticString(random.Next(5, 11)),
+							LastName = random.NextEnglishAlphabeticString(random.Next(5, 11)),
+							DateOfBirth = random.NextDateTime(minimumBirthDate, maximumBirthDate)
+						};
+					}
+					return data;
+				}
+
+				return new Person[][]
+				{
+					GenerateData(10),
+					GenerateData(100),
+					GenerateData(1000),
+				};
+			}
+		}
+	}
+
+	#endregion
 }

@@ -6,7 +6,8 @@ using Towel.DataStructures;
 namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Map vs Dictionary (Add)")]
-	public class MapVsDictionary_Add
+	[Tag(Program.OutputFile, nameof(MapVsDictionaryAddBenchmarks))]
+	public class MapVsDictionaryAddBenchmarks
 	{
 		[Params(10, 100, 1000, 10000)]
 		public int N;
@@ -50,14 +51,15 @@ namespace Towel_Benchmarking
 	}
 
 	[Tag(Program.Name, "Map vs Dictionary (Look Up)")]
-	public class MapVsDictionary_LookUp
+	[Tag(Program.OutputFile, nameof(MapVsDictionaryLookUpBenchmarks))]
+	public class MapVsDictionaryLookUpBenchmarks
 	{
 		[Params(10, 100, 1000, 10000)]
 		public int N;
 
-		IMap<int, int> mapHashLinked;
-		IMap<int, int> mapHashLinkedStructs;
-		System.Collections.Generic.Dictionary<int, int> dictionary;
+		IMap<int, int>? mapHashLinked;
+		IMap<int, int>? mapHashLinkedStructs;
+		System.Collections.Generic.Dictionary<int, int>? dictionary;
 		int temp;
 
 		[IterationSetup]
@@ -81,7 +83,7 @@ namespace Towel_Benchmarking
 		{
 			for (int i = 0; i < N; i++)
 			{
-				temp = mapHashLinked[i];
+				temp = mapHashLinked![i];
 			}
 		}
 
@@ -90,7 +92,7 @@ namespace Towel_Benchmarking
 		{
 			for (int i = 0; i < N; i++)
 			{
-				temp = mapHashLinkedStructs[i];
+				temp = mapHashLinkedStructs![i];
 			}
 		}
 
@@ -109,7 +111,7 @@ namespace Towel_Benchmarking
 		{
 			for (int i = 0; i < N; i++)
 			{
-				temp = dictionary[i];
+				temp = dictionary![i];
 			}
 		}
 	}

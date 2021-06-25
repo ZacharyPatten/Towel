@@ -6,11 +6,12 @@ using static Towel.Statics;
 namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Sorting Algorithms")]
-	public class Sort_Benchmarks
+	[Tag(Program.OutputFile, nameof(SortBenchmarks))]
+	public class SortBenchmarks
 	{
 		[Params(10, 1000, 10000)] public int N;
 
-		public int[] Values;
+		public int[]? Values;
 
 		[IterationSetup] public void IterationSetup()
 		{
@@ -20,11 +21,11 @@ namespace Towel_Benchmarking
 			Shuffle<int>(Values, random);
 		}
 
-		[Benchmark] public void SystemArraySort() => Array.Sort(Values);
+		[Benchmark] public void SystemArraySort() => Array.Sort(Values!);
 
-		[Benchmark] public void SystemArraySortDelegate() => Array.Sort(Values, (int a, int b) => a.CompareTo(b));
+		[Benchmark] public void SystemArraySortDelegate() => Array.Sort(Values!, (int a, int b) => a.CompareTo(b));
 
-		[Benchmark] public void SystemArraySortIComparer() => Array.Sort(Values, default(ComparerInt));
+		[Benchmark] public void SystemArraySortIComparer() => Array.Sort(Values!, default(ComparerInt));
 
 		[Benchmark] public void BubbleRunTime() => SortBubble<int>(Values);
 
@@ -80,7 +81,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void StoogeRunTime()
 		{
-			if (Values.Length > 1000)
+			if (N > 1000)
 			{
 				throw new Exception("Too Slow.");
 			}
@@ -89,7 +90,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void StoogeCompileTime()
 		{
-			if (Values.Length > 1000)
+			if (N > 1000)
 			{
 				throw new Exception("Too Slow.");
 			}
@@ -98,7 +99,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void SlowRunTime()
 		{
-			if (Values.Length > 10)
+			if (N > 10)
 			{
 				throw new Exception("Too Slow.");
 			}
@@ -107,7 +108,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void SlowCompileTime()
 		{
-			if (Values.Length > 10)
+			if (N > 10)
 			{
 				throw new Exception("Too Slow.");
 			}
@@ -116,7 +117,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void BogoRunTime()
 		{
-			if (Values.Length > 10)
+			if (N > 10)
 			{
 				throw new Exception("Too Slow.");
 			}
@@ -125,7 +126,7 @@ namespace Towel_Benchmarking
 
 		[Benchmark] public void BogoCompileTime()
 		{
-			if (Values.Length > 10)
+			if (N > 10)
 			{
 				throw new Exception("Too Slow.");
 			}

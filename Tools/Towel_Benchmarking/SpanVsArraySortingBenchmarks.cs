@@ -6,11 +6,12 @@ using static Towel.Statics;
 namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Span vs Array Sorting")]
-	public class SpanVsArraySorting
+	[Tag(Program.OutputFile, nameof(SpanVsArraySortingBenchmarks))]
+	public class SpanVsArraySortingBenchmarks
 	{
 		[Params(10, 1000, 10000)] public int N;
 
-		public int[] Values;
+		public int[]? Values;
 
 		[IterationSetup]
 		public void IterationSetup()
@@ -22,10 +23,10 @@ namespace Towel_Benchmarking
 		}
 
 		[Benchmark]
-		public void ArrayBubbleRunTime() => SortBubbleArray(Values);
+		public void ArrayBubbleRunTime() => SortBubbleArray(Values!);
 
 		[Benchmark]
-		public void ArrayBubbleCompileTime() => SortBubbleArray<int, Int32Compare>(Values);
+		public void ArrayBubbleCompileTime() => SortBubbleArray<int, Int32Compare>(Values!);
 
 		[Benchmark]
 		public void SpanBubbleRunTime() => SortBubble(Values.AsSpan());
@@ -39,7 +40,7 @@ namespace Towel_Benchmarking
 		}
 
 		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubbleArray<T>(T[] array, Func<T, T, CompareResult> compare = null) =>
+		public static void SortBubbleArray<T>(T[] array, Func<T, T, CompareResult>? compare = null) =>
 			SortBubbleArray(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
@@ -48,7 +49,7 @@ namespace Towel_Benchmarking
 			SortBubbleArray(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
-		public static void SortBubbleArray<T>(T[] array, int start, int end, Func<T, T, CompareResult> compare = null) =>
+		public static void SortBubbleArray<T>(T[] array, int start, int end, Func<T, T, CompareResult>? compare = null) =>
 			SortBubble<T, SFunc<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
 		/// <inheritdoc cref="SortBubble_XML"/>
