@@ -12,6 +12,7 @@ namespace Towel
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 #pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
+
 		/// <summary>Performs a binary search on sorted indexed data.</summary>
 		/// <typeparam name="T">The type of values to search through.</typeparam>
 		/// <typeparam name="Get">The function for getting an element at an index.</typeparam>
@@ -32,13 +33,14 @@ namespace Towel
 		/// <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		internal static void SearchBinary_XML() => throw new DocumentationMethodException();
+		public static void XML_SearchBinary() => throw new DocumentationMethodException();
+
 #pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 #pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
-		/// <inheritdoc cref="SearchBinary_XML"/>
+		/// <inheritdoc cref="XML_SearchBinary"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
 		{
 			_ = get ?? throw new ArgumentNullException(nameof(get));
@@ -46,7 +48,7 @@ namespace Towel
 			return SearchBinary<T, SFunc<int, T>, SFunc<T, CompareResult>>(0, length, get, sift);
 		}
 
-		/// <inheritdoc cref="SearchBinary_XML"/>
+		/// <inheritdoc cref="XML_SearchBinary"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T, TGet, TSift>(int index, int length, TGet get = default, TSift sift = default)
 			where TGet : struct, IFunc<int, T>
 			where TSift : struct, IFunc<T, CompareResult>
@@ -84,23 +86,23 @@ namespace Towel
 			return (false, Math.Min(low, hi), default);
 		}
 
-		/// <inheritdoc cref="SearchBinary_XML"/>
+		/// <inheritdoc cref="XML_SearchBinary"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, T element, Func<T, T, CompareResult>? compare = default) =>
 			SearchBinary<T, SiftFromCompareAndValue<T, SFunc<T, T, CompareResult>>>(span, new SiftFromCompareAndValue<T, SFunc<T, T, CompareResult>>(element, compare ?? Compare));
 
-		/// <inheritdoc cref="SearchBinary_XML"/>
+		/// <inheritdoc cref="XML_SearchBinary"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, Func<T, CompareResult> sift)
 		{
 			_ = sift ?? throw new ArgumentNullException(nameof(sift));
 			return SearchBinary<T, SFunc<T, CompareResult>>(span, sift);
 		}
 
-		/// <inheritdoc cref="SearchBinary_XML"/>
+		/// <inheritdoc cref="XML_SearchBinary"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T, TCompare>(ReadOnlySpan<T> span, T element, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			SearchBinary<T, SiftFromCompareAndValue<T, TCompare>>(span, new SiftFromCompareAndValue<T, TCompare>(element, compare));
 
-		/// <inheritdoc cref="SearchBinary_XML"/>
+		/// <inheritdoc cref="XML_SearchBinary"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T, TSift>(ReadOnlySpan<T> span, TSift sift = default)
 			where TSift : struct, IFunc<T, CompareResult>
 		{
@@ -298,6 +300,7 @@ namespace Towel
 
 #pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
 		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
@@ -310,7 +313,8 @@ namespace Towel
 		/// <param name="graph">The graph to perform the search on.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		internal static void SearchGraph_XML() => throw new DocumentationMethodException();
+		public static void XML_SearchGraph() => throw new DocumentationMethodException();
+
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
@@ -319,35 +323,35 @@ namespace Towel
 		#region A* Algorithm
 
 		/// <summary>Runs the A* search algorithm on a graph.</summary>
-		/// <inheritdoc cref="SearchGraph_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		internal static void Graph_Astar_XML() => throw new DocumentationMethodException();
+		public static void XML_SearchGraph_Astar() => throw new DocumentationMethodException();
 
-		/// <inheritdoc cref="Graph_Astar_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
 
-		/// <inheritdoc cref="Graph_Astar_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric? totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, goal, out totalCost);
 
-		/// <inheritdoc cref="Graph_Astar_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, goal, Equate, out totalCost);
 
-		/// <inheritdoc cref="Graph_Astar_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
-		/// <inheritdoc cref="Graph_Astar_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric? totalCost) =>
 			SearchGraph(start, graph, heuristic, cost, goal, Equate, out totalCost);
 
-		/// <inheritdoc cref="Graph_Astar_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric? totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
-		/// <inheritdoc cref="Graph_Astar_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchCheck<Node> check, out Numeric? totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
@@ -433,35 +437,35 @@ namespace Towel
 		#region Dijkstra Algorithm
 
 		/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
-		/// <inheritdoc cref="SearchGraph_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		internal static void Graph_Dijkstra_XML() => throw new DocumentationMethodException();
+		public static void XML_SearchGraph_Dijkstra() => throw new DocumentationMethodException();
 
-		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
 			SearchGraph(start, neighbors, heuristic, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
-		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
 			SearchGraph(start, neighbors, heuristic, goal, Equate);
 
-		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, neighbors, heuristic, node => equate(node, goal));
 
-		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
 			SearchGraph(start, graph, heuristic, goal, Equate);
 
-		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, graph.Neighbors, heuristic, node => equate(node, goal));
 
-		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
 			SearchGraph(start, graph.Neighbors, heuristic, goal);
 
-		/// <inheritdoc cref="Graph_Dijkstra_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
 		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCheck<Node> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
@@ -541,35 +545,35 @@ namespace Towel
 		#region BreadthFirstSearch Algorithm
 
 		/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
-		/// <inheritdoc cref="SearchGraph_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		internal static void Graph_BreadthFirstSearch_XML() => throw new DocumentationMethodException();
+		public static void XML_SearchGraph_BreadthFirst() => throw new DocumentationMethodException();
 
-		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
 		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchGoal<Node> goal) =>
 			SearchGraph(start, neighbors, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
-		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
 		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal) =>
 			SearchGraph(start, neighbors, goal, Equate);
 
-		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
 		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, neighbors, node => equate(node, goal));
 
-		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
 		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal) =>
 			SearchGraph(start, graph, goal, Equate);
 
-		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
 		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>
 			SearchGraph(start, graph.Neighbors, node => equate(node, goal));
 
-		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
 		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, SearchGoal<Node> goal) =>
 			SearchGraph(start, graph.Neighbors, goal);
 
-		/// <inheritdoc cref="Graph_BreadthFirstSearch_XML"/>
+		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
 		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchCheck<Node> check)
 		{
 			IQueue<BreadthFirstSearch<Node>> fringe = new QueueLinked<BreadthFirstSearch<Node>>();

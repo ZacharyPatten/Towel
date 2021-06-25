@@ -8,8 +8,6 @@ namespace Towel
 	/// <summary>Contains static helpers for handling command line input and output.</summary>
 	public static class CommandLine
 	{
-#pragma warning disable CS0618 // Type or member is obsolete
-
 		/// <summary>Handles the command line arguments by invoking the relative <see cref="CommandAttribute"/> method in the calling <see cref="Assembly"/>.</summary>
 		/// <param name="args">The command line arguments.</param>
 		public static void HandleArguments(string[]? args = null)
@@ -144,10 +142,7 @@ namespace Towel
 			methodInfo.Invoke(null, parameters);
 		}
 
-#pragma warning restore CS0618 // Type or member is obsolete
-
 		/// <summary>This method is going to be changed...</summary>
-		[Obsolete("warning, this method is going to be changed... it is new and the design isn't finalized", false)]
 		public static void DefaultVersion(Assembly? assembly = null)
 		{
 			assembly ??= Assembly.GetCallingAssembly();
@@ -157,7 +152,6 @@ namespace Towel
 		}
 
 		/// <summary>This method is going to be changed...</summary>
-		[Obsolete("warning, this method is going to be changed... it is new and the design isn't finalized", false)]
 		public static void DefaultHelp(Assembly? assembly = null, string? command = null)
 		{
 			assembly ??= Assembly.GetCallingAssembly();

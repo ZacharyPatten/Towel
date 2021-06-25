@@ -7,26 +7,81 @@ namespace Towel
 	{
 		#region Int32
 
-		public struct Int32Hash : IFunc<int, int> { public int Invoke(int a) => a; }
-		public struct Int32Equate : IFunc<int, int, bool> { public bool Invoke(int a, int b) => a == b; }
-		public struct Int32Compare : IFunc<int, int, CompareResult> { public CompareResult Invoke(int a, int b) => ToCompareResult(a.CompareTo(b)); }
-		internal struct Int32Increment : IFunc<int, int> { public int Invoke(int a) => a + 1; }
-		internal struct Int32Decrement : IFunc<int, int> { public int Invoke(int a) => a - 1; }
-		internal struct Int32Add : IFunc<int, int> { internal int Value; public int Invoke(int a) => a + Value; public static implicit operator Int32Add(int value) => new() { Value = value }; }
+		/// <summary>Hashing function for <see cref="int"/>.</summary>
+		public struct Int32Hash : IFunc<int, int>
+		{
+			/// <inheritdoc cref="Func{T1, TResult}.Invoke(T1)"/>
+			public int Invoke(int a) => a;
+		}
+
+		/// <summary>Equality checking function for <see cref="int"/>.</summary>
+		public struct Int32Equate : IFunc<int, int, bool>
+		{
+			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
+			public bool Invoke(int a, int b) => a == b;
+		}
+
+		/// <summary>Comparing function for <see cref="int"/>.</summary>
+		public struct Int32Compare : IFunc<int, int, CompareResult>
+		{
+			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
+			public CompareResult Invoke(int a, int b) => a.CompareTo(b).ToCompareResult();
+		}
+
+		internal struct Int32Increment : IFunc<int, int>
+		{
+			public int Invoke(int a) => a + 1;
+		}
+
+		internal struct Int32Decrement : IFunc<int, int>
+		{
+			public int Invoke(int a) => a - 1;
+		}
+
+		internal struct Int32Add : IFunc<int, int>
+		{
+			internal int Value;
+
+			public int Invoke(int a) => a + Value;
+
+			public static implicit operator Int32Add(int value) => new() { Value = value };
+		}
 
 		#endregion
 
 		#region Char
 
-		public struct CharEquate : IFunc<char, char, bool> { public bool Invoke(char a, char b) => a == b; }
-		public struct CharHash : IFunc<char, int> { public int Invoke(char a) => a; }
+		/// <summary>Equality checking function for <see cref="char"/>.</summary>
+		public struct CharEquate : IFunc<char, char, bool>
+		{
+			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
+			public bool Invoke(char a, char b) => a == b;
+		}
+
+		/// <summary>Hashing function for <see cref="char"/>.</summary>
+		public struct CharHash : IFunc<char, int>
+		{
+			/// <inheritdoc cref="Func{T1, TResult}.Invoke(T1)"/>
+			public int Invoke(char a) => a;
+		}
 
 		#endregion
 
 		#region String
 
-		public struct StringEquate : IFunc<string, string, bool> { public bool Invoke(string a, string b) => a == b; }
-		public struct StringHash : IFunc<string, int> { public int Invoke(string a) => a.GetHashCode(); }
+		/// <summary>Equality checking function for <see cref="string"/>.</summary>
+		public struct StringEquate : IFunc<string, string, bool>
+		{
+			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
+			public bool Invoke(string a, string b) => a == b;
+		}
+
+		/// <summary>Hashing function for <see cref="string"/>.</summary>
+		public struct StringHash : IFunc<string, int>
+		{
+			/// <inheritdoc cref="Func{T1, TResult}.Invoke(T1)"/>
+			public int Invoke(string a) => a.GetHashCode();
+		}
 
 		#endregion
 
@@ -38,20 +93,29 @@ namespace Towel
 		{
 			internal TStep StepFunction;
 
-			/// <summary>The invocation of the compile time delegate.</summary>
-			public StepStatus Invoke(T value) { StepFunction.Invoke(value); return Continue; }
+			/// <inheritdoc cref="Func{T1, TResult}.Invoke(T1)"/>
+			public StepStatus Invoke(T value)
+			{
+				StepFunction.Invoke(value);
+				return Continue;
+			}
 
 			/// <summary>Implicitly wraps runtime computation inside a compile time struct.</summary>
 			/// <param name="step">The runtime Step delegate.</param>
-			public static implicit operator StepBreakFromAction<T, TStep>(TStep step) =>
-				new() { StepFunction = step, };
+			public static implicit operator StepBreakFromAction<T, TStep>(TStep step) => new() { StepFunction = step, };
 		}
 
+		/// <summary>Inverts the results of a comparison.</summary>
+		/// <typeparam name="T">The types being compared.</typeparam>
+		/// <typeparam name="TCompare">The type of the compare function.</typeparam>
 		public struct CompareInvert<T, TCompare> : IFunc<T, T, CompareResult>
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			TCompare _compare;
+			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
 			public CompareResult Invoke(T a, T b) => _compare.Invoke(b, a);
+			/// <summary>Inverts a <typeparamref name="TCompare"/>.</summary>
+			/// <param name="compare">The <typeparamref name="TCompare"/> to invert.</param>
 			public static implicit operator CompareInvert<T, TCompare>(TCompare compare) => new() { _compare = compare, };
 		}
 
@@ -64,7 +128,7 @@ namespace Towel
 			internal TCompare CompareFunction;
 			internal T Value;
 
-			/// <summary>The invocation of the compile time delegate.</summary>
+			/// <inheritdoc cref="Func{T1, TResult}.Invoke(T1)"/>
 			public CompareResult Invoke(T a) => CompareFunction.Invoke(a, Value);
 
 			/// <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
@@ -89,21 +153,36 @@ namespace Towel
 		public struct RandomNextIntMinValueIntMaxValue : IFunc<int, int, int>
 		{
 			internal Random _random;
-			/// <inheritdoc cref="Random.Next(int, int)"/>
+			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
 			public int Invoke(int minValue, int maxValue) => _random.Next(minValue, maxValue);
+
 			/// <summary>Casts a <see cref="Random"/> to a struct wrapper.</summary>
 			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) => new() { _random = random, };
 		}
 
-		public interface IAction_ReadOnlySpan<T> { void Do(ReadOnlySpan<T> readOnlySpan); }
-
+		/// <summary>Encapsulates a method that has a single <see cref="ReadOnlySpan{T}"/> parameter and does not return a value.</summary>
+		/// <typeparam name="T">The type of the <see cref="ReadOnlySpan{T}"/> parameter of the method that this delegate encapsulates.</typeparam>
+		/// <param name="readOnlySpan">The <see cref="ReadOnlySpan{T}"/> parameter of the method that this delegate encapsulates.</param>
 		public delegate void Action_ReadOnlySpan<T>(ReadOnlySpan<T> readOnlySpan);
 
+		/// <inheritdoc cref="Action_ReadOnlySpan{T1}"/>
+		public interface IAction_ReadOnlySpan<T>
+		{
+			/// <inheritdoc cref="Action_ReadOnlySpan{T1}.Invoke(ReadOnlySpan{T1})"/>
+			void Invoke(ReadOnlySpan<T> readOnlySpan);
+		}
+
+		/// <inheritdoc cref="Action_ReadOnlySpan{T1}"/>
 		public struct Action_ReadOnlySpan_Runtime<T> : IAction_ReadOnlySpan<T>
 		{
-			Action_ReadOnlySpan<T> Delegate;
-			public void Do(ReadOnlySpan<T> readOnlySpan) => Delegate(readOnlySpan);
-			public static implicit operator Action_ReadOnlySpan_Runtime<T>(Action_ReadOnlySpan<T> @delegate) => new() { Delegate = @delegate, };
+			Action_ReadOnlySpan<T> Action;
+
+			/// <inheritdoc cref="Action_ReadOnlySpan{T1}.Invoke(ReadOnlySpan{T1})"/>
+			public void Invoke(ReadOnlySpan<T> readOnlySpan) => Action(readOnlySpan);
+
+			/// <summary>Wraps an <see cref="Action_ReadOnlySpan{T1}"/> in an <see cref="Action_ReadOnlySpan_Runtime{T1}"/>.</summary>
+			/// <param name="action">The <see cref="Action_ReadOnlySpan{T1}"/> wrapped in an <see cref="Action_ReadOnlySpan_Runtime{T1}"/>.</param>
+			public static implicit operator Action_ReadOnlySpan_Runtime<T>(Action_ReadOnlySpan<T> action) => new() { Action = action, };
 		}
 
 		#region Arrays

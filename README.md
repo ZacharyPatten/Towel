@@ -94,6 +94,7 @@
 > ```html
 > <a href="https://github.com/ZacharyPatten/Towel" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
 > ```
+> Share your work. If you use Towel in one of your projects we want to hear about it. :)
 
 </p>
 </details>
@@ -164,12 +165,6 @@
 >
 > You can chat with the developer(s) on discord:</br>
 > <a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" alt="Discord"/></a>
->
-> Share your work. If you use Towel in one of your projects we want to hear about it. If would be willing to show it, here is a badge you can copy-paste into your readme:</br>
-> <a href="#" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
-> ```html
-> <a href="https://github.com/ZacharyPatten/Towel" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
-> ```
 >
 > If you want to contribute to Towel:
 > 1. Fork this repository

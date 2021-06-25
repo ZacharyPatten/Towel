@@ -19,16 +19,15 @@ namespace OmnitreeGraphicsDemo
 		public float HalfLength;
 
 		public Vector3 Color { get; set; }
-
 		public Vector3 Position { get; set; }
 		public Vector3 Velocity { get; set; }
 
-		public float MinX { get => Position.X - HalfLength; }
-		public float MaxX { get => Position.X + HalfLength; }
-		public float MinY { get => Position.Y - HalfLength; }
-		public float MaxY { get => Position.Y + HalfLength; }
-		public float MinZ { get => Position.Z - HalfLength; }
-		public float MaxZ { get => Position.Z + HalfLength; }
+		public float MinX => Position.X - HalfLength;
+		public float MaxX => Position.X + HalfLength;
+		public float MinY => Position.Y - HalfLength;
+		public float MaxY => Position.Y + HalfLength;
+		public float MinZ => Position.Z - HalfLength;
+		public float MaxZ => Position.Z + HalfLength;
 	}
 
 	class Program
@@ -70,8 +69,8 @@ out vec3 colorPass;
 
 void main(void)
 {
-    colorPass = color;
-    gl_Position = vec4(aPosition, 1.0) * model * view * projection;
+	colorPass = color;
+	gl_Position = vec4(aPosition, 1.0) * model * view * projection;
 }
 ";
 
@@ -88,7 +87,7 @@ out vec4 outputColor;
 
 void main()
 {
-    outputColor = vec4(colorPass, 1.0);
+	outputColor = vec4(colorPass, 1.0);
 }";
 
 		#endregion
@@ -115,35 +114,35 @@ void main()
 		private static readonly float[] vertices =
 		{
 			-.5f, -.5f, -.5f, // A
-             .5f, -.5f, -.5f, // B
-            -.5f,  .5f, -.5f, // C
-             .5f,  .5f, -.5f, // D
-            -.5f, -.5f,  .5f, // E
-             .5f, -.5f,  .5f, // F
-            -.5f,  .5f,  .5f, // G
-             .5f,  .5f,  .5f, // H
-        };
+			.5f, -.5f, -.5f, // B
+			-.5f,  .5f, -.5f, // C
+			.5f,  .5f, -.5f, // D
+			-.5f, -.5f,  .5f, // E
+			.5f, -.5f,  .5f, // F
+			-.5f,  .5f,  .5f, // G
+			.5f,  .5f,  .5f, // H
+		};
 
 		private static readonly uint[] indices =
 		{
 			0, 1, 2, // A-B-C
-            1, 2, 3, // B-C-D
+			1, 2, 3, // B-C-D
 
-            4, 5, 6, // E-F-G
-            5, 6, 7, // F-G-H
+			4, 5, 6, // E-F-G
+			5, 6, 7, // F-G-H
 
-            0, 1, 4, // A-B-E
-            1, 4, 5, // B-E-F
+			0, 1, 4, // A-B-E
+			1, 4, 5, // B-E-F
 
-            0, 2, 6, // A-C-G
-            0, 4, 6, // A-E-G
+			0, 2, 6, // A-C-G
+			0, 4, 6, // A-E-G
 
-            1, 3, 5, // B-D-F
-            3, 5, 7, // D-F-H
+			1, 3, 5, // B-D-F
+			3, 5, 7, // D-F-H
 
-            2, 3, 6, // C-D-G
-            3, 6, 7, // D-G-H
-        };
+			2, 3, 6, // C-D-G
+			3, 6, 7, // D-G-H
+		};
 
 		#endregion
 

@@ -39,20 +39,20 @@ namespace Towel_Benchmarking
 			public int Compare(int a, int b) => a.CompareTo(b);
 		}
 
-		/// <inheritdoc cref="SortBubble_XML"/>
+		/// <inheritdoc cref="XML_SortBubble"/>
 		public static void SortBubbleArray<T>(T[] array, Func<T, T, CompareResult>? compare = null) =>
 			SortBubbleArray(array, 0, array.Length - 1, compare);
 
-		/// <inheritdoc cref="SortBubble_XML"/>
+		/// <inheritdoc cref="XML_SortBubble"/>
 		public static void SortBubbleArray<T, Compare>(T[] array, Compare compare = default)
 			where Compare : struct, IFunc<T, T, CompareResult> =>
 			SortBubbleArray(array, 0, array.Length - 1, compare);
 
-		/// <inheritdoc cref="SortBubble_XML"/>
+		/// <inheritdoc cref="XML_SortBubble"/>
 		public static void SortBubbleArray<T>(T[] array, int start, int end, Func<T, T, CompareResult>? compare = null) =>
 			SortBubble<T, SFunc<T, T, CompareResult>, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare ?? Compare, array, array);
 
-		/// <inheritdoc cref="SortBubble_XML"/>
+		/// <inheritdoc cref="XML_SortBubble"/>
 		public static void SortBubbleArray<T, Compare>(T[] array, int start, int end, Compare compare = default)
 			where Compare : struct, IFunc<T, T, CompareResult> =>
 			SortBubble<T, Compare, GetIndexArray<T>, SetIndexArray<T>>(start, end, compare, array, array);

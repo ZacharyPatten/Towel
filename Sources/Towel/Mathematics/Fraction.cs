@@ -258,7 +258,7 @@ namespace Towel.Mathematics
 		/// <summary>Checks for equality with another object.</summary>
 		/// <param name="obj">The object to equate with this.</param>
 		/// <returns>The result of the equate.</returns>
-		public override bool Equals(object obj) => 
+		public override bool Equals(object? obj) => 
 			obj is Fraction<T> fraction && Fraction<T>.Equality(this, fraction);
 
 		#endregion
@@ -437,8 +437,8 @@ namespace Towel.Mathematics
 		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
 		/// <para>- <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.</para>
 		/// </returns>
-		public (bool Success, Fraction<T> Value) TryParse(string @string, Func<string, (bool, T)> tryParse = null) =>
-			TryParse<SFunc<string, (bool, T)>>(@string, tryParse ?? Statics.TryParse<T>);
+		public (bool Success, Fraction<T?> Value) TryParse(string @string, Func<string, (bool, T?)>? tryParse = null) =>
+			TryParse<SFunc<string, (bool, T?)>>(@string, tryParse ?? Statics.TryParse<T>);
 
 		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <see cref="Fraction{T}"/>.</summary>
 		/// <typeparam name="TryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</typeparam>
@@ -449,8 +449,8 @@ namespace Towel.Mathematics
 		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
 		/// <para>- <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.</para>
 		/// </returns>
-		public (bool Success, Fraction<T> Value) TryParse<TryParse>(string @string, TryParse tryParse = default)
-			where TryParse : struct, IFunc<string, (bool Success, T Value)>
+		public (bool Success, Fraction<T?> Value) TryParse<TryParse>(string @string, TryParse tryParse = default)
+			where TryParse : struct, IFunc<string, (bool Success, T? Value)>
 		{
 			if (@string.Contains("/"))
 			{
@@ -461,7 +461,7 @@ namespace Towel.Mathematics
 				var (denominatorSuccess, denominator) = tryParse.Invoke(@string);
 				if (numeratorSuccess && denominatorSuccess)
 				{
-					return (true, new Fraction<T>(numerator, denominator));
+					return (true, new Fraction<T?>(numerator, denominator));
 				}
 			}
 			else
@@ -469,7 +469,7 @@ namespace Towel.Mathematics
 				var (success, value) = tryParse.Invoke(@string);
 				if (success)
 				{
-					return (true, new Fraction<T>(value));
+					return (true, new Fraction<T?>(value));
 				}
 			}
 			return (false, default);
@@ -478,7 +478,7 @@ namespace Towel.Mathematics
 		/// <summary>Parses a string into a fraction.</summary>
 		/// <param name="string">The string to parse.</param>
 		/// <returns>The parsed value from the string.</returns>
-		public Fraction<T> Parse(string @string)
+		public Fraction<T?> Parse(string @string)
 		{
 			var (success, value) = TryParse(@string);
 			if (success)
@@ -496,22 +496,30 @@ namespace Towel.Mathematics
 		#region ToString
 
 		/// <summary>Default conversion to string for fractions.</summary>
+		/// <returns>The value represented as a string.</returns>
+		public override string? ToString() => ToString(this);
+
+		/// <summary>Default conversion to string for fractions.</summary>
 		/// <param name="fraction">The value to convert.</param>
 		/// <param name="toString">The string conversion function for the numerator and denominator.</param>
 		/// <returns>The value represented as a string.</returns>
-		public static string ToString(Fraction<T> fraction, Func<T, string> toString)
+		public static string? ToString(Fraction<T> fraction, Func<T, string?>? toString = null) =>
+			ToString<SFunc<T, string?>>(fraction, toString ?? (value => value is null ? string.Empty : value.ToString()));
+
+		/// <summary>Default conversion to string for fractions.</summary>
+		/// <typeparam name="TToString">The type of the string conversion function for the numerator and denominator.</typeparam>
+		/// <param name="fraction">The value to convert.</param>
+		/// <param name="toString">The string conversion function for the numerator and denominator.</param>
+		/// <returns>The value represented as a string.</returns>
+		public static string? ToString<TToString>(Fraction<T> fraction, TToString toString = default)
+			where TToString : struct, IFunc<T, string?>
 		{
 			if (Equate(fraction._denominator, Constant<T>.One))
 			{
-				return toString(fraction._numerator);
+				return toString.Invoke(fraction._numerator);
 			}
-			return toString(fraction._numerator) + "/" + toString(fraction._denominator);
+			return toString.Invoke(fraction._numerator) + "/" + toString.Invoke(fraction._denominator);
 		}
-
-		/// <summary>Default conversion to string for fractions.</summary>
-		/// <returns>The value represented as a string.</returns>
-		public override string ToString() =>
-			ToString(this, value => value.ToString());
 
 		#endregion
 	}

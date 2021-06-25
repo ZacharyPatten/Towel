@@ -68,8 +68,6 @@ namespace Towel
 				: throw new ArgumentException($"{nameof(stepper)} is empty.", nameof(stepper));
 		}
 
-		internal static CompareResult ToCompareResult(int result) => result < 0 ? Less : (result > 0 ? Greater : Equal);
-
 		#endregion
 
 		#region Swap
@@ -597,7 +595,7 @@ namespace Towel
 						!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
 					{
 						CompareImplementation<A, A, CompareResult>.Function =
-							(a, b) => ToCompareResult(System.Collections.Generic.Comparer<A>.Default.Compare(a, b));
+							(a, b) => System.Collections.Generic.Comparer<A>.Default.Compare(a, b).ToCompareResult();
 					}
 					else
 					{

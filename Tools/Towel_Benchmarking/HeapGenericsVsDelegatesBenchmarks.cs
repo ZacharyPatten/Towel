@@ -49,7 +49,7 @@ namespace Towel_Benchmarking
 		[Benchmark]
 		public void HeapD_Enqueue()
 		{
-			var heap = new HeapArray<Person>((a, b) => Statics.ToCompareResult(a.DateOfBirth.CompareTo(b.DateOfBirth)));
+			var heap = new HeapArray<Person>((a, b) => a.DateOfBirth.CompareTo(b.DateOfBirth).ToCompareResult());
 			foreach (Person person in RandomTestData!)
 			{
 				heap.Enqueue(person);
@@ -57,7 +57,7 @@ namespace Towel_Benchmarking
 		}
 	}
 
-	public struct PersonDobCompare : IFunc<Person, Person, CompareResult> { public CompareResult Invoke(Person a, Person b) => ToCompareResult(a.DateOfBirth.CompareTo(b.DateOfBirth)); }
+	public struct PersonDobCompare : IFunc<Person, Person, CompareResult> { public CompareResult Invoke(Person a, Person b) => a.DateOfBirth.CompareTo(b.DateOfBirth).ToCompareResult(); }
 
 	#region HeapArray Delegate
 

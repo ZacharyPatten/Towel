@@ -61,7 +61,7 @@ namespace Towel
 			}
 			while (true)
 			{
-				action.Do(span);
+				action.Invoke(span);
 				int digit = 0;
 				while (true)
 				{

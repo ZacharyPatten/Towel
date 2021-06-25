@@ -2,6 +2,8 @@
 {
 	internal static class TowelConstants
 	{
-		internal const string NotIntended = "This member is not intended to be invoked.";
+		// Related: https://github.com/dotnet/roslyn/issues/49568
+
+		internal const string NotIntended = "This member is not intended to be used.";
 	}
 }

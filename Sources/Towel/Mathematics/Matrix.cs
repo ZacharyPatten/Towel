@@ -517,7 +517,6 @@ namespace Towel.Mathematics
 			return determinant.IsDividedByZero ? Constant<T>.Zero : determinant.Value;
 		}
 
-
 		#endregion
 
 		#region GetDeterminant Laplace method
@@ -1372,6 +1371,7 @@ namespace Towel.Mathematics
 		#region Minor
 
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
 		/// <summary>Gets the minor of a matrix.</summary>
 		/// <param name="a">The matrix to get the minor of.</param>
 		/// <param name="row">The restricted row to form the minor.</param>
@@ -1379,14 +1379,15 @@ namespace Towel.Mathematics
 		/// <param name="b">The minor of the matrix.</param>
 		/// <returns>The minor of the matrix.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		internal static void Minor_XML() => throw new DocumentationMethodException();
+		public static void XML_Minor() => throw new DocumentationMethodException();
+
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 
-		/// <inheritdoc cref="Minor_XML"/>
+		/// <inheritdoc cref="XML_Minor"/>
 		public Matrix<T> Minor(int row, int column) =>
 			Minor(this, row, column);
 
-		/// <inheritdoc cref="Minor_XML"/>
+		/// <inheritdoc cref="XML_Minor"/>
 		public static Matrix<T> Minor(Matrix<T> a, int row, int column)
 		{
 			Matrix<T>? b = null;
@@ -1394,11 +1395,11 @@ namespace Towel.Mathematics
 			return b!;
 		}
 
-		/// <inheritdoc cref="Minor_XML"/>
+		/// <inheritdoc cref="XML_Minor"/>
 		public void Minor(int row, int column, ref Matrix<T>? b) =>
 			Minor(this, row, column, ref b);
 
-		/// <inheritdoc cref="Minor_XML"/>
+		/// <inheritdoc cref="XML_Minor"/>
 		public static void Minor(Matrix<T> a, int row, int column, ref Matrix<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
@@ -2228,7 +2229,7 @@ namespace Towel.Mathematics
 		#region Rotate
 
 		/// <summary>Rotates a 4x4 matrix around an 3D axis by a specified angle.</summary>
-		/// /// <param name="matrix">The 4x4 matrix to rotate.</param>
+		/// <param name="matrix">The 4x4 matrix to rotate.</param>
 		/// <param name="angle">The angle of rotation around the axis.</param>
 		/// <param name="axis">The 3D axis to rotate the matrix around.</param>
 		/// <returns>The rotated matrix.</returns>

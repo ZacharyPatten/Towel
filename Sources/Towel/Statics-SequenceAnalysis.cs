@@ -204,7 +204,7 @@ namespace Towel
 
 		/// <summary>Gets the range (minimum and maximum) of a set of data.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// /// <param name="stepper">The set of data to get the range of.</param>
+		/// <param name="stepper">The set of data to get the range of.</param>
 		/// <param name="minimum">The minimum of the set of data.</param>
 		/// <param name="maximum">The maximum of the set of data.</param>
 		/// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
@@ -214,7 +214,7 @@ namespace Towel
 
 		/// <summary>Gets the range (minimum and maximum) of a set of data.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// /// <param name="stepper">The set of data to get the range of.</param>
+		/// <param name="stepper">The set of data to get the range of.</param>
 		/// <param name="minimum">The minimum of the set of data.</param>
 		/// <param name="maximum">The maximum of the set of data.</param>
 		/// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
@@ -223,8 +223,8 @@ namespace Towel
 		{
 			_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
 			// Note: can't use out parameters as capture variables
-			T min = default;
-			T max = default;
+			T? min = default;
+			T? max = default;
 			bool assigned = false;
 			stepper(a =>
 			{
@@ -248,7 +248,16 @@ namespace Towel
 			maximum = max!;
 		}
 
-		public static ((int MinIndex, T MinValue), (int MaxIndex, T MaxValue)) Range<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
+		/// <summary>Finds the minimum and maximum values from a sequence of <typeparamref name="T"/> values.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="span">The sequence of <typeparamref name="T"/> values to filter.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <returns>
+		/// <para>- (int Index, T Value) Min</para>
+		/// <para>- (int Index, T Value) Max</para>
+		/// </returns>
+		public static ((int Index, T Value) Min, (int Index, T Value) Max) Range<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
 			if (span.IsEmpty)
@@ -977,9 +986,39 @@ namespace Towel
 
 		#region FilterOrdered
 
+		#region XML
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Filters a sequence to only values that are in order.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TGet">The type of function to get a value at an index.</typeparam>
+		/// <typeparam name="TStep">The type of action to perform on every value that is in order.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="start">The starting index of the sequence.</param>
+		/// <param name="end">The ending index of the sequence.</param>
+		/// <param name="get">The function to get a value at an index.</param>
+		/// <param name="step">The action to perform on every value that is in order.</param>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="span">The sequence of <typeparamref name="T"/> values to filter.</param>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_FilterOrdered<T>() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="XML_FilterOrdered"/>
+		/// <param name="enumerable">The sequence of <typeparamref name="T"/> values to filter.</param>
+		/// <returns>The sequence of filtered values.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static System.Collections.Generic.IEnumerable<T> XML_FilterOrderedEnumerable<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		#endregion
+
+		/// <inheritdoc cref="XML_FilterOrdered"/>
 		public static void FilterOrdered<T>(int start, int end, Func<int, T> get, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
 			FilterOrdered<T, SFunc<int, T>, SAction<T>, SFunc<T, T, CompareResult>>(start, end, get, step, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_FilterOrdered"/>
 		public static void FilterOrdered<T, TGet, TStep, TCompare>(int start, int end, TGet get = default, TStep step = default, TCompare compare = default)
 			where TGet : struct, IFunc<int, T>
 			where TStep : struct, IAction<T>
@@ -998,9 +1037,11 @@ namespace Towel
 			}
 		}
 
+		/// <inheritdoc cref="XML_FilterOrdered"/>
 		public static void FilterOrdered<T>(ReadOnlySpan<T> span, Action<T> step, Func<T, T, CompareResult>? compare = null) =>
 			FilterOrdered<T, SAction<T>, SFunc<T, T, CompareResult>>(span, step, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_FilterOrdered"/>
 		public static void FilterOrdered<T, TStep, TCompare>(ReadOnlySpan<T> span, TStep step = default, TCompare compare = default)
 			where TStep : struct, IAction<T>
 			where TCompare : struct, IFunc<T, T, CompareResult>
@@ -1018,9 +1059,11 @@ namespace Towel
 			}
 		}
 
+		/// <inheritdoc cref="XML_FilterOrderedEnumerable"/>
 		public static System.Collections.Generic.IEnumerable<T> FilterOrdered<T>(this System.Collections.Generic.IEnumerable<T> enumerable, Func<T, T, CompareResult>? compare = null) =>
 			FilterOrdered<T, SFunc<T, T, CompareResult>>(enumerable, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_FilterOrderedEnumerable"/>
 		public static System.Collections.Generic.IEnumerable<T> FilterOrdered<T, TCompare>(this System.Collections.Generic.IEnumerable<T> enumerable, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -1046,6 +1089,7 @@ namespace Towel
 
 #pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
 		/// <typeparam name="Get">The get function.</typeparam>
@@ -1055,15 +1099,16 @@ namespace Towel
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="span">The span to be sorted.</param>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		internal static void IsOrdered_XML() => throw new DocumentationMethodException();
+		public static void XML_IsOrdered() => throw new DocumentationMethodException();
+
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
-		/// <inheritdoc cref="IsOrdered_XML"/>
+		/// <inheritdoc cref="XML_IsOrdered"/>
 		public static bool IsOrdered<T>(int start, int end, Func<int, T> get, Func<T, T, CompareResult>? compare = null) =>
 			IsOrdered<T, SFunc<T, T, CompareResult>, SFunc<int, T>>(start, end, compare ?? Compare, get);
 
-		/// <inheritdoc cref="IsOrdered_XML"/>
+		/// <inheritdoc cref="XML_IsOrdered"/>
 		public static bool IsOrdered<T, Compare, Get>(int start, int end, Compare compare = default, Get get = default)
 			where Compare : struct, IFunc<T, T, CompareResult>
 			where Get : struct, IFunc<int, T>
@@ -1078,11 +1123,11 @@ namespace Towel
 			return true;
 		}
 
-		/// <inheritdoc cref="IsOrdered_XML"/>
+		/// <inheritdoc cref="XML_IsOrdered"/>
 		public static bool IsOrdered<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			IsOrdered<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
-		/// <inheritdoc cref="IsOrdered_XML"/>
+		/// <inheritdoc cref="XML_IsOrdered"/>
 		public static bool IsOrdered<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -1096,11 +1141,11 @@ namespace Towel
 			return true;
 		}
 
-		/// <inheritdoc cref="IsOrdered_XML"/>
+		/// <inheritdoc cref="XML_IsOrdered"/>
 		public static bool IsOrdered<T>(this System.Collections.Generic.IEnumerable<T> enumerable, Func<T, T, CompareResult>? compare = null) =>
 			IsOrdered<T, SFunc<T, T, CompareResult>>(enumerable, compare ?? Compare);
 
-		/// <inheritdoc cref="IsOrdered_XML"/>
+		/// <inheritdoc cref="XML_IsOrdered"/>
 		public static bool IsOrdered<T, TCompare>(this System.Collections.Generic.IEnumerable<T> enumerable, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -1229,7 +1274,7 @@ namespace Towel
 		/// IsInterleaved("abc", "xyz", "012345") // False
 		/// </code>
 		/// </example>
-		internal static void IsInterleaved_XML() => throw new DocumentationMethodException();
+		public static void XML_IsInterleaved() => throw new DocumentationMethodException();
 
 		/// <summary>
 		/// <para>
@@ -1240,8 +1285,8 @@ namespace Towel
 		/// <para>Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)</para>
 		/// <para>Memory: O(1)</para>
 		/// </summary>
-		/// <inheritdoc cref="IsInterleaved_XML"/>
-		internal static void IsInterleavedRecursive_XML() => throw new DocumentationMethodException();
+		/// <inheritdoc cref="XML_IsInterleaved"/>
+		public static void XML_IsInterleavedRecursive() => throw new DocumentationMethodException();
 
 		/// <summary>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
@@ -1250,8 +1295,8 @@ namespace Towel
 		/// <para>Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)</para>
 		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
 		/// </summary>
-		/// <inheritdoc cref="IsInterleaved_XML"/>
-		internal static void IsInterleavedIterative_XML() => throw new DocumentationMethodException();
+		/// <inheritdoc cref="XML_IsInterleaved"/>
+		public static void XML_IsInterleavedIterative() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 #pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
@@ -1260,15 +1305,15 @@ namespace Towel
 
 		#endregion
 
-		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		/// <inheritdoc cref="XML_IsInterleavedRecursive"/>
 		public static bool IsInterleavedRecursive<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool>? equate = default) =>
 			IsInterleavedRecursive<T, SFunc<T, T, bool>>(a, b, c, equate ?? Equate);
 
-		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		/// <inheritdoc cref="XML_IsInterleavedRecursive"/>
 		public static bool IsInterleavedRecursive(ReadOnlySpan<char> a, ReadOnlySpan<char> b, ReadOnlySpan<char> c) =>
 			IsInterleavedRecursive<char, CharEquate>(a, b, c);
 
-		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		/// <inheritdoc cref="XML_IsInterleavedRecursive"/>
 		public static bool IsInterleavedRecursive<T, TEquate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, TEquate equate = default)
 			where TEquate : struct, IFunc<T, T, bool>
 		{
@@ -1290,15 +1335,15 @@ namespace Towel
 			return Implementation(a, b, c);
 		}
 
-		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
+		/// <inheritdoc cref="XML_IsInterleavedIterative"/>
 		public static bool IsInterleavedIterative<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, Func<T, T, bool>? equate = default) =>
 			IsInterleavedIterative<T, SFunc<T, T, bool>>(a, b, c, equate ?? Equate);
 
-		/// <inheritdoc cref="IsInterleavedRecursive_XML"/>
+		/// <inheritdoc cref="XML_IsInterleavedRecursive"/>
 		public static bool IsInterleavedIterative(ReadOnlySpan<char> a, ReadOnlySpan<char> b, ReadOnlySpan<char> c) =>
 			IsInterleavedIterative<char, CharEquate>(a, b, c);
 
-		/// <inheritdoc cref="IsInterleavedIterative_XML"/>
+		/// <inheritdoc cref="XML_IsInterleavedIterative"/>
 		public static bool IsInterleavedIterative<T, TEquate>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, ReadOnlySpan<T> c, TEquate equate = default)
 			where TEquate : struct, IFunc<T, T, bool>
 		{

@@ -99,6 +99,10 @@ namespace Towel.DataStructures
 
 		#region Extension Methods
 
+		/// <summary>Adds a value to a data structure.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="addable">The data structure to add the value to.</param>
+		/// <param name="value">The value to add to the data structure.</param>
 		public static void Add<T>(this IAddable<T> addable, T value)
 		{
 			var (success, exception) = addable.TryAdd(value);
@@ -108,6 +112,10 @@ namespace Towel.DataStructures
 			}
 		}
 
+		/// <summary>Removes a value from a data structure.</summary>
+		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="removable">The data structure to removable the value from.</param>
+		/// <param name="value">The value to remove from the data structure.</param>
 		public static void Remove<T>(this IRemovable<T> removable, T value)
 		{
 			var (success, exception) = removable.TryRemove(value);

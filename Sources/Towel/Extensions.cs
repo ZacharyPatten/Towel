@@ -111,7 +111,7 @@ namespace Towel
 		}
 
 		/// <summary>Indents every line in a string with a single tab character.</summary>
-		/// /// <param name="string">The string to indent the lines of.</param>
+		/// <param name="string">The string to indent the lines of.</param>
 		/// <returns>The indented string.</returns>
 		public static string IndentLines(this string @string) =>
 			PadLinesLeft(@string, "\t");
@@ -993,6 +993,25 @@ namespace Towel
 			stepper(c => stringBuilder.Append(c));
 			return stringBuilder.ToString();
 		}
+
+		#endregion
+
+		#region int
+
+		/// <summary>Converts an <see cref="int"/> to the relative <see cref="CompareResult"/>.</summary>
+		/// <param name="compareResult">The <see cref="int"/> to convert to the relative <see cref="CompareResult"/>.</param>
+		/// <returns>
+		/// <para><paramref name="compareResult"/> &lt; 0 =&gt; <see cref="CompareResult.Less"/></para>
+		/// <para><paramref name="compareResult"/> &gt; 0 =&gt; <see cref="CompareResult.Greater"/></para>
+		/// <para><paramref name="compareResult"/> is 0 =&gt; <see cref="CompareResult.Equal"/></para>
+		/// </returns>
+		public static CompareResult ToCompareResult(this int compareResult) =>
+			compareResult switch
+			{
+				< 0 => Less,
+				> 0 => Greater,
+				  0 => Equal,
+			};
 
 		#endregion
 	}
