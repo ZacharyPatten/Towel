@@ -79,15 +79,21 @@
 
 > Towel has a nuget package:<br/>
 > <a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" alt="Nuget Package"/></a>
-> 
+>
 > Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET:<br/>
 > <a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
-> 
+>
 > You can install the Towel nuget package with the `dotnet add package Towel --version XXXXX` command, or you can
 > manually add a reference to it in your `.csproj` files `<PackageReference Include="Towel" Version="XXXXX" />`
 > (where `XXXXX` is the version to install).
 >
 > See the [releases page](https://github.com/ZacharyPatten/Towel/releases) for change logs.
+>
+> If you use Towel and would be willing to show it, here is a badge you can copy-paste into your readme:</br>
+> <a href="#" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
+> ```html
+> <a href="https://github.com/ZacharyPatten/Towel" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
+> ```
 
 </p>
 </details>
@@ -159,7 +165,11 @@
 > You can chat with the developer(s) on discord:</br>
 > <a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" alt="Discord"/></a>
 >
-> Share your work. If you use Towel in one of your projects we want to hear about it.
+> Share your work. If you use Towel in one of your projects we want to hear about it. If would be willing to show it, here is a badge you can copy-paste into your readme:</br>
+> <a href="#" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
+> ```html
+> <a href="https://github.com/ZacharyPatten/Towel" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
+> ```
 >
 > If you want to contribute to Towel:
 > 1. Fork this repository
