@@ -22,12 +22,12 @@ namespace Towel_Testing
 
 		[TestMethod] public void sourcefilename_Testing() =>
 			sourcefilepathTest(sourcefilepath());
-		public static void sourcefilepathTest(string result, [CallerFilePath] string expected = default) => 
+		public static void sourcefilepathTest(string result, [CallerFilePath] string? expected = default) => 
 			Assert.IsTrue(result == expected);
 
 		[TestMethod] public void sourcemembername_Testing() =>
 			sourcemembernameTest(sourcemembername());
-		public static void sourcemembernameTest(string result, [CallerMemberName] string expected = default) =>
+		public static void sourcemembernameTest(string result, [CallerMemberName] string? expected = default) =>
 			Assert.IsTrue(result == expected);
 
 		[TestMethod] public void sourceof_Testing()
@@ -560,9 +560,9 @@ namespace Towel_Testing
 
 			// nulls
 
-			Assert.IsTrue(Equate<string>(null, null));
-			Assert.IsFalse(Equate(null, ""));
-			Assert.IsFalse(Equate("", null));
+			Assert.IsTrue(Equate<string?>(null, null));
+			Assert.IsFalse(Equate<string?>(null, ""));
+			Assert.IsFalse(Equate<string?>("", null));
 			Assert.IsTrue(Equate("", ""));
 		}
 
@@ -1742,7 +1742,7 @@ namespace Towel_Testing
 				Assert.ThrowsException<ArgumentException>(() => SearchBinary<int>(values, a => (CompareResult)int.MinValue));
 			}
 			{ // exception: null argument
-				int[] values = null;
+				int[]? values = null;
 				Assert.ThrowsException<ArgumentException>(() => SearchBinary(values, 7));
 			}
 		}

@@ -3262,8 +3262,8 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 		internal Omnitree.Vector<<#= chain_AxisX #>> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 <# for (int j = 1; j <= i; j++) { #>
 				Omnitree.Bound<Axis<#= j #>>[] values<#= j #> = new Omnitree.Bound<Axis<#= j #>>[node.Count * 2];
@@ -3282,36 +3282,36 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 					Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare : this._compare<#= j #>)
 <# } #>
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
 <# for (int j = 1; j <= i; j++) { #>
-				ArrayJagged<Omnitree.Bound<Axis<#= j #>>> values<#= j #> = new ArrayJagged<Omnitree.Bound<Axis<#= j #>>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis<#= j #>>> values<#= j #> = new ArrayJagged<Omnitree.Bound<Axis<#= j #>>>(node.Count * 2);
 <# } #>
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
 <# for (int j = 1; j <= i; j++) { #>
-					Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
+			//		Omnitree.Bound<Axis<#= j #>> min<#= j #>; Omnitree.Bound<Axis<#= j #>> max<#= j #>;
 <# } #>
-					this._getBounds(for_current.Value,
-						out min1, out max1
-<# for (int j = 2; j <= i; j++) { #>,
-						out min<#= j #>, out max<#= j #>
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+<# for (int j = 2; j <= i; j++) { #>//,
+			//			out min<#= j #>, out max<#= j #>
 <# } #>
-						);
+			//			);
 <# for (int j = 1; j <= i; j++) { #>
-					values<#= j #>[i * 2] = min<#= j #>; values<#= j #>[i * 2 + 1] = max<#= j #>;
+			//		values<#= j #>[i * 2] = min<#= j #>; values<#= j #>[i * 2 + 1] = max<#= j #>;
 <# } #>
-				}
-				return new Omnitree.Vector<<#= chain_AxisX #>>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//	}
+			//	return new Omnitree.Vector<<#= chain_AxisX #>>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
 <# for (int j = 2; j <= i; j++) { #>
-					, Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare : this._compare<#= j #>)
+			//		, Omnitree.SubDivide(values<#= j #>, this._defaultCompare<#= j #> ? Compare : this._compare<#= j #>)
 <# } #>
-				);
-			}
+			//	);
+			//}
 		}
 
 		#endregion

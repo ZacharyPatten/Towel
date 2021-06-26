@@ -19,7 +19,7 @@ namespace Towel_Testing.DataStructures
 				foreach (T value in values)
 				{
 					T dequeue = heap.Dequeue();
-					Assert.IsTrue(value.Equals(dequeue));
+					Assert.IsTrue(value!.Equals(dequeue));
 				}
 			}
 

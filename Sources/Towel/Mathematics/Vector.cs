@@ -166,7 +166,7 @@ namespace Towel.Mathematics
 
 		internal Vector(Vector<T> vector)
 		{
-			_vector = vector._vector.Clone() as T[];
+			_vector = (T[])vector._vector.Clone();
 		}
 
 		#endregion
@@ -285,7 +285,7 @@ namespace Towel.Mathematics
 		/// <summary>Negates all the values in a vector.</summary>
 		/// <param name="a">The vector to have its values negated.</param>
 		/// <param name="b">The result of the negations.</param>
-		public static void Negate(Vector<T> a, ref Vector<T> b)
+		public static void Negate(Vector<T> a, ref Vector<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._vector;
@@ -316,9 +316,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the negations.</returns>
 		public static Vector<T> Negate(Vector<T> a)
 		{
-			Vector<T> b = null;
+			Vector<T>? b = null;
 			Negate(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Negates a vector.</summary>
@@ -331,7 +331,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Negates all the values in a vector.</summary>
 		/// <param name="b">The result of the negations.</param>
-		public void Negate(ref Vector<T> b)
+		public void Negate(ref Vector<T>? b)
 		{
 			Negate(this, ref b);
 		}
@@ -351,7 +351,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first vector of the addition.</param>
 		/// <param name="b">The second vector of the addiiton.</param>
 		/// <param name="c">The result of the addition.</param>
-		public static void Add(Vector<T> a, Vector<T> b, ref Vector<T> c)
+		public static void Add(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -389,9 +389,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the addition.</returns>
 		public static Vector<T> Add(Vector<T> a, Vector<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Add(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Adds two vectors together.</summary>
@@ -406,7 +406,7 @@ namespace Towel.Mathematics
 		/// <summary>Adds two vectors together.</summary>
 		/// <param name="b">The second vector of the addition.</param>
 		/// <param name="c">The result of the addition.</param>
-		public void Add(Vector<T> b, ref Vector<T> c)
+		public void Add(Vector<T> b, ref Vector<T>? c)
 		{
 			Add(this, b, ref c);
 		}
@@ -427,7 +427,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The left vector of the subtraction.</param>
 		/// <param name="b">The right vector of the subtraction.</param>
 		/// <param name="c">The result of the vector subtracton.</param>
-		public static void Subtract(Vector<T> a, Vector<T> b, ref Vector<T> c)
+		public static void Subtract(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -465,9 +465,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the vector subtracton.</returns>
 		public static Vector<T> Subtract(Vector<T> a, Vector<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Subtract(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Subtracts two vectors.</summary>
@@ -482,7 +482,7 @@ namespace Towel.Mathematics
 		/// <summary>Subtracts two vectors.</summary>
 		/// <param name="b">The right vector of the subtraction.</param>
 		/// <param name="c">The result of the vector subtracton.</param>
-		public void Subtract(Vector<T> b, ref Vector<T> c)
+		public void Subtract(Vector<T> b, ref Vector<T>? c)
 		{
 			Subtract(this, b, ref c);
 		}
@@ -503,7 +503,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The vector to have all its values multiplied.</param>
 		/// <param name="b">The scalar to multiply all the vector values by.</param>
 		/// <param name="c">The result of the multiplication.</param>
-		public static void Multiply(Vector<T> a, T b, ref Vector<T> c)
+		public static void Multiply(Vector<T> a, T b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._vector;
@@ -535,9 +535,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the multiplication.</returns>
 		public static Vector<T> Multiply(Vector<T> a, T b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Multiply(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Multiplies all the values in a vector by a scalar.</summary>
@@ -561,7 +561,7 @@ namespace Towel.Mathematics
 		/// <summary>Multiplies all the values in a vector by a scalar.</summary>
 		/// <param name="b">The scalar to multiply all the vector values by.</param>
 		/// <param name="c">The result of the multiplication.</param>
-		public void Multiply(T b, ref Vector<T> c)
+		public void Multiply(T b, ref Vector<T>? c)
 		{
 			Multiply(this, b, ref c);
 		}
@@ -582,7 +582,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The vector to have the components divided by.</param>
 		/// <param name="b">The scalar to divide the vector components by.</param>
 		/// <param name="c">The resulting vector after the divisions.</param>
-		public static void Divide(Vector<T> a, T b, ref Vector<T> c)
+		public static void Divide(Vector<T> a, T b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T[] A = a._vector;
@@ -615,9 +615,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting vector after the divisions.</returns>
 		public static Vector<T> Divide(Vector<T> a, T b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Divide(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Divides all the values in the vector by a scalar.</summary>
@@ -632,7 +632,7 @@ namespace Towel.Mathematics
 		/// <summary>Divides all the components of a vector by a scalar.</summary>
 		/// <param name="b">The scalar to divide the vector components by.</param>
 		/// <param name="c">The resulting vector after the divisions.</param>
-		public void Divide(T b, ref Vector<T> c)
+		public void Divide(T b, ref Vector<T>? c)
 		{
 			Divide(this, b, ref c);
 		}
@@ -688,7 +688,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first vector of the cross product operation.</param>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
-		public static void CrossProduct(Vector<T> a, Vector<T> b, ref Vector<T> c)
+		public static void CrossProduct(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -718,15 +718,15 @@ namespace Towel.Mathematics
 		/// <returns>The result of the cross product operation.</returns>
 		public static Vector<T> CrossProduct(Vector<T> a, Vector<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			CrossProduct(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
-		public void CrossProduct(Vector<T> b, ref Vector<T> c)
+		public void CrossProduct(Vector<T> b, ref Vector<T>? c)
 		{
 			CrossProduct(this, b, ref c);
 		}
@@ -746,7 +746,7 @@ namespace Towel.Mathematics
 		/// <summary>Normalizes a vector.</summary>
 		/// <param name="a">The vector to normalize.</param>
 		/// <param name="b">The result of the normalization.</param>
-		public static void Normalize(Vector<T> a, ref Vector<T> b)
+		public static void Normalize(Vector<T> a, ref Vector<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			int Dimensions = a.Dimensions;
@@ -776,14 +776,14 @@ namespace Towel.Mathematics
 		/// <returns>The result of the normalization.</returns>
 		public static Vector<T> Normalize(Vector<T> a)
 		{
-			Vector<T> b = null;
+			Vector<T>? b = null;
 			Normalize(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Normalizes a vector.</summary>
 		/// <param name="b">The result of the normalization.</param>
-		public void Normalize(ref Vector<T> b)
+		public void Normalize(ref Vector<T>? b)
 		{
 			Normalize(this, ref b);
 		}
@@ -849,7 +849,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first vector of the cross product operation.</param>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
-		public static void Projection(Vector<T> a, Vector<T> b, ref Vector<T> c)
+		public static void Projection(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -878,15 +878,15 @@ namespace Towel.Mathematics
 		/// <returns>The result of the cross product operation.</returns>
 		public static Vector<T> Projection(Vector<T> a, Vector<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Projection(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Computes the cross product of two vectors.</summary>
 		/// <param name="b">The second vector of the cross product operation.</param>
 		/// <param name="c">The result of the cross product operation.</param>
-		public void Projection(Vector<T> b, ref Vector<T> c)
+		public void Projection(Vector<T> b, ref Vector<T>? c)
 		{
 			Projection(this, b, ref c);
 		}
@@ -930,7 +930,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The vector to rotate.</param>
 		/// <param name="b">The quaternion to rotate the 3-component vector by.</param>
 		/// <param name="c">The result of the rotation.</param>
-		public static void RotateBy(Vector<T> a, Quaternion<T> b, ref Vector<T> c)
+		public static void RotateBy(Vector<T> a, Quaternion<T> b, ref Vector<T>? c)
 		{
 			Quaternion<T>.Rotate(b, a, ref c);
 		}
@@ -941,9 +941,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the rotation.</returns>
 		public static Vector<T> RotateBy(Vector<T> a, Quaternion<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Quaternion<T>.Rotate(b, a, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Rotates a vector by a quaternion.</summary>
@@ -963,7 +963,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
 		/// <param name="c">The result of the interpolation.</param>
-		public static void LinearInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c)
+		public static void LinearInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T>? c)
 		{
 			if (Statics.LessThan(blend, Constant<T>.Zero) || Statics.GreaterThan(blend, Constant<T>.One))
 			{
@@ -994,16 +994,16 @@ namespace Towel.Mathematics
 		/// <returns>The result of the interpolation.</returns>
 		public static Vector<T> LinearInterpolation(Vector<T> a, Vector<T> b, T blend)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			LinearInterpolation(a, b, blend, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Computes the linear interpolation between two vectors.</summary>
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 of the interpolation between the start and end.</param>
 		/// <param name="c">The result of the interpolation.</param>
-		public void LinearInterpolation(Vector<T> b, T blend, ref Vector<T> c)
+		public void LinearInterpolation(Vector<T> b, T blend, ref Vector<T>? c)
 		{
 			LinearInterpolation(this, b, blend, ref c);
 		}
@@ -1026,7 +1026,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
 		/// <param name="c">The result of the slerp operation.</param>
-		public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T> c)
+		public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T>? c)
 		{
 			throw new NotImplementedException();
 		}
@@ -1038,9 +1038,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the slerp operation.</returns>
 		public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			SphericalInterpolation(a, b, blend, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Sphereically interpolates between two vectors.</summary>
@@ -1063,7 +1063,7 @@ namespace Towel.Mathematics
 		/// <param name="u">The "U" value of the barycentric interpolation equation.</param>
 		/// <param name="v">The "V" value of the barycentric interpolation equation.</param>
 		/// <param name="d">The result of the interpolation.</param>
-		public static void BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T> d)
+		public static void BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T>? d)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -1089,9 +1089,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting vector of the barycentric interpolation.</returns>
 		public static Vector<T> BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v)
 		{
-			Vector<T> d = null;
+			Vector<T>? d = null;
 			BarycentricInterpolation(a._vector, b._vector, c._vector, u, v, ref d);
-			return d;
+			return d!;
 		}
 
 		/// <summary>Interpolates between three vectors using barycentric coordinates.</summary>

@@ -17,7 +17,7 @@ namespace Towel_Testing.DataStructures
 				list.Add(func(i));
 				Assert.IsTrue(list.Count == i + 1);
 				bool contains = false;
-				list.Stepper(x => contains = contains || x.Equals(func(i)));
+				list.Stepper(x => contains = contains || x!.Equals(func(i)));
 				Assert.IsTrue(contains);
 			}
 			Assert.IsTrue(list.Count == count);
@@ -40,7 +40,7 @@ namespace Towel_Testing.DataStructures
 				{
 					list.RemoveFirst(func(i));
 					bool contains = false;
-					list.Stepper(x => contains = contains || x.Equals(func(i)));
+					list.Stepper(x => contains = contains || x!.Equals(func(i)));
 					Assert.IsFalse(contains);
 				}
 				Assert.IsTrue(list.Count == 0);
@@ -52,7 +52,7 @@ namespace Towel_Testing.DataStructures
 				{
 					list.RemoveFirst(func(i));
 					bool contains = false;
-					list.Stepper(x => contains = contains || x.Equals(func(i)));
+					list.Stepper(x => contains = contains || x!.Equals(func(i)));
 					Assert.IsFalse(contains);
 				}
 				Assert.IsTrue(list.Count == 0);
@@ -64,7 +64,7 @@ namespace Towel_Testing.DataStructures
 				{
 					list.RemoveFirst(func(i));
 					bool contains = false;
-					list.Stepper(x => contains = contains || x.Equals(func(i)));
+					list.Stepper(x => contains = contains || x!.Equals(func(i)));
 					Assert.IsFalse(contains);
 				}
 				Assert.IsTrue(list.Count == count / 3 * 2);
@@ -87,14 +87,14 @@ namespace Towel_Testing.DataStructures
 			{
 				List list = new();
 				list.Populate(count, i => values[i % values.Length]);
-				bool Predicate(T x) => x.Equals(values[0]);
+				bool Predicate(T x) => x!.Equals(values[0]);
 				int removals = list.Count(Predicate);
 				if (removals == 0)
 				{
 					throw new TowelBugException("Testing Error.");
 				}
 				int fullCount = list.Count;
-				list.RemoveAll(x => x.Equals(values[0]));
+				list.RemoveAll(x => x!.Equals(values[0]));
 				int occurences = list.Count(Predicate);
 				Assert.IsTrue(occurences == 0);
 				Assert.IsTrue(list.Count == fullCount - removals);

@@ -17,7 +17,7 @@ namespace Towel_Testing.DataStructures
 				values.Stepper(x => stack.Push(x));
 				Assert.IsTrue(stack.Count == values.Length);
 				Array.Reverse(values);
-				values.Stepper(x => Assert.IsTrue(x.Equals(stack.Pop())));
+				values.Stepper(x => Assert.IsTrue(x!.Equals(stack.Pop())));
 			}
 			{ // exceptions
 				IStack<T> stack = new Stack();
@@ -105,7 +105,9 @@ namespace Towel_Testing.DataStructures
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				IStack<int> stack = new Stack();
 				values.Stepper(i => stack.Push(i));
+#pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == values.Length);
+#pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
 				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in stack)
@@ -122,7 +124,9 @@ namespace Towel_Testing.DataStructures
 				values.Stepper(i => stack.Push(i));
 				stack.Pop();
 				stack.Pop();
+#pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == expectedValues.Length);
+#pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
 				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				foreach (int i in stack)
@@ -141,7 +145,9 @@ namespace Towel_Testing.DataStructures
 					stack.Pop();
 					stack.Push(i);
 				});
+#pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == values.Length);
+#pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
 				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in stack)

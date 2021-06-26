@@ -48,9 +48,9 @@ namespace Towel_Testing
 		public static bool operator !=(Ref<T> a, T b) => Inequate(a.Value, b);
 		public static bool operator !=(T a, Ref<T> b) => Inequate(a, b.Value);
 		public static Ref<T> operator -(Ref<T> a) => Negation(a.Value);
-		public override bool Equals(object obj) => obj is Ref<T> b && Equate(Value, b.Value);
+		public override bool Equals(object? obj) => obj is Ref<T> b && Equate(Value, b.Value);
 		public override int GetHashCode() => Value.GetHashCode();
-		public override string ToString() => Value.ToString();
+		public override string? ToString() => Value.ToString();
 
 		static Ref()
 		{

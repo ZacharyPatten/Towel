@@ -16,7 +16,7 @@ namespace Towel_Testing.DataStructures
 				IQueue<T> queue = new Queue();
 				values.Stepper(x => queue.Enqueue(x));
 				Assert.IsTrue(queue.Count == values.Length);
-				values.Stepper(x => Assert.IsTrue(x.Equals(queue.Dequeue())));
+				values.Stepper(x => Assert.IsTrue(x!.Equals(queue.Dequeue())));
 			}
 			{ // exceptions
 				IQueue<T> queue = new Queue();
@@ -104,7 +104,9 @@ namespace Towel_Testing.DataStructures
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				IQueue<int> queue = new Queue();
 				values.Stepper(i => queue.Enqueue(i));
+#pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == values.Length);
+#pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
 				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in queue)
@@ -121,7 +123,9 @@ namespace Towel_Testing.DataStructures
 				values.Stepper(i => queue.Enqueue(i));
 				queue.Dequeue();
 				queue.Dequeue();
+#pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == expectedValues.Length);
+#pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
 				ISet<int> set = SetHashLinked.New<int>();
 				expectedValues.Stepper(i => set.Add(i));
 				foreach (int i in queue)
@@ -140,7 +144,9 @@ namespace Towel_Testing.DataStructures
 					queue.Dequeue();
 					queue.Enqueue(i);
 				});
+#pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == values.Length);
+#pragma warning restore CA1829 // Use Length/Count property instead of Count() when available
 				ISet<int> set = SetHashLinked.New<int>();
 				values.Stepper(i => set.Add(i));
 				foreach (int i in queue)

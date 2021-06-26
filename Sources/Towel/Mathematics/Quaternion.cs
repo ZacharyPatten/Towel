@@ -242,7 +242,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first quaternion of the addition.</param>
 		/// <param name="b">The second quaternion of the addiiton.</param>
 		/// <param name="c">The result of the addition.</param>
-		public static void Add(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
+		public static void Add(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -269,9 +269,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the addition.</returns>
 		public static Quaternion<T> Add(Quaternion<T> a, Quaternion<T> b)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			Add(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Adds two quaternions together.</summary>
@@ -283,7 +283,7 @@ namespace Towel.Mathematics
 		/// <summary>Adds two quaternions together.</summary>
 		/// <param name="b">The second quaternion of the addititon.</param>
 		/// <param name="c">The result of the addition.</param>
-		public void Add(Quaternion<T> b, ref Quaternion<T> c) => Add(this, b, ref c);
+		public void Add(Quaternion<T> b, ref Quaternion<T>? c) => Add(this, b, ref c);
 
 		/// <summary>Adds two quaternions together.</summary>
 		/// <param name="b">The quaternion to add to this one.</param>
@@ -298,7 +298,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first quaternion of the subtraction.</param>
 		/// <param name="b">The second quaternion of the subtraction.</param>
 		/// <param name="c">The result of the subtraction.</param>
-		public static void Subtract(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
+		public static void Subtract(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -325,9 +325,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the subtraction.</returns>
 		public static Quaternion<T> Subtract(Quaternion<T> a, Quaternion<T> b)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			Subtract(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Subtracts two quaternions.</summary>
@@ -339,7 +339,7 @@ namespace Towel.Mathematics
 		/// <summary>Subtracts two quaternions.</summary>
 		/// <param name="b">The second quaternion of the subtraction.</param>
 		/// <param name="c">The result of the subtraction.</param>
-		public void Subtract(Quaternion<T> b, ref Quaternion<T> c) => Subtract(this, b, ref c);
+		public void Subtract(Quaternion<T> b, ref Quaternion<T>? c) => Subtract(this, b, ref c);
 
 		/// <summary>Subtracts two quaternions together.</summary>
 		/// <param name="b">The second quaternion of the subtraction.</param>
@@ -354,7 +354,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The first quaternion of the multiplication.</param>
 		/// <param name="b">The second quaternion of the multiplication.</param>
 		/// <param name="c">The resulting quaternion after the multiplication.</param>
-		internal static void Multiply(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T> c)
+		internal static void Multiply(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -440,9 +440,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting quaternion after the multiplication.</returns>
 		public static Quaternion<T> Multiply(Quaternion<T> a, Quaternion<T> b)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			Multiply(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Multiplies two quaternions.</summary>
@@ -454,7 +454,7 @@ namespace Towel.Mathematics
 		/// <summary>Multiplies two quaternions.</summary>
 		/// <param name="b">The second quaternion of the multiplication.</param>
 		/// <param name="c">The resulting quaternion after the multiplication.</param>
-		public void Multiply(Quaternion<T> b, ref Quaternion<T> c) => Multiply(this, b, ref c);
+		public void Multiply(Quaternion<T> b, ref Quaternion<T>? c) => Multiply(this, b, ref c);
 
 		/// <summary>Multiplies two quaternions.</summary>
 		/// <param name="b">The second quaternion of the multiplication.</param>
@@ -469,7 +469,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The quaternion of the multiplication.</param>
 		/// <param name="b">The vector of the multiplication.</param>
 		/// <param name="c">The resulting quaternion after the multiplication.</param>
-		public static void Multiply(Quaternion<T> a, Vector<T> b, ref Quaternion<T> c)
+		public static void Multiply(Quaternion<T> a, Vector<T> b, ref Quaternion<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -551,9 +551,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting quaternion after the multiplication.</returns>
 		public static Quaternion<T> Multiply(Quaternion<T> a, Vector<T> b)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			Multiply(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Multiplies a quaternion and a vector.</summary>
@@ -565,7 +565,7 @@ namespace Towel.Mathematics
 		/// <summary>Multiplies a quaternion and a vector.</summary>
 		/// <param name="b">The vector of the multiplication.</param>
 		/// <param name="c">The resulting quaternion after the multiplication.</param>
-		public void Multiply(Vector<T> b, ref Quaternion<T> c) => Multiply(this, b, ref c);
+		public void Multiply(Vector<T> b, ref Quaternion<T>? c) => Multiply(this, b, ref c);
 
 		/// <summary>Multiplies a quaternion and a vector.</summary>
 		/// <param name="b">The vector of the multiplication.</param>
@@ -580,7 +580,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The quaternion to have the values multiplied.</param>
 		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <param name="c">The resulting quaternion after the multiplications.</param>
-		internal static void Multiply(Quaternion<T> a, T b, ref Quaternion<T> c)
+		internal static void Multiply(Quaternion<T> a, T b, ref Quaternion<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T x = Statics.Multiplication(a._x, b);
@@ -606,9 +606,9 @@ namespace Towel.Mathematics
 		/// <returns>The resulting quaternion after the multiplications.</returns>
 		public static Quaternion<T> Multiply(Quaternion<T> a, T b)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			Multiply(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
@@ -632,7 +632,7 @@ namespace Towel.Mathematics
 		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
 		/// <param name="b">The scalar to multiply the values by.</param>
 		/// <param name="c">The resulting quaternion after the multiplications.</param>
-		public void Multiply(T b, ref Quaternion<T> c) => Multiply(this, b, ref c);
+		public void Multiply(T b, ref Quaternion<T>? c) => Multiply(this, b, ref c);
 
 		/// <summary>Multiplies all the values in a matrix by a scalar.</summary>
 		/// <param name="b">The scalar to multiply the values by.</param>
@@ -647,7 +647,7 @@ namespace Towel.Mathematics
 		/// <param name="a">The quaternion rotation to rotate the vector by.</param>
 		/// <param name="b">The vector to rotate.</param>
 		/// <param name="c">The result of the rotation.</param>
-		public static void Rotate(Quaternion<T> a, Vector<T> b, ref Vector<T> c)
+		public static void Rotate(Quaternion<T> a, Vector<T> b, ref Vector<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -659,9 +659,9 @@ namespace Towel.Mathematics
 			{
 				c = new Vector<T>(3);
 			}
-			Quaternion<T> d = null;
+			Quaternion<T>? d = null;
 			Multiply(a, b, ref d);
-			Multiply(a.Conjugate(), d, ref d); // need to prevent this heep allocation on "a.Conjugate()" in future update
+			Multiply(a.Conjugate(), d!, ref d!); // need to prevent this heep allocation on "a.Conjugate()" in future update
 			c.X = d.X;
 			c.Y = d.Y;
 			c.X = d.W;
@@ -673,15 +673,15 @@ namespace Towel.Mathematics
 		/// <returns>The result of the rotation.</returns>
 		public static Vector<T> Rotate(Quaternion<T> a, Vector<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Rotate(a, b, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Rotates a vector by a quaternion rotation [v' = qvq'].</summary>
 		/// <param name="b">The vector to rotate.</param>
 		/// <param name="c">The result of the rotation.</param>
-		public void Rotate(Vector<T> b, ref Vector<T> c)
+		public void Rotate(Vector<T> b, ref Vector<T>? c)
 		{
 			Rotate(this, b, ref c);
 		}
@@ -691,9 +691,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the rotation.</returns>
 		public Vector<T> Rotate(Vector<T> b)
 		{
-			Vector<T> c = null;
+			Vector<T>? c = null;
 			Rotate(this, b, ref c);
-			return c;
+			return c!;
 		}
 
 		#endregion
@@ -703,7 +703,7 @@ namespace Towel.Mathematics
 		/// <summary>Conjugates a quaternion.</summary>
 		/// <param name="a">The quaternion to conjugate.</param>
 		/// <param name="b">The result of the conjugation.</param>
-		public static void Conjugate(Quaternion<T> a, ref Quaternion<T> b)
+		public static void Conjugate(Quaternion<T> a, ref Quaternion<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T x = Statics.Negation(a._x);
@@ -728,22 +728,22 @@ namespace Towel.Mathematics
 		/// <returns>The result of the conjugation.</returns>
 		public static Quaternion<T> Conjugate(Quaternion<T> a)
 		{
-			Quaternion<T> b = null;
+			Quaternion<T>? b = null;
 			Conjugate(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Conjugates a quaternion.</summary>
 		/// <param name="b">The result of the conjugation.</param>
-		public void Conjugate(ref Quaternion<T> b) => Conjugate(this, ref b);
+		public void Conjugate(ref Quaternion<T>? b) => Conjugate(this, ref b);
 
 		/// <summary>Conjugates a quaternion.</summary>
 		/// <returns>The result of the conjugation.</returns>
 		public Quaternion<T> Conjugate()
 		{
-			Quaternion<T> b = null;
+			Quaternion<T>? b = null;
 			Conjugate(this, ref b);
-			return b;
+			return b!;
 		}
 
 		#endregion
@@ -753,7 +753,7 @@ namespace Towel.Mathematics
 		/// <summary>Normalizes a quaternion.</summary>
 		/// <param name="a">The quaternion to normalize.</param>
 		/// <param name="b">The result of the normalization.</param>
-		public static void Normalize(Quaternion<T> a, ref Quaternion<T> b)
+		public static void Normalize(Quaternion<T> a, ref Quaternion<T>? b)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			T magnitude = a.Magnitude;
@@ -779,22 +779,22 @@ namespace Towel.Mathematics
 		/// <returns>The result of the normalization.</returns>
 		public static Quaternion<T> Normalize(Quaternion<T> a)
 		{
-			Quaternion<T> b = null;
+			Quaternion<T>? b = null;
 			Normalize(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Normalizes a quaternion.</summary>
 		/// <param name="b">The result of the normalization.</param>
-		public void Normalize(ref Quaternion<T> b) => Normalize(this, ref b);
+		public void Normalize(ref Quaternion<T>? b) => Normalize(this, ref b);
 
 		/// <summary>Normalizes a quaternion.</summary>
 		/// <returns>The result of the normalization.</returns>
 		public Quaternion<T> Normalize()
 		{
-			Quaternion<T> b = null;
+			Quaternion<T>? b = null;
 			Normalize(this, ref b);
-			return b;
+			return b!;
 		}
 
 		#endregion
@@ -804,7 +804,7 @@ namespace Towel.Mathematics
 		/// <summary>Inverts a quaternion.</summary>
 		/// <param name="a">The quaternion to invert.</param>
 		/// <param name="b">The result of the inversion.</param>
-		public static void Invert(Quaternion<T> a, ref Quaternion<T> b)
+		public static void Invert(Quaternion<T> a, ref Quaternion<T>? b)
 		{
 			// Note: I think this function is incorrect. Need to research.
 
@@ -846,22 +846,22 @@ namespace Towel.Mathematics
 		/// <returns>The result of the inversion.</returns>
 		public static Quaternion<T> Invert(Quaternion<T> a)
 		{
-			Quaternion<T> b = null;
+			Quaternion<T>? b = null;
 			Invert(a, ref b);
-			return b;
+			return b!;
 		}
 
 		/// <summary>Inverts a quaternion.</summary>
 		/// <param name="b">The result of the inversion.</param>
-		public void Invert(ref Quaternion<T> b) => Invert(this, ref b);
+		public void Invert(ref Quaternion<T>? b) => Invert(this, ref b);
 
 		/// <summary>Inverts a quaternion.</summary>
 		/// <returns>The result of the inversion.</returns>
 		public Quaternion<T> Invert()
 		{
-			Quaternion<T> b = null;
+			Quaternion<T>? b = null;
 			Invert(this, ref b);
-			return b;
+			return b!;
 		}
 
 		#endregion
@@ -873,7 +873,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The max of the interpolation.</param>
 		/// <param name="blend">The blending point of the interpolation.</param>
 		/// <param name="c">The result of the linear interpolation.</param>
-		public static void LinearInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T> c)
+		public static void LinearInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -947,16 +947,16 @@ namespace Towel.Mathematics
 		/// <returns>The result of the linear interpolation.</returns>
 		public static Quaternion<T> LinearInterpolation(Quaternion<T> a, Quaternion<T> b, T blend)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			LinearInterpolation(a, b, blend, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Linear interpolation for quaternions.</summary>
 		/// <param name="b">The max of the interpolation.</param>
 		/// <param name="blend">The blending point of the interpolation.</param>
 		/// <param name="c">The result of the linear interpolation.</param>
-		public void LinearInterpolation(Quaternion<T> b, T blend, ref Quaternion<T> c) =>
+		public void LinearInterpolation(Quaternion<T> b, T blend, ref Quaternion<T>? c) =>
 			LinearInterpolation(this, b, blend, ref c);
 
 		/// <summary>Linear interpolation for quaternions.</summary>
@@ -965,9 +965,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the linear interpolation.</returns>
 		public Quaternion<T> LinearInterpolation(Quaternion<T> b, T blend)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			LinearInterpolation(this, b, blend, ref c);
-			return c;
+			return c!;
 		}
 
 		#endregion
@@ -980,7 +980,7 @@ namespace Towel.Mathematics
 		/// <param name="blend">The blending point of the interpolation.</param>
 		/// <param name="c">The result of the spherical interpolation.</param>
 		[Obsolete("Not Implemented", true)]
-		public static void SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T> c)
+		public static void SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T>? c)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
 			_ = b ?? throw new ArgumentNullException(nameof(b));
@@ -998,16 +998,16 @@ namespace Towel.Mathematics
 		/// <returns>The result of the spherical interpolation.</returns>
 		public static Quaternion<T> SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			LinearInterpolation(a, b, blend, ref c);
-			return c;
+			return c!;
 		}
 
 		/// <summary>Spherical interpolation for quaternions.</summary>
 		/// <param name="b">The max of the interpolation.</param>
 		/// <param name="blend">The blending point of the interpolation.</param>
 		/// <param name="c">The result of the spherical interpolation.</param>
-		public void SphericalInterpolation(Quaternion<T> b, T blend, ref Quaternion<T> c) =>
+		public void SphericalInterpolation(Quaternion<T> b, T blend, ref Quaternion<T>? c) =>
 			LinearInterpolation(this, b, blend, ref c);
 
 		/// <summary>Spherical interpolation for quaternions.</summary>
@@ -1016,9 +1016,9 @@ namespace Towel.Mathematics
 		/// <returns>The result of the spherical interpolation.</returns>
 		public Quaternion<T> SphericalInterpolation(Quaternion<T> b, T blend)
 		{
-			Quaternion<T> c = null;
+			Quaternion<T>? c = null;
 			LinearInterpolation(this, b, blend, ref c);
-			return c;
+			return c!;
 		}
 
 		#endregion

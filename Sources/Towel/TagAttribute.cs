@@ -7,13 +7,13 @@ namespace Towel
 	[AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
 	public class TagAttribute : Attribute
 	{
-		internal object Tag;
-		internal object Value;
+		internal object? Tag;
+		internal object? Value;
 
 		/// <summary>Creates a new value-based "tag" attribute.</summary>
 		/// <param name="tag">The tag.</param>
 		/// <param name="value">The value.</param>
-		public TagAttribute(object tag, object value)
+		public TagAttribute(object? tag, object? value)
 		{
 			Tag = tag;
 			Value = value;
@@ -31,14 +31,14 @@ namespace Towel
 		/// <para>- <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
 		/// <para>- <see cref="object"/> Value: The value if found or default if not.</para>
 		/// </returns>
-		public static (bool Found, object? Value) GetTag(this MemberInfo memberInfo, object tag)
+		public static (bool Found, object? Value) GetTag(this MemberInfo memberInfo, object? tag)
 		{
 			_ = memberInfo ?? throw new ArgumentNullException(nameof(memberInfo));
 			bool found = false;
 			object? value = default;
 			foreach (TagAttribute valueAttribute in memberInfo.GetCustomAttributes<TagAttribute>())
 			{
-				if (ReferenceEquals(tag, valueAttribute.Tag) || tag.Equals(valueAttribute.Tag))
+				if (ReferenceEquals(tag, valueAttribute.Tag) || (tag is not null && tag.Equals(valueAttribute.Tag)))
 				{
 					if (found)
 					{
@@ -59,14 +59,14 @@ namespace Towel
 		/// <para>- <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
 		/// <para>- <see cref="object"/> Value: The value if found or default if not.</para>
 		/// </returns>
-		public static (bool Found, object? Value) GetTag(this ParameterInfo parameterInfo, object tag)
+		public static (bool Found, object? Value) GetTag(this ParameterInfo parameterInfo, object? tag)
 		{
 			_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
 			bool found = false;
 			object? value = default;
 			foreach (TagAttribute valueAttribute in parameterInfo.GetCustomAttributes<TagAttribute>())
 			{
-				if (ReferenceEquals(tag, valueAttribute.Tag) || tag.Equals(valueAttribute.Tag))
+				if (ReferenceEquals(tag, valueAttribute.Tag) || (tag is not null && tag.Equals(valueAttribute.Tag)))
 				{
 					if (found)
 					{

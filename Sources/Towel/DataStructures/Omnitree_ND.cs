@@ -246,44 +246,6 @@ namespace Towel.DataStructures
 			throw new Exception("There is a bug in the Towel Framwork [SubDivide]");
 		}
 
-		internal static T? SubDivide<T>(ArrayJagged<Bound<T>> bounds, Func<T?, T?, CompareResult> compare)
-		{
-			// make sure a bound exists (not all objects are infinitely bound)
-			bool exists = false;
-			foreach (Bound<T> bound in bounds)
-			{
-				if (bound.Exists)
-				{
-					exists = true;
-					break;
-				}
-			}
-
-			// if they have only inserted infinite bound objects it doesn't really matter what the
-			// point of division is, because the objects will never go down the tree
-			if (!exists)
-				return default;
-
-			SortQuick(0, (int)bounds.Length, index => bounds[index], (index, value) => { bounds[index] = value; }, Bound<T>.Compare(compare));
-
-			// after sorting, we need to find the middle-most value that exists
-			ulong medianIndex = bounds.Length / 2;
-			for (ulong i = 0; i < bounds.Length; i++)
-			{
-				ulong adjustedMedianIndex = medianIndex;
-				ulong adjuster = i / 2;
-				if (i % 2 is 0)
-					adjustedMedianIndex -= adjuster;
-				else
-					adjustedMedianIndex += adjuster;
-				if (bounds[adjustedMedianIndex].Exists)
-					return bounds[adjustedMedianIndex].Value;
-			}
-
-			// This exception should never be reached
-			throw new Exception("There is a bug in the Towel Framwork [SubDivide]");
-		}
-
 		internal delegate bool SpatialCheck<T1, T2>(T1 space1, T2 space2);
 
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Xml;
@@ -251,47 +250,64 @@ namespace Towel
 			{
 				string? declaringTypeString = null;
 				string? methodNameString = null;
-				IList<string> parameterTypeStrings = new ListArray<string>();
+				ListArray<string> parameterTypeStrings = new();
 				string? returnTypeString = null;
 				using (XmlReader xmlReader = XmlReader.Create(textReader))
 				{
 					while (xmlReader.Read())
 					{
-						CONTINUE:
-						if (xmlReader.NodeType == XmlNodeType.Element)
+					Loop:
+						if (xmlReader.NodeType is XmlNodeType.Element)
 						{
 							switch (xmlReader.Name)
 							{
 								case StaticDelegateConstants.DeclaringType:
 									declaringTypeString = xmlReader.ReadInnerXml();
-									goto CONTINUE;
+									goto Loop;
 								case StaticDelegateConstants.MethodName:
 									methodNameString = xmlReader.ReadInnerXml();
-									goto CONTINUE;
+									goto Loop;
 								case StaticDelegateConstants.ParameterType:
 									parameterTypeStrings.Add(xmlReader.ReadInnerXml());
-									goto CONTINUE;
+									goto Loop;
 								case StaticDelegateConstants.ReturnType:
 									returnTypeString = xmlReader.ReadInnerXml();
-									goto CONTINUE;
+									goto Loop;
 							}
 						}
 					}
 				}
+				if (methodNameString is null)
+				{
+					throw new ArgumentException("Deserialization failed due to missing name.");
+				}
 				if (declaringTypeString is null)
 				{
-					goto ThrowMissingType;
+					throw new ArgumentException("Deserialization failed due to missing type.");
 				}
 				if (returnTypeString is null)
 				{
-					goto ThrowMissingReturnType;
+					throw new ArgumentException("Deserialization failed due to missing return type.");
 				}
 				Type? declaringType = Type.GetType(declaringTypeString);
+				if (declaringType is null)
+				{
+					throw new ArgumentException("Deserialization failed due to an invalid type.");
+				}
 				Type? returnType = Type.GetType(returnTypeString);
 				MethodInfo? methodInfo = null;
 				if (parameterTypeStrings.Count > 0)
 				{
-					Type[] parameterTypes = parameterTypeStrings.Select(x => Type.GetType(x)).ToArray();
+					Type[] parameterTypes = new Type[parameterTypeStrings.Count];
+					for (int i = 0; i < parameterTypes.Length; i++)
+					{
+						Type? parameterType = Type.GetType(parameterTypeStrings[i]);
+						if (parameterType is null)
+						{
+							throw new ArgumentException("Deserialization failed due to an invalid parameter type.");
+						}
+						parameterTypes[i] = parameterType;
+					}
 					methodInfo = declaringType.GetMethod(methodNameString, parameterTypes);
 				}
 				else
@@ -300,19 +316,19 @@ namespace Towel
 				}
 				if (methodInfo is null)
 				{
-					goto ThrowMethodNotFound;
+					throw new ArgumentException("The method of the deserialization was not found.");
 				}
 				if (methodInfo.IsLocalFunction())
 				{
-					goto ThrowLocalFunctionException;
+					throw new NotSupportedException("Delegates assigned to local functions are not supported.");
 				}
 				if (!methodInfo.IsStatic)
 				{
-					goto ThrowNonStaticException;
+					throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
 				}
 				if (methodInfo.ReturnType != returnType)
 				{
-					goto ThrowReturnTypeMisMatchException;
+					throw new ArgumentException("Deserialization failed due to a return type mis-match.");
 				}
 				return methodInfo.CreateDelegate<Delegate>();
 			}
@@ -320,18 +336,6 @@ namespace Towel
 			{
 				throw new Exception("Deserialization failed.", exception);
 			}
-			ThrowMethodNotFound:
-			throw new Exception("The method of the deserialization was not found.");
-			ThrowMissingReturnType:
-			throw new ArgumentException("Deserialization failed due to missing return type.");
-			ThrowMissingType:
-			throw new ArgumentException("Deserialization failed due to missing type.");
-			ThrowNonStaticException:
-			throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
-			ThrowLocalFunctionException:
-			throw new NotSupportedException("Delegates assigned to local functions are not supported.");
-			ThrowReturnTypeMisMatchException:
-			throw new InvalidOperationException("Deserialization failed due to a return type mis-match.");
 		}
 
 		#endregion
@@ -347,13 +351,13 @@ namespace Towel
 			public class Delegate
 			{
 				/// <summary>The assemlby qualified declaring type of the method.</summary>
-				public string DeclaringType { get; set; }
+				public string? DeclaringType { get; set; }
 				/// <summary>The name of the method.</summary>
-				public string MethodName { get; set; }
+				public string? MethodName { get; set; }
 				/// <summary>The assembly qualified parameter types of the method.</summary>
-				public string[] ParameterTypes { get; set; }
+				public string[]? ParameterTypes { get; set; }
 				/// <summary>The assembly qualified return type of the method.</summary>
-				public string ReturnType { get; set; }
+				public string? ReturnType { get; set; }
 			}
 		}
 
@@ -365,7 +369,15 @@ namespace Towel
 		/// <returns>The JSON serialization of the delegate.</returns>
 		public static string StaticDelegateToJson<T>(T @delegate) where T : Delegate
 		{
+			if (@delegate is null)
+			{
+				throw new ArgumentNullException(nameof(@delegate));
+			}
 			MethodInfo methodInfo = @delegate.Method;
+			if (methodInfo.DeclaringType is null)
+			{
+				throw new ArgumentException(message: $"{nameof(@delegate)} has a null DeclaringType", paramName: nameof(@delegate));
+			}
 			if (methodInfo.IsLocalFunction())
 			{
 				throw new NotSupportedException("delegates assigned to local functions are not supported");
@@ -378,7 +390,15 @@ namespace Towel
 			string[] parameterTypes = new string[parameterInfos.Length];
 			for (int i = 0; i < parameterTypes.Length; i++)
 			{
-				parameterTypes[i] = parameterInfos[i].ParameterType.AssemblyQualifiedName;
+				string? assemblyQualifiedName = parameterInfos[i].ParameterType.AssemblyQualifiedName;
+				if (assemblyQualifiedName is null)
+				{
+					throw new NotSupportedException("delegates with generic type definitions are not supported");
+				}
+				else
+				{
+					parameterTypes[i] = assemblyQualifiedName;
+				}
 			}
 
 			Json.Delegate delegateObject = new()
@@ -402,30 +422,63 @@ namespace Towel
 		/// <returns>The deserialized delegate.</returns>
 		public static Delegate StaticDelegateFromJson<Delegate>(string @string) where Delegate : System.Delegate
 		{
-			Json.Delegate delegateObject = JsonSerializer.Deserialize<Json.Delegate>(@string);
-			Type declaringType = Type.GetType(delegateObject.DeclaringType);
-			Type returnType = Type.GetType(delegateObject.ReturnType);
-			MethodInfo methodInfo = null;
-			if (delegateObject.ParameterTypes.Length > 0)
+			Json.Delegate? delegateObject = JsonSerializer.Deserialize<Json.Delegate>(@string);
+			if (delegateObject is null)
 			{
-				Type[] parameterTypes = delegateObject.ParameterTypes.Select(x => Type.GetType(x)).ToArray();
+				throw new ArgumentException(message: $"JSON deserialization resulted in null", paramName: nameof(@string));
+			}
+			if (delegateObject.DeclaringType is null)
+			{
+				throw new ArgumentException("Deserialization failed due to missing type.");
+			}
+			if (delegateObject.ReturnType is null)
+			{
+				throw new ArgumentException("Deserialization failed due to missing return type.");
+			}
+			if (delegateObject.MethodName is null)
+			{
+				throw new ArgumentException("Deserialization failed due to missing name.");
+			}
+			Type? declaringType = Type.GetType(delegateObject.DeclaringType);
+			if (declaringType is null)
+			{
+				throw new ArgumentException("Deserialization failed due to an invalid type.");
+			}
+			Type? returnType = Type.GetType(delegateObject.ReturnType);
+			MethodInfo? methodInfo;
+			if (delegateObject.ParameterTypes is not null && delegateObject.ParameterTypes.Length > 0)
+			{
+				Type[] parameterTypes = new Type[delegateObject.ParameterTypes.Length];
+				for (int i = 0; i < parameterTypes.Length; i++)
+				{
+					Type? parameterType = Type.GetType(delegateObject.ParameterTypes[i]);
+					if (parameterType is null)
+					{
+						throw new ArgumentException("Deserialization failed due to an invalid parameter type.");
+					}
+					parameterTypes[i] = parameterType;
+				}
 				methodInfo = declaringType.GetMethod(delegateObject.MethodName, parameterTypes);
 			}
 			else
 			{
 				methodInfo = declaringType.GetMethod(delegateObject.MethodName);
 			}
+			if (methodInfo is null)
+			{
+				throw new ArgumentException("The method of the deserialization was not found.");
+			}
 			if (methodInfo.IsLocalFunction())
 			{
-				goto ThrowLocalFunctionException;
+				throw new NotSupportedException("Delegates assigned to local functions are not supported.");
 			}
 			if (!methodInfo.IsStatic)
 			{
-				goto ThrowNonStaticException;
+				throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
 			}
 			if (methodInfo.ReturnType != returnType)
 			{
-				goto ThrowReturnTypeMisMatchException;
+				throw new ArgumentException("Deserialization failed due to a return type mis-match.");
 			}
 			try
 			{
@@ -435,12 +488,6 @@ namespace Towel
 			{
 				throw new Exception("Deserialization failed.", exception);
 			}
-		ThrowNonStaticException:
-			throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
-		ThrowLocalFunctionException:
-			throw new NotSupportedException("Delegates assigned to local functions are not supported.");
-		ThrowReturnTypeMisMatchException:
-			throw new InvalidOperationException("Deserialization failed due to a return type mis-match.");
 		}
 
 		#endregion

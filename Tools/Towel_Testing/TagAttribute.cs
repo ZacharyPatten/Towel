@@ -18,24 +18,18 @@ namespace Towel_Testing
 
 		[TestMethod] public void Test()
 		{
+			BindingFlags bf =
+				BindingFlags.Public |
+				BindingFlags.NonPublic |
+				BindingFlags.Static |
+				BindingFlags.Instance;
+
 			Type type = typeof(A);
-			MethodInfo methodInfo = typeof(ValueAttribute_Testing).GetMethod(nameof(Method),
-				BindingFlags.Public |
-				BindingFlags.NonPublic |
-				BindingFlags.Static |
-				BindingFlags.Instance);
-			EventInfo eventInfo = typeof(ValueAttribute_Testing).GetEvent(nameof(Event));
-			ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>());
-			FieldInfo fieldInfo = typeof(A).GetField(nameof(A.Field),
-				BindingFlags.Public |
-				BindingFlags.NonPublic |
-				BindingFlags.Static |
-				BindingFlags.Instance);
-			PropertyInfo propertyInfo = typeof(A).GetProperty(nameof(A.Property),
-				BindingFlags.Public |
-				BindingFlags.NonPublic |
-				BindingFlags.Static |
-				BindingFlags.Instance);
+			MethodInfo methodInfo = typeof(ValueAttribute_Testing).GetMethod(nameof(Method), bf)!;
+			EventInfo eventInfo = typeof(ValueAttribute_Testing).GetEvent(nameof(Event))!;
+			ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>())!;
+			FieldInfo fieldInfo = typeof(A).GetField(nameof(A.Field), bf)!;
+			PropertyInfo propertyInfo = typeof(A).GetProperty(nameof(A.Property), bf)!;
 			ParameterInfo parameterInfo = methodInfo.GetParameters()[0];
 
 #pragma warning disable IDE0042 // Deconstruct variable declaration
@@ -157,6 +151,8 @@ namespace Towel_Testing
 #pragma warning restore IDE0042 // Deconstruct variable declaration
 		}
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
 		[Tag(TestAttribute1, TestValue1)]
 		[Tag(TestAttribute2, TestValue2)]
 		public class A
@@ -171,7 +167,7 @@ namespace Towel_Testing
 
 			[Tag(TestAttribute1, TestValue1)]
 			[Tag(TestAttribute2, TestValue2)]
-			public A() { }
+			public A() => throw new Exception();
 		}
 
 		[Tag(TestAttribute1, TestValue1)]
@@ -179,12 +175,11 @@ namespace Towel_Testing
 		public static void Method(
 			[Tag(TestAttribute1, TestValue1)]
 			[Tag(TestAttribute2, TestValue2)]
-			object a)
-		{ }
+			object a) => throw new Exception();
 
 		[Tag(TestAttribute1, TestValue1)]
 		[Tag(TestAttribute2, TestValue2)]
-		public static event Action Event;
+		public static event Action? Event;
 
 		[Tag(TestAttribute1, TestValue1)]
 		[Tag(TestAttribute1, TestValue1)]
@@ -201,5 +196,7 @@ namespace Towel_Testing
 
 		[Tag(IntValueOne, IntValueTwo)]
 		public class F { }
+
+#pragma warning restore IDE0060 // Remove unused parameter
 	}
 }

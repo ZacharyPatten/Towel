@@ -17156,8 +17156,8 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 				Omnitree.Bound<Axis1>[] values1 = new Omnitree.Bound<Axis1>[node.Count * 2];
 				Node.ValueNode for_current = node.Head; // used in for loop
@@ -17168,24 +17168,24 @@ namespace Towel.DataStructures
 				return new Omnitree.Vector<Axis1>(
 					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
-				ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
-					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-					this._getBounds(for_current.Value,
-						out min1, out max1
-						);
-					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
-				}
-				return new Omnitree.Vector<Axis1>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
-				);
-			}
+			//	ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
+			//		Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+			//			);
+			//		values1[i * 2] = min1; values1[i * 2 + 1] = max1;
+			//	}
+			//	return new Omnitree.Vector<Axis1>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//	);
+			//}
 		}
 
 		#endregion
@@ -18758,8 +18758,8 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 				Omnitree.Bound<Axis1>[] values1 = new Omnitree.Bound<Axis1>[node.Count * 2];
 				Omnitree.Bound<Axis2>[] values2 = new Omnitree.Bound<Axis2>[node.Count * 2];
@@ -18775,30 +18775,30 @@ namespace Towel.DataStructures
 , 
 					Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
-				ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
-					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
-					this._getBounds(for_current.Value,
-						out min1, out max1
-,
-						out min2, out max2
-						);
-					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
-					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
-				}
-				return new Omnitree.Vector<Axis1, Axis2>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
-				);
-			}
+			//	ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
+			//		Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
+			//		Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+//,
+			//			out min2, out max2
+			//			);
+			//		values1[i * 2] = min1; values1[i * 2 + 1] = max1;
+			//		values2[i * 2] = min2; values2[i * 2 + 1] = max2;
+			//	}
+			//	return new Omnitree.Vector<Axis1, Axis2>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//		, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
+			//	);
+			//}
 		}
 
 		#endregion
@@ -20534,8 +20534,8 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 				Omnitree.Bound<Axis1>[] values1 = new Omnitree.Bound<Axis1>[node.Count * 2];
 				Omnitree.Bound<Axis2>[] values2 = new Omnitree.Bound<Axis2>[node.Count * 2];
@@ -20556,36 +20556,36 @@ namespace Towel.DataStructures
 , 
 					Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
-				ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
-					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
-					Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
-					this._getBounds(for_current.Value,
-						out min1, out max1
-,
-						out min2, out max2
-,
-						out min3, out max3
-						);
-					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
-					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
-					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
-				}
-				return new Omnitree.Vector<Axis1, Axis2, Axis3>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
-				);
-			}
+			//	ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
+			//		Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
+			//		Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
+			//		Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+//,
+			//			out min2, out max2
+//,
+			//			out min3, out max3
+			//			);
+			//		values1[i * 2] = min1; values1[i * 2 + 1] = max1;
+			//		values2[i * 2] = min2; values2[i * 2 + 1] = max2;
+			//		values3[i * 2] = min3; values3[i * 2 + 1] = max3;
+			//	}
+			//	return new Omnitree.Vector<Axis1, Axis2, Axis3>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//		, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
+			//		, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
+			//	);
+			//}
 		}
 
 		#endregion
@@ -22484,8 +22484,8 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 				Omnitree.Bound<Axis1>[] values1 = new Omnitree.Bound<Axis1>[node.Count * 2];
 				Omnitree.Bound<Axis2>[] values2 = new Omnitree.Bound<Axis2>[node.Count * 2];
@@ -22511,42 +22511,42 @@ namespace Towel.DataStructures
 , 
 					Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
-				ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
-					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
-					Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
-					Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
-					this._getBounds(for_current.Value,
-						out min1, out max1
-,
-						out min2, out max2
-,
-						out min3, out max3
-,
-						out min4, out max4
-						);
-					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
-					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
-					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
-					values4[i * 2] = min4; values4[i * 2 + 1] = max4;
-				}
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
-				);
-			}
+			//	ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
+			//		Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
+			//		Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
+			//		Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
+			//		Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+//,
+			//			out min2, out max2
+//,
+			//			out min3, out max3
+//,
+			//			out min4, out max4
+			//			);
+			//		values1[i * 2] = min1; values1[i * 2 + 1] = max1;
+			//		values2[i * 2] = min2; values2[i * 2 + 1] = max2;
+			//		values3[i * 2] = min3; values3[i * 2 + 1] = max3;
+			//		values4[i * 2] = min4; values4[i * 2 + 1] = max4;
+			//	}
+			//	return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//		, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
+			//		, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
+			//		, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
+			//	);
+			//}
 		}
 
 		#endregion
@@ -24608,8 +24608,8 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 				Omnitree.Bound<Axis1>[] values1 = new Omnitree.Bound<Axis1>[node.Count * 2];
 				Omnitree.Bound<Axis2>[] values2 = new Omnitree.Bound<Axis2>[node.Count * 2];
@@ -24640,48 +24640,48 @@ namespace Towel.DataStructures
 , 
 					Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare : this._compare5)
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
-				ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis5>> values5 = new ArrayJagged<Omnitree.Bound<Axis5>>(node.Count * 2);
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
-					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
-					Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
-					Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
-					Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
-					this._getBounds(for_current.Value,
-						out min1, out max1
-,
-						out min2, out max2
-,
-						out min3, out max3
-,
-						out min4, out max4
-,
-						out min5, out max5
-						);
-					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
-					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
-					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
-					values4[i * 2] = min4; values4[i * 2 + 1] = max4;
-					values5[i * 2] = min5; values5[i * 2 + 1] = max5;
-				}
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
-					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare : this._compare5)
-				);
-			}
+			//	ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis5>> values5 = new ArrayJagged<Omnitree.Bound<Axis5>>(node.Count * 2);
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
+			//		Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
+			//		Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
+			//		Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
+			//		Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
+			//		Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+//,
+			//			out min2, out max2
+//,
+			//			out min3, out max3
+//,
+			//			out min4, out max4
+//,
+			//			out min5, out max5
+			//			);
+			//		values1[i * 2] = min1; values1[i * 2 + 1] = max1;
+			//		values2[i * 2] = min2; values2[i * 2 + 1] = max2;
+			//		values3[i * 2] = min3; values3[i * 2 + 1] = max3;
+			//		values4[i * 2] = min4; values4[i * 2 + 1] = max4;
+			//		values5[i * 2] = min5; values5[i * 2 + 1] = max5;
+			//	}
+			//	return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//		, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
+			//		, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
+			//		, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
+			//		, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare : this._compare5)
+			//	);
+			//}
 		}
 
 		#endregion
@@ -26906,8 +26906,8 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 				Omnitree.Bound<Axis1>[] values1 = new Omnitree.Bound<Axis1>[node.Count * 2];
 				Omnitree.Bound<Axis2>[] values2 = new Omnitree.Bound<Axis2>[node.Count * 2];
@@ -26943,54 +26943,54 @@ namespace Towel.DataStructures
 , 
 					Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare : this._compare6)
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
-				ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis5>> values5 = new ArrayJagged<Omnitree.Bound<Axis5>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis6>> values6 = new ArrayJagged<Omnitree.Bound<Axis6>>(node.Count * 2);
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
-					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
-					Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
-					Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
-					Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
-					Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
-					this._getBounds(for_current.Value,
-						out min1, out max1
-,
-						out min2, out max2
-,
-						out min3, out max3
-,
-						out min4, out max4
-,
-						out min5, out max5
-,
-						out min6, out max6
-						);
-					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
-					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
-					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
-					values4[i * 2] = min4; values4[i * 2 + 1] = max4;
-					values5[i * 2] = min5; values5[i * 2 + 1] = max5;
-					values6[i * 2] = min6; values6[i * 2 + 1] = max6;
-				}
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
-					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare : this._compare5)
-					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare : this._compare6)
-				);
-			}
+			//	ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis5>> values5 = new ArrayJagged<Omnitree.Bound<Axis5>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis6>> values6 = new ArrayJagged<Omnitree.Bound<Axis6>>(node.Count * 2);
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
+			//		Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
+			//		Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
+			//		Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
+			//		Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
+			//		Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
+			//		Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+//,
+			//			out min2, out max2
+//,
+			//			out min3, out max3
+//,
+			//			out min4, out max4
+//,
+			//			out min5, out max5
+//,
+			//			out min6, out max6
+			//			);
+			//		values1[i * 2] = min1; values1[i * 2 + 1] = max1;
+			//		values2[i * 2] = min2; values2[i * 2 + 1] = max2;
+			//		values3[i * 2] = min3; values3[i * 2 + 1] = max3;
+			//		values4[i * 2] = min4; values4[i * 2 + 1] = max4;
+			//		values5[i * 2] = min5; values5[i * 2 + 1] = max5;
+			//		values6[i * 2] = min6; values6[i * 2 + 1] = max6;
+			//	}
+			//	return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//		, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
+			//		, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
+			//		, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
+			//		, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare : this._compare5)
+			//		, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare : this._compare6)
+			//	);
+			//}
 		}
 
 		#endregion
@@ -29378,8 +29378,8 @@ namespace Towel.DataStructures
 
 		internal Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7> DetermineMedians(Node node)
 		{
-			try
-			{
+			//try
+			//{
 				// extract the values
 				Omnitree.Bound<Axis1>[] values1 = new Omnitree.Bound<Axis1>[node.Count * 2];
 				Omnitree.Bound<Axis2>[] values2 = new Omnitree.Bound<Axis2>[node.Count * 2];
@@ -29420,60 +29420,60 @@ namespace Towel.DataStructures
 , 
 					Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare : this._compare7)
 					);
-			}
-			catch
-			{
+			//}
+			//catch
+			//{
 				// extract the values
-				ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis5>> values5 = new ArrayJagged<Omnitree.Bound<Axis5>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis6>> values6 = new ArrayJagged<Omnitree.Bound<Axis6>>(node.Count * 2);
-				ArrayJagged<Omnitree.Bound<Axis7>> values7 = new ArrayJagged<Omnitree.Bound<Axis7>>(node.Count * 2);
-				Node.ValueNode for_current = node.Head; // used in for loop
-				for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
-				{
-					Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
-					Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
-					Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
-					Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
-					Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
-					Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
-					Omnitree.Bound<Axis7> min7; Omnitree.Bound<Axis7> max7;
-					this._getBounds(for_current.Value,
-						out min1, out max1
-,
-						out min2, out max2
-,
-						out min3, out max3
-,
-						out min4, out max4
-,
-						out min5, out max5
-,
-						out min6, out max6
-,
-						out min7, out max7
-						);
-					values1[i * 2] = min1; values1[i * 2 + 1] = max1;
-					values2[i * 2] = min2; values2[i * 2 + 1] = max2;
-					values3[i * 2] = min3; values3[i * 2 + 1] = max3;
-					values4[i * 2] = min4; values4[i * 2 + 1] = max4;
-					values5[i * 2] = min5; values5[i * 2 + 1] = max5;
-					values6[i * 2] = min6; values6[i * 2 + 1] = max6;
-					values7[i * 2] = min7; values7[i * 2 + 1] = max7;
-				}
-				return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
-					Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
-					, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
-					, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
-					, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
-					, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare : this._compare5)
-					, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare : this._compare6)
-					, Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare : this._compare7)
-				);
-			}
+			//	ArrayJagged<Omnitree.Bound<Axis1>> values1 = new ArrayJagged<Omnitree.Bound<Axis1>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis2>> values2 = new ArrayJagged<Omnitree.Bound<Axis2>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis3>> values3 = new ArrayJagged<Omnitree.Bound<Axis3>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis4>> values4 = new ArrayJagged<Omnitree.Bound<Axis4>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis5>> values5 = new ArrayJagged<Omnitree.Bound<Axis5>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis6>> values6 = new ArrayJagged<Omnitree.Bound<Axis6>>(node.Count * 2);
+			//	ArrayJagged<Omnitree.Bound<Axis7>> values7 = new ArrayJagged<Omnitree.Bound<Axis7>>(node.Count * 2);
+			//	Node.ValueNode for_current = node.Head; // used in for loop
+			//	for (int i = 0; i < node.Count; i++, for_current = for_current.Next)
+			//	{
+			//		Omnitree.Bound<Axis1> min1; Omnitree.Bound<Axis1> max1;
+			//		Omnitree.Bound<Axis2> min2; Omnitree.Bound<Axis2> max2;
+			//		Omnitree.Bound<Axis3> min3; Omnitree.Bound<Axis3> max3;
+			//		Omnitree.Bound<Axis4> min4; Omnitree.Bound<Axis4> max4;
+			//		Omnitree.Bound<Axis5> min5; Omnitree.Bound<Axis5> max5;
+			//		Omnitree.Bound<Axis6> min6; Omnitree.Bound<Axis6> max6;
+			//		Omnitree.Bound<Axis7> min7; Omnitree.Bound<Axis7> max7;
+			//		this._getBounds(for_current.Value,
+			//			out min1, out max1
+//,
+			//			out min2, out max2
+//,
+			//			out min3, out max3
+//,
+			//			out min4, out max4
+//,
+			//			out min5, out max5
+//,
+			//			out min6, out max6
+//,
+			//			out min7, out max7
+			//			);
+			//		values1[i * 2] = min1; values1[i * 2 + 1] = max1;
+			//		values2[i * 2] = min2; values2[i * 2 + 1] = max2;
+			//		values3[i * 2] = min3; values3[i * 2 + 1] = max3;
+			//		values4[i * 2] = min4; values4[i * 2 + 1] = max4;
+			//		values5[i * 2] = min5; values5[i * 2 + 1] = max5;
+			//		values6[i * 2] = min6; values6[i * 2 + 1] = max6;
+			//		values7[i * 2] = min7; values7[i * 2 + 1] = max7;
+			//	}
+			//	return new Omnitree.Vector<Axis1, Axis2, Axis3, Axis4, Axis5, Axis6, Axis7>(
+			//		Omnitree.SubDivide(values1, this._defaultCompare1 ? Compare : this._compare1)
+			//		, Omnitree.SubDivide(values2, this._defaultCompare2 ? Compare : this._compare2)
+			//		, Omnitree.SubDivide(values3, this._defaultCompare3 ? Compare : this._compare3)
+			//		, Omnitree.SubDivide(values4, this._defaultCompare4 ? Compare : this._compare4)
+			//		, Omnitree.SubDivide(values5, this._defaultCompare5 ? Compare : this._compare5)
+			//		, Omnitree.SubDivide(values6, this._defaultCompare6 ? Compare : this._compare6)
+			//		, Omnitree.SubDivide(values7, this._defaultCompare7 ? Compare : this._compare7)
+			//	);
+			//}
 		}
 
 		#endregion

@@ -1120,7 +1120,7 @@ namespace Towel_Testing.Mathematics
 			{
 				// null
 				{
-					Assert.ThrowsException<ArgumentNullException>(() => Matrix<int>.Minor(null, 0, 0));
+					Assert.ThrowsException<ArgumentNullException>(() => Matrix<int>.Minor(null!, 0, 0));
 				}
 				// 1x1
 				{

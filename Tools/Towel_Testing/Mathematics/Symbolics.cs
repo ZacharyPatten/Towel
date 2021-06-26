@@ -15,13 +15,13 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("-1", s => (int.TryParse(s, out int value), value));
 				var B = -ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("- 1", s => (int.TryParse(s, out int value), value));
 				var B = -ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 
 			#endregion
@@ -32,25 +32,25 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1+1", s => (int.TryParse(s, out int value), value));
 				var B = ONE + ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 + 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE + ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 + (1 + 1)", s => (int.TryParse(s, out int value), value));
 				var B = ONE + (ONE + ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 + (1 + (1 + 1))", s => (int.TryParse(s, out int value), value));
 				var B = ONE + (ONE + (ONE + ONE));
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 
 			#endregion
@@ -61,25 +61,25 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1-1", s => (int.TryParse(s, out int value), value));
 				var B = ONE - ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 - 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE - ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 - (1 - 1)", s => (int.TryParse(s, out int value), value));
 				var B = ONE - (ONE - ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 - (1 - (1 - 1))", s => (int.TryParse(s, out int value), value));
 				var B = ONE - (ONE - (ONE - ONE));
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 
 			#endregion
@@ -90,7 +90,7 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1*1", s => (int.TryParse(s, out int value), value));
 				var B = ONE * ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 * 1", s => (int.TryParse(s, out int value), value));
@@ -101,13 +101,13 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1 * (1 * 1)", s => (int.TryParse(s, out int value), value));
 				var B = ONE * (ONE * ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 * (1 * (1 * 1))", s => (int.TryParse(s, out int value), value));
 				var B = ONE * (ONE * (ONE * ONE));
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 
 			#endregion
@@ -118,7 +118,7 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1/1", s => (int.TryParse(s, out int value), value));
 				var B = ONE / ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 / 1", s => (int.TryParse(s, out int value), value));
@@ -129,13 +129,13 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1 / (1 / 1)", s => (int.TryParse(s, out int value), value));
 				var B = ONE / (ONE / ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 / (1 / (1 / 1))", s => (int.TryParse(s, out int value), value));
 				var B = ONE / (ONE / (ONE / ONE));
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 
 			#endregion
@@ -146,13 +146,13 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1!", s => (int.TryParse(s, out int value), value));
 				var B = new Symbolics.Factorial(ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 !", s => (int.TryParse(s, out int value), value));
 				var B = new Symbolics.Factorial(ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 
 			#endregion
@@ -163,109 +163,109 @@ namespace Towel_Testing.Mathematics
 				var A = Symbolics.Parse<int>("1 + -1", s => (int.TryParse(s, out int value), value));
 				var B = ONE + -ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("-1 + 1", s => (int.TryParse(s, out int value), value));
 				var B = -ONE + ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 + 1 - 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE + ONE - ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 - 1 + 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE - ONE + ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 + 1 * 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE + ONE * ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 * 1 + 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE * ONE + ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 - 1 * 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE - ONE * ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 * 1 - 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE * ONE - ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 * 1 / 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE * ONE / ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 / 1 * 1", s => (int.TryParse(s, out int value), value));
 				var B = ONE / ONE * ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 + 1!", s => (int.TryParse(s, out int value), value));
 				var B = ONE + new Symbolics.Factorial(ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1! + 1", s => (int.TryParse(s, out int value), value));
 				var B = new Symbolics.Factorial(ONE) + ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 - 1!", s => (int.TryParse(s, out int value), value));
 				var B = ONE - new Symbolics.Factorial(ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1! - 1", s => (int.TryParse(s, out int value), value));
 				var B = new Symbolics.Factorial(ONE) - ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 * 1!", s => (int.TryParse(s, out int value), value));
 				var B = ONE * new Symbolics.Factorial(ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1! * 1", s => (int.TryParse(s, out int value), value));
 				var B = new Symbolics.Factorial(ONE) * ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1 / 1!", s => (int.TryParse(s, out int value), value));
 				var B = ONE / new Symbolics.Factorial(ONE);
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 			{
 				var A = Symbolics.Parse<int>("1! / 1", s => (int.TryParse(s, out int value), value));
 				var B = new Symbolics.Factorial(ONE) / ONE;
 				Assert.IsTrue(A.Equals(B));
-				Assert.IsTrue(A.ToString().Equals(B.ToString()));
+				Assert.IsTrue(A.ToString()!.Equals(B.ToString()));
 			}
 
 			#endregion
