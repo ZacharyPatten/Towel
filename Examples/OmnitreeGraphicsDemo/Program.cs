@@ -34,9 +34,9 @@ namespace OmnitreeGraphicsDemo
 	{
 		#region From Silk.Net
 
-		private static IWindow window;
-		private static GL Gl;
-		private static IKeyboard primaryKeyboard;
+		private static IWindow? window;
+		private static GL? Gl;
+		private static IKeyboard? primaryKeyboard;
 
 		private const int Width = 800;
 		private const int Height = 700;
@@ -114,13 +114,13 @@ void main()
 		private static readonly float[] vertices =
 		{
 			-.5f, -.5f, -.5f, // A
-			.5f, -.5f, -.5f, // B
+			 .5f, -.5f, -.5f, // B
 			-.5f,  .5f, -.5f, // C
-			.5f,  .5f, -.5f, // D
+			 .5f,  .5f, -.5f, // D
 			-.5f, -.5f,  .5f, // E
-			.5f, -.5f,  .5f, // F
+			 .5f, -.5f,  .5f, // F
 			-.5f,  .5f,  .5f, // G
-			.5f,  .5f,  .5f, // H
+			 .5f,  .5f,  .5f, // H
 		};
 
 		private static readonly uint[] indices =
@@ -146,8 +146,8 @@ void main()
 
 		#endregion
 
-		static IOmnitreePoints<Cube, float, float, float> _omnitree;
-		static ListArray<Cube> _objects;
+		static IOmnitreePoints<Cube, float, float, float>? _omnitree;
+		static ListArray<Cube>? _objects;
 
 		static uint _cubeElementBufferId;
 		static uint _cubeVertexBufferId;
@@ -178,7 +178,7 @@ void main()
 
 		private unsafe static void OnLoad()
 		{
-			IInputContext input = window.CreateInput();
+			IInputContext input = window!.CreateInput();
 			primaryKeyboard = input.Keyboards.FirstOrDefault();
 			if (primaryKeyboard != null)
 			{
@@ -348,7 +348,7 @@ void main()
 		{
 			var moveSpeed = 2.5f * (float)deltaTime;
 
-			if (primaryKeyboard.IsKeyPressed(Key.W))
+			if (primaryKeyboard!.IsKeyPressed(Key.W))
 			{
 				CameraPosition += moveSpeed * CameraFront;
 			}
@@ -368,7 +368,7 @@ void main()
 			#region Collision Detection
 
 			int iteration = 0;
-			foreach (Cube obj in _objects)
+			foreach (Cube obj in _objects!)
 			{
 				iteration++;
 				const float radius = 1500f;
@@ -379,7 +379,7 @@ void main()
 				}
 				else
 				{
-					_omnitree.Stepper(
+					_omnitree!.Stepper(
 						x =>
 						{
 							if (object.ReferenceEquals(x, obj))
@@ -410,7 +410,7 @@ void main()
 
 			// this is not ideal... we shouldn't have to rebuild the omnitree every frame,
 			// but the "update" function has a bug at the moment
-			_omnitree.Clear();
+			_omnitree!.Clear();
 			foreach (var obj in _objects)
 			{
 				_omnitree.Add(obj);
@@ -423,14 +423,14 @@ void main()
 
 		private static unsafe void OnRender(double deltaTime)
 		{
-			Gl.Enable(EnableCap.DepthTest);
+			Gl!.Enable(EnableCap.DepthTest);
 			Gl.Clear((uint)(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit));
 
 			float fov = Measurement.Convert(CameraZoom, Degrees, Radians);
 			Matrix4x4 projectionMatrix = Matrix4x4.CreatePerspectiveFieldOfView(fov, (float)Width / Height, 0.1f, 100.0f);
 			Matrix4x4 viewMatrix = Matrix4x4.CreateLookAt(CameraPosition, CameraPosition + CameraFront, CameraUp);
 
-			foreach (Cube cube in _objects)
+			foreach (Cube cube in _objects!)
 			{
 				Vector3 color = cube.Color;
 				Matrix4x4 modelMatrix = Matrix4x4.CreateTranslation(cube.Position.X, cube.Position.Y, cube.Position.Z);
@@ -471,7 +471,7 @@ void main()
 
 		private static void OnClose()
 		{
-			Gl.BindBuffer(GLEnum.ArrayBuffer, 0);
+			Gl!.BindBuffer(GLEnum.ArrayBuffer, 0);
 			Gl.BindVertexArray(0);
 			Gl.UseProgram(0);
 			Gl.DeleteBuffer(_cubeVertexBufferId);
@@ -483,7 +483,7 @@ void main()
 		{
 			if (key is Key.Escape)
 			{
-				window.Close();
+				window!.Close();
 			}
 		}
 	}
