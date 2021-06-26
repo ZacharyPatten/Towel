@@ -15,8 +15,8 @@ namespace Towel.Measurements
 		#region Convert
 
 		/// <summary>Interface for unit conversion.</summary>
-		/// <typeparam name="UNITSTYPE">The unit type of the interface.</typeparam>
-		public interface IUnits<UNITSTYPE>
+		/// <typeparam name="TUnitsType">The unit type of the interface.</typeparam>
+		public interface IUnits<TUnitsType>
 		{
 			/// <summary>Converts the units of measurement of a value.</summary>
 			/// <typeparam name="T">The generic type of the value to convert.</typeparam>
@@ -24,18 +24,18 @@ namespace Towel.Measurements
 			/// <param name="from">The current units of the value.</param>
 			/// <param name="to">The desired units of the value.</param>
 			/// <returns>The value converted into the desired units.</returns>
-			T Convert<T>(T value, UNITSTYPE from, UNITSTYPE to);
+			T Convert<T>(T value, TUnitsType from, TUnitsType to);
 		}
 
 		/// <summary>Converts the units of measurement of a value.</summary>
 		/// <typeparam name="T">The generic type of the value to convert.</typeparam>
-		/// <typeparam name="UNITSTYPE">The type of units to be converted.</typeparam>
+		/// <typeparam name="TUnitsType">The type of units to be converted.</typeparam>
 		/// <param name="value">The value to be converted.</param>
 		/// <param name="from">The current units of the value.</param>
 		/// <param name="to">The desired units of the value.</param>
 		/// <returns>The value converted into the desired units.</returns>
-		public static T Convert<T, UNITSTYPE>(T value, UNITSTYPE from, UNITSTYPE to)
-			where UNITSTYPE : IUnits<UNITSTYPE>
+		public static T Convert<T, TUnitsType>(T value, TUnitsType from, TUnitsType to)
+			where TUnitsType : IUnits<TUnitsType>
 		{
 			return from.Convert(value, from, to);
 		}
@@ -61,9 +61,9 @@ namespace Towel.Measurements
 		#region Parsing Libaries
 
 		internal static bool ParsingLibraryBuilt = false;
-		internal static string AllUnitsRegexPattern;
-		internal static IMap<string, string> UnitStringToUnitTypeString;
-		internal static IMap<Enum, string> UnitStringToEnumMap;
+		internal static string? AllUnitsRegexPattern;
+		internal static IMap<string, string>? UnitStringToUnitTypeString;
+		internal static IMap<Enum, string>? UnitStringToEnumMap;
 
 		internal static void BuildParsingLibrary()
 		{
@@ -110,7 +110,7 @@ namespace Towel.Measurements
 		internal static class TypeSpecificParsingLibrary<T>
 		{
 			internal static bool TypeSpecificParsingLibraryBuilt = false;
-			internal static IMap<Func<T, object[], object>, string> UnitsStringsToFactoryFunctions;
+			internal static IMap<Func<T, object[], object>, string>? UnitsStringsToFactoryFunctions;
 
 			internal static void BuildTypeSpecificParsingLibrary()
 			{
@@ -121,7 +121,7 @@ namespace Towel.Measurements
 					if (methodInfo.DeclaringType == typeof(ParsingFunctions))
 					{
 						MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(T));
-						ParseableAttribute parsableAttribute = genericMethodInfo.GetCustomAttribute<ParseableAttribute>();
+						ParseableAttribute? parsableAttribute = genericMethodInfo.GetCustomAttribute<ParseableAttribute>();
 						Func<T, object[], object> factory = genericMethodInfo.CreateDelegate<Func<T, object[], object>>();
 						unitsStringsToFactoryFunctions.Add(parsableAttribute.Key, factory);
 					}
@@ -137,10 +137,9 @@ namespace Towel.Measurements
 		/// <summary>Parses a measurement from a string.</summary>
 		/// <typeparam name="T">The numeric type to parse the quantity as.</typeparam>
 		/// <param name="string">The string to parse.</param>
-		/// <param name="measurement">The parsed measurement if successful or default if unsuccessful.</param>
 		/// <param name="tryParse">Explicit try parse function for the numeric type.</param>
 		/// <returns>True if successful or false if not.</returns>
-		public static bool TryParse<T>(string @string, out object measurement, Func<string, (bool Success, T Value)>? tryParse = null)
+		public static (bool Success, object? Value) TryParse<T>(string @string, Func<string, (bool Success, T? Value)>? tryParse = null)
 		{
 			if (!ParsingLibraryBuilt)
 			{
@@ -151,14 +150,13 @@ namespace Towel.Measurements
 				TypeSpecificParsingLibrary<T>.BuildTypeSpecificParsingLibrary();
 			}
 
-			IList<object> parameters = new ListArray<object>();
+			ListArray<object> parameters = new();
 			bool AtLeastOneUnit = false;
 			bool? numerator = null;
-			MatchCollection matchCollection = Regex.Matches(@string, AllUnitsRegexPattern);
+			MatchCollection matchCollection = Regex.Matches(@string, AllUnitsRegexPattern!);
 			if (matchCollection.Count <= 0 || matchCollection[0].Index <= 0)
 			{
-				measurement = default;
-				return false;
+				return (false, default);
 			}
 			string numericString = @string.Substring(0, matchCollection[0].Index);
 			T value;
@@ -168,8 +166,7 @@ namespace Towel.Measurements
 			}
 			catch
 			{
-				measurement = default;
-				return false;
+				return (false, default);
 			}
 			StringBuilder stringBuilder = new();
 			foreach (Match match in matchCollection)
@@ -179,49 +176,44 @@ namespace Towel.Measurements
 				{
 					if (numerator is not null)
 					{
-						measurement = default;
-						return false;
+						return (false, default);
 					}
 					if (!AtLeastOneUnit)
 					{
-						measurement = default;
-						return false;
+						return (false, default);
 					}
 					numerator = matchValue.Equals("*");
 					continue;
 				}
-				var (success, exception, @enum) = UnitStringToEnumMap.TryGet(match.Value);
+				var (success, exception, @enum) = UnitStringToEnumMap!.TryGet(match.Value);
 				if (!success)
 				{
-					measurement = default;
-					return false;
+					return (false, default);
 				}
 				if (!AtLeastOneUnit)
 				{
 					if (numerator is not null)
 					{
-						measurement = default;
-						return false;
+						return (false, default);
 					}
 					AtLeastOneUnit = true;
-					stringBuilder.Append(@enum.GetType().DeclaringType.Name);
+					stringBuilder.Append(@enum!.GetType().DeclaringType!.Name);
 					parameters.Add(@enum);
 				}
 				else
 				{
 					if (numerator is null)
 					{
-						measurement = default;
-						return false;
+						return (false, default);
 					}
 					if (numerator.Value)
 					{
-						stringBuilder.Append("*" + @enum.GetType().DeclaringType.Name);
+						stringBuilder.Append("*" + @enum!.GetType().DeclaringType!.Name);
 						parameters.Add(@enum);
 					}
 					else
 					{
-						stringBuilder.Append("/" + @enum.GetType().DeclaringType.Name);
+						stringBuilder.Append("/" + @enum!.GetType().DeclaringType!.Name);
 						parameters.Add(@enum);
 					}
 				}
@@ -229,25 +221,19 @@ namespace Towel.Measurements
 			}
 			if (numerator is not null)
 			{
-				measurement = default;
-				return false;
+				return (false, default);
 			}
 			string key = stringBuilder.ToString();
-			Func<T, object[], object> factory = TypeSpecificParsingLibrary<T>.UnitsStringsToFactoryFunctions[key];
-			measurement = factory(value, parameters.ToArray());
-			return true;
+			Func<T, object[], object> factory = TypeSpecificParsingLibrary<T>.UnitsStringsToFactoryFunctions![key];
+			return (true, factory(value, parameters.ToArray()));
 		}
 
-		internal static bool TryParse<T, MEASUREMENT>(string @string, out MEASUREMENT measurement, Func<string, (bool Success, T Value)>? tryParse = null)
+		internal static (bool Success, TMeasurement? Value) TryParse<T, TMeasurement>(string @string, Func<string, (bool Success, T? Value)>? tryParse = null)
 		{
-			if (!TryParse(@string, out object parsedMeasurment, tryParse) ||
-				!(parsedMeasurment is MEASUREMENT))
-			{
-				measurement = default;
-				return false;
-			}
-			measurement = (MEASUREMENT)parsedMeasurment;
-			return true;
+			var (success, value) = TryParse(@string, tryParse);
+			return success && value is TMeasurement measurement
+				? (true, measurement)
+				: (false, default);
 		}
 
 		#endregion

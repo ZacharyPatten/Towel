@@ -376,25 +376,25 @@ namespace Measurements
 				Console.WriteLine("  Parsing-------------------------------");
 				Console.WriteLine();
 
-				bool aSuccess = Angle<double>.TryParse(angle1.ToString(), out var a);
+				var (aSuccess, a) = Angle<double>.TryParse(angle1.ToString());
 				Console.WriteLine($"    Angle<double>.TryParse({angle1}, out var {nameof(a)})");
 
-				bool bSuccess = Length<double>.TryParse(length1.ToString(), out var b);
+				var (bSuccess, b) = Length<double>.TryParse(length1.ToString());
 				Console.WriteLine($"    Length<double>.TryParse({length1}, out var {nameof(b)})");
 
-				bool cSuccess = Density<double>.TryParse(density1.ToString(), out var c);
+				var (cSuccess, c) = Density<double>.TryParse(density1.ToString());
 				Console.WriteLine($"    Density<double>.TryParse({density1}, out var {nameof(c)})");
 
 				string speedString = "20.5 Meters / Seconds";
-				bool dSuccess = Speed<float>.TryParse(speedString, out var d);
+				var (dSuccess, d) = Speed<float>.TryParse(speedString);
 				Console.WriteLine($"    Speed<float>.TryParse({speedString}, out var {nameof(d)})");
 
 				string forceString = ".1234 Kilograms * Meters / Seconds / Seconds";
-				bool eSuccess = Force<decimal>.TryParse(forceString, out var e);
+				var (eSuccess, e) = Force<decimal>.TryParse(forceString);
 				Console.WriteLine($"    Force<decimal>.TryParse({forceString}, out var {nameof(e)})");
 
 				string densityString = "12.344 Kilograms / Centimeters / Centimeters / Centimeters";
-				bool fSuccess = Density<double>.TryParse(densityString, out var f);
+				var (fSuccess, f) = Density<double>.TryParse(densityString);
 				Console.WriteLine($"    Density<decimal>.TryParse({densityString}, out var {nameof(f)})");
 
 				Console.WriteLine();

@@ -256,7 +256,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Variable)
@@ -307,14 +307,14 @@ namespace Towel.Mathematics
 			internal static Expression BuildGeneric(object value)
 			{
 				Type valueType = value.GetType();
-				if (preCompiledConstructors.TryGetValue(valueType, out Func<object, Expression> preCompiledConstructor))
+				if (preCompiledConstructors.TryGetValue(valueType, out var preCompiledConstructor))
 				{
 					return preCompiledConstructor(value);
 				}
 				else
 				{
 					Type constantType = typeof(Constant<>).MakeGenericType(valueType);
-					ConstructorInfo constructorInfo = constantType.GetConstructor(Ɐ(valueType));
+					ConstructorInfo? constructorInfo = constantType.GetConstructor(Ɐ(valueType));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(object));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, System.Linq.Expressions.Expression.Convert(A, valueType));
 					Func<object, Expression> newFunction = System.Linq.Expressions.Expression.Lambda<Func<object, Expression>>(newExpression, A).Compile();
@@ -369,7 +369,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Pi)
@@ -414,7 +414,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Zero)
@@ -460,7 +460,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is One)
@@ -506,7 +506,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Two)
@@ -552,7 +552,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Three)
@@ -611,12 +611,12 @@ namespace Towel.Mathematics
 
 			/// <summary>Standard conversion to a string representation.</summary>
 			/// <returns>The string represnetation of this expression.</returns>
-			public override string ToString() => Value.ToString();
+			public override string? ToString() => Value?.ToString();
 
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Constant<T> B)
@@ -675,7 +675,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Pi<T>)
@@ -717,7 +717,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Zero<T>)
@@ -759,7 +759,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is One<T>)
@@ -801,7 +801,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Two<T>)
@@ -843,7 +843,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is Three<T>)
@@ -881,7 +881,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is True)
@@ -919,7 +919,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (b is False)
@@ -988,7 +988,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (GetType() == b.GetType())
@@ -1306,8 +1306,8 @@ namespace Towel.Mathematics
 					return false;
 				}
 
-				string a = A.ToString();
-				if (RequiresParentheses(a))
+				string? a = A.ToString();
+				if (a is not null && RequiresParentheses(a))
 				{
 					a = "(" + a + ")";
 				}
@@ -1682,7 +1682,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (GetType() == b.GetType())
@@ -1842,8 +1842,8 @@ namespace Towel.Mathematics
 			/// <returns>The string represnetation of this expression.</returns>
 			public override string ToString()
 			{
-				string a = A.ToString();
-				string b = B.ToString();
+				string? a = A.ToString();
+				string? b = B.ToString();
 				{
 					if ((A is Multiply || A is Divide) && A is Constant CONSTANT && CONSTANT.IsNegative)
 					{
@@ -2000,12 +2000,12 @@ namespace Towel.Mathematics
 			/// <returns>The string represnetation of this expression.</returns>
 			public override string ToString()
 			{
-				string a = A.ToString();
+				string? a = A.ToString();
 				if (A is Multiply || A is Divide)
 				{
 					a = "(" + a + ")";
 				}
-				string b = B.ToString();
+				string? b = B.ToString();
 				if (B is Add || B is Subtract || A is Multiply || A is Divide)
 				{
 					b = "(" + b + ")";
@@ -2212,8 +2212,8 @@ namespace Towel.Mathematics
 			/// <returns>The string represnetation of this expression.</returns>
 			public override string ToString()
 			{
-				string a = A.ToString();
-				string b = B.ToString();
+				string? a = A.ToString();
+				string? b = B.ToString();
 				if (B is Multiply || B is Divide)
 				{
 					b = "(" + b + ")";
@@ -2399,8 +2399,8 @@ namespace Towel.Mathematics
 			/// <returns>The string represnetation of this expression.</returns>
 			public override string ToString()
 			{
-				string a = A.ToString();
-				string b = B.ToString();
+				string? a = A.ToString();
+				string? b = B.ToString();
 				if (B is Multiply || B is Divide)
 				{
 					b = "(" + b + ")";
@@ -2501,13 +2501,13 @@ namespace Towel.Mathematics
 					return false;
 				}
 
-				string a = A.ToString();
-				string b = B.ToString();
-				if (RequiresParentheses(a))
+				string? a = A.ToString();
+				string? b = B.ToString();
+				if (a is not null && RequiresParentheses(a))
 				{
 					a = "(" + a + ")";
 				}
-				if (RequiresParentheses(b))
+				if (b is not null && RequiresParentheses(b))
 				{
 					b = "(" + b + ")";
 				}
@@ -2933,7 +2933,7 @@ namespace Towel.Mathematics
 			/// <summary>Standard equality check.</summary>
 			/// <param name="b">The object to check for equality with.</param>
 			/// <returns>True if equal. False if not.</returns>
-			public override bool Equals(object b)
+			public override bool Equals(object? b)
 			{
 				_ = b ?? throw new ArgumentNullException(nameof(b));
 				if (GetType() == b.GetType())
@@ -2989,21 +2989,21 @@ namespace Towel.Mathematics
 		internal static readonly object ParseableLibraryLock = new();
 		// Regex Expressions
 		internal const string ParenthesisPattern = @"\(.*\)";
-		internal static string ParsableOperationsRegexPattern;
-		internal static string ParsableOperatorsRegexPattern;
-		internal static string ParsableKnownConstantsRegexPattern;
-		internal static string SpecialStringsPattern;
+		internal static string? ParsableOperationsRegexPattern;
+		internal static string? ParsableOperatorsRegexPattern;
+		internal static string? ParsableKnownConstantsRegexPattern;
+		internal static string? SpecialStringsPattern;
 		// Operation Refrences
-		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>> ParsableUnaryOperations;
-		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>> ParsableBinaryOperations;
-		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>> ParsableTernaryOperations;
-		internal static System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>> ParsableMultinaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Unary>>? ParsableUnaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Binary>>? ParsableBinaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>>? ParsableTernaryOperations;
+		internal static System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>>? ParsableMultinaryOperations;
 		// Operator References
-		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableLeftUnaryOperators;
-		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)> ParsableRightUnaryOperators;
-		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)> ParsableBinaryOperators;
+		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>? ParsableLeftUnaryOperators;
+		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>? ParsableRightUnaryOperators;
+		internal static System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)>? ParsableBinaryOperators;
 		// Known Constant References
-		internal static System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUnknownType>> ParsableKnownConstants;
+		internal static System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUnknownType>>? ParsableKnownConstants;
 
 		#region Reflection Code (Actually Building the Parsing Library)
 
@@ -3022,7 +3022,7 @@ namespace Towel.Mathematics
 				ParsableRightUnaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Unary>)>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Unary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression)));
+					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression)));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
@@ -3033,7 +3033,7 @@ namespace Towel.Mathematics
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableUnaryOperations.Add(operationName.ToLower(), newFunction);
-					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+					OperationAttribute? operationAttribute = type.GetCustomAttribute<OperationAttribute>();
 					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
@@ -3060,7 +3060,7 @@ namespace Towel.Mathematics
 				ParsableBinaryOperators = new System.Collections.Generic.Dictionary<string, (OperatorPriority, Func<Expression, Expression, Binary>)>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Binary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression)));
+					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression)));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
@@ -3072,7 +3072,7 @@ namespace Towel.Mathematics
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableBinaryOperations.Add(operationName.ToLower(), newFunction);
-					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+					OperationAttribute? operationAttribute = type.GetCustomAttribute<OperationAttribute>();
 					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
@@ -3092,7 +3092,7 @@ namespace Towel.Mathematics
 				ParsableTernaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression, Expression, Expression, Ternary>>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Ternary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression), typeof(Expression)));
+					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression), typeof(Expression)));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression C = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
@@ -3105,7 +3105,7 @@ namespace Towel.Mathematics
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableTernaryOperations.Add(operationName.ToLower(), newFunction);
-					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+					OperationAttribute? operationAttribute = type.GetCustomAttribute<OperationAttribute>();
 					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
@@ -3119,7 +3119,7 @@ namespace Towel.Mathematics
 				ParsableMultinaryOperations = new System.Collections.Generic.Dictionary<string, Func<Expression[], Multinary>>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Multinary>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(Ɐ(typeof(Expression[])));
+					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression[])));
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression[]));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();
@@ -3130,7 +3130,7 @@ namespace Towel.Mathematics
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableMultinaryOperations.Add(operationName.ToLower(), newFunction);
-					OperationAttribute operationAttribute = type.GetCustomAttribute<OperationAttribute>();
+					OperationAttribute? operationAttribute = type.GetCustomAttribute<OperationAttribute>();
 					if (operationAttribute is not null)
 					{
 						foreach (string representation in operationAttribute.Representations)
@@ -3144,7 +3144,7 @@ namespace Towel.Mathematics
 				ParsableKnownConstants = new System.Collections.Generic.Dictionary<string, Func<KnownConstantOfUnknownType>>();
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<KnownConstantOfUnknownType>().Where(x => !x.IsAbstract))
 				{
-					ConstructorInfo constructorInfo = type.GetConstructor(Type.EmptyTypes);
+					ConstructorInfo? constructorInfo = type.GetConstructor(Type.EmptyTypes);
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
 					Func<KnownConstantOfUnknownType> newFunction = System.Linq.Expressions.Expression.Lambda<Func<KnownConstantOfUnknownType>>(newExpression).Compile();
 					//string knownConstant = type.ConvertToCsharpSource();
@@ -3154,7 +3154,7 @@ namespace Towel.Mathematics
 					//    knownConstant = knownConstant.Substring(index + 1);
 					//}
 					//ParsableKnownConstants.Add(knownConstant.ToLower(), newFunction);
-					KnownConstantAttribute knownConstantAttribute = type.GetCustomAttribute<KnownConstantAttribute>();
+					KnownConstantAttribute? knownConstantAttribute = type.GetCustomAttribute<KnownConstantAttribute>();
 					if (knownConstantAttribute is not null)
 					{
 						foreach (string representation in knownConstantAttribute.Representations)
@@ -3202,19 +3202,19 @@ namespace Towel.Mathematics
 		{
 			try
 			{
-				Func<System.Linq.Expressions.Expression, Expression> recursive = null;
-				Func<MethodCallExpression, Expression> methodCallExpression_to_node = null;
+				Func<System.Linq.Expressions.Expression, Expression>? recursive = null;
+				Func<MethodCallExpression, Expression>? methodCallExpression_to_node = null;
 
 				recursive =
 					(System.Linq.Expressions.Expression expression) =>
 					{
-						UnaryExpression ue = expression as UnaryExpression;
-						BinaryExpression be = expression as BinaryExpression;
+						UnaryExpression? ue = expression as UnaryExpression;
+						BinaryExpression? be = expression as BinaryExpression;
 						return expression.NodeType switch
 						{
-							ExpressionType.Lambda => recursive((expression as LambdaExpression).Body),
-							ExpressionType.Constant => Constant.BuildGeneric((expression as ConstantExpression).Value),
-							ExpressionType.Parameter => new Variable((expression as ParameterExpression).Name),
+							ExpressionType.Lambda => recursive(((LambdaExpression)expression).Body),
+							ExpressionType.Constant => Constant.BuildGeneric(((ConstantExpression)expression).Value),
+							ExpressionType.Parameter => new Variable(((ParameterExpression)expression).Name),
 							ExpressionType.Negate => new Negate(recursive(ue.Operand)),
 							ExpressionType.UnaryPlus => recursive(ue.Operand),
 							ExpressionType.Add => new Add(recursive(be.Left), recursive(be.Right)),
@@ -3222,7 +3222,7 @@ namespace Towel.Mathematics
 							ExpressionType.Multiply => new Multiply(recursive(be.Left), recursive(be.Right)),
 							ExpressionType.Divide => new Divide(recursive(be.Left), recursive(be.Right)),
 							ExpressionType.Power => new Power(recursive(be.Left), recursive(be.Right)),
-							ExpressionType.Call => methodCallExpression_to_node(expression as MethodCallExpression),
+							ExpressionType.Call => methodCallExpression_to_node((MethodCallExpression)expression),
 							_ => throw new ArgumentException("The expression could not be parsed.", nameof(e)),
 						};
 					};
@@ -3236,7 +3236,7 @@ namespace Towel.Mathematics
 							throw new ArgumentException("The expression could not be parsed.", nameof(e));
 						}
 
-						Expression[] arguments = null;
+						Expression[]? arguments = null;
 						if (methodCallExpression.Arguments is not null)
 						{
 							arguments = new Expression[methodCallExpression.Arguments.Count];
@@ -3254,29 +3254,26 @@ namespace Towel.Mathematics
 						switch (arguments.Length)
 						{
 							case 1:
-								Func<Expression, Unary> newUnaryFunction;
-								if (ParsableUnaryOperations.TryGetValue(operation, out newUnaryFunction))
+								if (ParsableUnaryOperations!.TryGetValue(operation, out var newUnaryFunction))
 								{
 									return newUnaryFunction(arguments[0]);
 								}
 								break;
 							case 2:
-								Func<Expression, Expression, Binary> newBinaryFunction;
-								if (ParsableBinaryOperations.TryGetValue(operation, out newBinaryFunction))
+								if (ParsableBinaryOperations!.TryGetValue(operation, out var newBinaryFunction))
 								{
 									return newBinaryFunction(arguments[0], arguments[1]);
 								}
 								break;
 							case 3:
-								Func<Expression, Expression, Expression, Ternary> newTernaryFunction;
-								if (ParsableTernaryOperations.TryGetValue(operation, out newTernaryFunction))
+								if (ParsableTernaryOperations!.TryGetValue(operation, out var newTernaryFunction))
 								{
 									return newTernaryFunction(arguments[0], arguments[1], arguments[2]);
 								}
 								break;
 						}
 
-						if (ParsableMultinaryOperations.TryGetValue(operation, out Func<Expression[], Multinary> newMultinaryFunction))
+						if (ParsableMultinaryOperations!.TryGetValue(operation, out var newMultinaryFunction))
 						{
 							return newMultinaryFunction(arguments);
 						}
@@ -3301,9 +3298,18 @@ namespace Towel.Mathematics
 		/// <param name="string">The string to be parse.</param>
 		/// <param name="tryParse">A function for parsing numerical values into the provided generic type.</param>
 		/// <returns>The parsed expression simplified down to a constant value.</returns>
-		public static T ParseAndSimplifyToConstant<T>(string @string, Func<string, (bool, T)> tryParse = null)
+		public static T ParseAndSimplifyToConstant<T>(string @string, Func<string, (bool Success, T? Value)>? tryParse = null)
 		{
-			return (Parse(@string, tryParse).Simplify() as Constant<T>).Value;
+			tryParse ??= Statics.TryParse<T>;
+			var simplified = Parse(@string, tryParse).Simplify();
+			if (simplified is Constant<T> constant)
+			{
+				return constant.Value;
+			}
+			else
+			{
+				throw new ArgumentException(paramName: nameof(@string), message: $"{nameof(@string)} could not be simplified to a constant value");
+			}
 		}
 
 		/// <summary>Parses a string into a Towel.Mathematics.Symbolics expression tree.</summary>
@@ -3311,8 +3317,9 @@ namespace Towel.Mathematics
 		/// <param name="string">The expression string to parse.</param>
 		/// <param name="tryParse">A parsing function for the provided generic type. This is optional, but highly recommended.</param>
 		/// <returns>The parsed Towel.Mathematics.Symbolics expression tree.</returns>
-		public static Expression Parse<T>(string @string, Func<string, (bool, T)> tryParse = null)
+		public static Expression Parse<T>(string @string, Func<string, (bool Success, T? Value)>? tryParse = null)
 		{
+			tryParse ??= Statics.TryParse<T>;
 			// Build The Parsing Library
 			if (!ParseableLibraryBuilt)
 			{
@@ -3359,15 +3366,15 @@ namespace Towel.Mathematics
 			throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
 		}
 
-		internal static bool TryParseNonNestedOperatorExpression<T>(string @string, Func<string, (bool, T)> tryParse, out Expression? expression)
+		internal static bool TryParseNonNestedOperatorExpression<T>(string @string, Func<string, (bool Success, T? Value)> tryParse, out Expression? expression)
 		{
 			// Try to match the operators pattern built at runtime based on the symbolic tree hierarchy
-			MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern, RegexOptions.RightToLeft);
-			MatchCollection specialStringMatches = Regex.Matches(@string, SpecialStringsPattern, RegexOptions.RightToLeft);
+			MatchCollection operatorMatches = Regex.Matches(@string, ParsableOperatorsRegexPattern!, RegexOptions.RightToLeft);
+			MatchCollection specialStringMatches = Regex.Matches(@string, SpecialStringsPattern!, RegexOptions.RightToLeft);
 			if (operatorMatches.Count > 0)
 			{
 				// Find the first operator with the highest available priority
-				Match @operator = null;
+				Match? @operator = null;
 				OperatorPriority priority = default;
 				int currentOperatorMatch = 0;
 				int scope = 0;
@@ -3393,15 +3400,15 @@ namespace Towel.Mathematics
 					{
 						if (scope is 0)
 						{
-							Match previousMatch = currentOperatorMatch != 0 ? operatorMatches[currentOperatorMatch - 1] : null;
-							Match nextMatch = currentOperatorMatch != operatorMatches.Count - 1 ? operatorMatches[currentOperatorMatch + 1] : null;
+							Match? previousMatch = currentOperatorMatch != 0 ? operatorMatches[currentOperatorMatch - 1] : null;
+							Match? nextMatch = currentOperatorMatch != operatorMatches.Count - 1 ? operatorMatches[currentOperatorMatch + 1] : null;
 
 							// We found an operator in the current scope
 							// Now we need to determine if it is a unary-left, unary-right, or binary operator
 
 							bool IsUnaryLeftOperator()
 							{
-								if (!ParsableLeftUnaryOperators.ContainsKey(currentMatch.Value))
+								if (!ParsableLeftUnaryOperators!.ContainsKey(currentMatch.Value))
 								{
 									return false;
 								}
@@ -3411,7 +3418,7 @@ namespace Towel.Mathematics
 								{
 									return true;
 								}
-								Match leftSpecialMatch = null;
+								Match? leftSpecialMatch = null;
 								foreach (Match match in specialStringMatches)
 								{
 									if (match.Index < currentMatch.Index)
@@ -3425,7 +3432,7 @@ namespace Towel.Mathematics
 									string substring = @string.Substring(0, rightIndex);
 									return string.IsNullOrWhiteSpace(substring);
 								}
-								else if (ParsableRightUnaryOperators.ContainsKey(leftSpecialMatch.Value)) // This will need to be fixed in the future
+								else if (ParsableRightUnaryOperators!.ContainsKey(leftSpecialMatch.Value)) // This will need to be fixed in the future
 								{
 									return false;
 								}
@@ -3439,7 +3446,7 @@ namespace Towel.Mathematics
 
 							bool IsUnaryRightOperator()
 							{
-								if (!ParsableRightUnaryOperators.ContainsKey(currentMatch.Value))
+								if (!ParsableRightUnaryOperators!.ContainsKey(currentMatch.Value))
 								{
 									return false;
 								}
@@ -3449,7 +3456,7 @@ namespace Towel.Mathematics
 								{
 									return true;
 								}
-								Match rightSpecialMatch = null;
+								Match? rightSpecialMatch = null;
 								foreach (Match match in specialStringMatches)
 								{
 									if (match.Index <= currentMatch.Index)
@@ -3485,13 +3492,13 @@ namespace Towel.Mathematics
 
 							{
 								// Unary-Left Operator
-								if (@operator is null || priority > ParsableLeftUnaryOperators[currentMatch.Value].Item1)
+								if (@operator is null || priority > ParsableLeftUnaryOperators![currentMatch.Value].Item1)
 								{
 									@operator = currentMatch;
 									isUnaryLeftOperator = true;
 									isUnaryRightOperator = false;
 									isBinaryOperator = false;
-									priority = ParsableLeftUnaryOperators[currentMatch.Value].Item1;
+									priority = ParsableLeftUnaryOperators![currentMatch.Value].Item1;
 								}
 							}
 							else if (IsUnaryRightOperator())
@@ -3506,18 +3513,18 @@ namespace Towel.Mathematics
 							//        ParsableRightUnaryOperators.ContainsKey(currentMatch.Value)))
 							{
 								// Unary Right Operator
-								if (@operator is null || priority > ParsableRightUnaryOperators[currentMatch.Value].Item1)
+								if (@operator is null || priority > ParsableRightUnaryOperators![currentMatch.Value].Item1)
 								{
 									@operator = currentMatch;
 									isUnaryLeftOperator = false;
 									isUnaryRightOperator = true;
 									isBinaryOperator = false;
-									priority = ParsableRightUnaryOperators[currentMatch.Value].Item1;
+									priority = ParsableRightUnaryOperators![currentMatch.Value].Item1;
 								}
 							}
 							else
 							{
-								if (ParsableBinaryOperators.ContainsKey(currentMatch.Value))
+								if (ParsableBinaryOperators!.ContainsKey(currentMatch.Value))
 								{
 									// Binary Operator
 									if (@operator is null || priority > ParsableBinaryOperators[currentMatch.Value].Item1)
@@ -3547,14 +3554,14 @@ namespace Towel.Mathematics
 					{
 						string a = @string[(@operator.Index + @operator.Length)..];
 						Expression A = Parse(a, tryParse);
-						expression = ParsableLeftUnaryOperators[@operator.Value].Item2(A);
+						expression = ParsableLeftUnaryOperators![@operator.Value].Item2(A);
 						return true;
 					}
 					else if (isUnaryRightOperator)
 					{
 						string a = @string.Substring(0, @operator.Index);
 						Expression A = Parse(a, tryParse);
-						expression = ParsableRightUnaryOperators[@operator.Value].Item2(A);
+						expression = ParsableRightUnaryOperators![@operator.Value].Item2(A);
 						return true;
 					}
 					else if (isBinaryOperator)
@@ -3563,7 +3570,7 @@ namespace Towel.Mathematics
 						Expression A = Parse(a, tryParse);
 						string b = @string[(@operator.Index + @operator.Length)..];
 						Expression B = Parse(b, tryParse);
-						expression = ParsableBinaryOperators[@operator.Value].Item2(A, B);
+						expression = ParsableBinaryOperators![@operator.Value].Item2(A, B);
 						return true;
 					}
 				}
@@ -3574,11 +3581,11 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseParenthesisExpression<T>(string @string, Func<string, (bool, T)> tryParse, out Expression? expression)
+		internal static bool TryParseParenthesisExpression<T>(string @string, Func<string, (bool Success, T? Value)> tryParse, out Expression? expression)
 		{
 			// Try to match a parenthesis pattern.
 			Match parenthesisMatch = Regex.Match(@string, ParenthesisPattern);
-			Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern);
+			Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern!);
 			if (parenthesisMatch.Success)
 			{
 				if (operationMatch.Success && parenthesisMatch.Index > operationMatch.Index)
@@ -3617,10 +3624,10 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseOperationExpression<T>(string @string, Func<string, (bool, T)> tryParse, out Expression? expression)
+		internal static bool TryParseOperationExpression<T>(string @string, Func<string, (bool Success, T? Value)> tryParse, out Expression? expression)
 		{
 			expression = null;
-			Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern);
+			Match operationMatch = Regex.Match(@string, ParsableOperationsRegexPattern!);
 
 			if (operationMatch.Success)
 			{
@@ -3633,25 +3640,25 @@ namespace Towel.Mathematics
 				switch (operandSplits.Count)
 				{
 					case 1:
-						if (ParsableUnaryOperations.TryGetValue(operation, out Func<Expression, Unary>? newUnaryFunction))
+						if (ParsableUnaryOperations!.TryGetValue(operation, out Func<Expression, Unary>? newUnaryFunction))
 						{
 							expression = newUnaryFunction(Parse<T>(operandSplits[0]));
 						}
 						break;
 					case 2:
-						if (ParsableBinaryOperations.TryGetValue(operation, out Func<Expression, Expression, Binary>? newBinaryFunction))
+						if (ParsableBinaryOperations!.TryGetValue(operation, out Func<Expression, Expression, Binary>? newBinaryFunction))
 						{
 							expression = newBinaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[1]));
 						}
 						break;
 					case 3:
-						if (ParsableTernaryOperations.TryGetValue(operation, out Func<Expression, Expression, Expression, Ternary>? newTernaryFunction))
+						if (ParsableTernaryOperations!.TryGetValue(operation, out Func<Expression, Expression, Expression, Ternary>? newTernaryFunction))
 						{
 							expression = newTernaryFunction(Parse<T>(operandSplits[0]), Parse<T>(operandSplits[2]), Parse<T>(operandSplits[2]));
 						}
 						break;
 				}
-				if (ParsableMultinaryOperations.TryGetValue(operation, out Func<Expression[], Multinary>? newMultinaryFunction))
+				if (ParsableMultinaryOperations!.TryGetValue(operation, out Func<Expression[], Multinary>? newMultinaryFunction))
 				{
 					expression = newMultinaryFunction(operandSplits.Select(x => Parse<T>(x)).ToArray());
 				}
@@ -3709,7 +3716,7 @@ namespace Towel.Mathematics
 			return operands;
 		}
 
-		internal static bool TryParseVariablesExpression<T>(string @string, Func<string, (bool, T)> tryParse, out Expression? parsedExpression)
+		internal static bool TryParseVariablesExpression<T>(string @string, Func<string, (bool Success, T? Value)> tryParse, out Expression? parsedExpression)
 		{
 			string variablePattern = @"\[.*\]";
 
@@ -3755,13 +3762,13 @@ namespace Towel.Mathematics
 			return true;
 		}
 
-		internal static bool TryParseKnownConstantExpression<T>(string @string, Func<string, (bool, T)> tryParse, out Expression parsedExpression)
+		internal static bool TryParseKnownConstantExpression<T>(string @string, Func<string, (bool Success, T? Value)> tryParse, out Expression? parsedExpression)
 		{
-			Match knownConstantMatch = Regex.Match(@string, ParsableKnownConstantsRegexPattern);
+			Match knownConstantMatch = Regex.Match(@string, ParsableKnownConstantsRegexPattern!);
 
 			if (knownConstantMatch.Success)
 			{
-				parsedExpression = ParsableKnownConstants[knownConstantMatch.Value]().ApplyType<T>();
+				parsedExpression = ParsableKnownConstants![knownConstantMatch.Value]().ApplyType<T>();
 
 				// implied multiplications to the left and right
 				if (knownConstantMatch.Index != 0)
@@ -3781,13 +3788,12 @@ namespace Towel.Mathematics
 			return false;
 		}
 
-		internal static bool TryParseConstantExpression<T>(string @string, Func<string, (bool Success, T Value)> tryParse, out Expression? parsedExpression)
+		internal static bool TryParseConstantExpression<T>(string @string, Func<string, (bool Success, T? Value)> tryParse, out Expression? parsedExpression)
 		{
-			tryParse ??= Statics.TryParse<T>;
 			var (parseSuccess, parseValue) = tryParse(@string);
 			if (parseSuccess)
 			{
-				parsedExpression = new Constant<T>(parseValue);
+				parsedExpression = new Constant<T?>(parseValue);
 				return true;
 			}
 			int decimalIndex = -1;
