@@ -22,10 +22,19 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				string a = "a b c d";
-				string b = a.Replace(("a", "aaa"), ("c", "ccc"));
+				string a2 = a.Replace(("a", "aaa"), ("c", "ccc"));
 
 				Console.WriteLine($@"    a = ""{a}""");
-				Console.WriteLine($@"    a.Replace((""a"", ""aaa""), (""c"", ""ccc"")) -> ""{b}""");
+				Console.WriteLine($@"    a.Replace((""a"", ""aaa""), (""c"", ""ccc"")) -> ""{a2}""");
+
+				Console.WriteLine();
+
+				string b = "123";
+				string b2 = b.Replace(("1", "2"), ("2", "3"), ("3", "4"));
+
+				Console.WriteLine($@"    b = ""{b}""");
+				Console.WriteLine($@"    b.Replace((""1"", ""2""), (""2"", ""3""), (""3"", ""4"")) -> ""{b2}""");
+
 				Pause();
 			}
 			#endregion
