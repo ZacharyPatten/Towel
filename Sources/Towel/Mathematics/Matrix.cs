@@ -387,8 +387,11 @@ namespace Towel.Mathematics
 		/// <summary>
 		/// Used to avoid issues when 1/2 + 1/2 = 0 + 0 = 0 instead of 1 for types, where division results in precision loss
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		private sealed class MatrixElementFraction<T>
+#pragma warning disable CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
+#pragma warning disable CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+		private sealed class MatrixElementFraction
+#pragma warning restore CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
+#pragma warning restore CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
 		{
 			private readonly T Numerator;
 			private readonly T Denominator;
@@ -408,26 +411,26 @@ namespace Towel.Mathematics
 			public T Value => Division(Numerator, Denominator);
 
 			// a / b + c / d = (a * d + b * c) / (b * d)
-			public static MatrixElementFraction<T> operator +(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static MatrixElementFraction operator +(MatrixElementFraction a, MatrixElementFraction b)
 				=> new(Addition(
 					Multiplication(a.Numerator, b.Denominator),
 					Multiplication(a.Denominator, b.Numerator)
 				), Multiplication(a.Denominator, b.Denominator));
 
-			public static MatrixElementFraction<T> operator *(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static MatrixElementFraction operator *(MatrixElementFraction a, MatrixElementFraction b)
 				=> new(Multiplication(a.Numerator, b.Numerator), Multiplication(a.Denominator, b.Denominator));
 
-			public static MatrixElementFraction<T> operator -(MatrixElementFraction<T> a)
+			public static MatrixElementFraction operator -(MatrixElementFraction a)
 				=> new(Multiplication(a.Numerator, Constant<T>.NegativeOne), a.Denominator);
 
-			public static MatrixElementFraction<T> operator -(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static MatrixElementFraction operator -(MatrixElementFraction a, MatrixElementFraction b)
 				=> a + (-b);
 
 			// a / b / (d / c) = (a * c) / (b * d)
-			public static MatrixElementFraction<T> operator /(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static MatrixElementFraction operator /(MatrixElementFraction a, MatrixElementFraction b)
 				=> new(Multiplication(a.Numerator, b.Denominator), Multiplication(a.Denominator, b.Numerator));
 
-			public static bool operator <(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static bool operator <(MatrixElementFraction a, MatrixElementFraction b)
 			{
 				var c = Multiplication(a.Numerator, b.Denominator);
 				var d = Multiplication(b.Numerator, a.Denominator);
@@ -437,25 +440,25 @@ namespace Towel.Mathematics
 					return !LessThan(c, d);
 			}
 
-			public static bool operator ==(MatrixElementFraction<T> a, MatrixElementFraction<T> b) =>
+			public static bool operator ==(MatrixElementFraction a, MatrixElementFraction b) =>
 				Equate(a.Numerator, b.Numerator) &&
 				Equate(a.Denominator, b.Denominator);
-			public static bool operator !=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static bool operator !=(MatrixElementFraction a, MatrixElementFraction b)
 				=> !(a == b);
 
-			public static bool operator >(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static bool operator >(MatrixElementFraction a, MatrixElementFraction b)
 				=> a >= b && !(a == b);
 
-			public static bool operator >=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static bool operator >=(MatrixElementFraction a, MatrixElementFraction b)
 				=> !(a < b);
 
-			public static bool operator <=(MatrixElementFraction<T> a, MatrixElementFraction<T> b)
+			public static bool operator <=(MatrixElementFraction a, MatrixElementFraction b)
 				=> a < b || a == b;
 
-			public static explicit operator MatrixElementFraction<T>(int val)
+			public static explicit operator MatrixElementFraction(int val)
 				=> new(Convert<int, T>(val));
 
-			public MatrixElementFraction<T> Abs()
+			public MatrixElementFraction Abs()
 				=> new(AbsoluteValue(Numerator), AbsoluteValue(Denominator));
 
 			public bool IsDividedByZero => Equate(Denominator, Constant<T>.Zero);
@@ -474,8 +477,8 @@ namespace Towel.Mathematics
 			{
 				return matrix.Get(0, 0);
 			}
-			MatrixElementFraction<T> determinant = new(Constant<T>.One);
-			Matrix<MatrixElementFraction<T>> fractioned = new(matrix.Rows, matrix.Columns, (r, c) => new MatrixElementFraction<T>(matrix.Get(r, c)));
+			MatrixElementFraction determinant = new(Constant<T>.One);
+			Matrix<MatrixElementFraction> fractioned = new(matrix.Rows, matrix.Columns, (r, c) => new(matrix.Get(r, c)));
 			for (int i = 0; i < n; i++)
 			{
 				var pivotElement = fractioned.Get(i, i);
@@ -494,7 +497,7 @@ namespace Towel.Mathematics
 				}
 				if (pivotRow != i)
 				{
-					Matrix<MatrixElementFraction<T>>.SwapRows(fractioned, i, pivotRow, 0, n - 1);
+					Matrix<MatrixElementFraction>.SwapRows(fractioned, i, pivotRow, 0, n - 1);
 					determinant = Negation(determinant);
 				}
 				determinant *= pivotElement;
@@ -505,7 +508,7 @@ namespace Towel.Mathematics
 						// reference: matrix[row][column] -= matrix[row][i] * matrix[i][column] / pivotElement;
 						fractioned.Set(row, column,
 							// D - A * B / C
-							D_subtract_A_multiply_B_divide_C<MatrixElementFraction<T>>.Function(
+							D_subtract_A_multiply_B_divide_C<MatrixElementFraction>.Function(
 								/* A */ fractioned.Get(row, i),
 								/* B */ fractioned.Get(i, column),
 								/* C */ pivotElement,

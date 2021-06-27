@@ -122,6 +122,10 @@ namespace Towel.Measurements
 					{
 						MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(T));
 						ParseableAttribute? parsableAttribute = genericMethodInfo.GetCustomAttribute<ParseableAttribute>();
+						if (parsableAttribute is null)
+						{
+							throw new TowelBugException($"Encountered null {nameof(ConstructorInfo)} in {nameof(BuildTypeSpecificParsingLibrary)}.");
+						}
 						Func<T, object[], object> factory = genericMethodInfo.CreateDelegate<Func<T, object[], object>>();
 						unitsStringsToFactoryFunctions.Add(parsableAttribute.Key, factory);
 					}

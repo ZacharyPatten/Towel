@@ -36,7 +36,7 @@ namespace Towel.DataStructures
 			{
 				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
 			}
-			return value;
+			return value!;
 		}
 
 		/// <summary>Removes a value.</summary>
@@ -111,9 +111,11 @@ namespace Towel.DataStructures
 
 		internal class Node
 		{
-			internal MapHashLinked<Node, T, TEquate, THash>? Map;
+			internal MapHashLinked<Node, T, TEquate, THash> Map;
 			internal bool IsLeaf;
 			internal int Count;
+
+			public Node(MapHashLinked<Node, T, TEquate, THash> map) => Map = map;
 		}
 
 		#endregion
@@ -170,7 +172,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new() { Map = new(Equate, Hash) };
+					Node temp = new(map: new(Equate, Hash));
 					map[key] = temp;
 					node = temp;
 				}
@@ -200,8 +202,8 @@ namespace Towel.DataStructures
 			{
 				return (false, new ArgumentNullException(nameof(stepper)));
 			}
-			var pathStack = new StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)>();
-			T finalKey = default;
+			StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)> stack = new();
+			T finalKey;
 			MapHashLinked<Node, T, TEquate, THash>? finalMap = null;
 			Node? node = null;
 			Exception? exception = null;
@@ -217,7 +219,7 @@ namespace Towel.DataStructures
 				{
 					exception ??= new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
 				}
-				pathStack.Push((finalKey, finalMap, node));
+				stack.Push((finalKey, finalMap, node!));
 			});
 			if (exception is not null)
 			{
@@ -234,9 +236,9 @@ namespace Towel.DataStructures
 			else
 			{
 				bool remove = true;
-				while (pathStack.Count > 0)
+				while (stack.Count > 0)
 				{
-					var (k, m, n) = pathStack.Pop();
+					var (k, m, n) = stack.Pop();
 					n.Count--;
 					if (remove && n.Count is 0)
 					{
@@ -266,9 +268,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					var map = node is null
-						? _map
-						: node.Map;
+					var map = node is null ? _map : node.Map;
 					if (map.Contains(key))
 					{
 						node = map[key];
@@ -360,7 +360,7 @@ namespace Towel.DataStructures
 		/// <summary>Tries to get a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		(bool Success, D Value, Exception? Exception) TryGet(Action<Action<T>> stepper);
+		(bool Success, D? Value, Exception? Exception) TryGet(Action<Action<T>> stepper);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
@@ -391,10 +391,12 @@ namespace Towel.DataStructures
 
 		internal class Node
 		{
-			internal MapHashLinked<Node, T, TEquate, THash>? Map;
-			internal D Value;
+			internal MapHashLinked<Node, T, TEquate, THash> Map;
+			internal D? Value;
 			internal bool HasValue;
 			internal int Count;
+
+			public Node(MapHashLinked<Node, T, TEquate, THash> map) => Map = map;
 		}
 
 		#endregion
@@ -440,7 +442,7 @@ namespace Towel.DataStructures
 			{
 				return (false, new ArgumentNullException(nameof(stepper)));
 			}
-			IStack<Node> stack = new StackLinked<Node>();
+			StackLinked<Node> stack = new();
 			Node? node = null;
 			stepper(key =>
 			{
@@ -451,7 +453,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new() { Map = new(Equate, Hash) };
+					Node temp = new(map: new(Equate, Hash));
 					map[key] = temp;
 					node = temp;
 				}
@@ -476,7 +478,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, D Value, Exception? Exception) TryGet(Action<Action<T>> stepper)
+		public (bool Success, D? Value, Exception? Exception) TryGet(Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
@@ -492,7 +494,7 @@ namespace Towel.DataStructures
 				}
 				else
 				{
-					Node temp = new() { Map = new(Equate, Hash) };
+					Node temp = new(map: new(Equate, Hash));
 					map[key] = temp;
 					node = temp;
 				}
@@ -518,9 +520,9 @@ namespace Towel.DataStructures
 			{
 				return (false, new ArgumentNullException(nameof(stepper)));
 			}
-			var pathStack = new StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)>();
+			StackLinked<(T, MapHashLinked<Node, T, TEquate, THash>, Node)> stack = new();
 			T finalKey;
-			MapHashLinked<Node, T, TEquate, THash>? finalMap;
+			MapHashLinked<Node, T, TEquate, THash> finalMap;
 			Node? node = null;
 			Exception? capturedException = null;
 			stepper(key =>
@@ -535,7 +537,7 @@ namespace Towel.DataStructures
 				{
 					capturedException ??= new ArgumentException("Attempted to remove a non-existing item.", nameof(stepper));
 				}
-				pathStack.Push((finalKey, finalMap, node));
+				stack.Push((finalKey, finalMap, node!));
 			});
 			if (capturedException is not null)
 			{
@@ -552,9 +554,9 @@ namespace Towel.DataStructures
 			else
 			{
 				bool remove = true;
-				while (pathStack.Count > 0)
+				while (stack.Count > 0)
 				{
-					var (k, m, n) = pathStack.Pop();
+					var (k, m, n) = stack.Pop();
 					n.Count--;
 					if (remove && n.Count is 0)
 					{
@@ -617,7 +619,7 @@ namespace Towel.DataStructures
 			{
 				if (node.HasValue)
 				{
-					if (step.Invoke((stepper, node.Value)) is Break)
+					if (step.Invoke((stepper, node.Value!)) is Break)
 					{
 						return Break;
 					}

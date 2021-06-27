@@ -315,6 +315,10 @@ namespace Towel.Mathematics
 				{
 					Type constantType = typeof(Constant<>).MakeGenericType(valueType);
 					ConstructorInfo? constructorInfo = constantType.GetConstructor(Ɐ(valueType));
+					if (constructorInfo is null)
+					{
+						throw new TowelBugException($"Encountered null {nameof(ConstructorInfo)} in {nameof(BuildGeneric)}.");
+					}
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(object));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, System.Linq.Expressions.Expression.Convert(A, valueType));
 					Func<object, Expression> newFunction = System.Linq.Expressions.Expression.Lambda<Func<object, Expression>>(newExpression, A).Compile();
@@ -3023,6 +3027,10 @@ namespace Towel.Mathematics
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Unary>().Where(x => !x.IsAbstract))
 				{
 					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression)));
+					if (constructorInfo is null)
+					{
+						throw new TowelBugException($"Could not find a {nameof(ConstructorInfo)} when building parsing library");
+					}
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
@@ -3061,6 +3069,10 @@ namespace Towel.Mathematics
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Binary>().Where(x => !x.IsAbstract))
 				{
 					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression)));
+					if (constructorInfo is null)
+					{
+						throw new TowelBugException($"Could not find a {nameof(ConstructorInfo)} when building parsing library");
+					}
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
@@ -3093,6 +3105,10 @@ namespace Towel.Mathematics
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Ternary>().Where(x => !x.IsAbstract))
 				{
 					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression), typeof(Expression), typeof(Expression)));
+					if (constructorInfo is null)
+					{
+						throw new TowelBugException($"Could not find a {nameof(ConstructorInfo)} when building parsing library");
+					}
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression B = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
 					ParameterExpression C = System.Linq.Expressions.Expression.Parameter(typeof(Expression));
@@ -3120,6 +3136,10 @@ namespace Towel.Mathematics
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<Multinary>().Where(x => !x.IsAbstract))
 				{
 					ConstructorInfo? constructorInfo = type.GetConstructor(Ɐ(typeof(Expression[])));
+					if (constructorInfo is null)
+					{
+						throw new TowelBugException($"Could not find a {nameof(ConstructorInfo)} when building parsing library");
+					}
 					ParameterExpression A = System.Linq.Expressions.Expression.Parameter(typeof(Expression[]));
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();
@@ -3145,6 +3165,10 @@ namespace Towel.Mathematics
 				foreach (Type type in Assembly.GetExecutingAssembly().GetDerivedTypes<KnownConstantOfUnknownType>().Where(x => !x.IsAbstract))
 				{
 					ConstructorInfo? constructorInfo = type.GetConstructor(Type.EmptyTypes);
+					if (constructorInfo is null)
+					{
+						throw new TowelBugException($"Could not find a {nameof(ConstructorInfo)} when building parsing library");
+					}
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
 					Func<KnownConstantOfUnknownType> newFunction = System.Linq.Expressions.Expression.Lambda<Func<KnownConstantOfUnknownType>>(newExpression).Compile();
 					//string knownConstant = type.ConvertToCsharpSource();
@@ -3200,88 +3224,86 @@ namespace Towel.Mathematics
 		/// <returns>The parsed symbolic mathematics linq expression.</returns>
 		public static Expression Parse(System.Linq.Expressions.Expression e)
 		{
+			Expression ParseRecursive(System.Linq.Expressions.Expression expression)
+			{
+				return expression.NodeType switch
+				{
+					ExpressionType.Lambda => ParseRecursive(((LambdaExpression)expression).Body),
+					ExpressionType.Constant => Constant.BuildGeneric(((ConstantExpression)expression).Value ?? throw new ArgumentException(paramName: nameof(e), message: "contains null value")),
+					ExpressionType.Parameter => new Variable(((ParameterExpression)expression).Name ?? throw new ArgumentException(paramName: nameof(e), message: "contains null parameter name")),
+					ExpressionType.Negate => new Negate(ParseRecursive(((UnaryExpression)expression).Operand)),
+					ExpressionType.UnaryPlus => ParseRecursive(((UnaryExpression)expression).Operand),
+					ExpressionType.Add => new Add(ParseRecursive(((BinaryExpression)expression).Left), ParseRecursive(((BinaryExpression)expression).Right)),
+					ExpressionType.Subtract => new Subtract(ParseRecursive(((BinaryExpression)expression).Left), ParseRecursive(((BinaryExpression)expression).Right)),
+					ExpressionType.Multiply => new Multiply(ParseRecursive(((BinaryExpression)expression).Left), ParseRecursive(((BinaryExpression)expression).Right)),
+					ExpressionType.Divide => new Divide(ParseRecursive(((BinaryExpression)expression).Left), ParseRecursive(((BinaryExpression)expression).Right)),
+					ExpressionType.Power => new Power(ParseRecursive(((BinaryExpression)expression).Left), ParseRecursive(((BinaryExpression)expression).Right)),
+					ExpressionType.Call => ParseMethodCall((MethodCallExpression)expression),
+					_ => throw new ArgumentException("The expression could not be parsed.", nameof(e)),
+				};
+			}
+
+			Expression ParseMethodCall(MethodCallExpression methodCallExpression)
+			{
+				MethodInfo methodInfo = methodCallExpression.Method;
+				if (methodInfo is null)
+				{
+					throw new ArgumentException("The expression could not be parsed.", nameof(e));
+				}
+
+				Expression[]? arguments = null;
+				if (methodCallExpression.Arguments is not null)
+				{
+					arguments = new Expression[methodCallExpression.Arguments.Count];
+					for (int i = 0; i < arguments.Length; i++)
+						arguments[i] = ParseRecursive(methodCallExpression.Arguments[i]);
+				}
+
+				if (!ParseableLibraryBuilt)
+				{
+					BuildParsableOperationLibrary();
+				}
+
+				string operation = methodInfo.Name.ToLower();
+
+				if (arguments is null)
+				{
+					throw new TowelBugException("zero parameter operations are not yet implemented");
+				}
+
+				switch (arguments.Length)
+				{
+					case 1:
+						if (ParsableUnaryOperations!.TryGetValue(operation, out var newUnaryFunction))
+						{
+							return newUnaryFunction(arguments[0]);
+						}
+						break;
+					case 2:
+						if (ParsableBinaryOperations!.TryGetValue(operation, out var newBinaryFunction))
+						{
+							return newBinaryFunction(arguments[0], arguments[1]);
+						}
+						break;
+					case 3:
+						if (ParsableTernaryOperations!.TryGetValue(operation, out var newTernaryFunction))
+						{
+							return newTernaryFunction(arguments[0], arguments[1], arguments[2]);
+						}
+						break;
+				}
+
+				if (ParsableMultinaryOperations!.TryGetValue(operation, out var newMultinaryFunction))
+				{
+					return newMultinaryFunction(arguments);
+				}
+
+				throw new ArgumentException("The expression could not be parsed.", nameof(e));
+			}
+
 			try
 			{
-				Func<System.Linq.Expressions.Expression, Expression>? recursive = null;
-				Func<MethodCallExpression, Expression>? methodCallExpression_to_node = null;
-
-				recursive =
-					(System.Linq.Expressions.Expression expression) =>
-					{
-						UnaryExpression? ue = expression as UnaryExpression;
-						BinaryExpression? be = expression as BinaryExpression;
-						return expression.NodeType switch
-						{
-							ExpressionType.Lambda => recursive(((LambdaExpression)expression).Body),
-							ExpressionType.Constant => Constant.BuildGeneric(((ConstantExpression)expression).Value),
-							ExpressionType.Parameter => new Variable(((ParameterExpression)expression).Name),
-							ExpressionType.Negate => new Negate(recursive(ue.Operand)),
-							ExpressionType.UnaryPlus => recursive(ue.Operand),
-							ExpressionType.Add => new Add(recursive(be.Left), recursive(be.Right)),
-							ExpressionType.Subtract => new Subtract(recursive(be.Left), recursive(be.Right)),
-							ExpressionType.Multiply => new Multiply(recursive(be.Left), recursive(be.Right)),
-							ExpressionType.Divide => new Divide(recursive(be.Left), recursive(be.Right)),
-							ExpressionType.Power => new Power(recursive(be.Left), recursive(be.Right)),
-							ExpressionType.Call => methodCallExpression_to_node((MethodCallExpression)expression),
-							_ => throw new ArgumentException("The expression could not be parsed.", nameof(e)),
-						};
-					};
-
-				methodCallExpression_to_node =
-					(MethodCallExpression methodCallExpression) =>
-					{
-						MethodInfo methodInfo = methodCallExpression.Method;
-						if (methodInfo is null)
-						{
-							throw new ArgumentException("The expression could not be parsed.", nameof(e));
-						}
-
-						Expression[]? arguments = null;
-						if (methodCallExpression.Arguments is not null)
-						{
-							arguments = new Expression[methodCallExpression.Arguments.Count];
-							for (int i = 0; i < arguments.Length; i++)
-								arguments[i] = recursive(methodCallExpression.Arguments[i]);
-						}
-
-						if (!ParseableLibraryBuilt)
-						{
-							BuildParsableOperationLibrary();
-						}
-
-						string operation = methodInfo.Name.ToLower();
-
-						switch (arguments.Length)
-						{
-							case 1:
-								if (ParsableUnaryOperations!.TryGetValue(operation, out var newUnaryFunction))
-								{
-									return newUnaryFunction(arguments[0]);
-								}
-								break;
-							case 2:
-								if (ParsableBinaryOperations!.TryGetValue(operation, out var newBinaryFunction))
-								{
-									return newBinaryFunction(arguments[0], arguments[1]);
-								}
-								break;
-							case 3:
-								if (ParsableTernaryOperations!.TryGetValue(operation, out var newTernaryFunction))
-								{
-									return newTernaryFunction(arguments[0], arguments[1], arguments[2]);
-								}
-								break;
-						}
-
-						if (ParsableMultinaryOperations!.TryGetValue(operation, out var newMultinaryFunction))
-						{
-							return newMultinaryFunction(arguments);
-						}
-
-						throw new ArgumentException("The expression could not be parsed.", nameof(e));
-					};
-
-				return recursive(e);
+				return ParseRecursive(e);
 			}
 			catch (ArithmeticException arithmeticException)
 			{
@@ -3662,7 +3684,10 @@ namespace Towel.Mathematics
 				{
 					expression = newMultinaryFunction(operandSplits.Select(x => Parse<T>(x)).ToArray());
 				}
-
+				if (expression is null)
+				{
+					throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
+				}
 				// handle implicit multiplications if any exist
 				if (operationMatch.Index != 0) // Left
 				{
@@ -3674,15 +3699,7 @@ namespace Towel.Mathematics
 					Expression A = Parse(@string[(operationMatch.Length + operationMatch.Index)..], tryParse);
 					expression *= A;
 				}
-
-				if (expression is not null)
-				{
-					return true;
-				}
-				else
-				{
-					throw new ArgumentException("The expression could not be parsed. { " + @string + " }", nameof(@string));
-				}
+				return true;
 			}
 
 			// No operation pattern found. Fall back.
@@ -3734,12 +3751,12 @@ namespace Towel.Mathematics
 			}
 
 			// assume the remaining string splits are constants and try to parse them
-			System.Collections.Generic.IEnumerable<Expression> constants =
+			System.Collections.Generic.IEnumerable<Expression?> constants =
 				Regex.Split(@string, variablePattern)
 				.Where(x => !string.IsNullOrWhiteSpace(x))
 				.Select(x =>
 				{
-					TryParseConstantExpression(x, tryParse, out Expression exp);
+					TryParseConstantExpression(x, tryParse, out var exp);
 					return exp;
 				});
 
@@ -3747,7 +3764,7 @@ namespace Towel.Mathematics
 			// it will look better if converted to a string
 			bool set = false;
 			parsedExpression = null;
-			foreach (Expression constant in constants.Concat(variables))
+			foreach (var constant in constants.Concat(variables))
 			{
 				if (!set)
 				{
@@ -3756,6 +3773,14 @@ namespace Towel.Mathematics
 				}
 				else
 				{
+					if (parsedExpression is null)
+					{
+						throw new TowelBugException($"Encountered null {nameof(parsedExpression)} in {nameof(TryParseVariablesExpression)}.");
+					}
+					if (constant is null)
+					{
+						throw new TowelBugException($"Encountered null {nameof(constant)} in {nameof(TryParseVariablesExpression)}.");
+					}
 					parsedExpression *= constant;
 				}
 			}

@@ -8,12 +8,35 @@ namespace Towel
 	{
 		#region Maximum
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the maximum value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="values">The values to find the maximum value in.</param>
+		/// <param name="span">The span of values to find the maximum value in.</param>
+		/// <returns>
+		/// (int Index, T Value)
+		/// <para>- <see cref="int"/> Index: the index of the first occurence of the maximum value</para>
+		/// <para>- <typeparamref name="T"/> Value: the maximum value in the sequence.</para>
+		/// </returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_Maximum<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_Maximum"/>
 		public static (int Index, T Value) Maximum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
 			Maximum<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_Maximum"/>
 		public static (int Index, T Value) Maximum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			Maximum<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_Maximum"/>
 		public static (int Index, T Value) Maximum<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -36,25 +59,56 @@ namespace Towel
 
 		#region MaximumValue
 
-		/// <summary>Computes the maximum of two numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the maximum operation.</param>
-		/// <param name="b">The second operand of the maximum operation.</param>
-		/// <param name="compare">The second operand of the maximum operation.</param>
-		/// <returns>The computed maximum of the provided values.</returns>
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the maximum between two values.</summary>
+		/// <typeparam name="T">The type of values to compare.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="a">The first value to compare.</param>
+		/// <param name="b">The second value to compare.</param>
+		/// <returns>The maximum of the two values.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_MaximumValue_Two<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_MaximumValue_Two"/>
 		public static T MaximumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
 			MaximumValue<T, SFunc<T, T, CompareResult>>(a, b, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MaximumValue_Two"/>
 		public static T MaximumValue<T, TCompare>(T a, T b, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			compare.Invoke(b, a) is Greater ? b : a;
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the maximum value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="values">The values to find the maximum value in.</param>
+		/// <param name="span">The span of values to find the maximum value in.</param>
+		/// <returns>The maximum value in the sequence.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_MaximumValue<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_MaximumValue"/>
 		public static T MaximumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
 			MaximumValue<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MaximumValue"/>
 		public static T MaximumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MaximumValue<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MaximumValue"/>
 		public static T MaximumValue<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -77,12 +131,31 @@ namespace Towel
 
 		#region MaximumIndex
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the maximum value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="values">The values to find the maximum value in.</param>
+		/// <param name="span">The span of values to find the maximum value in.</param>
+		/// <returns>The index of the first occurence of the maximum value in the sequence.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_MaximumIndex<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_MaximumIndex"/>
 		public static int MaximumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
 			MaximumIndex<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MaximumIndex"/>
 		public static int MaximumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MaximumIndex<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MaximumIndex"/>
 		public static int MaximumIndex<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -105,12 +178,35 @@ namespace Towel
 
 		#region Minimum
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the minimum value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="values">The values to find the minimum value in.</param>
+		/// <param name="span">The span of values to find the minimum value in.</param>
+		/// <returns>
+		/// (int Index, T Value)
+		/// <para>- <see cref="int"/> Index: the index of the first occurence of the minimum value</para>
+		/// <para>- <typeparamref name="T"/> Value: the minimum value in the sequence.</para>
+		/// </returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_Minimum<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_Minimum"/>
 		public static (int Index, T Value) Minimum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
 			Minimum<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_Minimum"/>
 		public static (int Index, T Value) Minimum<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			Minimum<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_Minimum"/>
 		public static (int Index, T Value) Minimum<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -133,25 +229,56 @@ namespace Towel
 
 		#region MinimumValue
 
-		/// <summary>Computes the minimum of two numeric values.</summary>
-		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="a">The first operand of the minimum operation.</param>
-		/// <param name="b">The second operand of the minimum operation.</param>
-		/// <param name="compare">The second operand of the minimum operation.</param>
-		/// <returns>The computed minimum of the provided values.</returns>
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the minimum between two values.</summary>
+		/// <typeparam name="T">The type of values to compare.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="a">The first value to compare.</param>
+		/// <param name="b">The second value to compare.</param>
+		/// <returns>The minimum of the two values.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_MinimumValue_Two<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_MinimumValue_Two"/>
 		public static T MinimumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
 			MinimumValue<T, SFunc<T, T, CompareResult>>(a, b, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MinimumValue_Two"/>
 		public static T MinimumValue<T, TCompare>(T a, T b, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			compare.Invoke(b, a) is Less ? b : a;
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the minimum value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="values">The values to find the minimum value in.</param>
+		/// <param name="span">The span of values to find the minimum value in.</param>
+		/// <returns>The minimum value in the sequence.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_MinimumValue<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_MinimumValue"/>
 		public static T MinimumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
 			MinimumValue<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MinimumValue"/>
 		public static T MinimumValue<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MinimumValue<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MinimumValue"/>
 		public static T MinimumValue<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
@@ -174,12 +301,31 @@ namespace Towel
 
 		#region MinimumIndex
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+
+		/// <summary>Finds the minimum value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="values">The values to find the minimum value in.</param>
+		/// <param name="span">The span of values to find the minimum value in.</param>
+		/// <returns>The index of the first occurence of the minimum value in the sequence.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_MinimumIndex<T>() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_MinimumIndex"/>
 		public static int MinimumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
 			MinimumIndex<T, SFunc<T, T, CompareResult>>(values, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MinimumIndex"/>
 		public static int MinimumIndex<T>(ReadOnlySpan<T> span, Func<T, T, CompareResult>? compare = null) =>
 			MinimumIndex<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
 
+		/// <inheritdoc cref="XML_MinimumIndex"/>
 		public static int MinimumIndex<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{

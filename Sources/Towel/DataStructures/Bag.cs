@@ -207,7 +207,7 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>Constructs a bag map.</summary>
-		internal BagMap(TMap map = default)
+		internal BagMap(TMap map)
 		{
 			_map = map;
 			_count = 0;
