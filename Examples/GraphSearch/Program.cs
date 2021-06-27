@@ -292,7 +292,7 @@ namespace GraphSearch
 					// if the location is inside the rock, it is not a valid movement, or if
 					// the location has already been used, we can consider it invalid
 
-					location.Subtract(rockLocation, ref validationVectorStorage);
+					location.Subtract(rockLocation, ref validationVectorStorage!);
 					float magnitude = validationVectorStorage.Magnitude;
 					return !(magnitude <= rockRadius || alreadyUsed.Contains(location));
 				}
@@ -338,7 +338,7 @@ namespace GraphSearch
 				float heuristicFunction(Vector<float> currentLocation)
 				{
 					// The goal is the player's location, so we just need our distance from the player.
-					currentLocation.Subtract(playerLocation, ref heuristicVectorStorage);
+					currentLocation.Subtract(playerLocation, ref heuristicVectorStorage!);
 					return heuristicVectorStorage.Magnitude;
 				}
 
@@ -355,7 +355,7 @@ namespace GraphSearch
 					// If the location we are moving to is in the mud, it makes units
 					// move slower, so it has a higher cost. If not, it is a standard
 					// movement speed.
-					to.Subtract(mudLocation, ref costVectorStorage);
+					to.Subtract(mudLocation, ref costVectorStorage!);
 					float magnitude = costVectorStorage.Magnitude;
 					return magnitude <= mudRadius ? 2f : 1f;
 				}
@@ -366,7 +366,7 @@ namespace GraphSearch
 				bool goalFunction(Vector<float> currentLocation)
 				{
 					// if the player is within the enemy's attack range WE FOUND A PATH! :)
-					currentLocation.Subtract(playerLocation, ref goalVectorStorage);
+					currentLocation.Subtract(playerLocation, ref goalVectorStorage!);
 					float magnitude = goalVectorStorage.Magnitude;
 					return magnitude <= enemyAttackRange;
 				}

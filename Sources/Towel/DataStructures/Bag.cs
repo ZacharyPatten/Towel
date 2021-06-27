@@ -102,7 +102,11 @@ namespace Towel.DataStructures
 	{
 		#region Extensions Methods
 
-
+		/// <summary>Gets the count of a <paramref name="value"/> in a <paramref name="bag"/>.</summary>
+		/// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>
+		/// <param name="bag">The bag to get the count of a <paramref name="value"/> in.</param>
+		/// <param name="value">The value to get the count of.</param>
+		/// <returns>The count of the <paramref name="value"/>s in the <paramref name="bag"/>.</returns>
 		public static int Get<T>(this IBag<T> bag, T value)
 		{
 			var (success, exception, count) = bag.TryGet(value);
@@ -113,7 +117,16 @@ namespace Towel.DataStructures
 			return count!.Value;
 		}
 
-
+		/// <summary>Sets the <paramref name="count"/> of a <paramref name="value"/> in a <paramref name="bag"/>.</summary>
+		/// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>
+		/// <param name="bag">The bag to set the value count in.</param>
+		/// <param name="value">The value to set the <paramref name="count"/> of.</param>
+		/// <param name="count">The count to set the number of <paramref name="value"/>'s to.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Existed, <see cref="int"/>? OldCount)
+		/// <para>- <see cref="bool"/> Existed: True if the value already existed or false.</para>
+		/// <para>- <see cref="int"/>? OldCount: The previous count if the value existed or default.</para>
+		/// </returns>
 		public static (bool Existed, int? OldCount) Set<T>(this IBag<T> bag, T value, int count)
 		{
 			var (success, exception, existed, oldCount) = bag.TrySet(value, count);
