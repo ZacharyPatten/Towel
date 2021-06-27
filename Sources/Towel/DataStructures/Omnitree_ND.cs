@@ -197,7 +197,7 @@ namespace Towel.DataStructures
 
 		#endregion
 
-		#warning the "Helpers (to be deleted)" region needs to be deleted when the Omnitree rewrite is complete
+#warning TODO: the "Helpers (to be deleted)" region needs to be deleted when the Omnitree rewrite is complete
 
 		#region Helpers (to be deleted)
 

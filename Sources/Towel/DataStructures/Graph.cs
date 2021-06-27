@@ -301,7 +301,7 @@ namespace Towel.DataStructures
 			{
 				return (false, new ArgumentException("Removing an edge from a graph to a node that does not exists"));
 			}
-			#warning Add the number of values removed in Omnitree Remove method (then you can use the return count rather than capturing the exeption)
+#warning TODO: Add the number of values removed in Omnitree Remove method (then you can use the return count rather than capturing the exeption)
 			Exception? exception = null;
 			_edges.Stepper(
 				edge => { exception = new ArgumentException("Removing a non-existing edge in a graph"); return Break; },
