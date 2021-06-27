@@ -246,90 +246,90 @@ namespace Towel
 		/// </exception>
 		public static Delegate StaticDelegateFromXml<Delegate>(TextReader textReader) where Delegate : System.Delegate
 		{
+			string? declaringTypeString = null;
+			string? methodNameString = null;
+			ListArray<string> parameterTypeStrings = new();
+			string? returnTypeString = null;
+			using (XmlReader xmlReader = XmlReader.Create(textReader))
+			{
+				while (xmlReader.Read())
+				{
+				Loop:
+					if (xmlReader.NodeType is XmlNodeType.Element)
+					{
+						switch (xmlReader.Name)
+						{
+							case StaticDelegateConstants.DeclaringType:
+								declaringTypeString = xmlReader.ReadInnerXml();
+								goto Loop;
+							case StaticDelegateConstants.MethodName:
+								methodNameString = xmlReader.ReadInnerXml();
+								goto Loop;
+							case StaticDelegateConstants.ParameterType:
+								parameterTypeStrings.Add(xmlReader.ReadInnerXml());
+								goto Loop;
+							case StaticDelegateConstants.ReturnType:
+								returnTypeString = xmlReader.ReadInnerXml();
+								goto Loop;
+						}
+					}
+				}
+			}
+			if (methodNameString is null)
+			{
+				throw new ArgumentException("Deserialization failed due to missing name.");
+			}
+			if (declaringTypeString is null)
+			{
+				throw new ArgumentException("Deserialization failed due to missing type.");
+			}
+			if (returnTypeString is null)
+			{
+				throw new ArgumentException("Deserialization failed due to missing return type.");
+			}
+			Type? declaringType = Type.GetType(declaringTypeString);
+			if (declaringType is null)
+			{
+				throw new ArgumentException("Deserialization failed due to an invalid type.");
+			}
+			Type? returnType = Type.GetType(returnTypeString);
+			MethodInfo? methodInfo = null;
+			if (parameterTypeStrings.Count > 0)
+			{
+				Type[] parameterTypes = new Type[parameterTypeStrings.Count];
+				for (int i = 0; i < parameterTypes.Length; i++)
+				{
+					Type? parameterType = Type.GetType(parameterTypeStrings[i]);
+					if (parameterType is null)
+					{
+						throw new ArgumentException("Deserialization failed due to an invalid parameter type.");
+					}
+					parameterTypes[i] = parameterType;
+				}
+				methodInfo = declaringType.GetMethod(methodNameString, parameterTypes);
+			}
+			else
+			{
+				methodInfo = declaringType.GetMethod(methodNameString);
+			}
+			if (methodInfo is null)
+			{
+				throw new ArgumentException("The method of the deserialization was not found.");
+			}
+			if (methodInfo.IsLocalFunction())
+			{
+				throw new NotSupportedException("Delegates assigned to local functions are not supported.");
+			}
+			if (!methodInfo.IsStatic)
+			{
+				throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
+			}
+			if (methodInfo.ReturnType != returnType)
+			{
+				throw new ArgumentException("Deserialization failed due to a return type mis-match.");
+			}
 			try
 			{
-				string? declaringTypeString = null;
-				string? methodNameString = null;
-				ListArray<string> parameterTypeStrings = new();
-				string? returnTypeString = null;
-				using (XmlReader xmlReader = XmlReader.Create(textReader))
-				{
-					while (xmlReader.Read())
-					{
-					Loop:
-						if (xmlReader.NodeType is XmlNodeType.Element)
-						{
-							switch (xmlReader.Name)
-							{
-								case StaticDelegateConstants.DeclaringType:
-									declaringTypeString = xmlReader.ReadInnerXml();
-									goto Loop;
-								case StaticDelegateConstants.MethodName:
-									methodNameString = xmlReader.ReadInnerXml();
-									goto Loop;
-								case StaticDelegateConstants.ParameterType:
-									parameterTypeStrings.Add(xmlReader.ReadInnerXml());
-									goto Loop;
-								case StaticDelegateConstants.ReturnType:
-									returnTypeString = xmlReader.ReadInnerXml();
-									goto Loop;
-							}
-						}
-					}
-				}
-				if (methodNameString is null)
-				{
-					throw new ArgumentException("Deserialization failed due to missing name.");
-				}
-				if (declaringTypeString is null)
-				{
-					throw new ArgumentException("Deserialization failed due to missing type.");
-				}
-				if (returnTypeString is null)
-				{
-					throw new ArgumentException("Deserialization failed due to missing return type.");
-				}
-				Type? declaringType = Type.GetType(declaringTypeString);
-				if (declaringType is null)
-				{
-					throw new ArgumentException("Deserialization failed due to an invalid type.");
-				}
-				Type? returnType = Type.GetType(returnTypeString);
-				MethodInfo? methodInfo = null;
-				if (parameterTypeStrings.Count > 0)
-				{
-					Type[] parameterTypes = new Type[parameterTypeStrings.Count];
-					for (int i = 0; i < parameterTypes.Length; i++)
-					{
-						Type? parameterType = Type.GetType(parameterTypeStrings[i]);
-						if (parameterType is null)
-						{
-							throw new ArgumentException("Deserialization failed due to an invalid parameter type.");
-						}
-						parameterTypes[i] = parameterType;
-					}
-					methodInfo = declaringType.GetMethod(methodNameString, parameterTypes);
-				}
-				else
-				{
-					methodInfo = declaringType.GetMethod(methodNameString);
-				}
-				if (methodInfo is null)
-				{
-					throw new ArgumentException("The method of the deserialization was not found.");
-				}
-				if (methodInfo.IsLocalFunction())
-				{
-					throw new NotSupportedException("Delegates assigned to local functions are not supported.");
-				}
-				if (!methodInfo.IsStatic)
-				{
-					throw new NotSupportedException("Delegates assigned to non-static methods are not supported.");
-				}
-				if (methodInfo.ReturnType != returnType)
-				{
-					throw new ArgumentException("Deserialization failed due to a return type mis-match.");
-				}
 				return methodInfo.CreateDelegate<Delegate>();
 			}
 			catch (Exception exception)
