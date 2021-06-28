@@ -293,7 +293,7 @@ namespace Towel
 				throw new ArgumentException("Deserialization failed due to an invalid type.");
 			}
 			Type? returnType = Type.GetType(returnTypeString);
-			MethodInfo? methodInfo = null;
+			MethodInfo? methodInfo;
 			if (parameterTypeStrings.Count > 0)
 			{
 				Type[] parameterTypes = new Type[parameterTypeStrings.Count];
