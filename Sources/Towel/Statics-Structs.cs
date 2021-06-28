@@ -141,6 +141,28 @@ namespace Towel
 			}
 		}
 
+		/// <summary>Built in Compare struct for runtime computations.</summary>
+		/// <typeparam name="T">The generic type of the values to compare.</typeparam>
+		/// <typeparam name="TEquate">The equality check function.</typeparam>
+		public struct PredicateFromEquateAndValue<T, TEquate> : IFunc<T, bool>
+			where TEquate : struct, IFunc<T, T, bool>
+		{
+			internal TEquate Equate;
+			internal T Value;
+
+			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
+			public bool Invoke(T a) => Equate.Invoke(a, Value);
+
+			/// <summary>Creates a compile-time-resolved sifting function to be passed into another type.</summary>
+			/// <param name="value">The value for future values to be compared against.</param>
+			/// <param name="equate">The compare function.</param>
+			public PredicateFromEquateAndValue(T value, TEquate equate = default)
+			{
+				Value = value;
+				Equate = equate;
+			}
+		}
+
 		/// <summary>Compile time resulution to the <see cref="StepStatus.Continue"/> value.</summary>
 		public struct StepStatusContinue : IFunc<StepStatus>
 		{

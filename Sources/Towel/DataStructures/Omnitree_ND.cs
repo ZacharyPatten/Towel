@@ -197,7 +197,7 @@ namespace Towel.DataStructures
 
 		#endregion
 
-#warning TODO: the "Helpers (to be deleted)" region needs to be deleted when the Omnitree rewrite is complete
+		#warning TODO: the "Helpers (to be deleted)" region needs to be deleted when the Omnitree rewrite is complete
 
 		#region Helpers (to be deleted)
 
@@ -257,15 +257,9 @@ namespace Towel.DataStructures
 	public interface IOmnitree<T> : IDataStructure<T>,
 		DataStructure.ICountable,
 		DataStructure.IAddable<T>,
-		DataStructure.IClearable,
-		DataStructure.IRemovable<T>
+		DataStructure.IClearable
 	{
 		/// <summary>The number of dimensions this tree is sorting on.</summary>
 		public int Dimensions { get; }
-
-		/// <summary>Removes all occurences of an item from the omnitree.</summary>
-		/// <param name="removal">The value to be removed.</param>
-		/// <param name="equate">The  delegate for determining equality.</param>
-		void Remove(T removal, Func<T, T, bool> equate);
 	}
 }

@@ -285,7 +285,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception, int? OldCount, int? NewCount) TryRemove(T value, int count)
 		{
-#warning TODO: optimize by injecting failure check in the TMap
+			#warning TODO: optimize by injecting failure check in the TMap
 			var (getSuccess, getException, oldCount) = _map.TryGet(value);
 			if (!getSuccess)
 			{

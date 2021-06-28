@@ -396,6 +396,101 @@ namespace Towel_Generating
 				code.AppendLine($@"		public int LeafCount {{ get; }}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#region Methods");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Counts the number of values in a sub space of this tree.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		/// <returns>The number of values in the sub space of this tree.</returns>");
+				code.AppendLine($@"		int CountSubSpace({Join(1..I, n => $"Bound<Axis{n}> min{n}, Bound<Axis{n}> max{n}", ", ")});");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the values at the given vector.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""axis{j}"">The coordinate along the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		/// <returns>The number of values that were removed.</returns>");
+				code.AppendLine($@"		int Remove({Join(1..I, n => $"Axis{n} axis{n}", ", ")});");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the values at the given space.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate along the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate along the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		/// <returns>The number of values that were removed.</returns>");
+				code.AppendLine($@"		int Remove({Join(1..I, n => $"Bound<Axis{n}> min{n}, Bound<Axis{n}> max{n}", ", ")});");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the values in the given space.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The type of the predicate function to determine removal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""where"">The predicate function to determine removal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate along the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate along the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		/// <returns>The number of values that were removed.</returns>");
+				code.AppendLine($@"		int Remove<TPredicate>({Join(1..I, n => $"Bound<Axis{n}> min{n}, Bound<Axis{n}> max{n}", ", ")}, TPredicate where = default)");
+				code.AppendLine($@"			where TPredicate : struct, IFunc<T, bool>;");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the values at the given vector.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The type of the predicate function to determine removal.</typeparam>");
+				code.AppendLine($@"		/// <param name=""where"">The predicate function to determine removal.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""axis{j}"">The coordinate along the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		/// <returns>The number of values that were removed.</returns>");
+				code.AppendLine($@"		int Remove<TPredicate>({Join(1..I, n => $"Axis{n} axis{n}", ", ")}, TPredicate where = default)");
+				code.AppendLine($@"			where TPredicate : struct, IFunc<T, bool>;");
+				code.AppendLine($@"");
+
+
+
+
+
+				code.AppendLine($@"		#endregion");
+
+
+
+				#warning TODO: finish this
+
+				///// <summary>Removes all the items in a given space where equality is met.</summary>
+				//<#= documentation_AxisX_axisX #>
+				///// <param name="where">The equality constraint of the removal.</param>
+				//void Remove(<#= chain_AxisX_axisX #>, Predicate<T> where);
+				///// <summary>Removes all the items in a given space where predicate is met.</summary>
+				//<#= documentation_AxisX_minX_AxisX_maxX #>
+				///// <param name="where">The predicate constraint of the removal.</param>
+				//void Remove(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>, Predicate<T> where);
+
+				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
+				//<#= documentation_AxisX_minX_AxisX_maxX #>
+				//void Stepper(Action<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
+				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
+				//<#= documentation_AxisX_minX_AxisX_maxX #>
+				//StepStatus Stepper(Func<T, StepStatus> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
+				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
+				//<#= documentation_AxisX_axisX #>
+				//void Stepper(Action<T> step, <#= chain_AxisX_axisX #>);
+				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
+				//<#= documentation_AxisX_axisX #>
+				//StepStatus Stepper(Func<T, StepStatus> step, <#= chain_AxisX_axisX #>);
+
+				///// <summary>Iterates through the entire tree and ensures each item is in the proper leaf.</summary>
+				//void Update();
+				///// <summary>Iterates through the provided dimensions and ensures each item is in the proper leaf.</summary>
+				//<#= documentation_AxisX_minX_AxisX_maxX #>
+				//void Update(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
+
 				code.AppendLine($@"	}}");
 				code.AppendLine($@"");
 
@@ -858,6 +953,7 @@ namespace Towel_Generating
 
 				code.AppendLine($@"		#region TryAdd");
 				code.AppendLine($@"");
+				code.AppendLine($@"		/// <inheritdoc />");
 				code.AppendLine($@"		public (bool Success, Exception? Exception) TryAdd(T value)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (_top.Count is int.MaxValue)");
@@ -878,11 +974,6 @@ namespace Towel_Generating
 				code.AppendLine($@"			return (true, null);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Recursive version of the add function.</summary>");
-				code.AppendLine($@"		/// <param name=""value"">The value to be added to this tree.</param>");
-				code.AppendLine($@"		/// <param name=""node"">The current node for tree trversal.</param>");
-				code.AppendLine($@"		/// <param name=""location"">The location of the addition.</param>");
-				code.AppendLine($@"		/// <param name=""depth"">The current depth of iteration.</param>");
 				code.AppendLine($@"		internal void Add(T value, Node node, Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> location, int depth)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			if (node is Leaf leaf)");
@@ -993,19 +1084,20 @@ namespace Towel_Generating
 				code.AppendLine($@"		#region Remove (predicate)");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Removes all the values qualified by the predicate.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The predicate to qualify removals.</typeparam>");
 				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
-				code.AppendLine($@"		public void Remove<Predicate>(Predicate predicate = default) where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		public int Remove<TPredicate>(TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>");
 				code.AppendLine($@"		{{");
-				code.AppendLine($@"			Remove(_top, predicate);");
+				code.AppendLine($@"			int count = Remove(_top, predicate);");
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"			return count;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Removes all the values qualified by the predicate.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The predicate to qualify removals.</typeparam>");
 				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
 				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
-				code.AppendLine($@"		internal int Remove<Predicate>(Node node, Predicate predicate) where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		internal int Remove<TPredicate>(Node node, TPredicate predicate) where TPredicate : struct, IFunc<T, bool>");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			int removals = 0;");
 				code.AppendLine($@"			if (node is Leaf leaf)");
@@ -1061,6 +1153,24 @@ namespace Towel_Generating
 
 				#endregion
 
+				#region Remove (vector)
+
+				code.AppendLine($@"		#region Remove (vector)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the values at a given vector.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""axis{j}"">The coordinate along the {j} axis.</param>");
+				}
+				code.AppendLine($@"		/// <returns>The number of values that were removed.</returns>");
+				code.AppendLine($@"		public int Remove({Join(1..I, n => $"Axis{n} axis{n}", ", ")}) =>");
+				code.AppendLine($@"			Remove({Join(1..I, n => $"axis{n}, axis{n}", ", ")});");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
 				#region Remove (subspace)
 
 				code.AppendLine($@"		#region Remove (subspace)");
@@ -1071,18 +1181,19 @@ namespace Towel_Generating
 					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
 					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
 				}
-				code.AppendLine($@"		public void Remove(");
+				code.AppendLine($@"		public int Remove(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j}{(j == i ? ")" : ",")}");
 				}
 				code.AppendLine($@"		{{");
-				code.AppendLine($@"			Remove(_top, new(");
+				code.AppendLine($@"			int count = Remove(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? "));" : ",")}");
 				}
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"			return count;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
@@ -1091,18 +1202,19 @@ namespace Towel_Generating
 					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
 					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
 				}
-				code.AppendLine($@"		public void Remove(");
+				code.AppendLine($@"		public int Remove(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j}{(j == i ? ")" : ",")}");
 				}
 				code.AppendLine($@"		{{");
-				code.AppendLine($@"			Remove(_top, new(");
+				code.AppendLine($@"			int count = Remove(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? "));" : ",")}");
 				}
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"			return count;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		internal int Remove(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds)");
@@ -1168,62 +1280,89 @@ namespace Towel_Generating
 
 				#endregion
 
+				#region Remove (value)
+
+				code.AppendLine($@"		#region Remove (value)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
+
+				code.AppendLine($@"		public int Remove<TEquate>(T value, TEquate equate = default)");
+				code.AppendLine($@"			where TEquate : struct, IFunc<T, T, bool>");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			var x = FullLocate(value);");
+				code.AppendLine($@"			int count = Remove<PredicateFromEquateAndValue<T, TEquate>>(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"				x.Axis{j}, x.Axis{j},");
+				}
+				code.AppendLine($@"				new(value, equate));");
+				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"			return count;");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
 				#region Remove (subspace + predicate)
 
 				code.AppendLine($@"		#region Remove (subspace + predicate)");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The predicate to qualify removals.</typeparam>");
 				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
 					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
 				}
-				code.AppendLine($@"		public void Remove<Predicate>(");
+				code.AppendLine($@"		public int Remove<TPredicate>(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j},");
 				}
-				code.AppendLine($@"			Predicate predicate = default)");
-				code.AppendLine($@"			where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"			TPredicate predicate = default)");
+				code.AppendLine($@"			where TPredicate : struct, IFunc<T, bool>");
 				code.AppendLine($@"		{{");
-				code.AppendLine($@"			Remove(_top, new(");
+				code.AppendLine($@"			int count = Remove(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
 				}
 				code.AppendLine($@"				predicate);");
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"			return count;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Predicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The predicate to qualify removals.</typeparam>");
 				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j} axis.</param>");
 					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j} axis.</param>");
 				}
-				code.AppendLine($@"		public void Remove<Predicate>(");
+				code.AppendLine($@"		public int Remove<TPredicate>(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"			Towel.DataStructures.Omnitree.Bound<Axis{j}> min{j}, Towel.DataStructures.Omnitree.Bound<Axis{j}> max{j},");
 				}
-				code.AppendLine($@"				Predicate predicate = default)");
-				code.AppendLine($@"			where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"				TPredicate predicate = default)");
+				code.AppendLine($@"			where TPredicate : struct, IFunc<T, bool>");
 				code.AppendLine($@"		{{");
-				code.AppendLine($@"			Remove(_top, new(");
+				code.AppendLine($@"			int count = Remove(_top, new(");
 				for (int j = 1; j <= i; j++)
 				{
 					code.AppendLine($@"				min{j}, max{j}{(j == i ? ")," : ",")}");
 				}
 				code.AppendLine($@"				predicate);");
 				code.AppendLine($@"			Towel.DataStructures.Omnitree.ComputeLoads(_top.Count, ref _naturalLogLower, ref _naturalLogUpper, ref _load);");
+				code.AppendLine($@"			return count;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		internal int Remove<Predicate>(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds, Predicate predicate = default)");
-				code.AppendLine($@"			where Predicate : struct, IFunc<T, bool>");
+				code.AppendLine($@"		internal int Remove<TPredicate>(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds, TPredicate predicate = default)");
+				code.AppendLine($@"			where TPredicate : struct, IFunc<T, bool>");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			int removals = 0;");
 				code.AppendLine($@"			if (Omnitree.OverlapCheck(bounds, node.Bounds, {Join(1..I, n => $"_compare{n}", ", ")}))");
@@ -1323,31 +1462,7 @@ namespace Towel_Generating
 
 				code.AppendLine($@"		#region CountSubSpace");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Counts the number of values in a sub space of this tree.</summary>");
-				for (int j = 1; j <= i; j++)
-				{
-					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j}D axis.</param>");
-					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j}D axis.</param>");
-				}
-				code.AppendLine($@"		/// <returns>The number of values in the sub space of this tree.</returns>");
-				code.AppendLine($@"		public int CountSubSpace(");
-				for (int j = 1; j <= i; j++)
-				{
-					code.AppendLine($@"			Axis{j} min{j}, Axis{j} max{j}{(j == i ? ") =>" : ",")}");
-				}
-				code.AppendLine($@"			CountSubSpace(_top, new(");
-				for (int j = 1; j <= i; j++)
-				{
-					code.AppendLine($@"				min{j}, max{j}{(j == i ? "));" : ",")}");
-				}
-				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Counts the number of values in a sub space of this tree.</summary>");
-				for (int j = 1; j <= i; j++)
-				{
-					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate of the space along the {j}D axis.</param>");
-					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate of the space along the {j}D axis.</param>");
-				}
-				code.AppendLine($@"		/// <returns>The number of values in the sub space of this tree.</returns>");
+				code.AppendLine($@"		/// <inheritdoc />");
 				code.AppendLine($@"		public int CountSubSpace(");
 				for (int j = 1; j <= i; j++)
 				{
@@ -1484,9 +1599,9 @@ namespace Towel_Generating
 				code.AppendLine($@"				leaf = new Leaf(removal.Bounds, removal.Parent, removal.Index);");
 				code.AppendLine($@"				parent[child_index] = leaf;");
 				code.AppendLine($@"			}}");
-				#warning TODO: optmimize (don't use delegate?)
-				code.AppendLine($@"			#warning TODO: optimize (don't use delegate?)");
-				code.AppendLine($@"			Stepper(step => {{ leaf.Add(step); }}, removal);");
+				#warning TODO: optimize
+				code.AppendLine($@"			// TODO: optimize");
+				code.AppendLine($@"			Stepper<SAction<T>>(removal, new Action<T>(step => {{ leaf.Add(step); }}));");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
@@ -1556,24 +1671,11 @@ namespace Towel_Generating
 				code.AppendLine($@"		#region Stepper");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
-				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
-				code.AppendLine($@"		public void Stepper(Action<T> step)");
-				code.AppendLine($@"		{{");
-				code.AppendLine($@"			if (step is null) throw new ArgumentNullException(nameof(step));");
-				code.AppendLine($@"			Stepper<SAction<T>>(step);");
-				code.AppendLine($@"		}}");
-				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
 				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
 				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
 				code.AppendLine($@"		public void Stepper<Step>(Step step = default)");
 				code.AppendLine($@"			where Step : struct, IAction<T> =>");
 				code.AppendLine($@"			Stepper(_top, step);");
-				code.AppendLine($@"");
-				#warning TODO: kill the following method
-				code.AppendLine($@"		#warning TODO: kill the following method");
-				code.AppendLine($@"		internal void Stepper(Action<T> step, Node node) =>");
-				code.AppendLine($@"			Stepper<SAction<T>>(_top, step);");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
 				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
@@ -2019,16 +2121,45 @@ namespace Towel_Generating
 
 				#endregion
 
-#warning TODO: Not Implemented Methods
-				code.AppendLine($@"		#warning Not Implemented Methods");
+				#region GetEnumerator
 
-				code.AppendLine($@"		public T[] ToArray() => throw new NotImplementedException();");
-				code.AppendLine($@"		public void Remove(T removal, Func<T, T, bool> equate) => throw new NotImplementedException();");
-				code.AppendLine($@"		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => throw new NotImplementedException();");
-				code.AppendLine($@"		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => throw new NotImplementedException();");
-				code.AppendLine($@"		public (bool Success, Exception? Exception) TryRemove(T value) => throw new NotImplementedException();");
-
+				code.AppendLine($@"		#region GetEnumerator");
 				code.AppendLine($@"");
+				code.AppendLine($@"		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <inheritdoc />");
+				code.AppendLine($@"		public System.Collections.Generic.IEnumerator<T> GetEnumerator()");
+				code.AppendLine($@"		{{");
+				#warning TODO: optimize
+				code.AppendLine($@"			// TODO: optimize");
+				code.AppendLine($@"			return ((System.Collections.Generic.IEnumerable<T>)ToArray()).GetEnumerator();");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region ToArray
+
+				code.AppendLine($@"		#region ToArray");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <inheritdoc />");
+				code.AppendLine($@"		public T[] ToArray()");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			T[] array = new T[_top.Count];");
+				code.AppendLine($@"			int i = 0;");
+				#warning TODO: optimize
+				code.AppendLine($@"			// TODO: optimize");
+				code.AppendLine($@"			Stepper<SAction<T>>(new Action<T>(x => array[i++] = x));");
+				code.AppendLine($@"			return array;");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
 				code.AppendLine($@"		#endregion");
 				code.AppendLine($@"");
 
