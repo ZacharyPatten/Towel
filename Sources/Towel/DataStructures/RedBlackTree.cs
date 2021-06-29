@@ -553,7 +553,9 @@ namespace Towel.DataStructures
 					redBlackTree.Parent.RightChild = temp;
 			}
 			else
+			{
 				_root = temp;
+			}
 			temp.LeftChild = redBlackTree;
 			if (redBlackTree != _sentinelNode)
 				redBlackTree.Parent = temp;
@@ -575,7 +577,9 @@ namespace Towel.DataStructures
 					redBlacktree.Parent.LeftChild = temp;
 			}
 			else
+			{
 				_root = temp;
+			}
 			temp.RightChild = redBlacktree;
 			if (redBlacktree != _sentinelNode)
 				redBlacktree.Parent = temp;

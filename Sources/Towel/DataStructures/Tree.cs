@@ -190,7 +190,6 @@ namespace Towel.DataStructures
 			return (true, null);
 		}
 
-
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryRemove(T node)
 		{
