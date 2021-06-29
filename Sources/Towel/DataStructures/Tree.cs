@@ -214,15 +214,13 @@ namespace Towel.DataStructures
 			where TStep : struct, IFunc<T, StepStatus> =>
 			_map.KeysBreak(step);
 
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-		{
-			throw new NotImplementedException();
-		}
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new NotImplementedException();
+			#warning TODO: optimize
+			return ((System.Collections.Generic.IEnumerable<T>)ToArray()).GetEnumerator();
 		}
 
 		/// <inheritdoc/>
@@ -237,7 +235,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			#warning TODO: optimized
+			#warning TODO: optimize
 			T[] array = new T[Count];
 			int i = 0;
 			this.Stepper(x => array[i++] = x);
