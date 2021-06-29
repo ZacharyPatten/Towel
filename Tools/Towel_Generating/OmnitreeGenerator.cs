@@ -129,11 +129,15 @@ namespace Towel_Generating
 				code.AppendLine($@"");
 				if (i > 1)
 				{
+					code.AppendLine($@"			/// <summary>Converts a tuple to a vector.</summary>");
+					code.AppendLine($@"			/// <param name=""tuple"">The tuple to convert to a vector.</param>");
 					code.AppendLine($@"			public static implicit operator Vector<{Join(1..I, n => $"A{n}", ", ")}>(({Join(1..I, n => $"A{n} Axis{n}", ", ")}) tuple) =>");
 					code.AppendLine($@"				new({Join(1..I, n => $"tuple.Axis{n}", ", ")});");
 				}
 				else
 				{
+					code.AppendLine($@"			/// <summary>Converts a tuple to a vector.</summary>");
+					code.AppendLine($@"			/// <param name=""axis1"">The 1D cordinate to convert to a vector.</param>");
 					code.AppendLine($@"			public static implicit operator Vector<{Join(1..I, n => $"A{n}", ", ")}>(A1 axis1) =>");
 					code.AppendLine($@"				new(axis1);");
 				}
@@ -448,49 +452,30 @@ namespace Towel_Generating
 				code.AppendLine($@"		int Remove<TPredicate>({Join(1..I, n => $"Axis{n} axis{n}", ", ")}, TPredicate where = default)");
 				code.AppendLine($@"			where TPredicate : struct, IFunc<T, bool>;");
 				code.AppendLine($@"");
-
-
-
-
-
+				code.AppendLine($@"		/// <summary>Performs an action on every value in a space.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""TStep"">The type of the step function to perform on every value.</typeparam>");
+				code.AppendLine($@"		/// <param name=""step"">The step function to perform on every value.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate along the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate along the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		/// <returns>The status of the traversal.</returns>");
+				code.AppendLine($@"		StepStatus StepperBreak<TStep>({Join(1..I, n => $"Bound<Axis{n}> min{n}, Bound<Axis{n}> max{n}", ", ")}, TStep step = default)");
+				code.AppendLine($@"			where TStep : struct, IFunc<T, StepStatus>;");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses the tree and ensures each value is in the proper leaf.</summary>");
+				code.AppendLine($@"		void Update();");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Traverses a space and ensures each value is in the proper leaf.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""min{j}"">The minimum coordinate along the {j}D axis.</param>");
+					code.AppendLine($@"		/// <param name=""max{j}"">The maximum coordinate along the {j}D axis.</param>");
+				}
+				code.AppendLine($@"		void Update({Join(1..I, n => $"Bound<Axis{n}> min{n}, Bound<Axis{n}> max{n}", ", ")});");
+				code.AppendLine($@"");
 				code.AppendLine($@"		#endregion");
-
-
-
-				#warning TODO: finish this
-
-				///// <summary>Removes all the items in a given space where equality is met.</summary>
-				//<#= documentation_AxisX_axisX #>
-				///// <param name="where">The equality constraint of the removal.</param>
-				//void Remove(<#= chain_AxisX_axisX #>, Predicate<T> where);
-				///// <summary>Removes all the items in a given space where predicate is met.</summary>
-				//<#= documentation_AxisX_minX_AxisX_maxX #>
-				///// <param name="where">The predicate constraint of the removal.</param>
-				//void Remove(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>, Predicate<T> where);
-
-				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
-				//<#= documentation_AxisX_minX_AxisX_maxX #>
-				//void Stepper(Action<T> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
-				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
-				//<#= documentation_AxisX_minX_AxisX_maxX #>
-				//StepStatus Stepper(Func<T, StepStatus> step, <#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
-				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
-				//<#= documentation_AxisX_axisX #>
-				//void Stepper(Action<T> step, <#= chain_AxisX_axisX #>);
-				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-				///// <param name="step">The step function to perform on all items in the tree within the given bounds.</param>
-				//<#= documentation_AxisX_axisX #>
-				//StepStatus Stepper(Func<T, StepStatus> step, <#= chain_AxisX_axisX #>);
-
-				///// <summary>Iterates through the entire tree and ensures each item is in the proper leaf.</summary>
-				//void Update();
-				///// <summary>Iterates through the provided dimensions and ensures each item is in the proper leaf.</summary>
-				//<#= documentation_AxisX_minX_AxisX_maxX #>
-				//void Update(<#= chain_BoundAxisX_minX_BoundAxisX_maxX #>);
-
 				code.AppendLine($@"	}}");
 				code.AppendLine($@"");
 
@@ -867,6 +852,13 @@ namespace Towel_Generating
 				}
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
+				code.AppendLine($@"	/// <summary>Constructs a new omnitree.</summary>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"	/// <param name=""locate{j}"">The function this tree is using to locate <typeparamref name=""T""/>'s along the {j}D axis.</param>");
+					code.AppendLine($@"	/// <param name=""compare{j}"">The function this tree is using to compare <typeparamref name=""T""/>'s along the {j}D axis.</param>");
+					code.AppendLine($@"	/// <param name=""subdivide{j}"">The function this tree is using to subdivide <typeparamref name=""T""/>'s along the {j}D axis.</param>");
+				}
 				code.AppendLine($@"		public OmnitreePointsLinked(");
 				for (int j = 1; j <= i; j++)
 				{
@@ -1093,10 +1085,6 @@ namespace Towel_Generating
 				code.AppendLine($@"			return count;");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Removes all the values qualified by the predicate.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The predicate to qualify removals.</typeparam>");
-				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
-				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
 				code.AppendLine($@"		internal int Remove<TPredicate>(Node node, TPredicate predicate) where TPredicate : struct, IFunc<T, bool>");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			int removals = 0;");
@@ -1171,9 +1159,9 @@ namespace Towel_Generating
 
 				#endregion
 
-				#region Remove (subspace)
+				#region Remove (space)
 
-				code.AppendLine($@"		#region Remove (subspace)");
+				code.AppendLine($@"		#region Remove (space)");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
 				for (int j = 1; j <= i; j++)
@@ -1305,9 +1293,29 @@ namespace Towel_Generating
 
 				#endregion
 
-				#region Remove (subspace + predicate)
+				#region Remove (vector + predicate)
 
-				code.AppendLine($@"		#region Remove (subspace + predicate)");
+				code.AppendLine($@"		#region Remove (vector + predicate)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
+				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The predicate to qualify removals.</typeparam>");
+				code.AppendLine($@"		/// <param name=""predicate"">The predicate to qualify removals.</param>");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"		/// <param name=""axis{j}"">The coordinate of the space along the {j} axis.</param>");
+				}
+				code.AppendLine($@"		public int Remove<TPredicate>({Join(1..I, n => $"Axis{n} axis{n}", ", ")}, TPredicate predicate = default)");
+				code.AppendLine($@"			where TPredicate : struct, IFunc<T, bool> =>");
+				code.AppendLine($@"			Remove<TPredicate>({Join(1..I, n => $"axis{n}, axis{n}", ", ")}, predicate);");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region Remove (space + predicate)
+
+				code.AppendLine($@"		#region Remove (space + predicate)");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Removes all the items in a given space.</summary>");
 				code.AppendLine($@"		/// <typeparam name=""TPredicate"">The predicate to qualify removals.</typeparam>");
@@ -1487,10 +1495,6 @@ namespace Towel_Generating
 				}
 				code.AppendLine($@"			CountSubSpace(_top, new({Join(1..I, n => $"axis{n}, axis{n}", ", ")}));");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Counts the number of values in a sub space in the tree.</summary>");
-				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
-				code.AppendLine($@"		/// <param name=""bounds"">The bounds of the sub space being counted.</param>");
-				code.AppendLine($@"		/// <returns>The number of values in the sub space of this tree.</returns>");
 				code.AppendLine($@"		internal int CountSubSpace(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			int count = 0;");
@@ -1613,9 +1617,6 @@ namespace Towel_Generating
 
 				code.AppendLine($@"		#region AdjustParentCounts");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Adjusts the counts of all parents of a node.</summary>");
-				code.AppendLine($@"		/// <param name=""parent"">The starting node of the adjustments.</param>");
-				code.AppendLine($@"		/// <param name=""adjustment"">The adjustment to apply to the node counts.</param>");
 				code.AppendLine($@"		internal void AdjustParentCounts(Node parent, int adjustment)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			for (Node node = parent; node is not null; node = node.Parent)");
@@ -1633,10 +1634,6 @@ namespace Towel_Generating
 
 				code.AppendLine($@"		#region NearestContainingNode");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Gets the nearest node to <paramref name=""node""/> that contains <paramref name=""vector""/>.</summary>");
-				code.AppendLine($@"		/// <param name=""node"">The starting node to find the nearest containing node of <paramref name=""vector""/>.</param>");
-				code.AppendLine($@"		/// <param name=""vector"">The vector to find the nearest containing node of start at <paramref name=""node""/>.</param>");
-				code.AppendLine($@"		/// <returns>The nearest node to <paramref name=""node""/> that contains <paramref name=""vector""/>.</returns>");
 				code.AppendLine($@"		internal Node NearestContainingNode(Node node, Omnitree.Vector<{Join(1..I, n => $"Axis{n}", ", ")}> vector)");
 				code.AppendLine($@"		{{");
 				code.AppendLine($@"			while (node is not null && !Omnitree.ContainsCheck(node.Bounds, vector, {Join(1..I, n => $"_compare{n}", ", ")}))");
@@ -1666,6 +1663,40 @@ namespace Towel_Generating
 
 				#endregion
 
+				#region Update
+
+				code.AppendLine($@"		#region Update");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <inheritdoc/>");
+				code.AppendLine($@"		public void Update()");
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			throw new NotImplementedException();");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
+				#region Update (space)
+
+				code.AppendLine($@"		#region Update (space)");
+				code.AppendLine($@"");
+				code.AppendLine($@"		/// <inheritdoc/>");
+				code.AppendLine($@"		public void Update(");
+				for (int j = 1; j <= i; j++)
+				{
+					code.AppendLine($@"			Bound<Axis{j}> min{j}, Bound<Axis{j}> max{j}{(j == i ? ")" : ",")}");
+				}
+				code.AppendLine($@"		{{");
+				code.AppendLine($@"			throw new NotImplementedException();");
+				code.AppendLine($@"		}}");
+				code.AppendLine($@"");
+				code.AppendLine($@"		#endregion");
+				code.AppendLine($@"");
+
+				#endregion
+
 				#region Stepper
 
 				code.AppendLine($@"		#region Stepper");
@@ -1677,10 +1708,6 @@ namespace Towel_Generating
 				code.AppendLine($@"			where Step : struct, IAction<T> =>");
 				code.AppendLine($@"			Stepper(_top, step);");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
-				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
-				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
 				code.AppendLine($@"		internal void Stepper<Step>(Node node, Step step)");
 				code.AppendLine($@"			where Step : struct, IAction<T>");
 				code.AppendLine($@"		{{");
@@ -1726,10 +1753,6 @@ namespace Towel_Generating
 				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus> =>");
 				code.AppendLine($@"			StepperBreak(_top, step);");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
-				code.AppendLine($@"		/// <param name=""node"">The current node of traversal.</param>");
-				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
 				code.AppendLine($@"		internal StepStatus StepperBreak<Step>(Node node, Step step)");
 				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus>");
 				code.AppendLine($@"		{{");
@@ -1763,9 +1786,9 @@ namespace Towel_Generating
 
 				#endregion
 
-				#region Stepper (subspace)
+				#region Stepper (space)
 
-				code.AppendLine($@"		#region Stepper (subspace)");
+				code.AppendLine($@"		#region Stepper (space)");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
 				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
@@ -1859,10 +1882,6 @@ namespace Towel_Generating
 				code.AppendLine($@"				step);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
-				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
-				code.AppendLine($@"		/// <param name=""bounds"">The bounds of the traversal.</param>");
 				code.AppendLine($@"		internal void Stepper<Step>(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds, Step step)");
 				code.AppendLine($@"			where Step : struct, IAction<T>");
 				code.AppendLine($@"		{{");
@@ -1897,9 +1916,9 @@ namespace Towel_Generating
 
 				#endregion
 
-				#region StepperBreak (subspace)
+				#region StepperBreak (space)
 
-				code.AppendLine($@"		#region StepperBreak (subspace)");
+				code.AppendLine($@"		#region StepperBreak (space)");
 				code.AppendLine($@"");
 				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
 				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
@@ -1995,10 +2014,6 @@ namespace Towel_Generating
 				code.AppendLine($@"				step);");
 				code.AppendLine($@"		}}");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Traverses this tree and performs a step on every value.</summary>");
-				code.AppendLine($@"		/// <typeparam name=""Step"">The action to perform on every during traversal.</typeparam>");
-				code.AppendLine($@"		/// <param name=""step"">The action to perform on every during traversal.</param>");
-				code.AppendLine($@"		/// <param name=""bounds"">The bounds of the traversal.</param>");
 				code.AppendLine($@"		internal StepStatus StepperBreak<Step>(Node node, Omnitree.Bounds<{Join(1..I, n => $"Axis{n}", ", ")}> bounds, Step step)");
 				code.AppendLine($@"			where Step : struct, IFunc<T, StepStatus>");
 				code.AppendLine($@"		{{");
