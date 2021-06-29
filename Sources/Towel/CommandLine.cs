@@ -34,7 +34,7 @@ namespace Towel
 			}
 			else if (commandMatches.Count <= 0)
 			{
-				string arg = args[0].ToLower().Replace("-", "");
+				string arg = args[0].ToLower().Replace("-", string.Empty);
 				if (arg is "help" || arg is "h")
 				{
 					if (args.Length is 2)

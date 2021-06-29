@@ -19,6 +19,10 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<None Update="Measurements\MeasurementTypes.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>MeasurementTypes.cs</LastGenOutput>
@@ -37,14 +41,5 @@
 			<AutoGen>True</AutoGen>
 			<DependentUpon>Omnitree.tt</DependentUpon>
 		</Compile>
-		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-			<_Parameter1>Towel_Testing</_Parameter1>
-		</AssemblyAttribute>
-		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-			<_Parameter1>Towel_Benchmarking</_Parameter1>
-		</AssemblyAttribute>
-		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-			<_Parameter1>Towel_Generating</_Parameter1>
-		</AssemblyAttribute>
 	</ItemGroup>
 </Project>

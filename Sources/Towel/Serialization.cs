@@ -92,7 +92,7 @@ namespace Towel
 
 		#region XML
 
-		internal static partial class StaticDelegateConstants
+		internal static class StaticDelegateConstants
 		{
 			internal const string Name = "Delegate";
 			internal const string DeclaringType = "Method.DeclaringType.AssemblyQualifiedName";

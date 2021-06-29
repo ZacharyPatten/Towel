@@ -51,6 +51,13 @@ namespace Towel.DataStructures
 		StepStatus StepperBreak<TStep>(T minimum, T maximum, TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus>;
 
+		/// <summary>Does a step function (right to left) for sorted binary search trees.</summary>
+		/// <typeparam name="TStep">The type of the step function.</typeparam>
+		/// <param name="step">The step function.</param>
+		/// <returns>The result status of the stepper function.</returns>
+		StepStatus StepperReverseBreak<TStep>(TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus>;
+
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="TStep">The type of the step function.</typeparam>
 		/// <param name="step">The step function.</param>

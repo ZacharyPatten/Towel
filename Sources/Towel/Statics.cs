@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Linq;
-using Towel.DataStructures;
-using Towel.Measurements;
 using System.Runtime.CompilerServices;
 
 namespace Towel
@@ -628,13 +626,13 @@ namespace Towel
 						var RETURN = Expression.Label(typeof(CompareResult));
 						var BODY = Expression.Block(
 							Expression.IfThen(
-									lessThanPredicate,
-									Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
-								Expression.IfThen(
-									greaterThanPredicate,
-									Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
-								Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
-								Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
+								lessThanPredicate,
+								Expression.Return(RETURN, Expression.Constant(Less, typeof(CompareResult)))),
+							Expression.IfThen(
+								greaterThanPredicate,
+								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
+							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
+							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
 						CompareImplementation<A, B, CompareResult>.Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
 					}
 					return Function!(a, b);

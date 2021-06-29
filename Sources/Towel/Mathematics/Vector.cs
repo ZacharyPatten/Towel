@@ -1221,12 +1221,18 @@ namespace Towel.Mathematics
 			}
 			int Length = a.Dimensions;
 			if (Length != b.Dimensions)
+			{
 				return false;
+			}
 			T[] A = a._vector;
 			T[] B = b._vector;
 			for (int i = 0; i < Length; i++)
+			{
 				if (!Statics.EqualToLeniency(A[i], B[i], leniency))
+				{
 					return false;
+				}
+			}
 			return true;
 		}
 
