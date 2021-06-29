@@ -103,7 +103,7 @@ namespace Towel.DataStructures
 			public T? Value { get; internal set; }
 
 			/// <summary>Represents a null bound meaning it does not exist.</summary>
-			public readonly static Bound<T> None = new() { Value = default, Exists = false };
+			public static readonly Bound<T> None = new() { Value = default, Exists = false };
 
 			/// <summary>Converts a value to a bound.</summary>
 			/// <param name="value">The value to convert into a bound.</param>

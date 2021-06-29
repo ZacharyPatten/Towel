@@ -703,221 +703,221 @@ namespace Towel.Measurements
 		#region Angle Units
 
 		/// <summary>Units of an angle measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.AngleUnits Gradians = new() { _AngleUnits1 = Angle.Units.Gradians };
+		public static readonly MeasurementUnitsSyntaxTypes.AngleUnits Gradians = new() { _AngleUnits1 = Angle.Units.Gradians };
 		/// <summary>Units of an angle measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.AngleUnits Degrees = new() { _AngleUnits1 = Angle.Units.Degrees };
+		public static readonly MeasurementUnitsSyntaxTypes.AngleUnits Degrees = new() { _AngleUnits1 = Angle.Units.Degrees };
 		/// <summary>Units of an angle measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.AngleUnits Radians = new() { _AngleUnits1 = Angle.Units.Radians };
+		public static readonly MeasurementUnitsSyntaxTypes.AngleUnits Radians = new() { _AngleUnits1 = Angle.Units.Radians };
 		/// <summary>Units of an angle measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.AngleUnits Revolutions = new() { _AngleUnits1 = Angle.Units.Revolutions };
+		public static readonly MeasurementUnitsSyntaxTypes.AngleUnits Revolutions = new() { _AngleUnits1 = Angle.Units.Revolutions };
 
 		#endregion
 
 		#region Electric Charge Units
 
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricChargeUnits Coulombs = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Coulombs };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricChargeUnits Coulombs = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Coulombs };
 
 		#endregion
 
 		#region Electric Current Units
 
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Yoctoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Yoctocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Yoctoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Yoctocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Zeptoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Zeptocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Zeptoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Zeptocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Attoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Attocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Attoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Attocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Femtoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Femtocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Femtoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Femtocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Picoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Picocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Picoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Picocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Nanoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Nanocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Nanoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Nanocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Microampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Microcoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Microampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Microcoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Milliampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Millicoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Milliampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Millicoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Centiampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Centicoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Centiampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Centicoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Deciampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Decicoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Deciampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Decicoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Amperes = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Coulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Amperes = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Coulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Dekaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Dekacoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Dekaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Dekacoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Hectoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Hectocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Hectoampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Hectocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Kiloampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Kilocoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Kiloampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Kilocoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Megaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Megacoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Megaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Megacoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Gigaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Gigacoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Gigaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Gigacoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Teraampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Teracoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Teraampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Teracoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Petaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Petacoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Petaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Petacoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Exaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Exacoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Exaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Exacoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Zettaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Zettacoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Zettaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Zettacoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Yottaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Yottacoulombs, _TimeUnits2 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Yottaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Yottacoulombs, _TimeUnits2 = Time.Units.Seconds };
 
 		#endregion
 
 		#region Energy Units
 
 		/// <summary>Units of an Energy measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.EnergyBaseUnits Joules = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _LengthUnits3 = Length.Units.Meters, _TimeUnits4 = Time.Units.Seconds, _TimeUnits5 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.EnergyBaseUnits Joules = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _LengthUnits3 = Length.Units.Meters, _TimeUnits4 = Time.Units.Seconds, _TimeUnits5 = Time.Units.Seconds };
 
 		#endregion
 
 		#region Force Units
 
 		/// <summary>Units of an force measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.ForceBaseUnits Newtons = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _TimeUnits3 = Time.Units.Seconds, _TimeUnits4 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.ForceBaseUnits Newtons = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _TimeUnits3 = Time.Units.Seconds, _TimeUnits4 = Time.Units.Seconds };
 
 		#endregion
 
 		#region Length Units
 
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Yoctometers = new() { _LengthUnits1 = Length.Units.Yoctometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Yoctometers = new() { _LengthUnits1 = Length.Units.Yoctometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Zeptometers = new() { _LengthUnits1 = Length.Units.Zeptometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Zeptometers = new() { _LengthUnits1 = Length.Units.Zeptometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Attometers = new() { _LengthUnits1 = Length.Units.Attometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Attometers = new() { _LengthUnits1 = Length.Units.Attometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Femtometers = new() { _LengthUnits1 = Length.Units.Femtometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Femtometers = new() { _LengthUnits1 = Length.Units.Femtometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Picometers = new() { _LengthUnits1 = Length.Units.Picometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Picometers = new() { _LengthUnits1 = Length.Units.Picometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Nanometers = new() { _LengthUnits1 = Length.Units.Nanometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Nanometers = new() { _LengthUnits1 = Length.Units.Nanometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Micrometers = new() { _LengthUnits1 = Length.Units.Micrometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Micrometers = new() { _LengthUnits1 = Length.Units.Micrometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Millimeters = new() { _LengthUnits1 = Length.Units.Millimeters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Millimeters = new() { _LengthUnits1 = Length.Units.Millimeters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Centimeters = new() { _LengthUnits1 = Length.Units.Centimeters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Centimeters = new() { _LengthUnits1 = Length.Units.Centimeters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Inches = new() { _LengthUnits1 = Length.Units.Inches };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Inches = new() { _LengthUnits1 = Length.Units.Inches };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Decimeters = new() { _LengthUnits1 = Length.Units.Decimeters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Decimeters = new() { _LengthUnits1 = Length.Units.Decimeters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Feet = new() { _LengthUnits1 = Length.Units.Feet };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Feet = new() { _LengthUnits1 = Length.Units.Feet };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Yards = new() { _LengthUnits1 = Length.Units.Yards };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Yards = new() { _LengthUnits1 = Length.Units.Yards };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Meters = new() { _LengthUnits1 = Length.Units.Meters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Meters = new() { _LengthUnits1 = Length.Units.Meters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Dekameters = new() { _LengthUnits1 = Length.Units.Dekameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Dekameters = new() { _LengthUnits1 = Length.Units.Dekameters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Hectometers = new() { _LengthUnits1 = Length.Units.Hectometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Hectometers = new() { _LengthUnits1 = Length.Units.Hectometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Kilometers = new() { _LengthUnits1 = Length.Units.Kilometers };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Kilometers = new() { _LengthUnits1 = Length.Units.Kilometers };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Miles = new() { _LengthUnits1 = Length.Units.Miles };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Miles = new() { _LengthUnits1 = Length.Units.Miles };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits NauticalMiles = new() { _LengthUnits1 = Length.Units.NauticalMiles };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits NauticalMiles = new() { _LengthUnits1 = Length.Units.NauticalMiles };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Megameters = new() { _LengthUnits1 = Length.Units.Megameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Megameters = new() { _LengthUnits1 = Length.Units.Megameters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Gigameters = new() { _LengthUnits1 = Length.Units.Gigameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Gigameters = new() { _LengthUnits1 = Length.Units.Gigameters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Terameters = new() { _LengthUnits1 = Length.Units.Terameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Terameters = new() { _LengthUnits1 = Length.Units.Terameters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Petameters = new() { _LengthUnits1 = Length.Units.Petameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Petameters = new() { _LengthUnits1 = Length.Units.Petameters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Exameters = new() { _LengthUnits1 = Length.Units.Exameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Exameters = new() { _LengthUnits1 = Length.Units.Exameters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Zettameters = new() { _LengthUnits1 = Length.Units.Zettameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Zettameters = new() { _LengthUnits1 = Length.Units.Zettameters };
 		/// <summary>Units of an length measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.LengthUnits Yottameters = new() { _LengthUnits1 = Length.Units.Yottameters };
+		public static readonly MeasurementUnitsSyntaxTypes.LengthUnits Yottameters = new() { _LengthUnits1 = Length.Units.Yottameters };
 
 		#endregion
 
 		#region Mass Units
 
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Yoctograms = new() { _MassUnits1 = Mass.Units.Yoctograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Yoctograms = new() { _MassUnits1 = Mass.Units.Yoctograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Zeptograms = new() { _MassUnits1 = Mass.Units.Zeptograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Zeptograms = new() { _MassUnits1 = Mass.Units.Zeptograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Attograms = new() { _MassUnits1 = Mass.Units.Attograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Attograms = new() { _MassUnits1 = Mass.Units.Attograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Femtograms = new() { _MassUnits1 = Mass.Units.Femtograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Femtograms = new() { _MassUnits1 = Mass.Units.Femtograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Picograms = new() { _MassUnits1 = Mass.Units.Picograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Picograms = new() { _MassUnits1 = Mass.Units.Picograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Nanograms = new() { _MassUnits1 = Mass.Units.Nanograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Nanograms = new() { _MassUnits1 = Mass.Units.Nanograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Micrograms = new() { _MassUnits1 = Mass.Units.Micrograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Micrograms = new() { _MassUnits1 = Mass.Units.Micrograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Milligrams = new() { _MassUnits1 = Mass.Units.Milligrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Milligrams = new() { _MassUnits1 = Mass.Units.Milligrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Centigrams = new() { _MassUnits1 = Mass.Units.Centigrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Centigrams = new() { _MassUnits1 = Mass.Units.Centigrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Decigrams = new() { _MassUnits1 = Mass.Units.Decigrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Decigrams = new() { _MassUnits1 = Mass.Units.Decigrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Grams = new() { _MassUnits1 = Mass.Units.Grams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Grams = new() { _MassUnits1 = Mass.Units.Grams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Dekagrams = new() { _MassUnits1 = Mass.Units.Dekagrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Dekagrams = new() { _MassUnits1 = Mass.Units.Dekagrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Hectograms = new() { _MassUnits1 = Mass.Units.Hectograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Hectograms = new() { _MassUnits1 = Mass.Units.Hectograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Kilograms = new() { _MassUnits1 = Mass.Units.Kilograms };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Kilograms = new() { _MassUnits1 = Mass.Units.Kilograms };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Megagrams = new() { _MassUnits1 = Mass.Units.Megagrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Megagrams = new() { _MassUnits1 = Mass.Units.Megagrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Gigagrams = new() { _MassUnits1 = Mass.Units.Gigagrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Gigagrams = new() { _MassUnits1 = Mass.Units.Gigagrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Teragrams = new() { _MassUnits1 = Mass.Units.Teragrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Teragrams = new() { _MassUnits1 = Mass.Units.Teragrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Petagrams = new() { _MassUnits1 = Mass.Units.Petagrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Petagrams = new() { _MassUnits1 = Mass.Units.Petagrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Exagrams = new() { _MassUnits1 = Mass.Units.Exagrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Exagrams = new() { _MassUnits1 = Mass.Units.Exagrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Zettagrams = new() { _MassUnits1 = Mass.Units.Zettagrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Zettagrams = new() { _MassUnits1 = Mass.Units.Zettagrams };
 		/// <summary>Units of an mass measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.MassUnits Yottagrams = new() { _MassUnits1 = Mass.Units.Yottagrams };
+		public static readonly MeasurementUnitsSyntaxTypes.MassUnits Yottagrams = new() { _MassUnits1 = Mass.Units.Yottagrams };
 
 		#endregion
 
 		#region Power Units
 
 		/// <summary>Units of an Power measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.PowerBaseUnits Watts = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _LengthUnits3 = Length.Units.Meters, _TimeUnits4 = Time.Units.Seconds, _TimeUnits5 = Time.Units.Seconds, _TimeUnits6 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.PowerBaseUnits Watts = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _LengthUnits3 = Length.Units.Meters, _TimeUnits4 = Time.Units.Seconds, _TimeUnits5 = Time.Units.Seconds, _TimeUnits6 = Time.Units.Seconds };
 
 		#endregion
 
 		#region Pressure Units
 
 		/// <summary>Units of an Pressure measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.PressureBaseUnits Pascals = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _TimeUnits3 = Time.Units.Seconds, _TimeUnits4 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.PressureBaseUnits Pascals = new() { _MassUnits1 = Mass.Units.Kilograms, _LengthUnits2 = Length.Units.Meters, _TimeUnits3 = Time.Units.Seconds, _TimeUnits4 = Time.Units.Seconds };
 
 		#endregion
 
 		#region Speed Units
 
 		/// <summary>Units of an speed measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.SpeedBaseUnits Knots = new() { _LengthUnits1 = Length.Units.NauticalMiles, _TimeUnits2 = Time.Units.Hours };
+		public static readonly MeasurementUnitsSyntaxTypes.SpeedBaseUnits Knots = new() { _LengthUnits1 = Length.Units.NauticalMiles, _TimeUnits2 = Time.Units.Hours };
 
 		#endregion
 
 		#region Time Units
 
 		/// <summary>Units of an time measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.TimeUnits Milliseconds = new() { _TimeUnits1 = Time.Units.Milliseconds };
+		public static readonly MeasurementUnitsSyntaxTypes.TimeUnits Milliseconds = new() { _TimeUnits1 = Time.Units.Milliseconds };
 		/// <summary>Units of an time measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.TimeUnits Seconds = new() { _TimeUnits1 = Time.Units.Seconds };
+		public static readonly MeasurementUnitsSyntaxTypes.TimeUnits Seconds = new() { _TimeUnits1 = Time.Units.Seconds };
 		/// <summary>Units of an time measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.TimeUnits Minutes = new() { _TimeUnits1 = Time.Units.Minutes };
+		public static readonly MeasurementUnitsSyntaxTypes.TimeUnits Minutes = new() { _TimeUnits1 = Time.Units.Minutes };
 		/// <summary>Units of an time measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.TimeUnits Hours = new() { _TimeUnits1 = Time.Units.Hours };
+		public static readonly MeasurementUnitsSyntaxTypes.TimeUnits Hours = new() { _TimeUnits1 = Time.Units.Hours };
 		/// <summary>Units of an time measurement.</summary>
-		public readonly static MeasurementUnitsSyntaxTypes.TimeUnits Days = new() { _TimeUnits1 = Time.Units.Days };
+		public static readonly MeasurementUnitsSyntaxTypes.TimeUnits Days = new() { _TimeUnits1 = Time.Units.Days };
 
 		#endregion
 	}

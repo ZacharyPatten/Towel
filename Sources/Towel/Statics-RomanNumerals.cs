@@ -6,7 +6,7 @@ namespace Towel
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics
 	{
-		internal readonly static int[] RomanNumeralDigits =
+		internal static readonly int[] RomanNumeralDigits =
 		{
 			/* 0:I */ 1,
 			/* 1:V */ 5,
@@ -17,7 +17,7 @@ namespace Towel
 			/* 6:M */ 1000,
 		};
 
-		internal readonly static int[] RomanNumeralDigitsAllowedPrefix =
+		internal static readonly int[] RomanNumeralDigitsAllowedPrefix =
 		{
 			/* 0:I */ default,
 			/* 1:V */ 0,
@@ -28,7 +28,7 @@ namespace Towel
 			/* 6:M */ 4,
 		};
 
-		internal readonly static bool[] RomanNumeralDigitsAllowsDuplicates =
+		internal static readonly bool[] RomanNumeralDigitsAllowsDuplicates =
 		{
 			/* 0:I */ true,
 			/* 1:V */ false,
