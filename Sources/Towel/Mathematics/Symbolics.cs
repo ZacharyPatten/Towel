@@ -1406,10 +1406,11 @@ namespace Towel.Mathematics
 
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
-				if (A is Constant<T> a)
-				{
-					//return new Constant<T>(Compute.Sine(a.Value));
-				}
+				#warning TODO
+				//if (A is Constant<T> a)
+				//{
+				//	//return new Constant<T>(Compute.Sine(a.Value));
+				//}
 				return base.Simplify<T>();
 			}
 
@@ -1451,10 +1452,11 @@ namespace Towel.Mathematics
 
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
-				if (A is Constant<T> a)
-				{
-					//return new Constant<T>(Compute.Cosine(a.Value));
-				}
+				#warning TODO
+				//if (A is Constant<T> a)
+				//{
+				//	//return new Constant<T>(Compute.Cosine(a.Value));
+				//}
 				return base.Simplify<T>();
 			}
 
@@ -1496,10 +1498,11 @@ namespace Towel.Mathematics
 
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
-				if (A is Constant<T> a)
-				{
-					//return new Constant<T>(Compute.Tanget(a.Value));
-				}
+				#warning TODO
+				//if (A is Constant<T> a)
+				//{
+				//	//return new Constant<T>(Compute.Tanget(a.Value));
+				//}
 				return base.Simplify<T>();
 			}
 
@@ -1541,10 +1544,11 @@ namespace Towel.Mathematics
 
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
-				if (A is Constant<T> a)
-				{
-					//return new Constant<T>(Compute.Cosecant(a.Value));
-				}
+				#warning TODO
+				//if (A is Constant<T> a)
+				//{
+				//	//return new Constant<T>(Compute.Cosecant(a.Value));
+				//}
 				return base.Simplify<T>();
 			}
 
@@ -1586,10 +1590,11 @@ namespace Towel.Mathematics
 
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
-				if (A is Constant<T> a)
-				{
-					//return new Constant<T>(Compute.Secant(a.Value));
-				}
+				#warning TODO
+				//if (A is Constant<T> a)
+				//{
+				//	//return new Constant<T>(Compute.Secant(a.Value));
+				//}
 				return base.Simplify<T>();
 			}
 
@@ -1631,10 +1636,11 @@ namespace Towel.Mathematics
 
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
-				if (A is Constant<T> a)
-				{
-					//return new Constant<T>(Compute.Cotangent(a.Value));
-				}
+				#warning TODO
+				//if (A is Constant<T> a)
+				//{
+				//	//return new Constant<T>(Compute.Cotangent(a.Value));
+				//}
 				return base.Simplify<T>();
 			}
 
