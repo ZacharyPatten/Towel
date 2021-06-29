@@ -616,7 +616,6 @@ namespace Towel.Measurements
 						conversionFactorTable[A][B] = x => throw new Exception("Bug. Encountered an unhandled unit conversion.");
 					}
 
-
 					if (conversionFactorTable[A][B] is null)
 					{
 						Type type1 = typeof(UNITS);
@@ -765,7 +764,6 @@ namespace Towel.Measurements
 		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Zettaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Zettacoulombs, _TimeUnits2 = Time.Units.Seconds };
 		/// <summary>Units of an electric charge measurement.</summary>
 		public readonly static MeasurementUnitsSyntaxTypes.ElectricCurrentBaseUnits Yottaampheres = new() { _ElectricChargeUnits1 = ElectricCharge.Units.Yottacoulombs, _TimeUnits2 = Time.Units.Seconds };
-
 
 		#endregion
 

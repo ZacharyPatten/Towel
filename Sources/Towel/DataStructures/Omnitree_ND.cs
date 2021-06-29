@@ -248,7 +248,6 @@ namespace Towel.DataStructures
 
 		internal delegate bool SpatialCheck<T1, T2>(T1 space1, T2 space2);
 
-
 		#endregion
 	}
 

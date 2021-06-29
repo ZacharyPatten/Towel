@@ -34,7 +34,6 @@ namespace Towel.DataStructures
 
 	}
 
-
 	/// <summary>Static helpers for <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class Heap
 	{

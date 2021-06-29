@@ -973,7 +973,6 @@ namespace Towel
 		internal static string GetXmlNameTypeSegment(string typeFullNameString) =>
 			Regex.Replace(typeFullNameString, @"\[.*\]", string.Empty).Replace('+', '.');
 
-
 		#endregion
 
 		#region GetXmlDocumentation

@@ -1092,7 +1092,6 @@ namespace Towel.Mathematics
 			}
 		}
 
-
 		/// <summary>Divides all the values in the matrix by a scalar.</summary>
 		/// <param name="a">The matrix to divide the values of.</param>
 		/// <param name="b">The scalar to divide all the matrix values by.</param>

@@ -602,7 +602,6 @@ namespace Towel.Mathematics
 			}
 		}
 
-
 		/// <summary>Divides all the components of a vector by a scalar.</summary>
 		/// <param name="a">The vector to have the components divided by.</param>
 		/// <param name="b">The scalar to divide the vector components by.</param>
