@@ -21,7 +21,6 @@ using System.Runtime.CompilerServices;
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1604:Element documentation should have summary")] // use source suppressions; this conflicts with inheritdoc
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1614:Element parameter documentation should have text")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1617:Void return value should not be documented")]
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1616:Element return value documentation should have text")]
 
 // TODO: reconsider these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression

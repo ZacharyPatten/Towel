@@ -1165,17 +1165,12 @@ namespace Towel.Mathematics
 
 		/// <summary>Computes a hash code from the values in this quaternion.</summary>
 		/// <returns>The computed hash code.</returns>
-		public override int GetHashCode() =>
-				Hash(_x) ^
-				Hash(_y) ^
-				Hash(_z) ^
-				Hash(_w);
+		public override int GetHashCode() => HashCode.Combine(Hash(_x), Hash(_y), Hash(_z), Hash(_w));
 
 		/// <summary>Does a reference equality check.</summary>
-		/// <param name="other"></param>
-		/// <returns></returns>
-		public override bool Equals(object? other) =>
-			other is Quaternion<T> b && Equal(this, b);
+		/// <param name="other">The other operand of the equality check.</param>
+		/// <returns>True if equal or false.</returns>
+		public override bool Equals(object? other) => other is Quaternion<T> b && Equal(this, b);
 
 		#endregion
 	}
