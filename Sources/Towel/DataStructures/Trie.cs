@@ -65,7 +65,7 @@ namespace Towel.DataStructures
 		DataStructure.IRemovable<Action<Action<T>>>,
 		DataStructure.IAuditable<Action<Action<T>>>
 	{
-		
+
 	}
 
 	/// <summary>Static helpers.</summary>
@@ -103,7 +103,7 @@ namespace Towel.DataStructures
 		DataStructure.IHashing<T, THash>
 		where TEquate : struct, IFunc<T, T, bool>
 		where THash : struct, IFunc<T, int>
-	{ 
+	{
 		internal MapHashLinked<Node, T, TEquate, THash> _map;
 		internal int _count;
 

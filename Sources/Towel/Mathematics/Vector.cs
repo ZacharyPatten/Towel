@@ -252,7 +252,7 @@ namespace Towel.Mathematics
 
 		#region MagnitudeSquared
 
-		/// <summary>Computes the length of this vector, but doesn't square root it for 
+		/// <summary>Computes the length of this vector, but doesn't square root it for
 		/// possible optimization purposes.</summary>
 		/// <returns>The squared length of the vector.</returns>
 		public static T GetMagnitudeSquared(Vector<T> a)
@@ -268,15 +268,9 @@ namespace Towel.Mathematics
 			return result;
 		}
 
-		/// <summary>Computes the length of this vector, but doesn't square root it for 
+		/// <summary>Computes the length of this vector, but doesn't square root it for
 		/// possible optimization purposes.</summary>
-		public T MagnitudeSquared
-		{
-			get
-			{
-				return GetMagnitudeSquared(this);
-			}
-		}
+		public T MagnitudeSquared => GetMagnitudeSquared(this);
 
 		#endregion
 

@@ -203,7 +203,7 @@ namespace Towel.Mathematics
 
 		#region MagnitudeSquared
 
-		/// <summary>Computes the magnitude of this quaternion, but doesn't square root it for 
+		/// <summary>Computes the magnitude of this quaternion, but doesn't square root it for
 		/// possible optimization purposes.</summary>
 		/// <returns>The squared length of the quaternion.</returns>
 		public static T GetMagnitudeSquared(Quaternion<T> a)
@@ -230,7 +230,7 @@ namespace Towel.Mathematics
 			};
 		}
 
-		/// <summary>Computes the magnitude of this quaternion, but doesn't square root it for 
+		/// <summary>Computes the magnitude of this quaternion, but doesn't square root it for
 		/// possible optimization purposes.</summary>
 		public T MagnitudeSquared => GetMagnitudeSquared(this);
 

@@ -120,7 +120,7 @@ namespace Towel.DataStructures
 			{
 				if (value is not null)
 				{
-					if (value.Value < 1) throw new ArgumentOutOfRangeException(message: "value.Value < 1", paramName: nameof(value)); 
+					if (value.Value < 1) throw new ArgumentOutOfRangeException(message: "value.Value < 1", paramName: nameof(value));
 					else if (value.Value > _array.Length + 1) Array.Resize<T>(ref _array, value.Value + 1);
 				}
 				_minimumCapacity = value;

@@ -1425,7 +1425,7 @@ namespace Towel
 		/// <summary>
 		/// <para>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
-		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/> 
+		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/>
 		/// while retaining the order of the respective values. Uses a recursive algorithm.
 		/// </para>
 		/// <para>Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)</para>
@@ -1436,7 +1436,7 @@ namespace Towel
 
 		/// <summary>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
-		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/> 
+		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/>
 		/// while retaining the order of the respective values. Uses a interative algorithm.
 		/// <para>Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)</para>
 		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>

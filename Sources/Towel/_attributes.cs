@@ -28,7 +28,6 @@ using System.Runtime.CompilerServices;
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1520:Use braces consistently")] // auto
 [assembly: SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1106:Code should not contain empty statements")] // auto
 [assembly: SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1119:Statement should not use unnecessary parenthesis")] // auto
-[assembly: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1028:Code should not contain trailing whitespace")] // auto
 
 // TODO: reconsider these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression

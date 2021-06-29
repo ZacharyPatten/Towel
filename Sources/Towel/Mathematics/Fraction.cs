@@ -258,7 +258,7 @@ namespace Towel.Mathematics
 		/// <summary>Checks for equality with another object.</summary>
 		/// <param name="obj">The object to equate with this.</param>
 		/// <returns>The result of the equate.</returns>
-		public override bool Equals(object? obj) => 
+		public override bool Equals(object? obj) =>
 			obj is Fraction<T> fraction && Fraction<T>.Equality(this, fraction);
 
 		#endregion

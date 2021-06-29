@@ -304,7 +304,7 @@ namespace Towel
 
 				if (typeof(C) == typeof(bool))
 				{
-					EquateImplementation<A, B, bool>.Function = 
+					EquateImplementation<A, B, bool>.Function =
 						(typeof(A).IsValueType, typeof(B).IsValueType) switch
 						{
 							(true, true)   => (A, B) => A!.Equals(B),
@@ -985,7 +985,7 @@ namespace Towel
 						return Function(a, b);
 					}
 				}
-				
+
 				Function = (A, B) =>
 				{
 					if (IsInteger(B) && IsPositive(B) && LessThan(B, Convert<int, T>(int.MaxValue)))

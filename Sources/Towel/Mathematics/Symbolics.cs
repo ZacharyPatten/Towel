@@ -3506,7 +3506,7 @@ namespace Towel.Mathematics
 							//string.IsNullOrWhiteSpace(
 							//    @string.Substring(
 							//        0
-							//        currentMatch.Index + 
+							//        currentMatch.Index +
 
 							//        previousMatch.Index + previousMatch.Length,
 							//        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1)) &&
@@ -3760,7 +3760,7 @@ namespace Towel.Mathematics
 					return exp;
 				});
 
-			// multiply all the expressions together, starting with the constants because 
+			// multiply all the expressions together, starting with the constants because
 			// it will look better if converted to a string
 			bool set = false;
 			parsedExpression = null;

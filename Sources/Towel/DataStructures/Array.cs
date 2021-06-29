@@ -35,7 +35,7 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Constructs an array that implements a traversal delegate function 
+		/// <summary>Constructs an array that implements a traversal delegate function
 		/// which is an optimized "foreach" implementation.</summary>
 		/// <param name="size">The length of the array in memory.</param>
 		public Array(int size)

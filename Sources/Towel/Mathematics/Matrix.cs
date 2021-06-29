@@ -174,7 +174,7 @@ namespace Towel.Mathematics
 		}
 
 		/// <summary>
-		/// Creates a new matrix using ROW MAJOR ORDER. The data will be referenced to, so 
+		/// Creates a new matrix using ROW MAJOR ORDER. The data will be referenced to, so
 		/// changes to it will modify the constructed matrix.
 		/// </summary>
 		/// <param name="rows">The number of rows to construct.</param>
@@ -1464,7 +1464,7 @@ namespace Towel.Mathematics
 
 		#region ConcatenateRowWise
 
-		/// <summary>Combines two matrices from left to right 
+		/// <summary>Combines two matrices from left to right
 		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="a">The left matrix of the concatenation.</param>
 		/// <param name="b">The right matrix of the concatenation.</param>
@@ -1516,7 +1516,7 @@ namespace Towel.Mathematics
 			}
 		}
 
-		/// <summary>Combines two matrices from left to right 
+		/// <summary>Combines two matrices from left to right
 		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="a">The left matrix of the concatenation.</param>
 		/// <param name="b">The right matrix of the concatenation.</param>
@@ -1528,7 +1528,7 @@ namespace Towel.Mathematics
 			return c!;
 		}
 
-		/// <summary>Combines two matrices from left to right 
+		/// <summary>Combines two matrices from left to right
 		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="b">The right matrix of the concatenation.</param>
 		/// <param name="c">The resulting matrix of the concatenation.</param>
@@ -1537,7 +1537,7 @@ namespace Towel.Mathematics
 			ConcatenateRowWise(this, b, ref c);
 		}
 
-		/// <summary>Combines two matrices from left to right 
+		/// <summary>Combines two matrices from left to right
 		/// (result.Rows = left.Rows AND result.Columns = left.Columns + right.Columns).</summary>
 		/// <param name="b">The right matrix of the concatenation.</param>
 		/// <returns>The resulting matrix of the concatenation.</returns>

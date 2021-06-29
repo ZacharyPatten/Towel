@@ -23,7 +23,7 @@ namespace Towel.DataStructures
 	/// <summary>Static helpers for <see cref="IAvlTree{T}"/> and <see cref="IAvlTree{T, TCompare}"/>.</summary>
 	public static class AvlTree
 	{
-		
+
 	}
 
 	/// <summary>Static helpers for <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
@@ -471,7 +471,7 @@ namespace Towel.DataStructures
 		/// <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
 		internal static int Height(Node? node) => node is null ? -1 : node.Height;
 
-		/// <summary>Removes the left-most child of an AVL Tree node and returns it 
+		/// <summary>Removes the left-most child of an AVL Tree node and returns it
 		/// through the out parameter.</summary>
 		/// <param name="node">The tree to remove the left-most child from.</param>
 		/// <param name="leftMost">The left-most child of this AVL tree.</param>
@@ -488,7 +488,7 @@ namespace Towel.DataStructures
 			return Balance(node);
 		}
 
-		/// <summary>Removes the right-most child of an AVL Tree node and returns it 
+		/// <summary>Removes the right-most child of an AVL Tree node and returns it
 		/// through the out parameter.</summary>
 		/// <param name="node">The tree to remove the right-most child from.</param>
 		/// <param name="rightMost">The right-most child of this AVL tree.</param>

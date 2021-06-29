@@ -26,7 +26,7 @@ namespace Towel.DataStructures
 	//      |          |          |   v
 	//      |__________|__________|  -2D
 	//
-	//       -1D <-----------> +1D 
+	//       -1D <-----------> +1D
 	//
 	// 3 Dimensional:
 	//
@@ -46,7 +46,7 @@ namespace Towel.DataStructures
 	//              |     0    |     1    | |/             |
 	//              |          |          | /              v
 	//              |__________|__________|/              -2D
-	//	         
+	//
 	//                   ^
 	//                   |
 	//                   4 (behind 0)
@@ -65,7 +65,7 @@ namespace Towel.DataStructures
 	//      DESCRIPTION: indicates how many items can be placed in a leaf before a
 	//      tree expansion should occur
 	//
-	//      EXAMPLE: if the current items-per-leaf value is 7 but we just added 8 
+	//      EXAMPLE: if the current items-per-leaf value is 7 but we just added 8
 	//      items to a leaf, that leaf must become a branch and its contents must
 	//      be divided up into new leaves of the new branch
 	//
@@ -111,7 +111,7 @@ namespace Towel.DataStructures
 
 			/// <summary>Implicitly converts the "None" keyword into a non-existant bound.</summary>
 			/// <param name="keyword">The keyword to convert into a non-existant bound.</param>
-			public static implicit operator Bound<T>(Keyword keyword) => 
+			public static implicit operator Bound<T>(Keyword keyword) =>
 				keyword is Keyword.None
 					? None
 					: throw new InvalidCastException("Implicit cast from invalid Omnitree.Keyword.");
