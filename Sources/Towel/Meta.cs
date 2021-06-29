@@ -831,6 +831,11 @@ namespace Towel
 				throw new TowelBugException($"{nameof(GetDocumentation)} {nameof(methodInfo)} is not null && {nameof(constructorInfo)} is not null");
 			}
 
+			if (methodInfo is not null && methodInfo.DeclaringType!.IsGenericType)
+			{
+				methodInfo = methodInfo.DeclaringType.GetGenericTypeDefinition().GetMethods().First(x => x.MetadataToken == methodInfo.MetadataToken);
+			}
+
 			MethodBase? methodBase = methodInfo ?? (MethodBase?)constructorInfo;
 			_ = methodBase ?? throw new TowelBugException($"{nameof(GetDocumentation)} {nameof(methodInfo)} is null && {nameof(constructorInfo)} is null");
 			_ = methodBase.DeclaringType ?? throw new ArgumentException($"{nameof(methodBase)}.{nameof(Type.DeclaringType)} is null");
