@@ -836,7 +836,7 @@ namespace Towel
 					if (step(value) is Break)
 					{
 						return Break;
-					};
+					}
 				}
 				return Continue;
 			};

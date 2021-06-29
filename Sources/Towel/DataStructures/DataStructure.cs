@@ -108,7 +108,7 @@ namespace Towel.DataStructures
 			var (success, exception) = addable.TryAdd(value);
 			if (!success)
 			{
-				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null");
 			}
 		}
 
@@ -121,7 +121,7 @@ namespace Towel.DataStructures
 			var (success, exception) = removable.TryRemove(value);
 			if (!success)
 			{
-				throw exception ?? new ArgumentException($"{nameof(Remove)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Remove)} failed but the {nameof(exception)} is null");
 			}
 		}
 

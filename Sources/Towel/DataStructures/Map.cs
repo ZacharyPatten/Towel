@@ -162,7 +162,7 @@ namespace Towel.DataStructures
 			var (success, exception, oldValue, newValue) = map.TryUpdate(key, update);
 			if (!success)
 			{
-				throw exception ?? new ArgumentException($"{nameof(Update)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Update)} failed but the {nameof(exception)} is null");
 			}
 			return (oldValue!, newValue!);
 		}
@@ -181,7 +181,7 @@ namespace Towel.DataStructures
 			var (success, exception, existed, oldValue) = map.TryAddOrUpdate(key, value, update);
 			if (!success)
 			{
-				throw exception ?? new ArgumentException($"{nameof(AddOrUpdate)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(AddOrUpdate)} failed but the {nameof(exception)} is null");
 			}
 			return (existed!.Value, oldValue);
 		}
@@ -232,7 +232,7 @@ namespace Towel.DataStructures
 			var (success, exception) = map.TryAdd(key, value);
 			if (!success)
 			{
-				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Add)} failed but the {nameof(exception)} is null");
 			}
 		}
 

@@ -26,7 +26,6 @@ using System.Runtime.CompilerServices;
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1507:Code should not contain multiple blank lines in a row")] // auto
 [assembly: SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1210:Using directives should be ordered alphabetically by namespace")] // auto
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1520:Use braces consistently")] // auto
-[assembly: SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1106:Code should not contain empty statements")] // auto
 
 // TODO: reconsider these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression

@@ -1141,7 +1141,7 @@ namespace Towel
 					throw new ArgumentNullException(nameof(memberInfo));
 				default:
 					throw new TowelBugException($"{nameof(GetDocumentation)} encountered an unhandled {nameof(MemberInfo)} type: {memberInfo}");
-			};
+			}
 		}
 
 		/// <summary>Gets the XML documentation for a parameter.</summary>

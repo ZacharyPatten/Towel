@@ -112,7 +112,7 @@ namespace Towel.DataStructures
 			var (success, exception, count) = bag.TryGet(value);
 			if (!success)
 			{
-				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
 			}
 			return count!.Value;
 		}
@@ -132,7 +132,7 @@ namespace Towel.DataStructures
 			var (success, exception, existed, oldCount) = bag.TrySet(value, count);
 			if (!success)
 			{
-				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null"); ;
+				throw exception ?? new ArgumentException($"{nameof(Get)} failed but the {nameof(exception)} is null");
 			}
 			return (existed!.Value, oldCount);
 		}
