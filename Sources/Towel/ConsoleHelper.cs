@@ -446,7 +446,7 @@ namespace Towel
 				}
 				else
 				{
-					string percentString = ((int)(percentage)).ToString(System.Globalization.CultureInfo.InvariantCulture);
+					string percentString = ((int)percentage).ToString(System.Globalization.CultureInfo.InvariantCulture);
 					ConsoleWriteString(percentString);
 					ConsoleWriteChar('%');
 					for (int i = percentString.Length; i < 3; i++)

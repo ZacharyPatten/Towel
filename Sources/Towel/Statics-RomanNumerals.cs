@@ -73,7 +73,7 @@ namespace Towel
 				};
 				if ((c.HasValue && c.Value < a) ||
 					(a == b && a == c && a == d) ||
-					((b.HasValue && b.Value < a && b.Value != RomanNumeralDigitsAllowedPrefix[a])) ||
+					(b.HasValue && b.Value < a && b.Value != RomanNumeralDigitsAllowedPrefix[a]) ||
 					(b == a && !RomanNumeralDigitsAllowsDuplicates[a]))
 				{
 					return (false, default);

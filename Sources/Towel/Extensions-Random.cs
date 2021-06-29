@@ -104,14 +104,14 @@ namespace Towel
 		/// <param name="length">The length of the randomized alphabetical <see cref="string"/> to generate.</param>
 		/// <returns>The generated randomized alphabetical <see cref="string"/>.</returns>
 		public static string NextUpperCaseEnglishAlphabeticString(this Random random, int length) =>
-			NextString(random, length, (UpperCaseEnglishCharacters).ToCharArray());
+			NextString(random, length, UpperCaseEnglishCharacters.ToCharArray());
 
 		/// <summary>Generates a random English alhpabetical <see cref="string"/> of a given length (lower case characters only).</summary>
 		/// <param name="random">The random generation algorithm.</param>
 		/// <param name="length">The length of the randomized alphabetical <see cref="string"/> to generate.</param>
 		/// <returns>The generated randomized alphabetical <see cref="string"/>.</returns>
 		public static string NextLowerCaseEnglishAlphabeticString(this Random random, int length) =>
-			NextString(random, length, (LowerCaseEnglishCharacters).ToCharArray());
+			NextString(random, length, LowerCaseEnglishCharacters.ToCharArray());
 
 		/// <summary>Generates a random char value.</summary>
 		/// <param name="random">The random generation algorithm.</param>
