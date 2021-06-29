@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Linq;
 using System.Text.RegularExpressions;
-using Towel.Mathematics;
 using Towel.DataStructures;
+using Towel.Mathematics;
 using static Towel.Statics;
 
 namespace Towel.Measurements

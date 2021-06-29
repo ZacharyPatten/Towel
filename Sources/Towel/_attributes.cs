@@ -24,7 +24,6 @@ using System.Runtime.CompilerServices;
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1616:Element return value documentation should have text")]
 [assembly: SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1206:Declaration keywords should follow order")] // auto
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1507:Code should not contain multiple blank lines in a row")] // auto
-[assembly: SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1210:Using directives should be ordered alphabetically by namespace")] // auto
 
 // TODO: reconsider these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression
