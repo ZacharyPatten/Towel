@@ -3,6 +3,34 @@
 	"tasks":
 	[
 		{
+			"label": "Build [Debug]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
+				"--configuration", "Debug",
+				"${workspaceFolder}",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build [Release]",
+			"command": "dotnet",
+			"type": "process",
+			"args":
+			[
+				"build",
+				"--configuration", "Release",
+				"${workspaceFolder}",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
 			"label": "Build Towel [Debug]",
 			"command": "dotnet",
 			"type": "process",
@@ -366,19 +394,19 @@
 			],
 			"problemMatcher": "$msCompile"
 		},
-		{
-			"label": "dotnet run Towel_Generating",
-			"command": "dotnet",
-			"type": "process",
-			"args":
-			[
-				"run",
-				"--configuration", "Release",
-				"${workspaceFolder}/Tools/Towel_Generating/Towel_Generating.csproj",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary",
-			],
-			"problemMatcher": "$msCompile"
-		},
+		//{
+		//	"label": "dotnet run Towel_Generating",
+		//	"command": "dotnet",
+		//	"type": "process",
+		//	"args":
+		//	[
+		//		"run",
+		//		"--configuration", "Release",
+		//		"${workspaceFolder}/Tools/Towel_Generating/Towel_Generating.csproj",
+		//		"/property:GenerateFullPaths=true",
+		//		"/consoleloggerparameters:NoSummary",
+		//	],
+		//	"problemMatcher": "$msCompile"
+		//},
 	]
 }
