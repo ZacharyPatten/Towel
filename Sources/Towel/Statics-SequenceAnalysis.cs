@@ -542,54 +542,54 @@ namespace Towel
 
 		#region Possible Optimization (Still in Development)
 
-		//public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
-		//{
-		//    // this is an optimized median algorithm, but it only works on odd sets without duplicates
-		//    if (hash is not null && equate is not null && values.Length % 2 is 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
-		//    {
-		//        int medianIndex = 0;
-		//        OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
-		//        return values[medianIndex];
-		//    }
-		//    else
-		//    {
-		//        return Median(compare, values);
-		//    }
-		//}
+		// public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, params T[] values)
+		// {
+		//     // this is an optimized median algorithm, but it only works on odd sets without duplicates
+		//     if (hash is not null && equate is not null && values.Length % 2 is 1 && !values.ToStepper().ContainsDuplicates(equate, hash))
+		//     {
+		//         int medianIndex = 0;
+		//         OddNoDupesMedianImplementation(values, values.Length, ref medianIndex, compare);
+		//         return values[medianIndex];
+		//     }
+		//     else
+		//     {
+		//         return Median(compare, values);
+		//     }
+		// }
 
-		//public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, Stepper<T> stepper)
-		//{
-		//    return Median(compare, hash, equate, stepper.ToArray());
-		//}
+		// public static T Median<T>(Func<T, T, CompareResult> compare, Hash<T> hash, Func<T, T, bool> equate, Stepper<T> stepper)
+		// {
+		//     return Median(compare, hash, equate, stepper.ToArray());
+		// }
 
 		///// <summary>Fast algorithm for median computation, but only works on data with an odd number of values without duplicates.</summary>
-		//internal static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Func<T, T, CompareResult> compare)
-		//{
-		//    int L = 0;
-		//    int R = n - 1;
-		//    k = n / 2;
-		//    int i; int j;
-		//    while (L < R)
-		//    {
-		//        T x = a[k];
-		//        i = L; j = R;
-		//        OddNoDupesMedianImplementation_Split(a, n, x, ref i, ref j, compare);
-		//        if (j <= k) L = i;
-		//        if (i >= k) R = j;
-		//    }
-		//}
+		// internal static void OddNoDupesMedianImplementation<T>(T[] a, int n, ref int k, Func<T, T, CompareResult> compare)
+		// {
+		//     int L = 0;
+		//     int R = n - 1;
+		//     k = n / 2;
+		//     int i; int j;
+		//     while (L < R)
+		//     {
+		//         T x = a[k];
+		//         i = L; j = R;
+		//         OddNoDupesMedianImplementation_Split(a, n, x, ref i, ref j, compare);
+		//         if (j <= k) L = i;
+		//         if (i >= k) R = j;
+		//     }
+		// }
 
-		//internal static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Func<T, T, CompareResult> compare)
-		//{
-		//    do
-		//    {
-		//        while (compare(a[i], x) is Less) i++;
-		//        while (compare(a[j], x) is Greater) j--;
-		//        T t = a[i];
-		//        a[i] = a[j];
-		//        a[j] = t;
-		//    } while (i < j);
-		//}
+		// internal static void OddNoDupesMedianImplementation_Split<T>(T[] a, int n, T x, ref int i, ref int j, Func<T, T, CompareResult> compare)
+		// {
+		//     do
+		//     {
+		//         while (compare(a[i], x) is Less) i++;
+		//         while (compare(a[j], x) is Greater) j--;
+		//         T t = a[i];
+		//         a[i] = a[j];
+		//         a[j] = t;
+		//     } while (i < j);
+		// }
 
 		#endregion
 
@@ -712,6 +712,8 @@ namespace Towel
 
 		#region Correlation
 
+		#if false
+
 		//        /// <summary>Computes the median of a set of values.</summary>
 		//        internal static Compute.Delegates.Correlation Correlation_internal = (Stepper<T> a, Stepper<T> b) =>
 		//        {
@@ -756,6 +758,9 @@ namespace Towel
 		//        {
 		//            return Correlation_internal(a, b);
 		//        }
+
+		#endif
+
 		#endregion
 
 		#region Occurences
@@ -1453,36 +1458,36 @@ namespace Towel
 
 					#region expanded version
 
-					//if (i is 0 && j is 0)
-					//{
-					//	d[i, j] = true;
-					//}
-					//else if (i is 0)
-					//{
-					//	if (equate.Do(b[j - 1], c[j - 1]))
-					//	{
-					//		d[i, j] = d[i, j - 1];
-					//	}
-					//}
-					//else if (j is 0)
-					//{
-					//	if (equate.Do(a[i - 1], c[i - 1]))
-					//	{
-					//		d[i, j] = d[i - 1, j];
-					//	}
-					//}
-					//else if (equate.Do(a[i - 1], c[i + j - 1]) && !equate.Do(b[j - 1], c[i + j - 1]))
-					//{
-					//	d[i, j] = d[i - 1, j];
-					//}
-					//else if (!equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]))
-					//{
-					//	d[i, j] = d[i, j - 1];
-					//}
-					//else if (equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]))
-					//{
-					//	d[i, j] = d[i - 1, j] || d[i, j - 1];
-					//}
+					// if (i is 0 && j is 0)
+					// {
+					//     d[i, j] = true;
+					// }
+					// else if (i is 0)
+					// {
+					//     if (equate.Do(b[j - 1], c[j - 1]))
+					//     {
+					//         d[i, j] = d[i, j - 1];
+					//     }
+					// }
+					// else if (j is 0)
+					// {
+					//     if (equate.Do(a[i - 1], c[i - 1]))
+					//     {
+					//         d[i, j] = d[i - 1, j];
+					//     }
+					// }
+					// else if (equate.Do(a[i - 1], c[i + j - 1]) && !equate.Do(b[j - 1], c[i + j - 1]))
+					// {
+					//     d[i, j] = d[i - 1, j];
+					// }
+					// else if (!equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]))
+					// {
+					//     d[i, j] = d[i, j - 1];
+					// }
+					// else if (equate.Do(a[i - 1], c[i + j - 1]) && equate.Do(b[j - 1], c[i + j - 1]))
+					// {
+					//     d[i, j] = d[i - 1, j] || d[i, j - 1];
+					// }
 
 					#endregion
 				}

@@ -1410,10 +1410,10 @@ namespace Towel.Mathematics
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
 				#warning TODO
-				//if (A is Constant<T> a)
-				//{
-				//	//return new Constant<T>(Compute.Sine(a.Value));
-				//}
+				// if (A is Constant<T> a)
+				// {
+				//     //return new Constant<T>(Compute.Sine(a.Value));
+				// }
 				return base.Simplify<T>();
 			}
 
@@ -1456,10 +1456,10 @@ namespace Towel.Mathematics
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
 				#warning TODO
-				//if (A is Constant<T> a)
-				//{
-				//	//return new Constant<T>(Compute.Cosine(a.Value));
-				//}
+				// if (A is Constant<T> a)
+				// {
+				//     //return new Constant<T>(Compute.Cosine(a.Value));
+				// }
 				return base.Simplify<T>();
 			}
 
@@ -1502,10 +1502,10 @@ namespace Towel.Mathematics
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
 				#warning TODO
-				//if (A is Constant<T> a)
-				//{
-				//	//return new Constant<T>(Compute.Tanget(a.Value));
-				//}
+				// if (A is Constant<T> a)
+				// {
+				//     //return new Constant<T>(Compute.Tanget(a.Value));
+				// }
 				return base.Simplify<T>();
 			}
 
@@ -1548,10 +1548,10 @@ namespace Towel.Mathematics
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
 				#warning TODO
-				//if (A is Constant<T> a)
-				//{
-				//	//return new Constant<T>(Compute.Cosecant(a.Value));
-				//}
+				// if (A is Constant<T> a)
+				// {
+				//     //return new Constant<T>(Compute.Cosecant(a.Value));
+				// }
 				return base.Simplify<T>();
 			}
 
@@ -1594,10 +1594,10 @@ namespace Towel.Mathematics
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
 				#warning TODO
-				//if (A is Constant<T> a)
-				//{
-				//	//return new Constant<T>(Compute.Secant(a.Value));
-				//}
+				// if (A is Constant<T> a)
+				// {
+				//     //return new Constant<T>(Compute.Secant(a.Value));
+				// }
 				return base.Simplify<T>();
 			}
 
@@ -1640,10 +1640,10 @@ namespace Towel.Mathematics
 			internal override Expression Simplify<T>(params Expression[] operands)
 			{
 				#warning TODO
-				//if (A is Constant<T> a)
-				//{
-				//	//return new Constant<T>(Compute.Cotangent(a.Value));
-				//}
+				// if (A is Constant<T> a)
+				// {
+				//     //return new Constant<T>(Compute.Cotangent(a.Value));
+				// }
 				return base.Simplify<T>();
 			}
 
@@ -2166,18 +2166,18 @@ namespace Towel.Mathematics
 				}
 				#endregion
 				#region Distributive Property
-				//{   // Rule: [X * (A +/- B)] => [X * A + X * B] where X is Variable
-				//    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
-				//    {
-				//        // This might not be necessary
-				//    }
-				//}
-				//{   // Rule: [(A +/- B) * X] => [X * A + X * B] where X is Variable
-				//    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
-				//    {
-				//        // This might not be necessary
-				//    }
-				//}
+				// {   // Rule: [X * (A +/- B)] => [X * A + X * B] where X is Variable
+				//     if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
+				//     {
+				//         // This might not be necessary
+				//     }
+				// }
+				// {   // Rule: [(A +/- B) * X] => [X * A + X * B] where X is Variable
+				//     if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
+				//     {
+				//         // This might not be necessary
+				//     }
+				// }
 				#endregion
 				#region Duplicate Variable Multiplications
 				{   // Rule: [X * X] => [X ^ 2] where X is Variable
@@ -2361,18 +2361,18 @@ namespace Towel.Mathematics
 				}
 				#endregion
 				#region Distributive Property
-				//{   // Rule: [X / (A +/- B)] => [X / A + X / B] where where A is constant, B is constant, and X is Variable
-				//    if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
-				//    {
-				//        // This might not be necessary
-				//    }
-				//}
-				//{   // Rule: [(A +/- B) / X] => [(A / X) + (B / X)] where where A is constant, B is constant, and X is Variable
-				//    if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
-				//    {
-				//        // This might not be necessary
-				//    }
-				//}
+				// {   // Rule: [X / (A +/- B)] => [X / A + X / B] where where A is constant, B is constant, and X is Variable
+				//     if ((LEFT is Variable VARIABLE && RIGHT is AddOrSubtract ADDORSUBTRACT))
+				//     {
+				//         // This might not be necessary
+				//     }
+				// }
+				// {   // Rule: [(A +/- B) / X] => [(A / X) + (B / X)] where where A is constant, B is constant, and X is Variable
+				//     if ((RIGHT is Variable VARIABLE && LEFT is AddOrSubtract ADDORSUBTRACT))
+				//     {
+				//         // This might not be necessary
+				//     }
+				// }
 				#endregion
 				#region Division With Powered Variables
 				{   // Rule: [(V ^ A) / (V ^ B)] => [V ^ C] where A is constant, B is constant, V is a variable, and C is A - B
@@ -3180,13 +3180,13 @@ namespace Towel.Mathematics
 					}
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
 					Func<KnownConstantOfUnknownType> newFunction = System.Linq.Expressions.Expression.Lambda<Func<KnownConstantOfUnknownType>>(newExpression).Compile();
-					//string knownConstant = type.ConvertToCsharpSource();
-					//if (knownConstant.Contains("+"))
-					//{
-					//    int index = knownConstant.LastIndexOf("+");
-					//    knownConstant = knownConstant.Substring(index + 1);
-					//}
-					//ParsableKnownConstants.Add(knownConstant.ToLower(), newFunction);
+					// string knownConstant = type.ConvertToCsharpSource();
+					// if (knownConstant.Contains("+"))
+					// {
+					//     int index = knownConstant.LastIndexOf("+");
+					//     knownConstant = knownConstant.Substring(index + 1);
+					// }
+					// ParsableKnownConstants.Add(knownConstant.ToLower(), newFunction);
 					KnownConstantAttribute? knownConstantAttribute = type.GetCustomAttribute<KnownConstantAttribute>();
 					if (knownConstantAttribute is not null)
 					{
@@ -3508,15 +3508,14 @@ namespace Towel.Mathematics
 							}
 
 							if (IsUnaryLeftOperator())// first character in the expression
-													  //currentMatch.Index is 0 ||
+													  // currentMatch.Index is 0 ||
 													  //// nothing but white space to the left
-													  //(previousMatch is not null &&
+													  // (previousMatch is not null &&
 
-							//string.IsNullOrWhiteSpace(
+							// string.IsNullOrWhiteSpace(
 							//    @string.Substring(
 							//        0
 							//        currentMatch.Index +
-
 							//        previousMatch.Index + previousMatch.Length,
 							//        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1)) &&
 							//        ParsableLeftUnaryOperators.ContainsKey(currentMatch.Value)))
@@ -3534,10 +3533,10 @@ namespace Towel.Mathematics
 							}
 							else if (IsUnaryRightOperator())
 							//// last character(s) in the expression
-							//(currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
+							// (currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
 							//// nothing but white space until the next operator
-							//(nextMatch is not null &&
-							//string.IsNullOrWhiteSpace(
+							// (nextMatch is not null &&
+							// string.IsNullOrWhiteSpace(
 							//    @string.Substring(
 							//        currentMatch.Index + currentMatch.Length,
 							//        nextMatch.Index - (currentMatch.Index + currentMatch.Length) - 1)) &&

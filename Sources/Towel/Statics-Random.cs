@@ -1,6 +1,4 @@
-﻿//#define stackalloc
-
-using System;
+﻿using System;
 using Towel.DataStructures;
 
 namespace Towel

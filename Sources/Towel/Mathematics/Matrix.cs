@@ -1234,47 +1234,45 @@ namespace Towel.Mathematics
 
 			#region Old Version
 
-			//if (a is null)
-			//{
-			//	throw new ArgumentNullException(nameof(a));
-			//}
-			//if (!a.IsSquare)
-			//{
-			//	throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-			//}
-			//T determinant = Constant<T>.One;
-			//Matrix<T> rref = a.Clone();
-			//int a_rows = a._rows;
-			//for (int i = 0; i < a_rows; i++)
-			//{
-			//	if (Compute.Equal(rref[i, i], Constant<T>.Zero))
-			//	{
-			//		for (int j = i + 1; j < rref.Rows; j++)
-			//		{
-			//			if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
-			//			{
-			//				SwapRows(rref, i, j);
-			//				determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
-			//			}
-			//		}
-			//	}
-			//	determinant = Compute.Multiply(determinant, rref.Get(i, i));
-			//	T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
-			//	RowMultiplication(rref, i, temp_rowMultiplication);
-			//	for (int j = i + 1; j < rref.Rows; j++)
-			//	{
-			//		T scalar = Compute.Negate(rref.Get(j, i));
-			//		RowAddition(rref, j, i, scalar);
-
-			//	}
-			//	for (int j = i - 1; j >= 0; j--)
-			//	{
-			//		T scalar = Compute.Negate(rref.Get(j, i));
-			//		RowAddition(rref, j, i, scalar);
-
-			//	}
-			//}
-			//return determinant;
+			// if (a is null)
+			// {
+			//     throw new ArgumentNullException(nameof(a));
+			// }
+			// if (!a.IsSquare)
+			// {
+			//     throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+			// }
+			// T determinant = Constant<T>.One;
+			// Matrix<T> rref = a.Clone();
+			// int a_rows = a._rows;
+			// for (int i = 0; i < a_rows; i++)
+			// {
+			//     if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+			//     {
+			//         for (int j = i + 1; j < rref.Rows; j++)
+			//         {
+			//             if (Compute.NotEqual(rref.Get(j, i), Constant<T>.Zero))
+			//             {
+			//                 SwapRows(rref, i, j);
+			//                 determinant = Compute.Multiply(determinant, Constant<T>.NegativeOne);
+			//             }
+			//         }
+			//     }
+			//     determinant = Compute.Multiply(determinant, rref.Get(i, i));
+			//     T temp_rowMultiplication = Compute.Divide(Constant<T>.One, rref.Get(i, i));
+			//     RowMultiplication(rref, i, temp_rowMultiplication);
+			//     for (int j = i + 1; j < rref.Rows; j++)
+			//     {
+			//         T scalar = Compute.Negate(rref.Get(j, i));
+			//         RowAddition(rref, j, i, scalar);
+			//     }
+			//     for (int j = i - 1; j >= 0; j--)
+			//     {
+			//         T scalar = Compute.Negate(rref.Get(j, i));
+			//         RowAddition(rref, j, i, scalar);
+			//     }
+			// }
+			// return determinant;
 
 			#endregion
 
@@ -1708,64 +1706,64 @@ namespace Towel.Mathematics
 
 			#region Old Version
 
-			//if (a is null)
-			//{
-			//    throw new ArgumentNullException(nameof(a));
-			//}
-			//if (object.ReferenceEquals(a, b))
-			//{
-			//    a = a.Clone();
-			//}
-			//int Rows = a.Rows;
-			//if (b is not null && b._matrix.Length == a._matrix.Length)
-			//{
-			//    b._rows = Rows;
-			//    b._columns = a._columns;
-			//    CloneContents(a, b);
-			//}
-			//else
-			//{
-			//    b = a.Clone();
-			//}
-			//for (int i = 0; i < Rows; i++)
-			//{
-			//    if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
-			//    {
-			//        for (int j = i + 1; j < Rows; j++)
-			//        {
-			//            if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
-			//            {
-			//                SwapRows(b, i, j);
-			//            }
-			//        }
-			//    }
-			//    if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
-			//    {
-			//        continue;
-			//    }
-			//    if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
-			//    {
-			//        for (int j = i + 1; j < Rows; j++)
-			//        {
-			//            if (Compute.Equal(b.Get(j, i), Constant<T>.One))
-			//            {
-			//                SwapRows(b, i, j);
-			//            }
-			//        }
-			//    }
-			//    T rowMiltiplier = Compute.Divide(Constant<T>.One, b.Get(i, i));
-			//    RowMultiplication(b, i, rowMiltiplier);
-			//    for (int j = i + 1; j < Rows; j++)
-			//    {
-			//        T rowAddend = Compute.Negate(b.Get(j, i));
-			//        RowAddition(b, j, i, rowAddend);
-			//    }
-			//    for (int j = i - 1; j >= 0; j--)
-			//    {
-			//        T rowAddend = Compute.Negate(b.Get(j, i));
-			//        RowAddition(b, j, i, rowAddend);
-			//    }
-			//}
+			// if (a is null)
+			// {
+			//     throw new ArgumentNullException(nameof(a));
+			// }
+			// if (object.ReferenceEquals(a, b))
+			// {
+			//     a = a.Clone();
+			// }
+			// int Rows = a.Rows;
+			// if (b is not null && b._matrix.Length == a._matrix.Length)
+			// {
+			//     b._rows = Rows;
+			//     b._columns = a._columns;
+			//     CloneContents(a, b);
+			// }
+			// else
+			// {
+			//     b = a.Clone();
+			// }
+			// for (int i = 0; i < Rows; i++)
+			// {
+			//     if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+			//     {
+			//         for (int j = i + 1; j < Rows; j++)
+			//         {
+			//             if (Compute.NotEqual(b.Get(j, i), Constant<T>.Zero))
+			//             {
+			//                 SwapRows(b, i, j);
+			//             }
+			//         }
+			//     }
+			//     if (Compute.Equal(b.Get(i, i), Constant<T>.Zero))
+			//     {
+			//         continue;
+			//     }
+			//     if (Compute.NotEqual(b.Get(i, i), Constant<T>.One))
+			//     {
+			//         for (int j = i + 1; j < Rows; j++)
+			//         {
+			//             if (Compute.Equal(b.Get(j, i), Constant<T>.One))
+			//             {
+			//                 SwapRows(b, i, j);
+			//             }
+			//         }
+			//     }
+			//     T rowMiltiplier = Compute.Divide(Constant<T>.One, b.Get(i, i));
+			//     RowMultiplication(b, i, rowMiltiplier);
+			//     for (int j = i + 1; j < Rows; j++)
+			//     {
+			//         T rowAddend = Compute.Negate(b.Get(j, i));
+			//         RowAddition(b, j, i, rowAddend);
+			//     }
+			//     for (int j = i - 1; j >= 0; j--)
+			//     {
+			//         T rowAddend = Compute.Negate(b.Get(j, i));
+			//         RowAddition(b, j, i, rowAddend);
+			//     }
+			// }
 
 			#endregion
 		}
@@ -1841,75 +1839,77 @@ namespace Towel.Mathematics
 
 			//// Note: this method can be optimized...
 
-			//if (a is null)
-			//{
-			//    throw new ArgumentNullException(nameof(a));
-			//}
-			//if (Compute.Equal(Determinant(a), Constant<T>.Zero))
-			//{
-			//    throw new MathematicsException("inverse calculation failed.");
-			//}
-			//Matrix<T> identity = FactoryIdentity(a.Rows, a.Columns);
-			//Matrix<T> rref = a.Clone();
-			//for (int i = 0; i < a.Rows; i++)
-			//{
-			//    if (Compute.Equal(rref[i, i], Constant<T>.Zero))
-			//    {
-			//        for (int j = i + 1; j < rref.Rows; j++)
-			//        {
-			//            if (Compute.NotEqual(rref[j, i], Constant<T>.Zero))
-			//            {
-			//                SwapRows(rref, i, j);
-			//                SwapRows(identity, i, j);
-			//            }
-			//        }
-			//    }
-			//    T identityRowMultiplier = Compute.Divide(Constant<T>.One, rref[i, i]);
-			//    RowMultiplication(identity, i, identityRowMultiplier);
-			//    RowMultiplication(rref, i, identityRowMultiplier);
-			//    for (int j = i + 1; j < rref.Rows; j++)
-			//    {
-			//        T rowAdder = Compute.Negate(rref[j, i]);
-			//        RowAddition(identity, j, i, rowAdder);
-			//        RowAddition(rref, j, i, rowAdder);
-			//    }
-			//    for (int j = i - 1; j >= 0; j--)
-			//    {
-			//        T rowAdder = Compute.Negate(rref[j, i]);
-			//        RowAddition(identity, j, i, rowAdder);
-			//        RowAddition(rref, j, i, rowAdder);
-			//    }
-			//}
-			//b = identity;
+			// if (a is null)
+			// {
+			//     throw new ArgumentNullException(nameof(a));
+			// }
+			// if (Compute.Equal(Determinant(a), Constant<T>.Zero))
+			// {
+			//     throw new MathematicsException("inverse calculation failed.");
+			// }
+			// Matrix<T> identity = FactoryIdentity(a.Rows, a.Columns);
+			// Matrix<T> rref = a.Clone();
+			// for (int i = 0; i < a.Rows; i++)
+			// {
+			//     if (Compute.Equal(rref[i, i], Constant<T>.Zero))
+			//     {
+			//         for (int j = i + 1; j < rref.Rows; j++)
+			//         {
+			//             if (Compute.NotEqual(rref[j, i], Constant<T>.Zero))
+			//             {
+			//                 SwapRows(rref, i, j);
+			//                 SwapRows(identity, i, j);
+			//             }
+			//         }
+			//     }
+			//     T identityRowMultiplier = Compute.Divide(Constant<T>.One, rref[i, i]);
+			//     RowMultiplication(identity, i, identityRowMultiplier);
+			//     RowMultiplication(rref, i, identityRowMultiplier);
+			//     for (int j = i + 1; j < rref.Rows; j++)
+			//     {
+			//         T rowAdder = Compute.Negate(rref[j, i]);
+			//         RowAddition(identity, j, i, rowAdder);
+			//         RowAddition(rref, j, i, rowAdder);
+			//     }
+			//     for (int j = i - 1; j >= 0; j--)
+			//     {
+			//         T rowAdder = Compute.Negate(rref[j, i]);
+			//         RowAddition(identity, j, i, rowAdder);
+			//         RowAddition(rref, j, i, rowAdder);
+			//     }
+			// }
+			// b = identity;
 
 			#endregion
 
 			#region Alternate Version
-			//Matrix<T> identity = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
-			//Matrix<T> rref = matrix.Clone();
-			//for (int i = 0; i < matrix.Rows; i++)
-			//{
-			//	if (Compute.Equate(rref[i, i], Compute.FromInt32(0)))
-			//		for (int j = i + 1; j < rref.Rows; j++)
-			//			if (!Compute.Equate(rref[j, i], Compute.FromInt32(0)))
-			//			{
-			//				Matrix<T>.SwapRows(rref, i, j);
-			//				Matrix<T>.SwapRows(identity, i, j);
-			//			}
-			//	Matrix<T>.RowMultiplication(identity, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
-			//	Matrix<T>.RowMultiplication(rref, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
-			//	for (int j = i + 1; j < rref.Rows; j++)
-			//	{
-			//		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
-			//		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
-			//	}
-			//	for (int j = i - 1; j >= 0; j--)
-			//	{
-			//		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
-			//		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
-			//	}
-			//}
-			//return identity;
+
+			// Matrix<T> identity = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
+			// Matrix<T> rref = matrix.Clone();
+			// for (int i = 0; i < matrix.Rows; i++)
+			// {
+			// 	if (Compute.Equate(rref[i, i], Compute.FromInt32(0)))
+			// 		for (int j = i + 1; j < rref.Rows; j++)
+			// 			if (!Compute.Equate(rref[j, i], Compute.FromInt32(0)))
+			// 			{
+			// 				Matrix<T>.SwapRows(rref, i, j);
+			// 				Matrix<T>.SwapRows(identity, i, j);
+			// 			}
+			// 	Matrix<T>.RowMultiplication(identity, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
+			// 	Matrix<T>.RowMultiplication(rref, i, Compute.Divide(Compute.FromInt32(1), rref[i, i]));
+			// 	for (int j = i + 1; j < rref.Rows; j++)
+			// 	{
+			// 		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
+			// 		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
+			// 	}
+			// 	for (int j = i - 1; j >= 0; j--)
+			// 	{
+			// 		Matrix<T>.RowAddition(identity, j, i, Compute.Negate(rref[j, i]));
+			// 		Matrix<T>.RowAddition(rref, j, i, Compute.Negate(rref[j, i]));
+			// 	}
+			// }
+			// return identity;
+
 			#endregion
 		}
 
@@ -1977,44 +1977,44 @@ namespace Towel.Mathematics
 
 			#region Old Version
 
-			//if (a is null)
-			//{
-			//    throw new ArgumentNullException(nameof(a));
-			//}
-			//if (!a.IsSquare)
-			//{
-			//    throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-			//}
-			//if (object.ReferenceEquals(a, b))
-			//{
-			//    a = a.Clone();
-			//}
-			//int Length = a.Length;
-			//int Rows = a.Rows;
-			//int Columns = a.Columns;
-			//if (b is not null && b.Length == Length)
-			//{
-			//    b._rows = Rows;
-			//    b._columns = Columns;
-			//}
-			//else
-			//{
-			//    b = new Matrix<T>(Rows, Columns, Length);
-			//}
-			//for (int i = 0; i < Rows; i++)
-			//{
-			//    for (int j = 0; j < Columns; j++)
-			//    {
-			//        if (Compute.IsEven(a.Get(i, j)))
-			//        {
-			//            b[i, j] = Determinant(Minor(a, i, j));
-			//        }
-			//        else
-			//        {
-			//            b[i, j] = Compute.Negate(Determinant(Minor(a, i, j)));
-			//        }
-			//    }
-			//}
+			// if (a is null)
+			// {
+			//     throw new ArgumentNullException(nameof(a));
+			// }
+			// if (!a.IsSquare)
+			// {
+			//     throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
+			// }
+			// if (object.ReferenceEquals(a, b))
+			// {
+			//     a = a.Clone();
+			// }
+			// int Length = a.Length;
+			// int Rows = a.Rows;
+			// int Columns = a.Columns;
+			// if (b is not null && b.Length == Length)
+			// {
+			//     b._rows = Rows;
+			//     b._columns = Columns;
+			// }
+			// else
+			// {
+			//     b = new Matrix<T>(Rows, Columns, Length);
+			// }
+			// for (int i = 0; i < Rows; i++)
+			// {
+			//     for (int j = 0; j < Columns; j++)
+			//     {
+			//         if (Compute.IsEven(a.Get(i, j)))
+			//         {
+			//             b[i, j] = Determinant(Minor(a, i, j));
+			//         }
+			//         else
+			//         {
+			//             b[i, j] = Compute.Negate(Determinant(Minor(a, i, j)));
+			//         }
+			//     }
+			// }
 
 			#endregion
 		}
@@ -2172,47 +2172,49 @@ namespace Towel.Mathematics
 			}
 
 			#region Alternate Version
-			//lower = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
-			//upper = matrix.Clone();
-			//int[] permutation = new int[matrix.Rows];
-			//for (int i = 0; i < matrix.Rows; i++) permutation[i] = i;
-			//T p = 0, pom2, detOfP = 1;
-			//int k0 = 0, pom1 = 0;
-			//for (int k = 0; k < matrix.Columns - 1; k++)
-			//{
-			//	p = 0;
-			//	for (int i = k; i < matrix.Rows; i++)
-			//		if ((upper[i, k] > 0 ? upper[i, k] : -upper[i, k]) > p)
-			//		{
-			//			p = upper[i, k] > 0 ? upper[i, k] : -upper[i, k];
-			//			k0 = i;
-			//		}
-			//	if (p is 0)
-			//		throw new System.Exception("The matrix is singular!");
-			//	pom1 = permutation[k];
-			//	permutation[k] = permutation[k0];
-			//	permutation[k0] = pom1;
-			//	for (int i = 0; i < k; i++)
-			//	{
-			//		pom2 = lower[k, i];
-			//		lower[k, i] = lower[k0, i];
-			//		lower[k0, i] = pom2;
-			//	}
-			//	if (k != k0)
-			//		detOfP *= -1;
-			//	for (int i = 0; i < matrix.Columns; i++)
-			//	{
-			//		pom2 = upper[k, i];
-			//		upper[k, i] = upper[k0, i];
-			//		upper[k0, i] = pom2;
-			//	}
-			//	for (int i = k + 1; i < matrix.Rows; i++)
-			//	{
-			//		lower[i, k] = upper[i, k] / upper[k, k];
-			//		for (int j = k; j < matrix.Columns; j++)
-			//			upper[i, j] = upper[i, j] - lower[i, k] * upper[k, j];
-			//	}
-			//}
+
+			// lower = Matrix<T>.FactoryIdentity(matrix.Rows, matrix.Columns);
+			// upper = matrix.Clone();
+			// int[] permutation = new int[matrix.Rows];
+			// for (int i = 0; i < matrix.Rows; i++) permutation[i] = i;
+			// T p = 0, pom2, detOfP = 1;
+			// int k0 = 0, pom1 = 0;
+			// for (int k = 0; k < matrix.Columns - 1; k++)
+			// {
+			//     p = 0;
+			//     for (int i = k; i < matrix.Rows; i++)
+			//         if ((upper[i, k] > 0 ? upper[i, k] : -upper[i, k]) > p)
+			//         {
+			//             p = upper[i, k] > 0 ? upper[i, k] : -upper[i, k];
+			//             k0 = i;
+			//         }
+			//     if (p is 0)
+			//         throw new System.Exception("The matrix is singular!");
+			//     pom1 = permutation[k];
+			//     permutation[k] = permutation[k0];
+			//     permutation[k0] = pom1;
+			//     for (int i = 0; i < k; i++)
+			//     {
+			// pom2 = lower[k, i];
+			//         lower[k, i] = lower[k0, i];
+			//         lower[k0, i] = pom2;
+			//     }
+			//     if (k != k0)
+			//         detOfP *= -1;
+			//     for (int i = 0; i < matrix.Columns; i++)
+			//     {
+			//         pom2 = upper[k, i];
+			//         upper[k, i] = upper[k0, i];
+			//         upper[k0, i] = pom2;
+			//     }
+			//     for (int i = k + 1; i < matrix.Rows; i++)
+			//     {
+			//         lower[i, k] = upper[i, k] / upper[k, k];
+			//         for (int j = k; j < matrix.Columns; j++)
+			//             upper[i, j] = upper[i, j] - lower[i, k] * upper[k, j];
+			//     }
+			// }
+
 			#endregion
 		}
 
@@ -2590,7 +2592,6 @@ namespace Towel.Mathematics
 		/// <returns>A hash code for the matrix.</returns>
 		public override int GetHashCode()
 		{
-			//return _matrix.GetHashCode() ^ _rows ^ _columns;
 			int hashCode = HashCode.Combine(_rows, _columns);
 			foreach (T value in _matrix)
 			{

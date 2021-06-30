@@ -470,7 +470,7 @@ namespace Towel.DataStructures
 				return (false, new ArgumentException(message: "Adding an edge to a non-existing ending node."));
 			}
 
-			//Commenting out the case below, as it should not ouccer
+			//// Commenting out the case below, as it should not occur
 			// if (_map[start].Outgoing is null)
 			// _map[start].Outgoing = new(_map.Equate, _map.Hash);
 

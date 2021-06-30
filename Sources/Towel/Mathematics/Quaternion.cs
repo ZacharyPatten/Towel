@@ -81,18 +81,18 @@ namespace Towel.Mathematics
 		///// <param name="axis">The to create the quaternion from.</param>
 		///// <param name="angle">The angle to create the quaternion from.</param>
 		///// <returns>The newly created quaternion.</returns>
-		//public static Quaternion<T> FactoryFromAxisAngle(Vector axis, T angle)
-		//{
-		//	throw new System.NotImplementedException();
-		//	//if (axis.LengthSquared() is 0.0f)
-		//	//	return FactoryIdentity;
-		//	//T sinAngleOverAxisLength = Calc.Sin(angle / 2) / axis.Length();
-		//	//return Quaternion<T>.Normalize(new Quaternion<T>(
-		//	//	_multiply(axis.X, sinAngleOverAxisLength),
-		//	//	axis.Y * sinAngleOverAxisLength,
-		//	//	axis.Z * sinAngleOverAxisLength,
-		//	//	Calc.Cos(angle / 2)));
-		//}
+		// public static Quaternion<T> FactoryFromAxisAngle(Vector axis, T angle)
+		// {
+		//     throw new System.NotImplementedException();
+		//     //if (axis.LengthSquared() is 0.0f)
+		//     //    return FactoryIdentity;
+		//     //T sinAngleOverAxisLength = Calc.Sin(angle / 2) / axis.Length();
+		//     //return Quaternion<T>.Normalize(new Quaternion<T>(
+		//     //    _multiply(axis.X, sinAngleOverAxisLength),
+		//     //    axis.Y * sinAngleOverAxisLength,
+		//     //    axis.Z * sinAngleOverAxisLength,
+		//     //    Calc.Cos(angle / 2)));
+		// }
 
 		/// <summary>Converts a 3x3 rotational matrix into a quaternion.</summary>
 		/// <param name="matrix">The matrix to convert.</param>

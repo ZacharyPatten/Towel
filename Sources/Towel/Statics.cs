@@ -1093,11 +1093,11 @@ namespace Towel
 			{
 				throw new NotImplementedException();
 
-				//ParameterExpression A = Expression.Parameter(typeof(T));
-				//ParameterExpression B = Expression.Parameter(typeof(T));
-				//Expression BODY = ;
-				//Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
-				//return Function(a, b);
+				// ParameterExpression A = Expression.Parameter(typeof(T));
+				// ParameterExpression B = Expression.Parameter(typeof(T));
+				// Expression BODY = ;
+				// Function = Expression.Lambda<Func<T, T, T>>(BODY, A, B).Compile();
+				// return Function(a, b);
 			};
 		}
 

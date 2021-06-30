@@ -1,9 +1,9 @@
 ﻿namespace Towel.Source.Mathematics
 {
+#if false
+
 	//public class Tableau
 	//{
-	#region tableau
-
 	//const generic epsilon = 1.0e-8;
 	////int equal(generic a, generic b) { return fabs(a - b) < epsilon; }
 
@@ -166,7 +166,7 @@
 	//	}
 	//	throw new System.Exception("Simplex has a glitch");
 	//}
-
-	#endregion
 	//}
+
+#endif
 }

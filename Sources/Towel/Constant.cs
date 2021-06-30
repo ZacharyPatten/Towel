@@ -433,12 +433,12 @@ namespace Towel
 				{
 					#region Without Custom Runtime Compilation
 
-					//T J = FromInt32<T>(j);
-					//T a = Add(Multiply(Constant<T>.Two, J), Constant<T>.One);
-					//T b = Divide(J, a);
-					//T c = Multiply(b, pi);
-					//T d = Add(Constant<T>.One, c);
-					//pi = d;
+					// T J = FromInt32<T>(j);
+					// T a = Add(Multiply(Constant<T>.Two, J), Constant<T>.One);
+					// T b = Divide(J, a);
+					// T c = Multiply(b, pi);
+					// T d = Add(Constant<T>.One, c);
+					// pi = d;
 
 					#endregion
 
