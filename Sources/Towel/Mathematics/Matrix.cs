@@ -1381,7 +1381,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The minor of the matrix.</param>
 		/// <returns>The minor of the matrix.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_Minor() => throw new DocumentationMethodException();
+		public static object XML_Minor() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 

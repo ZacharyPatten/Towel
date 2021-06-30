@@ -220,13 +220,12 @@ namespace Towel.DataStructures
 			return map.TryAddOrUpdate<SFunc<T, T>>(key, value, update);
 		}
 
-		/// <summary>Gets a value in a map by key.</summary>
+		/// <summary>Adds a value to a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
 		/// <typeparam name="K">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to add the value to.</param>
 		/// <param name="key">The key of the value to get.</param>
 		/// <param name="value">The value to add to the map.</param>
-		/// <returns>The value of the provided key in the map.</returns>
 		public static void Add<T, K>(this IMap<T, K> map, K key, T value)
 		{
 			var (success, exception) = map.TryAdd(key, value);

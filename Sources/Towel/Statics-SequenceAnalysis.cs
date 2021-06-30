@@ -23,7 +23,7 @@ namespace Towel
 		/// <para>- <typeparamref name="T"/> Value: the maximum value in the sequence.</para>
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_Maximum<T>() => throw new DocumentationMethodException();
+		public static object XML_Maximum<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -70,7 +70,7 @@ namespace Towel
 		/// <param name="b">The second value to compare.</param>
 		/// <returns>The maximum of the two values.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_MaximumValue_Two<T>() => throw new DocumentationMethodException();
+		public static object XML_MaximumValue_Two<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -95,7 +95,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the maximum value in.</param>
 		/// <returns>The maximum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_MaximumValue<T>() => throw new DocumentationMethodException();
+		public static object XML_MaximumValue<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -142,7 +142,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the maximum value in.</param>
 		/// <returns>The index of the first occurence of the maximum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_MaximumIndex<T>() => throw new DocumentationMethodException();
+		public static object XML_MaximumIndex<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -193,7 +193,7 @@ namespace Towel
 		/// <para>- <typeparamref name="T"/> Value: the minimum value in the sequence.</para>
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_Minimum<T>() => throw new DocumentationMethodException();
+		public static object XML_Minimum<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -240,7 +240,7 @@ namespace Towel
 		/// <param name="b">The second value to compare.</param>
 		/// <returns>The minimum of the two values.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_MinimumValue_Two<T>() => throw new DocumentationMethodException();
+		public static object XML_MinimumValue_Two<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -265,7 +265,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the minimum value in.</param>
 		/// <returns>The minimum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_MinimumValue<T>() => throw new DocumentationMethodException();
+		public static object XML_MinimumValue<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -312,7 +312,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the minimum value in.</param>
 		/// <returns>The index of the first occurence of the minimum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_MinimumIndex<T>() => throw new DocumentationMethodException();
+		public static object XML_MinimumIndex<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
@@ -472,7 +472,6 @@ namespace Towel
 		/// <param name="step">The action to perform on every mode value found.</param>
 		/// <param name="equate">The equality delegate.</param>
 		/// <param name="hash">The hash code delegate</param>
-		/// <returns>The modes of the data set.</returns>
 		public static void Mode<T>(Action<Action<T>> stepper, Action<T> step, Func<T, T, bool>? equate = null, Func<T, int>? hash = null)
 		{
 			int maxOccurences = -1;
@@ -1420,7 +1419,7 @@ namespace Towel
 		/// IsInterleaved("abc", "xyz", "012345") // False
 		/// </code>
 		/// </example>
-		public static void XML_IsInterleaved() => throw new DocumentationMethodException();
+		public static object XML_IsInterleaved() => throw new DocumentationMethodException();
 
 		/// <summary>
 		/// <para>

@@ -330,7 +330,6 @@ namespace Towel
 		/// <typeparam name="T">The element type in the array.</typeparam>
 		/// <param name="span">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T>(this ReadOnlySpan<T> span, Action<T> step) =>
 			Stepper<T, SAction<T>>(span, step);
 
@@ -339,7 +338,6 @@ namespace Towel
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
 		/// <param name="span">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T, Step>(this ReadOnlySpan<T> span, Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperBreak<T, StepBreakFromAction<T, Step>>(span, step);
@@ -371,7 +369,6 @@ namespace Towel
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T>(this ReadOnlySpan<T> span, int start, int end, Action<T> step) =>
 			Stepper<T, SAction<T>>(span, start, end, step);
 
@@ -382,7 +379,6 @@ namespace Towel
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T, Step>(this ReadOnlySpan<T> span, int start, int end, Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperBreak<T, StepBreakFromAction<T, Step>>(span, start, end, step);
@@ -430,7 +426,6 @@ namespace Towel
 		/// <typeparam name="T">The element type in the array.</typeparam>
 		/// <param name="span">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T>(this T[] span, Action<T> step) =>
 			Stepper<T, SAction<T>>(span, step);
 
@@ -439,7 +434,6 @@ namespace Towel
 		/// <typeparam name="Step">The operation to perform on each value of th traversal.</typeparam>
 		/// <param name="span">The array to traverse.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T, Step>(this T[] span, Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperBreak<T, StepBreakFromAction<T, Step>>(span, step);
@@ -471,7 +465,6 @@ namespace Towel
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T>(this T[] span, int start, int end, Action<T> step) =>
 			Stepper<T, SAction<T>>(span, start, end, step);
 
@@ -482,7 +475,6 @@ namespace Towel
 		/// <param name="start">The inclusive starting index.</param>
 		/// <param name="end">The non-inclusive ending index.</param>
 		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
 		public static void Stepper<T, Step>(this T[] span, int start, int end, Step step = default)
 			where Step : struct, IAction<T> =>
 			StepperBreak<T, StepBreakFromAction<T, Step>>(span, start, end, step);

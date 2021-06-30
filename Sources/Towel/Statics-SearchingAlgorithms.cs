@@ -33,7 +33,7 @@ namespace Towel
 		/// <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_SearchBinary() => throw new DocumentationMethodException();
+		public static object XML_SearchBinary() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 #pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
@@ -313,7 +313,7 @@ namespace Towel
 		/// <param name="graph">The graph to perform the search on.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_SearchGraph() => throw new DocumentationMethodException();
+		public static object XML_SearchGraph() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
