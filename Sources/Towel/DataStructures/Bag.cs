@@ -26,9 +26,9 @@ namespace Towel.DataStructures
 		/// <summary>Tries to get the count of a value.</summary>
 		/// <param name="value">The value to get the count of.</param>
 		/// <returns>
-		/// <para>- Success: true if the key was found or false if not.</para>
-		/// <para>- Exception: the exception that occured if the get failed.</para>
-		/// <para>- Value: the value if the key was found or default if not.</para>
+		/// - <see cref="bool"/> Success: true if the key was found or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the get failed.<br/>
+		/// - <see cref="int"/>? Value: the value if the key was found or default if not.
 		/// </returns>
 		(bool Success, Exception? Exception, int? Count) TryGet(T value);
 
@@ -36,18 +36,17 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to be set.</param>
 		/// <param name="count">The number of values to set.</param>
 		/// <returns>
-		/// <para>- Success: true if the key+value was set or false if not.</para>
-		/// <para>- Exception: the exception that occured if the set failed.</para>
+		/// - <see cref="bool"/> Success: true if the key+value was set or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the set failed.
 		/// </returns>
 		(bool Success, Exception? Exception, bool? Existed, int? OldCount) TrySet(T value, int count);
 
 		/// <summary>Tries to add a value to the bag.</summary>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="count">The number of values to be added.</param>
-		/// <returns>True if the value was added or false if not.</returns>
 		/// <returns>
-		/// <para>- Success: true if the values was added or false if not.</para>
-		/// <para>- Exception: the exception that occured if the add failed.</para>
+		/// - <see cref="bool"/> Success: true if the values was added or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add failed.
 		/// </returns>
 		(bool Success, Exception? Exception) TryAdd(T value, int count);
 
@@ -60,22 +59,21 @@ namespace Towel.DataStructures
 		/// <summary>Tries to remove a value from the bag.</summary>
 		/// <param name="value">The value to remove from the bag.</param>
 		/// <returns>
-		/// <para>- Success: true if the values were removed or false if not.</para>
-		/// <para>- Exception: the exception that occured if the remove failed.</para>
-		/// <para>- OldCount: the count of the value before the removal.</para>
-		/// <para>- NewCount: the count of the value after the removal.</para>
+		/// - <see cref="bool"/> Success: true if the values were removed or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the remove failed.<br/>
+		/// - <see cref="int"/>? OldCount: the count of the value before the removal.<br/>
+		/// - <see cref="int"/>? NewCount: the count of the value after the removal.
 		/// </returns>
 		new(bool Success, Exception? Exception, int? OldCount, int? NewCount) TryRemove(T value);
 
 		/// <summary>Tries to remove a value from the bag.</summary>
 		/// <param name="value">The value to be removed.</param>
 		/// <param name="count">The number of values to be removed.</param>
-		/// <returns>True if the value was removed or false if not.</returns>
 		/// <returns>
-		/// <para>- Success: true if the values were removed or false if not.</para>
-		/// <para>- Exception: the exception that occured if the remove failed.</para>
-		/// <para>- OldCount: the count of the value before the removal.</para>
-		/// <para>- NewCount: the count of the value after the removal.</para>
+		/// - <see cref="bool"/> Success: true if the values were removed or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the remove failed.<br/>
+		/// - <see cref="int"/>? OldCount: the count of the value before the removal.<br/>
+		/// - <see cref="int"/>? NewCount: the count of the value after the removal.
 		/// </returns>
 		(bool Success, Exception? Exception, int? OldCount, int? NewCount) TryRemove(T value, int count);
 
@@ -123,9 +121,8 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to set the <paramref name="count"/> of.</param>
 		/// <param name="count">The count to set the number of <paramref name="value"/>'s to.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Existed, <see cref="int"/>? OldCount)
-		/// <para>- <see cref="bool"/> Existed: True if the value already existed or false.</para>
-		/// <para>- <see cref="int"/>? OldCount: The previous count if the value existed or default.</para>
+		/// - <see cref="bool"/> Existed: True if the value already existed or false.<br/>
+		/// - <see cref="int"/>? OldCount: The previous count if the value existed or default.
 		/// </returns>
 		public static (bool Existed, int? OldCount) Set<T>(this IBag<T> bag, T value, int count)
 		{

@@ -176,10 +176,7 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Creates an instance of a AddableLinked.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Creates an instance of a <see cref="ListLinked{T}"/>.<br/></summary>
 		public ListLinked()
 		{
 			_head = _tail = null;
@@ -190,10 +187,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>
-		/// Returns the number of items in the list.
-		/// <para>Runitme: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
 		#endregion
@@ -367,15 +361,12 @@ namespace Towel.DataStructures
 
 		#region Constructor
 
-		/// <summary>
-		/// Creates an instance of a ListArray, and sets it's minimum capacity.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Creates an instance of a <see cref="ListArray{T}"/>.</summary>
 		public ListArray() : this(1) { }
 
 		/// <summary>
-		/// Creates an instance of a ListArray, and sets it's minimum capacity.
-		/// <para>Runtime: O(1)</para>
+		/// Creates an instance of a ListArray, and sets it's minimum capacity.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		/// <param name="expectedCount">The initial and smallest array size allowed by this list.</param>
 		public ListArray(int expectedCount)
@@ -427,15 +418,12 @@ namespace Towel.DataStructures
 			}
 		}
 
-		/// <summary>
-		/// Gets the number of items in the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public int Count => _count;
 
 		/// <summary>
-		/// Gets the current capacity of the list.
-		/// <para>Runtime: O(1)</para>
+		/// Gets the current capacity of the list.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		public int CurrentCapacity => _array.Length;
 
@@ -443,13 +431,7 @@ namespace Towel.DataStructures
 
 		#region Methods
 
-		/// <summary>
-		/// Tries to add a value.
-		/// <para>Runtime: O(n), Ω(1), ε(1)</para>
-		/// </summary>
-		/// <param name="value">The value to be added.</param>
-		/// <returns>True if the add succeds or false if not.</returns>
-		/// <exception cref="InvalidOperationException"><see cref="Count"/> == <see cref="CurrentCapacity"/> &amp;&amp; <see cref="CurrentCapacity"/> &gt; <see cref="int.MaxValue"/> / 2</exception>
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			if (_count == _array.Length)
@@ -491,10 +473,7 @@ namespace Towel.DataStructures
 			_count++;
 		}
 
-		/// <summary>
-		/// Empties the list back and reduces it back to its original capacity.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
 			_array = new T[1];
@@ -505,8 +484,8 @@ namespace Towel.DataStructures
 		public ListArray<T> Clone() => new(this);
 
 		/// <summary>
-		/// Removes the item at a specific index.
-		/// <para>Runtime: O(n), Ω(n - index), ε(n - index)</para>
+		/// Removes the item at a specific index.<br/>
+		/// Runtime: O(n), Ω(n - index), ε(n - index)
 		/// </summary>
 		/// <param name="index">The index of the item to be removed.</param>
 		public void Remove(int index)
@@ -519,8 +498,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Removes the item at a specific index.
-		/// <para>Runtime: Θ(n - index)</para>
+		/// Removes the item at a specific index.<br/>
+		/// Runtime: Θ(n - index)
 		/// </summary>
 		/// <param name="index">The index of the item to be removed.</param>
 		/// <exception cref="ArgumentOutOfRangeException">Thrown when: index &lt; 0 || index &gt;= _count</exception>
@@ -582,8 +561,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Removes the first predicated value from the list.
-		/// <para>Runtime: O(n), Ω(1)</para>
+		/// Removes the first predicated value from the list.<br/>
+		/// Runtime: O(n), Ω(1)
 		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <exception cref="ArgumentException">Thrown when <paramref name="predicate"/> does not find a <typeparamref name="T"/> in the list.</exception>
@@ -596,8 +575,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Removes the first occurence of a value from the list without causing the list to shrink.
-		/// <para>Runtime: O(n), Ω(1)</para>
+		/// Removes the first occurence of a value from the list without causing the list to shrink.<br/>
+		/// Runtime: O(n), Ω(1)
 		/// </summary>
 		/// <param name="value">The value to remove.</param>
 		/// <param name="equate">The delegate providing the equality check.</param>
@@ -609,8 +588,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Removes the first predicated value from the list wihtout shrinking the list.
-		/// <para>Runtime: O(n), Ω(1)</para>
+		/// Removes the first predicated value from the list wihtout shrinking the list.<br/>
+		/// Runtime: O(n), Ω(1)
 		/// </summary>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		/// <exception cref="ArgumentException">Thrown when <paramref name="predicate"/> does not find a <typeparamref name="T"/> in the list.</exception>

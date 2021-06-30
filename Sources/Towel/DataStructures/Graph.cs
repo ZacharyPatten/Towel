@@ -120,8 +120,8 @@ namespace Towel.DataStructures
 		/// <param name="start">The stating point of the edge to add.</param>
 		/// <param name="end">The ending point of the edge to add.</param>
 		/// <returns>
-		/// <para>- Success: true if the edge was added or false if not</para>
-		/// <para>- Exception: the exception that occured if the add failed</para>
+		/// - <see cref="bool"/> Success: true if the edge was added or false if not<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add failed
 		/// </returns>
 		(bool Success, Exception? Exception) TryAdd(T start, T end);
 
@@ -129,8 +129,8 @@ namespace Towel.DataStructures
 		/// <param name="start">The starting point of the edge to remove.</param>
 		/// <param name="end">The ending point of the edge to remove.</param>
 		/// <returns>
-		/// <para>- Success: true if the edge was removed or false if not</para>
-		/// <para>- Exception: the exception that occured if the remove failed</para>
+		/// - <see cref="bool"/> Success: true if the edge was removed or false if not<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the remove failed
 		/// </returns>
 		(bool Success, Exception? Exception) TryRemove(T start, T end);
 

@@ -464,8 +464,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// This is just a protection against the null valued leaf nodes, which have a height of "-1".
-		/// <para>Runtime: O(1)</para>
+		/// This is just a protection against the null valued leaf nodes, which have a height of "-1".<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		/// <param name="node">The node to find the hight of.</param>
 		/// <returns>Returns "-1" if null (leaf) or the height property of the node.</returns>
@@ -506,8 +506,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Sets the height of a tree based on its children's heights.
-		/// <para>Runtime: O(1)</para>
+		/// Sets the height of a tree based on its children's heights.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		/// <param name="node">The tree to have its height adjusted.</param>
 		internal static void SetHeight(Node node) =>

@@ -993,9 +993,9 @@ namespace Towel
 		/// <summary>Converts an <see cref="int"/> to the relative <see cref="CompareResult"/>.</summary>
 		/// <param name="compareResult">The <see cref="int"/> to convert to the relative <see cref="CompareResult"/>.</param>
 		/// <returns>
-		/// <para><paramref name="compareResult"/> &lt; 0 =&gt; <see cref="CompareResult.Less"/></para>
-		/// <para><paramref name="compareResult"/> &gt; 0 =&gt; <see cref="CompareResult.Greater"/></para>
-		/// <para><paramref name="compareResult"/> is 0 =&gt; <see cref="CompareResult.Equal"/></para>
+		/// <paramref name="compareResult"/> &lt; 0 =&gt; <see cref="CompareResult.Less"/><br/>
+		/// <paramref name="compareResult"/> &gt; 0 =&gt; <see cref="CompareResult.Greater"/><br/>
+		/// <paramref name="compareResult"/> is 0 =&gt; <see cref="CompareResult.Equal"/>
 		/// </returns>
 		public static CompareResult ToCompareResult(this int compareResult) =>
 			compareResult switch

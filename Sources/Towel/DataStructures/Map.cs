@@ -26,9 +26,9 @@ namespace Towel.DataStructures
 		/// <summary>Tries to get a value by key.</summary>
 		/// <param name="key">The key of the value to get.</param>
 		/// <returns>
-		/// <para>- Success: true if the key was found or false if not.</para>
-		/// <para>- Exception: the exception that occured if the get failed.</para>
-		/// <para>- Value: the value if the key was found or default if not.</para>
+		/// - <see cref="bool"/> Success: true if the key was found or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the get failed.<br/>
+		/// - <typeparamref name="T"/>? Value: the value if the key was found or default if not.
 		/// </returns>
 		(bool Success, Exception? Exception, T? Value) TryGet(K key);
 
@@ -36,18 +36,19 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be set.</param>
 		/// <returns>
-		/// <para>- Success: true if the key+value was set or false if not.</para>
-		/// <para>- Exception: the exception that occured if the set failed.</para>
+		/// - <see cref="bool"/> Success: true if the key+value was set or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the set failed.<br/>
+		/// - <see cref="bool"/>? Existed: if the key existed prior to being set<br/>
+		/// - <typeparamref name="T"/>? OldValue: the previous value if the key existed prior to being set
 		/// </returns>
 		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TrySet(K key, T value);
 
 		/// <summary>Tries to add a value to the map.</summary>
 		/// <param name="key">The key of the value.</param>
 		/// <param name="value">The value to be added.</param>
-		/// <returns>True if the value was added or false if not.</returns>
 		/// <returns>
-		/// <para>- Success: true if the key+value was added or false if not.</para>
-		/// <para>- Exception: the exception that occured if the add failed.</para>
+		/// - <see cref="bool"/> Success: true if the key+value was added or false if not<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add failed
 		/// </returns>
 		(bool Success, Exception? Exception) TryAdd(K key, T value);
 
@@ -58,10 +59,10 @@ namespace Towel.DataStructures
 		/// <param name="removePredicate">The predicate determining if the pair should be removed.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
 		/// <returns>
-		/// <para>- Success: true if the key was found or false if not.</para>
-		/// <para>- Exception: the exception that occured if the add failed.</para>
-		/// <para>- OldValue: the non-updated value if the key was found or default if not.</para>
-		/// <para>- NewValue: the updated value if the key was found or default if not.</para>
+		/// - <see cref="bool"/> Success: true if the key was found or false if not<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add failed<br/>
+		/// - <typeparamref name="T"/>? OldValue: the non-updated value if the key was found or default if not<br/>
+		/// - <typeparamref name="T"/>? NewValue: the updated value if the key was found or default if not
 		/// </returns>
 		(bool Success, Exception? Exception, bool? Removed, T? OldValue, T? NewValue) TryRemoveOrUpdate<TRemovePredicate, TUpdate>(K key, TRemovePredicate removePredicate = default, TUpdate update = default)
 			where TRemovePredicate : struct, IFunc<T, bool>
@@ -72,10 +73,10 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
 		/// <returns>
-		/// <para>- Success: true if the key was found or false if not.</para>
-		/// <para>- Exception: the exception that occured if the add failed.</para>
-		/// <para>- OldValue: the non-updated value if the key was found or default if not.</para>
-		/// <para>- NewValue: the updated value if the key was found or default if not.</para>
+		/// - <see cref="bool"/> Success: true if the key was found or false if not<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add failed<br/>
+		/// - <typeparamref name="T"/>? OldValue: the non-updated value if the key was found or default if not<br/>
+		/// - <typeparamref name="T"/>? NewValue: the updated value if the key was found or default if not
 		/// </returns>
 		(bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<TUpdate>(K key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>;
@@ -86,8 +87,10 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
 		/// <returns>
-		/// <para>- Success: true if the value was added or updated or false if not.</para>
-		/// <para>- Exception: the exception that occured if the add or update failed.</para>
+		/// - <see cref="bool"/> Success: true if the value was added or updated or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add or update failed.<br/>
+		/// - <see cref="bool"/>? Existed: if the key existed prior to the add or update<br/>
+		/// - <typeparamref name="T"/>? OldValue: the old value if the key existed prior to the add or update
 		/// </returns>
 		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<TUpdate>(K key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>;
@@ -191,7 +194,6 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Existed, <typeparamref name="T"/> OldValue)<br/>
 		/// - <see cref="bool"/> Existed: true if the key was already in the map<br/>
 		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update if it existed or default
 		/// </returns>
@@ -213,9 +215,10 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
 		/// <returns>
-		/// <para>- Success: true if the key was found or false if not.</para>
-		/// <para>- Exception: the exception that occured if the add failed.</para>
-		/// <para>- Value: the value if the key was found or default if not.</para>
+		/// - <see cref="bool"/> Success: true if the key was found or false if not<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the update failed<br/>
+		/// - <typeparamref name="T"/>? OldValue: the value if the key was found or default if not<br/>
+		/// - <typeparamref name="T"/>? NewValue: the value if the key was found or default if not
 		/// </returns>
 		public static (bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<T, K>(this IMap<T, K> map, K key, Func<T, T> update)
 		{
@@ -231,8 +234,10 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
 		/// <returns>
-		/// <para>- Success: true if the value was added or updated or false if not.</para>
-		/// <para>- Exception: the exception that occured if the add or update failed.</para>
+		/// - <see cref="bool"/> Success: true if the value was added or updated or false if not.<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add or update failed<br/>
+		/// - <see cref="bool"/>? Existed: true if the key-value pair was added or updated or false<br/>
+		/// - <typeparamref name="T"/>? OldValue: the previous value if the key existed before the add or update operation
 		/// </returns>
 		public static (bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update)
 		{

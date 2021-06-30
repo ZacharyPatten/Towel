@@ -15,9 +15,8 @@ namespace Towel
 		/// <param name="values">The values to find the maximum value in.</param>
 		/// <param name="span">The span of values to find the maximum value in.</param>
 		/// <returns>
-		/// (int Index, T Value)
-		/// <para>- <see cref="int"/> Index: the index of the first occurence of the maximum value</para>
-		/// <para>- <typeparamref name="T"/> Value: the maximum value in the sequence.</para>
+		/// - <see cref="int"/> Index: the index of the first occurence of the maximum value<br/>
+		/// - <typeparamref name="T"/> Value: the maximum value in the sequence
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static object XML_Maximum<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
@@ -161,9 +160,8 @@ namespace Towel
 		/// <param name="values">The values to find the minimum value in.</param>
 		/// <param name="span">The span of values to find the minimum value in.</param>
 		/// <returns>
-		/// (int Index, T Value)
-		/// <para>- <see cref="int"/> Index: the index of the first occurence of the minimum value</para>
-		/// <para>- <typeparamref name="T"/> Value: the minimum value in the sequence.</para>
+		/// - <see cref="int"/> Index: the index of the first occurence of the minimum value<br/>
+		/// - <typeparamref name="T"/> Value: the minimum value in the sequence
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static object XML_Minimum<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
@@ -352,8 +350,8 @@ namespace Towel
 		/// <param name="span">The sequence of <typeparamref name="T"/> values to filter.</param>
 		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
 		/// <returns>
-		/// <para>- (int Index, T Value) Min</para>
-		/// <para>- (int Index, T Value) Max</para>
+		/// - (<see cref="int"/> Index, <typeparamref name="T"/> Value) Min<br/>
+		/// - (<see cref="int"/> Index, <typeparamref name="T"/> Value) Max
 		/// </returns>
 		public static ((int Index, T Value) Min, (int Index, T Value) Max) Range<T, TCompare>(ReadOnlySpan<T> span, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
@@ -1374,13 +1372,11 @@ namespace Towel
 #pragma warning restore SA1604 // Element documentation should have summary
 
 		/// <summary>
-		/// <para>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
 		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/>
-		/// while retaining the order of the respective values. Uses a recursive algorithm.
-		/// </para>
-		/// <para>Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)</para>
-		/// <para>Memory: O(1)</para>
+		/// while retaining the order of the respective values. Uses a recursive algorithm.<br/>
+		/// Runtime: O(2^(Min(<paramref name="a"/>.Length + <paramref name="b"/>.Length, <paramref name="c"/>.Length))), Ω(1)<br/>
+		/// Memory: O(1)
 		/// </summary>
 		/// <inheritdoc cref="XML_IsInterleaved"/>
 		public static void XML_IsInterleavedRecursive() => throw new DocumentationMethodException();
@@ -1388,9 +1384,9 @@ namespace Towel
 		/// <summary>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
 		/// meaning that <paramref name="c"/> it contains all values of <paramref name="a"/> and <paramref name="b"/>
-		/// while retaining the order of the respective values. Uses a interative algorithm.
-		/// <para>Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)</para>
-		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
+		/// while retaining the order of the respective values. Uses a interative algorithm.<br/>
+		/// Runtime: O(Min(<paramref name="a"/>.Length * <paramref name="b"/>.Length))), Ω(1)<br/>
+		/// Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)
 		/// </summary>
 		/// <inheritdoc cref="XML_IsInterleaved"/>
 		public static void XML_IsInterleavedIterative() => throw new DocumentationMethodException();

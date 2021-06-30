@@ -435,9 +435,8 @@ namespace Towel.Mathematics
 		/// <param name="string">The <see cref="string"/> to parse into a value ot type <see cref="Fraction{T}"/>.</param>
 		/// <param name="tryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Success, <see cref="Fraction{T}"/> Value)
-		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
-		/// <para>- <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.</para>
+		/// - <see cref="bool"/> Success: True if the parse was successful; False if not.<br/>
+		/// - <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.
 		/// </returns>
 		public (bool Success, Fraction<T?> Value) TryParse(string @string, Func<string, (bool, T?)>? tryParse = null) =>
 			TryParse<SFunc<string, (bool, T?)>>(@string, tryParse ?? Statics.TryParse<T>);
@@ -447,9 +446,8 @@ namespace Towel.Mathematics
 		/// <param name="string">The <see cref="string"/> to parse into a value ot type <see cref="Fraction{T}"/>.</param>
 		/// <param name="tryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Success, <see cref="Fraction{T}"/> Value)
-		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
-		/// <para>- <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.</para>
+		/// - <see cref="bool"/> Success: True if the parse was successful; False if not.<br/>
+		/// - <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.
 		/// </returns>
 		public (bool Success, Fraction<T?> Value) TryParse<TryParse>(string @string, TryParse tryParse = default)
 			where TryParse : struct, IFunc<string, (bool Success, T? Value)>

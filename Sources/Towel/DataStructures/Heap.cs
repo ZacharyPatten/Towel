@@ -73,8 +73,8 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>
-		/// Generates a priority queue with a capacity of the parameter.
-		/// <para>Runtime: O(1)</para>
+		/// Generates a priority queue with a capacity of the parameter.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
 		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
@@ -103,14 +103,14 @@ namespace Towel.DataStructures
 		public TCompare Compare => _compare;
 
 		/// <summary>
-		/// The maximum items the queue can hold.
-		/// <para>Runtime: O(1)</para>
+		/// The maximum items the queue can hold.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		public int CurrentCapacity => _array.Length - 1;
 
 		/// <summary>
-		/// The minumum capacity of this queue to limit low-level resizing.
-		/// <para>Runtime: O(1)</para>
+		/// The minumum capacity of this queue to limit low-level resizing.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		public int? MinimumCapacity
 		{
@@ -179,8 +179,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Requeues an item after a change has occured.
-		/// <para>Runtime: O(n)</para>
+		/// Requeues an item after a change has occured.<br/>
+		/// Runtime: O(n)
 		/// </summary>
 		/// <param name="item">The item to requeue.</param>
 		public void Requeue(T item)
@@ -212,8 +212,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Standard priority queue algorithm for up sifting.
-		/// <para>Runtime: O(ln(n)), Ω(1)</para>
+		/// Standard priority queue algorithm for up sifting.<br/>
+		/// Runtime: O(ln(n)), Ω(1)
 		/// </summary>
 		/// <param name="index">The index to be up sifted.</param>
 		internal void ShiftUp(int index)
@@ -227,8 +227,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Standard priority queue algorithm for sifting down.
-		/// <para>Runtime: O(ln(n)), Ω(1)</para>
+		/// Standard priority queue algorithm for sifting down.<br/>
+		/// Runtime: O(ln(n)), Ω(1)
 		/// </summary>
 		/// <param name="index">The index to be down sifted.</param>
 		internal void ShiftDown(int index)

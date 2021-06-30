@@ -133,9 +133,8 @@ namespace Towel
 		/// <typeparam name="A">The type to parse the <see cref="string"/> into a value of.</typeparam>
 		/// <param name="string">The <see cref="string"/> to parse into a value ot type <typeparamref name="A"/>.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Success, <typeparamref name="A"/> Value)
-		/// <para>- <see cref="bool"/> Success: True if the parse was successful; False if not.</para>
-		/// <para>- <typeparamref name="A"/> Value: The value if the parse was successful or default if not.</para>
+		/// - <see cref="bool"/> Success: true if the parse was successful or false if not<br/>
+		/// - <typeparamref name="A"/> Value: the value if the parse was successful or default if not
 		/// </returns>
 		public static (bool Success, A? Value) TryParse<A>(string @string) =>
 			(TryParseImplementation<A>.Function(@string, out A? value), value);

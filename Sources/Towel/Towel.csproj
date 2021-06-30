@@ -20,8 +20,8 @@
 			<PackagePath></PackagePath>
 		</None>
 		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<None Update="Measurements\MeasurementTypes.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
