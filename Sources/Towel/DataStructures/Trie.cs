@@ -319,7 +319,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<Action<Action<T>>> GetEnumerator()
 		{
-			#warning TODO: can be optimized?
+			#warning TODO: optimize
 			IList<Action<Action<T>>> list = new ListLinked<Action<Action<T>>>();
 			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
@@ -331,7 +331,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public Action<Action<T>>[] ToArray()
 		{
-			#warning TODO: optimized
+			#warning TODO: optimize
 			Action<Action<T>>[] array = new Action<Action<T>>[_count];
 			int i = 0;
 			this.Stepper(x => array[i++] = x);
@@ -635,7 +635,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<(Action<Action<T>>, D)> GetEnumerator()
 		{
-			#warning TODO: optimized
+			#warning TODO: optimize
 			IList<(Action<Action<T>>, D)> list = new ListLinked<(Action<Action<T>>, D)>();
 			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
@@ -647,7 +647,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public (Action<Action<T>>, D)[] ToArray()
 		{
-			#warning TODO: optimized
+			#warning TODO: optimize
 			(Action<Action<T>>, D)[] array = new (Action<Action<T>>, D)[_count];
 			int i = 0;
 			this.Stepper(x => array[i++] = x);

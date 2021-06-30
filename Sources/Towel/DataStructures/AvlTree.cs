@@ -393,7 +393,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			#warning TODO: optimized using stack
+			#warning TODO: optimize using stack
 			IList<T> list = new ListLinked<T>();
 			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
@@ -516,7 +516,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			#warning TODO: optimized
+			#warning TODO: optimize
 			T[] array = new T[_count];
 			int i = 0;
 			this.Stepper(x => array[i++] = x);

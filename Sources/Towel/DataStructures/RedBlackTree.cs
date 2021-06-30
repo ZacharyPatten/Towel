@@ -668,7 +668,7 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			#warning TODO: optimized
+			#warning TODO: optimize
 			T[] array = new T[_count];
 			int i = 0;
 			this.Stepper(x => array[i++] = x);
