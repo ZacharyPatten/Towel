@@ -1353,6 +1353,8 @@ namespace Towel
 		#region XML
 
 #pragma warning disable SA1604 // Element documentation should have summary
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
 		/// <param name="a">The first sequence to determine if <paramref name="c"/> is interleaved of.</param>
@@ -1367,7 +1369,7 @@ namespace Towel
 		/// IsInterleaved("abc", "xyz", "012345") // False
 		/// </code>
 		/// </example>
-		public static object XML_IsInterleaved<T>(object a, object b, object c, object equate) => throw new DocumentationMethodException();
+		public static object XML_IsInterleaved<T>() => throw new DocumentationMethodException();
 
 #pragma warning restore SA1604 // Element documentation should have summary
 
@@ -1381,7 +1383,7 @@ namespace Towel
 		/// <para>Memory: O(1)</para>
 		/// </summary>
 		/// <inheritdoc cref="XML_IsInterleaved"/>
-		public static void XML_IsInterleavedRecursive(object a, object b, object c) => throw new DocumentationMethodException();
+		public static void XML_IsInterleavedRecursive() => throw new DocumentationMethodException();
 
 		/// <summary>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
@@ -1391,7 +1393,10 @@ namespace Towel
 		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
 		/// </summary>
 		/// <inheritdoc cref="XML_IsInterleaved"/>
-		public static void XML_IsInterleavedIterative(object a, object b, object c) => throw new DocumentationMethodException();
+		public static void XML_IsInterleavedIterative() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
 
 		#endregion
 
