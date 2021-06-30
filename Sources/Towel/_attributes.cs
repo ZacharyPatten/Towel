@@ -19,7 +19,6 @@ using System.Runtime.CompilerServices;
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1612:Element parameter documentation should match element parameters")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1620:Generic type parameter documentation should match type parameters")] // use source suppressions; this conflicts with inheritdoc
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1604:Element documentation should have summary")] // use source suppressions; this conflicts with inheritdoc
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1614:Element parameter documentation should have text")]
 
 // TODO: reconsider these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression

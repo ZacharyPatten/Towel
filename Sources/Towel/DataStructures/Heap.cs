@@ -12,13 +12,13 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <summary>Enqueues an item into the heap.</summary>
-		/// <param name="value"></param>
+		/// <param name="value">The value to queue in the heap.</param>
 		void Enqueue(T value);
 		/// <summary>Removes and returns the highest priority item.</summary>
-		/// <returns>The highest priority item from the queue.</returns>
+		/// <returns>The highest priority item from the heap.</returns>
 		T Dequeue();
 		/// <summary>Returns the highest priority item.</summary>
-		/// <returns>The highest priority item in the queue.</returns>
+		/// <returns>The highest priority item in the heap.</returns>
 		T Peek();
 
 		#endregion
