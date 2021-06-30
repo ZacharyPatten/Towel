@@ -16,7 +16,6 @@ using System.Runtime.CompilerServices;
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1508:Closing braces should not be preceded by blank line")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1615:Element return value should be documented")]
 [assembly: SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1400:Access modifier should be declared")]
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1612:Element parameter documentation should match element parameters")]
 
 // TODO: reconsider these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression

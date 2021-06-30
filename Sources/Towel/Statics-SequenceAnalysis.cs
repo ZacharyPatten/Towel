@@ -302,9 +302,9 @@ namespace Towel
 
 		/// <summary>Gets the range (minimum and maximum) of a set of data.</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
-		/// <param name="stepper">The set of data to get the range of.</param>
 		/// <param name="minimum">The minimum of the set of data.</param>
 		/// <param name="maximum">The maximum of the set of data.</param>
+		/// <param name="stepper">The set of data to get the range of.</param>
 		/// <exception cref="ArgumentNullException">Throws when stepper is null.</exception>
 		/// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
 		public static void Range<T>(out T minimum, out T maximum, Action<Action<T>> stepper) =>
@@ -1265,8 +1265,8 @@ namespace Towel
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
-		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
+		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
 		public static bool IsPalindrome<T>(int start, int end, Func<int, T> get, Func<T, T, bool>? equate = default) =>
 			IsPalindrome<T, SFunc<int, T>, SFunc<T, T, bool>>(start, end, get, equate ?? Equate);
@@ -1276,8 +1276,8 @@ namespace Towel
 		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
-		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
+		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
 		public static bool IsPalindrome<T, TGet>(int start, int end, TGet get = default, Func<T, T, bool>? equate = default)
 			where TGet : struct, IFunc<int, T> =>
@@ -1289,8 +1289,8 @@ namespace Towel
 		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
-		/// <param name="equate">The element equate function.</param>
 		/// <param name="get">The get index function of the sequence.</param>
+		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
 		public static bool IsPalindrome<T, TGet, TEquate>(int start, int end, TGet get = default, TEquate equate = default)
 			where TGet : struct, IFunc<int, T>

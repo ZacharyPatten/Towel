@@ -44,9 +44,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Does an optimized step function (left to right) for sorted binary search trees.</summary>
 		/// <typeparam name="TStep">The type of the step function.</typeparam>
-		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
+		/// <param name="step">The step function.</param>
 		/// <returns>The result status of the stepper function.</returns>
 		StepStatus StepperBreak<TStep>(T minimum, T maximum, TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus>;
@@ -60,9 +60,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Does an optimized step function (right to left) for sorted binary search trees.</summary>
 		/// <typeparam name="TStep">The type of the step function.</typeparam>
-		/// <param name="step">The step function.</param>
 		/// <param name="minimum">The minimum step value.</param>
 		/// <param name="maximum">The maximum step value.</param>
+		/// <param name="step">The step function.</param>
 		/// <returns>The result status of the stepper function.</returns>
 		StepStatus StepperReverseBreak<TStep>(T minimum, T maximum, TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus>;
@@ -87,8 +87,8 @@ namespace Towel.DataStructures
 
 		/// <summary>Determines if the tree contains a value.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
-		/// <param name="sift">The sifting function that respects the sorting of the tree.</param>
 		/// <param name="tree">The tree to perfrom the contains check on.</param>
+		/// <param name="sift">The sifting function that respects the sorting of the tree.</param>
 		/// <returns>True if the value is in the tree or false if not.</returns>
 		public static bool ContainsSift<T>(this ISortedBinaryTree<T> tree, Func<T, CompareResult> sift)
 		{

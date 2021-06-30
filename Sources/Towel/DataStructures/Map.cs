@@ -55,8 +55,8 @@ namespace Towel.DataStructures
 		/// <typeparam name="TRemovePredicate">The predicate determining if the pair should be removed.</typeparam>
 		/// <typeparam name="TUpdate">The type of function to update the value.</typeparam>
 		/// <param name="key">The key of the value to update.</param>
-		/// <param name="update">The function to update the value relative to the key.</param>
 		/// <param name="removePredicate">The predicate determining if the pair should be removed.</param>
+		/// <param name="update">The function to update the value relative to the key.</param>
 		/// <returns>
 		/// <para>- Success: true if the key was found or false if not.</para>
 		/// <para>- Exception: the exception that occured if the add failed.</para>

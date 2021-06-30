@@ -17,12 +17,12 @@ namespace Towel
 		/// </summary>
 		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
 		/// <typeparam name="Random">The random to generation algorithm.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		public static void Next<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>
@@ -277,10 +277,10 @@ namespace Towel
 		/// </summary>
 		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
 		/// <typeparam name="Random">The random to generation algorithm.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
+		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		public static void NextUnique<Step, Random>(int count, int minValue, int maxValue, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
@@ -557,12 +557,12 @@ namespace Towel
 		/// </summary>
 		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
 		/// <typeparam name="Random">The random to generation algorithm.</typeparam>
-		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
-		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
+		/// <param name="random">The random to generation algorithm.</param>
+		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
 		public static void NextUnique<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
 			where Step : struct, IAction<int>
 			where Random : struct, IFunc<int, int, int>

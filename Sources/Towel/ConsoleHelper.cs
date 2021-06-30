@@ -30,8 +30,8 @@ namespace Towel
 		}
 
 		/// <summary>Prompts the user to press [enter] in the console before continuing.</summary>
-		/// <param name="key">The key to wait for the user to press before continuing.</param>
 		/// <param name="prompt">The prompt to display to the user. Default: "Press [enter] to continue...".</param>
+		/// <param name="key">The key to wait for the user to press before continuing.</param>
 		public static void PromptPressToContinue(string? prompt = null, ConsoleKey key = ConsoleKey.Enter)
 		{
 			if (!key.IsDefined())
