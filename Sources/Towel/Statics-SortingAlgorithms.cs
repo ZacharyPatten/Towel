@@ -77,6 +77,7 @@ namespace Towel
 
 #pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable SA1604 // Element documentation should have summary
 
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="Compare">The compare function.</typeparam>
@@ -92,6 +93,7 @@ namespace Towel
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static void XML_Sort() => throw new DocumentationMethodException();
 
+#pragma warning restore SA1604 // Element documentation should have summary
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 

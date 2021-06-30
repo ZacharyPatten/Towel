@@ -7,6 +7,7 @@ namespace Towel
 	{
 #pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable SA1604 // Element documentation should have summary
 
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
 		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
@@ -24,6 +25,8 @@ namespace Towel
 		/// <param name="span">The span of the permutation.</param>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static void XML_Permute() => throw new DocumentationMethodException();
+
+#pragma warning restore SA1604 // Element documentation should have summary
 
 		/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 		/// <inheritdoc cref="XML_Permute"/>
