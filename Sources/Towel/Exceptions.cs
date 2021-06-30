@@ -18,7 +18,7 @@ namespace Towel
 	/// <summary>Represents a bug in the Towel project. Please report it.</summary>
 	public class TowelBugException : Exception
 	{
-		static readonly string reportMessage =
+		internal static readonly string reportMessage =
 			Environment.NewLine +
 			Environment.NewLine +
 			"Please submit this issue to the Towel GitHub repository. " +

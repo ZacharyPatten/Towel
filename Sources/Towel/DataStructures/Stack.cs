@@ -178,7 +178,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public class StackArray<T> : IStack<T>, ICloneable<StackArray<T>>
 	{
-		const int DefaultMinimumCapacity = 1;
+		internal const int DefaultMinimumCapacity = 1;
 
 		internal T[] _array;
 		internal int _count;

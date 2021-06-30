@@ -205,7 +205,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
 	public class QueueArray<T> : IQueue<T>, ICloneable<QueueArray<T>>
 	{
-		const int DefaultMinimumCapacity = 1;
+		internal const int DefaultMinimumCapacity = 1;
 
 		internal T[] _array;
 		internal int _start;

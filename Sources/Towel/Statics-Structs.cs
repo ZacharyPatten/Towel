@@ -111,7 +111,7 @@ namespace Towel
 		public struct CompareInvert<T, TCompare> : IFunc<T, T, CompareResult>
 			where TCompare : struct, IFunc<T, T, CompareResult>
 		{
-			TCompare _compare;
+			internal TCompare _compare;
 			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
 			public CompareResult Invoke(T a, T b) => _compare.Invoke(b, a);
 			/// <summary>Inverts a <typeparamref name="TCompare"/>.</summary>
@@ -197,7 +197,7 @@ namespace Towel
 		/// <inheritdoc cref="Action_ReadOnlySpan{T1}"/>
 		public struct Action_ReadOnlySpan_Runtime<T> : IAction_ReadOnlySpan<T>
 		{
-			Action_ReadOnlySpan<T> Action;
+			internal Action_ReadOnlySpan<T> Action;
 
 			/// <inheritdoc cref="Action_ReadOnlySpan{T1}.Invoke(ReadOnlySpan{T1})"/>
 			public void Invoke(ReadOnlySpan<T> readOnlySpan) => Action(readOnlySpan);
@@ -211,8 +211,8 @@ namespace Towel
 
 		internal struct FillArray<T> : IAction<T>
 		{
-			int Index;
-			T[] Array;
+			internal int Index;
+			internal T[] Array;
 
 			public void Invoke(T arg1) => Array[Index++] = arg1;
 
@@ -221,7 +221,7 @@ namespace Towel
 
 		internal struct Func_int_int_JaggedArray_Length0<T> : IFunc<int, int>
 		{
-			T[][] JaggedArray;
+			internal T[][] JaggedArray;
 			public int Invoke(int index) => JaggedArray[index].Length;
 
 			public static implicit operator Func_int_int_JaggedArray_Length0<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
@@ -229,7 +229,7 @@ namespace Towel
 
 		internal struct Func_int_int_T_JaggedArray_Get<T> : IFunc<int, int, T>
 		{
-			T[][] JaggedArray;
+			internal T[][] JaggedArray;
 			public T Invoke(int index1, int index2) => JaggedArray[index1][index2];
 
 			public static implicit operator Func_int_int_T_JaggedArray_Get<T>(T[][] jaggedArray) => new() { JaggedArray = jaggedArray, };
