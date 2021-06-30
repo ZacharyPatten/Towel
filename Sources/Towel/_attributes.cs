@@ -12,7 +12,6 @@ using System.Runtime.CompilerServices;
 
 // TODO: consider removing these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules",          "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules",   "SA1602:Enumeration items should be documented")] // this is flagging internal enums rather than just public enums :(
 [assembly: SuppressMessage("StyleCop.CSharp.ReadabilityRules",     "SA1107:Code should not contain multiple statements on one line")]
 
 // TODO: keep this suppressed generally but occasionally unsuppress to clean code

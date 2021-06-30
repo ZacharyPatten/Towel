@@ -667,27 +667,29 @@ namespace Towel.Measurements
 
 	internal enum MetricUnits
 	{
+#pragma warning disable SA1602 // Enumeration items should be documented
 		Yocto = -24,
 		Zepto = -21,
-		Atto = -18,
+		Atto =  -18,
 		Femto = -15,
-		Pico = -12,
-		Nano = -9,
-		Micro = -6,
-		Milli = -3,
-		Centi = -2,
-		Deci = -1,
-		BASE = 0,
-		Deka = 1,
-		Hecto = 2,
-		Kilo = 3,
-		Mega = 6,
-		Giga = 9,
-		Tera = 12,
-		Peta = 15,
-		Exa = 18,
-		Zetta = 21,
-		Yotta = 24,
+		Pico =  -12,
+		Nano =   -9,
+		Micro =  -6,
+		Milli =  -3,
+		Centi =  -2,
+		Deci =   -1,
+		BASE =    0,
+		Deka =    1,
+		Hecto =   2,
+		Kilo =    3,
+		Mega =    6,
+		Giga =    9,
+		Tera =   12,
+		Peta =   15,
+		Exa =    18,
+		Zetta =  21,
+		Yotta =  24,
+#pragma warning restore SA1602 // Enumeration items should be documented
 	}
 
 	#endregion

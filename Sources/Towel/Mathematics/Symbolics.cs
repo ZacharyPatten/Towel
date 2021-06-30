@@ -16,6 +16,7 @@ namespace Towel.Mathematics
 		internal enum OperatorPriority
 		{
 #pragma warning disable CA1069 // Enums values should not be duplicated
+#pragma warning disable SA1602 // Enumeration items should be documented
 			Addition = 1,
 			Subtraction = 1,
 			Multiplication = 2,
@@ -25,6 +26,7 @@ namespace Towel.Mathematics
 			Logical = 4,
 			Negation = 5,
 			Factorial = 6,
+#pragma warning restore SA1602 // Enumeration items should be documented
 #pragma warning restore CA1069 // Enums values should not be duplicated
 		}
 
