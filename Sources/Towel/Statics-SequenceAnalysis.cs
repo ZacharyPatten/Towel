@@ -8,9 +8,6 @@ namespace Towel
 	{
 		#region Maximum
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the maximum value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -23,10 +20,7 @@ namespace Towel
 		/// <para>- <typeparamref name="T"/> Value: the maximum value in the sequence.</para>
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_Maximum<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_Maximum<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_Maximum"/>
 		public static (int Index, T Value) Maximum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -59,9 +53,6 @@ namespace Towel
 
 		#region MaximumValue
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the maximum between two values.</summary>
 		/// <typeparam name="T">The type of values to compare.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -70,10 +61,7 @@ namespace Towel
 		/// <param name="b">The second value to compare.</param>
 		/// <returns>The maximum of the two values.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_MaximumValue_Two<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_MaximumValue_Two<T, TCompare>(object compare, object a, object b) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_MaximumValue_Two"/>
 		public static T MaximumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
@@ -84,9 +72,6 @@ namespace Towel
 			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			compare.Invoke(b, a) is Greater ? b : a;
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the maximum value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -95,10 +80,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the maximum value in.</param>
 		/// <returns>The maximum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_MaximumValue<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_MaximumValue<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_MaximumValue"/>
 		public static T MaximumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -131,9 +113,6 @@ namespace Towel
 
 		#region MaximumIndex
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the maximum value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -142,10 +121,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the maximum value in.</param>
 		/// <returns>The index of the first occurence of the maximum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_MaximumIndex<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_MaximumIndex<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_MaximumIndex"/>
 		public static int MaximumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -178,9 +154,6 @@ namespace Towel
 
 		#region Minimum
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the minimum value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -193,10 +166,7 @@ namespace Towel
 		/// <para>- <typeparamref name="T"/> Value: the minimum value in the sequence.</para>
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_Minimum<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_Minimum<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_Minimum"/>
 		public static (int Index, T Value) Minimum<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -229,9 +199,6 @@ namespace Towel
 
 		#region MinimumValue
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the minimum between two values.</summary>
 		/// <typeparam name="T">The type of values to compare.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -240,10 +207,7 @@ namespace Towel
 		/// <param name="b">The second value to compare.</param>
 		/// <returns>The minimum of the two values.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_MinimumValue_Two<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_MinimumValue_Two<T, TCompare>(object compare, object a, object b) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_MinimumValue_Two"/>
 		public static T MinimumValue<T>(T a, T b, Func<T, T, CompareResult>? compare = null) =>
@@ -254,9 +218,6 @@ namespace Towel
 			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			compare.Invoke(b, a) is Less ? b : a;
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the minimum value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -265,10 +226,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the minimum value in.</param>
 		/// <returns>The minimum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_MinimumValue<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_MinimumValue<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_MinimumValue"/>
 		public static T MinimumValue<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -301,9 +259,6 @@ namespace Towel
 
 		#region MinimumIndex
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-
 		/// <summary>Finds the minimum value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
@@ -312,10 +267,7 @@ namespace Towel
 		/// <param name="span">The span of values to find the minimum value in.</param>
 		/// <returns>The index of the first occurence of the minimum value in the sequence.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_MinimumIndex<T>() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static object XML_MinimumIndex<T, TCompare>(object compare, object values, object span) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_MinimumIndex"/>
 		public static int MinimumIndex<T>(Func<T, T, CompareResult>? compare = null, params T[] values) =>
@@ -1132,8 +1084,6 @@ namespace Towel
 		#region FilterOrdered
 
 		#region XML
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 
 		/// <summary>Filters a sequence to only values that are in order.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
@@ -1147,16 +1097,14 @@ namespace Towel
 		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
 		/// <param name="span">The sequence of <typeparamref name="T"/> values to filter.</param>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_FilterOrdered<T>() => throw new DocumentationMethodException();
+		public static void XML_FilterOrdered<T, TGet, TStep, TCompare>(object start, object end, object get, object step, object compare, object span) => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_FilterOrdered"/>
 		/// <param name="enumerable">The sequence of <typeparamref name="T"/> values to filter.</param>
 		/// <returns>The sequence of filtered values.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static System.Collections.Generic.IEnumerable<T> XML_FilterOrderedEnumerable<T>() => throw new DocumentationMethodException();
+		public static System.Collections.Generic.IEnumerable<T> XML_FilterOrderedEnumerable<T>(object enumerable) => throw new DocumentationMethodException();
 
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 		#endregion
 
 		/// <inheritdoc cref="XML_FilterOrdered"/>
@@ -1232,24 +1180,20 @@ namespace Towel
 
 		#region IsOrdered
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning disable SA1604 // Element documentation should have summary
 
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <typeparam name="Get">The get function.</typeparam>
+		/// <typeparam name="TCompare">The compare function.</typeparam>
+		/// <typeparam name="TGet">The get function.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="start">The starting index of the sort.</param>
 		/// <param name="end">The ending index of the sort.</param>
 		/// <param name="span">The span to be sorted.</param>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static void XML_IsOrdered() => throw new DocumentationMethodException();
+		public static void XML_IsOrdered<T, TCompare, TGet>(object compare, object get, object start, object end, object span) => throw new DocumentationMethodException();
 
 #pragma warning restore SA1604 // Element documentation should have summary
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
 
 		/// <inheritdoc cref="XML_IsOrdered"/>
 		public static bool IsOrdered<T>(int start, int end, Func<int, T> get, Func<T, T, CompareResult>? compare = null) =>
@@ -1341,8 +1285,8 @@ namespace Towel
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
+		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
 		/// <param name="equate">The element equate function.</param>
@@ -1403,10 +1347,6 @@ namespace Towel
 
 		#region XML
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
-#pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
 #pragma warning disable SA1604 // Element documentation should have summary
 
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
@@ -1422,7 +1362,7 @@ namespace Towel
 		/// IsInterleaved("abc", "xyz", "012345") // False
 		/// </code>
 		/// </example>
-		public static object XML_IsInterleaved() => throw new DocumentationMethodException();
+		public static object XML_IsInterleaved<T>(object a, object b, object c, object equate) => throw new DocumentationMethodException();
 
 #pragma warning restore SA1604 // Element documentation should have summary
 
@@ -1436,7 +1376,7 @@ namespace Towel
 		/// <para>Memory: O(1)</para>
 		/// </summary>
 		/// <inheritdoc cref="XML_IsInterleaved"/>
-		public static void XML_IsInterleavedRecursive() => throw new DocumentationMethodException();
+		public static void XML_IsInterleavedRecursive(object a, object b, object c) => throw new DocumentationMethodException();
 
 		/// <summary>
 		/// Determines if <paramref name="c"/> is interleved of <paramref name="a"/> and <paramref name="b"/>,
@@ -1446,12 +1386,7 @@ namespace Towel
 		/// <para>Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)</para>
 		/// </summary>
 		/// <inheritdoc cref="XML_IsInterleaved"/>
-		public static void XML_IsInterleavedIterative() => throw new DocumentationMethodException();
-
-#pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
-#pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+		public static void XML_IsInterleavedIterative(object a, object b, object c) => throw new DocumentationMethodException();
 
 		#endregion
 
