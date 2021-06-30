@@ -11,17 +11,16 @@ using System.Runtime.CompilerServices;
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1611:Element parameters should be documented")]
 [assembly: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1005:Single line comments should begin with single space")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1625:Element documentation should not be copied and pasted")]
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1618:Generic type parameters should be documented")]
-[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1505:Opening braces should not be followed by blank line")]
-[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1508:Closing braces should not be preceded by blank line")]
 
-// TODO: reconsider these suppressions
+// TODO: consider removing these suppressions
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1602:Enumeration items should be documented")] // this is flagging internal enums rather than just public enums :(
 
 // TODO: keep this suppressed generally but occasionally unsuppress to clean code
 [assembly: SuppressMessage("StyleCop.CSharp.SpacingRules", "SA1025:Code should not contain multiple whitespace in a row")]
 
+[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1505:Opening braces should not be followed by blank line")]
+[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1508:Closing braces should not be preceded by blank line")]
 [assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1312:Variable names should begin with lower-case letter")]
 [assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element should begin with upper-case letter")]
 [assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1311:Static readonly fields should begin with upper-case letter")]

@@ -24,12 +24,14 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <summary>Determines if the tree contains a value.</summary>
+		/// <typeparam name="TSift">The type of the sifting function.</typeparam>
 		/// <param name="sift">The sifting function that respects the sorting of the tree.</param>
 		/// <returns>True if the value is in the tree or false if not.</returns>
 		bool ContainsSift<TSift>(TSift sift = default)
 			where TSift : struct, IFunc<T, CompareResult>;
 
 		/// <summary>Tries to get a value.</summary>
+		/// <typeparam name="TSift">The type of the sifting function.</typeparam>
 		/// <param name="sift">The sifting function that respects the sorting of the tree.</param>
 		/// <returns>True if the value was found or false if not.</returns>
 		(bool Success, T? Value, Exception? Exception) TryGet<TSift>(TSift sift = default)

@@ -15,9 +15,9 @@ namespace Towel
 		// These are some shared internal optimizations that I don't want to expose because it might confuse people.
 		// If you need to use it, just copy this code into your own project.
 
-		/// <summary>a * b + c</summary>
 		internal static class MultiplyAddImplementation<T>
 		{
+			/// <summary>a * b + c</summary>
 			internal static Func<T, T, T, T> Function = (a, b, c) =>
 			{
 				var A = Expression.Parameter(typeof(T));
@@ -29,9 +29,9 @@ namespace Towel
 			};
 		}
 
-		/// <summary>d - a * b / c</summary>
 		internal static class D_subtract_A_multiply_B_divide_C<T>
 		{
+			/// <summary>d - a * b / c</summary>
 			internal static Func<T, T, T, T, T> Function = (a, b, c, d) =>
 			{
 				var A = Expression.Parameter(typeof(T));

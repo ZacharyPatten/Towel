@@ -59,6 +59,7 @@ namespace Towel.DataStructures
 			iList.TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Removes the first equality by object reference.</summary>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		public static void RemoveFirst<T>(this IList<T> iList, Func<T, bool> predicate)
@@ -70,6 +71,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes the first occurence of an item in the list.</summary>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="value">The value to remove the first occurence of.</param>
 		public static void RemoveFirst<T>(this IList<T> iList, T value)
@@ -78,6 +80,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes the first occurence of an item in the list.</summary>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="value">The value to remove the first occurence of.</param>
 		/// <param name="equate">The delegate for performing equality checks.</param>
@@ -87,6 +90,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes the first occurence of an item in the list or returns false.</summary>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="value">The value to remove the first occurence of.</param>
 		/// <returns>True if the item was found and removed; False if not.</returns>
@@ -96,6 +100,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes the first occurence of an item in the list or returns false.</summary>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The list to remove the value from.</param>
 		/// <param name="value">The value to remove the first occurence of.</param>
 		/// <param name="equate">The delegate for performing equality checks.</param>
@@ -106,6 +111,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes all occurences of an item in the list.</summary>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The list to remove the values from.</param>
 		/// <param name="value">The value to remove all occurences of.</param>
 		public static void RemoveAll<T>(this IList<T> iList, T value)
@@ -114,6 +120,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes all occurences of an item in the list.</summary>
+		/// <typeparam name="T">The generic type of values inside the <see cref="IList{T}"/>.</typeparam>
 		/// <param name="iList">The list to remove the values from.</param>
 		/// <param name="value">The value to remove all occurences of.</param>
 		/// <param name="equate">The delegate for performing equality checks.</param>
@@ -230,9 +237,10 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>Removes all predicated items from the list.</summary>
+		/// <typeparam name="TPredicate">The type of predicate to determine removal.</typeparam>
 		/// <param name="predicate">The predicate to determine removal.</param>
-		public void RemoveAll<Predicate>(Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>
+		public void RemoveAll<TPredicate>(TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>
 		{
 			if (_head is not null)
 			{
@@ -530,12 +538,13 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Removes all predicated items from the list.
-		/// <para>Runtime: Θ(n)</para>
+		/// Removes all predicated items from the list.<br/>
+		/// Runtime: Θ(n)
 		/// </summary>
+		/// <typeparam name="TPredicate">The type of predicate to determine removal.</typeparam>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		public void RemoveAll<Predicate>(Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>
+		public void RemoveAll<TPredicate>(TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>
 		{
 			RemoveAllWithoutShrink(predicate);
 			if (_count < _array.Length / 2)
@@ -545,12 +554,13 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Removes all predicated items from the list.
-		/// <para>Runtime: Θ(n)</para>
+		/// Removes all predicated items from the list.<br/>
+		/// Runtime: Θ(n)
 		/// </summary>
+		/// <typeparam name="TPredicate">The type of predicate to determine removal.</typeparam>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		public void RemoveAllWithoutShrink<Predicate>(Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>
+		public void RemoveAllWithoutShrink<TPredicate>(TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>
 		{
 			if (_count is 0)
 			{
@@ -620,7 +630,7 @@ namespace Towel.DataStructures
 			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
-		/// <typeparam name="TPredicate">The predicate to determine removal.</typeparam>
+		/// <typeparam name="TPredicate">The type of predicate to determine removal.</typeparam>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>

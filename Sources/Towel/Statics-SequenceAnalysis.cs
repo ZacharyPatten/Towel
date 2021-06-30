@@ -1819,6 +1819,7 @@ namespace Towel
 		#region CombineRanges
 
 		/// <summary>Simplifies a sequence of ranges by merging ranges without gaps between them.</summary>
+		/// <typeparam name="T">The type of values in the sequances of ranges to combine.</typeparam>
 		/// <param name="ranges">The ranges to be simplified.</param>
 		/// <returns>A potentially smaller sequence of ranges that have been merged if there were no gaps in no particular order.</returns>
 		public static System.Collections.Generic.IEnumerable<(T A, T B)> CombineRanges<T>(System.Collections.Generic.IEnumerable<(T A, T B)> ranges)

@@ -46,6 +46,8 @@ namespace Towel
 		public static class SwitchSyntax
 		{
 			/// <summary>Delegate with params intended to be used with the Switch syntax.</summary>
+			/// <typeparam name="A">The first type in the value tuples in the array.</typeparam>
+			/// <typeparam name="B">The second type in the value tuples in the array.</typeparam>
 			public delegate void ParamsAction<A, B>(params (A, B)[] values);
 
 			internal static ParamsAction<Condition<T>, Action> Do<T>(T value) =>

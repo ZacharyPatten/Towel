@@ -144,7 +144,9 @@ namespace Towel.Mathematics
 			/// <param name="expression">The expression to substitute for each occurence of a variable.</param>
 			/// <returns>The resulting expression of the substitution.</returns>
 			public virtual Expression Substitute(string variable, Expression expression) => Clone();
+
 			/// <summary>Substitutes an expression for all occurences of a variable.</summary>
+			/// <typeparam name="T">The type of value to substitute in for the variable.</typeparam>
 			/// <param name="variable">The variable to be substititued.</param>
 			/// <param name="value">The value to substitute for each occurence of a variable.</param>
 			/// <returns>The resulting expression of the substitution.</returns>
@@ -644,6 +646,7 @@ namespace Towel.Mathematics
 		#region KnownConstantOfKnownType<T>
 
 		/// <summary>Abstract base class for known constants of unknown types.</summary>
+		/// <typeparam name="T">The type of the known constant value.</typeparam>
 		public abstract class KnownConstantOfKnownType<T> : Constant<T>
 		{
 			/// <summary>True if this numeric value is a known value.</summary>
