@@ -465,9 +465,7 @@ namespace Towel.Mathematics
 		}
 #endregion
 
-		/// <summary>
-		/// Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
-		/// </summary>
+		// Reference: https://codereview.stackexchange.com/questions/204135/determinant-using-gauss-elimination
 		internal static T GetDeterminantGaussian(Matrix<T> matrix, int n)
 		{
 			// Note: the reasoning behind using MatrixElementFraction is to account for

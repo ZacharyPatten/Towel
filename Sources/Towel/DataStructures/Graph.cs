@@ -581,6 +581,11 @@ namespace Towel.DataStructures
 		/// <param name="start">The starting point of the edge to add</param>
 		/// <param name="end">The ending point of the edge to add</param>
 		/// <param name="weight">The weight of the edge</param>
+		/// <returns>
+		/// (<see cref="bool"/> Success, <see cref="Exception"/>? Exception)<br/>
+		/// - <see cref="bool"/> Success: true if the value was added or false<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add was not successful
+		/// </returns>
 		(bool Success, Exception? Exception) TryAdd(T start, T end, W? weight);
 
 		/// <summary>Checks if b is adjacent to a.</summary>

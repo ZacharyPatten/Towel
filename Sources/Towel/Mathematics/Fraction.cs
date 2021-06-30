@@ -220,6 +220,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Reduces a fractional value if possible.</summary>
 		/// <param name="a">The fractional value to reduce.</param>
+		/// <returns>The fraction in the reduced form.</returns>
 		public static Fraction<T> Reduce(Fraction<T> a)
 		{
 			ReduceInternal(a.Numerator, a.Denominator, out T numerator, out T denominator);
@@ -227,6 +228,7 @@ namespace Towel.Mathematics
 		}
 
 		/// <summary>Reduces a fractional value if possible.</summary>
+		/// <returns>The fraction in the reduced form.</returns>
 		public Fraction<T> Reduce() =>
 			Fraction<T>.Reduce(this);
 

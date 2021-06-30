@@ -37,6 +37,11 @@ namespace Towel.DataStructures
 		/// <summary>Adds a node to the tree.</summary>
 		/// <param name="addition">The node to be added.</param>
 		/// <param name="parent">The parent of the node to be added.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Success, <see cref="Exception"/>? Exception)<br/>
+		/// - <see cref="bool"/> Success: true if the value was added to the tree or false if not<br/>
+		/// - <see cref="Exception"/>? Exception: the exception that occured if the add was not successful
+		/// </returns>
 		(bool Success, Exception? Exception) TryAdd(T addition, T parent);
 
 		#endregion

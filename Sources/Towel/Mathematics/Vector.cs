@@ -1019,6 +1019,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
 		/// <param name="c">The result of the slerp operation.</param>
+		/// <returns>The result of the slerp operation.</returns>
 		public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T>? c)
 		{
 			throw new NotImplementedException();

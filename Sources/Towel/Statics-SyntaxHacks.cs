@@ -85,6 +85,7 @@ namespace Towel
 			public abstract class Condition<T>
 			{
 				/// <summary>Resolves the condition to a bool.</summary>
+				/// <returns>The result of the condition.</returns>
 				public abstract bool Resolve(T b);
 				/// <summary>Casts a <typeparamref name="T"/> to a bool using an equality check.</summary>
 				public static implicit operator Condition<T>(T value) => new Value<T>(a: value);
@@ -124,6 +125,7 @@ namespace Towel
 			public abstract class Condition
 			{
 				/// <summary>Resolves the condition to a bool.</summary>
+				/// <returns>The result of the condition.</returns>
 				public abstract bool Resolve();
 				/// <summary>Uses the bool as the condition result.</summary>
 				public static implicit operator Condition(bool result) => new Bool { Result = result, };
@@ -399,6 +401,7 @@ namespace Towel
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public void Clear() => Value = Array.Empty<T>();
 			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public bool Contains(T item) => Value.Contains(item);
 			/// <summary>Not intended to be invoked directly.</summary>
@@ -406,6 +409,7 @@ namespace Towel
 			public void CopyTo(T[] array, int arrayIndex) =>
 				Array.Copy(Value, 0, array, arrayIndex, Value.Length);
 			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public int IndexOf(T item) => Array.IndexOf(Value, item);
 			/// <summary>Not intended to be invoked directly.</summary>
@@ -424,6 +428,7 @@ namespace Towel
 				Value = newValue;
 			}
 			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public bool Remove(T item)
 			{

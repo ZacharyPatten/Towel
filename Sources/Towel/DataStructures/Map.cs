@@ -136,6 +136,11 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
+		/// <returns>
+		/// (<typeparamref name="T"/> OldValue, <typeparamref name="T"/> NewValue)<br/>
+		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update<br/>
+		/// - <typeparamref name="T"/> NewValue: the value relative tothe key after to the update
+		/// </returns>
 		public static (T OldValue, T NewValue) Update<T, K>(this IMap<T, K> map, K key, Func<T, T> update) =>
 			map.Update<T, K, SFunc<T, T>>(key, update);
 
@@ -146,6 +151,11 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to add or update.</param>
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Existed, <typeparamref name="T"/> OldValue)<br/>
+		/// - <see cref="bool"/> Existed: true if the key was already in the map<br/>
+		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update if it existed or default
+		/// </returns>
 		public static (bool Existed, T? OldValue) AddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update) =>
 			map.AddOrUpdate<T, K, SFunc<T, T>>(key, value, update);
 
@@ -156,6 +166,11 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
+		/// <returns>
+		/// (<typeparamref name="T"/> OldValue, <typeparamref name="T"/> NewValue)<br/>
+		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update<br/>
+		/// - <typeparamref name="T"/> NewValue: the value relative tothe key after to the update
+		/// </returns>
 		public static (T OldValue, T NewValue) Update<T, K, TUpdate>(this IMap<T, K> map, K key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
@@ -175,6 +190,11 @@ namespace Towel.DataStructures
 		/// <param name="key">The key of the value to add or update.</param>
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Existed, <typeparamref name="T"/> OldValue)<br/>
+		/// - <see cref="bool"/> Existed: true if the key was already in the map<br/>
+		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update if it existed or default
+		/// </returns>
 		public static (bool Existed, T? OldValue) AddOrUpdate<T, K, TUpdate>(this IMap<T, K> map, K key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
@@ -241,6 +261,11 @@ namespace Towel.DataStructures
 		/// <param name="map">The map to set the value in.</param>
 		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
+		/// <returns>
+		/// (<see cref="bool"/> Existed, <typeparamref name="T"/> OldValue)<br/>
+		/// - <see cref="bool"/> Existed: true if the key was already in the map<br/>
+		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update if it existed or default
+		/// </returns>
 		public static (bool Existed, T? OldValue) Set<T, K>(this IMap<T, K> map, K key, T value)
 		{
 			var (success, exception, existed, oldValue) = map.TrySet(key, value);
