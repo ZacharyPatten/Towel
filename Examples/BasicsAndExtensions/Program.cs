@@ -183,8 +183,7 @@ namespace BasicsAndExtensions
 				Console.WriteLine("    using Towel's extension methods.");
 				Console.WriteLine();
 
-				// This function loads in XML documentation so you can access it via reflection.
-				Meta.LoadXmlDocumentation(File.ReadAllText(Path.Combine("..", "..", "..", "..", "..", "Sources", "Towel", "Towel.xml")));
+				/// You may need to call <see cref="Meta.LoadXmlDocumentation"/> first if the documentation can't be found via reflection.
 
 				Console.Write("    XML Documentation On Towel.TagAttribute:");
 				Console.WriteLine(typeof(TagAttribute).GetDocumentation());
@@ -557,6 +556,7 @@ namespace BasicsAndExtensions
 						(Default,    () => Console.Write("Default"))
 					);
 				}
+				Console.WriteLine();
 
 				Pause();
 			}
