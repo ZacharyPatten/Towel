@@ -979,6 +979,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The max of the interpolation.</param>
 		/// <param name="blend">The blending point of the interpolation.</param>
 		/// <param name="c">The result of the spherical interpolation.</param>
+		#warning TODO
 		[Obsolete("Not Implemented", true)]
 		public static void SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T>? c)
 		{

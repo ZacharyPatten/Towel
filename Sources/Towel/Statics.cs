@@ -321,7 +321,7 @@ namespace Towel
 						};
 					return Function!(a, b);
 				}
-
+				#warning TODO
 				throw new NotImplementedException();
 			};
 		}
@@ -636,6 +636,7 @@ namespace Towel
 					}
 					return Function!(a, b);
 				}
+				#warning TODO
 				throw new NotImplementedException();
 			};
 		}
@@ -999,6 +1000,7 @@ namespace Towel
 					}
 					else
 					{
+						#warning TODO
 						throw new NotImplementedException("This feature is still in development.");
 					}
 				};
@@ -1090,6 +1092,7 @@ namespace Towel
 		{
 			internal static Func<T, T, T> Function = (a, b) =>
 			{
+				#warning TODO
 				throw new NotImplementedException();
 
 				// ParameterExpression A = Expression.Parameter(typeof(T));
@@ -1678,6 +1681,7 @@ namespace Towel
 		/// <returns>The exponential of the value [e ^ <paramref name="a"/>].</returns>
 		public static T Exponential<T>(T a)
 		{
+			#warning TODO
 			throw new NotImplementedException();
 		}
 
@@ -1708,6 +1712,7 @@ namespace Towel
 						return Function(a);
 					}
 				}
+				#warning TODO
 				throw new NotImplementedException();
 			};
 		}

@@ -158,10 +158,12 @@ namespace Towel.Mathematics
 			/// <summary>Derives this expression.</summary>
 			/// <param name="variable">The variable to derive in relation to.</param>
 			/// <returns>The result of the derivation.</returns>
+			#warning TODO
 			public virtual Expression Derive(string variable) => throw new NotImplementedException("This feature is still in development");
 			/// <summary>Integrates this expression.</summary>
 			/// <param name="variable">The variable to integrate in relation to.</param>
 			/// <returns>The result of the integration.</returns>
+			#warning TODO
 			public virtual Expression Integrate(string variable) => throw new NotImplementedException("This feature is still in development");
 
 			/// <summary>Creates a copy of the expression.</summary>
