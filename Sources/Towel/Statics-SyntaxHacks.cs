@@ -531,11 +531,17 @@ namespace Towel
 			#endregion
 
 			#region System.Collections.Generic.IEnumerable<T>
-			/// <summary>Gets the <see cref="System.Collections.Generic.IEnumerator{T}"/> for this universal quantification.</summary>
-			/// <returns>The <see cref="System.Collections.Generic.IEnumerator{T}"/> for this universal quantification.</returns>
-			[Obsolete(TowelConstants.NotIntended, true)]
+
+			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)Value).GetEnumerator();
+
+			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => Value.GetEnumerator();
+
 			#endregion
 
 			#region Implicit Casting Operators
