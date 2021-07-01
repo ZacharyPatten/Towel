@@ -5,19 +5,19 @@ namespace Towel.DataStructures
 {
 	/// <summary>A map between instances of two types. The polymorphism base for Map implementations in Towel.</summary>
 	/// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>
-	/// <typeparam name="K">The type of keys used to look up items in this structure.</typeparam>
-	public interface IMap<T, K> : IDataStructure<T>,
+	/// <typeparam name="TKey">The type of keys used to look up items in this structure.</typeparam>
+	public interface IMap<T, TKey> : IDataStructure<T>,
 		DataStructure.ICountable,
 		DataStructure.IClearable,
-		DataStructure.IAuditable<K>,
-		DataStructure.IRemovable<K>
+		DataStructure.IAuditable<TKey>,
+		DataStructure.IRemovable<TKey>
 	{
 		#region Properties
 
 		/// <summary>Allows indexed look-up of the structure. (Set does not replace the Add() method)</summary>
 		/// <param name="key">The "index" to access of the structure.</param>
 		/// <returns>The value at the index of the requested key.</returns>
-		T this[K key] { get; set; }
+		T this[TKey key] { get; set; }
 
 		#endregion
 
@@ -30,7 +30,7 @@ namespace Towel.DataStructures
 		/// - <see cref="Exception"/>? Exception: the exception that occured if the get failed.<br/>
 		/// - <typeparamref name="T"/>? Value: the value if the key was found or default if not.
 		/// </returns>
-		(bool Success, Exception? Exception, T? Value) TryGet(K key);
+		(bool Success, Exception? Exception, T? Value) TryGet(TKey key);
 
 		/// <summary>Sets value in the map.</summary>
 		/// <param name="key">The key of the value.</param>
@@ -41,7 +41,7 @@ namespace Towel.DataStructures
 		/// - <see cref="bool"/>? Existed: if the key existed prior to being set<br/>
 		/// - <typeparamref name="T"/>? OldValue: the previous value if the key existed prior to being set
 		/// </returns>
-		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TrySet(K key, T value);
+		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TrySet(TKey key, T value);
 
 		/// <summary>Tries to add a value to the map.</summary>
 		/// <param name="key">The key of the value.</param>
@@ -50,7 +50,7 @@ namespace Towel.DataStructures
 		/// - <see cref="bool"/> Success: true if the key+value was added or false if not<br/>
 		/// - <see cref="Exception"/>? Exception: the exception that occured if the add failed
 		/// </returns>
-		(bool Success, Exception? Exception) TryAdd(K key, T value);
+		(bool Success, Exception? Exception) TryAdd(TKey key, T value);
 
 		/// <summary>Tries to update a value in the map the relative key exists.</summary>
 		/// <typeparam name="TRemovePredicate">The predicate determining if the pair should be removed.</typeparam>
@@ -64,7 +64,7 @@ namespace Towel.DataStructures
 		/// - <typeparamref name="T"/>? OldValue: the non-updated value if the key was found or default if not<br/>
 		/// - <typeparamref name="T"/>? NewValue: the updated value if the key was found or default if not
 		/// </returns>
-		(bool Success, Exception? Exception, bool? Removed, T? OldValue, T? NewValue) TryRemoveOrUpdate<TRemovePredicate, TUpdate>(K key, TRemovePredicate removePredicate = default, TUpdate update = default)
+		(bool Success, Exception? Exception, bool? Removed, T? OldValue, T? NewValue) TryRemoveOrUpdate<TRemovePredicate, TUpdate>(TKey key, TRemovePredicate removePredicate = default, TUpdate update = default)
 			where TRemovePredicate : struct, IFunc<T, bool>
 			where TUpdate : struct, IFunc<T, T>;
 
@@ -78,7 +78,7 @@ namespace Towel.DataStructures
 		/// - <typeparamref name="T"/>? OldValue: the non-updated value if the key was found or default if not<br/>
 		/// - <typeparamref name="T"/>? NewValue: the updated value if the key was found or default if not
 		/// </returns>
-		(bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<TUpdate>(K key, TUpdate update = default)
+		(bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<TUpdate>(TKey key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>;
 
 		/// <summary>Adds or updates the value at the given key.</summary>
@@ -92,38 +92,38 @@ namespace Towel.DataStructures
 		/// - <see cref="bool"/>? Existed: if the key existed prior to the add or update<br/>
 		/// - <typeparamref name="T"/>? OldValue: the old value if the key existed prior to the add or update
 		/// </returns>
-		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<TUpdate>(K key, T value, TUpdate update = default)
+		(bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<TUpdate>(TKey key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>;
 
 		/// <summary>Gets an enumerator that will traverse the keys of the map.</summary>
 		/// <returns>An enumerator that will traverse the keys of the map.</returns>
-		System.Collections.Generic.IEnumerable<K> GetKeys();
+		System.Collections.Generic.IEnumerable<TKey> GetKeys();
 
 		/// <summary>Gets an array with all the keys in the map.</summary>
 		/// <returns>An array with all the keys in the map.</returns>
-		K[] KeysToArray();
+		TKey[] KeysToArray();
 
 		/// <summary>Performs a function on every key in a map.</summary>
 		/// <typeparam name="TStep">The type of the step function.</typeparam>
 		/// <param name="step">The step function to perform on every key.</param>
 		/// <returns>The status of traversal.</returns>
 		StepStatus KeysBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<K, StepStatus>;
+			where TStep : struct, IFunc<TKey, StepStatus>;
 
 		/// <summary>Gets an enumerator that will traverse the pairs of the map.</summary>
 		/// <returns>An enumerator that will traverse the pairs of the map.</returns>
-		System.Collections.Generic.IEnumerable<(T Value, K Key)> GetPairs();
+		System.Collections.Generic.IEnumerable<(T Value, TKey Key)> GetPairs();
 
 		/// <summary>Gets an array with all the pairs in the map.</summary>
 		/// <returns>An array with all the pairs in the map.</returns>
-		(T Value, K Key)[] PairsToArray();
+		(T Value, TKey Key)[] PairsToArray();
 
 		/// <summary>Performs a function on every pair in a map.</summary>
 		/// <typeparam name="TStep">The type of the step function.</typeparam>
 		/// <param name="step">The step function to perform on every pair.</param>
 		/// <returns>The status of traversal.</returns>
 		StepStatus PairsBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<(T Value, K Key), StepStatus>;
+			where TStep : struct, IFunc<(T Value, TKey Key), StepStatus>;
 
 		#endregion
 	}
@@ -135,7 +135,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Updates a value in the map the relative key exists.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
@@ -144,12 +144,12 @@ namespace Towel.DataStructures
 		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update<br/>
 		/// - <typeparamref name="T"/> NewValue: the value relative tothe key after to the update
 		/// </returns>
-		public static (T OldValue, T NewValue) Update<T, K>(this IMap<T, K> map, K key, Func<T, T> update) =>
-			map.Update<T, K, SFunc<T, T>>(key, update);
+		public static (T OldValue, T NewValue) Update<T, TKey>(this IMap<T, TKey> map, TKey key, Func<T, T> update) =>
+			map.Update<T, TKey, SFunc<T, T>>(key, update);
 
 		/// <summary>Adds or updates the value at the given key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to add or update the value in.</param>
 		/// <param name="key">The key of the value to add or update.</param>
 		/// <param name="value">The value to add if not already present.</param>
@@ -159,12 +159,12 @@ namespace Towel.DataStructures
 		/// - <see cref="bool"/> Existed: true if the key was already in the map<br/>
 		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update if it existed or default
 		/// </returns>
-		public static (bool Existed, T? OldValue) AddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update) =>
-			map.AddOrUpdate<T, K, SFunc<T, T>>(key, value, update);
+		public static (bool Existed, T? OldValue) AddOrUpdate<T, TKey>(this IMap<T, TKey> map, TKey key, T value, Func<T, T> update) =>
+			map.AddOrUpdate<T, TKey, SFunc<T, T>>(key, value, update);
 
 		/// <summary>Updates a value in the map the relative key exists.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <typeparam name="TUpdate">The type of function to update the value.</typeparam>
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
@@ -174,7 +174,7 @@ namespace Towel.DataStructures
 		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update<br/>
 		/// - <typeparamref name="T"/> NewValue: the value relative tothe key after to the update
 		/// </returns>
-		public static (T OldValue, T NewValue) Update<T, K, TUpdate>(this IMap<T, K> map, K key, TUpdate update = default)
+		public static (T OldValue, T NewValue) Update<T, TKey, TUpdate>(this IMap<T, TKey> map, TKey key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
 			var (success, exception, oldValue, newValue) = map.TryUpdate(key, update);
@@ -187,7 +187,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds or updates the value at the given key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <typeparam name="TUpdate">The type of function to update the value.</typeparam>
 		/// <param name="map">The map to add or update the value in.</param>
 		/// <param name="key">The key of the value to add or update.</param>
@@ -197,7 +197,7 @@ namespace Towel.DataStructures
 		/// - <see cref="bool"/> Existed: true if the key was already in the map<br/>
 		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update if it existed or default
 		/// </returns>
-		public static (bool Existed, T? OldValue) AddOrUpdate<T, K, TUpdate>(this IMap<T, K> map, K key, T value, TUpdate update = default)
+		public static (bool Existed, T? OldValue) AddOrUpdate<T, TKey, TUpdate>(this IMap<T, TKey> map, TKey key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
 			var (success, exception, existed, oldValue) = map.TryAddOrUpdate(key, value, update);
@@ -210,7 +210,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to update a value in the map the relative key exists.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to update the value in.</param>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="update">The function to update the value relative to the key.</param>
@@ -220,7 +220,7 @@ namespace Towel.DataStructures
 		/// - <typeparamref name="T"/>? OldValue: the value if the key was found or default if not<br/>
 		/// - <typeparamref name="T"/>? NewValue: the value if the key was found or default if not
 		/// </returns>
-		public static (bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<T, K>(this IMap<T, K> map, K key, Func<T, T> update)
+		public static (bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<T, TKey>(this IMap<T, TKey> map, TKey key, Func<T, T> update)
 		{
 			if (update is null) throw new ArgumentNullException(nameof(update));
 			return map.TryUpdate<SFunc<T, T>>(key, update);
@@ -228,7 +228,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Tries to add or update the value at the given key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to add or update the value in.</param>
 		/// <param name="key">The key of the value to add or update.</param>
 		/// <param name="value">The value to add if not already present.</param>
@@ -239,7 +239,7 @@ namespace Towel.DataStructures
 		/// - <see cref="bool"/>? Existed: true if the key-value pair was added or updated or false<br/>
 		/// - <typeparamref name="T"/>? OldValue: the previous value if the key existed before the add or update operation
 		/// </returns>
-		public static (bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<T, K>(this IMap<T, K> map, K key, T value, Func<T, T> update)
+		public static (bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<T, TKey>(this IMap<T, TKey> map, TKey key, T value, Func<T, T> update)
 		{
 			if (update is null) throw new ArgumentNullException(nameof(update));
 			return map.TryAddOrUpdate<SFunc<T, T>>(key, value, update);
@@ -247,11 +247,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds a value to a map by key.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to add the value to.</param>
 		/// <param name="key">The key of the value to get.</param>
 		/// <param name="value">The value to add to the map.</param>
-		public static void Add<T, K>(this IMap<T, K> map, K key, T value)
+		public static void Add<T, TKey>(this IMap<T, TKey> map, TKey key, T value)
 		{
 			var (success, exception) = map.TryAdd(key, value);
 			if (!success)
@@ -262,7 +262,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Sets a value in a map relative to a key.</summary>
 		/// <typeparam name="T">The type of the value.</typeparam>
-		/// <typeparam name="K">The type of the key.</typeparam>
+		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <param name="map">The map to set the value in.</param>
 		/// <param name="key">The key.</param>
 		/// <param name="value">The value.</param>
@@ -271,7 +271,7 @@ namespace Towel.DataStructures
 		/// - <see cref="bool"/> Existed: true if the key was already in the map<br/>
 		/// - <typeparamref name="T"/> OldValue: the value relative tothe key before to the update if it existed or default
 		/// </returns>
-		public static (bool Existed, T? OldValue) Set<T, K>(this IMap<T, K> map, K key, T value)
+		public static (bool Existed, T? OldValue) Set<T, TKey>(this IMap<T, TKey> map, TKey key, T value)
 		{
 			var (success, exception, existed, oldValue) = map.TrySet(key, value);
 			if (!success)
@@ -283,11 +283,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets a value in a map relative to a key.</summary>
 		/// <typeparam name="T">The type of the value.</typeparam>
-		/// <typeparam name="K">The type of the key.</typeparam>
+		/// <typeparam name="TKey">The type of the key.</typeparam>
 		/// <param name="map">The map to set the value in.</param>
 		/// <param name="key">The key.</param>
 		/// <returns>The value relative to the key.</returns>
-		public static T Get<T, K>(this IMap<T, K> map, K key)
+		public static T Get<T, TKey>(this IMap<T, TKey> map, TKey key)
 		{
 			var (success, exception, value) = map.TryGet(key);
 			if (!success)
@@ -299,68 +299,68 @@ namespace Towel.DataStructures
 
 		/// <summary>Performs a function on every key in a map.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to traverse the keys of.</param>
 		/// <param name="step">The step function to perform on every key.</param>
-		public static void Keys<T, K>(this IMap<T, K> map, Action<K> step)
+		public static void Keys<T, TKey>(this IMap<T, TKey> map, Action<TKey> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
-			map.Keys<T, K, SAction<K>>(step);
+			map.Keys<T, TKey, SAction<TKey>>(step);
 		}
 
 		/// <summary>Performs a function on every key in a map.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <typeparam name="Step">The type of step function to perform on every key.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
+		/// <typeparam name="TStep">The type of step function to perform on every key.</typeparam>
 		/// <param name="map">The map to traverse the keys of.</param>
 		/// <param name="step">The step function to perform on every key.</param>
-		public static void Keys<T, K, Step>(this IMap<T, K> map, Step step = default)
-			where Step : struct, IAction<K> =>
-			map.KeysBreak<StepBreakFromAction<K, Step>>(step);
+		public static void Keys<T, TKey, TStep>(this IMap<T, TKey> map, TStep step = default)
+			where TStep : struct, IAction<TKey> =>
+			map.KeysBreak<StepBreakFromAction<TKey, TStep>>(step);
 
 		/// <summary>Performs a function on every key in a map.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to traverse the keys of.</param>
 		/// <param name="step">The step function to perform on every key.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus KeysBreak<T, K>(this IMap<T, K> map, Func<K, StepStatus> step)
+		public static StepStatus KeysBreak<T, TKey>(this IMap<T, TKey> map, Func<TKey, StepStatus> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
-			return map.KeysBreak<SFunc<K, StepStatus>>(step);
+			return map.KeysBreak<SFunc<TKey, StepStatus>>(step);
 		}
 
 		/// <summary>Performs a function on every pair in a map.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to traverse the pairs of.</param>
 		/// <param name="step">The step function to perform on every pair.</param>
-		public static void Pairs<T, K>(this IMap<T, K> map, Action<(T Value, K Key)> step)
+		public static void Pairs<T, TKey>(this IMap<T, TKey> map, Action<(T Value, TKey Key)> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
-			map.Pairs<T, K, SAction<(T Value, K Key)>>(step);
+			map.Pairs<T, TKey, SAction<(T Value, TKey Key)>>(step);
 		}
 
 		/// <summary>Performs a function on every pair in a map.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
-		/// <typeparam name="Step">The type of step function to perform on every pair.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
+		/// <typeparam name="TStep">The type of step function to perform on every pair.</typeparam>
 		/// <param name="map">The map to traverse the pairs of.</param>
 		/// <param name="step">The step function to perform on every pair.</param>
-		public static void Pairs<T, K, Step>(this IMap<T, K> map, Step step = default)
-			where Step : struct, IAction<(T Value, K Key)> =>
-			map.PairsBreak<StepBreakFromAction<(T Value, K Key), Step>>(step);
+		public static void Pairs<T, TKey, TStep>(this IMap<T, TKey> map, TStep step = default)
+			where TStep : struct, IAction<(T Value, TKey Key)> =>
+			map.PairsBreak<StepBreakFromAction<(T Value, TKey Key), TStep>>(step);
 
 		/// <summary>Performs a function on every pair in a map.</summary>
 		/// <typeparam name="T">The type of values in the map.</typeparam>
-		/// <typeparam name="K">The type of keys in the map.</typeparam>
+		/// <typeparam name="TKey">The type of keys in the map.</typeparam>
 		/// <param name="map">The map to traverse the pairs of.</param>
 		/// <param name="step">The step function to perform on every pair.</param>
 		/// <returns>The status of the traversal.</returns>
-		public static StepStatus PairsBreak<T, K>(this IMap<T, K> map, Func<(T Value, K Key), StepStatus> step)
+		public static StepStatus PairsBreak<T, TKey>(this IMap<T, TKey> map, Func<(T Value, TKey Key), StepStatus> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
-			return map.PairsBreak<SFunc<(T Value, K Key), StepStatus>>(step);
+			return map.PairsBreak<SFunc<(T Value, TKey Key), StepStatus>>(step);
 		}
 
 		#endregion
@@ -373,11 +373,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
-		/// <typeparam name="K">The type of keys used to look up values.</typeparam>
+		/// <typeparam name="TKey">The type of keys used to look up values.</typeparam>
 		/// <returns>The new constructed <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</returns>
-		public static MapHashLinked<T, K, SFunc<K, K, bool>, SFunc<K, int>> New<T, K>(
-			Func<K, K, bool>? equate = null,
-			Func<K, int>? hash = null) =>
+		public static MapHashLinked<T, TKey, SFunc<TKey, TKey, bool>, SFunc<TKey, int>> New<T, TKey>(
+			Func<TKey, TKey, bool>? equate = null,
+			Func<TKey, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? Hash);
 
 		#endregion
@@ -385,15 +385,15 @@ namespace Towel.DataStructures
 
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The generic type of the structure.</typeparam>
-	/// <typeparam name="K">The generic key type of this map.</typeparam>
-	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="K"/> values.</typeparam>
-	/// <typeparam name="THash">The type of function for hashing <typeparamref name="K"/> values.</typeparam>
-	public class MapHashLinked<T, K, TEquate, THash> : IMap<T, K>,
-		ICloneable<MapHashLinked<T, K, TEquate, THash>>,
-		DataStructure.IEquating<K, TEquate>,
-		DataStructure.IHashing<K, THash>
-		where TEquate : struct, IFunc<K, K, bool>
-		where THash : struct, IFunc<K, int>
+	/// <typeparam name="TKey">The generic key type of this map.</typeparam>
+	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="TKey"/> values.</typeparam>
+	/// <typeparam name="THash">The type of function for hashing <typeparamref name="TKey"/> values.</typeparam>
+	public class MapHashLinked<T, TKey, TEquate, THash> : IMap<T, TKey>,
+		ICloneable<MapHashLinked<T, TKey, TEquate, THash>>,
+		DataStructure.IEquating<TKey, TEquate>,
+		DataStructure.IHashing<TKey, THash>
+		where TEquate : struct, IFunc<TKey, TKey, bool>
+		where THash : struct, IFunc<TKey, int>
 	{
 		internal const float _maxLoadFactor = .7f;
 		internal const float _minLoadFactor = .3f;
@@ -407,11 +407,11 @@ namespace Towel.DataStructures
 
 		internal class Node
 		{
-			internal K Key;
+			internal TKey Key;
 			internal T Value;
 			internal Node? Next;
 
-			internal Node(T value, K key, Node? next = null)
+			internal Node(T value, TKey key, Node? next = null)
 			{
 				Value = value;
 				Key = key;
@@ -427,8 +427,8 @@ namespace Towel.DataStructures
 		/// Constructs a hashed map.
 		/// <para>Runtime: O(1)</para>
 		/// </summary>
-		/// <param name="equate">The function for quality checking <typeparamref name="K"/> values.</param>
-		/// <param name="hash">The function for hashing <typeparamref name="K"/> values.</param>
+		/// <param name="equate">The function for quality checking <typeparamref name="TKey"/> values.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="TKey"/> values.</param>
 		/// <param name="expectedCount">The expected count of the map.</param>
 		public MapHashLinked(
 			TEquate equate = default,
@@ -458,7 +458,7 @@ namespace Towel.DataStructures
 		/// <para>Runtime: O(n)</para>
 		/// </summary>
 		/// <param name="map">The map to clone.</param>
-		internal MapHashLinked(MapHashLinked<T, K, TEquate, THash> map)
+		internal MapHashLinked(MapHashLinked<T, TKey, TEquate, THash> map)
 		{
 			_equate = map._equate;
 			_hash = map._hash;
@@ -488,16 +488,16 @@ namespace Towel.DataStructures
 		/// <summary>Gets the value of a specified key.</summary>
 		/// <param name="key">The key to get the value of.</param>
 		/// <returns>The value of the key.</returns>
-		public T this[K key] { get => this.Get(key); set => this.Set(key, value); }
+		public T this[TKey key] { get => this.Get(key); set => this.Set(key, value); }
 
 		#endregion
 
 		#region Methods
 
-		internal int GetLocation(K key) => (_hash.Invoke(key) & int.MaxValue) % _table.Length;
+		internal int GetLocation(TKey key) => (_hash.Invoke(key) & int.MaxValue) % _table.Length;
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryAdd(K key, T value)
+		public (bool Success, Exception? Exception) TryAdd(TKey key, T value)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
@@ -526,7 +526,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<TUpdate>(K key, T value, TUpdate update = default)
+		public (bool Success, Exception? Exception, bool? Existed, T? OldValue) TryAddOrUpdate<TUpdate>(TKey key, T value, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
 			int location = GetLocation(key);
@@ -561,7 +561,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception, bool? Removed, T? OldValue, T? NewValue) TryRemoveOrUpdate<TRemovePredicate, TUpdate>(K key, TRemovePredicate removePredicate = default, TUpdate update = default)
+		public (bool Success, Exception? Exception, bool? Removed, T? OldValue, T? NewValue) TryRemoveOrUpdate<TRemovePredicate, TUpdate>(TKey key, TRemovePredicate removePredicate = default, TUpdate update = default)
 			where TRemovePredicate : struct, IFunc<T, bool>
 			where TUpdate : struct, IFunc<T, T>
 		{
@@ -596,7 +596,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<TUpdate>(K key, TUpdate update = default)
+		public (bool Success, Exception? Exception, T? OldValue, T? NewValue) TryUpdate<TUpdate>(TKey key, TUpdate update = default)
 			where TUpdate : struct, IFunc<T, T>
 		{
 			int location = GetLocation(key);
@@ -613,7 +613,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception, T? Value) TryGet(K key)
+		public (bool Success, Exception? Exception, T? Value) TryGet(TKey key)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
@@ -627,7 +627,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception, bool? Existed, T? OldValue) TrySet(K key, T value)
+		public (bool Success, Exception? Exception, bool? Existed, T? OldValue) TrySet(TKey key, T value)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
@@ -661,7 +661,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryRemove(K key)
+		public (bool Success, Exception? Exception) TryRemove(TKey key)
 		{
 			var (success, exception) = TryRemoveWithoutTrim(key);
 			if (!success)
@@ -683,7 +683,7 @@ namespace Towel.DataStructures
 		/// <summary>Tries to remove a keyed value without shrinking the hash table.</summary>
 		/// <param name="key">The key of the value to remove.</param>
 		/// <returns>True if the removal was successful for false if not.</returns>
-		public (bool Success, Exception? Exception) TryRemoveWithoutTrim(K key)
+		public (bool Success, Exception? Exception) TryRemoveWithoutTrim(TKey key)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location], previous = null; node is not null; previous = node, node = node.Next)
@@ -745,10 +745,10 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public MapHashLinked<T, K, TEquate, THash> Clone() => new(this);
+		public MapHashLinked<T, TKey, TEquate, THash> Clone() => new(this);
 
 		/// <inheritdoc/>
-		public bool Contains(K key)
+		public bool Contains(TKey key)
 		{
 			int location = GetLocation(key);
 			for (Node? node = _table[location]; node is not null; node = node.Next)
@@ -787,7 +787,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc/>
 		public StepStatus KeysBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<K, StepStatus>
+			where TStep : struct, IFunc<TKey, StepStatus>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -803,7 +803,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerable<K> GetKeys()
+		public System.Collections.Generic.IEnumerable<TKey> GetKeys()
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -816,7 +816,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc/>
 		public StepStatus PairsBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<(T Value, K Key), StepStatus>
+			where TStep : struct, IFunc<(T Value, TKey Key), StepStatus>
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -832,7 +832,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerable<(T Value, K Key)> GetPairs()
+		public System.Collections.Generic.IEnumerable<(T Value, TKey Key)> GetPairs()
 		{
 			for (int i = 0; i < _table.Length; i++)
 			{
@@ -872,9 +872,9 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public K[] KeysToArray()
+		public TKey[] KeysToArray()
 		{
-			K[] array = new K[_count];
+			TKey[] array = new TKey[_count];
 			for (int i = 0, index = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)
@@ -886,9 +886,9 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (T Value, K Key)[] PairsToArray()
+		public (T Value, TKey Key)[] PairsToArray()
 		{
-			(T Value, K Key)[] array = new (T Value, K Key)[_count];
+			(T Value, TKey Key)[] array = new (T Value, TKey Key)[_count];
 			for (int i = 0, index = 0; i < _table.Length; i++)
 			{
 				for (Node? node = _table[i]; node is not null; node = node.Next)

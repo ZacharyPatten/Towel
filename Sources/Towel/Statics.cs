@@ -129,28 +129,28 @@ namespace Towel
 
 		#region TryParse
 
-		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <typeparamref name="A"/>.</summary>
-		/// <typeparam name="A">The type to parse the <see cref="string"/> into a value of.</typeparam>
-		/// <param name="string">The <see cref="string"/> to parse into a value ot type <typeparamref name="A"/>.</param>
+		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <typeparamref name="T"/>.</summary>
+		/// <typeparam name="T">The type to parse the <see cref="string"/> into a value of.</typeparam>
+		/// <param name="string">The <see cref="string"/> to parse into a value ot type <typeparamref name="T"/>.</param>
 		/// <returns>
 		/// - <see cref="bool"/> Success: true if the parse was successful or false if not<br/>
-		/// - <typeparamref name="A"/> Value: the value if the parse was successful or default if not
+		/// - <typeparamref name="T"/> Value: the value if the parse was successful or default if not
 		/// </returns>
-		public static (bool Success, A? Value) TryParse<A>(string @string) =>
-			(TryParseImplementation<A>.Function(@string, out A? value), value);
+		public static (bool Success, T? Value) TryParse<T>(string @string) =>
+			(TryParseImplementation<T>.Function(@string, out T? value), value);
 
-		internal static class TryParseImplementation<A>
+		internal static class TryParseImplementation<T>
 		{
 			internal delegate TResult TryParse<T1, T2, TResult>(T1 arg1, out T2? arg2);
 
-			internal static TryParse<string, A, bool> Function = (string @string, out A? value) =>
+			internal static TryParse<string, T, bool> Function = (string @string, out T? value) =>
 			{
-				static bool Fail(string @string, out A? value)
+				static bool Fail(string @string, out T? value)
 				{
 					value = default;
 					return false;
 				}
-				if (typeof(A).IsEnum)
+				if (typeof(T).IsEnum)
 				{
 					foreach (MethodInfo methodInfo in typeof(Enum).GetMethods(
 						BindingFlags.Static |
@@ -162,13 +162,13 @@ namespace Towel
 							methodInfo.IsPublic &&
 							methodInfo.ReturnType == typeof(bool))
 						{
-							MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(A));
+							MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(typeof(T));
 							ParameterInfo[] parameters = genericMethodInfo.GetParameters();
 							if (parameters.Length is 2 &&
 								parameters[0].ParameterType == typeof(string) &&
-								parameters[1].ParameterType == typeof(A).MakeByRefType())
+								parameters[1].ParameterType == typeof(T).MakeByRefType())
 							{
-								Function = genericMethodInfo.CreateDelegate<TryParse<string, A, bool>>();
+								Function = genericMethodInfo.CreateDelegate<TryParse<string, T, bool>>();
 								return Function(@string, out value);
 							}
 						}
@@ -177,10 +177,10 @@ namespace Towel
 				}
 				else
 				{
-					MethodInfo? methodInfo = Meta.GetTryParseMethod<A>();
+					MethodInfo? methodInfo = Meta.GetTryParseMethod<T>();
 					Function = methodInfo is null
 						? Fail
-						: methodInfo.CreateDelegate<TryParse<string, A, bool>>();
+						: methodInfo.CreateDelegate<TryParse<string, T, bool>>();
 					return Function(@string, out value);
 				}
 			};
@@ -204,21 +204,21 @@ namespace Towel
 
 		#region Convert
 
-		/// <summary>Converts <paramref name="a"/> from <typeparamref name="A"/> to <typeparamref name="B"/>.</summary>
-		/// <typeparam name="A">The type of the value to convert.</typeparam>
-		/// <typeparam name="B">The type to convert the value to.</typeparam>
+		/// <summary>Converts <paramref name="a"/> from <typeparamref name="TA"/> to <typeparamref name="TB"/>.</summary>
+		/// <typeparam name="TA">The type of the value to convert.</typeparam>
+		/// <typeparam name="TB">The type to convert the value to.</typeparam>
 		/// <param name="a">The value to convert.</param>
-		/// <returns>The <paramref name="a"/> value of <typeparamref name="B"/> type.</returns>
-		public static B Convert<A, B>(A a) =>
-			ConvertImplementation<A, B>.Function(a);
+		/// <returns>The <paramref name="a"/> value of <typeparamref name="TB"/> type.</returns>
+		public static TB Convert<TA, TB>(TA a) =>
+			ConvertImplementation<TA, TB>.Function(a);
 
-		internal static class ConvertImplementation<A, B>
+		internal static class ConvertImplementation<TA, TB>
 		{
-			internal static Func<A, B> Function = a =>
+			internal static Func<TA, TB> Function = a =>
 			{
-				ParameterExpression A = Expression.Parameter(typeof(A));
-				Expression BODY = Expression.Convert(A, typeof(B));
-				Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
+				ParameterExpression A = Expression.Parameter(typeof(TA));
+				Expression BODY = Expression.Convert(A, typeof(TB));
+				Function = Expression.Lambda<Func<TA, TB>>(BODY, A).Compile();
 				return Function(a);
 			};
 		}
@@ -283,17 +283,17 @@ namespace Towel
 			return true;
 		}
 
-		internal static class EquateImplementation<A, B, C>
+		internal static class EquateImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
 				#warning TODO: kill this try catch
 				try
 				{
-					var A = Expression.Parameter(typeof(A));
-					var B = Expression.Parameter(typeof(B));
+					var A = Expression.Parameter(typeof(TA));
+					var B = Expression.Parameter(typeof(TB));
 					var BODY = Expression.Equal(A, B);
-					Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+					Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 					return Function(a, b);
 				}
 				catch
@@ -301,10 +301,10 @@ namespace Towel
 
 				}
 
-				if (typeof(C) == typeof(bool))
+				if (typeof(TC) == typeof(bool))
 				{
-					EquateImplementation<A, B, bool>.Function =
-						(typeof(A).IsValueType, typeof(B).IsValueType) switch
+					EquateImplementation<TA, TB, bool>.Function =
+						(typeof(TA).IsValueType, typeof(TB).IsValueType) switch
 						{
 							(true, true)   => (A, B) => A!.Equals(B),
 							(true, false)  => (A, B) => A!.Equals(B),
@@ -328,8 +328,8 @@ namespace Towel
 
 		/// <summary>Determines if two sequences are equal.</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="A">The first sequence of the equate.</typeparam>
-		/// <typeparam name="B">The second sequence of the equate.</typeparam>
+		/// <typeparam name="TA">The first sequence of the equate.</typeparam>
+		/// <typeparam name="TB">The second sequence of the equate.</typeparam>
 		/// <typeparam name="TEquate">The element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index to equate from.</param>
 		/// <param name="end">The inclusive ending index to equate to.</param>
@@ -337,9 +337,9 @@ namespace Towel
 		/// <param name="b">The second sequence of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, A, B, TEquate>(int start, int end, A a = default, B b = default, TEquate equate = default)
-			where A : struct, IFunc<int, T>
-			where B : struct, IFunc<int, T>
+		public static bool Equate<T, TA, TB, TEquate>(int start, int end, TA a = default, TB b = default, TEquate equate = default)
+			where TA : struct, IFunc<int, T>
+			where TB : struct, IFunc<int, T>
 			where TEquate : struct, IFunc<T, T, bool>
 		{
 			for (int i = start; i <= end; i++)
@@ -394,14 +394,14 @@ namespace Towel
 		#region Inequate
 
 		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the inequality.</returns>
-		public static C Inequate<A, B, C>(A a, B b) =>
-			InequateImplementation<A, B, C>.Function(a, b);
+		public static TC Inequate<TA, TB, TC>(TA a, TB b) =>
+			InequateImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Checks for inequality of two values [<paramref name="a"/> != <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -411,14 +411,14 @@ namespace Towel
 		public static bool Inequate<T>(T a, T b) =>
 			Inequate<T, T, bool>(a, b);
 
-		internal static class InequateImplementation<A, B, C>
+		internal static class InequateImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.NotEqual(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -428,14 +428,14 @@ namespace Towel
 		#region LessThan
 
 		/// <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the less than operation.</returns>
-		public static C LessThan<A, B, C>(A a, B b) =>
-			LessThanImplementation<A, B, C>.Function(a, b);
+		public static TC LessThan<TA, TB, TC>(TA a, TB b) =>
+			LessThanImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Checks if one value is less than another [<paramref name="a"/> &lt; <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -445,14 +445,14 @@ namespace Towel
 		public static bool LessThan<T>(T a, T b) =>
 			LessThan<T, T, bool>(a, b);
 
-		internal static class LessThanImplementation<A, B, C>
+		internal static class LessThanImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.LessThan(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -462,14 +462,14 @@ namespace Towel
 		#region GreaterThan
 
 		/// <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the greater than operation.</returns>
-		public static C GreaterThan<A, B, C>(A a, B b) =>
-			GreaterThanImplementation<A, B, C>.Function(a, b);
+		public static TC GreaterThan<TA, TB, TC>(TA a, TB b) =>
+			GreaterThanImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Checks if one value is greater than another [<paramref name="a"/> &gt; <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -479,14 +479,14 @@ namespace Towel
 		public static bool GreaterThan<T>(T a, T b) =>
 			GreaterThan<T, T, bool>(a, b);
 
-		internal static class GreaterThanImplementation<A, B, C>
+		internal static class GreaterThanImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.GreaterThan(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -496,14 +496,14 @@ namespace Towel
 		#region LessThanOrEqual
 
 		/// <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the less than or equal to operation.</returns>
-		public static C LessThanOrEqual<A, B, C>(A a, B b) =>
-			LessThanOrEqualImplementation<A, B, C>.Function(a, b);
+		public static TC LessThanOrEqual<TA, TB, TC>(TA a, TB b) =>
+			LessThanOrEqualImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Checks if one value is less than or equal to another [<paramref name="a"/> &lt;= <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -513,14 +513,14 @@ namespace Towel
 		public static bool LessThanOrEqual<T>(T a, T b) =>
 			LessThanOrEqual<T, T, bool>(a, b);
 
-		internal static class LessThanOrEqualImplementation<A, B, C>
+		internal static class LessThanOrEqualImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.LessThanOrEqual(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -530,14 +530,14 @@ namespace Towel
 		#region GreaterThanOrEqual
 
 		/// <summary>Checks if one value is less greater or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the greater than or equal to operation.</returns>
-		public static C GreaterThanOrEqual<A, B, C>(A a, B b) =>
-			GreaterThanOrEqualImplementation<A, B, C>.Function(a, b);
+		public static TC GreaterThanOrEqual<TA, TB, TC>(TA a, TB b) =>
+			GreaterThanOrEqualImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Checks if one value is greater than or equal to another [<paramref name="a"/> &gt;= <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -547,14 +547,14 @@ namespace Towel
 		public static bool GreaterThanOrEqual<T>(T a, T b) =>
 			GreaterThanOrEqual<T, T, bool>(a, b);
 
-		internal static class GreaterThanOrEqualImplementation<A, B, C>
+		internal static class GreaterThanOrEqualImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.GreaterThanOrEqual(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -582,38 +582,38 @@ namespace Towel
 		public static CompareResult Compare<T>(T a, T b) =>
 			CompareImplementation<T, T, CompareResult>.Function(a, b);
 
-		internal static class CompareImplementation<A, B, C>
+		internal static class CompareImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				if (typeof(C) == typeof(CompareResult))
+				if (typeof(TC) == typeof(CompareResult))
 				{
-					if (typeof(A) == typeof(B) && a is IComparable<B> &&
-						!(typeof(A).IsPrimitive && typeof(B).IsPrimitive))
+					if (typeof(TA) == typeof(TB) && a is IComparable<TB> &&
+						!(typeof(TA).IsPrimitive && typeof(TB).IsPrimitive))
 					{
-						CompareImplementation<A, A, CompareResult>.Function =
-							(a, b) => System.Collections.Generic.Comparer<A>.Default.Compare(a, b).ToCompareResult();
+						CompareImplementation<TA, TA, CompareResult>.Function =
+							(a, b) => System.Collections.Generic.Comparer<TA>.Default.Compare(a, b).ToCompareResult();
 					}
 					else
 					{
-						var A = Expression.Parameter(typeof(A));
-						var B = Expression.Parameter(typeof(B));
+						var A = Expression.Parameter(typeof(TA));
+						var B = Expression.Parameter(typeof(TB));
 
 						var lessThanPredicate =
-							typeof(A).IsPrimitive && typeof(B).IsPrimitive
+							typeof(TA).IsPrimitive && typeof(TB).IsPrimitive
 							? Expression.LessThan(A, B)
-							: Meta.GetLessThanMethod<A, B, bool>() is not null
+							: Meta.GetLessThanMethod<TA, TB, bool>() is not null
 								? Expression.LessThan(A, B)
-								: Meta.GetGreaterThanMethod<B, A, bool>() is not null
+								: Meta.GetGreaterThanMethod<TB, TA, bool>() is not null
 									? Expression.GreaterThan(B, A)
 									: null;
 
 						var greaterThanPredicate =
-							typeof(A).IsPrimitive && typeof(B).IsPrimitive
+							typeof(TA).IsPrimitive && typeof(TB).IsPrimitive
 							? Expression.GreaterThan(A, B)
-							: Meta.GetGreaterThanMethod<A, B, bool>() is not null
+							: Meta.GetGreaterThanMethod<TA, TB, bool>() is not null
 								? Expression.GreaterThan(A, B)
-								: Meta.GetLessThanMethod<B, A, bool>() is not null
+								: Meta.GetLessThanMethod<TB, TA, bool>() is not null
 									? Expression.LessThan(B, A)
 									: null;
 
@@ -632,7 +632,7 @@ namespace Towel
 								Expression.Return(RETURN, Expression.Constant(Greater, typeof(CompareResult)))),
 							Expression.Return(RETURN, Expression.Constant(Equal, typeof(CompareResult))),
 							Expression.Label(RETURN, Expression.Constant(default(CompareResult), typeof(CompareResult))));
-						CompareImplementation<A, B, CompareResult>.Function = Expression.Lambda<Func<A, B, CompareResult>>(BODY, A, B).Compile();
+						CompareImplementation<TA, TB, CompareResult>.Function = Expression.Lambda<Func<TA, TB, CompareResult>>(BODY, A, B).Compile();
 					}
 					return Function!(a, b);
 				}
@@ -646,12 +646,12 @@ namespace Towel
 		#region Negation
 
 		/// <summary>Negates a value [-<paramref name="a"/>].</summary>
-		/// <typeparam name="A">The type of the value to negate.</typeparam>
-		/// <typeparam name="B">The resulting type of the negation.</typeparam>
+		/// <typeparam name="TA">The type of the value to negate.</typeparam>
+		/// <typeparam name="TB">The resulting type of the negation.</typeparam>
 		/// <param name="a">The value to negate.</param>
 		/// <returns>The result of the negation [-<paramref name="a"/>].</returns>
-		public static B Negation<A, B>(A a) =>
-			NegationImplementation<A, B>.Function(a);
+		public static TB Negation<TA, TB>(TA a) =>
+			NegationImplementation<TA, TB>.Function(a);
 
 		/// <summary>Negates a value [-<paramref name="a"/>].</summary>
 		/// <typeparam name="T">The type of the value to negate.</typeparam>
@@ -660,13 +660,13 @@ namespace Towel
 		public static T Negation<T>(T a) =>
 			Negation<T, T>(a);
 
-		internal static class NegationImplementation<A, B>
+		internal static class NegationImplementation<TA, TB>
 		{
-			internal static Func<A, B> Function = a =>
+			internal static Func<TA, TB> Function = a =>
 			{
-				var A = Expression.Parameter(typeof(A));
+				var A = Expression.Parameter(typeof(TA));
 				var BODY = Expression.Negate(A);
-				Function = Expression.Lambda<Func<A, B>>(BODY, A).Compile();
+				Function = Expression.Lambda<Func<TA, TB>>(BODY, A).Compile();
 				return Function(a);
 			};
 		}
@@ -676,14 +676,14 @@ namespace Towel
 		#region Addition
 
 		/// <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
-		public static C Addition<A, B, C>(A a, B b) =>
-			AdditionImplementation<A, B, C>.Function(a, b);
+		public static TC Addition<TA, TB, TC>(TA a, TB b) =>
+			AdditionImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -710,14 +710,14 @@ namespace Towel
 		public static T Addition<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Addition);
 
-		internal static class AdditionImplementation<A, B, C>
+		internal static class AdditionImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.Add(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -727,14 +727,14 @@ namespace Towel
 		#region Subtraction
 
 		/// <summary>Subtracts two values [<paramref name="a"/> - <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the subtraction [<paramref name="a"/> - <paramref name="b"/>].</returns>
-		public static C Subtraction<A, B, C>(A a, B b) =>
-			SubtractionImplementation<A, B, C>.Function(a, b);
+		public static TC Subtraction<TA, TB, TC>(TA a, TB b) =>
+			SubtractionImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Subtracts two values [<paramref name="a"/> - <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
@@ -761,14 +761,14 @@ namespace Towel
 		public static T Subtraction<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Subtraction);
 
-		internal static class SubtractionImplementation<A, B, C>
+		internal static class SubtractionImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.Subtract(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -778,14 +778,14 @@ namespace Towel
 		#region Multiplication
 
 		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
-		public static C Multiplication<A, B, C>(A a, B b) =>
-			MultiplicationImplementation<A, B, C>.Function(a, b);
+		public static TC Multiplication<TA, TB, TC>(TA a, TB b) =>
+			MultiplicationImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
@@ -812,14 +812,14 @@ namespace Towel
 		public static T Multiplication<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Multiplication);
 
-		internal static class MultiplicationImplementation<A, B, C>
+		internal static class MultiplicationImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.Multiply(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -829,14 +829,14 @@ namespace Towel
 		#region Division
 
 		/// <summary>Divides two values [<paramref name="a"/> / <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the division [<paramref name="a"/> / <paramref name="b"/>].</returns>
-		public static C Division<A, B, C>(A a, B b) =>
-			DivisionImplementation<A, B, C>.Function(a, b);
+		public static TC Division<TA, TB, TC>(TA a, TB b) =>
+			DivisionImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Divides two values [<paramref name="a"/> / <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>
@@ -863,14 +863,14 @@ namespace Towel
 		public static T Division<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Division);
 
-		internal static class DivisionImplementation<A, B, C>
+		internal static class DivisionImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.Divide(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}
@@ -880,14 +880,14 @@ namespace Towel
 		#region Remainder
 
 		/// <summary>Remainders two values [<paramref name="a"/> % <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the remainder operation [<paramref name="a"/> % <paramref name="b"/>].</returns>
-		public static C Remainder<A, B, C>(A a, B b) =>
-			RemainderImplementation<A, B, C>.Function(a, b);
+		public static TC Remainder<TA, TB, TC>(TA a, TB b) =>
+			RemainderImplementation<TA, TB, TC>.Function(a, b);
 
 		/// <summary>Modulos two numeric values [<paramref name="a"/> % <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -914,14 +914,14 @@ namespace Towel
 		public static T Remainder<T>(Action<Action<T>> stepper) =>
 			OperationOnStepper(stepper, Remainder);
 
-		internal static class RemainderImplementation<A, B, C>
+		internal static class RemainderImplementation<TA, TB, TC>
 		{
-			internal static Func<A, B, C> Function = (a, b) =>
+			internal static Func<TA, TB, TC> Function = (a, b) =>
 			{
-				var A = Expression.Parameter(typeof(A));
-				var B = Expression.Parameter(typeof(B));
+				var A = Expression.Parameter(typeof(TA));
+				var B = Expression.Parameter(typeof(TB));
 				var BODY = Expression.Modulo(A, B);
-				Function = Expression.Lambda<Func<A, B, C>>(BODY, A, B).Compile();
+				Function = Expression.Lambda<Func<TA, TB, TC>>(BODY, A, B).Compile();
 				return Function(a, b);
 			};
 		}

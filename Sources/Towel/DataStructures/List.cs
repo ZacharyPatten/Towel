@@ -13,18 +13,18 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
-		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
+		/// <typeparam name="TPredicate">The predicate to determine removal.</typeparam>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		bool TryRemoveFirst<Predicate>(out Exception? exception, Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>;
+		bool TryRemoveFirst<TPredicate>(out Exception? exception, TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>;
 
 		/// <summary>Removes all occurences of predicated values from the list.</summary>
-		/// <typeparam name="Predicate">The predicate to determine removals.</typeparam>
+		/// <typeparam name="TPredicate">The predicate to determine removals.</typeparam>
 		/// <param name="predicate">The predicate to determine removals.</param>
-		void RemoveAll<Predicate>(Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>;
+		void RemoveAll<TPredicate>(TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>;
 
 		#endregion
 	}
@@ -278,12 +278,12 @@ namespace Towel.DataStructures
 			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
-		/// <typeparam name="Predicate">The predicate to determine removal.</typeparam>
+		/// <typeparam name="TPredicate">The predicate to determine removal.</typeparam>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
-		public bool TryRemoveFirst<Predicate>(out Exception? exception, Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>
+		public bool TryRemoveFirst<TPredicate>(out Exception? exception, TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>
 		{
 			for (Node? node = _head, previous = null; node is not null; previous = node, node = node.Next)
 			{

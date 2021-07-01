@@ -186,14 +186,14 @@ namespace Towel
 			PermuteIterative<T, SAction, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="XML_PermuteIterative"/>
-		public static void PermuteIterative<T, Action>(Span<T> span, Action action = default)
-			where Action : struct, IAction =>
-			PermuteIterative<T, Action, StepStatusContinue>(span, action);
+		public static void PermuteIterative<T, TAction>(Span<T> span, TAction action = default)
+			where TAction : struct, IAction =>
+			PermuteIterative<T, TAction, StepStatusContinue>(span, action);
 
 		/// <inheritdoc cref="XML_PermuteIterative"/>
-		public static void PermuteIterative<T, Status>(Span<T> span, Action action, Status status = default)
-			where Status : struct, IFunc<StepStatus> =>
-			PermuteIterative<T, SAction, Status>(span, action, status);
+		public static void PermuteIterative<T, TStatus>(Span<T> span, Action action, TStatus status = default)
+			where TStatus : struct, IFunc<StepStatus> =>
+			PermuteIterative<T, SAction, TStatus>(span, action, status);
 
 		/// <inheritdoc cref="XML_PermuteIterative"/>
 		public static void PermuteIterative<T, TAction, TStatus>(Span<T> span, TAction action = default, TStatus status = default)

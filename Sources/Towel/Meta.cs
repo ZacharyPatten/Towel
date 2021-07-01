@@ -80,10 +80,10 @@ namespace Towel
 
 		#region GetTryParseMethod
 
-		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetTryParseMethod<A>() => GetTryParseMethodCache<A>.Value;
+		public static MethodInfo? GetTryParseMethod<T>() => GetTryParseMethodCache<T>.Value;
 
 		/// <summary>Gets the TryParse <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> TryParse(<see cref="string"/>, out <paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -103,19 +103,19 @@ namespace Towel
 				: null;
 		}
 
-		internal static class GetTryParseMethodCache<A>
+		internal static class GetTryParseMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetTryParseMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetTryParseMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetFactorialMethod
 
-		/// <summary>Gets the Factorial <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> Factorial(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the Factorial <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> Factorial(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The IsPrime <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetFactorialMethod<A>() => GetFactorialMethodCache<A>.Value;
+		public static MethodInfo? GetFactorialMethod<T>() => GetFactorialMethodCache<T>.Value;
 
 		/// <summary>Gets the Factorial <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> Factorial(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -135,19 +135,19 @@ namespace Towel
 					: null;
 		}
 
-		internal static class GetFactorialMethodCache<A>
+		internal static class GetFactorialMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetFactorialMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetFactorialMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetIsPrimeMethod
 
-		/// <summary>Gets the IsPrime <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPrime(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the IsPrime <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPrime(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The IsPrime <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetIsPrimeMethod<A>() => GetIsPrimeMethodCache<A>.Value;
+		public static MethodInfo? GetIsPrimeMethod<T>() => GetIsPrimeMethodCache<T>.Value;
 
 		/// <summary>Gets the IsPrime <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPrime(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -167,19 +167,19 @@ namespace Towel
 				: null;
 		}
 
-		internal static class GetIsPrimeMethodCache<A>
+		internal static class GetIsPrimeMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetIsPrimeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsPrimeMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetIsNonNegativeMethod
 
-		/// <summary>Gets the IsNonNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNonNegative(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the IsNonNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNonNegative(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetIsNonNegativeMethod<A>() => GetIsNonNegativeMethodCache<A>.Value;
+		public static MethodInfo? GetIsNonNegativeMethod<T>() => GetIsNonNegativeMethodCache<T>.Value;
 
 		/// <summary>Gets the IsNonNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNonNegative(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -199,19 +199,19 @@ namespace Towel
 				: null;
 		}
 
-		internal static class GetIsNonNegativeMethodCache<A>
+		internal static class GetIsNonNegativeMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetIsNonNegativeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsNonNegativeMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetIsNegativeMethod
 
-		/// <summary>Gets the IsNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNegative(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the IsNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNegative(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The IsNegative <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetIsNegativeMethod<A>() => GetIsNegativeMethodCache<A>.Value;
+		public static MethodInfo? GetIsNegativeMethod<T>() => GetIsNegativeMethodCache<T>.Value;
 
 		/// <summary>Gets the IsNegative <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsNegative(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -231,19 +231,19 @@ namespace Towel
 					: null;
 		}
 
-		internal static class GetIsNegativeMethodCache<A>
+		internal static class GetIsNegativeMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetIsNegativeMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsNegativeMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetIsPositiveMethod
 
-		/// <summary>Gets the IsPositive <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPositive(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the IsPositive <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPositive(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The IsPositive <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetIsPositiveMethod<A>() => GetIsPositiveMethodCache<A>.Value;
+		public static MethodInfo? GetIsPositiveMethod<T>() => GetIsPositiveMethodCache<T>.Value;
 
 		/// <summary>Gets the IsPositive <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsPositive(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -263,19 +263,19 @@ namespace Towel
 					: null;
 		}
 
-		internal static class GetIsPositiveMethodCache<A>
+		internal static class GetIsPositiveMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetIsPositiveMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsPositiveMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetIsEvenMethod
 
-		/// <summary>Gets the IsEven <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsEven(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the IsEven <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsEven(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The IsEven <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetIsEvenMethod<A>() => GetIsEvenMethodCache<A>.Value;
+		public static MethodInfo? GetIsEvenMethod<T>() => GetIsEvenMethodCache<T>.Value;
 
 		/// <summary>Gets the IsEven <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsEven(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -296,19 +296,19 @@ namespace Towel
 					: null;
 		}
 
-		internal static class GetIsEvenMethodCache<A>
+		internal static class GetIsEvenMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetIsEvenMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsEvenMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetIsOddMethod
 
-		/// <summary>Gets the IsOdd <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsOdd(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the IsOdd <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsOdd(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The IsOdd <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetIsOddMethod<A>() => GetIsOddMethodCache<A>.Value;
+		public static MethodInfo? GetIsOddMethod<T>() => GetIsOddMethodCache<T>.Value;
 
 		/// <summary>Gets the IsOdd <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsOdd(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -329,19 +329,19 @@ namespace Towel
 					: null;
 		}
 
-		internal static class GetIsOddMethodCache<A>
+		internal static class GetIsOddMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetIsOddMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsOddMethod(typeof(T));
 		}
 
 		#endregion
 
 		#region GetIsIntegerMethod
 
-		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<typeparamref name="A"/>)].</summary>
-		/// <typeparam name="A">The type of the out parameter.</typeparam>
+		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<typeparamref name="T"/>)].</summary>
+		/// <typeparam name="T">The type of the out parameter.</typeparam>
 		/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
-		public static MethodInfo? GetIsIntegerMethod<A>() => GetIsIntegerMethodCache<A>.Value;
+		public static MethodInfo? GetIsIntegerMethod<T>() => GetIsIntegerMethodCache<T>.Value;
 
 		/// <summary>Gets the IsInteger <see cref="MethodInfo"/> on a type if it exists [<see cref="bool"/> IsInteger(<paramref name="a"/>)].</summary>
 		/// <param name="a">The type of the out parameter.</param>
@@ -362,9 +362,9 @@ namespace Towel
 					: null;
 		}
 
-		internal static class GetIsIntegerMethodCache<A>
+		internal static class GetIsIntegerMethodCache<T>
 		{
-			internal static readonly MethodInfo? Value = GetIsIntegerMethod(typeof(A));
+			internal static readonly MethodInfo? Value = GetIsIntegerMethod(typeof(T));
 		}
 
 		#endregion
@@ -372,11 +372,11 @@ namespace Towel
 		#region GetLessThanMethod
 
 		/// <summary>Determines if an op_LessThan member exists.</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <returns>True if the op_LessThan member exists or false if not.</returns>
-		public static MethodInfo? GetLessThanMethod<A, B, C>() => GetLessThanMethodCache<A, B, C>.Value;
+		public static MethodInfo? GetLessThanMethod<TA, TB, TC>() => GetLessThanMethodCache<TA, TB, TC>.Value;
 
 		/// <summary>Determines if an op_LessThan member exists.</summary>
 		/// <param name="a">The type of the left operand.</param>
@@ -406,9 +406,9 @@ namespace Towel
 			return CheckType(a) ?? CheckType(b);
 		}
 
-		internal static class GetLessThanMethodCache<A, B, C>
+		internal static class GetLessThanMethodCache<TA, TB, TC>
 		{
-			internal static readonly MethodInfo? Value = GetLessThanMethod(typeof(A), typeof(B), typeof(C));
+			internal static readonly MethodInfo? Value = GetLessThanMethod(typeof(TA), typeof(TB), typeof(TC));
 		}
 
 		#endregion
@@ -416,11 +416,11 @@ namespace Towel
 		#region GetGreaterThanMethod
 
 		/// <summary>Determines if an op_GreaterThan member exists.</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
-		public static MethodInfo? GetGreaterThanMethod<A, B, C>() => GetGreaterThanMethodCache<A, B, C>.Value;
+		public static MethodInfo? GetGreaterThanMethod<TA, TB, TC>() => GetGreaterThanMethodCache<TA, TB, TC>.Value;
 
 		/// <summary>Determines if an op_GreaterThan member exists.</summary>
 		/// <param name="a">The type of the left operand.</param>
@@ -450,9 +450,9 @@ namespace Towel
 			return CheckType(a) ?? CheckType(b);
 		}
 
-		internal static class GetGreaterThanMethodCache<A, B, C>
+		internal static class GetGreaterThanMethodCache<TA, TB, TC>
 		{
-			internal static readonly MethodInfo? Value = GetGreaterThanMethod(typeof(A), typeof(B), typeof(C));
+			internal static readonly MethodInfo? Value = GetGreaterThanMethod(typeof(TA), typeof(TB), typeof(TC));
 		}
 
 		#endregion
@@ -462,20 +462,23 @@ namespace Towel
 		#region Has[Implicit|Explicit]Cast
 
 		/// <summary>Determines if an implicit casting operator exists from one type to another.</summary>
-		/// <typeparam name="From">The parameter type of the implicit casting operator.</typeparam>
-		/// <typeparam name="To">The return type fo the implicit casting operator.</typeparam>
+		/// <typeparam name="TFrom">The parameter type of the implicit casting operator.</typeparam>
+		/// <typeparam name="TTo">The return type fo the implicit casting operator.</typeparam>
 		/// <returns>True if the implicit casting operator exists or false if not.</returns>
-		public static bool HasImplicitCast<From, To>() => HasCastCache<From, To>.Implicit;
+		public static bool HasImplicitCast<TFrom, TTo>() => HasCastCache<TFrom, TTo>.Implicit;
+
 		/// <summary>Determines if an implicit casting operator exists from one type to another.</summary>
-		/// <typeparam name="From">The parameter type of the implicit casting operator.</typeparam>
-		/// <typeparam name="To">The return type fo the implicit casting operator.</typeparam>
+		/// <typeparam name="TFrom">The parameter type of the implicit casting operator.</typeparam>
+		/// <typeparam name="TTo">The return type fo the implicit casting operator.</typeparam>
 		/// <returns>True if the implicit casting operator exists or false if not.</returns>
-		public static bool HasExplicitCast<From, To>() => HasCastCache<From, To>.Implicit;
+		public static bool HasExplicitCast<TFrom, TTo>() => HasCastCache<TFrom, TTo>.Implicit;
+
 		/// <summary>Determines if an implicit casting operator exists from one type to another.</summary>
 		/// <param name="fromType">The parameter type of the implicit casting operator.</param>
 		/// <param name="toType">The return type fo the implicit casting operator.</param>
 		/// <returns>True if the implicit casting operator exists or false if not.</returns>
 		public static bool HasImplicitCast(Type fromType, Type toType) => HasCast(fromType, toType, true);
+
 		/// <summary>Determines if an implicit casting operator exists from one type to another.</summary>
 		/// <param name="fromType">The parameter type of the implicit casting operator.</param>
 		/// <param name="toType">The return type fo the implicit casting operator.</param>
@@ -510,10 +513,10 @@ namespace Towel
 			return false;
 		}
 
-		internal static class HasCastCache<From, To>
+		internal static class HasCastCache<TFrom, TTo>
 		{
-			internal static readonly bool Implicit = HasCast(typeof(From), typeof(To), true);
-			internal static readonly bool Explicit = HasCast(typeof(From), typeof(To), false);
+			internal static readonly bool Implicit = HasCast(typeof(TFrom), typeof(TTo), true);
+			internal static readonly bool Explicit = HasCast(typeof(TFrom), typeof(TTo), false);
 		}
 
 		#endregion
@@ -565,35 +568,35 @@ namespace Towel
 		#region System.Enum
 
 		/// <summary>Gets a custom attribute on an enum value by generic type.</summary>
-		/// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
+		/// <typeparam name="TAttribute">The type of attribute to get.</typeparam>
 		/// <param name="enum">The enum value to get the attribute of.</param>
 		/// <returns>The attribute on the enum value of the provided type.</returns>
-		public static AttributeType? GetEnumAttribute<AttributeType>(this Enum @enum)
-			where AttributeType : Attribute
+		public static TAttribute? GetEnumAttribute<TAttribute>(this Enum @enum)
+			where TAttribute : Attribute
 		{
 			Type type = @enum.GetType();
 			MemberInfo memberInfo = type.GetMember(@enum.ToString())[0];
-			return memberInfo.GetCustomAttribute<AttributeType>();
+			return memberInfo.GetCustomAttribute<TAttribute>();
 		}
 
 		/// <summary>Gets custom attributes on an enum value by generic type.</summary>
-		/// <typeparam name="AttributeType">The type of attribute to get.</typeparam>
+		/// <typeparam name="TAttribute">The type of attribute to get.</typeparam>
 		/// <param name="enum">The enum value to get the attribute of.</param>
 		/// <returns>The attributes on the enum value of the provided type.</returns>
-		public static System.Collections.Generic.IEnumerable<AttributeType> GetEnumAttributes<AttributeType>(this Enum @enum)
-			where AttributeType : Attribute
+		public static System.Collections.Generic.IEnumerable<TAttribute> GetEnumAttributes<TAttribute>(this Enum @enum)
+			where TAttribute : Attribute
 		{
 			Type type = @enum.GetType();
 			MemberInfo memberInfo = type.GetMember(@enum.ToString())[0];
-			return memberInfo.GetCustomAttributes<AttributeType>();
+			return memberInfo.GetCustomAttributes<TAttribute>();
 		}
 
 		/// <summary>Gets the maximum value of an enum.</summary>
-		/// <typeparam name="ENUM">The enum type to get the maximum value of.</typeparam>
+		/// <typeparam name="TEnum">The enum type to get the maximum value of.</typeparam>
 		/// <returns>The maximum enum value of the provided type.</returns>
-		public static ENUM GetLastEnumValue<ENUM>()
+		public static TEnum GetLastEnumValue<TEnum>()
 		{
-			ENUM[] values = (ENUM[])Enum.GetValues(typeof(ENUM));
+			TEnum[] values = (TEnum[])Enum.GetValues(typeof(TEnum));
 			if (values.Length is 0)
 			{
 				throw new InvalidOperationException("Attempting to get the last enum value of an enum type with no values.");
@@ -606,11 +609,11 @@ namespace Towel
 		#region System.Reflection.Assembly
 
 		/// <summary>Enumerates through all the events with a custom attribute.</summary>
-		/// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+		/// <typeparam name="TAttribute">The type of the custom attribute.</typeparam>
 		/// <param name="assembly">The assembly to iterate through the events of.</param>
 		/// <returns>The IEnumerable of the events with the provided attribute type.</returns>
-		public static System.Collections.Generic.IEnumerable<EventInfo> GetEventInfosWithAttribute<AttributeType>(this Assembly assembly)
-			where AttributeType : Attribute
+		public static System.Collections.Generic.IEnumerable<EventInfo> GetEventInfosWithAttribute<TAttribute>(this Assembly assembly)
+			where TAttribute : Attribute
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
@@ -620,7 +623,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic))
 				{
-					if (eventInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+					if (eventInfo.GetCustomAttributes(typeof(TAttribute), true).Length > 0)
 					{
 						yield return eventInfo;
 					}
@@ -629,11 +632,11 @@ namespace Towel
 		}
 
 		/// <summary>Enumerates through all the constructors with a custom attribute.</summary>
-		/// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+		/// <typeparam name="TAttribute">The type of the custom attribute.</typeparam>
 		/// <param name="assembly">The assembly to iterate through the constructors of.</param>
 		/// <returns>The IEnumerable of the constructors with the provided attribute type.</returns>
-		public static System.Collections.Generic.IEnumerable<ConstructorInfo> GetConstructorInfosWithAttribute<AttributeType>(this Assembly assembly)
-			where AttributeType : Attribute
+		public static System.Collections.Generic.IEnumerable<ConstructorInfo> GetConstructorInfosWithAttribute<TAttribute>(this Assembly assembly)
+			where TAttribute : Attribute
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
@@ -642,7 +645,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic))
 				{
-					if (constructorInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+					if (constructorInfo.GetCustomAttributes(typeof(TAttribute), true).Length > 0)
 					{
 						yield return constructorInfo;
 					}
@@ -651,11 +654,11 @@ namespace Towel
 		}
 
 		/// <summary>Enumerates through all the properties with a custom attribute.</summary>
-		/// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+		/// <typeparam name="TAttribute">The type of the custom attribute.</typeparam>
 		/// <param name="assembly">The assembly to iterate through the properties of.</param>
 		/// <returns>The IEnumerable of the properties with the provided attribute type.</returns>
-		public static System.Collections.Generic.IEnumerable<PropertyInfo> GetPropertyInfosWithAttribute<AttributeType>(this Assembly assembly)
-			where AttributeType : Attribute
+		public static System.Collections.Generic.IEnumerable<PropertyInfo> GetPropertyInfosWithAttribute<TAttribute>(this Assembly assembly)
+			where TAttribute : Attribute
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
@@ -665,7 +668,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic))
 				{
-					if (propertyInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+					if (propertyInfo.GetCustomAttributes(typeof(TAttribute), true).Length > 0)
 					{
 						yield return propertyInfo;
 					}
@@ -674,11 +677,11 @@ namespace Towel
 		}
 
 		/// <summary>Enumerates through all the fields with a custom attribute.</summary>
-		/// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+		/// <typeparam name="TAttribute">The type of the custom attribute.</typeparam>
 		/// <param name="assembly">The assembly to iterate through the fields of.</param>
 		/// <returns>The IEnumerable of the fields with the provided attribute type.</returns>
-		public static System.Collections.Generic.IEnumerable<FieldInfo> GetFieldInfosWithAttribute<AttributeType>(this Assembly assembly)
-			where AttributeType : Attribute
+		public static System.Collections.Generic.IEnumerable<FieldInfo> GetFieldInfosWithAttribute<TAttribute>(this Assembly assembly)
+			where TAttribute : Attribute
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
@@ -688,7 +691,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic))
 				{
-					if (fieldInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+					if (fieldInfo.GetCustomAttributes(typeof(TAttribute), true).Length > 0)
 					{
 						yield return fieldInfo;
 					}
@@ -697,11 +700,11 @@ namespace Towel
 		}
 
 		/// <summary>Enumerates through all the methods with a custom attribute.</summary>
-		/// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+		/// <typeparam name="TAttribute">The type of the custom attribute.</typeparam>
 		/// <param name="assembly">The assembly to iterate through the methods of.</param>
 		/// <returns>The IEnumerable of the methods with the provided attribute type.</returns>
-		public static System.Collections.Generic.IEnumerable<MethodInfo> GetMethodInfosWithAttribute<AttributeType>(this Assembly assembly)
-			where AttributeType : Attribute
+		public static System.Collections.Generic.IEnumerable<MethodInfo> GetMethodInfosWithAttribute<TAttribute>(this Assembly assembly)
+			where TAttribute : Attribute
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
@@ -711,7 +714,7 @@ namespace Towel
 					BindingFlags.Public |
 					BindingFlags.NonPublic))
 				{
-					if (methodInfo.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+					if (methodInfo.GetCustomAttributes(typeof(TAttribute), true).Length > 0)
 					{
 						yield return methodInfo;
 					}
@@ -720,15 +723,15 @@ namespace Towel
 		}
 
 		/// <summary>Enumerates through all the types with a custom attribute.</summary>
-		/// <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
+		/// <typeparam name="TAttribute">The type of the custom attribute.</typeparam>
 		/// <param name="assembly">The assembly to iterate through the types of.</param>
 		/// <returns>The IEnumerable of the types with the provided attribute type.</returns>
-		public static System.Collections.Generic.IEnumerable<Type> GetTypesWithAttribute<AttributeType>(this Assembly assembly)
-			where AttributeType : Attribute
+		public static System.Collections.Generic.IEnumerable<Type> GetTypesWithAttribute<TAttribute>(this Assembly assembly)
+			where TAttribute : Attribute
 		{
 			foreach (Type type in assembly.GetTypes())
 			{
-				if (type.GetCustomAttributes(typeof(AttributeType), true).Length > 0)
+				if (type.GetCustomAttributes(typeof(TAttribute), true).Length > 0)
 				{
 					yield return type;
 				}
@@ -736,12 +739,12 @@ namespace Towel
 		}
 
 		/// <summary>Gets all the types in an assembly that derive from a base.</summary>
-		/// <typeparam name="Base">The base type to get the deriving types of.</typeparam>
+		/// <typeparam name="TBase">The base type to get the deriving types of.</typeparam>
 		/// <param name="assembly">The assmebly to perform the search on.</param>
 		/// <returns>The IEnumerable of the types that derive from the provided base.</returns>
-		public static System.Collections.Generic.IEnumerable<Type> GetDerivedTypes<Base>(this Assembly assembly)
+		public static System.Collections.Generic.IEnumerable<Type> GetDerivedTypes<TBase>(this Assembly assembly)
 		{
-			Type @base = typeof(Base);
+			Type @base = typeof(TBase);
 			return assembly.GetTypes().Where(type =>
 				type != @base &&
 				@base.IsAssignableFrom(type));

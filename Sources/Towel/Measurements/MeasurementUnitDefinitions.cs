@@ -556,20 +556,20 @@ namespace Towel.Measurements
 
 	internal static class UnitConversionTable
 	{
-		internal static Func<T, T>[][] Build<UNITS, T>()
+		internal static Func<T, T>[][] Build<TUnits, T>()
 		{
-			if (typeof(UNITS) == typeof(Tempurature.Units))
+			if (typeof(TUnits) == typeof(Tempurature.Units))
 			{
 				return Tempurature.BuildConversionTable<T>();
 			}
 
-			int size = Convert<UNITS, int>(Meta.GetLastEnumValue<UNITS>());
+			int size = Convert<TUnits, int>(Meta.GetLastEnumValue<TUnits>());
 			Func<T, T>[][] conversionFactorTable = Extensions.ConstructSquareJaggedArray<Func<T, T>>(size + 1);
-			foreach (Enum A_unit in Enum.GetValues(typeof(UNITS)))
+			foreach (Enum A_unit in Enum.GetValues(typeof(TUnits)))
 			{
 				int A = System.Convert.ToInt32(A_unit);
 
-				foreach (Enum B_unit in Enum.GetValues(typeof(UNITS)))
+				foreach (Enum B_unit in Enum.GetValues(typeof(TUnits)))
 				{
 					int B = System.Convert.ToInt32(B_unit);
 
@@ -618,7 +618,7 @@ namespace Towel.Measurements
 
 					if (conversionFactorTable[A][B] is null)
 					{
-						Type type1 = typeof(UNITS);
+						Type type1 = typeof(TUnits);
 						Type type2 = typeof(T);
 						Debugger.Break();
 					}

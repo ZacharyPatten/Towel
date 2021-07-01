@@ -13,17 +13,17 @@ namespace Towel
 		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
 		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <typeparam name="Random">The random to generation algorithm.</typeparam>
+		/// <typeparam name="TStep">The function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <typeparam name="TRandom">The random to generation algorithm.</typeparam>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		public static void Next<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		public static void Next<TStep, TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (count * excluded.Length + .5 * Math.Pow(excluded.Length, 2) < (maxValue - minValue) + count + 2 * excluded.Length)
 			{
@@ -35,10 +35,10 @@ namespace Towel
 			}
 		}
 
-		/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"></inheritdoc>
-		public static void NextRollTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="Next{TStep, TRandom}(int, int, int, ReadOnlySpan{int}, TRandom, TStep)"></inheritdoc>
+		public static void NextRollTracking<TStep, TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -101,10 +101,10 @@ namespace Towel
 			}
 		}
 
-		/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"></inheritdoc>
-		public static void NextPoolTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="Next{TStep, TRandom}(int, int, int, ReadOnlySpan{int}, TRandom, TStep)"></inheritdoc>
+		public static void NextPoolTracking<TStep, TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -150,12 +150,12 @@ namespace Towel
 
 		#region Overloads
 
-		/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"></inheritdoc>
+		/// <inheritdoc cref="Next{TStep, TRandom}(int, int, int, ReadOnlySpan{int}, TRandom, TStep)"></inheritdoc>
 		/// <param name="step">The function to perform on each randomly generated value.</param>
 #pragma warning disable CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-		public static void Next<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, Random random = default)
+		public static void Next<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
 #pragma warning restore CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-			where Random : struct, IFunc<int, int, int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -169,12 +169,12 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			Next<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			Next<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 		}
 
-		/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
-		public static void NextRollTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="Next{TRandom}(int, int, int, ReadOnlySpan{int}, Action{int}, TRandom)"></inheritdoc>
+		public static void NextRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -188,12 +188,12 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextRollTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextRollTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 		}
 
-		/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
-		public static void NextPoolTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="Next{TRandom}(int, int, int, ReadOnlySpan{int}, Action{int}, TRandom)"></inheritdoc>
+		public static void NextPoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -207,13 +207,13 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextPoolTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextPoolTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 		}
 
-		/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"></inheritdoc>
+		/// <inheritdoc cref="Next{TStep, TRandom}(int, int, int, ReadOnlySpan{int}, TRandom, TStep)"></inheritdoc>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] Next<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		public static int[] Next<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -224,13 +224,13 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
 			int[] values = new int[count];
-			Next<FillArray<int>, Random>(count, minValue, maxValue, excluded, random, values);
+			Next<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 			return values;
 		}
 
-		/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
-		public static int[] NextRollTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="Next{TRandom}(int, int, int, ReadOnlySpan{int}, TRandom)"/>
+		public static int[] NextRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -241,13 +241,13 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
 			int[] values = new int[count];
-			NextRollTracking<FillArray<int>, Random>(count, minValue, maxValue, excluded, random, values);
+			NextRollTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 			return values;
 		}
 
-		/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
-		public static int[] NextPoolTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="Next{TRandom}(int, int, int, ReadOnlySpan{int}, TRandom)"/>
+		public static int[] NextPoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -258,7 +258,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
 			int[] values = new int[count];
-			NextPoolTracking<FillArray<int>, Random>(count, minValue, maxValue, excluded, random, values);
+			NextPoolTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 			return values;
 		}
 
@@ -273,16 +273,16 @@ namespace Towel
 		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
 		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <typeparam name="Random">The random to generation algorithm.</typeparam>
+		/// <typeparam name="TStep">The function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <typeparam name="TRandom">The random to generation algorithm.</typeparam>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		public static void NextUnique<Step, Random>(int count, int minValue, int maxValue, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		public static void NextUnique<TStep, TRandom>(int count, int minValue, int maxValue, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (count < Math.Sqrt(maxValue - minValue))
 			{
@@ -294,10 +294,10 @@ namespace Towel
 			}
 		}
 
-		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"/>
-		public static void NextUniqueRollTracking<Step, Random>(int count, int minValue, int maxValue, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TStep, TRandom}(int, int, int, TRandom, TStep)"/>
+		public static void NextUniqueRollTracking<TStep, TRandom>(int count, int minValue, int maxValue, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -371,10 +371,10 @@ namespace Towel
 #endif
 		}
 
-		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"/>
-		public static void NextUniquePoolTracking<Step, Random>(int count, int minValue, int maxValue, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TStep, TRandom}(int, int, int, TRandom, TStep)"/>
+		public static void NextUniquePoolTracking<TStep, TRandom>(int count, int minValue, int maxValue, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -418,12 +418,12 @@ namespace Towel
 
 		#region Overloads
 
-		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"></inheritdoc>
+		/// <inheritdoc cref="NextUnique{TStep, TRandom}(int, int, int, TRandom, TStep)"></inheritdoc>
 		/// <param name="step">The function to perform on each randomly generated value.</param>
 #pragma warning disable CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-		public static void NextUnique<Random>(int count, int minValue, int maxValue, Action<int> step, Random random = default)
+		public static void NextUnique<TRandom>(int count, int minValue, int maxValue, Action<int> step, TRandom random = default)
 #pragma warning restore CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-			where Random : struct, IFunc<int, int, int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -437,12 +437,12 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUnique<SAction<int>, Random>(count, minValue, maxValue, random, step);
+			NextUnique<SAction<int>, TRandom>(count, minValue, maxValue, random, step);
 		}
 
-		/// <inheritdoc cref="NextUnique{Random}(int, int, int, Action{int}, Random)"></inheritdoc>
-		public static void NextUniqueRollTracking<Random>(int count, int minValue, int maxValue, Action<int> step, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TRandom}(int, int, int, Action{int}, TRandom)"></inheritdoc>
+		public static void NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, Action<int> step, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -456,12 +456,12 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniqueRollTracking<SAction<int>, Random>(count, minValue, maxValue, random, step);
+			NextUniqueRollTracking<SAction<int>, TRandom>(count, minValue, maxValue, random, step);
 		}
 
-		/// <inheritdoc cref="NextUnique{Random}(int, int, int, Action{int}, Random)"></inheritdoc>
-		public static void NextUniquePoolTracking<Random>(int count, int minValue, int maxValue, Action<int> step, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TRandom}(int, int, int, Action{int}, TRandom)"></inheritdoc>
+		public static void NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, Action<int> step, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -475,13 +475,13 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniquePoolTracking<SAction<int>, Random>(count, minValue, maxValue, random, step);
+			NextUniquePoolTracking<SAction<int>, TRandom>(count, minValue, maxValue, random, step);
 		}
 
-		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"></inheritdoc>
+		/// <inheritdoc cref="NextUnique{TStep, TRandom}(int, int, int, TRandom, TStep)"></inheritdoc>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUnique<Random>(int count, int minValue, int maxValue, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		public static int[] NextUnique<TRandom>(int count, int minValue, int maxValue, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -496,13 +496,13 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
 			int[] values = new int[count];
-			NextUnique<FillArray<int>, Random>(count, minValue, maxValue, random, values);
+			NextUnique<FillArray<int>, TRandom>(count, minValue, maxValue, random, values);
 			return values;
 		}
 
-		/// <inheritdoc cref="NextUnique{Random}(int, int, int, Random)"></inheritdoc>
-		public static int[] NextUniqueRollTracking<Random>(int count, int minValue, int maxValue, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TRandom}(int, int, int, TRandom)"></inheritdoc>
+		public static int[] NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -517,13 +517,13 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
 			int[] values = new int[count];
-			NextUniqueRollTracking<FillArray<int>, Random>(count, minValue, maxValue, random, values);
+			NextUniqueRollTracking<FillArray<int>, TRandom>(count, minValue, maxValue, random, values);
 			return values;
 		}
 
-		/// <inheritdoc cref="NextUnique{Random}(int, int, int, Random)"></inheritdoc>
-		public static int[] NextUniquePoolTracking<Random>(int count, int minValue, int maxValue, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TRandom}(int, int, int, TRandom)"></inheritdoc>
+		public static int[] NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -538,7 +538,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
 			int[] values = new int[count];
-			NextUniquePoolTracking<FillArray<int>, Random>(count, minValue, maxValue, random, values);
+			NextUniquePoolTracking<FillArray<int>, TRandom>(count, minValue, maxValue, random, values);
 			return values;
 		}
 
@@ -553,17 +553,17 @@ namespace Towel
 		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
 		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
-		/// <typeparam name="Step">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <typeparam name="Random">The random to generation algorithm.</typeparam>
+		/// <typeparam name="TStep">The function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <typeparam name="TRandom">The random to generation algorithm.</typeparam>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
 		/// <param name="excluded">Values that should be excluded during generation.</param>
 		/// <param name="random">The random to generation algorithm.</param>
 		/// <param name="step">The function to perform on each generated <see cref="int"/> value.</param>
-		public static void NextUnique<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		public static void NextUnique<TStep, TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (count + excluded.Length < Math.Sqrt(maxValue - minValue))
 			{
@@ -575,10 +575,10 @@ namespace Towel
 			}
 		}
 
-		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
-		public static void NextUniqueRollTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TStep, TRandom}(int, int, int, ReadOnlySpan{int}, TRandom, TStep)"/>
+		public static void NextUniqueRollTracking<TStep, TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -714,10 +714,10 @@ namespace Towel
 #endif
 		}
 
-		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
-		public static void NextUniquePoolTracking<Step, Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default, Step step = default)
-			where Step : struct, IAction<int>
-			where Random : struct, IFunc<int, int, int>
+		/// <inheritdoc cref="NextUnique{TStep, TRandom}(int, int, int, ReadOnlySpan{int}, TRandom, TStep)"/>
+		public static void NextUniquePoolTracking<TStep, TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default, TStep step = default)
+			where TStep : struct, IAction<int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			// Algorithm: Θ(range + count + 2*excluded.Length)
 			SetHashLinked<int, Int32Equate, Int32Hash> set = new(expectedCount: excluded.Length); // Θ(excluded)
@@ -775,12 +775,12 @@ namespace Towel
 
 		#region Overloads
 
-		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"></inheritdoc>
+		/// <inheritdoc cref="NextUnique{TStep, TRandom}(int, int, int, ReadOnlySpan{int}, TRandom, TStep)"></inheritdoc>
 		/// <param name="step">The function to perform on each randomly generated value.</param>
 #pragma warning disable CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-		public static void NextUnique<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, Random random = default)
+		public static void NextUnique<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
 #pragma warning restore CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-			where Random : struct, IFunc<int, int, int>
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -794,12 +794,12 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUnique<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextUnique<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
-		public static void NextUniqueRollTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		public static void NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -813,12 +813,12 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniqueRollTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextUniqueRollTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"></inheritdoc>
-		public static void NextUniquePoolTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		public static void NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (step is null)
 			{
@@ -832,13 +832,13 @@ namespace Towel
 			{
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
 			}
-			NextUniquePoolTracking<SAction<int>, Random>(count, minValue, maxValue, excluded, random, step);
+			NextUniquePoolTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 		}
 
 		/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
 		/// <returns>The randomly generated values.</returns>
-		public static int[] NextUnique<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		public static int[] NextUnique<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -853,13 +853,13 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
 			int[] values = new int[count];
-			NextUnique<FillArray<int>, Random>(count, minValue, maxValue, excluded, random, values);
+			NextUnique<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 			return values;
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
-		public static int[] NextUniqueRollTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		public static int[] NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -874,13 +874,13 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
 			int[] values = new int[count];
-			NextUniqueRollTracking<FillArray<int>, Random>(count, minValue, maxValue, excluded, random, values);
+			NextUniqueRollTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 			return values;
 		}
 
 		/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
-		public static int[] NextUniquePoolTracking<Random>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Random random = default)
-			where Random : struct, IFunc<int, int, int>
+		public static int[] NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
+			where TRandom : struct, IFunc<int, int, int>
 		{
 			if (maxValue < minValue)
 			{
@@ -895,7 +895,7 @@ namespace Towel
 				throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
 			}
 			int[] values = new int[count];
-			NextUniquePoolTracking<FillArray<int>, Random>(count, minValue, maxValue, excluded, random, values);
+			NextUniquePoolTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 			return values;
 		}
 

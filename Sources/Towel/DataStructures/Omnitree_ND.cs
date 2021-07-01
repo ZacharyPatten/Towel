@@ -203,12 +203,12 @@ namespace Towel.DataStructures
 
 		/// <summary>A delegate for determining the point of subdivision in a set of values and current bounds.</summary>
 		/// <typeparam name="T">The generic type of the values to find the point of subdivision.</typeparam>
-		/// <typeparam name="A">The type of axis along with the values are to be subdivided.</typeparam>
-		/// <typeparam name="BoundsType">The type of bounds currently constraining the data.</typeparam>
+		/// <typeparam name="TAxis">The type of axis along with the values are to be subdivided.</typeparam>
+		/// <typeparam name="TBounds">The type of bounds currently constraining the data.</typeparam>
 		/// <param name="bounds">The current bounds of the set of values.</param>
 		/// <param name="values">The values to find the point of subdivision.</param>
 		/// <returns>The point of subdivision.</returns>
-		public delegate A SubdivisionOverride<T, A, BoundsType>(BoundsType bounds, Action<Action<T>> values);
+		public delegate TAxis SubdivisionOverride<T, TAxis, TBounds>(TBounds bounds, Action<Action<T>> values);
 
 		internal static T? SubDivide<T>(Bound<T>[] bounds, Func<T?, T?, CompareResult>? compare)
 		{

@@ -9,14 +9,14 @@ namespace Towel.Mathematics
 		#region Summation: Σ
 
 		/// <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the addition [<paramref name="a"/> + <paramref name="b"/>].</returns>
-		public static C Σ<A, B, C>(A a, B b) =>
-			Addition<A, B, C>(a, b);
+		public static TC Σ<TA, TB, TC>(TA a, TB b) =>
+			Addition<TA, TB, TC>(a, b);
 
 		/// <summary>Adds two values [<paramref name="a"/> + <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
@@ -48,14 +48,14 @@ namespace Towel.Mathematics
 		#region Product: Π
 
 		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
-		/// <typeparam name="A">The type of the left operand.</typeparam>
-		/// <typeparam name="B">The type of the right operand.</typeparam>
-		/// <typeparam name="C">The type of the return.</typeparam>
+		/// <typeparam name="TA">The type of the left operand.</typeparam>
+		/// <typeparam name="TB">The type of the right operand.</typeparam>
+		/// <typeparam name="TC">The type of the return.</typeparam>
 		/// <param name="a">The left operand.</param>
 		/// <param name="b">The right operand.</param>
 		/// <returns>The result of the multiplication [<paramref name="a"/> * <paramref name="b"/>].</returns>
-		public static C Π<A, B, C>(A a, B b) =>
-			Multiplication<A, B, C>(a, b);
+		public static TC Π<TA, TB, TC>(TA a, TB b) =>
+			Multiplication<TA, TB, TC>(a, b);
 
 		/// <summary>Multiplies two values [<paramref name="a"/> * <paramref name="b"/>].</summary>
 		/// <typeparam name="T">The type of the operation.</typeparam>

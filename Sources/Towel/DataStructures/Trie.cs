@@ -10,11 +10,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Adds a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="D">The type of the data.</typeparam>
+		/// <typeparam name="TData">The type of the data.</typeparam>
 		/// <param name="trie">The trie to add the value to.</param>
 		/// <param name="value">The value to be added.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
-		public static void Add<T, D>(this ITrie<T, D> trie, D value, Action<Action<T>> stepper)
+		public static void Add<T, TData>(this ITrie<T, TData> trie, TData value, Action<Action<T>> stepper)
 		{
 			var (success, exception) = trie.TryAdd(value, stepper);
 			if (!success)
@@ -25,11 +25,11 @@ namespace Towel.DataStructures
 
 		/// <summary>Gets a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="D">The type of the data.</typeparam>
+		/// <typeparam name="TData">The type of the data.</typeparam>
 		/// <param name="trie">The trie to get the value from.</param>
 		/// <param name="stepper">The keys of the relative value.</param>
 		/// <returns>The value.</returns>
-		public static D Get<T, D>(this ITrie<T, D> trie, Action<Action<T>> stepper)
+		public static TData Get<T, TData>(this ITrie<T, TData> trie, Action<Action<T>> stepper)
 		{
 			var (success, value, exception) = trie.TryGet(stepper);
 			if (!success)
@@ -41,10 +41,10 @@ namespace Towel.DataStructures
 
 		/// <summary>Removes a value.</summary>
 		/// <typeparam name="T">The type of value.</typeparam>
-		/// <typeparam name="D">The type of the data.</typeparam>
+		/// <typeparam name="TData">The type of the data.</typeparam>
 		/// <param name="trie">The trie to remove the value from.</param>
 		/// <param name="stepper">The keys to store the value relative to.</param>
-		public static void Remove<T, D>(this ITrie<T, D> trie, Action<Action<T>> stepper)
+		public static void Remove<T, TData>(this ITrie<T, TData> trie, Action<Action<T>> stepper)
 		{
 			var (success, exception) = trie.TryRemove(stepper);
 			if (!success)
@@ -83,9 +83,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="TrieLinkedHashLinked{T, D, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
-		/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
+		/// <typeparam name="TData">The additional data type to store with each leaf.</typeparam>
 		/// <returns>The new constructed <see cref="TrieLinkedHashLinked{T, D, TEquate, THash}"/>.</returns>
-		public static TrieLinkedHashLinked<T, D, SFunc<T, T, bool>, SFunc<T, int>> New<T, D>(
+		public static TrieLinkedHashLinked<T, TData, SFunc<T, T, bool>, SFunc<T, int>> New<T, TData>(
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
 			new(equate ?? Equate, hash ?? Hash);
@@ -343,8 +343,8 @@ namespace Towel.DataStructures
 
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
-	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
-	public interface ITrie<T, D> : IDataStructure<(Action<Action<T>>, D)>,
+	/// <typeparam name="TData">The additional data type to store with each leaf.</typeparam>
+	public interface ITrie<T, TData> : IDataStructure<(Action<Action<T>>, TData)>,
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IAuditable<Action<Action<T>>>
@@ -355,12 +355,12 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to add.</param>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <returns>True if the value was added or false if not.</returns>
-		(bool Success, Exception? Exception) TryAdd(D value, Action<Action<T>> stepper);
+		(bool Success, Exception? Exception) TryAdd(TData value, Action<Action<T>> stepper);
 
 		/// <summary>Tries to get a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
 		/// <returns>True if the remove was successful or false if not.</returns>
-		(bool Success, D? Value, Exception? Exception) TryGet(Action<Action<T>> stepper);
+		(bool Success, TData? Value, Exception? Exception) TryGet(Action<Action<T>> stepper);
 
 		/// <summary>Tries to remove a value.</summary>
 		/// <param name="stepper">The relative keys of the value.</param>
@@ -372,11 +372,11 @@ namespace Towel.DataStructures
 
 	/// <summary>A trie data structure that allows partial value sharing to reduce redundant memory.</summary>
 	/// <typeparam name="T">The type of values in the trie.</typeparam>
-	/// <typeparam name="D">The additional data type to store with each leaf.</typeparam>
+	/// <typeparam name="TData">The additional data type to store with each leaf.</typeparam>
 	/// <typeparam name="TEquate">The type of function for quality checking <typeparamref name="T"/> values.</typeparam>
 	/// <typeparam name="THash">The type of function for hashing <typeparamref name="T"/> values.</typeparam>
-	public class TrieLinkedHashLinked<T, D, TEquate, THash> : ITrie<T, D>,
-		ICloneable<TrieLinkedHashLinked<T, D, TEquate, THash>>,
+	public class TrieLinkedHashLinked<T, TData, TEquate, THash> : ITrie<T, TData>,
+		ICloneable<TrieLinkedHashLinked<T, TData, TEquate, THash>>,
 		DataStructure.ICountable,
 		DataStructure.IClearable,
 		DataStructure.IEquating<T, TEquate>,
@@ -392,7 +392,7 @@ namespace Towel.DataStructures
 		internal class Node
 		{
 			internal MapHashLinked<Node, T, TEquate, THash> Map;
-			internal D? Value;
+			internal TData? Value;
 			internal bool HasValue;
 			internal int Count;
 
@@ -414,7 +414,7 @@ namespace Towel.DataStructures
 
 		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="trie">The trie to clone.</param>
-		public TrieLinkedHashLinked(TrieLinkedHashLinked<T, D, TEquate, THash> trie)
+		public TrieLinkedHashLinked(TrieLinkedHashLinked<T, TData, TEquate, THash> trie)
 		{
 			_count = trie._count;
 			_map = trie._map.Clone();
@@ -436,7 +436,7 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <inheritdoc/>
-		public (bool Success, Exception? Exception) TryAdd(D value, Action<Action<T>> stepper)
+		public (bool Success, Exception? Exception) TryAdd(TData value, Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
@@ -478,7 +478,7 @@ namespace Towel.DataStructures
 		}
 
 		/// <inheritdoc/>
-		public (bool Success, D? Value, Exception? Exception) TryGet(Action<Action<T>> stepper)
+		public (bool Success, TData? Value, Exception? Exception) TryGet(Action<Action<T>> stepper)
 		{
 			if (stepper is null)
 			{
@@ -613,7 +613,7 @@ namespace Towel.DataStructures
 
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<(Action<Action<T>>, D), StepStatus>
+			where TStep : struct, IFunc<(Action<Action<T>>, TData), StepStatus>
 		{
 			StepStatus Stepper(Node node, Action<Action<T>> stepper)
 			{
@@ -633,22 +633,22 @@ namespace Towel.DataStructures
 			GetEnumerator();
 
 		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<(Action<Action<T>>, D)> GetEnumerator()
+		public System.Collections.Generic.IEnumerator<(Action<Action<T>>, TData)> GetEnumerator()
 		{
 			#warning TODO: optimize
-			IList<(Action<Action<T>>, D)> list = new ListLinked<(Action<Action<T>>, D)>();
+			IList<(Action<Action<T>>, TData)> list = new ListLinked<(Action<Action<T>>, TData)>();
 			this.Stepper(x => list.Add(x));
 			return list.GetEnumerator();
 		}
 
 		/// <inheritdoc/>
-		public TrieLinkedHashLinked<T, D, TEquate, THash> Clone() => new(this);
+		public TrieLinkedHashLinked<T, TData, TEquate, THash> Clone() => new(this);
 
 		/// <inheritdoc/>
-		public (Action<Action<T>>, D)[] ToArray()
+		public (Action<Action<T>>, TData)[] ToArray()
 		{
 			#warning TODO: optimize
-			(Action<Action<T>>, D)[] array = new (Action<Action<T>>, D)[_count];
+			(Action<Action<T>>, TData)[] array = new (Action<Action<T>>, TData)[_count];
 			int i = 0;
 			this.Stepper(x => array[i++] = x);
 			return array;

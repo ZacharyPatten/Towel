@@ -828,22 +828,22 @@ namespace Towel
 
 		/// <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="GetA">The get index function for the first sequence.</typeparam>
-		/// <typeparam name="GetB">The get index function for the second sequence.</typeparam>
-		/// <typeparam name="Equals">The equality check function.</typeparam>
+		/// <typeparam name="TGetA">The get index function for the first sequence.</typeparam>
+		/// <typeparam name="TGetB">The get index function for the second sequence.</typeparam>
+		/// <typeparam name="TEquate">The equality check function.</typeparam>
 		/// <param name="length">The length of the sequences.</param>
 		/// <param name="a">The get index function for the first sequence.</param>
 		/// <param name="b">The get index function for the second sequence.</param>
-		/// <param name="equals">The equality check function.</param>
+		/// <param name="equate">The equality check function.</param>
 		/// <returns>The computed Hamming distance of the two sequences.</returns>
-		public static int HammingDistance<T, GetA, GetB, Equals>(
+		public static int HammingDistance<T, TGetA, TGetB, TEquate>(
 			int length,
-			GetA a = default,
-			GetB b = default,
-			Equals equals = default)
-			where GetA : struct, IFunc<int, T>
-			where GetB : struct, IFunc<int, T>
-			where Equals : struct, IFunc<T, T, bool>
+			TGetA a = default,
+			TGetB b = default,
+			TEquate equate = default)
+			where TGetA : struct, IFunc<int, T>
+			where TGetB : struct, IFunc<int, T>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (length < 0)
 			{
@@ -852,7 +852,7 @@ namespace Towel
 			int distance = 0;
 			for (int i = 0; i < length; i++)
 			{
-				if (!equals.Invoke(a.Invoke(i), b.Invoke(i)))
+				if (!equate.Invoke(a.Invoke(i), b.Invoke(i)))
 				{
 					distance++;
 				}
@@ -869,16 +869,16 @@ namespace Towel
 
 		/// <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="Equals">The equality check function.</typeparam>
+		/// <typeparam name="TEquate">The equality check function.</typeparam>
 		/// <param name="a">The first sequence.</param>
 		/// <param name="b">The second sequence.</param>
-		/// <param name="equals">The equality check function.</param>
+		/// <param name="equate">The equality check function.</param>
 		/// <returns>The computed Hamming distance of the two sequences.</returns>
-		public static int HammingDistance<T, Equals>(
+		public static int HammingDistance<T, TEquate>(
 			ReadOnlySpan<T> a,
 			ReadOnlySpan<T> b,
-			Equals equals = default)
-			where Equals : struct, IFunc<T, T, bool>
+			TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (a.Length != b.Length)
 			{
@@ -887,7 +887,7 @@ namespace Towel
 			int distance = 0;
 			for (int i = 0; i < a.Length; i++)
 			{
-				if (!equals.Invoke(a[i], b[i]))
+				if (!equate.Invoke(a[i], b[i]))
 				{
 					distance++;
 				}
@@ -901,24 +901,24 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="GetA">The get index function for the first sequence.</typeparam>
-		/// <typeparam name="GetB">The get index function for the second sequence.</typeparam>
-		/// <typeparam name="Equals">The equality check function.</typeparam>
+		/// <typeparam name="TGetA">The get index function for the first sequence.</typeparam>
+		/// <typeparam name="TGetB">The get index function for the second sequence.</typeparam>
+		/// <typeparam name="TEquate">The equality check function.</typeparam>
 		/// <param name="a_length">The length of the first sequence.</param>
 		/// <param name="b_length">The length of the second sequence.</param>
 		/// <param name="a">The get index function for the first sequence.</param>
 		/// <param name="b">The get index function for the second sequence.</param>
-		/// <param name="equals">The equality check function.</param>
+		/// <param name="equate">The equality check function.</param>
 		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
-		public static int LevenshteinDistanceRecursive<T, GetA, GetB, Equals>(
+		public static int LevenshteinDistanceRecursive<T, TGetA, TGetB, TEquate>(
 			int a_length,
 			int b_length,
-			GetA a = default,
-			GetB b = default,
-			Equals equals = default)
-			where GetA : struct, IFunc<int, T>
-			where GetB : struct, IFunc<int, T>
-			where Equals : struct, IFunc<T, T, bool>
+			TGetA a = default,
+			TGetB b = default,
+			TEquate equate = default)
+			where TGetA : struct, IFunc<int, T>
+			where TGetB : struct, IFunc<int, T>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (a_length < 0)
 			{
@@ -937,7 +937,7 @@ namespace Towel
 					bi >= b_length ? 0 :
 					1 + LDR(ai, _bi) :
 				bi >= b_length ? 1 + LDR(_ai, bi) :
-				equals.Invoke(a.Invoke(ai), b.Invoke(bi)) ? LDR(_ai, _bi) :
+				equate.Invoke(a.Invoke(ai), b.Invoke(bi)) ? LDR(_ai, _bi) :
 				1 + MinimumValue(default, LDR(ai, _bi), LDR(_ai, bi), LDR(_ai, _bi));
 			}
 			return LDR(0, 0);
@@ -952,16 +952,16 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="Equals">The equality check function.</typeparam>
+		/// <typeparam name="TEquate">The equality check function.</typeparam>
 		/// <param name="a">The first sequence.</param>
 		/// <param name="b">The second sequence.</param>
-		/// <param name="equals">The equality check function.</param>
+		/// <param name="equate">The equality check function.</param>
 		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
-		public static int LevenshteinDistanceRecursive<T, Equals>(
+		public static int LevenshteinDistanceRecursive<T, TEquate>(
 			ReadOnlySpan<T> a,
 			ReadOnlySpan<T> b,
-			Equals equals = default)
-			where Equals : struct, IFunc<T, T, bool>
+			TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			int LDR(
 				ReadOnlySpan<T> a,
@@ -975,7 +975,7 @@ namespace Towel
 					bi >= b.Length ? 0 :
 					1 + LDR(a, b, ai, _bi) :
 				bi >= b.Length ? 1 + LDR(a, b, _ai, bi) :
-				equals.Invoke(a[ai], b[bi]) ? LDR(a, b, _ai, _bi) :
+				equate.Invoke(a[ai], b[bi]) ? LDR(a, b, _ai, _bi) :
 				1 + MinimumValue(default, LDR(a, b, ai, _bi), LDR(a, b, _ai, bi), LDR(a, b, _ai, _bi));
 			}
 			return LDR(a, b, 0, 0);
@@ -983,24 +983,24 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="GetA">The get index function for the first sequence.</typeparam>
-		/// <typeparam name="GetB">The get index function for the second sequence.</typeparam>
-		/// <typeparam name="Equals">The equality check function.</typeparam>
+		/// <typeparam name="TGetA">The get index function for the first sequence.</typeparam>
+		/// <typeparam name="TGetB">The get index function for the second sequence.</typeparam>
+		/// <typeparam name="TEquate">The equality check function.</typeparam>
 		/// <param name="a_length">The length of the first sequence.</param>
 		/// <param name="b_length">The length of the second sequence.</param>
 		/// <param name="a">The get index function for the first sequence.</param>
 		/// <param name="b">The get index function for the second sequence.</param>
-		/// <param name="equals">The equality check function.</param>
+		/// <param name="equate">The equality check function.</param>
 		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
-		public static int LevenshteinDistanceIterative<T, GetA, GetB, Equals>(
+		public static int LevenshteinDistanceIterative<T, TGetA, TGetB, TEquate>(
 			int a_length,
 			int b_length,
-			GetA a = default,
-			GetB b = default,
-			Equals equals = default)
-			where GetA : struct, IFunc<int, T>
-			where GetB : struct, IFunc<int, T>
-			where Equals : struct, IFunc<T, T, bool>
+			TGetA a = default,
+			TGetB b = default,
+			TEquate equate = default)
+			where TGetA : struct, IFunc<int, T>
+			where TGetB : struct, IFunc<int, T>
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			if (a_length < 0)
 			{
@@ -1030,7 +1030,7 @@ namespace Towel
 					matrix[ai, bi] = MinimumValue(default,
 						matrix[_ai, bi] + 1,
 						matrix[ai, _bi] + 1,
-						!equals.Invoke(a.Invoke(_ai), b.Invoke(_bi)) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
+						!equate.Invoke(a.Invoke(_ai), b.Invoke(_bi)) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
 				}
 			}
 			return matrix[a_length - 1, b_length - 1];
@@ -1045,16 +1045,16 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="Equals">The equality check function.</typeparam>
+		/// <typeparam name="TEquate">The equality check function.</typeparam>
 		/// <param name="a">The first sequence.</param>
 		/// <param name="b">The second sequence.</param>
-		/// <param name="equals">The equality check function.</param>
+		/// <param name="equate">The equality check function.</param>
 		/// <returns>The computed Levenshtein distance of the two sequences.</returns>
-		public static int LevenshteinDistanceIterative<T, Equals>(
+		public static int LevenshteinDistanceIterative<T, TEquate>(
 			ReadOnlySpan<T> a,
 			ReadOnlySpan<T> b,
-			Equals equals = default)
-			where Equals : struct, IFunc<T, T, bool>
+			TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
 		{
 			int a_length = a.Length + 1;
 			int b_length = b.Length + 1;
@@ -1076,7 +1076,7 @@ namespace Towel
 					matrix[ai, bi] = MinimumValue(default,
 						matrix[_ai, bi] + 1,
 						matrix[ai, _bi] + 1,
-						!equals.Invoke(a[_ai], b[_bi]) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
+						!equate.Invoke(a[_ai], b[_bi]) ? matrix[_ai, _bi] + 1 : matrix[_ai, _bi]);
 				}
 			}
 			return matrix[a_length - 1, b_length - 1];
@@ -1203,9 +1203,9 @@ namespace Towel
 			IsOrdered<T, SFunc<T, T, CompareResult>, SFunc<int, T>>(start, end, compare ?? Compare, get);
 
 		/// <inheritdoc cref="XML_IsOrdered"/>
-		public static bool IsOrdered<T, Compare, Get>(int start, int end, Compare compare = default, Get get = default)
-			where Compare : struct, IFunc<T, T, CompareResult>
-			where Get : struct, IFunc<int, T>
+		public static bool IsOrdered<T, TCompare, TGet>(int start, int end, TCompare compare = default, TGet get = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
+			where TGet : struct, IFunc<int, T>
 		{
 			for (int i = start + 1; i <= end; i++)
 			{
@@ -1690,12 +1690,12 @@ namespace Towel
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="Predicate">The function for equating values.</typeparam>
+		/// <typeparam name="TPredicate">The function for equating values.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="predicate">The value to look for.</param>
 		/// <returns>True if a predicated was found.</returns>
-		public static bool Any<T, Predicate>(Span<T> span, Predicate predicate = default)
-			where Predicate : struct, IFunc<T, bool>
+		public static bool Any<T, TPredicate>(Span<T> span, TPredicate predicate = default)
+			where TPredicate : struct, IFunc<T, bool>
 		{
 			foreach (T element in span)
 			{

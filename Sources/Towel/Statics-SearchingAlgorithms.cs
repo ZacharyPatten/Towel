@@ -171,74 +171,74 @@ namespace Towel
 		}
 
 		/// <summary>Step function for all neigbors of a given node.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <typeparam name="TNode">The node type of the graph being searched.</typeparam>
 		/// <param name="current">The node to step through all the neighbors of.</param>
 		/// <param name="neighbors">Step function to perform on all neighbors.</param>
-		public delegate void SearchNeighbors<Node>(Node current, Action<Node> neighbors);
+		public delegate void SearchNeighbors<TNode>(TNode current, Action<TNode> neighbors);
 		/// <summary>Computes the heuristic value of a given node in a graph (smaller values mean closer to goal node).</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+		/// <typeparam name="TNode">The node type of the graph being searched.</typeparam>
+		/// <typeparam name="TNumeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="node">The node to compute the heuristic value of.</param>
 		/// <returns>The computed heuristic value for this node.</returns>
-		public delegate Numeric SearchHeuristic<Node, Numeric>(Node node);
+		public delegate TNumeric SearchHeuristic<TNode, TNumeric>(TNode node);
 		/// <summary>Computes the cost of moving from the current node to a specific neighbor.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+		/// <typeparam name="TNode">The node type of the graph being searched.</typeparam>
+		/// <typeparam name="TNumeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="current">The current (starting) node.</param>
 		/// <param name="neighbor">The node to compute the cost of movign to.</param>
 		/// <returns>The computed cost value of movign from current to neighbor.</returns>
-		public delegate Numeric SearchCost<Node, Numeric>(Node current, Node neighbor);
+		public delegate TNumeric SearchCost<TNode, TNumeric>(TNode current, TNode neighbor);
 		/// <summary>Predicate for determining if we have reached the goal node.</summary>
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
+		/// <typeparam name="TNode">The node type of the graph being searched.</typeparam>
 		/// <param name="current">The current node.</param>
 		/// <returns>True if the current node is a/the goal node; False if not.</returns>
-		public delegate bool SearchGoal<Node>(Node current);
+		public delegate bool SearchGoal<TNode>(TNode current);
 		/// <summary>Checks the status of a graph search.</summary>
-		/// <typeparam name="Node">The node type of the search.</typeparam>
+		/// <typeparam name="TNode">The node type of the search.</typeparam>
 		/// <param name="current">The current node of the search.</param>
 		/// <returns>The status of the search.</returns>
-		public delegate GraphSyntax.GraphSearchStatusStruct SearchCheck<Node>(Node current);
+		public delegate GraphSyntax.GraphSearchStatusStruct SearchCheck<TNode>(TNode current);
 
 		#endregion
 
 		#region Internals
 
-		internal abstract class BaseAlgorithmNode<AlgorithmNode, Node>
-			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
+		internal abstract class BaseAlgorithmNode<TAlgorithmNode, TNode>
+			where TAlgorithmNode : BaseAlgorithmNode<TAlgorithmNode, TNode>
 		{
-			internal AlgorithmNode? Previous;
-			internal Node Value;
+			internal TAlgorithmNode? Previous;
+			internal TNode Value;
 
-			internal BaseAlgorithmNode(Node value, AlgorithmNode? previous = null)
+			internal BaseAlgorithmNode(TNode value, TAlgorithmNode? previous = null)
 			{
 				Value = value;
 				Previous = previous;
 			}
 		}
 
-		internal class BreadthFirstSearch<Node> : BaseAlgorithmNode<BreadthFirstSearch<Node>, Node>
+		internal class BreadthFirstSearch<TNode> : BaseAlgorithmNode<BreadthFirstSearch<TNode>, TNode>
 		{
-			internal BreadthFirstSearch(Node value, BreadthFirstSearch<Node>? previous = null)
+			internal BreadthFirstSearch(TNode value, BreadthFirstSearch<TNode>? previous = null)
 				: base(value: value, previous: previous) { }
 		}
 
-		internal class DijkstraNode<Node, Numeric> : BaseAlgorithmNode<DijkstraNode<Node, Numeric>, Node>
+		internal class DijkstraNode<TNode, TNumeric> : BaseAlgorithmNode<DijkstraNode<TNode, TNumeric>, TNode>
 		{
-			internal Numeric Priority;
+			internal TNumeric Priority;
 
-			internal DijkstraNode(Node value, Numeric priority, DijkstraNode<Node, Numeric>? previous = null)
+			internal DijkstraNode(TNode value, TNumeric priority, DijkstraNode<TNode, TNumeric>? previous = null)
 				: base(value: value, previous: previous)
 			{
 				Priority = priority;
 			}
 		}
 
-		internal class AstarNode<Node, Numeric> : BaseAlgorithmNode<AstarNode<Node, Numeric>, Node>
+		internal class AstarNode<TNode, TNumeric> : BaseAlgorithmNode<AstarNode<TNode, TNumeric>, TNode>
 		{
-			internal Numeric Priority;
-			internal Numeric Cost;
+			internal TNumeric Priority;
+			internal TNumeric Cost;
 
-			internal AstarNode(Node value, Numeric priority, Numeric cost, AstarNode<Node, Numeric>? previous = null)
+			internal AstarNode(TNode value, TNumeric priority, TNumeric cost, AstarNode<TNode, TNumeric>? previous = null)
 				: base(value: value, previous: previous)
 			{
 				Priority = priority;
@@ -246,32 +246,32 @@ namespace Towel
 			}
 		}
 
-		internal class PathNode<Node>
+		internal class PathNode<TNode>
 		{
-			internal Node Value;
-			internal PathNode<Node>? Next;
+			internal TNode Value;
+			internal PathNode<TNode>? Next;
 
-			internal PathNode(Node value, PathNode<Node>? next = null)
+			internal PathNode(TNode value, PathNode<TNode>? next = null)
 			{
 				Value = value;
 				Next = next;
 			}
 		}
 
-		internal static Action<Action<Node>> BuildPath<AlgorithmNode, Node>(BaseAlgorithmNode<AlgorithmNode, Node> node)
-			where AlgorithmNode : BaseAlgorithmNode<AlgorithmNode, Node>
+		internal static Action<Action<TNode>> BuildPath<TAlgorithmNode, TNode>(BaseAlgorithmNode<TAlgorithmNode, TNode> node)
+			where TAlgorithmNode : BaseAlgorithmNode<TAlgorithmNode, TNode>
 		{
-			PathNode<Node>? start = null;
-			for (BaseAlgorithmNode<AlgorithmNode, Node>? current = node; current is not null; current = current.Previous)
+			PathNode<TNode>? start = null;
+			for (BaseAlgorithmNode<TAlgorithmNode, TNode>? current = node; current is not null; current = current.Previous)
 			{
-				PathNode<Node>? temp = start;
-				start = new PathNode<Node>(
+				PathNode<TNode>? temp = start;
+				start = new PathNode<TNode>(
 					value: current.Value,
 					next: temp);
 			}
 			return step =>
 			{
-				PathNode<Node>? current = start;
+				PathNode<TNode>? current = start;
 				while (current is not null)
 				{
 					step(current.Value);
@@ -280,17 +280,17 @@ namespace Towel
 			};
 		}
 
-		internal struct AStarPriorityCompare<Node, Numeric> : IFunc<AstarNode<Node, Numeric>, AstarNode<Node, Numeric>, CompareResult>
+		internal struct AStarPriorityCompare<TNode, TNumeric> : IFunc<AstarNode<TNode, TNumeric>, AstarNode<TNode, TNumeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
-			public CompareResult Invoke(AstarNode<Node, Numeric> a, AstarNode<Node, Numeric> b) =>
+			public CompareResult Invoke(AstarNode<TNode, TNumeric> a, AstarNode<TNode, TNumeric> b) =>
 				Compare(b.Priority, a.Priority);
 		}
 
-		internal struct DijkstraPriorityCompare<Node, Numeric> : IFunc<DijkstraNode<Node, Numeric>, DijkstraNode<Node, Numeric>, CompareResult>
+		internal struct DijkstraPriorityCompare<TNode, TNumeric> : IFunc<DijkstraNode<TNode, TNumeric>, DijkstraNode<TNode, TNumeric>, CompareResult>
 		{
 			// NOTE: Typical A* implementations prioritize smaller values
-			public CompareResult Invoke(DijkstraNode<Node, Numeric> a, DijkstraNode<Node, Numeric> b) =>
+			public CompareResult Invoke(DijkstraNode<TNode, TNumeric> a, DijkstraNode<TNode, TNumeric> b) =>
 				Compare(b.Priority, a.Priority);
 		}
 
@@ -330,47 +330,47 @@ namespace Towel
 		public static void XML_SearchGraph_Astar() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric? totalCost) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, SearchCost<TNode, TNumeric> cost, SearchGoal<TNode> goal, out TNumeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue, out totalCost);
 
 		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchGoal<Node> goal, out Numeric? totalCost) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, IGraph<TNode> graph, SearchHeuristic<TNode, TNumeric> heuristic, SearchCost<TNode, TNumeric> cost, SearchGoal<TNode> goal, out TNumeric? totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, goal, out totalCost);
 
 		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric? totalCost) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, SearchCost<TNode, TNumeric> cost, TNode goal, out TNumeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric? totalCost) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, SearchCost<TNode, TNumeric> cost, TNode goal, Func<TNode, TNode, bool> equate, out TNumeric? totalCost) =>
 			SearchGraph(start, neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, out Numeric? totalCost) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, IGraph<TNode> graph, SearchHeuristic<TNode, TNumeric> heuristic, SearchCost<TNode, TNumeric> cost, TNode goal, out TNumeric? totalCost) =>
 			SearchGraph(start, graph, heuristic, cost, goal, Equate, out totalCost);
 
 		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, Node goal, Func<Node, Node, bool> equate, out Numeric? totalCost) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, IGraph<TNode> graph, SearchHeuristic<TNode, TNumeric> heuristic, SearchCost<TNode, TNumeric> cost, TNode goal, Func<TNode, TNode, bool> equate, out TNumeric? totalCost) =>
 			SearchGraph(start, graph.Neighbors, heuristic, cost, node => equate(node, goal), out totalCost);
 
 		/// <inheritdoc cref="XML_SearchGraph_Astar"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCost<Node, Numeric> cost, SearchCheck<Node> check, out Numeric? totalCost)
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, SearchCost<TNode, TNumeric> cost, SearchCheck<TNode> check, out TNumeric? totalCost)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed A* f(n) value
-			HeapArray<AstarNode<Node, Numeric>, AStarPriorityCompare<Node, Numeric>> fringe = new();
+			HeapArray<AstarNode<TNode, TNumeric>, AStarPriorityCompare<TNode, TNumeric>> fringe = new();
 
 			// push starting node
 			fringe.Enqueue(
-				new AstarNode<Node, Numeric>(
+				new AstarNode<TNode, TNumeric>(
 					value: start,
-					priority: Constant<Numeric>.Zero,
-					cost: Constant<Numeric>.Zero,
+					priority: Constant<TNumeric>.Zero,
+					cost: Constant<TNumeric>.Zero,
 					previous: null));
 
 			// run the algorithm
 			while (fringe.Count != 0)
 			{
-				AstarNode<Node, Numeric> current = fringe.Dequeue();
+				AstarNode<TNode, TNumeric> current = fringe.Dequeue();
 				GraphSearchStatus status = check(current.Value);
 				if (status is GraphSearchStatus.Break)
 				{
@@ -386,9 +386,9 @@ namespace Towel
 					neighbors(current.Value,
 						neighbor =>
 						{
-							Numeric costValue = Addition(current.Cost, cost(current.Value, neighbor));
+							TNumeric costValue = Addition(current.Cost, cost(current.Value, neighbor));
 							fringe.Enqueue(
-								new AstarNode<Node, Numeric>(
+								new AstarNode<TNode, TNumeric>(
 									value: neighbor,
 									priority: Addition(heuristic(neighbor), costValue),
 									cost: costValue,
@@ -406,14 +406,14 @@ namespace Towel
 		/// <param name="Destination">The node to search</param>
 		/// <param name="CustomHeuristic">The heuristic function of the node</param>
 		/// <param name="TotalWeight">The total cost or weight incurred from source to destination</param>
-		/// <typeparam name="Node">The Node type of the graph</typeparam>
-		/// <typeparam name="Numeric">The Numeric type of the weighted graph</typeparam>
+		/// <typeparam name="TNode">The Node type of the graph</typeparam>
+		/// <typeparam name="TNumeric">The Numeric type of the weighted graph</typeparam>
 		/// <returns>IEnumerable of the ordered sequence of nodes from source to destination</returns>
-		public static System.Collections.Generic.IEnumerable<Node> AStarSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, SearchHeuristic<Node, Numeric> CustomHeuristic, out Numeric TotalWeight)
+		public static System.Collections.Generic.IEnumerable<TNode> AStarSearch<TNode, TNumeric>(this IGraphWeighted<TNode, TNumeric> graph, TNode Source, TNode Destination, SearchHeuristic<TNode, TNumeric> CustomHeuristic, out TNumeric TotalWeight)
 		{
-			ListArray<Node> path = new();
-			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: CustomHeuristic, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
-			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
+			ListArray<TNode> path = new();
+			var graphPath = SearchGraph<TNode, TNumeric>(start: Source, graph: graph, heuristic: CustomHeuristic, cost: graph.GetWeight, goal: Destination, out TNumeric? totalWeight);
+			TotalWeight = totalWeight ?? Constant<TNumeric>.Zero;
 			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
@@ -425,12 +425,12 @@ namespace Towel
 		/// <param name="CustomHeuristic">The heuristic function of the node</param>
 		/// <param name="action">The action to perform for every node on path</param>
 		/// <param name="TotalWeight">The total cost or weight incurred from source to destination</param>
-		/// <typeparam name="Node">The Node type of the graph</typeparam>
-		/// <typeparam name="Numeric">The Numeric type of the weighted graph</typeparam>
-		public static void AStarSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, SearchHeuristic<Node, Numeric> CustomHeuristic, Action<Node> action, out Numeric TotalWeight)
+		/// <typeparam name="TNode">The Node type of the graph</typeparam>
+		/// <typeparam name="TNumeric">The Numeric type of the weighted graph</typeparam>
+		public static void AStarSearch<TNode, TNumeric>(this IGraphWeighted<TNode, TNumeric> graph, TNode Source, TNode Destination, SearchHeuristic<TNode, TNumeric> CustomHeuristic, Action<TNode> action, out TNumeric TotalWeight)
 		{
-			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: CustomHeuristic, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
-			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
+			var graphPath = SearchGraph<TNode, TNumeric>(start: Source, graph: graph, heuristic: CustomHeuristic, cost: graph.GetWeight, goal: Destination, out TNumeric? totalWeight);
+			TotalWeight = totalWeight ?? Constant<TNumeric>.Zero;
 			if (graphPath != null && action != null) graphPath(n => action(n));
 		}
 
@@ -444,46 +444,46 @@ namespace Towel
 		public static void XML_SearchGraph_Dijkstra() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, SearchGoal<TNode> goal) =>
 			SearchGraph(start, neighbors, heuristic, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, TNode goal) =>
 			SearchGraph(start, neighbors, heuristic, goal, Equate);
 
 		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, TNode goal, Func<TNode, TNode, bool> equate) =>
 			SearchGraph(start, neighbors, heuristic, node => equate(node, goal));
 
 		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, IGraph<TNode> graph, SearchHeuristic<TNode, TNumeric> heuristic, TNode goal) =>
 			SearchGraph(start, graph, heuristic, goal, Equate);
 
 		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, IGraph<TNode> graph, SearchHeuristic<TNode, TNumeric> heuristic, TNode goal, Func<TNode, TNode, bool> equate) =>
 			SearchGraph(start, graph.Neighbors, heuristic, node => equate(node, goal));
 
 		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, IGraph<Node> graph, SearchHeuristic<Node, Numeric> heuristic, SearchGoal<Node> goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, IGraph<TNode> graph, SearchHeuristic<TNode, TNumeric> heuristic, SearchGoal<TNode> goal) =>
 			SearchGraph(start, graph.Neighbors, heuristic, goal);
 
 		/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
-		public static Action<Action<Node>>? SearchGraph<Node, Numeric>(Node start, SearchNeighbors<Node> neighbors, SearchHeuristic<Node, Numeric> heuristic, SearchCheck<Node> check)
+		public static Action<Action<TNode>>? SearchGraph<TNode, TNumeric>(TNode start, SearchNeighbors<TNode> neighbors, SearchHeuristic<TNode, TNumeric> heuristic, SearchCheck<TNode> check)
 		{
 			// using a heap (aka priority queue) to store nodes based on their computed heuristic value
-			HeapArray<DijkstraNode<Node, Numeric>, DijkstraPriorityCompare<Node, Numeric>> fringe = new();
+			HeapArray<DijkstraNode<TNode, TNumeric>, DijkstraPriorityCompare<TNode, TNumeric>> fringe = new();
 
 			// push starting node
 			fringe.Enqueue(
-				new DijkstraNode<Node, Numeric>(
+				new DijkstraNode<TNode, TNumeric>(
 					value: start,
-					priority: Constant<Numeric>.Zero,
+					priority: Constant<TNumeric>.Zero,
 					previous: null));
 
 			// run the algorithm
 			while (fringe.Count != 0)
 			{
-				DijkstraNode<Node, Numeric> current = fringe.Dequeue();
+				DijkstraNode<TNode, TNumeric> current = fringe.Dequeue();
 				GraphSearchStatus status = check(current.Value);
 				if (status is GraphSearchStatus.Break)
 				{
@@ -499,7 +499,7 @@ namespace Towel
 						neighbor =>
 						{
 							fringe.Enqueue(
-								new DijkstraNode<Node, Numeric>(
+								new DijkstraNode<TNode, TNumeric>(
 									value: neighbor,
 									priority: heuristic(neighbor),
 									previous: current));
@@ -514,14 +514,14 @@ namespace Towel
 		/// <param name="Source">The node to begin searching from</param>
 		/// <param name="Destination">The node to search</param>
 		/// <param name="TotalWeight">The total cost or weight incurred from the Soruce to the Destination node</param>
-		/// <typeparam name="Node">The Node Type of the graph</typeparam>
-		/// <typeparam name="Numeric">The Numeric Type of the graph</typeparam>
+		/// <typeparam name="TNode">The Node Type of the graph</typeparam>
+		/// <typeparam name="TNumeric">The Numeric Type of the graph</typeparam>
 		/// <returns>IEnumerable of the ordered nodes in path from source to destination</returns>
-		public static System.Collections.Generic.IEnumerable<Node> DijkstraSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, out Numeric TotalWeight)
+		public static System.Collections.Generic.IEnumerable<TNode> DijkstraSearch<TNode, TNumeric>(this IGraphWeighted<TNode, TNumeric> graph, TNode Source, TNode Destination, out TNumeric TotalWeight)
 		{
-			ListArray<Node> path = new();
-			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: (x) => Constant<Numeric>.Zero, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
-			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
+			ListArray<TNode> path = new();
+			var graphPath = SearchGraph<TNode, TNumeric>(start: Source, graph: graph, heuristic: (x) => Constant<TNumeric>.Zero, cost: graph.GetWeight, goal: Destination, out TNumeric? totalWeight);
+			TotalWeight = totalWeight ?? Constant<TNumeric>.Zero;
 			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
@@ -532,12 +532,12 @@ namespace Towel
 		/// <param name="Destination">The destination node to search</param>
 		/// <param name="action">The action to execute for every node on the path</param>
 		/// <param name="TotalWeight">The Total cost or weight incurred from the Source to the Destination node</param>
-		/// <typeparam name="Node">The Node Type of the graph</typeparam>
-		/// <typeparam name="Numeric">The Numeric Type of the graph</typeparam>
-		public static void DijkstraSearch<Node, Numeric>(this IGraphWeighted<Node, Numeric> graph, Node Source, Node Destination, Action<Node> action, out Numeric TotalWeight)
+		/// <typeparam name="TNode">The Node Type of the graph</typeparam>
+		/// <typeparam name="TNumeric">The Numeric Type of the graph</typeparam>
+		public static void DijkstraSearch<TNode, TNumeric>(this IGraphWeighted<TNode, TNumeric> graph, TNode Source, TNode Destination, Action<TNode> action, out TNumeric TotalWeight)
 		{
-			var graphPath = SearchGraph<Node, Numeric>(start: Source, graph: graph, heuristic: (x) => Constant<Numeric>.Zero, cost: graph.GetWeight, goal: Destination, out Numeric? totalWeight);
-			TotalWeight = totalWeight ?? Constant<Numeric>.Zero;
+			var graphPath = SearchGraph<TNode, TNumeric>(start: Source, graph: graph, heuristic: (x) => Constant<TNumeric>.Zero, cost: graph.GetWeight, goal: Destination, out TNumeric? totalWeight);
+			TotalWeight = totalWeight ?? Constant<TNumeric>.Zero;
 			if (action == null) return;
 			graphPath?.Invoke(n => action(n));
 		}
@@ -552,44 +552,44 @@ namespace Towel
 		public static void XML_SearchGraph_BreadthFirst() => throw new DocumentationMethodException();
 
 		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
-		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchGoal<Node> goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode>(TNode start, SearchNeighbors<TNode> neighbors, SearchGoal<TNode> goal) =>
 			SearchGraph(start, neighbors, node => goal(node) ? GraphSearchStatus.Goal : GraphSearchStatus.Continue);
 
 		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
-		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode>(TNode start, SearchNeighbors<TNode> neighbors, TNode goal) =>
 			SearchGraph(start, neighbors, goal, Equate);
 
 		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
-		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode>(TNode start, SearchNeighbors<TNode> neighbors, TNode goal, Func<TNode, TNode, bool> equate) =>
 			SearchGraph(start, neighbors, node => equate(node, goal));
 
 		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
-		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode>(TNode start, IGraph<TNode> graph, TNode goal) =>
 			SearchGraph(start, graph, goal, Equate);
 
 		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
-		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, Node goal, Func<Node, Node, bool> equate) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode>(TNode start, IGraph<TNode> graph, TNode goal, Func<TNode, TNode, bool> equate) =>
 			SearchGraph(start, graph.Neighbors, node => equate(node, goal));
 
 		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
-		public static Action<Action<Node>>? SearchGraph<Node>(Node start, IGraph<Node> graph, SearchGoal<Node> goal) =>
+		public static Action<Action<TNode>>? SearchGraph<TNode>(TNode start, IGraph<TNode> graph, SearchGoal<TNode> goal) =>
 			SearchGraph(start, graph.Neighbors, goal);
 
 		/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>
-		public static Action<Action<Node>>? SearchGraph<Node>(Node start, SearchNeighbors<Node> neighbors, SearchCheck<Node> check)
+		public static Action<Action<TNode>>? SearchGraph<TNode>(TNode start, SearchNeighbors<TNode> neighbors, SearchCheck<TNode> check)
 		{
-			IQueue<BreadthFirstSearch<Node>> fringe = new QueueLinked<BreadthFirstSearch<Node>>();
+			IQueue<BreadthFirstSearch<TNode>> fringe = new QueueLinked<BreadthFirstSearch<TNode>>();
 
 			// push starting node
 			fringe.Enqueue(
-				new BreadthFirstSearch<Node>(
+				new BreadthFirstSearch<TNode>(
 					value: start,
 					previous: null));
 
 			// run the algorithm
 			while (fringe.Count != 0)
 			{
-				BreadthFirstSearch<Node> current = fringe.Dequeue();
+				BreadthFirstSearch<TNode> current = fringe.Dequeue();
 				GraphSearchStatus status = check(current.Value);
 				if (status is GraphSearchStatus.Break)
 				{
@@ -605,7 +605,7 @@ namespace Towel
 						neighbor =>
 						{
 							fringe.Enqueue(
-								new BreadthFirstSearch<Node>(
+								new BreadthFirstSearch<TNode>(
 									value: neighbor,
 									previous: current));
 						});
@@ -618,12 +618,12 @@ namespace Towel
 		/// <param name="graph">The IGraph object</param>
 		/// <param name="Source">The node to begin the Breadth First Search from</param>
 		/// <param name="Destination">The node to search</param>
-		/// <typeparam name="Node">The Node Type of the Graph</typeparam>
+		/// <typeparam name="TNode">The Node Type of the Graph</typeparam>
 		/// <returns>IEnumerable of the Nodes found along the path</returns>
-		public static System.Collections.Generic.IEnumerable<Node> PerformBredthFirstSearch<Node>(this IGraph<Node> graph, Node Source, Node Destination)
+		public static System.Collections.Generic.IEnumerable<TNode> PerformBredthFirstSearch<TNode>(this IGraph<TNode> graph, TNode Source, TNode Destination)
 		{
-			ListArray<Node> path = new();
-			var graphPath = SearchGraph<Node>(start: Source, graph: graph, goal: Destination);
+			ListArray<TNode> path = new();
+			var graphPath = SearchGraph<TNode>(start: Source, graph: graph, goal: Destination);
 			graphPath?.Invoke(n => path.Add(n));
 			return path;
 		}
@@ -633,12 +633,12 @@ namespace Towel
 		/// <param name="Source">The node to begin Breadth First Search from</param>
 		/// <param name="Destination">The node to search</param>
 		/// <param name="action">The action to perform</param>
-		/// <typeparam name="Node">The Node Type of the graph</typeparam>
-		public static void PerformBredthFirstSearch<Node>(this IGraph<Node> graph, Node Source, Node Destination, Action<Node> action)
+		/// <typeparam name="TNode">The Node Type of the graph</typeparam>
+		public static void PerformBredthFirstSearch<TNode>(this IGraph<TNode> graph, TNode Source, TNode Destination, Action<TNode> action)
 		{
 			if (action != null)
 			{
-				var graphPath = SearchGraph<Node>(start: Source, graph: graph, goal: Destination);
+				var graphPath = SearchGraph<TNode>(start: Source, graph: graph, goal: Destination);
 				if (action != null && graphPath != null) graphPath(n => action(n));
 			}
 		}

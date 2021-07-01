@@ -5,17 +5,17 @@ namespace Towel.DataStructures
 {
 	/// <summary>An indexed fixed-sized data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>
-	/// <typeparam name="Index">The generic type of the indexing.</typeparam>
-	public interface IArray<T, Index> : IDataStructure<T>
+	/// <typeparam name="TIndex">The generic type of the indexing.</typeparam>
+	public interface IArray<T, TIndex> : IDataStructure<T>
 	{
 		#region Properties
 
 		/// <summary>Allows indexed access of the array.</summary>
 		/// <param name="index">The index of the array to get/set.</param>
 		/// <returns>The value at the desired index.</returns>
-		T this[Index index] { get; set; }
+		T this[TIndex index] { get; set; }
 		/// <summary>The length of the array.</summary>
-		Index Length { get; }
+		TIndex Length { get; }
 
 		#endregion
 	}

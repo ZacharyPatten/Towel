@@ -14,12 +14,12 @@ namespace Towel
 
 		/// <summary>Iterates through all combinations of the provided per-index element values.</summary>
 		/// <typeparam name="T">The element type of the combinations to iterate.</typeparam>
-		/// <typeparam name="Action">The action to perform on each combination.</typeparam>
+		/// <typeparam name="TAction">The action to perform on each combination.</typeparam>
 		/// <param name="elementPosibilities">The possible element values at each index.</param>
 		/// <param name="action">The action to perform on each possible combination.</param>
-		public static void Combinations<T, Action>(T[][] elementPosibilities, Action action = default)
-			where Action : struct, IAction_ReadOnlySpan<T> =>
-			Combinations<T, Action, Func_int_int_JaggedArray_Length0<T>, Func_int_int_T_JaggedArray_Get<T>>(
+		public static void Combinations<T, TAction>(T[][] elementPosibilities, TAction action = default)
+			where TAction : struct, IAction_ReadOnlySpan<T> =>
+			Combinations<T, TAction, Func_int_int_JaggedArray_Length0<T>, Func_int_int_T_JaggedArray_Get<T>>(
 				elementPosibilities.Length,
 				action,
 				elementPosibilities,
@@ -36,21 +36,21 @@ namespace Towel
 
 		/// <summary>Iterates through all combinations of the provided per-index element values.</summary>
 		/// <typeparam name="T">The element type of the combinations to iterate.</typeparam>
-		/// <typeparam name="Action">The action to perform on each combination.</typeparam>
-		/// <typeparam name="IndexPossibilities">The possible element values at each index.</typeparam>
-		/// <typeparam name="ValueAt">The action to perform on each possible combination.</typeparam>
+		/// <typeparam name="TAction">The action to perform on each combination.</typeparam>
+		/// <typeparam name="TIndexPossibilities">The possible element values at each index.</typeparam>
+		/// <typeparam name="TValueAt">The action to perform on each possible combination.</typeparam>
 		/// <param name="length">The length of the spans to iterate.</param>
 		/// <param name="action">The action to perform on each combination.</param>
 		/// <param name="indexPossibilities">The possible element values at each index.</param>
 		/// <param name="valueAt">The action to perform on each possible combination.</param>
-		public static void Combinations<T, Action, IndexPossibilities, ValueAt>(
+		public static void Combinations<T, TAction, TIndexPossibilities, TValueAt>(
 			int length,
-			Action action = default,
-			IndexPossibilities indexPossibilities = default,
-			ValueAt valueAt = default)
-			where Action : struct, IAction_ReadOnlySpan<T>
-			where IndexPossibilities : struct, IFunc<int, int>
-			where ValueAt : struct, IFunc<int, int, T>
+			TAction action = default,
+			TIndexPossibilities indexPossibilities = default,
+			TValueAt valueAt = default)
+			where TAction : struct, IAction_ReadOnlySpan<T>
+			where TIndexPossibilities : struct, IFunc<int, int>
+			where TValueAt : struct, IFunc<int, int, T>
 		{
 			Span<int> digits = stackalloc int[length];
 			Span<T> span = new T[length];

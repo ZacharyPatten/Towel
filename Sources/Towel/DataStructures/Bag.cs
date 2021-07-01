@@ -146,12 +146,12 @@ namespace Towel.DataStructures
 
 		/// <summary>Performs a function on every pair in a bag.</summary>
 		/// <typeparam name="T">The type of values in the bag.</typeparam>
-		/// <typeparam name="Step">The type of step function to perform on every pair.</typeparam>
+		/// <typeparam name="TStep">The type of step function to perform on every pair.</typeparam>
 		/// <param name="bag">The bag to traverse the pairs of.</param>
 		/// <param name="step">The step function to perform on every pair.</param>
-		public static void Counts<T, Step>(this IBag<T> bag, Step step = default)
-			where Step : struct, IAction<(int Count, T Value)> =>
-			bag.CountsBreak<StepBreakFromAction<(int Count, T Value), Step>>(step);
+		public static void Counts<T, TStep>(this IBag<T> bag, TStep step = default)
+			where TStep : struct, IAction<(int Count, T Value)> =>
+			bag.CountsBreak<StepBreakFromAction<(int Count, T Value), TStep>>(step);
 
 		/// <summary>Performs a function on every pair in a bag.</summary>
 		/// <typeparam name="T">The type of values in the bag.</typeparam>

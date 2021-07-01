@@ -229,7 +229,7 @@ namespace Towel
 		}
 
 		/// <summary>Deserializes a static delegate from XML.</summary>
-		/// <typeparam name="Delegate">The type of the delegate to deserialize.</typeparam>
+		/// <typeparam name="TDelegate">The type of the delegate to deserialize.</typeparam>
 		/// <param name="textReader">The text reader providing the XML to deserialize.</param>
 		/// <returns>The deserialized delegate.</returns>
 		/// <exception cref="NotSupportedException">
@@ -244,7 +244,7 @@ namespace Towel
 		/// <exception cref="Exception">
 		/// Thrown when deserialization fails. See the inner exception for more information.
 		/// </exception>
-		public static Delegate StaticDelegateFromXml<Delegate>(TextReader textReader) where Delegate : System.Delegate
+		public static TDelegate StaticDelegateFromXml<TDelegate>(TextReader textReader) where TDelegate : Delegate
 		{
 			string? declaringTypeString = null;
 			string? methodNameString = null;
@@ -330,7 +330,7 @@ namespace Towel
 			}
 			try
 			{
-				return methodInfo.CreateDelegate<Delegate>();
+				return methodInfo.CreateDelegate<TDelegate>();
 			}
 			catch (Exception exception)
 			{
@@ -417,10 +417,10 @@ namespace Towel
 		#region From JSON
 
 		/// <summary>Deserializes a static delegate from JSON.</summary>
-		/// <typeparam name="Delegate">The type of the delegate to deserialize.</typeparam>
+		/// <typeparam name="TDelegate">The type of the delegate to deserialize.</typeparam>
 		/// <param name="string">The string of JSON content to deserialize.</param>
 		/// <returns>The deserialized delegate.</returns>
-		public static Delegate StaticDelegateFromJson<Delegate>(string @string) where Delegate : System.Delegate
+		public static TDelegate StaticDelegateFromJson<TDelegate>(string @string) where TDelegate : Delegate
 		{
 			Json.Delegate? delegateObject = JsonSerializer.Deserialize<Json.Delegate>(@string);
 			if (delegateObject is null)
@@ -482,7 +482,7 @@ namespace Towel
 			}
 			try
 			{
-				return methodInfo.CreateDelegate<Delegate>();
+				return methodInfo.CreateDelegate<TDelegate>();
 			}
 			catch (Exception exception)
 			{
