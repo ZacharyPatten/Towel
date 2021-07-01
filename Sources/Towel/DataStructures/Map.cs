@@ -374,6 +374,8 @@ namespace Towel.DataStructures
 		/// <summary>Constructs a new <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
 		/// <typeparam name="TKey">The type of keys used to look up values.</typeparam>
+		/// <param name="equate">The function for comparing <typeparamref name="T"/> values for equality.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		/// <returns>The new constructed <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</returns>
 		public static MapHashLinked<T, TKey, SFunc<TKey, TKey, bool>, SFunc<TKey, int>> New<T, TKey>(
 			Func<TKey, TKey, bool>? equate = null,

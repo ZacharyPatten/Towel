@@ -22,6 +22,8 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="SetHashLinked{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="equate">The function for comparing <typeparamref name="T"/> values for equality.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		/// <returns>The new constructed <see cref="SetHashLinked{T, TEquate, THash}"/>.</returns>
 		public static SetHashLinked<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
 			Func<T, T, bool>? equate = null,

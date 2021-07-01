@@ -33,6 +33,7 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="AvlTreeLinked{T, TCompare}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
 		/// <returns>The new constructed <see cref="AvlTreeLinked{T, TCompare}"/>.</returns>
 		public static AvlTreeLinked<T, SFunc<T, T, CompareResult>> New<T>(
 			Func<T, T, CompareResult>? compare = null) =>

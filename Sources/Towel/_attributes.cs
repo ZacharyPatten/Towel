@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Towel_Testing")]
 
 #warning TODO: remove these suppressions
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules",   "SA1611:Element parameters should be documented")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules",   "SA1625:Element documentation should not be copied and pasted")]
 
 // TODO: consider removing these suppressions

@@ -142,7 +142,8 @@ namespace Towel
 			methodInfo.Invoke(null, parameters);
 		}
 
-		/// <summary>This method is going to be changed...</summary>
+		/// <summary>Gets the default output for the version command.</summary>
+		/// <param name="assembly">The application assembly.</param>
 		public static void DefaultVersion(Assembly? assembly = null)
 		{
 			assembly ??= Assembly.GetCallingAssembly();
@@ -151,7 +152,9 @@ namespace Towel
 			Console.WriteLine($"Version: {assemblyName.Version}");
 		}
 
-		/// <summary>This method is going to be changed...</summary>
+		/// <summary>Gets the default output for the help command.</summary>
+		/// <param name="assembly">The application assembly.</param>
+		/// <param name="command">The command to get the default help output for.</param>
 		public static void DefaultHelp(Assembly? assembly = null, string? command = null)
 		{
 			assembly ??= Assembly.GetCallingAssembly();

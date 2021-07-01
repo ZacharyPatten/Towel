@@ -47,7 +47,9 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="HeapArray{T, TCompare}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
-		/// <returns>The new constructed <see cref="HeapArray{T, TCompare}"/>.</returns>
+		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
+		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
+		/// <returns>The newly constructed <see cref="HeapArray{T, TCompare}"/>.</returns>
 		public static HeapArray<T, SFunc<T, T, CompareResult>> New<T>(
 			Func<T, T, CompareResult>? compare = null,
 			int? minimumCapacity = null) =>
@@ -72,12 +74,7 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>
-		/// Generates a priority queue with a capacity of the parameter.<br/>
-		/// Runtime: O(1)
-		/// </summary>
-		/// <param name="compare">Delegate determining the comparison technique used for sorting.</param>
-		/// <param name="minimumCapacity">The capacity you want this priority queue to have.</param>
+		/// <inheritdoc cref="HeapArray.New{T}(Func{T, T, CompareResult}?, int?)"/>
 		public HeapArray(TCompare compare = default, int? minimumCapacity = null)
 		{
 			if (minimumCapacity is not null && minimumCapacity.Value < 1) throw new ArgumentOutOfRangeException(message: "value.Value < 1", paramName: nameof(minimumCapacity));

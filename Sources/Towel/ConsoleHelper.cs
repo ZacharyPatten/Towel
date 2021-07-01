@@ -7,6 +7,10 @@ namespace Towel
 	public static class ConsoleHelper
 	{
 		/// <summary>Flushes the console input buffer.</summary>
+		/// <param name="intercept">
+		/// Determines whether to display the pressed key in the console window.
+		/// true to not display the pressed key; otherwise, false.
+		/// </param>
 		public static void FlushInputBuffer(bool intercept = true)
 		{
 			while (Console.KeyAvailable)

@@ -48,6 +48,7 @@ namespace Towel
 			/// <summary>Delegate with params intended to be used with the Switch syntax.</summary>
 			/// <typeparam name="TA">The first type in the value tuples in the array.</typeparam>
 			/// <typeparam name="TB">The second type in the value tuples in the array.</typeparam>
+			/// <param name="values">The param values.</param>
 			public delegate void ParamsAction<TA, TB>(params (TA, TB)[] values);
 
 			internal static ParamsAction<Condition<T>, Action> Do<T>(T value) =>
@@ -87,16 +88,25 @@ namespace Towel
 			public abstract class Condition<T>
 			{
 				/// <summary>Resolves the condition to a bool.</summary>
+				/// <param name="b">The right value to compare this condition to.</param>
 				/// <returns>The result of the condition.</returns>
 				public abstract bool Resolve(T b);
+
 				/// <summary>Casts a <typeparamref name="T"/> to a bool using an equality check.</summary>
+				/// <param name="value">The value this condition will compare with.</param>
 				public static implicit operator Condition<T>(T value) => new Value<T>(a: value);
+
 				/// <summary>Uses the bool as the condition result.</summary>
+				/// <param name="result">The <see cref="bool"/>result of this condition.</param>
 				public static implicit operator Condition<T>(bool result) => new Bool<T> { Result = result, };
-				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
+
 #pragma warning disable IDE0079 // Remove unnecessary suppression
 #pragma warning disable IDE0060 // Remove unused parameter
+
+				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
+				/// <param name="keyword"><see cref="Keyword.Default"/></param>
 				public static implicit operator Condition<T>(Keyword keyword) => new Default<T>();
+
 #pragma warning restore IDE0060 // Remove unused parameter
 #pragma warning restore IDE0079 // Remove unnecessary suppression
 			}
@@ -129,15 +139,23 @@ namespace Towel
 				/// <summary>Resolves the condition to a bool.</summary>
 				/// <returns>The result of the condition.</returns>
 				public abstract bool Resolve();
+
 				/// <summary>Uses the bool as the condition result.</summary>
+				/// <param name="result">The <see cref="bool"/>result of this condition.</param>
 				public static implicit operator Condition(bool result) => new Bool { Result = result, };
+
 #pragma warning disable IDE0079 // Remove unnecessary suppression
 #pragma warning disable IDE0060 // Remove unused parameter
+
 				/// <summary>Converts a keyword to a condition result (for "Default" case).</summary>
+				/// <param name="keyword"><see cref="Keyword.Default"/></param>
 				public static implicit operator Condition(Keyword keyword) => new Default();
+
 #pragma warning restore IDE0060 // Remove unused parameter
 #pragma warning restore IDE0079 // Remove unnecessary suppression
+
 				/// <summary>Converts a condition to a bool using the Resolve method.</summary>
+				/// <param name="condition">The condition to resolve to a <see cref="bool"/> value.</param>
 				public static implicit operator bool(Condition condition) => condition.Resolve();
 			}
 
@@ -344,11 +362,15 @@ namespace Towel
 
 		#region UniversalQuantification
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 		/// <summary>Universal Quantification Operator.</summary>
 		/// <typeparam name="T">The element type of the universal quantification to declare.</typeparam>
 		/// <param name="values">The values of the universal quantification.</param>
 		/// <returns>The declared universal quantification.</returns>
 		public static UniversalQuantification<T> Ɐ<T>(params T[] values) => new(values);
+
+#pragma warning restore CS0618 // Type or member is obsolete
 
 		/// <summary>Universal Quantification.</summary>
 		/// <typeparam name="T">The element type of the universal quantification.</typeparam>
@@ -359,39 +381,56 @@ namespace Towel
 		{
 			internal T[] Value;
 
-			/// <summary>Constructs a new universal quantification from an array.</summary>
+			/// <summary>Not intended to be invoked directly.</summary>
 			/// <param name="array">The array value of the universal quantification.</param>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			internal UniversalQuantification(T[] array) => Value = array;
 
 			#region Towel.Datastructures.IArray<T>
-			/// <summary>The number of values in this universal quantification.</summary>
-			[Obsolete(TowelConstants.NotIntended, true)]
-			public int Length => Value.Length;
+
+			/// <summary>Not intended to be invoked directly.</summary>
 			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
+			public int Length => Value.Length;
+
+			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public StepStatus StepperBreak<TStep>(TStep step = default)
 				where TStep : struct, IFunc<T, StepStatus> =>
 				Value.StepperBreak(step);
+
+			/// <summary>Not intended to be invoked directly.</summary>
 			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public T[] ToArray() => Value;
+
 			#endregion
 
 			#region System.Collections.Generic.IList<T>
-			/// <summary>Index property for get/set operations.</summary>
-			/// <param name="index">The index to get/set.</param>
-			/// <returns>The value at the provided index.</returns>
-			[Obsolete(TowelConstants.NotIntended, true)]
+
+			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public T this[int index]
 			{
 				get => Value[index];
 				set => Value[index] = value;
 			}
-			/// <summary>Gets the number of elements in this universal quantification.</summary>
+
+			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public int Count => Value.Length;
-			/// <summary>Gets a value indicating whether the <see cref="System.Collections.Generic.ICollection{T}"/> is read-only.</summary>
+
+			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public bool IsReadOnly => false;
-			/// <summary>Adds an item to this universal quantifier.</summary>
-			/// <param name="item">The item to add to this universal quantifier.</param>
-			[Obsolete(TowelConstants.NotIntended, true)]
+
+			/// <summary>Not intended to be invoked directly.</summary>
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public void Add(T item)
 			{
 				T[] newValue = new T[Value.Length + 1];
@@ -399,23 +438,30 @@ namespace Towel
 				newValue[Value.Length] = item;
 				Value = newValue;
 			}
+
 			/// <summary>Not intended to be invoked directly.</summary>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public void Clear() => Value = Array.Empty<T>();
+
 			/// <summary>Not intended to be invoked directly.</summary>
 			/// <inheritdoc/>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public bool Contains(T item) => Value.Contains(item);
+
 			/// <summary>Not intended to be invoked directly.</summary>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public void CopyTo(T[] array, int arrayIndex) =>
 				Array.Copy(Value, 0, array, arrayIndex, Value.Length);
+
 			/// <summary>Not intended to be invoked directly.</summary>
 			/// <inheritdoc/>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public int IndexOf(T item) => Array.IndexOf(Value, item);
+
 			/// <summary>Not intended to be invoked directly.</summary>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public void Insert(int index, T item)
 			{
 				T[] newValue = new T[Value.Length + 1];
@@ -429,9 +475,10 @@ namespace Towel
 				}
 				Value = newValue;
 			}
+
 			/// <summary>Not intended to be invoked directly.</summary>
 			/// <inheritdoc/>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public bool Remove(T item)
 			{
 				T[] newValue = new T[Value.Length - 1];
@@ -458,8 +505,10 @@ namespace Towel
 				Value = newValue;
 				return true;
 			}
+
 			/// <summary>Not intended to be invoked directly.</summary>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			/// <inheritdoc/>
+			[Obsolete(TowelConstants.NotIntended, false)]
 			public void RemoveAt(int index)
 			{
 				T[] newValue = new T[Value.Length - 1];

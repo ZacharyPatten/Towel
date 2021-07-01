@@ -178,7 +178,8 @@ namespace Towel
 			/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke(T1, T2)"/>
 			public int Invoke(int minValue, int maxValue) => _random.Next(minValue, maxValue);
 
-			/// <summary>Casts a <see cref="Random"/> to a struct wrapper.</summary>
+			/// <summary>Converts a <see cref="Random"/> to a <see cref="RandomNextIntMinValueIntMaxValue"/>.</summary>
+			/// <param name="random">The <see cref="Random"/> to convert into a <see cref="RandomNextIntMinValueIntMaxValue"/>.</param>
 			public static implicit operator RandomNextIntMinValueIntMaxValue(Random random) => new() { _random = random, };
 		}
 

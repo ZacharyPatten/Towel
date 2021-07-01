@@ -174,6 +174,8 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="BagMap{T, TMap}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="equate">The function for comparing <typeparamref name="T"/> values for equality.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		/// <returns>The new constructed <see cref="BagMap{T, TMap}"/>.</returns>
 		public static BagMap<T, MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>> New<T>(
 			Func<T, T, bool>? equate = null,
@@ -182,6 +184,8 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="BagMap{T, TMap}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="equate">The function for comparing <typeparamref name="T"/> values for equality.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		/// <returns>The new constructed <see cref="BagMap{T, TMap}"/>.</returns>
 		public static BagMap<T, MapHashLinked<int, T, SFunc<T, T, bool>, SFunc<T, int>>> NewHashLinked<T>(
 			Func<T, T, bool>? equate = null,
@@ -203,7 +207,6 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>Constructs a bag map.</summary>
 		internal BagMap(TMap map)
 		{
 			_map = map;

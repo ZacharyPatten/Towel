@@ -189,6 +189,7 @@ namespace Towel.Mathematics
 		#region Magnitude
 
 		/// <summary>Computes the magnitude of this quaternion.</summary>
+		/// <param name="a">The <see cref="Quaternion{T}"/> to get the magnitude of.</param>
 		/// <returns>The magnitude of this quaternion.</returns>
 		public static T GetMagnitude(Quaternion<T> a)
 		{
@@ -205,6 +206,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Computes the magnitude of this quaternion, but doesn't square root it for
 		/// possible optimization purposes.</summary>
+		/// <param name="a">The <see cref="Quaternion{T}"/> to get the magnitude squared of.</param>
 		/// <returns>The squared length of the quaternion.</returns>
 		public static T GetMagnitudeSquared(Quaternion<T> a)
 		{

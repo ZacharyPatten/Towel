@@ -54,12 +54,15 @@ namespace Towel.DataStructures
 
 		/// <summary>Constructs a new <see cref="TreeMap{T, TEquate, THash}"/>.</summary>
 		/// <typeparam name="T">The type of values stored in this data structure.</typeparam>
+		/// <param name="top">The top of the tree.</param>
+		/// <param name="equate">The function for comparing <typeparamref name="T"/> values for equality.</param>
+		/// <param name="hash">The function for hashing <typeparamref name="T"/> values.</param>
 		/// <returns>The new constructed <see cref="TreeMap{T, TEquate, THash}"/>.</returns>
 		public static TreeMap<T, SFunc<T, T, bool>, SFunc<T, int>> New<T>(
-			T head,
+			T top,
 			Func<T, T, bool>? equate = null,
 			Func<T, int>? hash = null) =>
-			new(head, equate ?? Equate, hash ?? Hash);
+			new(top, equate ?? Equate, hash ?? Hash);
 
 		#endregion
 	}

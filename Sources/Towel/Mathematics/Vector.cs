@@ -232,21 +232,16 @@ namespace Towel.Mathematics
 		#region Magnitude
 
 		/// <summary>Computes the length of this vector.</summary>
+		/// <param name="a">The <see cref="Vector{T}"/> to get the magnitude of.</param>
 		/// <returns>The length of this vector.</returns>
 		public static T GetMagnitude(Vector<T> a)
 		{
 			_ = a ?? throw new ArgumentNullException(nameof(a));
-			return Statics.SquareRoot(GetMagnitudeSquared(a));
+			return SquareRoot(GetMagnitudeSquared(a));
 		}
 
 		/// <summary>Computes the length of this vector.</summary>
-		public T Magnitude
-		{
-			get
-			{
-				return GetMagnitude(this);
-			}
-		}
+		public T Magnitude => GetMagnitude(this);
 
 		#endregion
 
@@ -254,6 +249,7 @@ namespace Towel.Mathematics
 
 		/// <summary>Computes the length of this vector, but doesn't square root it for
 		/// possible optimization purposes.</summary>
+		/// <param name="a">The <see cref="Vector{T}"/> to get the magnitude squared of.</param>
 		/// <returns>The squared length of the vector.</returns>
 		public static T GetMagnitudeSquared(Vector<T> a)
 		{
@@ -617,26 +613,17 @@ namespace Towel.Mathematics
 		/// <param name="a">The vector to have its values divided.</param>
 		/// <param name="b">The scalar to divide all the vectors values by.</param>
 		/// <returns>The vector after the divisions.</returns>
-		public static Vector<T> operator /(Vector<T> a, T b)
-		{
-			return Divide(a, b);
-		}
+		public static Vector<T> operator /(Vector<T> a, T b) => Divide(a, b);
 
 		/// <summary>Divides all the components of a vector by a scalar.</summary>
 		/// <param name="b">The scalar to divide the vector components by.</param>
 		/// <param name="c">The resulting vector after the divisions.</param>
-		public void Divide(T b, ref Vector<T>? c)
-		{
-			Divide(this, b, ref c);
-		}
+		public void Divide(T b, ref Vector<T>? c) => Divide(this, b, ref c);
 
 		/// <summary>Divides all the values in this vector by a scalar.</summary>
 		/// <param name="b">The scalar to divide the values of the vector by.</param>
 		/// <returns>The resulting vector after the divisions.</returns>
-		public Vector<T> Divide(T b)
-		{
-			return this / b;
-		}
+		public Vector<T> Divide(T b) => this / b;
 
 		#endregion
 
@@ -1041,10 +1028,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
 		/// <returns>The result of the slerp operation.</returns>
-		public Vector<T> SphericalInterpolation(Vector<T> b, T blend)
-		{
-			return SphericalInterpolation(this, b, blend);
-		}
+		public Vector<T> SphericalInterpolation(Vector<T> b, T blend) => SphericalInterpolation(this, b, blend);
 
 		#endregion
 
