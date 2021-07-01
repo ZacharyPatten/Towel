@@ -5,15 +5,15 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Towel_Generating")]
 [assembly: InternalsVisibleTo("Towel_Testing")]
 
-#warning TODO: remove these suppressions
+#warning TODO: remove this suppression
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules",   "SA1625:Element documentation should not be copied and pasted")]
 
 // TODO: consider removing these suppressions
-[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules",          "SA1503:Braces should not be omitted")] // pending parameter null checks or CallerArgumentExpression
-[assembly: SuppressMessage("StyleCop.CSharp.ReadabilityRules",     "SA1107:Code should not contain multiple statements on one line")]
+[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules",          "SA1503:Braces should not be omitted")] // pending parameter null checks and CallerArgumentExpression
 
-// TODO: keep this suppressed generally but occasionally unsuppress to clean code
+// TODO: keep these suppressed but temporarily unsuppress to clean code
 [assembly: SuppressMessage("StyleCop.CSharp.SpacingRules",         "SA1025:Code should not contain multiple whitespace in a row")]
+[assembly: SuppressMessage("StyleCop.CSharp.ReadabilityRules",     "SA1107:Code should not contain multiple statements on one line")]
 
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules",          "SA1505:Opening braces should not be followed by blank line")]
 [assembly: SuppressMessage("StyleCop.CSharp.LayoutRules",          "SA1508:Closing braces should not be preceded by blank line")]
