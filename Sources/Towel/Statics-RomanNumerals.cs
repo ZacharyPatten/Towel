@@ -42,9 +42,8 @@ namespace Towel
 		/// <summary>Attempts to parse a Roman Numeral string into an <see cref="int"/> value.</summary>
 		/// <param name="span">The Roman Numeral string to parse into an <see cref="int"/> value.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Success, <see cref="int"/> Value)
-		/// <para>- <see cref="bool"/> Success: true if the parse was successful or false if not</para>
-		/// <para>- <see cref="int"/> Value: the parsed value if the parse was successful or default if not</para>
+		/// - <see cref="bool"/> Success: true if the parse was successful or false if not<br/>
+		/// - <see cref="int"/> Value: the parsed value if the parse was successful or default if not
 		/// </returns>
 		public static (bool Success, int Value) TryParseRomanNumeral(ReadOnlySpan<char> span)
 		{
@@ -105,9 +104,8 @@ namespace Towel
 		/// <summary>Converts an <see cref="int"/> <paramref name="value"/> to a roman numeral <see cref="string"/>?.</summary>
 		/// <param name="value">The value to represent as a roman numeral. [min: 1] [max: 3999]</param>
 		/// <returns>
-		/// (<see cref="bool"/> Success, <see cref="string"/>? RomanNumeral)
-		/// <para>- <see cref="bool"/> Success: true if <paramref name="value"/> was converted to a roman numeral <see cref="string"/>? or false if not.</para>
-		/// <para>- <see cref="string"/>? RomanNumeral: the resulting roman numeral <see cref="string"/>? if successful or null if not.</para>
+		/// - <see cref="bool"/> Success: true if <paramref name="value"/> was converted to a roman numeral <see cref="string"/>? or false if not.<br/>
+		/// - <see cref="string"/>? RomanNumeral: the resulting roman numeral <see cref="string"/>? if successful or null if not.
 		/// </returns>
 		public static (bool Success, string? RomanNumeral) TryToRomanNumeral(int value)
 		{

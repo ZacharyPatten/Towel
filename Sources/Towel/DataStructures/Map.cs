@@ -53,7 +53,7 @@ namespace Towel.DataStructures
 		(bool Success, Exception? Exception) TryAdd(TKey key, T value);
 
 		/// <summary>Tries to update a value in the map the relative key exists.</summary>
-		/// <typeparam name="TRemovePredicate">The predicate determining if the pair should be removed.</typeparam>
+		/// <typeparam name="TRemovePredicate">The type of predicate determining if the pair should be removed.</typeparam>
 		/// <typeparam name="TUpdate">The type of function to update the value.</typeparam>
 		/// <param name="key">The key of the value to update.</param>
 		/// <param name="removePredicate">The predicate determining if the pair should be removed.</param>
@@ -82,7 +82,7 @@ namespace Towel.DataStructures
 			where TUpdate : struct, IFunc<T, T>;
 
 		/// <summary>Adds or updates the value at the given key.</summary>
-		/// <typeparam name="TUpdate">The function to update the value if present.</typeparam>
+		/// <typeparam name="TUpdate">The type of function to update the value if present.</typeparam>
 		/// <param name="key">The key of the value to add or update.</param>
 		/// <param name="value">The value to add if not already present.</param>
 		/// <param name="update">The function to update the value if present.</param>
@@ -425,10 +425,7 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>
-		/// Constructs a hashed map.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Constructs a new <see cref="MapHashLinked{T, K, TEquate, THash}"/>.</summary>
 		/// <param name="equate">The function for quality checking <typeparamref name="TKey"/> values.</param>
 		/// <param name="hash">The function for hashing <typeparamref name="TKey"/> values.</param>
 		/// <param name="expectedCount">The expected count of the map.</param>
@@ -455,10 +452,7 @@ namespace Towel.DataStructures
 			_count = 0;
 		}
 
-		/// <summary>
-		/// This constructor is for cloning purposes.
-		/// <para>Runtime: O(n)</para>
-		/// </summary>
+		/// <summary>This constructor is for cloning purposes.</summary>
 		/// <param name="map">The map to clone.</param>
 		internal MapHashLinked(MapHashLinked<T, TKey, TEquate, THash> map)
 		{
@@ -472,10 +466,7 @@ namespace Towel.DataStructures
 
 		#region Properties
 
-		/// <summary>
-		/// The current size of the hashed table.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>The current size of the hashed table.</summary>
 		public int TableSize => _table.Length;
 
 		/// <inheritdoc/>
@@ -733,8 +724,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Trims the table to an appropriate size based on the current count.
-		/// <para>Runtime: O(n), Ω(1)</para>
+		/// Trims the table to an appropriate size based on the current count.<br/>
+		/// Runtime: O(n), Ω(1)
 		/// </summary>
 		public void Trim()
 		{

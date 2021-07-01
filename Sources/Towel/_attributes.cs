@@ -5,11 +5,8 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Towel_Generating")]
 [assembly: InternalsVisibleTo("Towel_Testing")]
 
-#warning TODO: remove this suppression
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules",   "SA1625:Element documentation should not be copied and pasted")]
-
-// TODO: consider removing these suppressions
-[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules",          "SA1503:Braces should not be omitted")] // pending parameter null checks and CallerArgumentExpression
+// TODO: remove this once parameter null checks and CallerArgumentExpression are released
+[assembly: SuppressMessage("StyleCop.CSharp.LayoutRules",          "SA1503:Braces should not be omitted")]
 
 // TODO: keep these suppressed but temporarily unsuppress to clean code
 [assembly: SuppressMessage("StyleCop.CSharp.SpacingRules",         "SA1025:Code should not contain multiple whitespace in a row")]

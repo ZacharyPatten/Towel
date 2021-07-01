@@ -15,9 +15,9 @@ namespace Towel
 
 		/// <summary>Performs a binary search on sorted indexed data.</summary>
 		/// <typeparam name="T">The type of values to search through.</typeparam>
-		/// <typeparam name="Get">The function for getting an element at an index.</typeparam>
-		/// <typeparam name="Sift">The function for sifting through the values.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
+		/// <typeparam name="TGet">The type of function for getting an element at an index.</typeparam>
+		/// <typeparam name="TSift">The type of function for sifting through the values.</typeparam>
+		/// <typeparam name="TCompare">The type of compare function.</typeparam>
 		/// <param name="index">The starting index of the binary search.</param>
 		/// <param name="length">The number of values to be searched after the starting <paramref name="index"/>.</param>
 		/// <param name="get">The function for getting an element at an index.</param>
@@ -27,10 +27,9 @@ namespace Towel
 		/// <param name="compare">The compare function.</param>
 		/// <param name="span">The span of the binary search.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Found, <see cref="int"/> Index, <typeparamref name="T"/> Value)
-		/// <para>- <see cref="bool"/> Found: True if a match was found; False if not.</para>
-		/// <para>- <see cref="int"/> Index: The resulting index of the search that will always be &lt;= the desired match.</para>
-		/// <para>- <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.</para>
+		/// - <see cref="bool"/> Found: True if a match was found; False if not.<br/>
+		/// - <see cref="int"/> Index: The resulting index of the search that will always be &lt;= the desired match.<br/>
+		/// - <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static object XML_SearchBinary() => throw new DocumentationMethodException();
@@ -302,8 +301,8 @@ namespace Towel
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 #pragma warning disable SA1604 // Element documentation should have summary
 
-		/// <typeparam name="Node">The node type of the graph being searched.</typeparam>
-		/// <typeparam name="Numeric">The numeric to use when performing calculations.</typeparam>
+		/// <typeparam name="TNode">The node type of the graph being searched.</typeparam>
+		/// <typeparam name="TNumeric">The numeric to use when performing calculations.</typeparam>
 		/// <param name="start">The node to start at.</param>
 		/// <param name="neighbors">Step function for all neigbors of a given node.</param>
 		/// <param name="heuristic">Computes the heuristic value of a given node in a graph.</param>

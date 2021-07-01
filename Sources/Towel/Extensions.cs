@@ -126,7 +126,7 @@ namespace Towel
 		/// <summary>Indents after every new line sequence found between two string indeces.</summary>
 		/// <param name="string">The string to be indented.</param>
 		/// <param name="start">The starting index to look for new line sequences to indent.</param>
-		/// <param name="end">The starting index to look for new line sequences to indent.</param>
+		/// <param name="end">The ending index to look for new line sequences to indent.</param>
 		/// <returns>The indented string.</returns>
 		public static string IndentNewLinesBetweenIndeces(this string @string, int start, int end) =>
 			PadLinesLeftBetweenIndeces(@string, "\t", start, end);
@@ -135,7 +135,7 @@ namespace Towel
 		/// <param name="string">The string to be indented.</param>
 		/// <param name="count">The number of tabs of this indention.</param>
 		/// <param name="start">The starting index to look for new line sequences to indent.</param>
-		/// <param name="end">The starting index to look for new line sequences to indent.</param>
+		/// <param name="end">The ending index to look for new line sequences to indent.</param>
 		/// <returns>The indented string.</returns>
 		public static string IndentNewLinesBetweenIndeces(this string @string, int count, int start, int end) =>
 			PadLinesLeftBetweenIndeces(@string, new string('\t', count), start, end);
@@ -322,85 +322,75 @@ namespace Towel
 
 		#endregion
 
+		#region XML_Stepper
+
+#pragma warning disable SA1625 // Element documentation should not be copied and pasted
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
+
+		/// <summary>Performs a method on every value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TStep">The type of method to perform on every <typeparamref name="T"/> value.</typeparam>
+		/// <param name="span">The sequence of <typeparamref name="T"/> values.</param>
+		/// <param name="array">The sequence of <typeparamref name="T"/> values.</param>
+		/// <param name="step">The method to perform on every <typeparamref name="T"/> value.</param>
+		/// <param name="start">The inclusive starting index.</param>
+		/// <param name="end">The exclusive ending index.</param>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_Stepper() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning restore SA1625 // Element documentation should not be copied and pasted
+
+		/// <inheritdoc cref="XML_Stepper"/>
+		/// <returns><see cref="StepStatus"/></returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static StepStatus XML_StepperBreak() => throw new DocumentationMethodException();
+
+		#endregion
+
 		#region Span
 
 		#region Stepper
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <inheritdoc cref="XML_Stepper"/>
 		public static void Stepper<T>(this ReadOnlySpan<T> span, Action<T> step) =>
 			Stepper<T, SAction<T>>(span, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <inheritdoc cref="XML_Stepper"/>
 		public static void Stepper<T, TStep>(this ReadOnlySpan<T> span, TStep step = default)
 			where TStep : struct, IAction<T> =>
 			StepperBreak<T, StepBreakFromAction<T, TStep>>(span, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
+		/// <inheritdoc cref="XML_StepperBreak"/>
 		public static StepStatus StepperBreak<T>(this ReadOnlySpan<T> span, Func<T, StepStatus> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
 			return StepperBreak<T, SFunc<T, StepStatus>>(span, step);
 		}
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
+		/// <inheritdoc cref="XML_StepperBreak"/>
 		public static StepStatus StepperBreak<T, TStep>(this ReadOnlySpan<T> span, TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus> =>
 			StepperBreak<T, TStep>(span, 0, span.Length, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <inheritdoc cref="XML_Stepper"/>
 		public static void Stepper<T>(this ReadOnlySpan<T> span, int start, int end, Action<T> step) =>
 			Stepper<T, SAction<T>>(span, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
+		/// <inheritdoc cref="XML_Stepper"/>
 		public static void Stepper<T, TStep>(this ReadOnlySpan<T> span, int start, int end, TStep step = default)
 			where TStep : struct, IAction<T> =>
 			StepperBreak<T, StepBreakFromAction<T, TStep>>(span, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
+		/// <inheritdoc cref="XML_StepperBreak"/>
 		public static StepStatus Stepper<T>(this ReadOnlySpan<T> span, int start, int end, Func<T, StepStatus> step) =>
 			StepperBreak<T, SFunc<T, StepStatus>>(span, start, end, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
+		/// <inheritdoc cref="XML_StepperBreak"/>
 		public static StepStatus StepperBreak<T, TStep>(this ReadOnlySpan<T> span, int start, int end, TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus>
 		{
@@ -422,87 +412,50 @@ namespace Towel
 
 		#region Stepper
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		public static void Stepper<T>(this T[] span, Action<T> step) =>
-			Stepper<T, SAction<T>>(span, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		public static void Stepper<T, TStep>(this T[] span, TStep step = default)
-			where TStep : struct, IAction<T> =>
-			StepperBreak<T, StepBreakFromAction<T, TStep>>(span, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperBreak<T>(this T[] span, Func<T, StepStatus> step)
+		/// <inheritdoc cref="XML_Stepper"/>
+		public static void Stepper<T>(this T[] array, Action<T> step)
 		{
 			if (step is null) throw new ArgumentNullException(nameof(step));
-			return StepperBreak<T, SFunc<T, StepStatus>>(span, step);
+			Stepper<T, SAction<T>>(array, step);
 		}
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperBreak<T, TStep>(this T[] span, TStep step = default)
-			where TStep : struct, IFunc<T, StepStatus> =>
-			StepperBreak<T, TStep>(span, 0, span.Length, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		public static void Stepper<T>(this T[] span, int start, int end, Action<T> step) =>
-			Stepper<T, SAction<T>>(span, start, end, step);
-
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		public static void Stepper<T, TStep>(this T[] span, int start, int end, TStep step = default)
+		/// <inheritdoc cref="XML_Stepper"/>
+		public static void Stepper<T, TStep>(this T[] array, TStep step = default)
 			where TStep : struct, IAction<T> =>
-			StepperBreak<T, StepBreakFromAction<T, TStep>>(span, start, end, step);
+			StepperBreak<T, StepBreakFromAction<T, TStep>>(array, step);
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus Stepper<T>(this T[] span, int start, int end, Func<T, StepStatus> step) =>
-			StepperBreak<T, SFunc<T, StepStatus>>(span, start, end, step);
+		/// <inheritdoc cref="XML_StepperBreak"/>
+		public static StepStatus StepperBreak<T>(this T[] array, Func<T, StepStatus> step)
+		{
+			if (step is null) throw new ArgumentNullException(nameof(step));
+			return StepperBreak<T, SFunc<T, StepStatus>>(array, step);
+		}
 
-		/// <summary>Traverses an array and performs an operation on each value.</summary>
-		/// <typeparam name="T">The element type in the array.</typeparam>
-		/// <typeparam name="TStep">The operation to perform on each value of th traversal.</typeparam>
-		/// <param name="span">The array to traverse.</param>
-		/// <param name="start">The inclusive starting index.</param>
-		/// <param name="end">The non-inclusive ending index.</param>
-		/// <param name="step">The operation to perform on each value of th traversal.</param>
-		/// <returns>The status of the traversal.</returns>
-		public static StepStatus StepperBreak<T, TStep>(this T[] span, int start, int end, TStep step = default)
+		/// <inheritdoc cref="XML_StepperBreak"/>
+		public static StepStatus StepperBreak<T, TStep>(this T[] array, TStep step = default)
+			where TStep : struct, IFunc<T, StepStatus> =>
+			StepperBreak<T, TStep>(array, 0, array.Length, step);
+
+		/// <inheritdoc cref="XML_Stepper"/>
+		public static void Stepper<T>(this T[] array, int start, int end, Action<T> step) =>
+			Stepper<T, SAction<T>>(array, start, end, step);
+
+		/// <inheritdoc cref="XML_Stepper"/>
+		public static void Stepper<T, TStep>(this T[] array, int start, int end, TStep step = default)
+			where TStep : struct, IAction<T> =>
+			StepperBreak<T, StepBreakFromAction<T, TStep>>(array, start, end, step);
+
+		/// <inheritdoc cref="XML_StepperBreak"/>
+		public static StepStatus Stepper<T>(this T[] array, int start, int end, Func<T, StepStatus> step) =>
+			StepperBreak<T, SFunc<T, StepStatus>>(array, start, end, step);
+
+		/// <inheritdoc cref="XML_StepperBreak"/>
+		public static StepStatus StepperBreak<T, TStep>(this T[] array, int start, int end, TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus>
 		{
 			for (int i = start; i < end; i++)
 			{
-				if (step.Invoke(span[i]) is Break)
+				if (step.Invoke(array[i]) is Break)
 				{
 					return Break;
 				}

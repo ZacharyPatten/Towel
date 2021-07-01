@@ -1,4 +1,4 @@
-name: Towel Continuous Integration
+name: Continuous Integration
 on:
   workflow_dispatch:
   push:

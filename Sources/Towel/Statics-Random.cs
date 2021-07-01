@@ -13,8 +13,8 @@ namespace Towel
 		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
 		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
-		/// <typeparam name="TStep">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <typeparam name="TRandom">The random to generation algorithm.</typeparam>
+		/// <typeparam name="TStep">The type of function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <typeparam name="TRandom">The type of random to generation algorithm.</typeparam>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
@@ -273,8 +273,8 @@ namespace Towel
 		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
 		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
-		/// <typeparam name="TStep">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <typeparam name="TRandom">The random to generation algorithm.</typeparam>
+		/// <typeparam name="TStep">The type of function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <typeparam name="TRandom">The type of random to generation algorithm.</typeparam>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>
@@ -553,8 +553,8 @@ namespace Towel
 		/// [<paramref name="minValue"/>..<paramref name="maxValue"/>] range where <paramref name="minValue"/> is
 		/// inclusive and <paramref name="maxValue"/> is exclusive.
 		/// </summary>
-		/// <typeparam name="TStep">The function to perform on each generated <see cref="int"/> value.</typeparam>
-		/// <typeparam name="TRandom">The random to generation algorithm.</typeparam>
+		/// <typeparam name="TStep">The type of function to perform on each generated <see cref="int"/> value.</typeparam>
+		/// <typeparam name="TRandom">The type of random to generation algorithm.</typeparam>
 		/// <param name="count">The number of <see cref="int"/> values to generate.</param>
 		/// <param name="minValue">Inclusive endpoint of the random generation range.</param>
 		/// <param name="maxValue">Exclusive endpoint of the random generation range.</param>

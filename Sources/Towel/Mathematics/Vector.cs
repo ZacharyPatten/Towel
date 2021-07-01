@@ -780,7 +780,7 @@ namespace Towel.Mathematics
 		#region Angle
 
 		/// <summary>Computes the angle between two vectors.</summary>
-		/// <typeparam name="TArcCos">A function for how to compute the inverse of a cosine ratio.</typeparam>
+		/// <typeparam name="TArcCos">A type of function for how to compute the inverse of a cosine ratio.</typeparam>
 		/// <param name="a">The first vector to determine the angle between.</param>
 		/// <param name="b">The second vector to determine the angle between.</param>
 		/// <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
@@ -813,7 +813,7 @@ namespace Towel.Mathematics
 		public Angle<T> Angle(Vector<T> b, Func<T, Angle<T>> arccos) => Angle(this, b, arccos);
 
 		/// <summary>Computes the angle between two vectors.</summary>
-		/// <typeparam name="TArcCos">A function for how to compute the inverse of a cosine ratio.</typeparam>
+		/// <typeparam name="TArcCos">A type of function for how to compute the inverse of a cosine ratio.</typeparam>
 		/// <param name="b">The second vector to determine the angle between.</param>
 		/// <param name="arccos">A function for how to compute the inverse of a cosine ratio.</param>
 		/// <returns>The angle between the two vectors in radians.</returns>
@@ -1006,8 +1006,7 @@ namespace Towel.Mathematics
 		/// <param name="b">The ending vector of the interpolation.</param>
 		/// <param name="blend">The ratio 0.0 to 1.0 defining the interpolation distance between the two vectors.</param>
 		/// <param name="c">The result of the slerp operation.</param>
-		/// <returns>The result of the slerp operation.</returns>
-		public static Vector<T> SphericalInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T>? c)
+		public static void SphericalInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T>? c)
 		{
 			throw new NotImplementedException();
 		}

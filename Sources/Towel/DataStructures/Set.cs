@@ -98,8 +98,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// This constructor is for cloning purposes.
-		/// <para>Runtime: O(n)</para>
+		/// This constructor is for cloning purposes.<br/>
+		/// Runtime: O(n)
 		/// </summary>
 		/// <param name="set">The set to clone.</param>
 		internal SetHashLinked(SetHashLinked<T, TEquate, THash> set)
@@ -115,14 +115,14 @@ namespace Towel.DataStructures
 		#region Properties
 
 		/// <summary>
-		/// The current size of the hashed table.
-		/// <para>Runtime: O(1)</para>
+		/// The current size of the hashed table.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		public int TableSize => _table.Length;
 
 		/// <summary>
-		/// The current number of values in the set.
-		/// <para>Runtime: O(1)</para>
+		/// The current number of values in the set.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		public int Count => _count;
 
@@ -235,8 +235,8 @@ namespace Towel.DataStructures
 		}
 
 		/// <summary>
-		/// Trims the table to an appropriate size based on the current count.
-		/// <para>Runtime: O(n), Ω(1)</para>
+		/// Trims the table to an appropriate size based on the current count.<br/>
+		/// Runtime: O(n), Ω(1)
 		/// </summary>
 		public void Trim()
 		{

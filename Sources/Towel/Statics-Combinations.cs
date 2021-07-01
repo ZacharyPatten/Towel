@@ -29,19 +29,19 @@ namespace Towel
 		/// <typeparam name="T">The element type of the combinations to iterate.</typeparam>
 		/// <param name="length">The length of the spans to iterate.</param>
 		/// <param name="action">The action to perform on each combination.</param>
-		/// <param name="indexPossibilities">The possible element values at each index.</param>
+		/// <param name="indexPossibilities">The function to get the possible element values at each index.</param>
 		/// <param name="valueAt">The action to perform on each possible combination.</param>
 		public static void Combinations<T>(int length, Action_ReadOnlySpan<T> action, Func<int, int> indexPossibilities, Func<int, int, T> valueAt) =>
 			Combinations<T, Action_ReadOnlySpan_Runtime<T>, SFunc<int, int>, SFunc<int, int, T>>(length, action, indexPossibilities, valueAt);
 
 		/// <summary>Iterates through all combinations of the provided per-index element values.</summary>
 		/// <typeparam name="T">The element type of the combinations to iterate.</typeparam>
-		/// <typeparam name="TAction">The action to perform on each combination.</typeparam>
-		/// <typeparam name="TIndexPossibilities">The possible element values at each index.</typeparam>
-		/// <typeparam name="TValueAt">The action to perform on each possible combination.</typeparam>
+		/// <typeparam name="TAction">Thetype of action to perform on each combination.</typeparam>
+		/// <typeparam name="TIndexPossibilities">The type of function to get the possible element values at each index.</typeparam>
+		/// <typeparam name="TValueAt">The type of action to perform on each possible combination.</typeparam>
 		/// <param name="length">The length of the spans to iterate.</param>
 		/// <param name="action">The action to perform on each combination.</param>
-		/// <param name="indexPossibilities">The possible element values at each index.</param>
+		/// <param name="indexPossibilities">The function to get the possible element values at each index.</param>
 		/// <param name="valueAt">The action to perform on each possible combination.</param>
 		public static void Combinations<T, TAction, TIndexPossibilities, TValueAt>(
 			int length,

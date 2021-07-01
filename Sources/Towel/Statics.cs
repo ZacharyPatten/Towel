@@ -328,9 +328,9 @@ namespace Towel
 
 		/// <summary>Determines if two sequences are equal.</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TA">The first sequence of the equate.</typeparam>
-		/// <typeparam name="TB">The second sequence of the equate.</typeparam>
-		/// <typeparam name="TEquate">The element equate function.</typeparam>
+		/// <typeparam name="TA">The type of first sequence of the equate.</typeparam>
+		/// <typeparam name="TB">The type of second sequence of the equate.</typeparam>
+		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index to equate from.</param>
 		/// <param name="end">The inclusive ending index to equate to.</param>
 		/// <param name="a">The first sequence of the equate.</param>
@@ -363,7 +363,7 @@ namespace Towel
 
 		/// <summary>Determines if two spans are equal.</summary>
 		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <typeparam name="TEquate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
 		/// <param name="a">The first span of the equate.</param>
 		/// <param name="b">The second span of the equate.</param>
 		/// <param name="equate">The element equate function.</param>
@@ -944,7 +944,7 @@ namespace Towel
 		/// <summary>Powers two numeric values [a ^ b].</summary>
 		/// <typeparam name="T">The numeric type of the operation.</typeparam>
 		/// <param name="a">The first operand of the power.</param>
-		/// <param name="b">The first operand of the power.</param>
+		/// <param name="b">The second operand of the power.</param>
 		/// <returns>The result of the power.</returns>
 		public static T Power<T>(T a, T b) =>
 			PowerImplementation<T>.Function(a, b);

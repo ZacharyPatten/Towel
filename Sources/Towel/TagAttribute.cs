@@ -27,9 +27,8 @@ namespace Towel
 		/// <param name="memberInfo">The type to get the <see cref="TagAttribute"/> of.</param>
 		/// <param name="tag">The tag to get the value of.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Found, <see cref="object"/> Value)
-		/// <para>- <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
-		/// <para>- <see cref="object"/> Value: The value if found or default if not.</para>
+		/// - <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).<br/>
+		/// - <see cref="object"/> Value: The value if found or default if not.
 		/// </returns>
 		public static (bool Found, object? Value) GetTag(this MemberInfo memberInfo, object? tag)
 		{
@@ -55,9 +54,8 @@ namespace Towel
 		/// <param name="parameterInfo">The type to get the <see cref="TagAttribute"/> of.</param>
 		/// <param name="tag">The tag to get the value of.</param>
 		/// <returns>
-		/// (<see cref="bool"/> Found, <see cref="object"/> Value)
-		/// <para>- <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).</para>
-		/// <para>- <see cref="object"/> Value: The value if found or default if not.</para>
+		/// - <see cref="bool"/> Found: True if the tag was found; False if not or if multiple tags were found (ambiguous).<br/>
+		/// - <see cref="object"/> Value: The value if found or default if not.
 		/// </returns>
 		public static (bool Found, object? Value) GetTag(this ParameterInfo parameterInfo, object? tag)
 		{

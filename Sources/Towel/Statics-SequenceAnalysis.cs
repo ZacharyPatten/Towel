@@ -828,9 +828,9 @@ namespace Towel
 
 		/// <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TGetA">The get index function for the first sequence.</typeparam>
-		/// <typeparam name="TGetB">The get index function for the second sequence.</typeparam>
-		/// <typeparam name="TEquate">The equality check function.</typeparam>
+		/// <typeparam name="TGetA">The type of get index function for the first sequence.</typeparam>
+		/// <typeparam name="TGetB">The type of get index function for the second sequence.</typeparam>
+		/// <typeparam name="TEquate">The type of equality check function.</typeparam>
 		/// <param name="length">The length of the sequences.</param>
 		/// <param name="a">The get index function for the first sequence.</param>
 		/// <param name="b">The get index function for the second sequence.</param>
@@ -869,7 +869,7 @@ namespace Towel
 
 		/// <summary>Computes the Hamming distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TEquate">The equality check function.</typeparam>
+		/// <typeparam name="TEquate">The type of equality check function.</typeparam>
 		/// <param name="a">The first sequence.</param>
 		/// <param name="b">The second sequence.</param>
 		/// <param name="equate">The equality check function.</param>
@@ -901,9 +901,9 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TGetA">The get index function for the first sequence.</typeparam>
-		/// <typeparam name="TGetB">The get index function for the second sequence.</typeparam>
-		/// <typeparam name="TEquate">The equality check function.</typeparam>
+		/// <typeparam name="TGetA">The type of get index function for the first sequence.</typeparam>
+		/// <typeparam name="TGetB">The type of get index function for the second sequence.</typeparam>
+		/// <typeparam name="TEquate">The type of equality check function.</typeparam>
 		/// <param name="a_length">The length of the first sequence.</param>
 		/// <param name="b_length">The length of the second sequence.</param>
 		/// <param name="a">The get index function for the first sequence.</param>
@@ -952,7 +952,7 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an recursive algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TEquate">The equality check function.</typeparam>
+		/// <typeparam name="TEquate">The type of equality check function.</typeparam>
 		/// <param name="a">The first sequence.</param>
 		/// <param name="b">The second sequence.</param>
 		/// <param name="equate">The equality check function.</param>
@@ -983,9 +983,9 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TGetA">The get index function for the first sequence.</typeparam>
-		/// <typeparam name="TGetB">The get index function for the second sequence.</typeparam>
-		/// <typeparam name="TEquate">The equality check function.</typeparam>
+		/// <typeparam name="TGetA">The type of get index function for the first sequence.</typeparam>
+		/// <typeparam name="TGetB">The type of get index function for the second sequence.</typeparam>
+		/// <typeparam name="TEquate">The type of equality check function.</typeparam>
 		/// <param name="a_length">The length of the first sequence.</param>
 		/// <param name="b_length">The length of the second sequence.</param>
 		/// <param name="a">The get index function for the first sequence.</param>
@@ -1045,7 +1045,7 @@ namespace Towel
 
 		/// <summary>Computes the Levenshtein distance (using an iterative algorithm).</summary>
 		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TEquate">The equality check function.</typeparam>
+		/// <typeparam name="TEquate">The type of equality check function.</typeparam>
 		/// <param name="a">The first sequence.</param>
 		/// <param name="b">The second sequence.</param>
 		/// <param name="equate">The equality check function.</param>
@@ -1186,8 +1186,8 @@ namespace Towel
 #pragma warning disable SA1604 // Element documentation should have summary
 
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="TCompare">The compare function.</typeparam>
-		/// <typeparam name="TGet">The get function.</typeparam>
+		/// <typeparam name="TCompare">The type of compare function.</typeparam>
+		/// <typeparam name="TGet">The type of get function.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="start">The starting index of the sort.</param>
@@ -1276,7 +1276,7 @@ namespace Towel
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
+		/// <typeparam name="TGet">The type of get index function of the sequence.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
 		/// <param name="get">The get index function of the sequence.</param>
@@ -1288,8 +1288,8 @@ namespace Towel
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="TGet">The get index function of the sequence.</typeparam>
-		/// <typeparam name="TEquate">The element equate function.</typeparam>
+		/// <typeparam name="TGet">The type of get index function of the sequence.</typeparam>
+		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
 		/// <param name="get">The get index function of the sequence.</param>
@@ -1326,7 +1326,7 @@ namespace Towel
 
 		/// <summary>Determines if a sequence is a palindrome.</summary>
 		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="TEquate">The element equate function.</typeparam>
+		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
 		/// <param name="span">The span to check.</param>
 		/// <param name="equate">The element equate function.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
@@ -1512,8 +1512,8 @@ namespace Towel
 
 		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="TEquate">The function for determining equality of values.</typeparam>
-		/// <typeparam name="THash">The function for hashing the values.</typeparam>
+		/// <typeparam name="TEquate">The type of function for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The type of function for hashing the values.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
 		/// <param name="equate">The function for determining equality of values.</param>
@@ -1563,8 +1563,8 @@ namespace Towel
 
 		/// <summary>Determines if neither span contains an element the other does not.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="TEquate">The function for determining equality of values.</typeparam>
-		/// <typeparam name="THash">The function for hashing the values.</typeparam>
+		/// <typeparam name="TEquate">The type of function for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The type of function for hashing the values.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
 		/// <param name="equate">The function for determining equality of values.</param>
@@ -1616,8 +1616,8 @@ namespace Towel
 
 		/// <summary>Determines if the span contains any duplicate values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="TEquate">The function for equating values.</typeparam>
-		/// <typeparam name="THash">The function for hashing values.</typeparam>
+		/// <typeparam name="TEquate">The type of function for equating values.</typeparam>
+		/// <typeparam name="THash">The type of function for hashing values.</typeparam>
 		/// <param name="span">The span to look for duplicates in.</param>
 		/// <param name="equate">The function for equating values.</param>
 		/// <param name="hash">The function for hashing values.</param>
@@ -1652,7 +1652,7 @@ namespace Towel
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
-		/// <typeparam name="TEquate">The function for equating values.</typeparam>
+		/// <typeparam name="TEquate">The type of function for equating values.</typeparam>
 		/// <param name="span">The span to check for the value in.</param>
 		/// <param name="value">The value to look for.</param>
 		/// <param name="equate">The function for equating values.</param>
@@ -1713,7 +1713,7 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
@@ -1739,7 +1739,7 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> least values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
@@ -1764,7 +1764,7 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>
@@ -1775,7 +1775,7 @@ namespace Towel
 
 		/// <summary>Gets the <paramref name="count"/> greatest values from <paramref name="values"/> in <strong>no particular order</strong>.</summary>
 		/// <typeparam name="T">The type of <paramref name="values"/>.</typeparam>
-		/// <typeparam name="TCompare">The function for comparing <typeparamref name="T"/> instances.</typeparam>
+		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> instances.</typeparam>
 		/// <param name="values">The values to get <paramref name="count"/> values from.</param>
 		/// <param name="count">The number of items to get from <paramref name="values"/>.</param>
 		/// <param name="compare">The function for comparing <typeparamref name="T"/> instances.</param>

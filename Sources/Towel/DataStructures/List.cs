@@ -13,7 +13,7 @@ namespace Towel.DataStructures
 		#region Methods
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
-		/// <typeparam name="TPredicate">The predicate to determine removal.</typeparam>
+		/// <typeparam name="TPredicate">The type of predicate to determine removal.</typeparam>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>
@@ -21,7 +21,7 @@ namespace Towel.DataStructures
 			where TPredicate : struct, IFunc<T, bool>;
 
 		/// <summary>Removes all occurences of predicated values from the list.</summary>
-		/// <typeparam name="TPredicate">The predicate to determine removals.</typeparam>
+		/// <typeparam name="TPredicate">The type of predicate to determine removals.</typeparam>
 		/// <param name="predicate">The predicate to determine removals.</param>
 		void RemoveAll<TPredicate>(TPredicate predicate = default)
 			where TPredicate : struct, IFunc<T, bool>;
@@ -278,7 +278,7 @@ namespace Towel.DataStructures
 			TryRemoveFirst<SFunc<T, bool>>(out exception, predicate);
 
 		/// <summary>Tries to remove the first predicated value if the value exists.</summary>
-		/// <typeparam name="TPredicate">The predicate to determine removal.</typeparam>
+		/// <typeparam name="TPredicate">The type of predicate to determine removal.</typeparam>
 		/// <param name="exception">The exception that occurred if the remove failed.</param>
 		/// <param name="predicate">The predicate to determine removal.</param>
 		/// <returns>True if the value was removed. False if the value did not exist.</returns>

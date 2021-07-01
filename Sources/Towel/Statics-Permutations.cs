@@ -10,10 +10,10 @@ namespace Towel
 #pragma warning disable SA1604 // Element documentation should have summary
 
 		/// <typeparam name="T">The generic element type of the indexed collection.</typeparam>
-		/// <typeparam name="Action">The action to perform on each permutation.</typeparam>
-		/// <typeparam name="Status">The status checker for cancellation.</typeparam>
-		/// <typeparam name="Get">The get index operation of the collection.</typeparam>
-		/// <typeparam name="Set">The set index operation of the collection.</typeparam>
+		/// <typeparam name="TAction">The type of action to perform on each permutation.</typeparam>
+		/// <typeparam name="TStatus">The type of status checker for cancellation.</typeparam>
+		/// <typeparam name="TGet">The type of get index operation of the collection.</typeparam>
+		/// <typeparam name="TSet">The type of set index operation of the collection.</typeparam>
 		/// <param name="start">The starting index of the values to permute.</param>
 		/// <param name="end">The ending index of the values to permute.</param>
 		/// <param name="action">The action to perform on each permutation.</param>

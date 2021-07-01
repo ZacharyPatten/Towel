@@ -11,13 +11,13 @@ namespace Towel
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
 
 		/// <summary>
-		/// Sorts values into a randomized order.
-		/// <para>Runtime: O(n)</para>
-		/// <para>Memory: O(1)</para>
+		/// Sorts values into a randomized order.<br/>
+		/// Runtime: O(n)<br/>
+		/// Memory: O(1)
 		/// </summary>
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Get">The get function.</typeparam>
-		/// <typeparam name="Set">The set function.</typeparam>
+		/// <typeparam name="TGet">The type of the get function.</typeparam>
+		/// <typeparam name="TSet">The type of the set function.</typeparam>
 		/// <param name="start">The starting index of the shuffle.</param>
 		/// <param name="end">The ending index of the shuffle.</param>
 		/// <param name="get">The get function.</param>
@@ -80,9 +80,9 @@ namespace Towel
 #pragma warning disable SA1604 // Element documentation should have summary
 
 		/// <typeparam name="T">The type of values to sort.</typeparam>
-		/// <typeparam name="Compare">The compare function.</typeparam>
-		/// <typeparam name="Get">The get function.</typeparam>
-		/// <typeparam name="Set">The set function.</typeparam>
+		/// <typeparam name="TCompare">The type of compare function.</typeparam>
+		/// <typeparam name="TGet">The type of get function.</typeparam>
+		/// <typeparam name="TSet">The type of set function.</typeparam>
 		/// <param name="compare">The compare function.</param>
 		/// <param name="get">The get function.</param>
 		/// <param name="set">The set function.</param>
@@ -102,10 +102,10 @@ namespace Towel
 		#region SortBubble
 
 		/// <summary>
-		/// Sorts values using the bubble sort algorithm.
-		/// <para>Runtime: Ω(n), ε(n^2), O(n^2)</para>
-		/// <para>Memory: O(1)</para>
-		/// <para>Stable: True</para>
+		/// Sorts values using the bubble sort algorithm.<br/>
+		/// Runtime: Ω(n), ε(n^2), O(n^2)<br/>
+		/// Memory: O(1)<br/>
+		/// Stable: True
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
@@ -161,10 +161,10 @@ namespace Towel
 		#region SortSelection
 
 		/// <summary>
-		/// Sorts values using the selection sort algoritm.
-		/// <para>Runtime: Ω(n^2), ε(n^2), O(n^2)</para>
-		/// <para>Memory: O(1)</para>
-		/// <para>Stable: False</para>
+		/// Sorts values using the selection sort algoritm.<br/>
+		/// Runtime: Ω(n^2), ε(n^2), O(n^2)<br/>
+		/// Memory: O(1)<br/>
+		/// Stable: False
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
@@ -224,10 +224,10 @@ namespace Towel
 		#region SortInsertion
 
 		/// <summary>
-		/// Sorts values using the insertion sort algorithm.
-		/// <para>Runtime: Ω(n), ε(n^2), O(n^2)</para>
-		/// <para>Memory: O(1)</para>
-		/// <para>Stable: True</para>
+		/// Sorts values using the insertion sort algorithm.<br/>
+		/// Runtime: Ω(n), ε(n^2), O(n^2)<br/>
+		/// Memory: O(1)<br/>
+		/// Stable: True
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
@@ -280,10 +280,10 @@ namespace Towel
 		#region SortQuick
 
 		/// <summary>
-		/// Sorts values using the quick sort algorithm.
-		/// <para>Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</para>
-		/// <para>Memory: ln(n)</para>
-		/// <para>Stable: False</para>
+		/// Sorts values using the quick sort algorithm.<br/>
+		/// Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n^2)<br/>
+		/// Memory: ln(n)<br/>
+		/// Stable: False
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
@@ -380,10 +380,10 @@ namespace Towel
 		#region SortMerge
 
 		/// <summary>
-		/// Sorts values using the merge sort algorithm.
-		/// <para>Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))</para>
-		/// <para>Memory: Θ(n)</para>
-		/// <para>Stable: True</para>
+		/// Sorts values using the merge sort algorithm.<br/>
+		/// Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))<br/>
+		/// Memory: Θ(n)<br/>
+		/// Stable: True
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
@@ -492,10 +492,10 @@ namespace Towel
 		#region SortHeap
 
 		/// <summary>
-		/// Sorts values using the heap sort algorithm.
-		/// <para>Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n^2)</para>
-		/// <para>Memory: O(1)</para>
-		/// <para>Stable: False</para>
+		/// Sorts values using the heap sort algorithm.<br/>
+		/// Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n^2)<br/>
+		/// Memory: O(1)<br/>
+		/// Stable: False
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
@@ -598,10 +598,10 @@ namespace Towel
 		#region SortOddEven
 
 		/// <summary>
-		/// Sorts values using the odd even sort algorithm.
-		/// <para>Runtime: Ω(n), ε(n^2), O(n^2)</para>
-		/// <para>Memory: O(1)</para>
-		/// <para>Stable: True</para>
+		/// Sorts values using the odd even sort algorithm.<br/>
+		/// Runtime: Ω(n), ε(n^2), O(n^2)<br/>
+		/// Memory: O(1)<br/>
+		/// Stable: True
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]
@@ -690,10 +690,10 @@ namespace Towel
 		//public delegate int ComputeSortCountingKey(T instance);
 
 		///// <summary>
-		///// Sorts an entire array in non-decreasing order using the heap sort algorithm.
-		///// <para>Runtime: Θ(Max(key))</para>
-		///// <para>Memory: Max(Key)</para>
-		///// <para>Stable: True</para>
+		///// Sorts an entire array in non-decreasing order using the heap sort algorithm.<br/>
+		///// Runtime: Θ(Max(key))<br/>
+		///// Memory: Max(Key)<br/>
+		///// Stable: True
 		///// </summary>
 		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
 		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
@@ -747,10 +747,10 @@ namespace Towel
 		#region SortBogo
 
 		/// <summary>
-		/// Sorts values using the bogo sort algorithm.
-		/// <para>Runtime: Ω(n), ε(n*n!), O(∞)</para>
-		/// <para>Memory: O(1)</para>
-		/// <para>Stable: False</para>
+		/// Sorts values using the bogo sort algorithm.<br/>
+		/// Runtime: Ω(n), ε(n*n!), O(∞)<br/>
+		/// Memory: O(1)<br/>
+		/// Stable: False
 		/// </summary>
 		/// <inheritdoc cref="XML_Sort"/>
 		[Obsolete(TowelConstants.NotIntended, true)]

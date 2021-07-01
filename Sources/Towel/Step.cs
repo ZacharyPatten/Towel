@@ -19,7 +19,7 @@ namespace Towel
 		#region Methods
 
 		/// <summary>Traverses values and invokes a function on every <typeparamref name="T"/> value.</summary>
-		/// <typeparam name="TStep">The function to invoke on every <typeparamref name="T"/> value.</typeparam>
+		/// <typeparam name="TStep">The type of function to invoke on every <typeparamref name="T"/> value.</typeparam>
 		/// <param name="step">The function to invoke on every <typeparamref name="T"/> value.</param>
 		/// <returns>The status of the traversal.</returns>
 		StepStatus StepperBreak<TStep>(TStep step = default)
@@ -45,7 +45,7 @@ namespace Towel
 
 		/// <summary>Traverses values and invokes a function on every <typeparamref name="T"/> value.</summary>
 		/// <typeparam name="T">The type of value to traverse.</typeparam>
-		/// <typeparam name="TStep">The function to invoke on every <typeparamref name="T"/> value.</typeparam>
+		/// <typeparam name="TStep">The type of function to invoke on every <typeparamref name="T"/> value.</typeparam>
 		/// <param name="steppable">The values to step though.</param>
 		/// <param name="step">The function to invoke on every <typeparamref name="T"/> value.</param>
 		public static void Stepper<T, TStep>(this ISteppable<T> steppable, TStep step = default)

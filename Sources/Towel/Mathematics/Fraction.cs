@@ -442,9 +442,9 @@ namespace Towel.Mathematics
 			TryParse<SFunc<string, (bool, T?)>>(@string, tryParse ?? Statics.TryParse<T>);
 
 		/// <summary>Tries to parse a <see cref="string"/> into a value of the type <see cref="Fraction{T}"/>.</summary>
-		/// <typeparam name="TryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</typeparam>
+		/// <typeparam name="TryParse">The type of TryParse method of the numerator and denomiator types.</typeparam>
 		/// <param name="string">The <see cref="string"/> to parse into a value ot type <see cref="Fraction{T}"/>.</param>
-		/// <param name="tryParse">The <see cref="Statics.TryParse{T}"/> method of the numerator and denomiator types.</param>
+		/// <param name="tryParse">The TryParse method of the numerator and denomiator types.</param>
 		/// <returns>
 		/// - <see cref="bool"/> Success: True if the parse was successful; False if not.<br/>
 		/// - <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.

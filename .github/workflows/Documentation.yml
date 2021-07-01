@@ -1,4 +1,4 @@
-name: Towel Documentation
+name: Documentation
 on:
   workflow_dispatch:
   push:

@@ -60,8 +60,8 @@ namespace Towel.DataStructures
 		#region Constructors
 
 		/// <summary>
-		/// Creates an instance of a queue.
-		/// <para>Runtime: O(1)</para>
+		/// Creates an instance of a queue.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		public QueueLinked()
 		{
@@ -214,19 +214,14 @@ namespace Towel.DataStructures
 
 		#region Constructors
 
-		/// <summary>
-		/// Constructs a new queue.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Constructs a new queue.</summary>
 		public QueueArray()
 		{
 			_array = new T[DefaultMinimumCapacity];
 			_count = 0;
 		}
 
-		/// <summary>
-		/// Constructs a new queue.
-		/// </summary>
+		/// <summary>Constructs a new queue.</summary>
 		/// <param name="minimumCapacity">The initial and smallest array size allowed by this list.</param>
 		public QueueArray(int minimumCapacity)
 		{
@@ -254,16 +249,13 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public int Count => _count;
 
-		/// <summary>
-		/// Gets the current capacity of the list.
-		/// <para>Runtime: O(1)</para>
-		/// </summary>
+		/// <summary>Gets the current capacity of the list.</summary>
 		public int CurrentCapacity => _array.Length;
 
 		/// <summary>
-		/// Allows you to adjust the minimum capacity of this list.<para/>
-		/// Runtime (Get): O(1)<para/>
-		/// Runtime (Set): O(n), Ω(1)<para/>
+		/// Allows you to adjust the minimum capacity of this list.<br/>
+		/// Runtime (Get): O(1)<br/>
+		/// Runtime (Set): O(n), Ω(1)
 		/// </summary>
 		public int? MinimumCapacity
 		{
@@ -303,8 +295,8 @@ namespace Towel.DataStructures
 			_array[_start];
 
 		/// <summary>
-		/// Gets or sets the <typeparamref name="T"/> at an index in the queue.
-		/// <para>Runtime: O(1)</para>
+		/// Gets or sets the <typeparamref name="T"/> at an index in the queue.<br/>
+		/// Runtime: O(1)
 		/// </summary>
 		/// <param name="index">The index of the <typeparamref name="T"/> to get or set.</param>
 		/// <returns>The element at the provided index.</returns>

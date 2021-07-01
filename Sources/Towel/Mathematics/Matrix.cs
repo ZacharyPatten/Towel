@@ -1279,8 +1279,8 @@ namespace Towel.Mathematics
 		}
 
 		/// <summary>
-		/// Computes the determinant of a square matrix via Gaussian elimination.
-		/// <para>Runtime: O((n^3 + 2n^−3) / 3)</para>
+		/// Computes the determinant of a square matrix via Gaussian elimination.<br/>
+		/// Runtime: O((n^3 + 2n^−3) / 3)
 		/// </summary>
 		/// <param name="a">The matrix to compute the determinant of.</param>
 		/// <returns>The computed determinant.</returns>
@@ -1295,8 +1295,8 @@ namespace Towel.Mathematics
 		}
 
 		/// <summary>
-		/// Computes the determinant of a square matrix via Laplace's method.
-		/// <para>Runtime: O(n(2^(n − 1) − 1))</para>
+		/// Computes the determinant of a square matrix via Laplace's method.<br/>
+		/// Runtime: O(n(2^(n − 1) − 1))
 		/// </summary>
 		/// <param name="a">The matrix to compute the determinant of.</param>
 		/// <returns>The computed determinant.</returns>
@@ -1369,6 +1369,7 @@ namespace Towel.Mathematics
 		#region Minor
 
 #pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable SA1625 // ElementDocumentationMustNotBeCopiedAndPasted
 
 		/// <summary>Gets the minor of a matrix.</summary>
 		/// <param name="a">The matrix to get the minor of.</param>
@@ -1379,6 +1380,7 @@ namespace Towel.Mathematics
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static object XML_Minor() => throw new DocumentationMethodException();
 
+#pragma warning restore SA1625 // ElementDocumentationMustNotBeCopiedAndPasted
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
 
 		/// <inheritdoc cref="XML_Minor"/>

@@ -226,6 +226,7 @@ namespace Towel
 					Cast = true,
 					A = a,
 				};
+
 			/// <summary>Adds a greater than operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the greater than operation.</param>
@@ -233,6 +234,7 @@ namespace Towel
 			public static OperatorValidated.Inequality<T> operator >(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Compare(a.A, b) == Greater, b);
+
 			/// <summary>Adds a less than operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the less than operation.</param>
@@ -240,6 +242,7 @@ namespace Towel
 			public static OperatorValidated.Inequality<T> operator <(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Compare(a.A, b) == Less, b);
+
 			/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
@@ -247,6 +250,7 @@ namespace Towel
 			public static OperatorValidated.Inequality<T> operator >=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Compare(a.A, b) != Less, b);
+
 			/// <summary>Adds a less than or equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
@@ -254,6 +258,7 @@ namespace Towel
 			public static OperatorValidated.Inequality<T> operator <=(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Compare(a.A, b) != Greater, b);
+
 			/// <summary>Adds an equal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the equal operation.</param>
@@ -261,6 +266,7 @@ namespace Towel
 			public static OperatorValidated.Inequality<T> operator ==(Inequality<T> a, T b) =>
 				!a.Cast ? throw new InequalitySyntaxException() :
 				new OperatorValidated.Inequality<T>(Equate(a.A, b), b);
+
 			/// <summary>Adds an inequal operation to a running inequality.</summary>
 			/// <param name="a">The current running inequality and left hand operand.</param>
 			/// <param name="b">The value of the right hand operand of the inequal operation.</param>
@@ -270,19 +276,22 @@ namespace Towel
 				new OperatorValidated.Inequality<T>(Inequate(a.A, b), b);
 
 #pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+
 			/// <summary>This member is not intended to be invoked.</summary>
-			/// <returns>This member is not intended to be invoked.</returns>
+			/// <inheritdoc/>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public override string ToString() => throw new InequalitySyntaxException();
+
 			/// <summary>This member is not intended to be invoked.</summary>
-			/// <param name="obj">This member is not intended to be invoked.</param>
-			/// <returns>This member is not intended to be invoked.</returns>
+			/// <inheritdoc/>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public override bool Equals(object? obj) => throw new InequalitySyntaxException();
+
 			/// <summary>This member is not intended to be invoked.</summary>
-			/// <returns>This member is not intended to be invoked.</returns>
+			/// <inheritdoc/>
 			[Obsolete(TowelConstants.NotIntended, true)]
 			public override int GetHashCode() => throw new InequalitySyntaxException();
+
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 		}
 
@@ -303,57 +312,60 @@ namespace Towel
 				}
 				/// <summary>Converts this running inequality into the result of the expression.</summary>
 				/// <param name="inequality">The inequality to convert into the result of the expression.</param>
-				public static implicit operator bool(Inequality<T> inequality) =>
-					inequality.Result;
+				public static implicit operator bool(Inequality<T> inequality) => inequality.Result;
+
 				/// <summary>Adds a greater than operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the greater than operation.</param>
 				/// <returns>A running inequality with the additonal greater than operation.</returns>
-				public static Inequality<T> operator >(Inequality<T> a, T b) =>
-					new(a.Result && Compare(a.A, b) == Greater, b);
+				public static Inequality<T> operator >(Inequality<T> a, T b) => new(a.Result && Compare(a.A, b) == Greater, b);
+
 				/// <summary>Adds a less than operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than operation.</param>
 				/// <returns>A running inequality with the additonal less than operation.</returns>
-				public static Inequality<T> operator <(Inequality<T> a, T b) =>
-					new(a.Result && Compare(a.A, b) == Less, b);
+				public static Inequality<T> operator <(Inequality<T> a, T b) => new(a.Result && Compare(a.A, b) == Less, b);
+
 				/// <summary>Adds a greater than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the greater than or equal operation.</param>
 				/// <returns>A running inequality with the additonal greater than or equal operation.</returns>
-				public static Inequality<T> operator >=(Inequality<T> a, T b) =>
-					new(a.Result && Compare(a.A, b) != Less, b);
+				public static Inequality<T> operator >=(Inequality<T> a, T b) => new(a.Result && Compare(a.A, b) != Less, b);
+
 				/// <summary>Adds a less than or equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the less than or equal operation.</param>
 				/// <returns>A running inequality with the additonal less than or equal operation.</returns>
-				public static Inequality<T> operator <=(Inequality<T> a, T b) =>
-					new(a.Result && Compare(a.A, b) != Greater, b);
+				public static Inequality<T> operator <=(Inequality<T> a, T b) => new(a.Result && Compare(a.A, b) != Greater, b);
+
 				/// <summary>Adds an equal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the equal operation.</param>
 				/// <returns>A running inequality with the additonal equal operation.</returns>
-				public static Inequality<T> operator ==(Inequality<T> a, T b) =>
-					new(a.Result && Equate(a.A, b), b);
+				public static Inequality<T> operator ==(Inequality<T> a, T b) => new(a.Result && Equate(a.A, b), b);
+
 				/// <summary>Adds an inequal operation to a running inequality.</summary>
 				/// <param name="a">The current running inequality and left hand operand.</param>
 				/// <param name="b">The value of the right hand operand of the inequal operation.</param>
 				/// <returns>A running inequality with the additonal inequal operation.</returns>
-				public static Inequality<T> operator !=(Inequality<T> a, T b) =>
-					new(a.Result && Inequate(a.A, b), b);
+				public static Inequality<T> operator !=(Inequality<T> a, T b) => new(a.Result && Inequate(a.A, b), b);
+
 				/// <summary>Converts the result of this inequality to a <see cref="string"/>.</summary>
-				/// <returns>The result of this inequality converted to a <see cref="string"/>.</returns>
+				/// <inheritdoc/>
 				public override string ToString() => Result.ToString();
+
 #pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
+
 				/// <summary>This member is not intended to be invoked.</summary>
-				/// <param name="obj">This member is not intended to be invoked.</param>
-				/// <returns>This member is not intended to be invoked.</returns>
+				/// <inheritdoc/>
 				[Obsolete(TowelConstants.NotIntended, true)]
 				public override bool Equals(object? obj) => throw new InequalitySyntaxException();
+
 				/// <summary>This member is not intended to be invoked.</summary>
-				/// <returns>This member is not intended to be invoked.</returns>
+				/// <inheritdoc/>
 				[Obsolete(TowelConstants.NotIntended, true)]
 				public override int GetHashCode() => throw new InequalitySyntaxException();
+
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 			}
 		}
