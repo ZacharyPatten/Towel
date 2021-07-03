@@ -1171,13 +1171,13 @@ namespace Towel
 
 		#endregion
 
-		#region System.Reflection.MethodInfo
+		#region System.Reflection.MethodBase
 
-		/// <summary>Determines if a MethodInfo is a local function.</summary>
-		/// <param name="methodInfo">The method info to determine if it is a local function.</param>
-		/// <returns>True if the MethodInfo is a local function. False if not.</returns>
-		public static bool IsLocalFunction(this MethodInfo methodInfo) =>
-			Regex.Match(methodInfo.Name, @"g__.+\|\d+_\d+").Success;
+		/// <summary>Determines if a method is a local function.</summary>
+		/// <param name="methodBase">The method to determine if it is a local function.</param>
+		/// <returns>True if the method is a local function. False if not.</returns>
+		public static bool IsLocalFunction(this MethodBase methodBase) =>
+			Regex.Match(methodBase.Name, @"g__.+\|\d+_\d+").Success;
 
 		#endregion
 	}

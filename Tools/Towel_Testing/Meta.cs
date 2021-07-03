@@ -378,9 +378,9 @@ namespace Towel_Testing
 
 		#endregion
 
-		#region MethodInfo Testing
+		#region MethodBase Testing
 
-		[TestMethod] public void MethodInfo_IsLocalFunction()
+		[TestMethod] public void MethodBase_IsLocalFunction()
 		{
 			void a() { }
 
@@ -416,7 +416,7 @@ namespace Towel_Testing
 			}
 			Assert.IsTrue(h().IsLocalFunction());
 
-			Assert.IsFalse(new Action(MethodInfo_IsLocalFunction).Method.IsLocalFunction());
+			Assert.IsFalse(new Action(MethodBase_IsLocalFunction).Method.IsLocalFunction());
 		}
 
 		#endregion
