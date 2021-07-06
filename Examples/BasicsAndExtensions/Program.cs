@@ -818,6 +818,48 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region Serializing Static Delegates
+			{
+				Console.WriteLine("  Serializing Static Delegates----------------------");
+				Console.WriteLine();
+				Console.WriteLine("    This needs to be used with caution. Serializing delegates can");
+				Console.WriteLine("    be unreliable, and the current versions of these methods are");
+				Console.WriteLine("    dependent on assembly versions (although that may change in future).");
+				Console.WriteLine();
+
+				Console.WriteLine($"    StaticMethod(): {StaticMethod()}");
+				Console.WriteLine();
+
+				Func<string> func = StaticMethod;
+				Console.WriteLine($"    Func<string> func = StaticMethod;");
+				Console.WriteLine($"    func(): {func()}");
+				Console.WriteLine();
+
+				string xml = Serialization.StaticDelegateToXml(func);
+				Console.WriteLine($"    Serialization.StaticDelegateToXml(func):");
+				Console.WriteLine($"      {xml}");
+				Console.WriteLine();
+
+				Func<string> func_xml = Serialization.StaticDelegateFromXml<Func<string>>(xml)!;
+				Console.WriteLine($"    Func<string> func_xml = Serialization.StaticDelegateFromXml<Func<string>>(xml)!;");
+				Console.WriteLine($"    func_xml(): {func_xml()}");
+				Console.WriteLine();
+
+				string json = Serialization.StaticDelegateToJson(func);
+				Console.WriteLine($"    Serialization.StaticDelegateToJson(json):");
+				Console.WriteLine($"      {json}");
+				Console.WriteLine();
+
+				Func<string> func_json = Serialization.StaticDelegateFromJson<Func<string>>(json)!;
+				Console.WriteLine($"    Func<string> func_json = Serialization.StaticDelegateFromJson<Func<string>>(json)!;");
+				Console.WriteLine($"    func_json(): {func_json()}");
+				Console.WriteLine();
+
+				Pause();
+			}
+			#endregion
+
+
 			Console.WriteLine();
 			Console.WriteLine("============================================");
 			Console.WriteLine("Example Complete...");
@@ -831,6 +873,11 @@ namespace BasicsAndExtensions
 			ConsoleHelper.PromptPressToContinue($"    Press[{ConsoleKey.Enter}] to continue...");
 			Console.WriteLine();
 			Console.WriteLine();
+		}
+
+		public static string StaticMethod()
+		{
+			return "hello from " + nameof(StaticMethod);
 		}
 	}
 }
