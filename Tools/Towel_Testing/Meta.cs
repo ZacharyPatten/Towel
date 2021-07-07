@@ -96,11 +96,11 @@ namespace Towel_Testing
 
 		[TestMethod] public void MethodInfo_GetDocumentation()
 		{
-			#region GitHub Incident 52
+			#region GitHub Issue 52
 
 			try
 			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -109,7 +109,7 @@ namespace Towel_Testing
 			catch
 			{
 				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -118,7 +118,7 @@ namespace Towel_Testing
 
 			try
 			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method2))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method2))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(xmlDocumentation is null);
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -127,7 +127,7 @@ namespace Towel_Testing
 			catch
 			{
 				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method2))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method2))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(xmlDocumentation is null);
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -136,7 +136,7 @@ namespace Towel_Testing
 
 			try
 			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method3))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method3))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -145,43 +145,7 @@ namespace Towel_Testing
 			catch
 			{
 				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method3))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method4))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class<int>.GitHubIncident52Method4))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class.GitHubIncident52Method1))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class.GitHubIncident52Method1))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method3))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -190,7 +154,7 @@ namespace Towel_Testing
 
 			try
 			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class.GitHubIncident52Method2))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method4))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(xmlDocumentation is null);
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -199,7 +163,43 @@ namespace Towel_Testing
 			catch
 			{
 				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIncident52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIncident52Class.GitHubIncident52Method2))!;
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method4))!;
+				string? xmlDocumentation = methodInfo.GetDocumentation();
+				Assert.IsTrue(xmlDocumentation is null);
+				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+			}
+
+			try
+			{
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method1))!;
+				string? xmlDocumentation = methodInfo.GetDocumentation();
+				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+			}
+			catch
+			{
+				Debugger.Break();
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method1))!;
+				string? xmlDocumentation = methodInfo.GetDocumentation();
+				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+			}
+
+			try
+			{
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method2))!;
+				string? xmlDocumentation = methodInfo.GetDocumentation();
+				Assert.IsTrue(xmlDocumentation is null);
+				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+			}
+			catch
+			{
+				Debugger.Break();
+				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method2))!;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(xmlDocumentation is null);
 				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -212,7 +212,7 @@ namespace Towel_Testing
 
 			try
 			{
-				Action<int> action = new XmlDocumentationFromMethod.GitHubIncident52Class<int>().GitHubIncident52Method;
+				Action<int> action = new XmlDocumentationFromMethod.GitHubIssue52Class<int>().GitHubIssue52Method;
 				MethodInfo methodInfo = action.Method;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
@@ -222,7 +222,7 @@ namespace Towel_Testing
 			catch
 			{
 				Debugger.Break();
-				Action<int> action = new XmlDocumentationFromMethod.GitHubIncident52Class<int>().GitHubIncident52Method;
+				Action<int> action = new XmlDocumentationFromMethod.GitHubIssue52Class<int>().GitHubIssue52Method;
 				MethodInfo methodInfo = action.Method;
 				string? xmlDocumentation = methodInfo.GetDocumentation();
 				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
@@ -493,25 +493,25 @@ namespace Towel_Testing
 
 	public class XmlDocumentationFromMethod
 	{
-		public class GitHubIncident52Class<T1>
+		public class GitHubIssue52Class<T1>
 		{
 			/// <summary>hello world</summary>
-			public void GitHubIncident52Method(T1 x) { }
+			public void GitHubIssue52Method(T1 x) { }
 
-			public void GitHubIncident52Method2(T1 x) { }
+			public void GitHubIssue52Method2(T1 x) { }
 
 			/// <summary>hello world</summary>
-			public void GitHubIncident52Method3<T2>(T1 a, T2 b) { }
+			public void GitHubIssue52Method3<T2>(T1 a, T2 b) { }
 
-			public void GitHubIncident52Method4<T2>(T1 a, T2 b) { }
+			public void GitHubIssue52Method4<T2>(T1 a, T2 b) { }
 		}
 
-		public class GitHubIncident52Class
+		public class GitHubIssue52Class
 		{
 			/// <summary>hello world</summary>
-			public void GitHubIncident52Method1<T2>(T2 b) { }
+			public void GitHubIssue52Method1<T2>(T2 b) { }
 
-			public void GitHubIncident52Method2<T2>(T2 b) { }
+			public void GitHubIssue52Method2<T2>(T2 b) { }
 		}
 
 		/// <summary>Test A</summary>

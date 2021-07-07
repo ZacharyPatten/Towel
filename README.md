@@ -40,33 +40,47 @@
 > 
 > There are no custom build processes. Towel should build with any standard .NET build process, but one of the following is recommended:
 > 
-> ### Visual Studio 2019
+> <details>
+> <summary>
+> :page_facing_up: <strong>Visual Studio </strong><sub>[Expand]</sub>
+> </summary>
+> <p>
 > 
-> Install [Visual Studio 2019](https://visualstudio.microsoft.com/) if not already installed.
+> > 1. Install [Visual Studio](https://visualstudio.microsoft.com/) if not already installed.
+> > 
+> > 2. Open the :page_facing_up: **`Towel.sln`** file in Visual Studio.
+> > 
+> > _**Note** (optional) [Here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
+>
+> </p>
+> </details>
+>
+> <details>
+> <summary>
+> :page_facing_up: <strong>Visual Studio Code </strong><sub>[Expand]</sub>
+> </summary>
+> <p>
 > 
-> Open the :page_facing_up: **`Towel.sln`** file in Visual Studio.
-> 
-> > _**Note** This is optional, but [here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
-> 
-> ### Visual Studio Code
-> 
-> Install the [.NET Core SDK](https://dotnet.microsoft.com/download) if not already installed.
-> 
-> Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already installed.
-> 
-> Open the :file_folder: **`root folder`** of the repository in Visual Studio Code.
-> 
+> > 1. Install the [.NET SDK](https://dotnet.microsoft.com/download) if not already installed.
+> > 
+> > 2. Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already installed.
+> > 
+> > 3. Open the :file_folder: **`root folder`** of the repository in Visual Studio Code.
+> > 
 > > _**Note** The following files are included in the repository:_
-> > - `.vscode/extensions.json`<sub>recommends Vistual Studio Code extension dependencies</sub>
-> > - `.vscode/launch.json`<sub>includes the configurations for debugging the examples</sub>
-> > - `.vscode/settings.json`<sub>automatically applies settings to the workspace</sub>
-> > - `.vscode/tasks.json`<sub>includes the commands to build the projects</sub>
-> 
+> > - `.vscode/extensions.json` <sub>recommends Vistual Studio Code extension dependencies</sub>
+> > - `.vscode/launch.json` <sub>includes the configurations for debugging the examples</sub>
+> > - `.vscode/settings.json` <sub>automatically applies settings to the workspace</sub>
+> > - `.vscode/tasks.json` <sub>includes the commands to build the projects</sub>
+> > 
 > > _**Note** Visual Studio Code Extensions (will be prompted to install these when you open the folder):_
-> > - **ms-vscode.csharp** <sub>C# support</sub>
-> > - **aisoftware.tt-processor** (optional) <sub>T4 Template support</sub>
-> > - **zbecknell.t4-support** (optional) <sub>T4 Template syntax highlighting</sub>
-> > - **formulahendry.dotnet-test-explorer** (optional) <sub>MSTest unit testing support</sub>
+> > - `ms-vscode.csharp` <sub>C# support</sub>
+> > - `formulahendry.dotnet-test-explorer` _(optional)_ <sub>MSTest unit testing support</sub>
+> > - `aisoftware.tt-processor` _(optional)_ <sub>T4 Template support</sub>
+> > - `zbecknell.t4-support` _(optional)_ <sub>T4 Template syntax highlighting</sub>
+>
+> </p>
+> </details>
 
 </p>
 </details>
