@@ -114,15 +114,13 @@
 </summary>
 <p>
 
-> Change Log: https://github.com/ZacharyPatten/Towel/releases
->
-> [docfx](https://github.com/dotnet/docfx) generated API documentation reference: <sub><a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a></sub>
-> 
-> [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report: <sub><a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report"/></a></sub>
-> 
-> [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) generated benchmarking: https://zacharypatten.github.io/Towel/articles/benchmarks.html
+> - Change Log: https://github.com/ZacharyPatten/Towel/releases
+> - [docfx](https://github.com/dotnet/docfx) generated API documentation reference: <sub><a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a></sub>
+> - [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report: <sub><a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report"/></a></sub>
+> - [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) generated benchmarking: https://zacharypatten.github.io/Towel/articles/benchmarks.html
 > 
 > Relevant Articles:
+>
 > - [MSDN Accessing XML Documentation Via Reflection](https://docs.microsoft.com/en-us/archive/msdn-magazine/2019/october/csharp-accessing-xml-documentation-via-reflection)</br>
 > - [Beginner's Guide To Console Input In C#](https://gist.github.com/ZacharyPatten/798ed612d692a560bdd529367b6a7dbd)</br>
 > - [Generating Unique Random Data](https://gist.github.com/ZacharyPatten/c9b43a2c9e8a5a5523883e77410f742d)</br>
@@ -131,6 +129,7 @@
 > - [C# Generic Math](https://gist.github.com/ZacharyPatten/8e1395a94928f2c7715cf939b0d0389c)</br>
 >
 > File Structure Overview _(except for <sub><a href="https://github.com/ZacharyPatten/Towel/tree/gh-pages"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/git-branch-16.svg" title="Branch"></a></sub> `gh-pages`)_:
+>
 > - <sub><a href=".github"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `.github` <sub>content regarding the GitHub repoistory.</sub>
 >   - <sub><a href=".github/ISSUE_TEMPLATE"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `ISSUE_TEMPLATE` <sub>templates for issue submissions to the GitHub repository</sub>
 >   - <sub><a href=".github/Resources"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Resources` <sub>resources such as image files</sub>
