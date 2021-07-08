@@ -13,15 +13,15 @@
 > "It's a tough galaxy. If you want to survive, you've gotta know... where your towel is." - Ford Prefect
 
 <p align="center">
-	<a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-%2324292e?logo=github" title="Go To Github Repo" alt="Github Repository"></a>
-	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/" alt="Language C#"><img alt="Language C#" src="https://img.shields.io/badge/language-C%23-%23178600" title="Go To C# Documentation"></a>
-	<a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
-	<a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" alt="Nuget Package"/></a>
-	<a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
-	<a href="https://github.com/ZacharyPatten/Towel/actions/workflows/Continuous%20Integration.yml" alt="Continuous Integration"><img src="https://github.com/ZacharyPatten/Towel/actions/workflows/Continuous%20Integration.yml/badge.svg" title="Go To Action" alt="Continuous Integration"></a>
-	<a href="https://zacharypatten.github.io/Towel/coveragereport/index.html" alt="License"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report" alt="Coverage"/></a>
-	<a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" alt="Discord"/></a>
-	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md" alt="License"><img src="https://img.shields.io/badge/license-MIT-green.svg" title="Go To License" alt="License"/></a>
+	<a href="https://github.com/ZacharyPatten/Towel"><img src="https://img.shields.io/badge/github-repo-%2324292e?logo=github" title="Go To Github Repo"></a>
+	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/language-C%23-%23178600" title="Go To C# Documentation"></a>
+	<a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
+	<a href="https://www.nuget.org/packages/Towel"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" /></a>
+	<a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a>
+	<a href="https://github.com/ZacharyPatten/Towel/actions/workflows/Continuous%20Integration.yml"><img src="https://github.com/ZacharyPatten/Towel/actions/workflows/Continuous%20Integration.yml/badge.svg" title="Go To Action"></a>
+	<a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report" /></a>
+	<a href="https://discord.gg/4XbQbwF"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" /></a>
+	<a href="https://github.com/ZacharyPatten/Towel/blob/master/License.md"><img src="https://img.shields.io/badge/license-MIT-green.svg" title="Go To License" /></a>
 </p>
 
 > _**Note** This project has a goal of keeping up-to-date on modern coding practices rather than maintaining backwards compatibility such as targetting the latest non-preview version of .NET and embracing favorable breaking changes ("Semantic Versioning" is not being respected at this time)._
@@ -91,22 +91,17 @@
 </summary>
 <p>
 
-> Towel has a nuget package:<br/>
-> <a href="https://www.nuget.org/packages/Towel" alt="Nuget Package"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" alt="Nuget Package"/></a>
+> Towel has a nuget package: <sub><a href="https://www.nuget.org/packages/Towel"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package"/></a></sub>
 >
-> Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET:<br/>
-> <a href="https://dotnet.microsoft.com/download" alt=".NET target"><img alt=".NET target" src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
+> Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET: <sub><a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmaster%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a></sub>
 >
 > You can install the Towel nuget package with the `dotnet add package Towel --version XXXXX` command, or you can
 > manually add a reference to it in your `.csproj` files `<PackageReference Include="Towel" Version="XXXXX" />`
 > (where `XXXXX` is the version to install).
 >
-> See the [releases page](https://github.com/ZacharyPatten/Towel/releases) for change logs.
->
-> If you use Towel and would be willing to show it, here is a badge you can copy-paste into your readme:</br>
-> <a href="#" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
+> If you use Towel and would be willing to show it, here is a badge you can copy-paste into your readme: <sub><a href="#"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a></sub>
 > ```html
-> <a href="https://github.com/ZacharyPatten/Towel" alt="Using Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Using Towel" alt="Using Towel"></a>
+> <a href="https://github.com/ZacharyPatten/Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a>
 > ```
 > Share your work. If you use Towel in one of your projects we want to hear about it. :)
 
@@ -119,16 +114,13 @@
 </summary>
 <p>
 
-> [docfx](https://github.com/dotnet/docfx) generated API documentation reference:</br>
-> https://zacharypatten.github.io/Towel/api/index.html</br>
-> <a href="https://zacharypatten.github.io/Towel/api/index.html" alt="Docfx Documentation"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation" alt="Docfx Documentation"></a>
+> Change Log: https://github.com/ZacharyPatten/Towel/releases
+>
+> [docfx](https://github.com/dotnet/docfx) generated API documentation reference: <sub><a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a></sub>
 > 
-> [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report:</br>
-> https://zacharypatten.github.io/Towel/coveragereport/index.html</br>
-> <a href="https://zacharypatten.github.io/Towel/coveragereport/index.html" alt="License"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report" alt="Coverage"/></a>
+> [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report: <sub><a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report"/></a></sub>
 > 
-> [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) generated benchmarking:</br>
-> https://zacharypatten.github.io/Towel/articles/benchmarks.html
+> [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) generated benchmarking: https://zacharypatten.github.io/Towel/articles/benchmarks.html
 > 
 > Relevant Articles:
 > - [MSDN Accessing XML Documentation Via Reflection](https://docs.microsoft.com/en-us/archive/msdn-magazine/2019/october/csharp-accessing-xml-documentation-via-reflection)</br>
@@ -138,29 +130,29 @@
 > - [Omnitree](https://gist.github.com/ZacharyPatten/f21fc5c6835faea9be8ae4baab4e294e)</br>
 > - [C# Generic Math](https://gist.github.com/ZacharyPatten/8e1395a94928f2c7715cf939b0d0389c)</br>
 >
-> File Structure Overview _(except for <a href="https://github.com/ZacharyPatten/Towel/tree/gh-pages"><img alt="Branch" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/git-branch-16.svg" title="Branch"></a> `gh-pages`)_:
-> - <a href=".github"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `.github` <sub>content regarding the GitHub repoistory.</sub>
->   - <a href=".github/ISSUE_TEMPLATE"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `ISSUE_TEMPLATE` <sub>templates for issue submissions to the GitHub repository</sub>
->   - <a href=".github/Resources"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `Resources` <sub>resources such as image files</sub>
->   - <a href=".github/workflows"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `workflows` <sub>[GitHub Actions](https://github.com/ZacharyPatten/Towel/actions) workflows</sub>
->     - <a href=".github/workflows/Continuous Integration.yml"><img alt="File" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a> `Continuous Integration.yml` <sub>workflow for checking that code compiles and unit tests pass</sub>
->     - <a href=".github/workflows/Towel Deployment.yml"><img alt="File" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a> `Towel Deployment.yml` <sub>workflow to manage releases and deploy nuget packages</sub>
->     - <a href=".github/workflows/Documentation.yml"><img alt="File" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a> `Documentation.yml` <sub>workflow that runs [docfx](https://github.com/dotnet/docfx) + [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) to output [GitHub Pages](https://pages.github.com/) to <a href="https://github.com/ZacharyPatten/Towel/tree/gh-pages"><img alt="Branch" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/git-branch-16.svg" title="Branch"></a> `gh-pages`</sub>
->   - <a href=".github/pull_request_template.md"><img alt="File" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a> `pull_request_template.md` <sub>template for when pull requests are created</sub>
-> - <a href=".vscode"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `.vscode` <sub>confirguration files for if the code is opened in [Visual Studio Code](https://visualstudio.microsoft.com/)</sub>
-> - <a href="Examples"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `Examples` <sub>root folder for all the example projects</sub>
-> - <a href="Sources"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `Sources` <sub>root folder for the source code of released nuget packages</sub>
->   - <a href="Sources/Towel"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> **`Towel` <sub>the root folder for all source code in the Towel nuget package</sub>**
-> - <a href="Tools"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `Tools` <sub>root folder for all support projects</sub>
->   - <a href="Tools/docfx_project"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `docfx_project` <sub>root folder for [docfx](https://github.com/dotnet/docfx) project (used in the `Towel Docfx.yml` workflow)</sub>
->     - <a href="Tools/docfx_project/articles"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `articles` <sub>root folder for all articless of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
->     - <a href="Tools/docfx_project/apidoc"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `apidoc` <sub>root folder for all api overrides of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
->     - <a href="Tools/docfx_project/docfx.json"><img alt="File" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a> `docfx.json` <sub>configuration file that controls [docfx](https://github.com/dotnet/docfx)</sub>
->     - <a href="Tools/docfx_project/index.md"><img alt="File" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a> `index.md` <sub>home page of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
->     - <a href="Tools/docfx_project/toc.yml"><img alt="File" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a> `toc.yml` <sub>primary navigation for the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
->   - <a href="Tools/Towel_Benchmarking"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `Towel_Benchmarking` <sub>project with all the benchmarking for the Towel project</sub>
->   - <a href="Tools/Towel_Generating"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `Towel_Generating` <sub>project with code generation for the Towel Project</sub>
->   - <a href="Tools/Towel_Testing"><img alt="Directory" src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a> `Towel_Testing` <sub>project with all unit tests for the Towel project (runs in the `Towel Continuous Integration.yml` workflow)</sub>
+> File Structure Overview _(except for <sub><a href="https://github.com/ZacharyPatten/Towel/tree/gh-pages"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/git-branch-16.svg" title="Branch"></a></sub> `gh-pages`)_:
+> - <sub><a href=".github"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `.github` <sub>content regarding the GitHub repoistory.</sub>
+>   - <sub><a href=".github/ISSUE_TEMPLATE"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `ISSUE_TEMPLATE` <sub>templates for issue submissions to the GitHub repository</sub>
+>   - <sub><a href=".github/Resources"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Resources` <sub>resources such as image files</sub>
+>   - <sub><a href=".github/workflows"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `workflows` <sub>[GitHub Actions](https://github.com/ZacharyPatten/Towel/actions) workflows</sub>
+>     - <sub><a href=".github/workflows/Continuous Integration.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/play-16.svg" title="Action"></a></sub> `Continuous Integration.yml` <sub>workflow for checking that code compiles and unit tests pass</sub>
+>     - <sub><a href=".github/workflows/Towel Deployment.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/play-16.svg" title="Action"></a></sub> `Towel Deployment.yml` <sub>workflow to manage [releases](https://github.com/ZacharyPatten/Towel/releases) and deploy [nuget packages](https://www.nuget.org/packages/Towel)</sub>
+>     - <sub><a href=".github/workflows/Documentation.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/play-16.svg" title="Action"></a></sub> `Documentation.yml` <sub>workflow that runs [docfx](https://github.com/dotnet/docfx) + [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) to output [GitHub Pages](https://pages.github.com/) to <sub><a href="https://github.com/ZacharyPatten/Towel/tree/gh-pages"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/git-branch-16.svg" title="Branch"></a></sub> `gh-pages`</sub>
+>   - <sub><a href=".github/pull_request_template.md"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a></sub> `pull_request_template.md` <sub>template for when pull requests are created</sub>
+> - <sub><a href=".vscode"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `.vscode` <sub>confirguration files for if the code is opened in [Visual Studio Code](https://visualstudio.microsoft.com/)</sub>
+> - <sub><a href="Examples"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Examples` <sub>root folder for all the example projects</sub>
+> - <sub><a href="Sources"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Sources` <sub>root folder for the source code of released nuget packages</sub>
+>   - <sub><a href="Sources/Towel"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> **`Towel` <sub>the root folder for all source code in the Towel nuget package</sub>**
+> - <sub><a href="Tools"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Tools` <sub>root folder for all support projects</sub>
+>   - <sub><a href="Tools/docfx_project"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `docfx_project` <sub>root folder for [docfx](https://github.com/dotnet/docfx) project (used in <sub><a href=".github/workflows/Documentation.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/play-16.svg" title="Action"></a></sub> `Documentation.yml`)</sub>
+>     - <sub><a href="Tools/docfx_project/articles"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `articles` <sub>root folder for all articless of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
+>     - <sub><a href="Tools/docfx_project/apidoc"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `apidoc` <sub>root folder for all api overrides of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
+>     - <sub><a href="Tools/docfx_project/docfx.json"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a></sub> `docfx.json` <sub>configuration file that controls [docfx](https://github.com/dotnet/docfx)</sub>
+>     - <sub><a href="Tools/docfx_project/index.md"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a></sub> `index.md` <sub>home page of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
+>     - <sub><a href="Tools/docfx_project/toc.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a></sub> `toc.yml` <sub>primary navigation for the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
+>   - <sub><a href="Tools/Towel_Benchmarking"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Towel_Benchmarking` <sub>project with all the benchmarking for the Towel project</sub>
+>   - <sub><a href="Tools/Towel_Generating"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Towel_Generating` <sub>project with code generation for the Towel Project</sub>
+>   - <sub><a href="Tools/Towel_Testing"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Towel_Testing` <sub>project with all unit tests for the Towel project (used in <sub><a href=".github/workflows/Continuous Integration.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/play-16.svg" title="Action"></a></sub> `Continuous Integration.yml` and <sub><a href=".github/workflows/Documentation.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/play-16.svg" title="Action"></a></sub> `Documentation.yml`)</sub>
 
 </p>
 </details>
@@ -178,8 +170,7 @@
 > If you notice anything in Towel that may be improved, please [create a new issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).</br>
 > Feature requests are welcome.
 >
-> You can chat with the developer(s) on discord:</br>
-> <a href="https://discord.gg/4XbQbwF" alt="Discord"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" alt="Discord"/></a>
+> You can chat with the developer(s) on discord: <sub><a href="https://discord.gg/4XbQbwF"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server"/></a></sub>
 >
 > If you want to contribute to Towel:
 > 1. Fork this repository
@@ -935,4 +926,4 @@ public class MyClass { }
 
 ## Maintainer(s)
 
-<a href="https://github.com/ZacharyPatten" alt="Zachary Patten"><img src="https://img.shields.io/badge/Zachary-Patten-gray?style=flat-square&logo=github" title="Go To Profile" alt="Zachary Patten"/></a></br>
+<a href="https://github.com/ZacharyPatten"><img src="https://img.shields.io/badge/Zachary-Patten-gray?style=flat-square&logo=github" title="Go To ZacharyPatten's Profile"/></a></br>
