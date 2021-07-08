@@ -1,26 +1,19 @@
 ---
 name: Bug
-about: Report a flaw in the code.
+about: Report a flaw.
 title: ''
 labels: Bug
 assigees: ''
 ---
+<!--
+1. Thank you for your interest in Contributing to Towel. :)
+2. Keep in mind that Towel does not have a 24/7 staff. Sorry if you do not receive a timely response.
+3. Please check other open issues to ensure this issue would not be a duplicate. If it would be a duplicate, consider commenting on the existing issue.
+-->
+<!-- Description: Describe the bug. Please include both what you expected to happen and what actually did happen. -->
 
-## Describe the bug
-A clear and concise description of what the bug is.
+<!-- Steps: Include how to reproduce the bug. -->
 
-## To Reproduce
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+<!-- Screenshots: Consider including screenshots if they would be beneficial. -->
 
-## Expected behavior
-A clear and concise description of what you expected to happen.
-
-## Screenshots
-If applicable, add screenshots to help explain your problem.
-
-## Additional context
-Add any other context about the problem here.
+<!-- Context: Please check and link if there are any existing issues that are related to this issue. -->
