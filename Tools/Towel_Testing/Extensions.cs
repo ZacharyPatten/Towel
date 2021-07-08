@@ -269,6 +269,44 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentException>(() => (^1..^1).ToArray());
 		}
 
+		[TestMethod] public void Select_Range()
+		{
+			Assert.IsTrue(( ..0).Select(x => x).SequenceEqual(Ɐ<int>()));
+			Assert.IsTrue((0..0).Select(x => x).SequenceEqual(Ɐ<int>()));
+			Assert.IsTrue((1..1).Select(x => x).SequenceEqual(Ɐ<int>()));
+			Assert.IsTrue((2..2).Select(x => x).SequenceEqual(Ɐ<int>()));
+
+			// least to greatest
+			Assert.IsTrue(( ..1).Select(x => x).SequenceEqual(Ɐ(0)));
+			Assert.IsTrue(( ..2).Select(x => x).SequenceEqual(Ɐ(0, 1)));
+			Assert.IsTrue((0..1).Select(x => x).SequenceEqual(Ɐ(0)));
+			Assert.IsTrue((0..2).Select(x => x).SequenceEqual(Ɐ(0, 1)));
+			Assert.IsTrue((1..2).Select(x => x).SequenceEqual(Ɐ(1)));
+			Assert.IsTrue((1..3).Select(x => x).SequenceEqual(Ɐ(1, 2)));
+			Assert.IsTrue((1..4).Select(x => x).SequenceEqual(Ɐ(1, 2, 3)));
+			Assert.IsTrue((1..5).Select(x => x).SequenceEqual(Ɐ(1, 2, 3, 4)));
+			Assert.IsTrue((2..3).Select(x => x).SequenceEqual(Ɐ(2)));
+			Assert.IsTrue((2..4).Select(x => x).SequenceEqual(Ɐ(2, 3)));
+
+			// greatest to least
+			Assert.IsTrue((2..1).Select(x => x).SequenceEqual(Ɐ(2)));
+			Assert.IsTrue((3..1).Select(x => x).SequenceEqual(Ɐ(3, 2)));
+			Assert.IsTrue((4..1).Select(x => x).SequenceEqual(Ɐ(4, 3, 2)));
+			Assert.IsTrue((5..1).Select(x => x).SequenceEqual(Ɐ(5, 4, 3, 2)));
+			Assert.IsTrue((3..2).Select(x => x).SequenceEqual(Ɐ(3)));
+			Assert.IsTrue((4..2).Select(x => x).SequenceEqual(Ɐ(4, 3)));
+
+			// some types other than int
+			Assert.IsTrue(('a'..'f').Select(x => (char)x).SequenceEqual(Ɐ('a', 'b', 'c', 'd', 'e')));
+			Assert.IsTrue(('a'..'f').Select(x => ((char)x).ToString()).SequenceEqual(Ɐ("a", "b", "c", "d", "e")));
+
+			Assert.ThrowsException<ArgumentException>(() => (..).Select(x => x).ToArray());
+			Assert.ThrowsException<ArgumentException>(() => (1..).Select(x => x).ToArray());
+			Assert.ThrowsException<ArgumentException>(() => (^1..).Select(x => x).ToArray());
+			Assert.ThrowsException<ArgumentException>(() => (..^1).Select(x => x).ToArray());
+			Assert.ThrowsException<ArgumentException>(() => (^1..^1).Select(x => x).ToArray());
+		}
+
 		#endregion
 	}
 }

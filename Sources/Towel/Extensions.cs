@@ -713,6 +713,46 @@ namespace Towel
 			return array;
 		}
 
+		/// <inheritdoc cref="Select{T, TSelect}(Range, TSelect)"/>
+		public static System.Collections.Generic.IEnumerable<T> Select<T>(this Range range, Func<int, T> select)
+		{
+			_ = select ?? throw new ArgumentNullException(nameof(select));
+			return Select<T, SFunc<int, T>>(range, select);
+		}
+
+		/// <summary>Projects each element of a sequence into a new form.</summary>
+		/// <typeparam name="T">The type of the value returned by selector.</typeparam>
+		/// <typeparam name="TSelect">The type of function for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</typeparam>
+		/// <param name="range">A sequence of values to invoke a transform function on.</param>
+		/// <param name="select">The function for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</param>
+		/// <returns>An <see cref="System.Collections.Generic.IEnumerable{T}"/> whose elements are the result of invoking the transform function on each element of source.</returns>
+		public static System.Collections.Generic.IEnumerable<T> Select<T, TSelect>(this Range range, TSelect select = default)
+			where TSelect : struct, IFunc<int, T>
+		{
+			if (range.Start.IsFromEnd)
+			{
+				throw new ArgumentException($"{nameof(range)}.{nameof(range.Start)}.{nameof(range.Start.IsFromEnd)}", nameof(range));
+			}
+			if (range.End.IsFromEnd)
+			{
+				throw new ArgumentException($"{nameof(range)}.{nameof(range.End)}.{nameof(range.End.IsFromEnd)}", nameof(range));
+			}
+			if (range.End.Value < range.Start.Value)
+			{
+				for (int i = range.Start.Value; i > range.End.Value; i--)
+				{
+					yield return select.Invoke(i);
+				}
+			}
+			else
+			{
+				for (int i = range.Start.Value; i < range.End.Value; i++)
+				{
+					yield return select.Invoke(i);
+				}
+			}
+		}
+
 		#endregion
 
 		#region Step
