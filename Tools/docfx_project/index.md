@@ -4,4 +4,4 @@
 
 This is the documentation website for Towel.
 
-<img src="https://github.com/ZacharyPatten/Towel/blob/master/.github/Resources/Logo.svg?raw=true" height="150">
+<img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/Logo.svg?raw=true" height="150">

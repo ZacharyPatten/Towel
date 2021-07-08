@@ -72,7 +72,7 @@ namespace Towel_Benchmarking
 					"",
 					@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>",
 					"",
-					"The source code for all becnhmarks are in [Tools/ Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).",
+					"The source code for all becnhmarks are in [Tools/ Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking).",
  					"",
 				};
 				File.WriteAllLines(benchmarks_mdPath, lines);
@@ -85,7 +85,7 @@ namespace Towel_Benchmarking
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine(@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>");
 				stringBuilder.AppendLine();
-				stringBuilder.AppendLine("The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/master/Tools/Towel_Benchmarking).");
+				stringBuilder.AppendLine("The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking).");
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine(output);
 				if (updateDocumentation)

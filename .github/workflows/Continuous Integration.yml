@@ -3,14 +3,14 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - '.vscode/**'
       - '.github/**'
       - 'README.md'
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - '.vscode/**'
       - '.github/**'
