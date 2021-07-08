@@ -664,6 +664,55 @@ namespace Towel
 		/// <returns>An <see cref="System.Collections.Generic.IEnumerator{T}"/> that iterates through the <paramref name="range"/>.</returns>
 		public static System.Collections.Generic.IEnumerator<int> GetEnumerator(this Range range) => ToIEnumerable(range).GetEnumerator();
 
+		/// <inheritdoc cref="ToArray{T, TSelect}(Range, TSelect)"/>
+		public static int[] ToArray(this Range range)
+		{
+			return ToArray<int, Identity<int>>(range);
+		}
+
+		/// <inheritdoc cref="ToArray{T, TSelect}(Range, TSelect)"/>
+		public static T[] ToArray<T>(this Range range, Func<int, T> select)
+		{
+			_ = select ?? throw new ArgumentNullException(nameof(select));
+			return ToArray<T, SFunc<int, T>>(range, select);
+		}
+
+		/// <summary>Converts a <paramref name="range"/> to a to an array of values.</summary>
+		/// <typeparam name="T">The resulting element type of the array.</typeparam>
+		/// <typeparam name="TSelect">The type of function for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</typeparam>
+		/// <param name="range">The range of values to convert into an array.</param>
+		/// <param name="select">The function for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</param>
+		/// <returns>An array of the values of the <paramref name="range"/>.</returns>
+		public static T[] ToArray<T, TSelect>(this Range range, TSelect select = default)
+			where TSelect : struct, IFunc<int, T>
+		{
+			if (range.Start.IsFromEnd)
+			{
+				throw new ArgumentException($"{nameof(range)}.{nameof(range.Start)}.{nameof(range.Start.IsFromEnd)}", nameof(range));
+			}
+			if (range.End.IsFromEnd)
+			{
+				throw new ArgumentException($"{nameof(range)}.{nameof(range.End)}.{nameof(range.End.IsFromEnd)}", nameof(range));
+			}
+			T[] array = new T[Math.Abs(range.Start.Value - range.End.Value)];
+			int index = 0;
+			if (range.End.Value < range.Start.Value)
+			{
+				for (int i = range.Start.Value; i > range.End.Value; i--)
+				{
+					array[index++] = select.Invoke(i);
+				}
+			}
+			else
+			{
+				for (int i = range.Start.Value; i < range.End.Value; i++)
+				{
+					array[index++] = select.Invoke(i);
+				}
+			}
+			return array;
+		}
+
 		#endregion
 
 		#region Step

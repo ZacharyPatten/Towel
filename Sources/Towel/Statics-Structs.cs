@@ -85,6 +85,14 @@ namespace Towel
 
 		#endregion
 
+		/// <summary>Built in function type to return the value passed in.</summary>
+		/// <typeparam name="T">The type of value to be passed in and returned.</typeparam>
+		public struct Identity<T> : IFunc<T, T>
+		{
+			/// <inheritdoc cref="Func{T1, TResult}.Invoke(T1)"/>
+			public T Invoke(T arg1) => arg1;
+		}
+
 		/// <summary>Built in struct for runtime computations.</summary>
 		/// <typeparam name="T">The generic type of the values.</typeparam>
 		/// <typeparam name="TStep">The Step function.</typeparam>
