@@ -48,7 +48,7 @@
 > 
 > > 1. Install [Visual Studio](https://visualstudio.microsoft.com/) if not already installed.
 > > 
-> > 2. Open the :page_facing_up: **`Towel.sln`** file in Visual Studio.
+> > 2. Open the <sub><a href="Towel.sln"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-16.svg" title="File"></a></sub> **`Towel.sln`** file in Visual Studio.
 > > 
 > > _**Note** (optional) [Here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
 >
@@ -65,7 +65,7 @@
 > > 
 > > 2. Install [Visual Studio Code](https://visualstudio.microsoft.com/) if not already installed.
 > > 
-> > 3. Open the :file_folder: **`root folder`** of the repository in Visual Studio Code.
+> > 3. Open the <sub><a href="#"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/master/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> **`root folder`** of the repository in Visual Studio Code.
 > > 
 > > _**Note** The following files are included in the repository:_
 > > - `.vscode/extensions.json` <sub>recommends Vistual Studio Code extension dependencies</sub>
