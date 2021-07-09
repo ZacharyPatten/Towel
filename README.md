@@ -91,19 +91,16 @@
 </summary>
 <p>
 
-> Towel has a nuget package: <sub><a href="https://www.nuget.org/packages/Towel"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package"/></a></sub>
+> - Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET: <sub><a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmain%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a></sub>
 >
-> Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET: <sub><a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmain%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a></sub>
+> - Towel has a nuget package: <sub><a href="https://www.nuget.org/packages/Towel"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package"/></a></sub><br/>Instructions on how to reference the package are included on nuget.org _(click the badge)_.
 >
-> You can install the Towel nuget package with the `dotnet add package Towel --version XXXXX` command, or you can
-> manually add a reference to it in your `.csproj` files `<PackageReference Include="Towel" Version="XXXXX" />`
-> (where `XXXXX` is the version to install).
+> - If you use Towel and would be willing to show it, here is a badge you can copy-paste into your readme: <sub><a href="#"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a></sub>
+>   ```html
+>   <a href="https://github.com/ZacharyPatten/Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a>
+>   ```
 >
-> If you use Towel and would be willing to show it, here is a badge you can copy-paste into your readme: <sub><a href="#"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a></sub>
-> ```html
-> <a href="https://github.com/ZacharyPatten/Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a>
-> ```
-> Share your work. If you use Towel in one of your projects we want to hear about it. :)
+> - Share your work. If you use Towel in one of your projects we want to hear about it. :)
 
 </p>
 </details>
@@ -142,7 +139,7 @@
 > - <sub><a href="Examples"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Examples` <sub>root folder for all the example projects</sub>
 > - <sub><a href="Sources"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Sources` <sub>root folder for the source code of released nuget packages</sub>
 >   - <sub><a href="Sources/Towel"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> **`Towel` <sub>the root folder for all source code in the Towel nuget package</sub>**
-> - <sub><a href="Tools"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Tools` <sub>root folder for all support projects</sub>
+> - <sub><a href="Tools"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `Tools` <sub>root folder for all support projects (not included in nuget packages)</sub>
 >   - <sub><a href="Tools/docfx_project"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `docfx_project` <sub>root folder for [docfx](https://github.com/dotnet/docfx) project (used in <sub><a href=".github/workflows/Documentation.yml"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/play-16.svg" title="Action"></a></sub> `Documentation.yml`)</sub>
 >     - <sub><a href="Tools/docfx_project/articles"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `articles` <sub>root folder for all articless of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
 >     - <sub><a href="Tools/docfx_project/apidoc"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> `apidoc` <sub>root folder for all api overrides of the [docfx](https://github.com/dotnet/docfx) generated [GitHub Pages](https://pages.github.com/) website</sub>
@@ -162,19 +159,16 @@
 </summary>
 <p>
 
-> The easiest way to support Towel is to star the github repository.
+> - The easiest way to support Towel is to star the github repository.
 >
-> If you have any questions, you can [start a new discussion](https://github.com/ZacharyPatten/Towel/discussions/new).
+> - If you have any questions, you can [start a new discussion](https://github.com/ZacharyPatten/Towel/discussions/new).
 >
-> If you notice anything in Towel that may be improved, please [create a new issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).</br>
-> Feature requests are welcome.
+> - If you notice anything in Towel that may be improved, please [create a new issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).<br/>
+>   Feature requests are welcome.
 >
-> You can chat with the developer(s) on discord: <sub><a href="https://discord.gg/4XbQbwF"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server"/></a></sub>
+> - You can chat with the developer(s) on discord: <sub><a href="https://discord.gg/4XbQbwF"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server"/></a></sub>
 >
-> If you want to contribute to Towel:
-> 1. Fork this repository
-> 2. Make some changes
-> 3. Open a pull request
+> - If you want to contribute to Towel:<br/>&nbsp;&nbsp;1. Fork this repository<br/>&nbsp;&nbsp;2. Make some changes<br/>&nbsp;&nbsp;3. Open a pull request
 
 </p>
 </details>
