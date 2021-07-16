@@ -1754,7 +1754,7 @@ namespace Towel_Testing
 		public const int SortSize = 10;
 		public const int SortRandomSeed = 7;
 
-		public static void TestAlgorithm(
+		public static void TestSortAlgorithm(
 			Action<int[], Func<int, int, CompareResult>> algorithm,
 			Action<int[], int, int, Func<int, int, CompareResult>> algorithmPartial,
 			int? sizeOverride = null)
@@ -1778,9 +1778,51 @@ namespace Towel_Testing
 				int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 				algorithmPartial(array, 3, 7, Compare);
 				int[] expected = { 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0 };
-				for (int i = 0; i < SortSize; i++)
+				Assert.IsTrue(Equate<int>(array, expected));
+			}
+
+			{ // Partial Array Sort
+				int[] array = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+				algorithmPartial(array, 4, 8, Compare);
+				int[] expected = { 10, 9, 8, 7, /*|*/ 2, 3, 4, 5, 6, /*|*/ 1, 0 };
+				Assert.IsTrue(Equate<int>(array, expected));
+			}
+
+			if (sizeOverride is null)
+			{ // Partial Array Sort
+				Random random = new(SortRandomSeed);
+				int[] array = (1000..0).ToArray();
+				Shuffle<int>(array.AsSpan(10..990), random);
+				algorithmPartial(array, 10, 990, Compare);
+				int[] expected = (1000..990).ToArray().Concat((10..991).ToArray()).Concat((9..0).ToArray()).ToArray();
+				Assert.IsTrue(Equate<int>(array, expected));
+			}
+		}
+
+		public delegate void SortSpan<T>(Span<T> span);
+
+		public static void TestSortAlgorithmSpan(
+			SortSpan<int> algorithm,
+			int? sizeOverride = null)
+		{
+			{
+				Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+				SortTim<int, Int32Compare>(span);
+				Assert.IsTrue(IsOrdered<int>(span));
+			}
+			{
+				Span<int> span = new[] { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+				SortTim<int, Int32Compare>(span);
+				Assert.IsTrue(IsOrdered<int>(span));
+			}
+			{
+				if (!sizeOverride.HasValue || sizeOverride.Value > 1000)
 				{
-					Assert.IsTrue(array[i] == expected[i]);
+					Random random = new(7);
+					var array = (..1000).ToArray();
+					Shuffle<int>(array, random);
+					algorithm(array);
+					Assert.IsTrue(IsOrdered<int>(array));
 				}
 			}
 		}
@@ -1796,197 +1838,136 @@ namespace Towel_Testing
 		}
 
 		[TestMethod]
-		public void Bubble_Testing() => TestAlgorithm(
+		public void Bubble_Testing() => TestSortAlgorithm(
 			(array, compare) => SortBubble<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortBubble<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Insertion_Testing() => TestAlgorithm(
+		public void Insertion_Testing() => TestSortAlgorithm(
 			(array, compare) => SortInsertion<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortInsertion<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Selection_Testing() => TestAlgorithm(
+		public void Selection_Testing() => TestSortAlgorithm(
 			(array, compare) => SortSelection<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortSelection<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Merge_Testing() => TestAlgorithm(
+		public void Merge_Testing() => TestSortAlgorithm(
 			(array, compare) => SortMerge<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortMerge<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Quick_Testing() => TestAlgorithm(
+		public void Quick_Testing() => TestSortAlgorithm(
 			(array, compare) => SortQuick<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortQuick<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Heap_Testing() => TestAlgorithm(
+		public void Heap_Testing() => TestSortAlgorithm(
 			(array, compare) => SortHeap<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortHeap<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void OddEven_Testing() => TestAlgorithm(
+		public void OddEven_Testing() => TestSortAlgorithm(
 			(array, compare) => SortOddEven<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortOddEven<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Slow_Testing() => TestAlgorithm(
+		public void Slow_Testing() => TestSortAlgorithm(
 			(array, compare) => SortSlow<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortSlow<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
 			10);
 
 		[TestMethod]
-		public void Gnome_Testing() => TestAlgorithm(
+		public void Gnome_Testing() => TestSortAlgorithm(
 			(array, compare) => SortGnome<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortGnome<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Comb_Testing() => TestAlgorithm(
+		public void Comb_Testing() => TestSortAlgorithm(
 			(array, compare) => SortComb<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortComb<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Shell_Testing() => TestAlgorithm(
+		public void Shell_Testing() => TestSortAlgorithm(
 			(array, compare) => SortShell<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortShell<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Cocktail_Testing() => TestAlgorithm(
+		public void Cocktail_Testing() => TestSortAlgorithm(
 			(array, compare) => SortCocktail<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortCocktail<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Cycle_Testing() => TestAlgorithm(
+		public void Cycle_Testing() => TestSortAlgorithm(
 			(array, compare) => SortCycle<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
 			(array, start, end, compare) => SortCycle<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void Pancake_Testing() => TestAlgorithm(
+		public void Pancake_Testing() => TestSortAlgorithm(
 			(array, compare) => SortPancake(array, compare),
 			(array, start, end, compare) => Assert.Inconclusive());
 
 		[TestMethod]
-		public void Stooge_Testing() => TestAlgorithm(
+		public void Stooge_Testing() => TestSortAlgorithm(
 			(array, compare) => SortStooge(array, compare),
 			(array, start, end, compare) => Assert.Inconclusive());
 
 		[TestMethod]
-		public void Bogo_Testing() => TestAlgorithm(
+		public void Bogo_Testing() => TestSortAlgorithm(
 			(array, compare) => SortBogo(array, compare),
 			(array, start, end, compare) => SortBogo<int>(start, end, i => array[i], (i, v) => array[i] = v, compare),
 			6);
 
 		[TestMethod]
-		public void BubbleSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortBubble<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void Tim_Testing() => TestSortAlgorithm(
+			(array, compare) => SortTim<int>(0, array.Length - 1, i => array[i], (i, v) => array[i] = v, compare),
+			(array, start, end, compare) => SortTim<int>(start, end, i => array[i], (i, v) => array[i] = v, compare));
 
 		[TestMethod]
-		public void InsertionSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortInsertion<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void BubbleSpan_Test() => TestSortAlgorithmSpan(x => SortBubble<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void SelectionSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortInsertion<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void InsertionSpan_Test() => TestSortAlgorithmSpan(x => SortInsertion<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void MergeSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortMerge<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void SelectionSpan_Test() => TestSortAlgorithmSpan(x => SortInsertion<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void QuickSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortQuick<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void MergeSpan_Test() => TestSortAlgorithmSpan(x => SortMerge<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void HeapSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortHeap<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void QuickSpan_Test() => TestSortAlgorithmSpan(x => SortQuick<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void OddEvenSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortOddEven<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void HeapSpan_Test() => TestSortAlgorithmSpan(x => SortHeap<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void SlowSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortSlow<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void OddEvenSpan_Test() => TestSortAlgorithmSpan(x => SortOddEven<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void GnomeSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortGnome<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void SlowSpan_Test() => TestSortAlgorithmSpan(x => SortSlow<int, Int32Compare>(x), 10);
 
 		[TestMethod]
-		public void CombSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortComb<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void GnomeSpan_Test() => TestSortAlgorithmSpan(x => SortGnome<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void ShellSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortShell<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void CombSpan_Test() => TestSortAlgorithmSpan(x => SortComb<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void CocktailSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortCocktail<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
-
-		[TestMethod] public void CycleSpan_Test()
-		{
-			Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-			SortCycle<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void ShellSpan_Test() => TestSortAlgorithmSpan(x => SortShell<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void BogoSpan_Test()
-		{
-			Span<int> span = new[] { 5, 4, 3, 2, 1, 0 };
-			SortBogo<int, Int32Compare>(span);
-			IsOrdered<int>(span);
-		}
+		public void CocktailSpan_Test() => TestSortAlgorithmSpan(x => SortCocktail<int, Int32Compare>(x));
+
+		[TestMethod]
+		public void CycleSpan_Test() => TestSortAlgorithmSpan(x => SortCycle<int, Int32Compare>(x));
+
+		[TestMethod]
+		public void BogoSpan_Test() => TestSortAlgorithmSpan(x => SortBogo<int, Int32Compare>(x), 6);
+
+		[TestMethod]
+		public void TimSpan_Test() => TestSortAlgorithmSpan(x => SortTim<int, Int32Compare>(x));
 
 		#endregion
 

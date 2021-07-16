@@ -113,10 +113,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortBubble"/>
 		public static void SortBubble<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortBubble<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortBubble<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortBubble"/>
-		public static void SortBubble<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortBubble<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -172,10 +172,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortSelection"/>
 		public static void SortSelection<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortSelection<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortSelection<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortSelection"/>
-		public static void SortSelection<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortSelection<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -235,10 +235,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortInsertion"/>
 		public static void SortInsertion<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortInsertion<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortInsertion<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortInsertion"/>
-		public static void SortInsertion<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortInsertion<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -291,10 +291,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortQuick"/>
 		public static void SortQuick<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortQuick<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortQuick<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortQuick"/>
-		public static void SortQuick<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortQuick<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -391,10 +391,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortMerge"/>
 		public static void SortMerge<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortMerge<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortMerge<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortMerge"/>
-		public static void SortMerge<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortMerge<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -503,10 +503,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortHeap"/>
 		public static void SortHeap<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortHeap<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortHeap<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortHeap"/>
-		public static void SortHeap<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortHeap<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -609,10 +609,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortOddEven"/>
 		public static void SortOddEven<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortOddEven<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortOddEven<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortOddEven"/>
-		public static void SortOddEven<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortOddEven<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -758,17 +758,17 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortBogo"/>
 		public static void SortBogo<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null, Random? random = null) =>
-			SortBogo<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set, random);
+			SortBogo<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare, random);
 
 		/// <inheritdoc cref="XML_SortBogo"/>
-		public static void SortBogo<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default, Random? random = null)
+		public static void SortBogo<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default, Random? random = null)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T> =>
-			SortBogo<T, TCompare, TGet, TSet, RandomNextIntMinValueIntMaxValue>(start, end, compare, get, set, random ?? new Random());
+			SortBogo<T, TCompare, TGet, TSet, RandomNextIntMinValueIntMaxValue>(start, end, get, set, compare, random ?? new Random());
 
 		/// <inheritdoc cref="XML_SortBogo"/>
-		public static void SortBogo<T, TCompare, TGet, TSet, TRandom>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default, TRandom random = default)
+		public static void SortBogo<T, TCompare, TGet, TSet, TRandom>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default, TRandom random = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -811,10 +811,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortSlow"/>
 		public static void SortSlow<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortSlow<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortSlow<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortSlow"/>
-		public static void SortSlow<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortSlow<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -877,10 +877,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortGnome"/>
 		public static void SortGnome<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortGnome<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortGnome<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortGnome"/>
-		public static void SortGnome<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortGnome<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -937,10 +937,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortComb"/>
 		public static void SortComb<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortComb<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortComb<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortComb"/>
-		public static void SortComb<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortComb<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -1010,10 +1010,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortShell"/>
 		public static void SortShell<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortShell<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortShell<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortShell"/>
-		public static void SortShell<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortShell<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -1025,7 +1025,7 @@ namespace Towel
 				{
 					T temp = get.Invoke(i);
 					int j = i;
-					for (; j >= gap && compare.Invoke(get.Invoke(j - gap), temp) is Greater; j -= gap)
+					for (; j >= gap + start && compare.Invoke(get.Invoke(j - gap), temp) is Greater; j -= gap)
 					{
 						set.Invoke(j, get.Invoke(j - gap));
 					}
@@ -1162,10 +1162,10 @@ namespace Towel
 
 		/// <inheritdoc cref="XML_SortCycle"/>
 		public static void SortCycle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
-			SortCycle<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, compare ?? Compare, get, set);
+			SortCycle<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortCycle"/>
-		public static void SortCycle<T, TCompare, TGet, TSet>(int start, int end, TCompare compare = default, TGet get = default, TSet set = default)
+		public static void SortCycle<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
 			where TCompare : struct, IFunc<T, T, CompareResult>
 			where TGet : struct, IFunc<int, T>
 			where TSet : struct, IAction<int, T>
@@ -1331,6 +1331,147 @@ namespace Towel
 				SortStooge(span[third..], compare);
 				SortStooge(span[..^third], compare);
 				SortStooge(span[third..], compare);
+			}
+		}
+
+		#endregion
+
+		#region SortTim
+
+		/// <summary>
+		/// Sorts values using the Tim sort algorithm.<br/>
+		/// Runtime: Ω(n), ε(n*ln(n)), O(n*ln(n))<br/>
+		/// Memory: O(n)<br/>
+		/// Stable: True
+		/// </summary>
+		/// <inheritdoc cref="XML_Sort"/>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_SortTim() => throw new DocumentationMethodException();
+
+		/// <inheritdoc cref="XML_SortHeap"/>
+		public static void SortTim<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
+			SortTim<T, SFunc<T, T, CompareResult>, SFunc<int, T>, SAction<int, T>>(start, end, get, set, compare ?? Compare);
+
+		/// <inheritdoc cref="XML_SortTim"/>
+		public static void SortTim<T, TCompare, TGet, TSet>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
+		{
+			const int block = 32;
+			int n = end - start + 1;
+			for (int i = start; i < n; i += block)
+			{
+				SortInsertion<T, TCompare, TGet, TSet>(i, Math.Min(i + block, start + n - 1), get, set, compare);
+			}
+			for (int size = block; size < n; size = 2 * size)
+			{
+				for (int left = start; left < n; left += 2 * size)
+				{
+					int mid = left + size - 1;
+					int right = Math.Min(left + 2 * size, n) - 1;
+					if (mid < right)
+					{
+						// Merge
+						Span<T> a = new T[mid - left + 1];
+						Span<T> b = new T[right - mid];
+						for (int i = 0; i < a.Length; i++)
+						{
+							a[i] = get.Invoke(left + i);
+						}
+						for (int i = 0; i < b.Length; i++)
+						{
+							b[i] = get.Invoke(mid + 1 + i);
+						}
+						int ai = 0;    // index of a
+						int bi = 0;    // index of b
+						int si = left; // index of span
+						while (ai < a.Length && bi < b.Length)
+						{
+							if (compare.Invoke(a[ai], b[bi]) is not Greater)
+							{
+								set.Invoke(si, a[ai]);
+								ai++;
+							}
+							else
+							{
+								set.Invoke(si, b[bi]);
+								bi++;
+							}
+							si++;
+						}
+						while (ai < a.Length)
+						{
+							set.Invoke(si, a[ai]);
+							si++;
+							ai++;
+						}
+						while (bi < b.Length)
+						{
+							set.Invoke(si, b[bi]);
+							si++;
+							bi++;
+						}
+					}
+				}
+			}
+		}
+
+		/// <inheritdoc cref="XML_SortTim"/>
+		public static void SortTim<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
+			SortTim<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
+
+		/// <inheritdoc cref="XML_SortTim"/>
+		public static void SortTim<T, TCompare>(Span<T> span, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
+		{
+			const int block = 32;
+			for (int i = 0; i < span.Length; i += block)
+			{
+				SortInsertion(span[i..Math.Min(i + block, span.Length)], compare);
+			}
+			for (int size = block; size < span.Length; size = 2 * size)
+			{
+				for (int left = 0; left < span.Length; left += 2 * size)
+				{
+					int mid = left + size - 1;
+					int right = Math.Min(left + 2 * size, span.Length);
+					if (mid < right)
+					{
+						// Merge
+						Span<T> a = span[left..(mid + 1)].ToArray();
+						Span<T> b = span[(mid + 1)..right].ToArray();
+						int ai = 0;    // index of a
+						int bi = 0;    // index of b
+						int si = left; // index of span
+						while (ai < a.Length && bi < b.Length)
+						{
+							if (compare.Invoke(a[ai], b[bi]) is not Greater)
+							{
+								span[si] = a[ai];
+								ai++;
+							}
+							else
+							{
+								span[si] = b[bi];
+								bi++;
+							}
+							si++;
+						}
+						while (ai < a.Length)
+						{
+							span[si] = a[ai];
+							si++;
+							ai++;
+						}
+						while (bi < b.Length)
+						{
+							span[si] = b[bi];
+							si++;
+							bi++;
+						}
+					}
+				}
 			}
 		}
 
