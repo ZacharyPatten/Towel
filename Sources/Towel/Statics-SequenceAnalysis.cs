@@ -114,6 +114,51 @@ namespace Towel
 
 		/// <summary>Finds the maximum value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TGet">The type of the get method.</typeparam>
+		/// <typeparam name="TSet">The type of the set method.</typeparam>
+		/// <typeparam name="TCompare">The type of method for comparing <typeparamref name="T"/> values.</typeparam>
+		/// <param name="start">The inclusive starting index to find the maximum of.</param>
+		/// <param name="end">The inclusive ending index to find the maximum of.</param>
+		/// <param name="get">The the get method.</param>
+		/// <param name="set">The the set method.</param>
+		/// <param name="compare">The method for comparing <typeparamref name="T"/> values.</param>
+		/// <returns>The index of the first occurence of the maximum value in the sequence.</returns>
+		public static int MaximumIndex<T, TGet, TSet, TCompare>(int start, int end, TGet get, TSet set, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult>
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
+		{
+			T max = get.Invoke(start);
+			int maxi = start;
+			if (start <= end)
+			{
+				for (int i = start + 1; i <= end; i++)
+				{
+					T ivalue = get.Invoke(i);
+					if (compare.Invoke(ivalue, max) is Greater)
+					{
+						maxi = i;
+						max = ivalue;
+					}
+				}
+			}
+			else
+			{
+				for (int i = start - 1; i >= end; i--)
+				{
+					T ivalue = get.Invoke(i);
+					if (compare.Invoke(ivalue, max) is Greater)
+					{
+						maxi = i;
+						max = ivalue;
+					}
+				}
+			}
+			return maxi;
+		}
+
+		/// <summary>Finds the maximum value in a sequence.</summary>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
 		/// <typeparam name="TCompare">The type of function for comparing <typeparamref name="T"/> values.</typeparam>
 		/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
 		/// <param name="values">The values to find the maximum value in.</param>
