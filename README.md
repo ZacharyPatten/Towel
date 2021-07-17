@@ -807,6 +807,7 @@ SortSlow<T>(...);
 SortCycle<T>(...);
 SortPancake<T>(...);
 SortStooge<T>(...);
+SortTim<T>(...);
 
 // Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
 SearchBinary<T>(...);
