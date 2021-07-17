@@ -39,10 +39,14 @@ jobs:
     - name: coverage.xml
       run: |
         grep -o -E -m 1 'line-rate=\"[.0-9]+\"' coverage.cobertura.xml | head -1 > line-rate.txt
+        cat line-rate.txt
         grep -o -E -m 1 '[.0-9]{6}' line-rate.txt | head -1 > line-rate2.txt
+        cat line-rate2.txt
         LINERATE=$(<line-rate2.txt)
         echo "$LINERATE * 100" | bc > line-percentage.txt
+        cat line-percentage.txt
         grep -o -E -m 1 '[0-9]+.[0-9]{0,2}' line-percentage.txt | head -1 > line-percentage2.txt
+        cat line-percentage2.txt
         LINEPERCENTAGE=$(<line-percentage2.txt)
         echo '<?xml version="1.0" encoding="utf-8"?>' > coverage.xml
         echo '<coverage line-rate-percentage="'$LINEPERCENTAGE'%" />' >> coverage.xml
