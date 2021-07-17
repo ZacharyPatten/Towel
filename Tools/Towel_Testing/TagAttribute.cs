@@ -5,7 +5,8 @@ using Towel;
 
 namespace Towel_Testing
 {
-	[TestClass]	public class ValueAttribute_Testing
+	[TestClass]
+	public class TagAttribute_Testing
 	{
 		internal const string TestAttribute1 = nameof(TestAttribute1);
 		internal const string TestValue1 = nameof(TestValue1);
@@ -13,10 +14,12 @@ namespace Towel_Testing
 		internal const string TestValue2 = nameof(TestValue2);
 		internal const string not_null = nameof(not_null);
 		internal const string TestAttributeFail = nameof(TestAttributeFail);
+		internal const string AmbiguousAttribute = nameof(AmbiguousAttribute);
 		internal const int IntValueOne = 7;
 		internal const int IntValueTwo = -7;
 
-		[TestMethod] public void Test()
+		[TestMethod]
+		public void Test()
 		{
 			BindingFlags bf =
 				BindingFlags.Public |
@@ -25,8 +28,8 @@ namespace Towel_Testing
 				BindingFlags.Instance;
 
 			Type type = typeof(A);
-			MethodInfo methodInfo = typeof(ValueAttribute_Testing).GetMethod(nameof(Method), bf)!;
-			EventInfo eventInfo = typeof(ValueAttribute_Testing).GetEvent(nameof(Event))!;
+			MethodInfo methodInfo = typeof(TagAttribute_Testing).GetMethod(nameof(Method), bf)!;
+			EventInfo eventInfo = typeof(TagAttribute_Testing).GetEvent(nameof(Event))!;
 			ConstructorInfo constructorInfo = type.GetConstructor(Array.Empty<Type>())!;
 			FieldInfo fieldInfo = typeof(A).GetField(nameof(A.Field), bf)!;
 			PropertyInfo propertyInfo = typeof(A).GetProperty(nameof(A.Property), bf)!;
@@ -36,117 +39,51 @@ namespace Towel_Testing
 
 			// TestAttribute1 -----------------------------------
 
-			var typeAttribute1 = type.GetTag(TestAttribute1);
-			Assert.IsTrue(typeAttribute1.Found);
-			Assert.AreEqual(typeAttribute1.Value, TestValue1);
-
-			var methodAttribute1 = methodInfo.GetTag(TestAttribute1);
-			Assert.IsTrue(methodAttribute1.Found);
-			Assert.AreEqual(methodAttribute1.Value, TestValue1);
-
-			var eventAttribute1 = eventInfo.GetTag(TestAttribute1);
-			Assert.IsTrue(eventAttribute1.Found);
-			Assert.AreEqual(eventAttribute1.Value, TestValue1);
-
-			var constructorAttribute1 = constructorInfo.GetTag(TestAttribute1);
-			Assert.IsTrue(constructorAttribute1.Found);
-			Assert.AreEqual(constructorAttribute1.Value, TestValue1);
-
-			var fieldAttribute1 = fieldInfo.GetTag(TestAttribute1);
-			Assert.IsTrue(fieldAttribute1.Found);
-			Assert.AreEqual(fieldAttribute1.Value, TestValue1);
-
-			var propertyAttribute1 = propertyInfo.GetTag(TestAttribute1);
-			Assert.IsTrue(propertyAttribute1.Found);
-			Assert.AreEqual(propertyAttribute1.Value, TestValue1);
-
-			var parmeterAttribute1 = parameterInfo.GetTag(TestAttribute1);
-			Assert.IsTrue(parmeterAttribute1.Found);
-			Assert.AreEqual(parmeterAttribute1.Value, TestValue1);
+			Assert.IsTrue(type.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(methodInfo.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(eventInfo.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(constructorInfo.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(fieldInfo.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(propertyInfo.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(parameterInfo.GetTag(TestAttribute1) is (true, TestValue1));
 
 			// TestAttribute2 -----------------------------------
 
-			var typeAttribute2 = type.GetTag(TestAttribute2);
-			Assert.IsTrue(typeAttribute2.Found);
-			Assert.AreEqual(typeAttribute2.Value, TestValue2);
-
-			var methodAttribute2 = methodInfo.GetTag(TestAttribute2);
-			Assert.IsTrue(methodAttribute2.Found);
-			Assert.AreEqual(methodAttribute2.Value, TestValue2);
-
-			var eventAttribute2 = eventInfo.GetTag(TestAttribute2);
-			Assert.IsTrue(eventAttribute2.Found);
-			Assert.AreEqual(eventAttribute2.Value, TestValue2);
-
-			var constructorAttribute2 = constructorInfo.GetTag(TestAttribute2);
-			Assert.IsTrue(constructorAttribute2.Found);
-			Assert.AreEqual(constructorAttribute2.Value, TestValue2);
-
-			var fieldAttribute2 = fieldInfo.GetTag(TestAttribute2);
-			Assert.IsTrue(fieldAttribute2.Found);
-			Assert.AreEqual(fieldAttribute2.Value, TestValue2);
-
-			var propertyAttribute2 = propertyInfo.GetTag(TestAttribute2);
-			Assert.IsTrue(propertyAttribute2.Found);
-			Assert.AreEqual(propertyAttribute2.Value, TestValue2);
-
-			var parmeterAttribute2 = parameterInfo.GetTag(TestAttribute2);
-			Assert.IsTrue(parmeterAttribute2.Found);
-			Assert.AreEqual(parmeterAttribute2.Value, TestValue2);
+			Assert.IsTrue(type.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(methodInfo.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(eventInfo.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(constructorInfo.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(fieldInfo.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(propertyInfo.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(parameterInfo.GetTag(TestAttribute2) is (true, TestValue2));
 
 			// Testing null -----------------------------------
 
-			var null_null = typeof(C).GetTag(null);
-			Assert.IsTrue(null_null.Found);
-			Assert.AreEqual(null_null.Value, null);
-
-			var not_null_null = typeof(D).GetTag(not_null);
-			Assert.IsTrue(not_null_null.Found);
-			Assert.AreEqual(not_null_null.Value, null);
-
-			var null_not_null = typeof(E).GetTag(null);
-			Assert.IsTrue(null_not_null.Found);
-			Assert.AreEqual(null_not_null.Value, not_null);
+			Assert.IsTrue(typeof(C).GetTag(null) is (true, null));
+			Assert.IsTrue(typeof(D).GetTag(not_null) is (true, null));
+			Assert.IsTrue(typeof(E).GetTag(null) is (true, not_null));
 
 			// Test int ----------------------------------
 
-			var intAttribute = typeof(F).GetTag(IntValueOne);
-			Assert.IsTrue(intAttribute.Found);
-			Assert.AreEqual(intAttribute.Value, IntValueTwo);
+			Assert.IsTrue(typeof(F).GetTag(IntValueOne) is (true, IntValueTwo));
 
-			// Failure -----------------------------------
+			// Failure Not Found -----------------------------------
 
-			var typeAttributeFail = type.GetTag(TestAttributeFail);
-			Assert.IsFalse(typeAttributeFail.Found);
-			Assert.AreEqual(typeAttributeFail.Value, null);
+			Assert.IsTrue(type.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(methodInfo.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(eventInfo.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(constructorInfo.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(fieldInfo.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(propertyInfo.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(parameterInfo.GetTag(TestAttributeFail) is (false, null));
 
-			var methodAttributeFail = methodInfo.GetTag(TestAttributeFail);
-			Assert.IsFalse(methodAttributeFail.Found);
-			Assert.AreEqual(methodAttributeFail.Value, null);
+			// Failure Ambiguous -----------------------------------
 
-			var eventAttributeFail = eventInfo.GetTag(TestAttributeFail);
-			Assert.IsFalse(eventAttributeFail.Found);
-			Assert.AreEqual(eventAttributeFail.Value, null);
+			MethodInfo b_methodInfo = typeof(B).GetMethod(nameof(B.Method), bf)!;
+			ParameterInfo b_parameterInfo = b_methodInfo.GetParameters()[0];
 
-			var constructorAttributeFail = constructorInfo.GetTag(TestAttributeFail);
-			Assert.IsFalse(constructorAttributeFail.Found);
-			Assert.AreEqual(constructorAttributeFail.Value, null);
-
-			var fieldAttributeFail = fieldInfo.GetTag(TestAttributeFail);
-			Assert.IsFalse(fieldAttributeFail.Found);
-			Assert.AreEqual(fieldAttributeFail.Value, null);
-
-			var propertyAttributeFail = propertyInfo.GetTag(TestAttributeFail);
-			Assert.IsFalse(propertyAttributeFail.Found);
-			Assert.AreEqual(propertyAttributeFail.Value, null);
-
-			var parmeterAttributeFail = parameterInfo.GetTag(TestAttributeFail);
-			Assert.IsFalse(parmeterAttributeFail.Found);
-			Assert.AreEqual(parmeterAttributeFail.Value, null);
-
-			var ambiguousMatchFail = typeof(B).GetTag(TestAttribute1);
-			Assert.IsFalse(ambiguousMatchFail.Found);
-			Assert.AreEqual(ambiguousMatchFail.Value, null);
+			Assert.IsTrue(typeof(B).GetTag(TestAttribute1) is (false, null));
+			Assert.IsTrue(b_parameterInfo.GetTag(TestAttribute1) is (false, null));
 
 #pragma warning restore IDE0042 // Deconstruct variable declaration
 		}
@@ -181,9 +118,15 @@ namespace Towel_Testing
 		[Tag(TestAttribute2, TestValue2)]
 		public static event Action? Event;
 
-		[Tag(TestAttribute1, TestValue1)]
-		[Tag(TestAttribute1, TestValue1)]
-		public class B { }
+		[Tag(AmbiguousAttribute, 1)]
+		[Tag(AmbiguousAttribute, 1)]
+		public class B
+		{
+			public static void Method(
+				[Tag(AmbiguousAttribute, 1)]
+				[Tag(AmbiguousAttribute, 1)]
+				object a) => throw new Exception();
+		}
 
 		[Tag(null, null)]
 		public class C { }
