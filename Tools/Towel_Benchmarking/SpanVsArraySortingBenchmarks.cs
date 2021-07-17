@@ -1,5 +1,5 @@
-﻿using BenchmarkDotNet.Attributes;
-using System;
+﻿using System;
+using BenchmarkDotNet.Attributes;
 using Towel;
 using static Towel.Statics;
 
@@ -9,7 +9,8 @@ namespace Towel_Benchmarking
 	[Tag(Program.OutputFile, nameof(SpanVsArraySortingBenchmarks))]
 	public class SpanVsArraySortingBenchmarks
 	{
-		[Params(10, 1000, 10000)] public int N;
+		[Params(10, 1000, 10000)]
+		public int N;
 
 		public int[]? Values;
 
@@ -44,8 +45,8 @@ namespace Towel_Benchmarking
 			SortBubbleArray(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="XML_SortBubble"/>
-		public static void SortBubbleArray<T, Compare>(T[] array, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
+		public static void SortBubbleArray<T, TCompare>(T[] array, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
 			SortBubbleArray(array, 0, array.Length - 1, compare);
 
 		/// <inheritdoc cref="XML_SortBubble"/>
@@ -53,9 +54,9 @@ namespace Towel_Benchmarking
 			SortBubble<T, GetIndexArray<T>, SetIndexArray<T>, SFunc<T, T, CompareResult>>(start, end, array, array, compare ?? Compare);
 
 		/// <inheritdoc cref="XML_SortBubble"/>
-		public static void SortBubbleArray<T, Compare>(T[] array, int start, int end, Compare compare = default)
-			where Compare : struct, IFunc<T, T, CompareResult> =>
-			SortBubble<T, GetIndexArray<T>, SetIndexArray<T>, Compare>(start, end, array, array, compare);
+		public static void SortBubbleArray<T, TCompare>(T[] array, int start, int end, TCompare compare = default)
+			where TCompare : struct, IFunc<T, T, CompareResult> =>
+			SortBubble<T, GetIndexArray<T>, SetIndexArray<T>, TCompare>(start, end, array, array, compare);
 	}
 
 	public struct GetIndexArray<T> : IFunc<int, T>

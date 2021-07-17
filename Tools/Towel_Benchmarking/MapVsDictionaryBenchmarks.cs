@@ -1,5 +1,5 @@
-﻿using BenchmarkDotNet.Attributes;
-using System;
+﻿using System;
+using BenchmarkDotNet.Attributes;
 using Towel;
 using Towel.DataStructures;
 
@@ -12,7 +12,8 @@ namespace Towel_Benchmarking
 		[Params(10, 100, 1000, 10000)]
 		public int N;
 
-		[Benchmark] public void MapDelegates()
+		[Benchmark]
+		public void MapDelegates()
 		{
 			IMap<int, int> map = MapHashLinked.New<int, int>();
 			for (int i = 0; i < N; i++)
@@ -21,7 +22,8 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		[Benchmark] public void MapStructs()
+		[Benchmark]
+		public void MapStructs()
 		{
 			MapHashLinked<int, int, IntEquate, IntHash> map = new();
 			for (int i = 0; i < N; i++)
@@ -30,17 +32,18 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		struct IntHash : IFunc<int, int>
+		internal struct IntHash : IFunc<int, int>
 		{
 			public int Invoke(int a) => a;
 		}
 
-		struct IntEquate : IFunc<int, int, bool>
+		internal struct IntEquate : IFunc<int, int, bool>
 		{
 			public bool Invoke(int a, int b) => a == b;
 		}
 
-		[Benchmark] public void Dictionary()
+		[Benchmark]
+		public void Dictionary()
 		{
 			System.Collections.Generic.Dictionary<int, int> dictionary = new();
 			for (int i = 0; i < N; i++)
@@ -57,10 +60,10 @@ namespace Towel_Benchmarking
 		[Params(10, 100, 1000, 10000)]
 		public int N;
 
-		IMap<int, int>? mapHashLinked;
-		IMap<int, int>? mapHashLinkedStructs;
-		System.Collections.Generic.Dictionary<int, int>? dictionary;
-		int temp;
+		internal IMap<int, int>? mapHashLinked;
+		internal IMap<int, int>? mapHashLinkedStructs;
+		internal System.Collections.Generic.Dictionary<int, int>? dictionary;
+		internal int temp;
 
 		[IterationSetup]
 		public void IterationSetup()
@@ -96,12 +99,12 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		struct IntHash : IFunc<int, int>
+		internal struct IntHash : IFunc<int, int>
 		{
 			public int Invoke(int a) => a;
 		}
 
-		struct IntEquate : IFunc<int, int, bool>
+		internal struct IntEquate : IFunc<int, int, bool>
 		{
 			public bool Invoke(int a, int b) => a == b;
 		}

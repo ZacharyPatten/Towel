@@ -1,8 +1,7 @@
-﻿using BenchmarkDotNet.Attributes;
-using System;
-using Towel;
-using static Towel.Statics;
+﻿using System;
 using System.Linq;
+using BenchmarkDotNet.Attributes;
+using Towel;
 
 namespace Towel_Benchmarking
 {
@@ -13,11 +12,12 @@ namespace Towel_Benchmarking
 		[Params(10, 100, 1000, 10000, 100000)]
 		public int N;
 
-		Random? random;
-		int[]? array;
-		double totalWeight;
+		internal Random? random;
+		internal int[]? array;
+		internal double totalWeight;
 
-		[IterationSetup] public void IterationSetup()
+		[IterationSetup]
+		public void IterationSetup()
 		{
 			random = new Random(7);
 			array = new int[N];
@@ -29,28 +29,30 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		//[Benchmark] public void Next_Stepper_TotalWeight() =>
-		//	random.Next<int>(step =>
-		//	{
-		//		foreach (int i in array)
-		//			if (step((i, i)) is Break)
-		//				return Break;
-		//		return Continue;
-		//	}, totalWeight);
+		// [Benchmark] public void Next_Stepper_TotalWeight() =>
+		// random.Next<int>(step =>
+		// {
+		// 	foreach (int i in array)
+		// 		if (step((i, i)) is Break)
+		// 			return Break;
+		// 	return Continue;
+		// }, totalWeight);
 
-		//[Benchmark] public void Next_Stepper() =>
-		//	random.Next<int>(step =>
-		//	{
-		//		foreach (int i in array)
-		//			if (step((i, i)) is Break)
-		//				return Break;
-		//		return Continue;
-		//	});
+		// [Benchmark] public void Next_Stepper() =>
+		// random.Next<int>(step =>
+		// {
+		// 	foreach (int i in array)
+		// 		if (step((i, i)) is Break)
+		// 			return Break;
+		// 	return Continue;
+		// });
 
-		[Benchmark] public void Next_IEnumerable_TotalWeight() =>
+		[Benchmark]
+		public void Next_IEnumerable_TotalWeight() =>
 			random!.Next(array!.Select(i => (i, (double)i)), totalWeight);
 
-		[Benchmark] public void Next_IEnumerable() =>
+		[Benchmark]
+		public void Next_IEnumerable() =>
 			random!.Next(array!.Select(i => (i, (double)i)));
 	}
 }

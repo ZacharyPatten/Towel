@@ -1,6 +1,6 @@
-﻿using BenchmarkDotNet.Attributes;
-using System;
+﻿using System;
 using System.Linq;
+using BenchmarkDotNet.Attributes;
 using Towel;
 using static Towel.Statics;
 
@@ -19,10 +19,10 @@ namespace Towel_Benchmarking
 		[Params("1: sqrt(sqrt(range))", "2: .5*sqrt(range)", "3: sqrt(range)", "4: 2*sqrt(range)")]
 		public string? Exclued;
 
-		Random? Random;
-		int[]? Excludes;
-		int CountInt;
-		int[]? temp;
+		internal Random? Random;
+		internal int[]? Excludes;
+		internal int CountInt;
+		internal int[]? temp;
 
 		[IterationSetup]
 		public void IterationSetup()
@@ -30,19 +30,19 @@ namespace Towel_Benchmarking
 			Random = new Random(7);
 			int excludeCount = Exclued switch
 			{
-				"1: sqrt(sqrt(range))" => (int)(Math.Sqrt(Math.Sqrt(MaxValue - MinValue))),
+				"1: sqrt(sqrt(range))" => (int)Math.Sqrt(Math.Sqrt(MaxValue - MinValue)),
 				"2: .5*sqrt(range)" =>    (int)(.5 * Math.Sqrt(MaxValue - MinValue)),
-				"3: sqrt(range)" =>       (int)(Math.Sqrt(MaxValue - MinValue)),
+				"3: sqrt(range)" =>       (int)Math.Sqrt(MaxValue - MinValue),
 				"4: 2*sqrt(range)" =>     (int)(2 * Math.Sqrt(MaxValue - MinValue)),
 				_ => throw new NotImplementedException(),
 			};
 			Excludes = Random.NextUnique(excludeCount, MinValue, MaxValue);
 			CountInt = Count switch
 			{
-				"1: sqrt(sqrt(range))" => (int)(Math.Sqrt(Math.Sqrt(MaxValue - MinValue))),
-				"2: .5*sqrt(range)" => (int)(.5 * Math.Sqrt(MaxValue - MinValue)),
-				"3: sqrt(range)" => (int)(Math.Sqrt(MaxValue - MinValue)),
-				"4: 2*sqrt(range)" => (int)(2 * Math.Sqrt(MaxValue - MinValue)),
+				"1: sqrt(sqrt(range))" => (int)Math.Sqrt(Math.Sqrt(MaxValue - MinValue)),
+				"2: .5*sqrt(range)" =>    (int)(.5 * Math.Sqrt(MaxValue - MinValue)),
+				"3: sqrt(range)" =>       (int)Math.Sqrt(MaxValue - MinValue),
+				"4: 2*sqrt(range)" =>     (int)(2 * Math.Sqrt(MaxValue - MinValue)),
 				_ => throw new NotImplementedException(),
 			};
 		}

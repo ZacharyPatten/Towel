@@ -1,5 +1,4 @@
 ﻿using BenchmarkDotNet.Attributes;
-using System;
 using Towel;
 using Towel.DataStructures;
 using static Towel.Statics;
@@ -17,7 +16,8 @@ namespace Towel_Benchmarking
 
 		// ListArray
 
-		[Benchmark] public void ListArray_Add()
+		[Benchmark]
+		public void ListArray_Add()
 		{
 			IList<Person> list = new ListArray<Person>();
 			foreach (Person person in RandomTestData!)
@@ -26,7 +26,8 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		[Benchmark] public void ListArray_AddWithCapacity()
+		[Benchmark]
+		public void ListArray_AddWithCapacity()
 		{
 			IList<Person> list = new ListArray<Person>(RandomTestData!.Length);
 			foreach (Person person in RandomTestData)
@@ -37,7 +38,8 @@ namespace Towel_Benchmarking
 
 		// ListLinked
 
-		[Benchmark] public void Add()
+		[Benchmark]
+		public void Add()
 		{
 			IList<Person> list = new ListLinked<Person>();
 			foreach (Person person in RandomTestData!)
@@ -48,7 +50,8 @@ namespace Towel_Benchmarking
 
 		// QueueArray
 
-		[Benchmark] public void QueueArray_Enqueue()
+		[Benchmark]
+		public void QueueArray_Enqueue()
 		{
 			IQueue<Person> queue = new QueueArray<Person>();
 			foreach (Person person in RandomTestData!)
@@ -57,7 +60,8 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		[Benchmark] public void QueueArray_EnqueueWithCapacity()
+		[Benchmark]
+		public void QueueArray_EnqueueWithCapacity()
 		{
 			IQueue<Person> queue = new QueueArray<Person>(RandomTestData!.Length);
 			foreach (Person person in RandomTestData)
@@ -68,7 +72,8 @@ namespace Towel_Benchmarking
 
 		// QueueLinked
 
-		[Benchmark] public void QueueLinked_Enqueue()
+		[Benchmark]
+		public void QueueLinked_Enqueue()
 		{
 			IQueue<Person> queue = new QueueLinked<Person>();
 			foreach (Person person in RandomTestData!)
@@ -79,7 +84,8 @@ namespace Towel_Benchmarking
 
 		// StackArray
 
-		[Benchmark] public void StackArray_Push()
+		[Benchmark]
+		public void StackArray_Push()
 		{
 			IStack<Person> stack = new StackArray<Person>();
 			foreach (Person person in RandomTestData!)
@@ -88,7 +94,8 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		[Benchmark] public void StackArray_PushWithCapacity()
+		[Benchmark]
+		public void StackArray_PushWithCapacity()
 		{
 			IStack<Person> stack = new StackArray<Person>(RandomTestData!.Length);
 			foreach (Person person in RandomTestData)
@@ -99,7 +106,8 @@ namespace Towel_Benchmarking
 
 		// StackLinked
 
-		[Benchmark] public void StackLinked_Push()
+		[Benchmark]
+		public void StackLinked_Push()
 		{
 			IStack<Person> stack = new StackLinked<Person>();
 			foreach (Person person in RandomTestData!)
@@ -110,7 +118,8 @@ namespace Towel_Benchmarking
 
 		// AvlTreeLinked
 
-		[Benchmark] public void AvlTreeLinked_AddRunTime()
+		[Benchmark]
+		public void AvlTreeLinked_AddRunTime()
 		{
 			IAvlTree<Person> tree = AvlTreeLinked.New<Person>(
 				(a, b) => Compare(a.FirstName, b.FirstName));
@@ -120,7 +129,8 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		[Benchmark] public void AvlTreeLinked_AddCompileTime()
+		[Benchmark]
+		public void AvlTreeLinked_AddCompileTime()
 		{
 			IAvlTree<Person> tree = new AvlTreeLinked<Person, ComparePersonFirstName>();
 			foreach (Person person in RandomTestData!)
@@ -131,7 +141,8 @@ namespace Towel_Benchmarking
 
 		// RedBlackTreeLinked
 
-		[Benchmark] public void RedBlackTree_AddRunTime()
+		[Benchmark]
+		public void RedBlackTree_AddRunTime()
 		{
 			IRedBlackTree<Person> tree = RedBlackTreeLinked.New<Person>((a, b) => Compare(a.FirstName, b.FirstName));
 			foreach (Person person in RandomTestData!)
@@ -140,7 +151,8 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		[Benchmark] public void RedBlackTree_AddCompileTime()
+		[Benchmark]
+		public void RedBlackTree_AddCompileTime()
 		{
 			IRedBlackTree<Person> tree = new RedBlackTreeLinked<Person, ComparePersonFirstName>();
 			foreach (Person person in RandomTestData!)
@@ -151,7 +163,8 @@ namespace Towel_Benchmarking
 
 		// SetHashLinked
 
-		[Benchmark] public void SetHashLinked_AddRunTime()
+		[Benchmark]
+		public void SetHashLinked_AddRunTime()
 		{
 			ISet<Person> set = SetHashLinked.New<Person>(
 				(a, b) => a.Id == b.Id,
@@ -162,7 +175,8 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		[Benchmark] public void SetHashLinked_AddCompileTime()
+		[Benchmark]
+		public void SetHashLinked_AddCompileTime()
 		{
 			ISet<Person> set = new SetHashLinked<Person, EquatePerson, HashPerson>();
 			foreach (Person person in RandomTestData!)

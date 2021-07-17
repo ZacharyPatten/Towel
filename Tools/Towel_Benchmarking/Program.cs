@@ -1,10 +1,10 @@
-﻿using Towel;
-using BenchmarkDotNet.Running;
-using static Towel.CommandLine;
-using static Towel.Statics;
+﻿using System;
 using System.IO;
 using System.Text;
-using System;
+using BenchmarkDotNet.Running;
+using Towel;
+using static Towel.CommandLine;
+using static Towel.Statics;
 
 namespace Towel_Benchmarking
 {
@@ -25,7 +25,7 @@ namespace Towel_Benchmarking
 			}
 		}
 
-		static readonly Type[] Benchmarks =
+		internal static readonly Type[] Benchmarks =
 		{
 			typeof(SortBenchmarks),
 			typeof(DataStructuresBenchmarks),
@@ -44,7 +44,8 @@ namespace Towel_Benchmarking
 		/// <param name="refreshToc">Whether or not to refresh "toc.yml".</param>
 		/// <param name="tocPath">The path to the docfx documentation file.</param>
 		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True</example>
-		[Command] public static void run(
+		[Command]
+		public static void run(
 			bool updateDocumentation = false,
 			bool refreshToc = false,
 			string? tocPath = null)
@@ -73,7 +74,7 @@ namespace Towel_Benchmarking
 					@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>",
 					"",
 					"The source code for all becnhmarks are in [Tools/ Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking).",
- 					"",
+					"",
 				};
 				File.WriteAllLines(benchmarks_mdPath, lines);
 			}
