@@ -1,12 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Towel.Statics;
-using Towel;
 using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
 	[TestClass]
-	class Link_Testing
+	public class Link_Testing
 	{
 		[TestMethod]
 		public void Constructor()

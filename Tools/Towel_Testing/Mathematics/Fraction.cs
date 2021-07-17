@@ -3,11 +3,13 @@ using Towel.Mathematics;
 
 namespace Towel_Testing.Mathematics
 {
-	[TestClass] public class Fraction_Testing
+	[TestClass]
+	public class Fraction_Testing
 	{
 		#region Addition
 
-		[TestMethod] public void Addition()
+		[TestMethod]
+		public void Addition()
 		{
 			{ // int
 				{

@@ -1,8 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Linq;
+﻿using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
-using static Towel.Statics;
 using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures

@@ -1,19 +1,20 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Towel.Statics;
-using Towel;
 using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass] public class Array_Testing
+	[TestClass]
+	public class Array_Testing
 	{
-		[TestMethod] public void Constructor()
+		[TestMethod]
+		public void Constructor()
 		{
 			Array<int> x = new(7);
 			Assert.IsTrue(x.Length is 7);
 		}
 
-		[TestMethod] public void IndexerGetSet()
+		[TestMethod]
+		public void IndexerGetSet()
 		{
 			Array<int> x = new(5);
 			for (int i = 0; i < 5; i++)

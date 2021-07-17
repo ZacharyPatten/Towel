@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using static Towel.Statics;
 
@@ -10,7 +10,8 @@ namespace Towel_Testing
 	{
 		#region SearchBinary_Testing
 
-		[TestMethod] public void SearchBinary_Test()
+		[TestMethod]
+		public void SearchBinary_Test()
 		{
 			{ // [even] collection size [found]
 				int[] values = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };

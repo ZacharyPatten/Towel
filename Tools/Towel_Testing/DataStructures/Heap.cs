@@ -1,14 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
 using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass] public class HeapArray_Testing
+	[TestClass]
+	public class HeapArray_Testing
 	{
-		[TestMethod] public void Dequeue_Testing()
+		[TestMethod]
+		public void Dequeue_Testing()
 		{
 			void Test<T>(T[] values, Func<T, T, CompareResult> compare)
 			{

@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
 using static Towel.Statics;
@@ -8,46 +8,46 @@ namespace Towel_Testing.DataStructures
 {
 	public static class IQueueTester
 	{
-		private static void Enqueue_Dequeue_Testing<T, Queue>(T[] values)
-			where Queue : IQueue<T>, new()
+		private static void Enqueue_Dequeue_Testing<T, TQueue>(T[] values)
+			where TQueue : IQueue<T>, new()
 		{
 			{ // enqueue && dequeue
 				Shuffle<T>(values);
-				IQueue<T> queue = new Queue();
+				IQueue<T> queue = new TQueue();
 				values.Stepper(x => queue.Enqueue(x));
 				Assert.IsTrue(queue.Count == values.Length);
 				values.Stepper(x => Assert.IsTrue(x!.Equals(queue.Dequeue())));
 			}
 			{ // exceptions
-				IQueue<T> queue = new Queue();
+				IQueue<T> queue = new TQueue();
 				Assert.ThrowsException<InvalidOperationException>(() => queue.Dequeue());
 			}
 		}
 
-		public static void Enqueue_Dequeue_Int32_Testing<Queue>()
-			where Queue : IQueue<int>, new()
+		public static void Enqueue_Dequeue_Int32_Testing<TQueue>()
+			where TQueue : IQueue<int>, new()
 		{
 			const int count = 100000;
 			int[] values = new int[count];
 			Extensions.Iterate(count, i => values[i] = i);
-			Enqueue_Dequeue_Testing<int, Queue>(values);
+			Enqueue_Dequeue_Testing<int, TQueue>(values);
 		}
 
-		public static void Enqueue_Dequeue_String_Testing<Queue>()
-			where Queue : IQueue<string>, new()
+		public static void Enqueue_Dequeue_String_Testing<TQueue>()
+			where TQueue : IQueue<string>, new()
 		{
 			const int count = 100000;
 			string[] values = new string[count];
 			Extensions.Iterate(count, i => values[i] = i.ToString());
-			Enqueue_Dequeue_Testing<string, Queue>(values);
+			Enqueue_Dequeue_Testing<string, TQueue>(values);
 		}
 
-		public static void Stepper_Testing<Queue>()
-			where Queue : IQueue<int>, new()
+		public static void Stepper_Testing<TQueue>()
+			where TQueue : IQueue<int>, new()
 		{
 			{ // enqueue only
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IQueue<int> queue = new Queue();
+				IQueue<int> queue = new TQueue();
 				values.Stepper(i => queue.Enqueue(i));
 				Assert.IsTrue(queue.Count == values.Length);
 				ISet<int> set = SetHashLinked.New<int>();
@@ -62,7 +62,7 @@ namespace Towel_Testing.DataStructures
 			{ // enqueue + dequeue
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				int[] expectedValues = { 2, 3, 4, 5, };
-				IQueue<int> queue = new Queue();
+				IQueue<int> queue = new TQueue();
 				values.Stepper(i => queue.Enqueue(i));
 				queue.Dequeue();
 				queue.Dequeue();
@@ -78,7 +78,7 @@ namespace Towel_Testing.DataStructures
 			}
 			{ // enqueue + dequeue
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IQueue<int> queue = new Queue();
+				IQueue<int> queue = new TQueue();
 				values.Stepper(i => queue.Enqueue(i));
 				values.Stepper(i =>
 				{
@@ -97,12 +97,12 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		public static void IEnumerable_Testing<Queue>()
-			where Queue : IQueue<int>, new()
+		public static void IEnumerable_Testing<TQueue>()
+			where TQueue : IQueue<int>, new()
 		{
 			{ // enqueue only
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IQueue<int> queue = new Queue();
+				IQueue<int> queue = new TQueue();
 				values.Stepper(i => queue.Enqueue(i));
 #pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(queue) == values.Length);
@@ -119,7 +119,7 @@ namespace Towel_Testing.DataStructures
 			{ // enqueue + dequeue
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				int[] expectedValues = { 2, 3, 4, 5, };
-				IQueue<int> queue = new Queue();
+				IQueue<int> queue = new TQueue();
 				values.Stepper(i => queue.Enqueue(i));
 				queue.Dequeue();
 				queue.Dequeue();
@@ -132,12 +132,12 @@ namespace Towel_Testing.DataStructures
 				{
 					Assert.IsTrue(set.Contains(i));
 					set.Remove(i);
-				};
+				}
 				Assert.IsTrue(set.Count == 0);
 			}
 			{ // enqueue + dequeue
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IQueue<int> queue = new Queue();
+				IQueue<int> queue = new TQueue();
 				values.Stepper(i => queue.Enqueue(i));
 				values.Stepper(i =>
 				{
@@ -153,31 +153,36 @@ namespace Towel_Testing.DataStructures
 				{
 					Assert.IsTrue(set.Contains(i));
 					set.Remove(i);
-				};
+				}
 				Assert.IsTrue(set.Count == 0);
 			}
 		}
 	}
 
-	[TestClass] public class QueueArray_Testing
+	[TestClass]
+	public class QueueArray_Testing
 	{
-		[TestMethod] public void Enqueue_Dequeue_Testing()
+		[TestMethod]
+		public void Enqueue_Dequeue_Testing()
 		{
 			IQueueTester.Enqueue_Dequeue_Int32_Testing<QueueArray<int>>();
 			IQueueTester.Enqueue_Dequeue_String_Testing<QueueArray<string>>();
 		}
 
-		[TestMethod] public void Stepper_Testing()
+		[TestMethod]
+		public void Stepper_Testing()
 		{
 			IQueueTester.Stepper_Testing<QueueArray<int>>();
 		}
 
-		[TestMethod] public void IEnumerable_Testing()
+		[TestMethod]
+		public void IEnumerable_Testing()
 		{
 			IQueueTester.IEnumerable_Testing<QueueArray<int>>();
 		}
 
-		[TestMethod] public void Indexer_Testing()
+		[TestMethod]
+		public void Indexer_Testing()
 		{
 			int max = 100;
 			QueueArray<int> queue = new();
@@ -200,7 +205,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void Newest_Testing()
+		[TestMethod]
+		public void Newest_Testing()
 		{
 			int max = 100;
 			QueueArray<int> queue = new();
@@ -217,7 +223,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void Oldest_Testing()
+		[TestMethod]
+		public void Oldest_Testing()
 		{
 			int max = 100;
 			QueueArray<int> queue = new();
@@ -235,20 +242,24 @@ namespace Towel_Testing.DataStructures
 		}
 	}
 
-	[TestClass] public class QueueLinked_Testing
+	[TestClass]
+	public class QueueLinked_Testing
 	{
-		[TestMethod] public void Enqueue_Dequeue_Testing()
+		[TestMethod]
+		public void Enqueue_Dequeue_Testing()
 		{
 			IQueueTester.Enqueue_Dequeue_Int32_Testing<QueueLinked<int>>();
 			IQueueTester.Enqueue_Dequeue_String_Testing<QueueLinked<string>>();
 		}
 
-		[TestMethod] public void Stepper_Testing()
+		[TestMethod]
+		public void Stepper_Testing()
 		{
 			IQueueTester.Stepper_Testing<QueueLinked<int>>();
 		}
 
-		[TestMethod] public void IEnumerable_Testing()
+		[TestMethod]
+		public void IEnumerable_Testing()
 		{
 			IQueueTester.IEnumerable_Testing<QueueLinked<int>>();
 		}

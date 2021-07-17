@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Towel.Statics;
+﻿using System;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
-using System;
-using System.Linq;
+using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {
@@ -268,7 +268,7 @@ namespace Towel_Testing.DataStructures
 			var graph = GraphWeightedMap.New<byte, int>();
 			for (byte i = 1; i <= 5; i++) graph.Add(i);
 			var array = graph.ToArray();
-			CollectionAssert.AreEquivalent(new byte[]{1,2,3,4,5}, array);
+			CollectionAssert.AreEquivalent(new byte[] { 1, 2, 3, 4, 5 }, array);
 		}
 
 		[TestMethod]
@@ -284,7 +284,7 @@ namespace Towel_Testing.DataStructures
 			graph.Add((byte)2, (byte)3, 1);
 			graph.Add((byte)3, (byte)4, 1);
 			var array = graph.EdgesToArray();
-			CollectionAssert.AreEquivalent(new (byte, byte)[]{(1,5),(2,5),(3,5),(4,5),(1,2),(2,3),(3,4)}, array);
+			CollectionAssert.AreEquivalent(new (byte, byte)[] { (1, 5), (2, 5), (3, 5), (4, 5), (1, 2), (2, 3), (3, 4) }, array);
 		}
 
 		[TestMethod]
@@ -300,7 +300,7 @@ namespace Towel_Testing.DataStructures
 			graph.Add((byte)2, (byte)3, 1);
 			graph.Add((byte)3, (byte)4, 1);
 			var array = graph.EdgesAndWeightsToArray();
-			CollectionAssert.AreEquivalent(new (byte,byte,int)[]{(1,5,1),(2,5,1),(3,5,1),(4,5,1),(1,2,1),(2,3,1),(3,4,1)}, array);
+			CollectionAssert.AreEquivalent(new (byte, byte, int)[] { (1, 5, 1), (2, 5, 1), (3, 5, 1), (4, 5, 1), (1, 2, 1), (2, 3, 1), (3, 4, 1) }, array);
 		}
 
 		[TestMethod]
@@ -322,17 +322,17 @@ namespace Towel_Testing.DataStructures
 		public void BFSFindingTest()
 		{
 			IGraphWeighted<char, int> graph = GraphWeightedMap.New<char, int>();
-			for (char ch = 'A'; ch <= 'I'; ch++) graph.Add(ch);//Add Nodes from A to I
+			for (char ch = 'A'; ch <= 'I'; ch++) graph.Add(ch);
 			graph.Add('A', 'D', 05);
-			graph.Add('A', 'B', 10);  //    [A]--10--[B]--15--[C]
-			graph.Add('B', 'C', 15);  //     |        |        |
-			graph.Add('B', 'E', 20);  //     5        20       20
-			graph.Add('C', 'F', 20);  //     |        |        |
-			graph.Add('D', 'E', 35);  //    [D]--35--[E]--10--[F]
-			graph.Add('D', 'G', 55);  //     |        |        |
-			graph.Add('E', 'H', 50);  //     55       30       60
-			graph.Add('E', 'F', 10);  //     |        |        |
-			graph.Add('F', 'I', 60);  //    [G]--40--[H]--40--[I]
+			graph.Add('A', 'B', 10);  // [A]--10--[B]--15--[C]
+			graph.Add('B', 'C', 15);  //  |        |        |
+			graph.Add('B', 'E', 20);  //  5        20       20
+			graph.Add('C', 'F', 20);  //  |        |        |
+			graph.Add('D', 'E', 35);  // [D]--35--[E]--10--[F]
+			graph.Add('D', 'G', 55);  //  |        |        |
+			graph.Add('E', 'H', 50);  //  55       30       60
+			graph.Add('E', 'F', 10);  //  |        |        |
+			graph.Add('F', 'I', 60);  // [G]--40--[H]--40--[I]
 			graph.Add('G', 'H', 40);
 			graph.Add('H', 'I', 40);
 			CollectionAssert.AreEqual(new char[] { 'A', 'B', 'C' }, graph.PerformBredthFirstSearch('A', 'C').ToArray());
@@ -342,20 +342,20 @@ namespace Towel_Testing.DataStructures
 		public void DijkstraFindingTest()
 		{
 			IGraphWeighted<char, int> graph = GraphWeightedMap.New<char, int>();
-			for (char ch = 'A'; ch <= 'I'; ch++) graph.Add(ch);//Add Nodes from A to I
+			for (char ch = 'A'; ch <= 'I'; ch++) graph.Add(ch);
 			graph.Add('A', 'D', 05);
-			graph.Add('A', 'B', 10);  //    [A]--10--[B]--15--[C]
-			graph.Add('B', 'C', 15);  //     |        |        |
-			graph.Add('B', 'E', 20);  //     5        20       20
-			graph.Add('C', 'F', 20);  //     |        |        |
-			graph.Add('D', 'E', 35);  //    [D]--35--[E]--10--[F]
-			graph.Add('D', 'G', 55);  //     |        |        |
-			graph.Add('E', 'H', 30);  //     55       30       65
-			graph.Add('E', 'F', 10);  //     |        |        |
-			graph.Add('F', 'I', 65);  //    [G]--40--[H]--40--[I]
+			graph.Add('A', 'B', 10);  // [A]--10--[B]--15--[C]
+			graph.Add('B', 'C', 15);  //  |        |        |
+			graph.Add('B', 'E', 20);  //  5        20       20
+			graph.Add('C', 'F', 20);  //  |        |        |
+			graph.Add('D', 'E', 35);  // [D]--35--[E]--10--[F]
+			graph.Add('D', 'G', 55);  //  |        |        |
+			graph.Add('E', 'H', 30);  //  55       30       65
+			graph.Add('E', 'F', 10);  //  |        |        |
+			graph.Add('F', 'I', 65);  // [G]--40--[H]--40--[I]
 			graph.Add('G', 'H', 40);
 			graph.Add('H', 'I', 40);
-			CollectionAssert.AreEqual(new char[] { 'A', 'B', 'E', 'H', 'I' }, graph.DijkstraSearch('A', 'I', out int totalcost).ToArray());//Test Path
+			CollectionAssert.AreEqual(new char[] { 'A', 'B', 'E', 'H', 'I' }, graph.DijkstraSearch('A', 'I', out int totalcost).ToArray());
 			Assert.IsTrue(totalcost is 100);
 		}
 
@@ -368,18 +368,19 @@ namespace Towel_Testing.DataStructures
 				for (int j = 1; j <= 3; j++) graph.Add((i, j));
 			}
 			graph.Add((1, 1), (2, 1), 10);
-			graph.Add((1, 1), (1, 2), 05);  //    [1, 1]--10--[2, 1]--15--[3, 1]
-			graph.Add((2, 1), (3, 1), 15);  //       |           |           |
-			graph.Add((2, 1), (2, 2), 20);  //       5           20          20
-			graph.Add((3, 1), (3, 2), 20);  //       |           |           |
-			graph.Add((1, 2), (2, 2), 35);  //    [1, 2]--35--[2, 2]--10--[3, 2]
-			graph.Add((1, 2), (1, 3), 55);  //       |           |           |
-			graph.Add((2, 2), (3, 2), 10);  //      55           30          65
-			graph.Add((2, 2), (2, 3), 30);  //       |           |           |
-			graph.Add((3, 2), (3, 3), 65);  //    [1, 3]--40--[2, 3]--40--[3, 3]
+			graph.Add((1, 1), (1, 2), 05);  // [1, 1]--10--[2, 1]--15--[3, 1]
+			graph.Add((2, 1), (3, 1), 15);  //    |           |           |
+			graph.Add((2, 1), (2, 2), 20);  //    5           20          20
+			graph.Add((3, 1), (3, 2), 20);  //    |           |           |
+			graph.Add((1, 2), (2, 2), 35);  // [1, 2]--35--[2, 2]--10--[3, 2]
+			graph.Add((1, 2), (1, 3), 55);  //    |           |           |
+			graph.Add((2, 2), (3, 2), 10);  //   55           30          65
+			graph.Add((2, 2), (2, 3), 30);  //    |           |           |
+			graph.Add((3, 2), (3, 3), 65);  // [1, 3]--40--[2, 3]--40--[3, 3]
 			graph.Add((1, 3), (2, 3), 40);
 			graph.Add((2, 3), (3, 3), 40);
-			float ManhattanDistanceFromCorner((int, int) node) => (3 - node.Item1) + (3 - node.Item2);//Fixed heuristic from any node (i, j) to node (3, 3).
+			// Fixed heuristic from any node (i, j) to node (3, 3).
+			static float ManhattanDistanceFromCorner((int, int) node) => (3 - node.Item1) + (3 - node.Item2);
 			CollectionAssert.AreEqual(new (int, int)[] { (1, 1), (2, 1), (2, 2), (2, 3), (3, 3) }, graph.AStarSearch((1, 1), (3, 3), ManhattanDistanceFromCorner, out float totalcost).ToArray());
 		}
 

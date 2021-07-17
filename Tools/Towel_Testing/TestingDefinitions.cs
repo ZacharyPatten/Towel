@@ -63,7 +63,7 @@ namespace Towel_Testing
 			Constant<Ref<T>>.Ten = Constant<T>.Ten;
 			Constant<Ref<T>>.NegativeOne = Constant<T>.NegativeOne;
 			Constant<Ref<T>>.Pi = Constant<T>.Pi;
-			Constant<Ref<T>>.Pi2 = Constant<T>.Pi2; 
+			Constant<Ref<T>>.Pi2 = Constant<T>.Pi2;
 			Constant<Ref<T>>.PiOver2 = Constant<T>.PiOver2;
 			Constant<Ref<T>>.Pi3Over2 = Constant<T>.Pi3Over2;
 			Constant<Ref<T>>.FourOverPiSquared = Constant<T>.FourOverPiSquared;

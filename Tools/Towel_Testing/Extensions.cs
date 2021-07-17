@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using static Towel.Statics;
-using System.Linq;
 
 namespace Towel_Testing
 {
@@ -42,8 +42,8 @@ namespace Towel_Testing
 			Assert.IsTrue(Equate<int>((14..11).ToIEnumerable().ToArray(), new[] { 14, 13, 12 }));
 
 			//// unfortuntately System.Range syntax does not support negative values
-			//Assert.IsTrue(Equate<int>((0..-3).ToIEnumerable().ToArray(), new[] {  0, -1, -2 }));
-			//Assert.IsTrue(Equate<int>((-3..0).ToIEnumerable().ToArray(), new[] { -3, -2, -1 }));
+			// Assert.IsTrue(Equate<int>((0..-3).ToIEnumerable().ToArray(), new[] {  0, -1, -2 }));
+			// Assert.IsTrue(Equate<int>((-3..0).ToIEnumerable().ToArray(), new[] { -3, -2, -1 }));
 
 			Assert.ThrowsException<ArgumentException>(() => (^0..4).ToIEnumerable().ToArray());
 			Assert.ThrowsException<ArgumentException>(() => (0..^4).ToIEnumerable().ToArray());

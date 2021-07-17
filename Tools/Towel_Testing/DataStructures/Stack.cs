@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
 using static Towel.Statics;
@@ -8,47 +8,47 @@ namespace Towel_Testing.DataStructures
 {
 	public static class IStackTester
 	{
-		private static void Push_Pop_Testing<T, Stack>(T[] values)
-			where Stack : IStack<T>, new()
+		private static void Push_Pop_Testing<T, TStack>(T[] values)
+			where TStack : IStack<T>, new()
 		{
 			{ // push && pop
 				Shuffle<T>(values);
-				IStack<T> stack = new Stack();
+				IStack<T> stack = new TStack();
 				values.Stepper(x => stack.Push(x));
 				Assert.IsTrue(stack.Count == values.Length);
 				Array.Reverse(values);
 				values.Stepper(x => Assert.IsTrue(x!.Equals(stack.Pop())));
 			}
 			{ // exceptions
-				IStack<T> stack = new Stack();
+				IStack<T> stack = new TStack();
 				Assert.ThrowsException<InvalidOperationException>(() => stack.Pop());
 			}
 		}
 
-		public static void Push_Pop_Int32_Testing<Stack>()
-			where Stack : IStack<int>, new()
+		public static void Push_Pop_Int32_Testing<TStack>()
+			where TStack : IStack<int>, new()
 		{
 			const int count = 10000;
 			int[] values = new int[count];
 			Extensions.Iterate(count, i => values[i] = i);
-			Push_Pop_Testing<int, Stack>(values);
+			Push_Pop_Testing<int, TStack>(values);
 		}
 
-		public static void Push_Pop_String_Testing<Stack>()
-			where Stack : IStack<string>, new()
+		public static void Push_Pop_String_Testing<TStack>()
+			where TStack : IStack<string>, new()
 		{
 			const int count = 10000;
 			string[] values = new string[count];
 			Extensions.Iterate(count, i => values[i] = i.ToString());
-			Push_Pop_Testing<string, Stack>(values);
+			Push_Pop_Testing<string, TStack>(values);
 		}
 
-		public static void Stepper_Testing<Stack>()
-			where Stack : IStack<int>, new()
+		public static void Stepper_Testing<TStack>()
+			where TStack : IStack<int>, new()
 		{
 			{ // push only
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IStack<int> stack = new Stack();
+				IStack<int> stack = new TStack();
 				values.Stepper(i => stack.Push(i));
 				Assert.IsTrue(stack.Count == values.Length);
 				ISet<int> set = SetHashLinked.New<int>();
@@ -63,7 +63,7 @@ namespace Towel_Testing.DataStructures
 			{ // push + pop
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				int[] expectedValues = { 0, 1, 2, 3, };
-				IStack<int> stack = new Stack();
+				IStack<int> stack = new TStack();
 				values.Stepper(i => stack.Push(i));
 				stack.Pop();
 				stack.Pop();
@@ -79,7 +79,7 @@ namespace Towel_Testing.DataStructures
 			}
 			{ // push + pop
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IStack<int> stack = new Stack();
+				IStack<int> stack = new TStack();
 				values.Stepper(i => stack.Push(i));
 				values.Stepper(i =>
 				{
@@ -98,12 +98,12 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		public static void IEnumerable_Testing<Stack>()
-			where Stack : IStack<int>, new()
+		public static void IEnumerable_Testing<TStack>()
+			where TStack : IStack<int>, new()
 		{
 			{ // push only
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IStack<int> stack = new Stack();
+				IStack<int> stack = new TStack();
 				values.Stepper(i => stack.Push(i));
 #pragma warning disable CA1829 // Use Length/Count property instead of Count() when available
 				Assert.IsTrue(System.Linq.Enumerable.Count(stack) == values.Length);
@@ -120,7 +120,7 @@ namespace Towel_Testing.DataStructures
 			{ // push + pop
 				int[] values = { 0, 1, 2, 3, 4, 5, };
 				int[] expectedValues = { 0, 1, 2, 3, };
-				IStack<int> stack = new Stack();
+				IStack<int> stack = new TStack();
 				values.Stepper(i => stack.Push(i));
 				stack.Pop();
 				stack.Pop();
@@ -133,12 +133,12 @@ namespace Towel_Testing.DataStructures
 				{
 					Assert.IsTrue(set.Contains(i));
 					set.Remove(i);
-				};
+				}
 				Assert.IsTrue(set.Count == 0);
 			}
 			{ // push + pop
 				int[] values = { 0, 1, 2, 3, 4, 5, };
-				IStack<int> stack = new Stack();
+				IStack<int> stack = new TStack();
 				values.Stepper(i => stack.Push(i));
 				values.Stepper(i =>
 				{
@@ -154,45 +154,53 @@ namespace Towel_Testing.DataStructures
 				{
 					Assert.IsTrue(set.Contains(i));
 					set.Remove(i);
-				};
+				}
 				Assert.IsTrue(set.Count == 0);
 			}
 		}
 	}
 
-	[TestClass] public class StackArray_Testing
+	[TestClass]
+	public class StackArray_Testing
 	{
-		[TestMethod] public void Push_Pop_Testing()
+		[TestMethod]
+		public void Push_Pop_Testing()
 		{
 			IStackTester.Push_Pop_Int32_Testing<StackArray<int>>();
 			IStackTester.Push_Pop_String_Testing<StackArray<string>>();
 		}
 
-		[TestMethod] public void Stepper_Testing()
+		[TestMethod]
+		public void Stepper_Testing()
 		{
 			IStackTester.Stepper_Testing<StackArray<int>>();
 		}
 
-		[TestMethod] public void IEnumerable_Testing()
+		[TestMethod]
+		public void IEnumerable_Testing()
 		{
 			IStackTester.IEnumerable_Testing<StackArray<int>>();
 		}
 	}
 
-	[TestClass] public class StackLinked_Testing
+	[TestClass]
+	public class StackLinked_Testing
 	{
-		[TestMethod] public void Push_Pop_Testing()
+		[TestMethod]
+		public void Push_Pop_Testing()
 		{
 			IStackTester.Push_Pop_Int32_Testing<StackLinked<int>>();
 			IStackTester.Push_Pop_String_Testing<StackLinked<string>>();
 		}
 
-		[TestMethod] public void Stepper_Testing()
+		[TestMethod]
+		public void Stepper_Testing()
 		{
 			IStackTester.Stepper_Testing<StackLinked<int>>();
 		}
 
-		[TestMethod] public void IEnumerable_Testing()
+		[TestMethod]
+		public void IEnumerable_Testing()
 		{
 			IStackTester.IEnumerable_Testing<StackLinked<int>>();
 		}

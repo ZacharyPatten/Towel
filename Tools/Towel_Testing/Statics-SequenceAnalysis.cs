@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using static Towel.Statics;
-using System.Linq;
 
 namespace Towel_Testing
 {
@@ -11,7 +11,8 @@ namespace Towel_Testing
 	{
 		#region IsPalindrome
 
-		[TestMethod] public void IsPalindrome_Span_Testing()
+		[TestMethod]
+		public void IsPalindrome_Span_Testing()
 		{
 			// char----------------
 
@@ -54,7 +55,8 @@ namespace Towel_Testing
 			Assert.IsFalse(IsPalindrome<int>(new[] { 1, 1, 1, 2 }));
 		}
 
-		[TestMethod] public void IsPalindrome_NonSpan_Testing()
+		[TestMethod]
+		public void IsPalindrome_NonSpan_Testing()
 		{
 			// char-----------------
 
@@ -147,7 +149,8 @@ namespace Towel_Testing
 
 		#region IsInterleaved
 
-		[TestMethod] public void IsInterleavedRecursive_Testing()
+		[TestMethod]
+		public void IsInterleavedRecursive_Testing()
 		{
 			Assert.IsTrue(IsInterleavedRecursive("a", "z", "az"));
 			Assert.IsTrue(IsInterleavedRecursive("ab", "yz", "aybz"));
@@ -173,7 +176,8 @@ namespace Towel_Testing
 			Assert.IsFalse(IsInterleavedRecursive("a", "a", "aaa"));
 		}
 
-		[TestMethod] public void IsInterleavedIterative_Testing()
+		[TestMethod]
+		public void IsInterleavedIterative_Testing()
 		{
 			Assert.IsTrue(IsInterleavedIterative("a", "z", "az"));
 			Assert.IsTrue(IsInterleavedIterative("ab", "yz", "aybz"));
@@ -203,7 +207,8 @@ namespace Towel_Testing
 
 		#region IsReorderOf
 
-		[TestMethod] public void IsReorderOf_Testing()
+		[TestMethod]
+		public void IsReorderOf_Testing()
 		{
 			Assert.IsTrue(IsReorderOf<char>("a", "a"));
 			Assert.IsTrue(IsReorderOf<char>("ab", "ba"));
@@ -257,7 +262,8 @@ namespace Towel_Testing
 
 		#region SetEquals
 
-		[TestMethod] public void SetEquals_Testing()
+		[TestMethod]
+		public void SetEquals_Testing()
 		{
 			Assert.IsTrue(SetEquals<char>("a", "a"));
 			Assert.IsTrue(SetEquals<char>("ab", "ba"));
@@ -322,7 +328,8 @@ namespace Towel_Testing
 
 		#region ContainsDuplicates
 
-		[TestMethod] public void ContainsDuplicates_Testing()
+		[TestMethod]
+		public void ContainsDuplicates_Testing()
 		{
 			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { }));
 			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { 0 }));
@@ -344,7 +351,8 @@ namespace Towel_Testing
 
 		#region Contains
 
-		[TestMethod] public void Contains_Testing()
+		[TestMethod]
+		public void Contains_Testing()
 		{
 			{
 				Span<int> span = stackalloc int[] { };
@@ -382,7 +390,8 @@ namespace Towel_Testing
 
 		#region Any
 
-		[TestMethod] public void Any_Testing()
+		[TestMethod]
+		public void Any_Testing()
 		{
 			Assert.IsFalse(Any(stackalloc int[] { }, i => true));
 			Assert.IsFalse(Any(stackalloc int[] { }, i => false));
@@ -398,14 +407,15 @@ namespace Towel_Testing
 			Assert.IsTrue(Any(stackalloc int[] { 0, 1 }, i => i is 1));
 			Assert.IsFalse(Any(stackalloc int[] { 0, 1 }, i => i is 2));
 
-			Assert.ThrowsException<ArgumentNullException>(() => Any(stackalloc int[] { }, default(Func<int, bool>)!));
+			Assert.ThrowsException<ArgumentNullException>(() => Any(stackalloc int[] { }, default!));
 		}
 
 		#endregion
 
 		#region CombineRanges
 
-		[TestMethod] public void CombineRanges_Testing()
+		[TestMethod]
+		public void CombineRanges_Testing()
 		{
 			{
 				Assert.IsTrue(SetEquals<(int, int)>(Array.Empty<(int, int)>(), Array.Empty<(int, int)>()));

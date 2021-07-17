@@ -1,14 +1,16 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
 using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass] public class MapHashLinked_Testing
+	[TestClass]
+	public class MapHashLinked_Testing
 	{
-		[TestMethod] public void Add_Testing()
+		[TestMethod]
+		public void Add_Testing()
 		{
 			{ // string, int
 				const int count = 100000;
@@ -59,7 +61,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void Set_Testing()
+		[TestMethod]
+		public void Set_Testing()
 		{
 			{ // string, int
 				const int count = 100000;
@@ -102,7 +105,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void Remove_Testing()
+		[TestMethod]
+		public void Remove_Testing()
 		{
 			{ // string, int
 				const int count = 100000;

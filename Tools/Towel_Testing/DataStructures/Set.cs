@@ -1,13 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass] public class SetHashLinked_Testing
+	[TestClass]
+	public class SetHashLinked_Testing
 	{
-		[TestMethod] public void Add_Testing()
+		[TestMethod]
+		public void Add_Testing()
 		{
 			{ // int
 				const int count = 100000;
@@ -46,7 +48,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void Remove_Testing()
+		[TestMethod]
+		public void Remove_Testing()
 		{
 			{ // int
 				const int count = 100000;

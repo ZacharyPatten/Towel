@@ -1,8 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using static Towel.Statics;
-using System.Linq;
 
 namespace Towel_Testing
 {
@@ -152,14 +152,14 @@ namespace Towel_Testing
 			{
 				int[] array = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 				algorithm(3, 7, i => array[i], (i, v) => array[i] = v, Compare);
-				int[] expected = { 9, 8, 7, /**/ 2, 3, 4, 5, 6, /**/ 1, 0 };
+				int[] expected = { 9, 8, 7, /*<*/ 2, 3, 4, 5, 6, /*>*/ 1, 0 };
 				Assert.IsTrue(Equate<int>(array, expected));
 			}
 			if (maxSize is null || maxSize.Value >= 5)
 			{
 				int[] array = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 				algorithm(4, 8, i => array[i], (i, v) => array[i] = v, Compare);
-				int[] expected = { 10, 9, 8, 7, /**/ 2, 3, 4, 5, 6, /**/ 1, 0 };
+				int[] expected = { 10, 9, 8, 7, /*<*/ 2, 3, 4, 5, 6, /*>*/ 1, 0 };
 				Assert.IsTrue(Equate<int>(array, expected));
 			}
 			if (maxSize is null || maxSize.Value >= 980)

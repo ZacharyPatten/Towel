@@ -1,15 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
-using static Towel.Statics;
 using Towel.DataStructures;
+using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {
-	[TestClass] public class AvleTreeLinked_Testing
+	[TestClass]
+	public class AvleTreeLinked_Testing
 	{
-		[TestMethod] public void TryAdd_Testing()
+		[TestMethod]
+		public void TryAdd_Testing()
 		{
 			// adding duplicate values should return false
 			{
@@ -36,7 +38,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void Add_Testing()
+		[TestMethod]
+		public void Add_Testing()
 		{
 			// adding duplicate values should throw exceptions
 			{
@@ -63,7 +66,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void TryRemove_Testing()
+		[TestMethod]
+		public void TryRemove_Testing()
 		{
 			// removing a non-existing value should return false
 			{
@@ -98,7 +102,8 @@ namespace Towel_Testing.DataStructures
 			}
 		}
 
-		[TestMethod] public void Remove_Testing()
+		[TestMethod]
+		public void Remove_Testing()
 		{
 			// removing a non-existing value should throw exceptions
 			{

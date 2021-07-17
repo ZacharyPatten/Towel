@@ -1,10 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 
 namespace Towel_Testing
 {
-	[TestClass] public class Serialization_Testing
+	[TestClass]
+	public class Serialization_Testing
 	{
 		internal class ExpectedException : Exception { }
 
@@ -16,7 +17,8 @@ namespace Towel_Testing
 		public void NonStaticMethod() => throw new ExpectedException();
 #pragma warning restore CA1822 // Mark members as static
 
-		[TestMethod] public void StaticDelegateToXml_Testing()
+		[TestMethod]
+		public void StaticDelegateToXml_Testing()
 		{
 			{ // Should Succeed
 				Func<int, string?, object?, decimal> functionToSerialize = StaticFunction;
@@ -45,7 +47,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void StaticDelegateFromXml_Testing()
+		[TestMethod]
+		public void StaticDelegateFromXml_Testing()
 		{
 			{ // Should Succeed
 				Func<int, string?, object?, decimal> functionToSerialize = StaticFunction;
@@ -65,7 +68,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void StaticDelegateToJson_Testing()
+		[TestMethod]
+		public void StaticDelegateToJson_Testing()
 		{
 			{ // Should Succeed
 				Func<int, string?, object?, decimal> functionToSerialize = StaticFunction;
@@ -94,7 +98,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void StaticDelegateFromJson_Testing()
+		[TestMethod]
+		public void StaticDelegateFromJson_Testing()
 		{
 			{ // Should Succeed
 				Func<int, string?, object?, decimal> functionToSerialize = StaticFunction;

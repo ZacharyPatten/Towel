@@ -1,15 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.Mathematics;
 
 namespace Towel_Testing.Mathematics
 {
-	[TestClass] public class Matrix_Testing
+	[TestClass]
+	public class Matrix_Testing
 	{
 		#region FactoryIdentity
 
-		[TestMethod] public void FactoryIdentity()
+		[TestMethod]
+		public void FactoryIdentity()
 		{
 			{ // 1 x 1
 				Matrix<int> a = Matrix<int>.FactoryIdentity(1, 1);
@@ -63,7 +65,8 @@ namespace Towel_Testing.Mathematics
 
 		#region FactoryZero
 
-		[TestMethod] public void FactoryZero()
+		[TestMethod]
+		public void FactoryZero()
 		{
 			{ // 1 x 1
 				Matrix<int> a = Matrix<int>.FactoryZero(1, 1);
@@ -118,7 +121,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Negate
 
-		[TestMethod] public void Negate()
+		[TestMethod]
+		public void Negate()
 		{
 			// int
 			{
@@ -193,7 +197,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Add
 
-		[TestMethod] public void Add()
+		[TestMethod]
+		public void Add()
 		{
 			// int
 			{
@@ -275,7 +280,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Subtract
 
-		[TestMethod] public void Subtract()
+		[TestMethod]
+		public void Subtract()
 		{
 			// int
 			{
@@ -381,7 +387,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Multiply_Matrix
 
-		[TestMethod] public void Multiply_Matrix()
+		[TestMethod]
+		public void Multiply_Matrix()
 		{
 			// int
 			{
@@ -479,7 +486,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Multiply_Vector
 
-		[TestMethod] public void Multiply_Vector()
+		[TestMethod]
+		public void Multiply_Vector()
 		{
 			// int
 			{
@@ -545,7 +553,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Multiply_Scalar
 
-		[TestMethod] public void Multiply_Scalar()
+		[TestMethod]
+		public void Multiply_Scalar()
 		{
 			// int
 			{
@@ -620,7 +629,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Divide
 
-		[TestMethod] public void Divide()
+		[TestMethod]
+		public void Divide()
 		{
 			// int
 			{
@@ -695,7 +705,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Power
 
-		[TestMethod] public void Power()
+		[TestMethod]
+		public void Power()
 		{
 			// int
 			{
@@ -768,9 +779,10 @@ namespace Towel_Testing.Mathematics
 
 		#region Determinant
 
-		[TestMethod] public void DeterminantLaplace()
+		[TestMethod]
+		public void DeterminantLaplace()
 		{
-			// int 
+			// int
 			{
 				Matrix<int> a = new int[,]
 				{
@@ -849,9 +861,10 @@ namespace Towel_Testing.Mathematics
 			}
 		}
 
-		[TestMethod] public void DeterminantGaussian()
+		[TestMethod]
+		public void DeterminantGaussian()
 		{
-			// int 
+			// int
 			{
 				Matrix<int> a = new int[,]
 				{
@@ -934,7 +947,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Trace
 
-		[TestMethod] public void Trace()
+		[TestMethod]
+		public void Trace()
 		{
 			// int
 			{
@@ -991,7 +1005,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Minor
 
-		[TestMethod] public void Minor()
+		[TestMethod]
+		public void Minor()
 		{
 			#region 2x2 Success
 			{
@@ -1167,7 +1182,8 @@ namespace Towel_Testing.Mathematics
 
 		#region ConcatenateRowWise
 
-		[TestMethod] public void ConcatenateRowWise()
+		[TestMethod]
+		public void ConcatenateRowWise()
 		{
 			{ // [2 x 2] + [2 x 2] = [2 x 4]
 				Matrix<int> A = new int[,]
@@ -1234,7 +1250,8 @@ namespace Towel_Testing.Mathematics
 
 #if false
 
-		[TestMethod] public void Echelon()
+		[TestMethod]
+		public void Echelon()
 		{
 			// float
 			{ 
@@ -1332,7 +1349,8 @@ namespace Towel_Testing.Mathematics
 
 		#region ReducedEchelon
 
-		[TestMethod] public void ReducedEchelon()
+		[TestMethod]
+		public void ReducedEchelon()
 		{
 			// int
 			{
@@ -1406,7 +1424,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Inverse
 
-		[TestMethod] public void Inverse()
+		[TestMethod]
+		public void Inverse()
 		{
 			{ // float
 				Matrix<float> A = new float[,]
@@ -1444,7 +1463,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Ajoint
 
-		[TestMethod] public void Ajoint()
+		[TestMethod]
+		public void Ajoint()
 		{
 			{   // int
 				Matrix<int> A = new int[,]
@@ -1512,7 +1532,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Transpose
 
-		[TestMethod] public void Transpose()
+		[TestMethod]
+		public void Transpose()
 		{
 			{
 				Matrix<int> A = new int[,]
@@ -1558,7 +1579,8 @@ namespace Towel_Testing.Mathematics
 
 		#region DecomposeLowerUpper
 
-		[TestMethod] public void DecomposeLowerUpper()
+		[TestMethod]
+		public void DecomposeLowerUpper()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
@@ -1567,7 +1589,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Rotate
 
-		[TestMethod] public void Rotate()
+		[TestMethod]
+		public void Rotate()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
@@ -1576,7 +1599,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Equal
 
-		[TestMethod] public void Equal()
+		[TestMethod]
+		public void Equal()
 		{
 			// int
 			{
@@ -1651,7 +1675,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Equal_Leniency
 
-		[TestMethod] public void Equal_Leniency()
+		[TestMethod]
+		public void Equal_Leniency()
 		{
 			// int
 			{
@@ -1786,17 +1811,26 @@ namespace Towel_Testing.Mathematics
 
 		#region Github Issue #53
 
-		[TestMethod] public void GithubIssue53()
+		[TestMethod]
+		public void GithubIssue53()
 		{
 			var a = new Matrix<Ref<float>>(3, 5);
 			for (int i = 0; i < a.Rows; i++)
+			{
 				for (int j = 0; j < a.Columns; j++)
+				{
 					a[i, j] = 3;
+				}
+			}
 
 			var b = new Matrix<Ref<float>>(5, 6);
 			for (int i = 0; i < b.Rows; i++)
+			{
 				for (int j = 0; j < b.Columns; j++)
+				{
 					b[i, j] = 5;
+				}
+			}
 
 			var c = a * b;
 

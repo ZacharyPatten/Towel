@@ -1,20 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 
 namespace Towel_Testing
 {
-	[TestClass] public class Meta_Testing
+	[TestClass]
+	public class Meta_Testing
 	{
 		#region Type Testing
 
-		[TestMethod] public void Type_ConvertToCsharpSource()
+		[TestMethod]
+		public void Type_ConvertToCsharpSource()
 		{
 			{ // showGenericParameters = false
 				var tests = new (Type Type, string String)[]
 				{
+#pragma warning disable SA1121 // Use built-in type alias
+
 					(typeof(System.Int32), "System.Int32"),
 					(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
 					(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"),
@@ -45,6 +49,8 @@ namespace Towel_Testing
 					(typeof(int), "System.Int32"),
 					(typeof(string), "System.String"),
 					(typeof(short), "System.Int16"),
+
+#pragma warning restore SA1121 // Use built-in type alias
 				};
 				foreach (var test in tests)
 				{
@@ -68,7 +74,7 @@ namespace Towel_Testing
 				{
 					(typeof(System.Collections.Generic.List<>), "System.Collections.Generic.List<T>"),
 					(typeof(Towel.Mathematics.Symbolics.Constant<>), "Towel.Mathematics.Symbolics.Constant<T>"),
-					(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<AA>.E<BB>"),
+					(typeof(Towel_Testing.A.D<>.E<>), "Towel_Testing.A.D<TA>.E<TB>"),
 					(typeof(Towel.DataStructures.IOmnitreePoints<,,,>), "Towel.DataStructures.IOmnitreePoints<T, Axis1, Axis2, Axis3>"),
 					(typeof(System.Span<>), "System.Span<T>"),
 				};
@@ -94,7 +100,8 @@ namespace Towel_Testing
 
 		#region XML Documentation Testing
 
-		[TestMethod] public void MethodInfo_GetDocumentation()
+		[TestMethod]
+		public void MethodInfo_GetDocumentation()
 		{
 			#region GitHub Issue 52
 
@@ -252,7 +259,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void Type_GetDocumentation()
+		[TestMethod]
+		public void Type_GetDocumentation()
 		{
 			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
 			{
@@ -274,7 +282,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void FieldInfo_GetDocumentation()
+		[TestMethod]
+		public void FieldInfo_GetDocumentation()
 		{
 			foreach (FieldInfo fieldInfo in Assembly.GetExecutingAssembly().GetFieldInfosWithAttribute<XmlDocumentationFromFieldAttribute>())
 			{
@@ -296,7 +305,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void ConstructorInfo_GetDocumentation()
+		[TestMethod]
+		public void ConstructorInfo_GetDocumentation()
 		{
 			foreach (ConstructorInfo constructorInfo in Assembly.GetExecutingAssembly().GetConstructorInfosWithAttribute<XmlDocumentationFromConstructorAttribute>())
 			{
@@ -318,7 +328,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void PropertyInfo_GetDocumentation()
+		[TestMethod]
+		public void PropertyInfo_GetDocumentation()
 		{
 			foreach (PropertyInfo propertyInfo in Assembly.GetExecutingAssembly().GetPropertyInfosWithAttribute<XmlDocumentationFromPropertyAttribute>())
 			{
@@ -340,7 +351,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void EventInfo_GetDocumentation()
+		[TestMethod]
+		public void EventInfo_GetDocumentation()
 		{
 			foreach (EventInfo eventInfo in Assembly.GetExecutingAssembly().GetEventInfosWithAttribute<XmlDocumentationFromEventAttribute>())
 			{
@@ -362,7 +374,8 @@ namespace Towel_Testing
 			}
 		}
 
-		[TestMethod] public void ParameterInfo_GetDocumentation()
+		[TestMethod]
+		public void ParameterInfo_GetDocumentation()
 		{
 			MethodInfo? methodInfo = typeof(XmlDocumentationFromParameter).GetMethod("Test1");
 			if (methodInfo is not null)
@@ -380,8 +393,11 @@ namespace Towel_Testing
 
 		#region MethodBase Testing
 
-		[TestMethod] public void MethodBase_IsLocalFunction()
+		[TestMethod]
+		public void MethodBase_IsLocalFunction()
 		{
+#pragma warning disable SA1501 // Statement should not be on a single line
+
 			void a() { }
 
 			Assert.IsTrue(new Action(a).Method.IsLocalFunction());
@@ -417,13 +433,16 @@ namespace Towel_Testing
 			Assert.IsTrue(h().IsLocalFunction());
 
 			Assert.IsFalse(new Action(MethodBase_IsLocalFunction).Method.IsLocalFunction());
+
+#pragma warning restore SA1501 // Statement should not be on a single line
 		}
 
 		#endregion
 
 		#region HasImplicitCast
 
-		[TestMethod] public void Meta_HasImplicitCast()
+		[TestMethod]
+		public void Meta_HasImplicitCast()
 		{
 			Assert.Inconclusive("This Test and the underlaying methods are still under consideration.");
 
@@ -467,9 +486,9 @@ namespace Towel_Testing
 			}
 		}
 
-		public class D<AA>
+		public class D<TA>
 		{
-			public class E<BB>
+			public class E<TB>
 			{
 
 			}
@@ -480,11 +499,13 @@ namespace Towel_Testing
 
 	#region XML Documentation Types
 
-
 #pragma warning disable CA1822 // Mark members as static
 #pragma warning disable CS0067 // The event is never used
 #pragma warning disable IDE0060 // Remove unused parameter
 #pragma warning disable CA2211 // Non-constant fields should not be visible
+#pragma warning disable SA1314 // Type parameter names should begin with T
+#pragma warning disable SA1618 // Generic type parameters should be documented
+#pragma warning disable SA1611 // Element parameters should be documented
 
 	#region XML Documentation From MethodInfo
 
@@ -619,6 +640,7 @@ namespace Towel_Testing
 			public void DocumentedMethod(A a) => throw new Exception();
 
 			/// <summary>Test X</summary>
+			/// <typeparam name="B">B</typeparam>
 			/// <param name="a">a</param>
 			/// <param name="b">b</param>
 			[XmlDocumentationFromMethod]
@@ -1234,6 +1256,9 @@ namespace Towel_Testing
 
 	#endregion
 
+#pragma warning restore SA1611 // Element parameters should be documented
+#pragma warning restore SA1618 // Generic type parameters should be documented
+#pragma warning restore SA1314 // Type parameter names should begin with T
 #pragma warning restore CA2211 // Non-constant fields should not be visible
 #pragma warning restore CA1822 // Mark members as static
 #pragma warning restore CS0067 // The event is never used

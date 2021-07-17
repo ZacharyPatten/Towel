@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
 
 namespace Towel_Testing
 {
-	// [TestClass] 
+	// [TestClass]
 	public partial class Extensions_Testing
 	{
 		[TestMethod]

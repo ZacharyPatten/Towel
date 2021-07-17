@@ -1,13 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
-using Towel.Measurements;
 using Towel.Mathematics;
+using Towel.Measurements;
 using static Towel.Statics;
 
 namespace Towel_Testing.Mathematics
 {
-	[TestClass] public class Vector_Testing
+	[TestClass]
+	public class Vector_Testing
 	{
 		#region Negate
 
@@ -36,7 +37,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Add
 
-		[TestMethod] public void Add()
+		[TestMethod]
+		public void Add()
 		{
 			{
 				Vector<int> a = new(1, 2, 3);
@@ -84,7 +86,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Subtract
 
-		[TestMethod] public void Subtract()
+		[TestMethod]
+		public void Subtract()
 		{
 			{
 				Vector<int> a = new(1, 2, 3);
@@ -132,7 +135,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Multiply
 
-		[TestMethod] public void Multiply()
+		[TestMethod]
+		public void Multiply()
 		{
 			{
 				Vector<int> a = new(1, 2, 3);
@@ -172,7 +176,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Divide
 
-		[TestMethod] public void Divide()
+		[TestMethod]
+		public void Divide()
 		{
 			{
 				Vector<int> a = new(2, 4, 6);
@@ -212,7 +217,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Magnitude
 
-		[TestMethod] public void Magnitude()
+		[TestMethod]
+		public void Magnitude()
 		{
 			{
 				Vector<float> a = new(2f, 2f, 2f, 2f);
@@ -232,7 +238,8 @@ namespace Towel_Testing.Mathematics
 
 		#region MagnitudeSquared
 
-		[TestMethod] public void MagnitudeSquared()
+		[TestMethod]
+		public void MagnitudeSquared()
 		{
 			{
 				Vector<float> a = new(2f, 2f, 2f, 2f);
@@ -252,7 +259,8 @@ namespace Towel_Testing.Mathematics
 
 		#region CrossProduct
 
-		[TestMethod] public void CrossProduct()
+		[TestMethod]
+		public void CrossProduct()
 		{
 			{ // int
 				Vector<int> A = new(1, 2, 3);
@@ -289,7 +297,8 @@ namespace Towel_Testing.Mathematics
 
 		#region DotProduct
 
-		[TestMethod] public void DotProduct()
+		[TestMethod]
+		public void DotProduct()
 		{
 			{ // int
 				Vector<int> A = new(1, 2, 3);
@@ -322,7 +331,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Normalize
 
-		[TestMethod] public void Normalize()
+		[TestMethod]
+		public void Normalize()
 		{
 			{
 				Vector<float> a = new(2f, 2f, 2f, 2f);
@@ -342,7 +352,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Angle_Testing
 
-		[TestMethod] public void Angle_Testing()
+		[TestMethod]
+		public void Angle_Testing()
 		{
 			// Note: need to update this once the Towel Trig functions are completed (it is using system trig functions)
 
@@ -379,7 +390,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Projection
 
-		[TestMethod] public void Projection()
+		[TestMethod]
+		public void Projection()
 		{
 			{ // float
 				Vector<float> A = new(1f, 0f, 3f);
@@ -410,7 +422,8 @@ namespace Towel_Testing.Mathematics
 
 		#region RotateBy
 
-		[TestMethod] public void RotateBy()
+		[TestMethod]
+		public void RotateBy()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
@@ -419,7 +432,8 @@ namespace Towel_Testing.Mathematics
 
 		#region LinearInterpolation
 
-		[TestMethod] public void LinearInterpolation()
+		[TestMethod]
+		public void LinearInterpolation()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
@@ -428,7 +442,8 @@ namespace Towel_Testing.Mathematics
 
 		#region SphereicalInterpolation
 
-		[TestMethod] public void SphereicalInterpolation()
+		[TestMethod]
+		public void SphereicalInterpolation()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
@@ -437,7 +452,8 @@ namespace Towel_Testing.Mathematics
 
 		#region BarycentricInterpolation
 
-		[TestMethod] public void BarycentricInterpolation()
+		[TestMethod]
+		public void BarycentricInterpolation()
 		{
 			Assert.Inconclusive("Test Not Implemented");
 		}
@@ -446,7 +462,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Equal
 
-		[TestMethod] public void Equal()
+		[TestMethod]
+		public void Equal()
 		{
 			{
 				Vector<int> a = new(1, 2, 3);
@@ -474,7 +491,8 @@ namespace Towel_Testing.Mathematics
 
 		#region Equal_leniency
 
-		[TestMethod] public void Equal_leniency()
+		[TestMethod]
+		public void Equal_leniency()
 		{
 			{
 				Vector<int> a = new(1, 2, 3);
