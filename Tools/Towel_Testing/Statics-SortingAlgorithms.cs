@@ -14,6 +14,7 @@ namespace Towel_Testing
 		[TestMethod]
 		public void Reverse_Testing()
 		{
+			// start < end
 			for (int size = 1; size < 11; size++)
 			{
 				int[] array = (1..(size + 1)).ToArray();
@@ -55,6 +56,52 @@ namespace Towel_Testing
 			{
 				int[] array = (1..5).ToArray();
 				Reverse(1, 3, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, new[] { 1, 4, 3, 2 }));
+			}
+
+			// start > end
+			for (int size = 1; size < 11; size++)
+			{
+				int[] array = (1..(size + 1)).ToArray();
+				Reverse(array.Length - 1, 0, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, (size..0).ToArray()));
+			}
+
+			// partial reverse size 3
+			{
+				int[] array = (1..4).ToArray();
+				Reverse(1, 0, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, new[] { 2, 1, 3 }));
+			}
+			{
+				int[] array = (1..4).ToArray();
+				Reverse(2, 1, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, new[] { 1, 3, 2 }));
+			}
+			// partial reverse size 4
+			{
+				int[] array = (1..5).ToArray();
+				Reverse(1, 0, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, new[] { 2, 1, 3, 4 }));
+			}
+			{
+				int[] array = (1..5).ToArray();
+				Reverse(2, 1, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, new[] { 1, 3, 2, 4 }));
+			}
+			{
+				int[] array = (1..5).ToArray();
+				Reverse(3, 2, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, new[] { 1, 2, 4, 3 }));
+			}
+			{
+				int[] array = (1..5).ToArray();
+				Reverse(2, 0, i => array[i], (i, v) => array[i] = v);
+				Assert.IsTrue(Equate<int>(array, new[] { 3, 2, 1, 4 }));
+			}
+			{
+				int[] array = (1..5).ToArray();
+				Reverse(3, 1, i => array[i], (i, v) => array[i] = v);
 				Assert.IsTrue(Equate<int>(array, new[] { 1, 4, 3, 2 }));
 			}
 		}
@@ -190,13 +237,13 @@ namespace Towel_Testing
 			if (sizeOverride is null || sizeOverride.Value > 10)
 			{
 				Span<int> span = new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-				SortTim<int, Int32Compare>(span);
+				algorithm(span);
 				Assert.IsTrue(IsOrdered<int>(span));
 			}
 			if (sizeOverride is null || sizeOverride.Value > 9)
 			{
 				Span<int> span = new[] { 8, 7, 6, 5, 4, 3, 2, 1, 0 };
-				SortTim<int, Int32Compare>(span);
+				algorithm(span);
 				Assert.IsTrue(IsOrdered<int>(span));
 			}
 			if (sizeOverride is null || sizeOverride.Value > 1000)
@@ -216,7 +263,7 @@ namespace Towel_Testing
 		public void InsertionSpan_Test() => TestSortAlgorithmSpan(x => SortInsertion<int, Int32Compare>(x));
 
 		[TestMethod]
-		public void SelectionSpan_Test() => TestSortAlgorithmSpan(x => SortInsertion<int, Int32Compare>(x));
+		public void SelectionSpan_Test() => TestSortAlgorithmSpan(x => SortSelection<int, Int32Compare>(x));
 
 		[TestMethod]
 		public void MergeSpan_Test() => TestSortAlgorithmSpan(x => SortMerge<int, Int32Compare>(x));

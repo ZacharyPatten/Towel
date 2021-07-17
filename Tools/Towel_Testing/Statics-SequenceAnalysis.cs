@@ -331,6 +331,13 @@ namespace Towel_Testing
 			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { 0, 1 }));
 			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { -1, 0 }));
 			Assert.IsFalse(ContainsDuplicates<int>(stackalloc int[] { -1, 0, 1 }));
+
+			Assert.IsTrue(ContainsDuplicates<int>(stackalloc int[] { 0, 0 }));
+			Assert.IsTrue(ContainsDuplicates<int>(stackalloc int[] { 0, 1, 0 }));
+			Assert.IsTrue(ContainsDuplicates<int>(stackalloc int[] { 1, 0, 1 }));
+			Assert.IsTrue(ContainsDuplicates<int>(stackalloc int[] { 0, 1, 1 }));
+			Assert.IsTrue(ContainsDuplicates<int>(stackalloc int[] { 1, 1, 0 }));
+			Assert.IsTrue(ContainsDuplicates<int>(stackalloc int[] { 1, 1, 1 }));
 		}
 
 		#endregion
@@ -390,6 +397,8 @@ namespace Towel_Testing
 			Assert.IsTrue(Any(stackalloc int[] { 0, 1 }, i => i is 0));
 			Assert.IsTrue(Any(stackalloc int[] { 0, 1 }, i => i is 1));
 			Assert.IsFalse(Any(stackalloc int[] { 0, 1 }, i => i is 2));
+
+			Assert.ThrowsException<ArgumentNullException>(() => Any(stackalloc int[] { }, default(Func<int, bool>)!));
 		}
 
 		#endregion
@@ -556,7 +565,7 @@ namespace Towel_Testing
 		#region GetGreatest
 
 		[TestMethod]
-		public void GetGreatest_Testing()
+		public void GetGreatest_IEnumerable_Testing()
 		{
 			Assert.ThrowsException<ArgumentException>(() => GetGreatest(Ɐ<int>(), 1));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), 0));
@@ -576,12 +585,33 @@ namespace Towel_Testing
 			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
 		}
 
+		[TestMethod]
+		public void GetGreatest_Span_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => GetGreatest<int, Int32Compare>(stackalloc int[] { }, 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, 0));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, -1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, 2));
+
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2 }, 1), Ɐ(2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 2, 1 }, 1), Ɐ(2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 3, 2 }, 1), Ɐ(3)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 1, 1 }, 2), Ɐ(1, 1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 2), Ɐ(3, 2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 2), Ɐ(3, 2)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 3), Ɐ(3, 2, 1)));
+		}
+
 		#endregion
 
 		#region GetLeast
 
 		[TestMethod]
-		public void GetLeast_Testing()
+		public void GetLeast_IEnumerable_Testing()
 		{
 			Assert.ThrowsException<ArgumentException>(() => GetLeast(Ɐ<int>(), 1));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), 0));
@@ -599,6 +629,27 @@ namespace Towel_Testing
 			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 2), Ɐ(1, 2)));
 			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
 			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
+		}
+
+		[TestMethod]
+		public void GetLeast_Span_Testing()
+		{
+			Assert.ThrowsException<ArgumentException>(() => GetLeast<int, Int32Compare>(stackalloc int[] {  }, 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, 0));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, -1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, 2));
+
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2 }, 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 2, 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 1, 2 }, 1), Ɐ(1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 1, 1 }, 2), Ɐ(1, 1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 2), Ɐ(1, 2)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 2), Ɐ(1, 2)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 3), Ɐ(3, 2, 1)));
 		}
 
 		#endregion
