@@ -81,6 +81,23 @@ namespace Towel
 			b = temp;
 		}
 
+		/// <summary>Swaps two values.</summary>
+		/// <typeparam name="T">The type of values to swap.</typeparam>
+		/// <typeparam name="TGet">The type of the get method.</typeparam>
+		/// <typeparam name="TSet">The type of the set method.</typeparam>
+		/// <param name="a">The index of the first value to swap.</param>
+		/// <param name="b">The index of the second value to swap.</param>
+		/// <param name="get">The the get method.</param>
+		/// <param name="set">The the set method.</param>
+		public static void Swap<T, TGet, TSet>(int a, int b, TGet get, TSet set)
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
+		{
+			T temp = get.Invoke(a);
+			set.Invoke(a, get.Invoke(b));
+			set.Invoke(b, temp);
+		}
+
 		#endregion
 
 		#region source...
