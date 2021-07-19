@@ -265,63 +265,63 @@ namespace Towel_Testing
 		[TestMethod]
 		public void SetEquals_Testing()
 		{
-			Assert.IsTrue(SetEquals<char>("a", "a"));
-			Assert.IsTrue(SetEquals<char>("ab", "ba"));
-			Assert.IsTrue(SetEquals<char>("abc", "cba"));
+			Assert.IsTrue(EquateSet<char>("a", "a"));
+			Assert.IsTrue(EquateSet<char>("ab", "ba"));
+			Assert.IsTrue(EquateSet<char>("abc", "cba"));
 
-			Assert.IsTrue(SetEquals<char>("aab", "baa"));
-			Assert.IsTrue(SetEquals<char>("aab", "aba"));
-			Assert.IsTrue(SetEquals<char>("aab", "aab"));
+			Assert.IsTrue(EquateSet<char>("aab", "baa"));
+			Assert.IsTrue(EquateSet<char>("aab", "aba"));
+			Assert.IsTrue(EquateSet<char>("aab", "aab"));
 
-			Assert.IsTrue(SetEquals<char>("aabb", "bbaa"));
-			Assert.IsTrue(SetEquals<char>("aabb", "abab"));
-			Assert.IsTrue(SetEquals<char>("aabb", "abba"));
-			Assert.IsTrue(SetEquals<char>("aabb", "aabb"));
+			Assert.IsTrue(EquateSet<char>("aabb", "bbaa"));
+			Assert.IsTrue(EquateSet<char>("aabb", "abab"));
+			Assert.IsTrue(EquateSet<char>("aabb", "abba"));
+			Assert.IsTrue(EquateSet<char>("aabb", "aabb"));
 
-			Assert.IsFalse(SetEquals<char>("a", "b"));
-			Assert.IsFalse(SetEquals<char>("aa", "bb"));
-			Assert.IsFalse(SetEquals<char>("ab", "aa"));
-			Assert.IsFalse(SetEquals<char>("ab", "bb"));
+			Assert.IsFalse(EquateSet<char>("a", "b"));
+			Assert.IsFalse(EquateSet<char>("aa", "bb"));
+			Assert.IsFalse(EquateSet<char>("ab", "aa"));
+			Assert.IsFalse(EquateSet<char>("ab", "bb"));
 
-			Assert.IsTrue(SetEquals<char>("aa", "a"));
-			Assert.IsTrue(SetEquals<char>("a", "aa"));
-			Assert.IsTrue(SetEquals<char>("ab", "aab"));
-			Assert.IsTrue(SetEquals<char>("aab", "ab"));
-			Assert.IsTrue(SetEquals<char>("aabbcc", "aaabbcc"));
-			Assert.IsTrue(SetEquals<char>("aabbcc", "aabbbcc"));
-			Assert.IsTrue(SetEquals<char>("aabbcc", "aabbccc"));
-			Assert.IsTrue(SetEquals<char>("aaabbcc", "aabbcc"));
-			Assert.IsTrue(SetEquals<char>("aabbbcc", "aabbcc"));
-			Assert.IsTrue(SetEquals<char>("aabbccc", "aabbcc"));
+			Assert.IsTrue(EquateSet<char>("aa", "a"));
+			Assert.IsTrue(EquateSet<char>("a", "aa"));
+			Assert.IsTrue(EquateSet<char>("ab", "aab"));
+			Assert.IsTrue(EquateSet<char>("aab", "ab"));
+			Assert.IsTrue(EquateSet<char>("aabbcc", "aaabbcc"));
+			Assert.IsTrue(EquateSet<char>("aabbcc", "aabbbcc"));
+			Assert.IsTrue(EquateSet<char>("aabbcc", "aabbccc"));
+			Assert.IsTrue(EquateSet<char>("aaabbcc", "aabbcc"));
+			Assert.IsTrue(EquateSet<char>("aabbbcc", "aabbcc"));
+			Assert.IsTrue(EquateSet<char>("aabbccc", "aabbcc"));
 
-			Assert.IsTrue(SetEquals<char>("aabb", "aaab"));
-			Assert.IsTrue(SetEquals<char>("bbaa", "aaab"));
+			Assert.IsTrue(EquateSet<char>("aabb", "aaab"));
+			Assert.IsTrue(EquateSet<char>("bbaa", "aaab"));
 
-			Assert.IsTrue(SetEquals<char>("aabbcc", "aaabcc"));
-			Assert.IsTrue(SetEquals<char>("aabbcc", "abbbcc"));
-			Assert.IsTrue(SetEquals<char>("aabbcc", "aabccc"));
-			Assert.IsTrue(SetEquals<char>("aabbcc", "abbccc"));
+			Assert.IsTrue(EquateSet<char>("aabbcc", "aaabcc"));
+			Assert.IsTrue(EquateSet<char>("aabbcc", "abbbcc"));
+			Assert.IsTrue(EquateSet<char>("aabbcc", "aabccc"));
+			Assert.IsTrue(EquateSet<char>("aabbcc", "abbccc"));
 
-			Assert.IsFalse(SetEquals<char>("a", ""));
-			Assert.IsFalse(SetEquals<char>("", "a"));
-			Assert.IsFalse(SetEquals<char>(null, "a"));
-			Assert.IsFalse(SetEquals<char>("a", null));
+			Assert.IsFalse(EquateSet<char>("a", ""));
+			Assert.IsFalse(EquateSet<char>("", "a"));
+			Assert.IsFalse(EquateSet<char>(null, "a"));
+			Assert.IsFalse(EquateSet<char>("a", null));
 
-			Assert.IsTrue(SetEquals<char>(null, null));
-			Assert.IsTrue(SetEquals<char>("", ""));
-			Assert.IsTrue(SetEquals<char>(null, ""));
-			Assert.IsTrue(SetEquals<char>("", null));
+			Assert.IsTrue(EquateSet<char>(null, null));
+			Assert.IsTrue(EquateSet<char>("", ""));
+			Assert.IsTrue(EquateSet<char>(null, ""));
+			Assert.IsTrue(EquateSet<char>("", null));
 
-			Assert.IsTrue(SetEquals<int>(Array.Empty<int>(), Array.Empty<int>()));
-			Assert.IsTrue(SetEquals<int>(new[] { 1 }, new[] { 1 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2 }, new[] { 1, 2 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2 }, new[] { 2, 1 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 3, 2, 1 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 2, 1, 3 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 2, 3, 1 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 1, 3, 2 }));
-			Assert.IsTrue(SetEquals<int>(new[] { 1, 2, 3 }, new[] { 3, 1, 2 }));
+			Assert.IsTrue(EquateSet<int>(Array.Empty<int>(), Array.Empty<int>()));
+			Assert.IsTrue(EquateSet<int>(new[] { 1 }, new[] { 1 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2 }, new[] { 1, 2 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2 }, new[] { 2, 1 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2, 3 }, new[] { 1, 2, 3 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2, 3 }, new[] { 3, 2, 1 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2, 3 }, new[] { 2, 1, 3 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2, 3 }, new[] { 2, 3, 1 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2, 3 }, new[] { 1, 3, 2 }));
+			Assert.IsTrue(EquateSet<int>(new[] { 1, 2, 3 }, new[] { 3, 1, 2 }));
 		}
 
 		#endregion
@@ -418,7 +418,7 @@ namespace Towel_Testing
 		public void CombineRanges_Testing()
 		{
 			{
-				Assert.IsTrue(SetEquals<(int, int)>(Array.Empty<(int, int)>(), Array.Empty<(int, int)>()));
+				Assert.IsTrue(EquateSet<(int, int)>(Array.Empty<(int, int)>(), Array.Empty<(int, int)>()));
 			}
 			{
 				(int, int)[] a = new[]
@@ -433,7 +433,7 @@ namespace Towel_Testing
 					(1,  10),
 					(15, 18),
 				};
-				Assert.IsTrue(SetEquals<(int, int)>(CombineRanges(a).ToArray(), b));
+				Assert.IsTrue(EquateSet<(int, int)>(CombineRanges(a).ToArray(), b));
 			}
 			{
 				(DateTime, DateTime)[] a =
@@ -448,7 +448,7 @@ namespace Towel_Testing
 					(new DateTime(2000, 1, 1), new DateTime(2009, 1, 1)),
 					(new DateTime(2011, 1, 1), new DateTime(2016, 1, 1)),
 				};
-				Assert.IsTrue(SetEquals<(DateTime, DateTime)>(CombineRanges(a).ToArray(), b));
+				Assert.IsTrue(EquateSet<(DateTime, DateTime)>(CombineRanges(a).ToArray(), b));
 			}
 			{
 				(string, string)[] a = new[]
@@ -463,7 +463,7 @@ namespace Towel_Testing
 					("a", "joust"),
 					("tux", "zebra"),
 				};
-				Assert.IsTrue(SetEquals<(string, string)>(CombineRanges(a).ToArray(), b));
+				Assert.IsTrue(EquateSet<(string, string)>(CombineRanges(a).ToArray(), b));
 			}
 		}
 
@@ -562,12 +562,12 @@ namespace Towel_Testing
 		[TestMethod]
 		public void FilterOrdered_Testing()
 		{
-			Assert.IsTrue(Equate<int>(Ɐ<int>().FilterOrdered().ToArray(), Ɐ<int>()));
-			Assert.IsTrue(Equate<int>(Ɐ(1).FilterOrdered().ToArray(), Ɐ(1)));
-			Assert.IsTrue(Equate<int>(Ɐ(1, 2).FilterOrdered().ToArray(), Ɐ(1, 2)));
-			Assert.IsTrue(Equate<int>(Ɐ(2, 1).FilterOrdered().ToArray(), Ɐ(2)));
-			Assert.IsTrue(Equate<int>(Ɐ(1, 2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
-			Assert.IsTrue(Equate<int>(Ɐ(1, -1, 2, -2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
+			Assert.IsTrue(EquateSequence<int>(Ɐ<int>().FilterOrdered().ToArray(), Ɐ<int>()));
+			Assert.IsTrue(EquateSequence<int>(Ɐ(1).FilterOrdered().ToArray(), Ɐ(1)));
+			Assert.IsTrue(EquateSequence<int>(Ɐ(1, 2).FilterOrdered().ToArray(), Ɐ(1, 2)));
+			Assert.IsTrue(EquateSequence<int>(Ɐ(2, 1).FilterOrdered().ToArray(), Ɐ(2)));
+			Assert.IsTrue(EquateSequence<int>(Ɐ(1, 2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
+			Assert.IsTrue(EquateSequence<int>(Ɐ(1, -1, 2, -2, 3).FilterOrdered().ToArray(), Ɐ(1, 2, 3)));
 		}
 
 		#endregion
@@ -582,17 +582,17 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), -1));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest(Ɐ(1), 2));
 
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1), 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2), 1), Ɐ(2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(2, 1), 1), Ɐ(2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 1), Ɐ(3)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 1), Ɐ(3)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 3, 2), 1), Ɐ(3)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 2), Ɐ(3, 2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 2), Ɐ(3, 2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(1), 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(1, 2), 1), Ɐ(2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(2, 1), 1), Ɐ(2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(1, 2, 3), 1), Ɐ(3)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(3, 2, 1), 1), Ɐ(3)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(1, 3, 2), 1), Ɐ(3)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(1, 2, 3), 2), Ɐ(3, 2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(3, 2, 1), 2), Ɐ(3, 2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
 		}
 
 		[TestMethod]
@@ -603,17 +603,17 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, -1));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, 2));
 
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2 }, 1), Ɐ(2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 2, 1 }, 1), Ɐ(2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 1), Ɐ(3)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 1), Ɐ(3)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 3, 2 }, 1), Ɐ(3)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 1, 1 }, 2), Ɐ(1, 1)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 2), Ɐ(3, 2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 2), Ɐ(3, 2)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 3), Ɐ(3, 2, 1)));
-			Assert.IsTrue(SetEquals<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2 }, 1), Ɐ(2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 2, 1 }, 1), Ɐ(2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 1), Ɐ(3)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 1), Ɐ(3)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 3, 2 }, 1), Ɐ(3)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 1, 1 }, 2), Ɐ(1, 1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 2), Ɐ(3, 2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 2), Ɐ(3, 2)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetGreatest<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 3), Ɐ(3, 2, 1)));
 		}
 
 		#endregion
@@ -628,17 +628,17 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), -1));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast(Ɐ(1), 2));
 
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1), 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2), 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(2, 1), 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 1, 2), 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 2), Ɐ(1, 2)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 2), Ɐ(1, 2)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(1), 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(1, 2), 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(2, 1), 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(1, 2, 3), 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(3, 2, 1), 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(3, 1, 2), 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(1, 1, 1), 2), Ɐ(1, 1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(1, 2, 3), 2), Ɐ(1, 2)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(3, 2, 1), 2), Ɐ(1, 2)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(1, 2, 3), 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast(Ɐ(3, 2, 1), 3), Ɐ(3, 2, 1)));
 		}
 
 		[TestMethod]
@@ -649,17 +649,17 @@ namespace Towel_Testing
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, -1));
 			Assert.ThrowsException<ArgumentOutOfRangeException>(() => GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, 2));
 
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2 }, 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 2, 1 }, 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 1, 2 }, 1), Ɐ(1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 1, 1 }, 2), Ɐ(1, 1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 2), Ɐ(1, 2)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 2), Ɐ(1, 2)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 3), Ɐ(3, 2, 1)));
-			Assert.IsTrue(SetEquals<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2 }, 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 2, 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 1, 2 }, 1), Ɐ(1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 1, 1 }, 2), Ɐ(1, 1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 2), Ɐ(1, 2)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 2), Ɐ(1, 2)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 1, 2, 3 }, 3), Ɐ(3, 2, 1)));
+			Assert.IsTrue(EquateSet<int>(GetLeast<int, Int32Compare>(stackalloc int[] { 3, 2, 1 }, 3), Ɐ(3, 2, 1)));
 		}
 
 		#endregion

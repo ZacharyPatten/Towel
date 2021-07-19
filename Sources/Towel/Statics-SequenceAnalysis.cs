@@ -6,6 +6,141 @@ namespace Towel
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics
 	{
+		#region EquateSequence
+
+		/// <summary>Determines if two sequences are equal.</summary>
+		/// <typeparam name="T">The element type of the sequences.</typeparam>
+		/// <typeparam name="TA">The type of first sequence of the equate.</typeparam>
+		/// <typeparam name="TB">The type of second sequence of the equate.</typeparam>
+		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
+		/// <param name="start">The inclusive starting index to equate from.</param>
+		/// <param name="end">The inclusive ending index to equate to.</param>
+		/// <param name="a">The first sequence of the equate.</param>
+		/// <param name="b">The second sequence of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool EquateSequence<T, TA, TB, TEquate>(int start, int end, TA a = default, TB b = default, TEquate equate = default)
+			where TA : struct, IFunc<int, T>
+			where TB : struct, IFunc<int, T>
+			where TEquate : struct, IFunc<T, T, bool>
+		{
+			for (int i = start; i <= end; i++)
+			{
+				if (!equate.Invoke(a.Invoke(i), b.Invoke(i)))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		/// <summary>Determines if two spans are equal.</summary>
+		/// <typeparam name="T">The element type of the spans.</typeparam>
+		/// <param name="a">The first span of the equate.</param>
+		/// <param name="b">The second span of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool EquateSequence<T>(Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
+			EquateSequence<T, SFunc<T, T, bool>>(a, b, equate ?? Equate);
+
+		/// <summary>Determines if two spans are equal.</summary>
+		/// <typeparam name="T">The element type of the spans.</typeparam>
+		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
+		/// <param name="a">The first span of the equate.</param>
+		/// <param name="b">The second span of the equate.</param>
+		/// <param name="equate">The element equate function.</param>
+		/// <returns>True if the spans are equal; False if not.</returns>
+		public static bool EquateSequence<T, TEquate>(Span<T> a, Span<T> b, TEquate equate = default)
+			where TEquate : struct, IFunc<T, T, bool>
+		{
+			if (a.IsEmpty && b.IsEmpty)
+			{
+				return true;
+			}
+			if (a.Length != b.Length)
+			{
+				return false;
+			}
+			for (int i = 0; i < a.Length; i++)
+			{
+				if (!equate.Invoke(a[i], b[i]))
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
+		#endregion
+
+		#region EquateSet
+
+		/// <summary>Determines if neither span contains an element the other does not.</summary>
+		/// <typeparam name="T">The element type of each span.</typeparam>
+		/// <param name="a">The first span.</param>
+		/// <param name="b">The second span.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
+		/// <returns>True if neither span contains an element the other does not.</returns>
+		public static bool EquateSet<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = default, Func<T, int>? hash = default) =>
+			EquateSet<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? Hash);
+
+		/// <summary>Determines if neither span contains an element the other does not.</summary>
+		/// <typeparam name="T">The element type of each span.</typeparam>
+		/// <typeparam name="TEquate">The type of function for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The type of function for hashing the values.</typeparam>
+		/// <param name="a">The first span.</param>
+		/// <param name="b">The second span.</param>
+		/// <param name="equate">The function for determining equality of values.</param>
+		/// <param name="hash">The function for hashing the values.</param>
+		/// <returns>True if neither span contains an element the other does not.</returns>
+		public static bool EquateSet<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int>
+		{
+			if (a.IsEmpty && b.IsEmpty)
+			{
+				return true;
+			}
+			SetHashLinked<T, TEquate, THash> a_counts = new(
+				equate: equate,
+				hash: hash,
+				expectedCount: a.Length);
+			SetHashLinked<T, TEquate, THash> b_counts = new(
+				equate: equate,
+				hash: hash,
+				expectedCount: a.Length);
+			foreach (T value in a)
+			{
+				a_counts.TryAdd(value);
+			}
+			foreach (T value in b)
+			{
+				if (!a_counts.Contains(value))
+				{
+					return false;
+				}
+				b_counts.TryAdd(value);
+			}
+			return a_counts.Count == b_counts.Count;
+		}
+
+		#endregion
+
+		#region EquateOccurences
+
+		/// <inheritdoc cref="IsReorderOf{T, TEquate, THash}(ReadOnlySpan{T}, ReadOnlySpan{T}, TEquate, THash)"/>
+		public static bool EquateOccurences<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = default, Func<T, int>? hash = default) =>
+			IsReorderOf<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? Hash);
+
+		/// <inheritdoc cref="IsReorderOf{T, TEquate, THash}(ReadOnlySpan{T}, ReadOnlySpan{T}, TEquate, THash)"/>
+		public static bool EquateOccurences<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
+			where TEquate : struct, IFunc<T, T, bool>
+			where THash : struct, IFunc<T, int> =>
+			IsReorderOf(a, b, equate, hash);
+
+		#endregion
+
 		#region Maximum
 
 		/// <summary>Finds the maximum value in a sequence.</summary>
@@ -1545,24 +1680,18 @@ namespace Towel
 
 		#region IsReorderOf
 
-		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
-		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <param name="a">The first span.</param>
-		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of values.</param>
-		/// <param name="hash">The function for hashing the values.</param>
-		/// <returns>True if both spans contain the same number of each element.</returns>
+		/// <inheritdoc cref="IsReorderOf{T, TEquate, THash}(ReadOnlySpan{T}, ReadOnlySpan{T}, TEquate, THash)"/>
 		public static bool IsReorderOf<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
 			IsReorderOf<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? Hash);
 
 		/// <summary>Checks if two spans are re-orders of each other meaning they contain the same number of each element.</summary>
 		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="TEquate">The type of function for determining equality of values.</typeparam>
-		/// <typeparam name="THash">The type of function for hashing the values.</typeparam>
+		/// <typeparam name="TEquate">The type of method for determining equality of values.</typeparam>
+		/// <typeparam name="THash">The type of method for hashing the values.</typeparam>
 		/// <param name="a">The first span.</param>
 		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of values.</param>
-		/// <param name="hash">The function for hashing the values.</param>
+		/// <param name="equate">The method for determining equality of values.</param>
+		/// <param name="hash">The method for hashing the values.</param>
 		/// <returns>True if both spans contain the same number of each element.</returns>
 		public static bool IsReorderOf<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
 			where TEquate : struct, IFunc<T, T, bool>
@@ -1594,60 +1723,6 @@ namespace Towel
 
 		#endregion
 
-		#region SetEquals
-
-		/// <summary>Determines if neither span contains an element the other does not.</summary>
-		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <param name="a">The first span.</param>
-		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of values.</param>
-		/// <param name="hash">The function for hashing the values.</param>
-		/// <returns>True if neither span contains an element the other does not.</returns>
-		public static bool SetEquals<T>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, Func<T, T, bool>? equate = default, Func<T, int>? hash = default) =>
-			SetEquals<T, SFunc<T, T, bool>, SFunc<T, int>>(a, b, equate ?? Equate, hash ?? Hash);
-
-		/// <summary>Determines if neither span contains an element the other does not.</summary>
-		/// <typeparam name="T">The element type of each span.</typeparam>
-		/// <typeparam name="TEquate">The type of function for determining equality of values.</typeparam>
-		/// <typeparam name="THash">The type of function for hashing the values.</typeparam>
-		/// <param name="a">The first span.</param>
-		/// <param name="b">The second span.</param>
-		/// <param name="equate">The function for determining equality of values.</param>
-		/// <param name="hash">The function for hashing the values.</param>
-		/// <returns>True if neither span contains an element the other does not.</returns>
-		public static bool SetEquals<T, TEquate, THash>(ReadOnlySpan<T> a, ReadOnlySpan<T> b, TEquate equate = default, THash hash = default)
-			where TEquate : struct, IFunc<T, T, bool>
-			where THash : struct, IFunc<T, int>
-		{
-			if (a.IsEmpty && b.IsEmpty)
-			{
-				return true;
-			}
-			SetHashLinked<T, TEquate, THash> a_counts = new(
-				equate: equate,
-				hash: hash,
-				expectedCount: a.Length);
-			SetHashLinked<T, TEquate, THash> b_counts = new(
-				equate: equate,
-				hash: hash,
-				expectedCount: a.Length);
-			foreach (T value in a)
-			{
-				a_counts.TryAdd(value);
-			}
-			foreach (T value in b)
-			{
-				if (!a_counts.Contains(value))
-				{
-					return false;
-				}
-				b_counts.TryAdd(value);
-			}
-			return a_counts.Count == b_counts.Count;
-		}
-
-		#endregion
-
 		#region ContainsDuplicates
 
 		/// <summary>Determines if the span contains any duplicate values.</summary>
@@ -1657,7 +1732,7 @@ namespace Towel
 		/// <param name="hash">The function for hashing values.</param>
 		/// <returns>True if the span contains duplicates.</returns>
 		public static bool ContainsDuplicates<T>(Span<T> span, Func<T, T, bool>? equate = null, Func<T, int>? hash = null) =>
-			ContainsDuplicates<T, SFunc<T, T, bool>, SFunc<T, int>>(span, equate ?? Statics.Equate, hash ?? Hash);
+			ContainsDuplicates<T, SFunc<T, T, bool>, SFunc<T, int>>(span, equate ?? Equate, hash ?? Hash);
 
 		/// <summary>Determines if the span contains any duplicate values.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>
@@ -1693,7 +1768,7 @@ namespace Towel
 		/// <param name="equate">The function for equating values.</param>
 		/// <returns>True if the value was found.</returns>
 		public static bool Contains<T>(Span<T> span, T value, Func<T, T, bool>? equate = null) =>
-			Contains<T, SFunc<T, T, bool>>(span, value, equate ?? Statics.Equate);
+			Contains<T, SFunc<T, T, bool>>(span, value, equate ?? Equate);
 
 		/// <summary>Determines if a span contains a value.</summary>
 		/// <typeparam name="T">The element type of the span.</typeparam>

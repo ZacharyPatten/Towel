@@ -664,11 +664,30 @@ namespace Towel
 		/// <returns>An <see cref="System.Collections.Generic.IEnumerator{T}"/> that iterates through the <paramref name="range"/>.</returns>
 		public static System.Collections.Generic.IEnumerator<int> GetEnumerator(this Range range) => ToIEnumerable(range).GetEnumerator();
 
-		/// <inheritdoc cref="ToArray{T, TSelect}(Range, TSelect)"/>
-		public static int[] ToArray(this Range range)
+		/// <inheritdoc cref="ToSpan{T, TSelect}(Range, TSelect)" />
+		public static Span<int> ToSpan(this Range range) =>
+			ToArray<int, Identity<int>>(range);
+
+		/// <inheritdoc cref="ToSpan{T, TSelect}(Range, TSelect)" />
+		public static Span<T> ToSpan<T>(this Range range, Func<int, T> select)
 		{
-			return ToArray<int, Identity<int>>(range);
+			_ = select ?? throw new ArgumentNullException(nameof(select));
+			return ToArray<T, SFunc<int, T>>(range, select);
 		}
+
+		/// <summary>Converts a <paramref name="range"/> to a to an span of values.</summary>
+		/// <typeparam name="T">The resulting element type of the span.</typeparam>
+		/// <typeparam name="TSelect">The type of method for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</typeparam>
+		/// <param name="range">The range of values to convert into an span.</param>
+		/// <param name="select">The method for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</param>
+		/// <returns>An span of the values of the <paramref name="range"/>.</returns>
+		public static Span<T> ToSpan<T, TSelect>(this Range range, TSelect select = default)
+			where TSelect : struct, IFunc<int, T> =>
+			ToArray<T, TSelect>(range, select);
+
+		/// <inheritdoc cref="ToArray{T, TSelect}(Range, TSelect)"/>
+		public static int[] ToArray(this Range range) =>
+			ToArray<int, Identity<int>>(range);
 
 		/// <inheritdoc cref="ToArray{T, TSelect}(Range, TSelect)"/>
 		public static T[] ToArray<T>(this Range range, Func<int, T> select)
@@ -679,9 +698,9 @@ namespace Towel
 
 		/// <summary>Converts a <paramref name="range"/> to a to an array of values.</summary>
 		/// <typeparam name="T">The resulting element type of the array.</typeparam>
-		/// <typeparam name="TSelect">The type of function for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</typeparam>
+		/// <typeparam name="TSelect">The type of method for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</typeparam>
 		/// <param name="range">The range of values to convert into an array.</param>
-		/// <param name="select">The function for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</param>
+		/// <param name="select">The method for selecting a <typeparamref name="T"/> based on an <see cref="int"/>.</param>
 		/// <returns>An array of the values of the <paramref name="range"/>.</returns>
 		public static T[] ToArray<T, TSelect>(this Range range, TSelect select = default)
 			where TSelect : struct, IFunc<int, T>

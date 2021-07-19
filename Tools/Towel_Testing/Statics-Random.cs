@@ -17,17 +17,17 @@ namespace Towel_Testing
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
 				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 5, next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => -5; // 0, 0, 0, 0, 0
 				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, -5, 0, next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { -5, -4, -3, -2, -1, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
 				int[] output = NextUniqueRollTracking<SFunc<int, int, int>>(5, 0, 5, next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			// count > sqrt(max - min)
 			{
@@ -73,7 +73,7 @@ namespace Towel_Testing
 					maxValue: 10,
 					excluded: new[] { 1, 3, 5, 7, 9, },
 					random: next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 2, 4, 6, 8, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 0, 2, 4, 6, 8, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
@@ -83,7 +83,7 @@ namespace Towel_Testing
 					maxValue: 10,
 					excluded: new[] { 0, 2, 4, 6, 8, },
 					random: next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 1, 3, 5, 7, 9, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 1, 3, 5, 7, 9, }));
 			}
 			{
 				Random random = new();
@@ -133,7 +133,7 @@ namespace Towel_Testing
 					maxValue: 10,
 					excluded: new[] { 1, 3, 5, 7, 9, },
 					random: next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 2, 4, 6, 8, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 0, 2, 4, 6, 8, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
@@ -143,7 +143,7 @@ namespace Towel_Testing
 					maxValue: 10,
 					excluded: new[] { 0, 2, 4, 6, 8, },
 					random: next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 1, 3, 5, 7, 9, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 1, 3, 5, 7, 9, }));
 			}
 			{
 				Random random = new();
@@ -188,17 +188,17 @@ namespace Towel_Testing
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
 				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 5, next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
 				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, -5, 0, next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { -5, -4, -3, -2, -1, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { -5, -4, -3, -2, -1, }));
 			}
 			{
 				Func<int, int, int> next = (_, max) => max - 1; // 4, 3, 2, 1, 0
 				int[] output = NextUniquePoolTracking<SFunc<int, int, int>>(5, 0, 5, next);
-				Assert.IsTrue(SetEquals<int>(output, new[] { 0, 1, 2, 3, 4, }));
+				Assert.IsTrue(EquateSet<int>(output, new[] { 0, 1, 2, 3, 4, }));
 			}
 			// count > sqrt(max - min)
 			{

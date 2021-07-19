@@ -52,7 +52,7 @@ namespace Towel_Testing.DataStructures
 			graph.Remove(3);
 			ListArray<(int, int)> RemainingEdges = new();
 			graph.Edges(edge => RemainingEdges.Add((edge.Item1, edge.Item2)));
-			Assert.IsTrue(SetEquals<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
+			Assert.IsTrue(EquateSet<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
 		}
 
 		[TestMethod]
@@ -134,7 +134,7 @@ namespace Towel_Testing.DataStructures
 			graph.Remove(3);
 			ListArray<(int, int)> RemainingEdges = new();
 			graph.Edges(edge => RemainingEdges.Add((edge.Item1, edge.Item2)));
-			Assert.IsTrue(SetEquals<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
+			Assert.IsTrue(EquateSet<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
 		}
 
 		[TestMethod]
@@ -216,7 +216,7 @@ namespace Towel_Testing.DataStructures
 			graph.Remove<byte>(3);
 			ListArray<(int, int)> RemainingEdges = new();
 			graph.Edges(edge => RemainingEdges.Add((edge.Item1, edge.Item2)));
-			Assert.IsTrue(SetEquals<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
+			Assert.IsTrue(EquateSet<(int, int)>(new[] { (1, 5), (2, 5), (4, 5) }, RemainingEdges.ToArray()));
 		}
 
 		[TestMethod]

@@ -343,69 +343,6 @@ namespace Towel
 			};
 		}
 
-		/// <summary>Determines if two sequences are equal.</summary>
-		/// <typeparam name="T">The element type of the sequences.</typeparam>
-		/// <typeparam name="TA">The type of first sequence of the equate.</typeparam>
-		/// <typeparam name="TB">The type of second sequence of the equate.</typeparam>
-		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
-		/// <param name="start">The inclusive starting index to equate from.</param>
-		/// <param name="end">The inclusive ending index to equate to.</param>
-		/// <param name="a">The first sequence of the equate.</param>
-		/// <param name="b">The second sequence of the equate.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, TA, TB, TEquate>(int start, int end, TA a = default, TB b = default, TEquate equate = default)
-			where TA : struct, IFunc<int, T>
-			where TB : struct, IFunc<int, T>
-			where TEquate : struct, IFunc<T, T, bool>
-		{
-			for (int i = start; i <= end; i++)
-			{
-				if (!equate.Invoke(a.Invoke(i), b.Invoke(i)))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
-		/// <summary>Determines if two spans are equal.</summary>
-		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <param name="a">The first span of the equate.</param>
-		/// <param name="b">The second span of the equate.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T>(Span<T> a, Span<T> b, Func<T, T, bool>? equate = default) =>
-			Equate<T, SFunc<T, T, bool>>(a, b, equate ?? Equate);
-
-		/// <summary>Determines if two spans are equal.</summary>
-		/// <typeparam name="T">The element type of the spans.</typeparam>
-		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
-		/// <param name="a">The first span of the equate.</param>
-		/// <param name="b">The second span of the equate.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the spans are equal; False if not.</returns>
-		public static bool Equate<T, TEquate>(Span<T> a, Span<T> b, TEquate equate = default)
-			where TEquate : struct, IFunc<T, T, bool>
-		{
-			if (a.IsEmpty && b.IsEmpty)
-			{
-				return true;
-			}
-			if (a.Length != b.Length)
-			{
-				return false;
-			}
-			for (int i = 0; i < a.Length; i++)
-			{
-				if (!equate.Invoke(a[i], b[i]))
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-
 		#endregion
 
 		#region Inequate
@@ -1634,7 +1571,7 @@ namespace Towel
 		/// <param name="N">The number of values to compute the combinations of.</param>
 		/// <param name="n">The groups and how many values fall into each group.</param>
 		/// <returns>The computed number of combinations.</returns>
-		public static T Combinations<T>(T N, T[] n)
+		public static T CombinationsCount<T>(T N, T[] n)
 		{
 			if (!IsInteger(N))
 			{

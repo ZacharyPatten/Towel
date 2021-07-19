@@ -35,11 +35,11 @@ namespace Towel_Testing
 		[TestMethod]
 		public void ToIEnumerable_Range()
 		{
-			Assert.IsTrue(Equate<int>((0..4).ToIEnumerable().ToArray(), new[] { 0, 1, 2, 3 }));
-			Assert.IsTrue(Equate<int>((4..0).ToIEnumerable().ToArray(), new[] { 4, 3, 2, 1 }));
+			Assert.IsTrue(EquateSequence<int>((0..4).ToIEnumerable().ToArray(), new[] { 0, 1, 2, 3 }));
+			Assert.IsTrue(EquateSequence<int>((4..0).ToIEnumerable().ToArray(), new[] { 4, 3, 2, 1 }));
 
-			Assert.IsTrue(Equate<int>((11..14).ToIEnumerable().ToArray(), new[] { 11, 12, 13 }));
-			Assert.IsTrue(Equate<int>((14..11).ToIEnumerable().ToArray(), new[] { 14, 13, 12 }));
+			Assert.IsTrue(EquateSequence<int>((11..14).ToIEnumerable().ToArray(), new[] { 11, 12, 13 }));
+			Assert.IsTrue(EquateSequence<int>((14..11).ToIEnumerable().ToArray(), new[] { 14, 13, 12 }));
 
 			//// unfortuntately System.Range syntax does not support negative values
 			// Assert.IsTrue(Equate<int>((0..-3).ToIEnumerable().ToArray(), new[] {  0, -1, -2 }));
@@ -57,30 +57,30 @@ namespace Towel_Testing
 		[TestMethod]
 		public void ToArray_Range()
 		{
-			Assert.IsTrue(Equate<int>(( ..0).ToArray(), Ɐ<int>()));
-			Assert.IsTrue(Equate<int>((0..0).ToArray(), Ɐ<int>()));
-			Assert.IsTrue(Equate<int>((1..1).ToArray(), Ɐ<int>()));
-			Assert.IsTrue(Equate<int>((2..2).ToArray(), Ɐ<int>()));
+			Assert.IsTrue(EquateSequence<int>(( ..0).ToArray(), Ɐ<int>()));
+			Assert.IsTrue(EquateSequence<int>((0..0).ToArray(), Ɐ<int>()));
+			Assert.IsTrue(EquateSequence<int>((1..1).ToArray(), Ɐ<int>()));
+			Assert.IsTrue(EquateSequence<int>((2..2).ToArray(), Ɐ<int>()));
 
 			// least to greatest
-			Assert.IsTrue(Equate<int>(( ..1).ToArray(), Ɐ(0)));
-			Assert.IsTrue(Equate<int>(( ..2).ToArray(), Ɐ(0, 1)));
-			Assert.IsTrue(Equate<int>((0..1).ToArray(), Ɐ(0)));
-			Assert.IsTrue(Equate<int>((0..2).ToArray(), Ɐ(0, 1)));
-			Assert.IsTrue(Equate<int>((1..2).ToArray(), Ɐ(1)));
-			Assert.IsTrue(Equate<int>((1..3).ToArray(), Ɐ(1, 2)));
-			Assert.IsTrue(Equate<int>((1..4).ToArray(), Ɐ(1, 2, 3)));
-			Assert.IsTrue(Equate<int>((1..5).ToArray(), Ɐ(1, 2, 3, 4)));
-			Assert.IsTrue(Equate<int>((2..3).ToArray(), Ɐ(2)));
-			Assert.IsTrue(Equate<int>((2..4).ToArray(), Ɐ(2, 3)));
+			Assert.IsTrue(EquateSequence<int>(( ..1).ToArray(), Ɐ(0)));
+			Assert.IsTrue(EquateSequence<int>(( ..2).ToArray(), Ɐ(0, 1)));
+			Assert.IsTrue(EquateSequence<int>((0..1).ToArray(), Ɐ(0)));
+			Assert.IsTrue(EquateSequence<int>((0..2).ToArray(), Ɐ(0, 1)));
+			Assert.IsTrue(EquateSequence<int>((1..2).ToArray(), Ɐ(1)));
+			Assert.IsTrue(EquateSequence<int>((1..3).ToArray(), Ɐ(1, 2)));
+			Assert.IsTrue(EquateSequence<int>((1..4).ToArray(), Ɐ(1, 2, 3)));
+			Assert.IsTrue(EquateSequence<int>((1..5).ToArray(), Ɐ(1, 2, 3, 4)));
+			Assert.IsTrue(EquateSequence<int>((2..3).ToArray(), Ɐ(2)));
+			Assert.IsTrue(EquateSequence<int>((2..4).ToArray(), Ɐ(2, 3)));
 
 			// greatest to least
-			Assert.IsTrue(Equate<int>((2..1).ToArray(), Ɐ(2)));
-			Assert.IsTrue(Equate<int>((3..1).ToArray(), Ɐ(3, 2)));
-			Assert.IsTrue(Equate<int>((4..1).ToArray(), Ɐ(4, 3, 2)));
-			Assert.IsTrue(Equate<int>((5..1).ToArray(), Ɐ(5, 4, 3, 2)));
-			Assert.IsTrue(Equate<int>((3..2).ToArray(), Ɐ(3)));
-			Assert.IsTrue(Equate<int>((4..2).ToArray(), Ɐ(4, 3)));
+			Assert.IsTrue(EquateSequence<int>((2..1).ToArray(), Ɐ(2)));
+			Assert.IsTrue(EquateSequence<int>((3..1).ToArray(), Ɐ(3, 2)));
+			Assert.IsTrue(EquateSequence<int>((4..1).ToArray(), Ɐ(4, 3, 2)));
+			Assert.IsTrue(EquateSequence<int>((5..1).ToArray(), Ɐ(5, 4, 3, 2)));
+			Assert.IsTrue(EquateSequence<int>((3..2).ToArray(), Ɐ(3)));
+			Assert.IsTrue(EquateSequence<int>((4..2).ToArray(), Ɐ(4, 3)));
 
 			Assert.ThrowsException<ArgumentException>(() => (..).ToArray());
 			Assert.ThrowsException<ArgumentException>(() => (1..).ToArray());

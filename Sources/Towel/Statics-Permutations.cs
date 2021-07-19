@@ -73,20 +73,14 @@ namespace Towel
 				}
 				for (int i = a; i <= b; i++)
 				{
-					Swap(a, i);
+					Swap<T, TGet, TSet>(a, i, get, set);
 					if (Permute(a + 1, b) is Break)
 					{
 						return Break;
 					}
-					Swap(a, i);
+					Swap<T, TGet, TSet>(a, i, get, set);
 				}
 				return Continue;
-			}
-			void Swap(int a, int b)
-			{
-				T temp = get.Invoke(a);
-				set.Invoke(a, get.Invoke(b));
-				set.Invoke(b, temp);
 			}
 		}
 
@@ -119,20 +113,14 @@ namespace Towel
 				}
 				for (int i = a; i <= b; i++)
 				{
-					Swap(span, a, i);
+					Swap<T>(ref span[a], ref span[i]);
 					if (Permute(span, a + 1, b) is Break)
 					{
 						return Break;
 					}
-					Swap(span, a, i);
+					Swap<T>(ref span[a], ref span[i]);
 				}
 				return Continue;
-			}
-			static void Swap(Span<T> span, int a, int b)
-			{
-				T temp = span[a];
-				span[a] = span[b];
-				span[b] = temp;
 			}
 		}
 
@@ -167,17 +155,11 @@ namespace Towel
 			for (int i = start + 1; i < end + 1 && status.Invoke() is Continue; action.Invoke())
 			{
 				indeces[i]--;
-				Swap(i, i % 2 is 1 ? indeces[i] : 0);
+				Swap<T, TGet, TSet>(i, i % 2 is 1 ? indeces[i] : 0, get, set);
 				for (i = 1; indeces[i] is 0; i++)
 				{
 					indeces[i] = i;
 				}
-			}
-			void Swap(int a, int b)
-			{
-				T temp = get.Invoke(a);
-				set.Invoke(a, get.Invoke(b));
-				set.Invoke(b, temp);
 			}
 		}
 
@@ -209,17 +191,11 @@ namespace Towel
 			for (int i = 1; i < span.Length && status.Invoke() is Continue; action.Invoke())
 			{
 				indeces[i]--;
-				Swap(span, i, i % 2 is 1 ? indeces[i] : 0);
+				Swap<T>(ref span[i], ref span[i % 2 is 1 ? indeces[i] : 0]);
 				for (i = 1; indeces[i] is 0; i++)
 				{
 					indeces[i] = i;
 				}
-			}
-			static void Swap(Span<T> span, int a, int b)
-			{
-				T temp = span[a];
-				span[a] = span[b];
-				span[b] = temp;
 			}
 		}
 	}
