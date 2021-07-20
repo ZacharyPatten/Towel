@@ -35,8 +35,6 @@ namespace Towel_Testing
 			PropertyInfo propertyInfo = typeof(A).GetProperty(nameof(A.Property), bf)!;
 			ParameterInfo parameterInfo = methodInfo.GetParameters()[0];
 
-#pragma warning disable IDE0042 // Deconstruct variable declaration
-
 			// TestAttribute1 -----------------------------------
 
 			Assert.IsTrue(type.GetTag(TestAttribute1) is (true, TestValue1));
@@ -82,13 +80,9 @@ namespace Towel_Testing
 			MethodInfo b_methodInfo = typeof(B).GetMethod(nameof(B.Method), bf)!;
 			ParameterInfo b_parameterInfo = b_methodInfo.GetParameters()[0];
 
-			Assert.IsTrue(typeof(B).GetTag(TestAttribute1) is (false, null));
-			Assert.IsTrue(b_parameterInfo.GetTag(TestAttribute1) is (false, null));
-
-#pragma warning restore IDE0042 // Deconstruct variable declaration
+			Assert.IsTrue(typeof(B).GetTag(AmbiguousAttribute) is (false, null));
+			Assert.IsTrue(b_parameterInfo.GetTag(AmbiguousAttribute) is (false, null));
 		}
-
-#pragma warning disable IDE0060 // Remove unused parameter
 
 		[Tag(TestAttribute1, TestValue1)]
 		[Tag(TestAttribute2, TestValue2)]
@@ -112,7 +106,7 @@ namespace Towel_Testing
 		public static void Method(
 			[Tag(TestAttribute1, TestValue1)]
 			[Tag(TestAttribute2, TestValue2)]
-			object a) => throw new Exception();
+			Exception a) => throw a;
 
 		[Tag(TestAttribute1, TestValue1)]
 		[Tag(TestAttribute2, TestValue2)]
@@ -125,7 +119,7 @@ namespace Towel_Testing
 			public static void Method(
 				[Tag(AmbiguousAttribute, 1)]
 				[Tag(AmbiguousAttribute, 1)]
-				object a) => throw new Exception();
+				Exception a) => throw a;
 		}
 
 		[Tag(null, null)]
@@ -139,7 +133,5 @@ namespace Towel_Testing
 
 		[Tag(IntValueOne, IntValueTwo)]
 		public class F { }
-
-#pragma warning restore IDE0060 // Remove unused parameter
 	}
 }
