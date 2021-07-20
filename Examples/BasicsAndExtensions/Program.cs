@@ -15,6 +15,25 @@ namespace BasicsAndExtensions
 			Console.WriteLine("============================================");
 			Console.WriteLine();
 
+			#region Range Syntax Helpers
+			{
+				Console.WriteLine("  Range Syntax Helpers--------------------------------");
+				Console.WriteLine();
+
+				Console.WriteLine(@$"    (0..5).ToArray() = {string.Join(", ", (0..5).ToArray())}");
+				Console.WriteLine();
+				Console.WriteLine(@$"    (5..0).ToArray() = {string.Join(", ", (5..0).ToArray())}");
+				Console.WriteLine();
+				Console.WriteLine(@$"    ('a'..'f').ToArray(i => (char)i) = {string.Join(", ", ('a'..'f').ToArray(i => (char)i))}");
+				Console.WriteLine();
+				Console.WriteLine(@$"    (1..6).Select(i => i + 100) = {string.Join(", ", (1..6).Select(i => i + 100))}");
+				Console.WriteLine();
+				Console.WriteLine(@$"    ArrayHelper.NewFromRanges(1..4, 9..6, 4..7) = {string.Join(", ", ArrayHelper.NewFromRanges(1..4, 9..6, 4..7))}");
+
+				Pause();
+			}
+			#endregion
+
 			#region Multi String Replace
 			{
 				Console.WriteLine("  Multi String Replace -----------------------");
@@ -98,9 +117,9 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
-			#region TryParse Roman Numeral
+			#region To/From Roman Numeral
 			{
-				Console.WriteLine("  TryParse Roman Numeral--------------------------------");
+				Console.WriteLine("  To/From Roman Numeral--------------------------------");
 				Console.WriteLine();
 
 				string a = "I";
@@ -111,6 +130,17 @@ namespace BasicsAndExtensions
 
 				string c = "invalid";
 				Console.WriteLine(@$"    {nameof(TryParseRomanNumeral)}(""{c}"") = {TryParseRomanNumeral(c)}");
+
+				Console.WriteLine();
+
+				int d = 42;
+				Console.WriteLine(@$"    {nameof(TryToRomanNumeral)}({d}) = {TryToRomanNumeral(d)}");
+
+				int e = 77;
+				Console.WriteLine(@$"    {nameof(TryToRomanNumeral)}({e}) = {TryToRomanNumeral(e)}");
+
+				int f = -1;
+				Console.WriteLine(@$"    {nameof(TryToRomanNumeral)}({f}) = {TryToRomanNumeral(f)}");
 
 				Pause();
 			}
@@ -232,6 +262,10 @@ namespace BasicsAndExtensions
 				Shuffle<int>(dataSet);
 				SortHeap<int>(dataSet);
 				Console.WriteLine($"    Heap:      {DataSetToString()}");
+
+				Shuffle<int>(dataSet);
+				SortTim<int>(dataSet);
+				Console.WriteLine($"    Tim:       {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortOddEven<int>(dataSet);
@@ -857,7 +891,6 @@ namespace BasicsAndExtensions
 				Pause();
 			}
 			#endregion
-
 
 			Console.WriteLine();
 			Console.WriteLine("============================================");
