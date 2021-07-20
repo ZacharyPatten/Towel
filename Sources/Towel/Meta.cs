@@ -980,15 +980,17 @@ namespace Towel
 
 		#region GetXmlDocumentation
 
+		internal static object xmlCacheLock = new();
 		internal static ISet<Assembly> loadedAssemblies = SetHashLinked.New<Assembly>();
 		internal static MapHashLinked<string, string, StringEquate, StringHash> loadedXmlDocumentation = new();
 
-		internal static void LoadXmlDocumentation(Assembly assembly)
+		internal static bool LoadXmlDocumentation(Assembly assembly)
 		{
 			if (loadedAssemblies.Contains(assembly))
 			{
-				return;
+				return false;
 			}
+			bool newContent = false;
 			string? directoryPath = assembly.GetDirectoryPath();
 			if (directoryPath is not null)
 			{
@@ -996,10 +998,12 @@ namespace Towel
 				if (File.Exists(xmlFilePath))
 				{
 					using StreamReader streamReader = new(xmlFilePath);
-					LoadXmlDocumentation(streamReader);
+					LoadXmlDocumentationNoLock(streamReader);
+					newContent = true;
 				}
 			}
 			loadedAssemblies.Add(assembly);
+			return newContent;
 		}
 
 		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
@@ -1013,6 +1017,14 @@ namespace Towel
 		/// <summary>Loads the XML code documentation into memory so it can be accessed by extension methods on reflection types.</summary>
 		/// <param name="textReader">The text reader to process in an XmlReader.</param>
 		public static void LoadXmlDocumentation(TextReader textReader)
+		{
+			lock (xmlCacheLock)
+			{
+				LoadXmlDocumentationNoLock(textReader);
+			}
+		}
+
+		internal static void LoadXmlDocumentationNoLock(TextReader textReader)
 		{
 			using XmlReader xmlReader = XmlReader.Create(textReader);
 			while (xmlReader.Read())
@@ -1031,8 +1043,31 @@ namespace Towel
 		/// <summary>Clears the currently loaded XML documentation.</summary>
 		public static void ClearXmlDocumentation()
 		{
-			loadedAssemblies.Clear();
-			loadedXmlDocumentation.Clear();
+			lock (xmlCacheLock)
+			{
+				loadedAssemblies.Clear();
+				loadedXmlDocumentation.Clear();
+			}
+		}
+
+		internal static string? GetDocumentation(string key, Assembly assembly)
+		{
+			lock (xmlCacheLock)
+			{
+				var (success, _, value) = loadedXmlDocumentation.TryGet(key);
+				if (success)
+				{
+					return value;
+				}
+				else if (LoadXmlDocumentation(assembly))
+				{
+					return loadedXmlDocumentation.TryGet(key).Value;
+				}
+				else
+				{
+					return null;
+				}
+			}
 		}
 
 		/// <summary>Gets the XML documentation on a type.</summary>
@@ -1043,8 +1078,7 @@ namespace Towel
 		{
 			_ = type ?? throw new ArgumentNullException(nameof(type));
 			_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
-			LoadXmlDocumentation(type.Assembly);
-			return loadedXmlDocumentation.TryGet(type.GetXmlName()).Value;
+			return GetDocumentation(type.GetXmlName(), type.Assembly);
 		}
 
 		/// <summary>Gets the XML documentation on a method.</summary>
@@ -1055,8 +1089,7 @@ namespace Towel
 		{
 			_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
 			_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
-			LoadXmlDocumentation(methodInfo.DeclaringType.Assembly);
-			return loadedXmlDocumentation.TryGet(methodInfo.GetXmlName()).Value;
+			return GetDocumentation(methodInfo.GetXmlName(), methodInfo.DeclaringType.Assembly);
 		}
 
 		/// <summary>Gets the XML documentation on a constructor.</summary>
@@ -1067,8 +1100,7 @@ namespace Towel
 		{
 			_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
 			_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
-			LoadXmlDocumentation(constructorInfo.DeclaringType.Assembly);
-			return loadedXmlDocumentation.TryGet(constructorInfo.GetXmlName()).Value;
+			return GetDocumentation(constructorInfo.GetXmlName(), constructorInfo.DeclaringType.Assembly);
 		}
 
 		/// <summary>Gets the XML documentation on a property.</summary>
@@ -1080,8 +1112,7 @@ namespace Towel
 			_ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
 			_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
 			_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
-			LoadXmlDocumentation(propertyInfo.DeclaringType.Assembly);
-			return loadedXmlDocumentation.TryGet(propertyInfo.GetXmlName()).Value;
+			return GetDocumentation(propertyInfo.GetXmlName(), propertyInfo.DeclaringType.Assembly);
 		}
 
 		/// <summary>Gets the XML documentation on a field.</summary>
@@ -1093,8 +1124,7 @@ namespace Towel
 			_ = fieldInfo ?? throw new ArgumentNullException(nameof(fieldInfo));
 			_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
 			_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
-			LoadXmlDocumentation(fieldInfo.DeclaringType.Assembly);
-			return loadedXmlDocumentation.TryGet(fieldInfo.GetXmlName()).Value;
+			return GetDocumentation(fieldInfo.GetXmlName(), fieldInfo.DeclaringType.Assembly);
 		}
 
 		/// <summary>Gets the XML documentation on an event.</summary>
@@ -1106,8 +1136,7 @@ namespace Towel
 			_ = eventInfo ?? throw new ArgumentNullException(nameof(eventInfo));
 			_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
 			_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
-			LoadXmlDocumentation(eventInfo.DeclaringType.Assembly);
-			return loadedXmlDocumentation.TryGet(eventInfo.GetXmlName()).Value;
+			return GetDocumentation(eventInfo.GetXmlName(), eventInfo.DeclaringType.Assembly);
 		}
 
 		/// <summary>Gets the XML documentation on a member.</summary>
@@ -1156,9 +1185,9 @@ namespace Towel
 			if (memberDocumentation is not null)
 			{
 				string regexPattern =
-					Regex.Escape(@"<param name=" + "\"" + parameterInfo.Name + "\"" + @">") +
+					Regex.Escape($@"<param name=""{parameterInfo.Name}"">") +
 					".*?" +
-					Regex.Escape(@"</param>");
+					Regex.Escape($@"</param>");
 
 				Match match = Regex.Match(memberDocumentation, regexPattern);
 				if (match.Success)

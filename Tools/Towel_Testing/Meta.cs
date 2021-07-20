@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
@@ -100,149 +101,45 @@ namespace Towel_Testing
 
 		#region XML Documentation Testing
 
+		internal static readonly object xmlDocumentationlock = new();
+
+		[TestMethod]
+		public void Meta_XmlCache_Tests()
+		{
+			lock (xmlDocumentationlock)
+			{
+				Meta.ClearXmlDocumentation();
+				Assert.IsTrue(Meta.loadedXmlDocumentation.Count is 0);
+				Meta.LoadXmlDocumentation(File.ReadAllText("Towel_Testing.xml"));
+				Assert.IsTrue(Meta.loadedXmlDocumentation.Count > 0);
+				Meta.ClearXmlDocumentation();
+				Assert.IsTrue(Meta.loadedXmlDocumentation.Count is 0);
+			}
+		}
+
+		[TestMethod]
+		public void MemberInfo_GetDocumentation()
+		{
+			lock (xmlDocumentationlock)
+			{
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(MemberInfo)!));
+			}
+		}
+
 		[TestMethod]
 		public void MethodInfo_GetDocumentation()
 		{
-			#region GitHub Issue 52
+			lock (xmlDocumentationlock)
+			{
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(MethodInfo)!));
 
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
+				Meta.ClearXmlDocumentation();
 
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method2))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method2))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
+				#region GitHub Issue 52
 
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method3))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method3))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method4))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method4))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method1))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method1))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-
-			try
-			{
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method2))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method2))!;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(xmlDocumentation is null);
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-
-			#endregion
-
-			#region Delegate
-
-			try
-			{
-				Action<int> action = new XmlDocumentationFromMethod.GitHubIssue52Class<int>().GitHubIssue52Method;
-				MethodInfo methodInfo = action.Method;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-			catch
-			{
-				Debugger.Break();
-				Action<int> action = new XmlDocumentationFromMethod.GitHubIssue52Class<int>().GitHubIssue52Method;
-				MethodInfo methodInfo = action.Method;
-				string? xmlDocumentation = methodInfo.GetDocumentation();
-				Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-				string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
-				Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-			}
-
-			#endregion
-
-			foreach (MethodInfo methodInfo in Assembly.GetExecutingAssembly().GetMethodInfosWithAttribute<XmlDocumentationFromMethodAttribute>())
-			{
 				try
 				{
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method))!;
 					string? xmlDocumentation = methodInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
 					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
@@ -251,10 +148,146 @@ namespace Towel_Testing
 				catch
 				{
 					Debugger.Break();
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method))!;
 					string? xmlDocumentation = methodInfo.GetDocumentation();
 					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
 					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
 					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+
+				try
+				{
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method2))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(xmlDocumentation is null);
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+				catch
+				{
+					Debugger.Break();
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method2))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(xmlDocumentation is null);
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+
+				try
+				{
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method3))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+				catch
+				{
+					Debugger.Break();
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method3))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+
+				try
+				{
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method4))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(xmlDocumentation is null);
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+				catch
+				{
+					Debugger.Break();
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class<int>).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class<int>.GitHubIssue52Method4))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(xmlDocumentation is null);
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+
+				try
+				{
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method1))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+				catch
+				{
+					Debugger.Break();
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method1))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+
+				try
+				{
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method2))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(xmlDocumentation is null);
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+				catch
+				{
+					Debugger.Break();
+					MethodInfo methodInfo = typeof(XmlDocumentationFromMethod.GitHubIssue52Class).GetMethod(nameof(XmlDocumentationFromMethod.GitHubIssue52Class.GitHubIssue52Method2))!;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(xmlDocumentation is null);
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+
+				#endregion
+
+				#region Delegate
+
+				try
+				{
+					Action<int> action = new XmlDocumentationFromMethod.GitHubIssue52Class<int>().GitHubIssue52Method;
+					MethodInfo methodInfo = action.Method;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+				catch
+				{
+					Debugger.Break();
+					Action<int> action = new XmlDocumentationFromMethod.GitHubIssue52Class<int>().GitHubIssue52Method;
+					MethodInfo methodInfo = action.Method;
+					string? xmlDocumentation = methodInfo.GetDocumentation();
+					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+					string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+				}
+
+				#endregion
+
+				foreach (MethodInfo methodInfo in Assembly.GetExecutingAssembly().GetMethodInfosWithAttribute<XmlDocumentationFromMethodAttribute>())
+				{
+					try
+					{
+						string? xmlDocumentation = methodInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
+					catch
+					{
+						Debugger.Break();
+						string? xmlDocumentation = methodInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)methodInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
 				}
 			}
 		}
@@ -262,22 +295,29 @@ namespace Towel_Testing
 		[TestMethod]
 		public void Type_GetDocumentation()
 		{
-			foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
+			lock (xmlDocumentationlock)
 			{
-				try
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(Type)!));
+
+				Meta.ClearXmlDocumentation();
+
+				foreach (Type type in Assembly.GetExecutingAssembly().GetTypesWithAttribute<XmlDocumentationFromTypeAttribute>())
 				{
-					string? xmlDocumentation = type.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-				}
-				catch
-				{
-					Debugger.Break();
-					string? xmlDocumentation = type.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					try
+					{
+						string? xmlDocumentation = type.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
+					catch
+					{
+						Debugger.Break();
+						string? xmlDocumentation = type.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)type).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
 				}
 			}
 		}
@@ -285,22 +325,29 @@ namespace Towel_Testing
 		[TestMethod]
 		public void FieldInfo_GetDocumentation()
 		{
-			foreach (FieldInfo fieldInfo in Assembly.GetExecutingAssembly().GetFieldInfosWithAttribute<XmlDocumentationFromFieldAttribute>())
+			lock (xmlDocumentationlock)
 			{
-				try
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(FieldInfo)!));
+
+				Meta.ClearXmlDocumentation();
+
+				foreach (FieldInfo fieldInfo in Assembly.GetExecutingAssembly().GetFieldInfosWithAttribute<XmlDocumentationFromFieldAttribute>())
 				{
-					string? xmlDocumentation = fieldInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-				}
-				catch
-				{
-					Debugger.Break();
-					string? xmlDocumentation = fieldInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					try
+					{
+						string? xmlDocumentation = fieldInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
+					catch
+					{
+						Debugger.Break();
+						string? xmlDocumentation = fieldInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)fieldInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
 				}
 			}
 		}
@@ -308,22 +355,29 @@ namespace Towel_Testing
 		[TestMethod]
 		public void ConstructorInfo_GetDocumentation()
 		{
-			foreach (ConstructorInfo constructorInfo in Assembly.GetExecutingAssembly().GetConstructorInfosWithAttribute<XmlDocumentationFromConstructorAttribute>())
+			lock (xmlDocumentationlock)
 			{
-				try
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(ConstructorInfo)!));
+
+				Meta.ClearXmlDocumentation();
+
+				foreach (ConstructorInfo constructorInfo in Assembly.GetExecutingAssembly().GetConstructorInfosWithAttribute<XmlDocumentationFromConstructorAttribute>())
 				{
-					string? xmlDocumentation = constructorInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-				}
-				catch
-				{
-					Debugger.Break();
-					string? xmlDocumentation = constructorInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					try
+					{
+						string? xmlDocumentation = constructorInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
+					catch
+					{
+						Debugger.Break();
+						string? xmlDocumentation = constructorInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)constructorInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
 				}
 			}
 		}
@@ -331,22 +385,29 @@ namespace Towel_Testing
 		[TestMethod]
 		public void PropertyInfo_GetDocumentation()
 		{
-			foreach (PropertyInfo propertyInfo in Assembly.GetExecutingAssembly().GetPropertyInfosWithAttribute<XmlDocumentationFromPropertyAttribute>())
+			lock (xmlDocumentationlock)
 			{
-				try
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(PropertyInfo)!));
+
+				Meta.ClearXmlDocumentation();
+
+				foreach (PropertyInfo propertyInfo in Assembly.GetExecutingAssembly().GetPropertyInfosWithAttribute<XmlDocumentationFromPropertyAttribute>())
 				{
-					string? xmlDocumentation = propertyInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-				}
-				catch
-				{
-					Debugger.Break();
-					string? xmlDocumentation = propertyInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					try
+					{
+						string? xmlDocumentation = propertyInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
+					catch
+					{
+						Debugger.Break();
+						string? xmlDocumentation = propertyInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)propertyInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
 				}
 			}
 		}
@@ -354,22 +415,29 @@ namespace Towel_Testing
 		[TestMethod]
 		public void EventInfo_GetDocumentation()
 		{
-			foreach (EventInfo eventInfo in Assembly.GetExecutingAssembly().GetEventInfosWithAttribute<XmlDocumentationFromEventAttribute>())
+			lock (xmlDocumentationlock)
 			{
-				try
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(EventInfo)!));
+
+				Meta.ClearXmlDocumentation();
+
+				foreach (EventInfo eventInfo in Assembly.GetExecutingAssembly().GetEventInfosWithAttribute<XmlDocumentationFromEventAttribute>())
 				{
-					string? xmlDocumentation = eventInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
-				}
-				catch
-				{
-					Debugger.Break();
-					string? xmlDocumentation = eventInfo.GetDocumentation();
-					Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
-					string? xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
-					Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					try
+					{
+						string? xmlDocumentation = eventInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
+					catch
+					{
+						Debugger.Break();
+						string? xmlDocumentation = eventInfo.GetDocumentation();
+						Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation));
+						string? xmlDocumentationMember = ((MemberInfo)eventInfo).GetDocumentation();
+						Assert.IsTrue(xmlDocumentation == xmlDocumentationMember);
+					}
 				}
 			}
 		}
@@ -377,15 +445,22 @@ namespace Towel_Testing
 		[TestMethod]
 		public void ParameterInfo_GetDocumentation()
 		{
-			MethodInfo? methodInfo = typeof(XmlDocumentationFromParameter).GetMethod("Test1");
-			if (methodInfo is not null)
+			lock (xmlDocumentationlock)
 			{
-				string? Test1_a = methodInfo.GetParameters()[0].GetDocumentation();
-				Assert.IsTrue(Test1_a == "<param name=\"a\">TEST a</param>");
-			}
-			else
-			{
-				Assert.Fail($"XmlDocumentationFromParameter.Test1 MethodInfo is null");
+				Assert.ThrowsException<ArgumentNullException>(() => Meta.GetDocumentation(default(ParameterInfo)!));
+
+				Meta.ClearXmlDocumentation();
+
+				MethodInfo? methodInfo = typeof(XmlDocumentationFromParameter).GetMethod("Test1");
+				if (methodInfo is not null)
+				{
+					string? Test1_a = methodInfo.GetParameters()[0].GetDocumentation();
+					Assert.IsTrue(Test1_a == "<param name=\"a\">TEST a</param>");
+				}
+				else
+				{
+					Assert.Fail($"XmlDocumentationFromParameter.Test1 MethodInfo is null");
+				}
 			}
 		}
 
