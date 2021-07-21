@@ -125,7 +125,8 @@ namespace Towel_Testing
 
 		internal static void TestSortAlgorithm(
 			Action<int, int, int[]> algorithm,
-			int? maxSize = null)
+			int? maxSize = null,
+			bool negatives = true)
 		{
 			// Test sorting the full array (0...length - 1)
 			foreach (int size in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 100, 101, 1000, 1001))
@@ -134,14 +135,108 @@ namespace Towel_Testing
 				{
 					Random random = new(7);
 					int[] array = (size..0).ToArray();
-					Shuffle<int>(array, random);
-					if (IsOrdered<int>(array))
+					if (size > 1)
 					{
-						array = (size..0).ToArray();
+						Shuffle<int>(array, random);
+						if (IsOrdered<int>(array))
+						{
+							Array.Reverse(array);
+						}
 					}
 					algorithm(0, array.Length - 1, array);
 					Assert.IsTrue(IsOrdered<int>(array));
 					Assert.IsTrue(EquateSequence<int>(array, (1..(size + 1)).ToSpan()));
+				}
+			}
+
+			// Test sorting the full array (0...length - 1) with negative values
+			if (negatives)
+			{
+				foreach (int size in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 100, 101, 1000, 1001))
+				{
+					if (maxSize is null || maxSize.Value >= size)
+					{
+						Random random = new(7);
+						int[] array = (size..0).ToArray(i => i - size);
+						if (size > 1)
+						{
+							Shuffle<int>(array, random);
+							if (IsOrdered<int>(array))
+							{
+								Array.Reverse(array);
+							}
+						}
+						algorithm(0, array.Length - 1, array);
+						Assert.IsTrue(IsOrdered<int>(array));
+						var tmp = (0..size).ToSpan(i => i - size + 1);
+						Assert.IsTrue(EquateSequence<int>(array, (0..size).ToSpan(i => i - size + 1)));
+					}
+				}
+			}
+
+			// Test sorting the full array (0...length - 1) with randomized values
+			foreach (int size in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 100, 101, 1000, 1001))
+			{
+				if (maxSize is null || maxSize.Value >= size)
+				{
+					Random random = new(7);
+					int[] array = (size..0).ToArray(i => random.Next(1, 100000));
+					if (size > 1)
+					{
+						Shuffle<int>(array, random);
+						if (IsOrdered<int>(array))
+						{
+							Array.Reverse(array);
+						}
+					}
+					algorithm(0, array.Length - 1, array);
+					Assert.IsTrue(IsOrdered<int>(array));
+				}
+			}
+
+			// Test sorting the full array (0...length - 1) with randomized negative values
+			if (negatives)
+			{
+				foreach (int size in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 100, 101, 1000, 1001))
+				{
+					if (maxSize is null || maxSize.Value >= size)
+					{
+						Random random = new(7);
+						int[] array = (size..0).ToArray(i => random.Next(1, 100000) - 100000);
+						if (size > 1)
+						{
+							Shuffle<int>(array, random);
+							if (IsOrdered<int>(array))
+							{
+								Array.Reverse(array);
+							}
+						}
+						algorithm(0, array.Length - 1, array);
+						Assert.IsTrue(IsOrdered<int>(array));
+					}
+				}
+			}
+
+			// Test sorting the full array (0...length - 1) with randomized negative and positive values
+			if (negatives)
+			{
+				foreach (int size in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 100, 101, 1000, 1001))
+				{
+					if (maxSize is null || maxSize.Value >= size)
+					{
+						Random random = new(7);
+						int[] array = (size..0).ToArray(i => random.Next(1, 100000) - 50000);
+						if (size > 1)
+						{
+							Shuffle<int>(array, random);
+							if (IsOrdered<int>(array))
+							{
+								Array.Reverse(array);
+							}
+						}
+						algorithm(0, array.Length - 1, array);
+						Assert.IsTrue(IsOrdered<int>(array));
+					}
 				}
 			}
 
@@ -256,22 +351,58 @@ namespace Towel_Testing
 		public void Pancake_Span_Testing() => TestSortAlgorithm((start, end, array) => SortPancake(array.AsSpan()[start..(end + 1)]));
 
 		[TestMethod]
-		public void Stooge_Testing() => TestSortAlgorithm((start, end, array) => SortStooge(start, end, i => array[i], (i, v) => array[i] = v), 100);
+		public void Stooge_Testing() => TestSortAlgorithm((start, end, array) => SortStooge(start, end, i => array[i], (i, v) => array[i] = v), maxSize: 100);
 
 		[TestMethod]
-		public void Stooge_Span_Testing() => TestSortAlgorithm((start, end, array) => SortStooge(array.AsSpan()[start..(end + 1)]), 100);
+		public void Stooge_Span_Testing() => TestSortAlgorithm((start, end, array) => SortStooge(array.AsSpan()[start..(end + 1)]), maxSize: 100);
 
 		[TestMethod]
-		public void Bogo_Testing() => TestSortAlgorithm((start, end, array) => SortBogo(start, end, i => array[i], (i, v) => array[i] = v), 6);
+		public void Bogo_Testing() => TestSortAlgorithm((start, end, array) => SortBogo(start, end, i => array[i], (i, v) => array[i] = v), maxSize: 6);
 
 		[TestMethod]
-		public void Bogo_Span_Testing() => TestSortAlgorithm((start, end, array) => SortBogo(array.AsSpan()[start..(end + 1)]), 6);
+		public void Bogo_Span_Testing() => TestSortAlgorithm((start, end, array) => SortBogo(array.AsSpan()[start..(end + 1)]), maxSize: 6);
 
 		[TestMethod]
 		public void Tim_Testing() => TestSortAlgorithm((start, end, array) => SortTim(start, end, i => array[i], (i, v) => array[i] = v));
 
 		[TestMethod]
 		public void Tim_Span_Testing() => TestSortAlgorithm((start, end, array) => SortTim(array.AsSpan()[start..(end + 1)]));
+
+		[TestMethod]
+		public void Counting_Testing() => TestSortAlgorithm((start, end, array) => SortCounting(start, end, i => (uint)i, i => array[i], (i, v) => array[i] = v), negatives: false);
+
+		[TestMethod]
+		public void Counting_Span_Testing()
+		{
+			TestSortAlgorithm((start, end, array) =>
+			{
+				Span<uint> unitSpan = array[start..(end + 1)].Select(i => (uint)i).ToArray();
+				SortCounting(unitSpan);
+				Span<int> intSpan = unitSpan.ToArray().Select(i => (int)i).ToArray();
+				intSpan.CopyTo(array.AsSpan(start, end - start + 1));
+			}, negatives: false);
+		}
+
+		[TestMethod]
+		public void Radix_Testing() => TestSortAlgorithm((start, end, array) => SortRadix(start, end, i => (uint)i, i => array[i], (i, v) => array[i] = v), negatives: false);
+
+		[TestMethod]
+		public void Radix_Span_Testing()
+		{
+			TestSortAlgorithm((start, end, array) =>
+			{
+				Span<uint> unitSpan = array[start..(end + 1)].Select(i => (uint)i).ToArray();
+				SortRadix(unitSpan);
+				Span<int> intSpan = unitSpan.ToArray().Select(i => (int)i).ToArray();
+				intSpan.CopyTo(array.AsSpan(start, end - start + 1));
+			}, negatives: false);
+		}
+
+		[TestMethod]
+		public void PidgeonHole_Testing() => TestSortAlgorithm((start, end, array) => SortPidgeonHole(start, end, i => array[i], (i, v) => array[i] = v));
+
+		[TestMethod]
+		public void PidgeonHole_Span_Testing() => TestSortAlgorithm((start, end, array) => SortPidgeonHole(array.AsSpan()[start..(end + 1)]));
 
 		#endregion
 	}

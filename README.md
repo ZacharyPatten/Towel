@@ -808,6 +808,9 @@ SortCycle<T>(...);
 SortPancake<T>(...);
 SortStooge<T>(...);
 SortTim<T>(...);
+SortCounting<T>(...); // uint-based (non-comparative sort)
+SortRadix<T>(...); // uint-based (non-comparative sort)
+SortPidgeonHole<T>(...); // int-based (non-comparative sort)
 
 // Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
 SearchBinary<T>(...);

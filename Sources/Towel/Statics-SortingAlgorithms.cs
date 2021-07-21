@@ -431,7 +431,7 @@ namespace Towel
 					int half = length / 2;
 					SortMerge_Recursive(start, half);
 					SortMerge_Recursive(start + half, length - half);
-					T[] sorted = new T[length];
+					Span<T> sorted = new T[length];
 					int i = start;
 					int j = start + half;
 					int k = 0;
@@ -687,71 +687,6 @@ namespace Towel
 				}
 			}
 		}
-
-		#endregion
-
-		#region SortCounting
-
-#if false
-
-		///// <summary>Method specifically for computing object keys in the SortCounting Sort algorithm.</summary>
-		///// <typeparam name="T">The type of instances in the array to be sorted.</typeparam>
-		///// <param name="instance">The instance to compute a counting key for.</param>
-		///// <returns>The counting key computed from the provided instance.</returns>
-		//public delegate int ComputeSortCountingKey(T instance);
-
-		///// <summary>
-		///// Sorts an entire array in non-decreasing order using the heap sort algorithm.<br/>
-		///// Runtime: Θ(Max(key))<br/>
-		///// Memory: Max(Key)<br/>
-		///// Stable: True
-		///// </summary>
-		///// <typeparam name="T">The type of objects stored within the array.</typeparam>
-		///// <param name="computeSortCountingKey">Method specifically for computing object keys in the SortCounting Sort algorithm.</param>
-		///// <param name="array">The array to be sorted</param>
-		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, T[] array)
-		//{
-		//	throw new System.NotImplementedException();
-
-		//	// This code needs revision and conversion
-		//	int[] count = new int[array.Length];
-		//	int maxKey = 0;
-		//	for (int i = 0; i < array.Length; i++)
-		//	{
-		//		int key = computeSortCountingKey(array[i]) / array.Length;
-		//		count[key] += 1;
-		//		if (key > maxKey)
-		//			maxKey = key;
-		//	}
-
-		//	int total = 0;
-		//	for (int i = 0; i < maxKey; i++)
-		//	{
-		//		int oldCount = count[i];
-		//		count[i] = total;
-		//		total += oldCount;
-		//	}
-
-		//	T[] output = new T[maxKey];
-		//	for (int i = 0; i < array.Length; i++)
-		//	{
-		//		int key = computeSortCountingKey(array[i]);
-		//		output[count[key]] = array[i];
-		//		count[computeSortCountingKey(array[i])] += 1;
-		//	}
-		//}
-
-		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, T[] array, int start, int end)
-		//{
-		//	throw new System.NotImplementedException();
-		//}
-
-		//public static void SortCounting(ComputeSortCountingKey computeSortCountingKey, Get<T> get, Assign<T> set, int start, int end)
-		//{
-		//	throw new System.NotImplementedException();
-		//}
-
-#endif
 
 		#endregion
 
@@ -1509,6 +1444,354 @@ namespace Towel
 							span[si] = b[bi];
 						}
 					}
+				}
+			}
+		}
+
+		#endregion
+
+		#region SortCounting
+
+		/// <inheritdoc cref="SortCounting{T, TSelect, TGet, TSet}(int, int, TSelect, TGet, TSet)"/>
+		public static void SortCounting(int start, int end, Func<int, uint> get, Action<int, uint> set)
+		{
+			if (get is null) throw new ArgumentNullException(nameof(get));
+			if (set is null) throw new ArgumentNullException(nameof(set));
+			SortCounting<uint, Identity<uint>, SFunc<int, uint>, SAction<int, uint>>(start, end, default, get, set);
+		}
+
+		/// <inheritdoc cref="SortCounting{T, TSelect, TGet, TSet}(int, int, TSelect, TGet, TSet)"/>
+		public static void SortCounting<T>(int start, int end, Func<T, uint> select, Func<int, T> get, Action<int, T> set)
+		{
+			if (select is null) throw new ArgumentNullException(nameof(select));
+			if (get is null) throw new ArgumentNullException(nameof(get));
+			if (set is null) throw new ArgumentNullException(nameof(set));
+			SortCounting<T, SFunc<T, uint>, SFunc<int, T>, SAction<int, T>>(start, end, select, get, set);
+		}
+
+		/// <inheritdoc cref="SortCounting{T, TSelect, TGet, TSet}(int, int, TSelect, TGet, TSet)"/>
+		public static void SortCounting<TGet, TSet>(int start, int end, TGet get = default, TSet set = default)
+			where TGet : struct, IFunc<int, uint>
+			where TSet : struct, IAction<int, uint> =>
+			SortCounting<uint, Identity<uint>, TGet, TSet>(start, end, default, get, set);
+
+		/// <summary>
+		/// Sorts values using the counting sort algorithm.<br/>
+		/// Runtime: Θ(Max(<paramref name="select"/>(n)))<br/>
+		/// Memory: Θ(Max(<paramref name="select"/>(n)))<br/>
+		/// Stable: True
+		/// </summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="TSelect">The type of method for selecting an <see cref="int"/> values from <typeparamref name="T"/> values.</typeparam>
+		/// <typeparam name="TGet">The type of get function.</typeparam>
+		/// <typeparam name="TSet">The type of set function.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="select">The method for selecting <see cref="int"/> values from <typeparamref name="T"/> values.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void SortCounting<T, TSelect, TGet, TSet>(int start, int end, TSelect select = default, TGet get = default, TSet set = default)
+			where TSelect : struct, IFunc<T, uint>
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
+		{
+			if (end - start + 1 < 2)
+			{
+				return;
+			}
+			Span<T> sortingSpan = new T[end - start + 1];
+			uint max = 0;
+			for (int i = start; i <= end; i++)
+			{
+				uint temp = select.Invoke(get.Invoke(i));
+				max = Math.Max(max, temp);
+			}
+			SortCounting(start, end, select, get, set, sortingSpan, max);
+		}
+
+		internal static void SortCounting<T, TSelect, TGet, TSet>(int start, int end, TSelect select, TGet get, TSet set, Span<T> sortingSpan, uint max)
+			where TSelect : struct, IFunc<T, uint>
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
+		{
+			if (end - start + 1 != sortingSpan.Length)
+			{
+				throw new TowelBugException(message: $"{nameof(end)} - {nameof(start)} + 1 != {nameof(sortingSpan)}.{nameof(sortingSpan.Length)}");
+			}
+			int[] count = new int[max + 1];
+			for (int i = start; i <= end; i++)
+			{
+				count[select.Invoke(get.Invoke(i))]++;
+			}
+			for (int i = 1; i <= max; i++)
+			{
+				count[i] += count[i - 1];
+			}
+			for (int i = end; i >= start; i--)
+			{
+				sortingSpan[count[select.Invoke(get.Invoke(i))] - 1] = get.Invoke(i);
+				count[select.Invoke(get.Invoke(i))]--;
+			}
+			for (int a = start, b = 0; a <= end; a++, b++)
+			{
+				set.Invoke(a, sortingSpan[b]);
+			}
+		}
+
+		/// <inheritdoc cref="SortCounting{T, TGetKey}(Span{T}, TGetKey)"/>
+		public static void SortCounting(Span<uint> span) =>
+			SortCounting<uint, Identity<uint>>(span);
+
+		/// <inheritdoc cref="SortCounting{T, TGetKey}(Span{T}, TGetKey)"/>
+		public static void SortCounting<T>(Span<T> span, Func<T, uint> select) =>
+			SortCounting<T, SFunc<T, uint>>(span, select);
+
+		/// <summary>
+		/// Sorts values using the counting sort algorithm.<br/>
+		/// Runtime: Θ(Max(<paramref name="select"/>(<paramref name="span"/>)))<br/>
+		/// Memory: Θ(Max(<paramref name="select"/>(<paramref name="span"/>)))<br/>
+		/// Stable: True
+		/// </summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="TSelect">The type of method for selecting an <see cref="int"/> values from <typeparamref name="T"/> values.</typeparam>
+		/// <param name="span">The span to be sorted.</param>
+		/// <param name="select">The method for selecting <see cref="int"/> values from <typeparamref name="T"/> values.</param>
+		public static void SortCounting<T, TSelect>(Span<T> span, TSelect select = default)
+			where TSelect : struct, IFunc<T, uint>
+		{
+			if (span.Length < 2)
+			{
+				return;
+			}
+			Span<T> sortingSpan = new T[span.Length];
+			uint max = uint.MinValue;
+			foreach (T t in span)
+			{
+				uint temp = select.Invoke(t);
+				max = Math.Max(max, temp);
+			}
+			SortCounting(span, select, sortingSpan, max);
+		}
+
+		internal static void SortCounting<T, TSelect>(Span<T> span, TSelect select, Span<T> sortingSpan, uint max)
+			where TSelect : struct, IFunc<T, uint>
+		{
+			if (span.Length != sortingSpan.Length)
+			{
+				throw new TowelBugException(message: $"{nameof(span)}.{nameof(span.Length)} != {nameof(sortingSpan)}.{nameof(sortingSpan.Length)}");
+			}
+			int[] count = new int[max + 1];
+			for (int i = 0; i < span.Length; i++)
+			{
+				count[select.Invoke(span[i])]++;
+			}
+			for (int i = 1; i <= max; i++)
+			{
+				count[i] += count[i - 1];
+			}
+			for (int i = span.Length - 1; i >= 0; i--)
+			{
+				sortingSpan[count[select.Invoke(span[i])] - 1] = span[i];
+				count[select.Invoke(span[i])]--;
+			}
+			sortingSpan.CopyTo(span);
+		}
+
+		#endregion
+
+		#region SortRadix
+
+		/// <inheritdoc cref="SortRadix{T, TSelect, TGet, TSet}(int, int, TSelect, TGet, TSet)"/>
+		public static void SortRadix(int start, int end, Func<int, uint> get, Action<int, uint> set)
+		{
+			if (get is null) throw new ArgumentNullException(nameof(get));
+			if (set is null) throw new ArgumentNullException(nameof(set));
+			SortRadix<uint, Identity<uint>, SFunc<int, uint>, SAction<int, uint>>(start, end, default, get, set);
+		}
+
+		/// <inheritdoc cref="SortRadix{T, TSelect, TGet, TSet}(int, int, TSelect, TGet, TSet)"/>
+		public static void SortRadix<T>(int start, int end, Func<T, uint> select, Func<int, T> get, Action<int, T> set)
+		{
+			if (select is null) throw new ArgumentNullException(nameof(select));
+			if (get is null) throw new ArgumentNullException(nameof(get));
+			if (set is null) throw new ArgumentNullException(nameof(set));
+			SortRadix<T, SFunc<T, uint>, SFunc<int, T>, SAction<int, T>>(start, end, select, get, set);
+		}
+
+		/// <inheritdoc cref="SortRadix{T, TSelect, TGet, TSet}(int, int, TSelect, TGet, TSet)"/>
+		public static void SortRadix<TGet, TSet>(int start, int end, TGet get = default, TSet set = default)
+			where TGet : struct, IFunc<int, uint>
+			where TSet : struct, IAction<int, uint> =>
+			SortRadix<uint, Identity<uint>, TGet, TSet>(start, end, default, get, set);
+
+		/// <summary>
+		/// Sorts values using the radix sort algorithm.
+		/// </summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="TSelect">The type of method for selecting an <see cref="int"/> values from <typeparamref name="T"/> values.</typeparam>
+		/// <typeparam name="TGet">The type of get function.</typeparam>
+		/// <typeparam name="TSet">The type of set function.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="select">The method for selecting <see cref="int"/> values from <typeparamref name="T"/> values.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void SortRadix<T, TSelect, TGet, TSet>(int start, int end, TSelect select = default, TGet get = default, TSet set = default)
+			where TSelect : struct, IFunc<T, uint>
+			where TGet : struct, IFunc<int, T>
+			where TSet : struct, IAction<int, T>
+		{
+			if (end - start + 1 < 2)
+			{
+				return;
+			}
+			uint max = uint.MinValue;
+			for (int i = start; i <= end; i++)
+			{
+				uint temp = select.Invoke(get.Invoke(i));
+				max = Math.Max(max, temp);
+			}
+			Span<T> sortingSpan = new T[end - start + 1];
+			for (uint divisor = 1; max / divisor > 0; divisor *= 10)
+			{
+				SortCounting<T, SortRadixSelect<T, TSelect>, TGet, TSet>(start, end, new() { Select = select, Divisor = divisor }, get, set, sortingSpan, max);
+			}
+		}
+
+		/// <inheritdoc cref="SortRadix{T, TGetKey}(Span{T}, TGetKey)"/>
+		public static void SortRadix(Span<uint> span) =>
+			SortRadix<uint, Identity<uint>>(span);
+
+		/// <summary>
+		/// Sorts values using the radix sort algorithm.
+		/// </summary>
+		/// <typeparam name="T">The type of values to sort.</typeparam>
+		/// <typeparam name="TSelect">The type of method for selecting an <see cref="int"/> values from <typeparamref name="T"/> values.</typeparam>
+		/// <param name="span">The span to be sorted.</param>
+		/// <param name="select">The method for selecting <see cref="int"/> values from <typeparamref name="T"/> values.</param>
+		public static void SortRadix<T, TSelect>(Span<T> span, TSelect select = default)
+			where TSelect : struct, IFunc<T, uint>
+		{
+			if (span.Length < 2)
+			{
+				return;
+			}
+			uint max = uint.MinValue;
+			foreach (T t in span)
+			{
+				uint temp = select.Invoke(t);
+				if (temp < 0)
+				{
+					throw new ArgumentException(message: $"a value exists in {nameof(span)} where {nameof(select)} is less than 0");
+				}
+				max = Math.Max(max, temp);
+			}
+			Span<T> sortingSpan = new T[span.Length];
+			for (uint divisor = 1; max / divisor > 0; divisor *= 10)
+			{
+				SortCounting<T, SortRadixSelect<T, TSelect>>(span, new() { Select = select, Divisor = divisor }, sortingSpan, max);
+			}
+		}
+
+		internal struct SortRadixSelect<T, TSelect> : IFunc<T, uint>
+			where TSelect : struct, IFunc<T, uint>
+		{
+			internal TSelect Select;
+			internal uint Divisor;
+
+			public uint Invoke(T a) => Select.Invoke(a) / Divisor;
+		}
+
+		#endregion
+
+		#region SortPidgeonHole
+
+		/// <inheritdoc cref="SortPidgeonHole{TGet, TSet}(int, int, TGet, TSet)"/>
+		public static void SortPidgeonHole(int start, int end, Func<int, int> get, Action<int, int> set)
+		{
+			if (get is null) throw new ArgumentNullException(nameof(get));
+			if (set is null) throw new ArgumentNullException(nameof(set));
+			SortPidgeonHole<SFunc<int, int>, SAction<int, int>>(start, end, get, set);
+		}
+
+		/// <summary>
+		/// Sorts values using the pidgeon hole sort algorithm.
+		/// </summary>
+		/// <typeparam name="TGet">The type of get function.</typeparam>
+		/// <typeparam name="TSet">The type of set function.</typeparam>
+		/// <param name="start">The starting index of the sort.</param>
+		/// <param name="end">The ending index of the sort.</param>
+		/// <param name="get">The get function.</param>
+		/// <param name="set">The set function.</param>
+		public static void SortPidgeonHole<TGet, TSet>(int start, int end, TGet get = default, TSet set = default)
+			where TGet : struct, IFunc<int, int>
+			where TSet : struct, IAction<int, int>
+		{
+			if (end - start + 1 < 2)
+			{
+				return;
+			}
+			int min = int.MaxValue;
+			int max = int.MinValue;
+			for (int i = start; i <= end; i++)
+			{
+				int temp = get.Invoke(i);
+				if (i < 0)
+				{
+					throw new ArgumentException(message: $"a value exists in the sequence that is less than 0");
+				}
+				max = Math.Max(max, temp);
+				min = Math.Min(min, temp);
+			}
+			if (min < int.MinValue / 2 && max > -(int.MinValue / 2))
+			{
+				throw new OverflowException($"the range of values in the sequence exceends the range of the int data type");
+			}
+			Span<int> holes = new int[max - min + 1];
+			for (int i = start; i <= end; i++)
+			{
+				holes[get.Invoke(i) - min]++;
+			}
+			for (int hole = 0, i = start; hole < holes.Length; hole++)
+			{
+				for (int j = 0; j < holes[hole]; j++)
+				{
+					set.Invoke(i++, hole + min);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Sorts values using the pidgeon hole sort algorithm.
+		/// </summary>
+		/// <param name="span">The span to be sorted.</param>
+		public static void SortPidgeonHole(Span<int> span)
+		{
+			if (span.Length < 2)
+			{
+				return;
+			}
+			int min = int.MaxValue;
+			int max = int.MinValue;
+			foreach (int i in span)
+			{
+				max = Math.Max(max, i);
+				min = Math.Min(min, i);
+			}
+			if (min < int.MinValue / 2 && max > -(int.MinValue / 2))
+			{
+				throw new OverflowException($"the range of values in {nameof(span)} exceends the range of the int data type");
+			}
+			Span<int> holes = new int[max - min + 1];
+			foreach (int i in span)
+			{
+				holes[i - min]++;
+			}
+			for (int hole = 0, i = 0; hole < holes.Length; hole++)
+			{
+				for (int j = 0; j < holes[hole]; j++)
+				{
+					span[i++] = hole + min;
 				}
 			}
 		}
