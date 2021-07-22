@@ -1444,37 +1444,34 @@ namespace Towel
 
 		#region IsPalindrome
 
+#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable SA1617 // Void return value should not be documented
+#pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
+
 		/// <summary>Determines if a sequence is a palindrome.</summary>
-		/// <typeparam name="T">The element type of the sequence.</typeparam>
+		/// <typeparam name="T">The type of values in the sequence.</typeparam>
+		/// <typeparam name="TGet">The type of method to get a <typeparamref name="T"/> value from an <see cref="int"/> index.</typeparam>
+		/// <typeparam name="TEquate">The type of method for comparing <typeparamref name="T"/> values for equality.</typeparam>
 		/// <param name="start">The inclusive starting index of the palindrome check.</param>
 		/// <param name="end">The inclusive ending index of the palindrome check.</param>
-		/// <param name="get">The get index function of the sequence.</param>
-		/// <param name="equate">The element equate function.</param>
+		/// <param name="get">The method to get a <typeparamref name="T"/> value from an <see cref="int"/> index.</param>
+		/// <param name="equate">The method for comparing <typeparamref name="T"/> values for equality.</param>
+		/// <param name="span">The sequence to check.</param>
 		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		[Obsolete(TowelConstants.NotIntended, true)]
+		public static void XML_IsPalindrome() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
+#pragma warning restore SA1617 // Void return value should not be documented
+#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+
+		/// <inheritdoc cref="XML_IsPalindrome"/>
 		public static bool IsPalindrome<T>(int start, int end, Func<int, T> get, Func<T, T, bool>? equate = default) =>
 			IsPalindrome<T, SFunc<int, T>, SFunc<T, T, bool>>(start, end, get, equate ?? Equate);
 
-		/// <summary>Determines if a sequence is a palindrome.</summary>
-		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="TGet">The type of get index function of the sequence.</typeparam>
-		/// <param name="start">The inclusive starting index of the palindrome check.</param>
-		/// <param name="end">The inclusive ending index of the palindrome check.</param>
-		/// <param name="get">The get index function of the sequence.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the sequence is a palindrome; False if not.</returns>
-		public static bool IsPalindrome<T, TGet>(int start, int end, TGet get = default, Func<T, T, bool>? equate = default)
-			where TGet : struct, IFunc<int, T> =>
-			IsPalindrome<T, TGet, SFunc<T, T, bool>>(start, end, get, equate ?? Equate);
-
-		/// <summary>Determines if a sequence is a palindrome.</summary>
-		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="TGet">The type of get index function of the sequence.</typeparam>
-		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
-		/// <param name="start">The inclusive starting index of the palindrome check.</param>
-		/// <param name="end">The inclusive ending index of the palindrome check.</param>
-		/// <param name="get">The get index function of the sequence.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		/// <inheritdoc cref="XML_IsPalindrome"/>
 		public static bool IsPalindrome<T, TGet, TEquate>(int start, int end, TGet get = default, TEquate equate = default)
 			where TGet : struct, IFunc<int, T>
 			where TEquate : struct, IFunc<T, T, bool>
@@ -1490,26 +1487,15 @@ namespace Towel
 			return true;
 		}
 
-		/// <summary>Determines if a sequence is a palindrome.</summary>
-		/// <param name="span">The span to check.</param>
-		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		/// <inheritdoc cref="XML_IsPalindrome"/>
 		public static bool IsPalindrome(ReadOnlySpan<char> span) =>
 			IsPalindrome<char, CharEquate>(span);
 
-		/// <summary>Determines if a sequence is a palindrome.</summary>
-		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <param name="span">The span to check.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		/// <inheritdoc cref="XML_IsPalindrome"/>
 		public static bool IsPalindrome<T>(ReadOnlySpan<T> span, Func<T, T, bool>? equate = default) =>
 			IsPalindrome<T, SFunc<T, T, bool>>(span, equate ?? Equate);
 
-		/// <summary>Determines if a sequence is a palindrome.</summary>
-		/// <typeparam name="T">The element type of the sequence.</typeparam>
-		/// <typeparam name="TEquate">The type of element equate function.</typeparam>
-		/// <param name="span">The span to check.</param>
-		/// <param name="equate">The element equate function.</param>
-		/// <returns>True if the sequence is a palindrome; False if not.</returns>
+		/// <inheritdoc cref="XML_IsPalindrome"/>
 		public static bool IsPalindrome<T, TEquate>(ReadOnlySpan<T> span, TEquate equate = default)
 			where TEquate : struct, IFunc<T, T, bool>
 		{
