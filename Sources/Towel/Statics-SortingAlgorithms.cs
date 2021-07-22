@@ -1662,6 +1662,10 @@ namespace Towel
 		public static void SortRadix(Span<uint> span) =>
 			SortRadix<uint, Identity<uint>>(span);
 
+		/// <inheritdoc cref="SortRadix{T, TGetKey}(Span{T}, TGetKey)"/>
+		public static void SortRadix<T>(Span<T> span, Func<T, uint> select) =>
+			SortRadix<T, SFunc<T, uint>>(span, select);
+
 		/// <summary>
 		/// Sorts values using the radix sort algorithm.
 		/// </summary>

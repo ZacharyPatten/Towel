@@ -372,31 +372,13 @@ namespace Towel_Testing
 		public void Counting_Testing() => TestSortAlgorithm((start, end, array) => SortCounting(start, end, i => (uint)i, i => array[i], (i, v) => array[i] = v), negatives: false);
 
 		[TestMethod]
-		public void Counting_Span_Testing()
-		{
-			TestSortAlgorithm((start, end, array) =>
-			{
-				Span<uint> unitSpan = array[start..(end + 1)].Select(i => (uint)i).ToArray();
-				SortCounting(unitSpan);
-				Span<int> intSpan = unitSpan.ToArray().Select(i => (int)i).ToArray();
-				intSpan.CopyTo(array.AsSpan(start, end - start + 1));
-			}, negatives: false);
-		}
+		public void Counting_Span_Testing() => TestSortAlgorithm((start, end, array) => SortCounting<int>(array.AsSpan()[start..(end + 1)], i => (uint)i), negatives: false);
 
 		[TestMethod]
 		public void Radix_Testing() => TestSortAlgorithm((start, end, array) => SortRadix(start, end, i => (uint)i, i => array[i], (i, v) => array[i] = v), negatives: false);
 
 		[TestMethod]
-		public void Radix_Span_Testing()
-		{
-			TestSortAlgorithm((start, end, array) =>
-			{
-				Span<uint> unitSpan = array[start..(end + 1)].Select(i => (uint)i).ToArray();
-				SortRadix(unitSpan);
-				Span<int> intSpan = unitSpan.ToArray().Select(i => (int)i).ToArray();
-				intSpan.CopyTo(array.AsSpan(start, end - start + 1));
-			}, negatives: false);
-		}
+		public void Radix_Span_Testing() => TestSortAlgorithm((start, end, array) => SortRadix<int>(array.AsSpan()[start..(end + 1)], i => (uint)i), negatives: false);
 
 		[TestMethod]
 		public void PidgeonHole_Testing() => TestSortAlgorithm((start, end, array) => SortPidgeonHole(start, end, i => array[i], (i, v) => array[i] = v));

@@ -240,65 +240,87 @@ namespace BasicsAndExtensions
 				Shuffle<int>(dataSet);
 				Console.WriteLine($"    Shuffle:   {DataSetToString()}");
 
+				Console.WriteLine();
+				Console.WriteLine("    comparison-based sorting algorithms");
+				Console.WriteLine("    (work on any type that can be compared)");
+				Console.WriteLine();
+
 				SortBubble<int>(dataSet);
-				Console.WriteLine($"    Bubble:    {DataSetToString()}");
+				Console.WriteLine($"      Bubble:    {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortSelection<int>(dataSet);
-				Console.WriteLine($"    Selection: {DataSetToString()}");
+				Console.WriteLine($"      Selection: {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortInsertion<int>(dataSet);
-				Console.WriteLine($"    Insertion: {DataSetToString()}");
+				Console.WriteLine($"      Insertion: {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortQuick<int>(dataSet);
-				Console.WriteLine($"    Quick:     {DataSetToString()}");
+				Console.WriteLine($"      Quick:     {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortMerge<int>(dataSet);
-				Console.WriteLine($"    Merge:     {DataSetToString()}");
+				Console.WriteLine($"      Merge:     {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortHeap<int>(dataSet);
-				Console.WriteLine($"    Heap:      {DataSetToString()}");
+				Console.WriteLine($"      Heap:      {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortTim<int>(dataSet);
-				Console.WriteLine($"    Tim:       {DataSetToString()}");
+				Console.WriteLine($"      Tim:       {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortOddEven<int>(dataSet);
-				Console.WriteLine($"    OddEven:   {DataSetToString()}");
+				Console.WriteLine($"      OddEven:   {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortSlow<int>(dataSet);
-				Console.WriteLine($"    Slow:      {DataSetToString()}");
+				Console.WriteLine($"      Slow:      {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortCocktail<int>(dataSet);
-				Console.WriteLine($"    Cocktail:  {DataSetToString()}");
+				Console.WriteLine($"      Cocktail:  {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortShell<int>(dataSet);
-				Console.WriteLine($"    Shell:     {DataSetToString()}");
+				Console.WriteLine($"      Shell:     {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortGnome<int>(dataSet);
-				Console.WriteLine($"    Gnome:     {DataSetToString()}");
+				Console.WriteLine($"      Gnome:     {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortComb<int>(dataSet);
-				Console.WriteLine($"    Comb:      {DataSetToString()}");
+				Console.WriteLine($"      Comb:      {DataSetToString()}");
 
 				Shuffle<int>(dataSet);
 				SortCycle<int>(dataSet);
-				Console.WriteLine($"    Cycle:     {DataSetToString()}");
+				Console.WriteLine($"      Cycle:     {DataSetToString()}");
+
+				Console.WriteLine("      Bogo:      commented out (very slow...)");
+				//Shuffle<int>(dataSet);
+				//SortBogo<int>(dataSet);
+				//Console.WriteLine($"      Bogo:      {DataSetToString()}");
+
+				Console.WriteLine();
+				Console.WriteLine("    non-comparison-based sorting algorithms");
+				Console.WriteLine("    (only work on specific types)");
+				Console.WriteLine();
 
 				Shuffle<int>(dataSet);
-				Console.WriteLine("    Bogo:      Disabled (usually very slow...)");
-				//SortBogo<int>(dataSet);
-				//Console.WriteLine($"    Bogo:      {DataSetToString()}");
+				SortPidgeonHole(dataSet);
+				Console.WriteLine($"      Pidgeon Hole (int): {DataSetToString()}");
+
+				Shuffle<int>(dataSet);
+				SortCounting<int>(dataSet, i => (uint)i);
+				Console.WriteLine($"      Counting (uint):    {DataSetToString()}");
+
+				Shuffle<int>(dataSet);
+				SortRadix<int>(dataSet, i => (uint)i);
+				Console.WriteLine($"      Radix (uint):       {DataSetToString()}");
 
 				Pause();
 			}
