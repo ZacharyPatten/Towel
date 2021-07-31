@@ -17,7 +17,7 @@
 	<a href="https://docs.microsoft.com/en-us/dotnet/csharp/"><img src="https://img.shields.io/badge/language-C%23-%23178600" title="Go To C# Documentation"></a>
 	<a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmain%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a>
 	<a href="https://www.nuget.org/packages/Towel"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package" /></a>
-	<a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a>
+	<a href="https://zacharypatten.github.io/Towel/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a>
 	<a href="https://github.com/ZacharyPatten/Towel/actions/workflows/Continuous%20Integration.yml"><img src="https://github.com/ZacharyPatten/Towel/actions/workflows/Continuous%20Integration.yml/badge.svg" title="Go To Action"></a>
 	<a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report" /></a>
 	<a href="https://discord.gg/4XbQbwF"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server" /></a>
@@ -112,7 +112,7 @@
 <p>
 
 > - Change Log: https://github.com/ZacharyPatten/Towel/releases
-> - [docfx](https://github.com/dotnet/docfx) generated API documentation reference: <sub><a href="https://zacharypatten.github.io/Towel/api/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a></sub>
+> - [docfx](https://github.com/dotnet/docfx) generated API documentation reference: <sub><a href="https://zacharypatten.github.io/Towel/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a></sub>
 > - [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report: <sub><a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report"/></a></sub>
 > - [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) generated benchmarking: https://zacharypatten.github.io/Towel/articles/benchmarks.html
 > 

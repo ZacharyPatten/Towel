@@ -8,4 +8,4 @@ This is the documentation website for Towel.
 
 - [Articles](articles/index.html)
 - [Benchmarks](benchmarks/index.html)
-- [Api Documentation](api/index.html)
+- [Api Documentation](api/Towel.html)
