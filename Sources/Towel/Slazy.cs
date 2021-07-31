@@ -5,60 +5,118 @@ namespace Towel
 	/// <inheritdoc cref="Lazy{T}"/>
 	public struct SLazy<T>
 	{
-		internal SLazy<T, SFunc<T>> _lazy;
+		internal class Reference
+		{
+			internal Func<T>? _func;
+			internal T? _value;
+			internal Reference(T value) => _value = value;
+			internal Reference(Func<T> func) => _func = func;
+		}
+
+		internal Reference? _reference;
+		internal T? _value;
 
 		/// <summary>True if <see cref="Value"/> has been initialized.</summary>
-		public bool IsValueCreated => _lazy._isValueCreated;
+		public bool IsValueCreated => _reference is null ? true : GetIsValueCreated();
+
 		/// <summary>Gets the lazily initialized value.</summary>
-		public T Value => _lazy.Value;
+		public T Value => _reference is null ? _value! : GetValue();
+
+		/// <inheritdoc cref="Lazy{T}(Func{T})"/>
+		public SLazy(T value)
+		{
+			_reference = null;
+			_value = value;
+		}
 
 		/// <inheritdoc cref="Lazy{T}(Func{T})"/>
 		public SLazy(Func<T> func)
 		{
 			if (func is null) throw new ArgumentNullException(nameof(func));
-			_lazy = new(func);
+			_reference = new(func);
+			_value = default;
+		}
+
+		internal bool GetIsValueCreated()
+		{
+			if (_reference!._func is null)
+			{
+				_value = _reference._value;
+				_reference = null;
+				return true;
+			}
+			return false;
+		}
+
+		internal T GetValue()
+		{
+			if (_reference!._func is null)
+			{
+				_value = _reference._value;
+				_reference = null;
+			}
+			else
+			{
+				lock (_reference)
+				{
+					if (_reference is not null)
+					{
+						if (_reference._func is null)
+						{
+							_value = _reference._value;
+						}
+						else
+						{
+							T value = _reference._func.Invoke();
+							_reference._func = default;
+							_reference._value = value;
+							_value = value;
+						}
+						_reference = null;
+					}
+				}
+			}
+			return _value!;
 		}
 
 		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <see cref="Func{T}"/>.</summary>
 		/// <param name="func">The method used to initialize <see cref="Value"/>.</param>
 		public static implicit operator SLazy<T>(Func<T> func) => new(func);
-	}
 
-	/// <inheritdoc cref="Lazy{T}"/>
-	/// <typeparam name="TFunc">The type of method used to initialize <see cref="Value"/>.</typeparam>
-#pragma warning disable CS1712 // Type parameter has no matching typeparam tag in the XML comment (but other type parameters do)
-	public struct SLazy<T, TFunc>
-#pragma warning restore CS1712 // Type parameter has no matching typeparam tag in the XML comment (but other type parameters do)
-		where TFunc : struct, IFunc<T>
-	{
-		internal bool _isValueCreated;
-		internal TFunc _func;
-		internal T? _value;
+		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <typeparamref name="T"/>.</summary>
+		/// <param name="value">The value to initialize <see cref="Value"/> with.</param>
+		public static implicit operator SLazy<T>(T value) => new(value);
 
-		/// <summary>True if <see cref="Value"/> has been initialized.</summary>
-		public bool IsValueCreated => _isValueCreated;
-
-		/// <summary>Gets the lazily initialized value.</summary>
-		public T Value
-		{
-			get
+		/// <summary>Checks for equality between <see cref="Value"/> and <paramref name="obj"/>.</summary>
+		/// <param name="obj">The value to compare to <see cref="Value"/>.</param>
+		/// <returns>True if <see cref="Value"/> and <paramref name="obj"/> are equal or False if not.</returns>
+		public override bool Equals(object? obj) =>
+			(Value, obj) switch
 			{
-				if (!_isValueCreated)
-				{
-					_value = _func.Invoke();
-					_isValueCreated = true;
-				}
-				return _value!;
+				(null, null) => true,
+				(_, null) => false,
+				(null, _) => false,
+				_ => EqualsNonNulls(obj),
+			};
+
+		internal bool EqualsNonNulls(object obj)
+		{
+			if (obj is SLazy<T> slazy)
+			{
+				return Value!.Equals(slazy.Value);
+			}
+			else
+			{
+				return Value!.Equals(obj);
 			}
 		}
 
-		/// <summary>Constructs a new <see cref="SLazy{T, TFunc}"/>.</summary>
-		/// <param name="func">The method used to initialize <see cref="Value"/>.</param>
-		public SLazy(TFunc func)
-		{
-			_isValueCreated = false;
-			_func = func;
-			_value = default;
-		}
+		/// <summary>Returns a string that represents <see cref="Value"/>.</summary>
+		/// <returns>A string that represents <see cref="Value"/></returns>
+		public override string? ToString() => Value?.ToString();
+
+		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
+		/// <returns>The hash code of <see cref="Value"/>.</returns>
+		public override int GetHashCode() => Value?.GetHashCode() ?? default;
 	}
 }

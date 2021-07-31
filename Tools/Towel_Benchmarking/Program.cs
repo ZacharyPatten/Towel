@@ -37,6 +37,8 @@ namespace Towel_Benchmarking
 			typeof(SpanVsArraySortingBenchmarks),
 			typeof(RandomWithExclusionsBenchmarks),
 			typeof(HeapGenericsVsDelegatesBenchmarks),
+			typeof(SlazyInitializationBenchmarks),
+			typeof(SlazyCachingBenchmarks),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>
