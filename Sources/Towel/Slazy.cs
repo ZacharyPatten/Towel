@@ -2,7 +2,8 @@
 
 namespace Towel
 {
-	/// <inheritdoc cref="Lazy{T}"/>
+	/// <summary>Provides support for lazy initialization.</summary>
+	/// <typeparam name="T">The type of value that is being lazily initialized.</typeparam>
 	public struct SLazy<T>
 	{
 		internal class Reference
@@ -22,14 +23,17 @@ namespace Towel
 		/// <summary>Gets the lazily initialized value.</summary>
 		public T Value => _reference is null ? _value! : GetValue();
 
-		/// <inheritdoc cref="Lazy{T}(Func{T})"/>
+		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <typeparamref name="T"/>.</summary>
+		/// <param name="value">The value to initialize <see cref="Value"/> with.</param>
 		public SLazy(T value)
 		{
 			_reference = null;
 			_value = value;
 		}
 
-		/// <inheritdoc cref="Lazy{T}(Func{T})"/>
+		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <see cref="Func{T}"/>.</summary>
+		/// <param name="func">The method used to initialize <see cref="Value"/>.</param>
+		/// <exception cref="ArgumentNullException">Thrown when <paramref name="func"/> is null.</exception>
 		public SLazy(Func<T> func)
 		{
 			if (func is null) throw new ArgumentNullException(nameof(func));
@@ -81,6 +85,7 @@ namespace Towel
 
 		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <see cref="Func{T}"/>.</summary>
 		/// <param name="func">The method used to initialize <see cref="Value"/>.</param>
+		/// <exception cref="ArgumentNullException">Thrown when <paramref name="func"/> is null.</exception>
 		public static implicit operator SLazy<T>(Func<T> func) => new(func);
 
 		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <typeparamref name="T"/>.</summary>
