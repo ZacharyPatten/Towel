@@ -4,6 +4,8 @@ using Towel;
 
 namespace Towel_Benchmarking
 {
+	[Tag(Program.Name, "Slazy Initialization")]
+	[Tag(Program.OutputFile, nameof(SlazyInitializationBenchmarks))]
 	public class SlazyInitializationBenchmarks
 	{
 		private Lazy<int>[]? lazys;
@@ -55,6 +57,8 @@ namespace Towel_Benchmarking
 		}
 	}
 
+	[Tag(Program.Name, "Slazy Caching")]
+	[Tag(Program.OutputFile, nameof(SlazyCachingBenchmarks))]
 	public class SlazyCachingBenchmarks
 	{
 		[Params(1, 10, 100, 1000)]

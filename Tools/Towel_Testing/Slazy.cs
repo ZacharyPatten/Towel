@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 
@@ -13,6 +11,9 @@ namespace Towel_Testing
 		[TestMethod]
 		public void Test()
 		{
+			{
+				Assert.ThrowsException<ArgumentNullException>(() => new SLazy<int>(default(Func<int>)!));
+			}
 			{
 				SLazy<int> a = 1;
 				SLazy<int> b = 1;
@@ -29,8 +30,8 @@ namespace Towel_Testing
 				Assert.IsTrue(a.Equals(b));
 			}
 			{
-				SLazy<string> a = default;
-				SLazy<string> b = default;
+				SLazy<string?> a = default(string);
+				SLazy<string?> b = default(string);
 				Assert.IsTrue(a.Equals(b));
 			}
 			{
@@ -89,6 +90,13 @@ namespace Towel_Testing
 				thread1.Start();
 				thread2.Start();
 				SpinWait.SpinUntil(() => thread1Ready && thread2Ready);
+
+				// just some extra waits for good measure to try to ensure
+				// thread1 and thread2 reach "_ = slazy.Value"
+				default(SpinWait).SpinOnce();
+				default(SpinWait).SpinOnce();
+				default(SpinWait).SpinOnce();
+
 				Assert.IsTrue(!slazy.IsValueCreated);
 				ready = true;
 				thread1.Join();
@@ -115,6 +123,13 @@ namespace Towel_Testing
 				thread1.Start();
 				thread2.Start();
 				SpinWait.SpinUntil(() => thread1Ready && thread2Ready);
+
+				// just some extra waits for good measure to ensure thread1 and thread2
+				// reach "_ = slazyA.Value" and "_ = slazyB.Value" respectively
+				default(SpinWait).SpinOnce();
+				default(SpinWait).SpinOnce();
+				default(SpinWait).SpinOnce();
+
 				Assert.IsTrue(!slazyA.IsValueCreated);
 				Assert.IsTrue(!slazyB.IsValueCreated);
 				ready = true;
