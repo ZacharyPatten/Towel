@@ -566,11 +566,11 @@ namespace Towel.Measurements
 
 			int size = Convert<TUnits, int>(Meta.GetLastEnumValue<TUnits>());
 			Func<T, T>[][] conversionFactorTable = Extensions.ConstructSquareJaggedArray<Func<T, T>>(size + 1);
-			foreach (Enum A_unit in Enum.GetValues(typeof(TUnits)))
+			foreach (Enum A_unit in Enum.GetValues<TUnits>())
 			{
 				int A = System.Convert.ToInt32(A_unit);
 
-				foreach (Enum B_unit in Enum.GetValues(typeof(TUnits)))
+				foreach (Enum B_unit in Enum.GetValues<TUnits>())
 				{
 					int B = System.Convert.ToInt32(B_unit);
 
