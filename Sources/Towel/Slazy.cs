@@ -90,25 +90,19 @@ namespace Towel
 		/// <summary>Checks for equality between <see cref="Value"/> and <paramref name="obj"/>.</summary>
 		/// <param name="obj">The value to compare to <see cref="Value"/>.</param>
 		/// <returns>True if <see cref="Value"/> and <paramref name="obj"/> are equal or False if not.</returns>
-		public override bool Equals(object? obj) =>
-			(Value, obj) switch
-			{
-				(null, null) => true,
-				(_, null) => false,
-				(null, _) => false,
-				_ => EqualsNonNulls(obj),
-			};
-
-		internal bool EqualsNonNulls(object obj)
+		public override bool Equals(object? obj)
 		{
 			if (obj is SLazy<T> slazy)
 			{
-				return Value!.Equals(slazy.Value);
+				obj = slazy.Value;
 			}
-			else
+			return (Value, obj) switch
 			{
-				return Value!.Equals(obj);
-			}
+				(null, null) => true,
+				(_,    null) => false,
+				(null,    _) => false,
+				_ => Value!.Equals(obj),
+			};
 		}
 
 		/// <summary>Returns a string that represents <see cref="Value"/>.</summary>
