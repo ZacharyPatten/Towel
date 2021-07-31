@@ -37,6 +37,8 @@ namespace Towel_Benchmarking
 			typeof(SpanVsArraySortingBenchmarks),
 			typeof(RandomWithExclusionsBenchmarks),
 			typeof(HeapGenericsVsDelegatesBenchmarks),
+			typeof(SlazyInitializationBenchmarks),
+			typeof(SlazyCachingBenchmarks),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>
@@ -53,7 +55,7 @@ namespace Towel_Benchmarking
 			string thisPath = Path.GetDirectoryName(sourcefilepath())!;
 			if (refreshToc)
 			{
-				tocPath ??= Path.Combine(thisPath, "..", "docfx_project", "articles", "toc.yml");
+				tocPath ??= Path.Combine(thisPath, "..", "docfx_project", "benchmarks", "toc.yml");
 				string[] lines =
 				{
 					"- name: Introduction",
@@ -66,10 +68,10 @@ namespace Towel_Benchmarking
 			string? benchmarks_mdPath = default;
 			if (updateDocumentation)
 			{
-				benchmarks_mdPath = Path.Combine(thisPath, "..", "docfx_project", "articles", "benchmarks.md");
+				benchmarks_mdPath = Path.Combine(thisPath, "..", "docfx_project", "benchmarks", "index.md");
 				string[] lines =
 				{
-					"# Benchmarks",
+					"# Towel Benchmarks",
 					"",
 					@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>",
 					"",
@@ -86,20 +88,24 @@ namespace Towel_Benchmarking
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine(@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>");
 				stringBuilder.AppendLine();
-				stringBuilder.AppendLine("The source code for all becnhmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking).");
+				stringBuilder.AppendLine("The source code for all benchmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking).");
 				stringBuilder.AppendLine();
 				stringBuilder.AppendLine(output);
 				if (updateDocumentation)
 				{
-					string documentationPath = Path.Combine(thisPath, "..", "docfx_project", "articles", "benchmarks", type.GetTag(OutputFile).Value + ".md");
+					string documentationPath = Path.Combine(thisPath, "..", "docfx_project", "benchmarks", type.GetTag(OutputFile).Value + ".md");
 					if (Directory.Exists(Path.GetDirectoryName(documentationPath)))
 					{
 						File.WriteAllText(documentationPath, stringBuilder.ToString());
 					}
 					else
 					{
+						Console.ForegroundColor = ConsoleColor.Red;
+						Console.Error.WriteLine("-----------------------------------");
 						Console.Error.WriteLine("ERROR: documentation path not found");
 						Console.Error.WriteLine($"    documentation path: {documentationPath}");
+						Console.Error.WriteLine("-----------------------------------");
+						Console.ResetColor();
 					}
 				}
 				else
@@ -111,7 +117,7 @@ namespace Towel_Benchmarking
 					string[] lines =
 					{
 						$"- name: {type.GetTag(Name).Value}",
-						$"  href: benchmarks/{type.GetTag(OutputFile).Value}.md",
+						$"  href: {type.GetTag(OutputFile).Value}.md",
 					};
 					File.AppendAllLines(tocPath!, lines);
 				}
@@ -119,7 +125,7 @@ namespace Towel_Benchmarking
 				{
 					string[] lines =
 					{
-						$"- [{type.GetTag(Name).Value}]({type.GetTag(OutputFile).Value})",
+						$"- [{type.GetTag(Name).Value}]({type.GetTag(OutputFile).Value}.md)",
 					};
 					File.AppendAllLines(benchmarks_mdPath!, lines);
 				}

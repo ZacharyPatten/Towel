@@ -5,3 +5,7 @@
 This is the documentation website for Towel.
 
 <img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/Logo.svg?raw=true" height="150">
+
+- [Articles](articles/index.html)
+- [Benchmarks](benchmarks/index.html)
+- [Api Documentation](api/index.html)
