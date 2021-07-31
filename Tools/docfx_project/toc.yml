@@ -1,6 +1,6 @@
 - name: Articles
-  href: articles/index.md
+  href: articles/
 - name: Benchmarks
-  href: benchmarks/index.md
+  href: benchmarks/
 - name: Api Documentation
-  href: api/Towel.html
+  href: api/
