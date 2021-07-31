@@ -914,6 +914,26 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
+			#region SLazy<T>
+			{
+				Console.WriteLine("  SLazy<T>----------------------");
+				Console.WriteLine();
+				Console.WriteLine(@"    SLazy<T> is a struct alternative to Lazy<T> with some");
+				Console.WriteLine(@"    minor differences to: ToString, Equals, GetHashCode, and");
+				Console.WriteLine(@"    default constructor. There are benchmarks included in");
+				Console.WriteLine(@"    Towel's documentation.");
+				Console.WriteLine();
+
+				SLazy<string> slazy = new(() => "hello world");
+
+				Console.WriteLine(@$"    SLazy<string> slazy = new(() => ""hello world"");");
+				Console.WriteLine(@$"    slazy.IsValueCreated: {slazy.IsValueCreated}");
+				Console.WriteLine(@$"    slazy.Value: {slazy.Value}");
+				Console.WriteLine(@$"    slazy.IsValueCreated: {slazy.IsValueCreated}");
+				Pause();
+			}
+			#endregion
+
 			Console.WriteLine();
 			Console.WriteLine("============================================");
 			Console.WriteLine("Example Complete...");
