@@ -595,6 +595,7 @@ namespace Towel
 		/// <typeparam name="TEnum">The enum type to get the maximum value of.</typeparam>
 		/// <returns>The maximum enum value of the provided type.</returns>
 		public static TEnum GetLastEnumValue<TEnum>()
+			where TEnum : struct, Enum
 		{
 			TEnum[] values = (TEnum[])Enum.GetValues(typeof(TEnum));
 			if (values.Length is 0)

@@ -557,6 +557,7 @@ namespace Towel.Measurements
 	internal static class UnitConversionTable
 	{
 		internal static Func<T, T>[][] Build<TUnits, T>()
+			where TUnits : struct, Enum
 		{
 			if (typeof(TUnits) == typeof(Tempurature.Units))
 			{
