@@ -9,10 +9,22 @@ namespace Towel_Testing
 	public class Slazy_Testing
 	{
 		[TestMethod]
-		public void Test()
+		public void Testing()
 		{
 			{
 				Assert.ThrowsException<ArgumentNullException>(() => new SLazy<int>(default(Func<int>)!));
+			}
+			{
+				SLazy<string?> a = new(() => null);
+				Assert.IsTrue(!a.IsValueCreated);
+			}
+			{
+				SLazy<string?> a = new(() => null);
+				Assert.IsTrue(!a.Equals("not null"));
+			}
+			{
+				SLazy<string?> a = new(() => "not null");
+				Assert.IsTrue(!a.Equals(null));
 			}
 			{
 				SLazy<int> a = 1;
@@ -71,6 +83,14 @@ namespace Towel_Testing
 			{
 				SLazy<string?> a = default(string);
 				Assert.IsTrue(a.Equals(null));
+			}
+			{
+				SLazy<object> a = new Func<object>(() => new());
+				Assert.IsTrue(a.Equals(a));
+			}
+			{
+				SLazy<int> a = new Func<int>(() => 1);
+				Assert.IsTrue(a.Equals(a));
 			}
 			{
 				int value = 1;
@@ -157,6 +177,56 @@ namespace Towel_Testing
 				Assert.IsTrue(a.Value is 1);
 				Assert.IsTrue(b.IsValueCreated);
 				Assert.IsTrue(b.Value is 1);
+			}
+		}
+
+		[TestMethod]
+		public void ToString_Testing()
+		{
+			{
+				SLazy<int> a = new(() => 1);
+				Assert.IsTrue(a.ToString() == 1.ToString());
+			}
+			{
+				SLazy<string> a = new(() => "hello world");
+				Assert.IsTrue(a.ToString() is "hello world");
+			}
+			{
+				SLazy<int> a = new(() => 1);
+				Assert.IsTrue(a.Value is 1);
+				Assert.IsTrue(a.IsValueCreated);
+				Assert.IsTrue(a.ToString() == 1.ToString());
+			}
+			{
+				SLazy<string> a = new(() => "hello world");
+				Assert.IsTrue(a.Value is "hello world");
+				Assert.IsTrue(a.IsValueCreated);
+				Assert.IsTrue(a.ToString() is "hello world");
+			}
+		}
+
+		[TestMethod]
+		public void GetHashCode_Testing()
+		{
+			{
+				SLazy<int> a = new(() => 1);
+				Assert.IsTrue(a.GetHashCode() == 1.GetHashCode());
+			}
+			{
+				SLazy<string> a = new(() => "hello world");
+				Assert.IsTrue(a.GetHashCode() == "hello world".GetHashCode());
+			}
+			{
+				SLazy<int> a = new(() => 1);
+				Assert.IsTrue(a.Value is 1);
+				Assert.IsTrue(a.IsValueCreated);
+				Assert.IsTrue(a.GetHashCode() == 1.GetHashCode());
+			}
+			{
+				SLazy<string> a = new(() => "hello world");
+				Assert.IsTrue(a.Value is "hello world");
+				Assert.IsTrue(a.IsValueCreated);
+				Assert.IsTrue(a.GetHashCode() == "hello world".GetHashCode());
 			}
 		}
 	}

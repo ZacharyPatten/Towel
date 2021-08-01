@@ -10,7 +10,6 @@ namespace Towel
 		{
 			internal Func<T>? _func;
 			internal T? _value;
-			internal Reference(T value) => _value = value;
 			internal Reference(Func<T> func) => _func = func;
 		}
 
