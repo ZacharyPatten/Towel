@@ -10,8 +10,7 @@ namespace Towel_Benchmarking
 	public class SLazyInitializationBenchmarks
 	{
 		private Lazy<int>[]? lazys;
-		private Lazy<int>[]? lazysThreadSafe;
-		private Lazy<int>[]? lazysThreadSafePublicationOnly;
+		private Lazy<int>[]? lazysExecutionAndPublication;
 		private SLazy<int>[]? slazys;
 
 		[Params(1, 10, 100, 1000, 10000)]
@@ -28,16 +27,10 @@ namespace Towel_Benchmarking
 				lazys[i] = new(() => i);
 			}
 
-			lazysThreadSafe = new Lazy<int>[N];
+			lazysExecutionAndPublication = new Lazy<int>[N];
 			for (int i = 0; i < N; i++)
 			{
-				lazysThreadSafe[i] = new(() => i, true);
-			}
-
-			lazysThreadSafePublicationOnly = new Lazy<int>[N];
-			for (int i = 0; i < N; i++)
-			{
-				lazysThreadSafePublicationOnly[i] = new(() => i, LazyThreadSafetyMode.PublicationOnly);
+				lazysExecutionAndPublication[i] = new(() => i, LazyThreadSafetyMode.ExecutionAndPublication);
 			}
 
 			slazys = new SLazy<int>[N];
@@ -63,20 +56,11 @@ namespace Towel_Benchmarking
 		}
 
 		[Benchmark]
-		public void LazyThreadSafe()
+		public void LazyExecutionAndPublication()
 		{
 			for (int i = 0; i < N; i++)
 			{
-				temp = lazysThreadSafe![i].Value;
-			}
-		}
-
-		[Benchmark]
-		public void LazyThreadSafePublicationOnly()
-		{
-			for (int i = 0; i < N; i++)
-			{
-				temp = lazysThreadSafePublicationOnly![i].Value;
+				temp = lazysExecutionAndPublication![i].Value;
 			}
 		}
 
@@ -116,19 +100,9 @@ namespace Towel_Benchmarking
 		}
 
 		[Benchmark]
-		public void LazyThreadSafe()
+		public void LazyExecutionAndPublication()
 		{
-			Lazy<int> value = new(() => -1, true);
-			for (int i = 0; i < N; i++)
-			{
-				temp = value.Value;
-			}
-		}
-
-		[Benchmark]
-		public void LazyThreadSafePublicationOnly()
-		{
-			Lazy<int> value = new(() => -1, LazyThreadSafetyMode.PublicationOnly);
+			Lazy<int> value = new(() => -1, LazyThreadSafetyMode.ExecutionAndPublication);
 			for (int i = 0; i < N; i++)
 			{
 				temp = value.Value;
