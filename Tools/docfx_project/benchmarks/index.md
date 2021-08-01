@@ -14,5 +14,5 @@ The source code for all becnhmarks are in [Tools/ Towel.Benchmarking](https://gi
 - [Span vs Array Sorting](SpanVsArraySortingBenchmarks.md)
 - [Random With Exclusions](RandomWithExclusionsBenchmarks.md)
 - [Heap Generics Vs Delegates](HeapGenericsVsDelegatesBenchmarks.md)
-- [Slazy Initialization](SlazyInitializationBenchmarks.md)
-- [Slazy Caching](SlazyCachingBenchmarks.md)
+- [SLazy Initialization](SLazyInitializationBenchmarks.md)
+- [Slazy Caching](SLazyCachingBenchmarks.md)
