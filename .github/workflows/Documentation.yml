@@ -30,6 +30,10 @@ jobs:
       name: docfx
       with:
         args: Tools/docfx_project/docfx.json
+    - name: docfx bug workaround
+      run: |
+        sed -i -r 's/api\/[A-Za-z ]+\.md/api\/index\.html/' Tools/docfx_project/_site/toc.html
+        sed -i -r 's/name=""/name="api\/toc\.html"/' Tools/docfx_project/_site/toc.html
     - name: chmod
       run: sudo chmod -R 777 Tools/docfx_project/_site
     - name: make coverage report directory
