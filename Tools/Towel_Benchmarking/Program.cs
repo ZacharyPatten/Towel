@@ -45,12 +45,14 @@ namespace Towel_Benchmarking
 		/// <param name="updateDocumentation">Whether or not to update the docfx documentation.</param>
 		/// <param name="refreshToc">Whether or not to refresh "toc.yml".</param>
 		/// <param name="tocPath">The path to the docfx documentation file.</param>
+		/// <param name="singleBenchmark">Allows you to run a single benchmark at a time.</param>
 		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True</example>
 		[Command]
 		public static void run(
 			bool updateDocumentation = false,
 			bool refreshToc = false,
-			string? tocPath = null)
+			string? tocPath = null,
+			string? singleBenchmark = null)
 		{
 			string thisPath = Path.GetDirectoryName(sourcefilepath())!;
 			if (refreshToc)
@@ -59,9 +61,7 @@ namespace Towel_Benchmarking
 				string[] lines =
 				{
 					"- name: Introduction",
-					"  href: intro.md",
-					"- name: Benchmarks",
-					"  href: benchmarks.md",
+					"  href: index.md",
 				};
 				File.WriteAllLines(tocPath, lines);
 			}
@@ -82,35 +82,38 @@ namespace Towel_Benchmarking
 			}
 			foreach (Type type in Benchmarks)
 			{
-				StringBuilder stringBuilder = new();
-				string output = RunBenchmarkAndGetMarkdownOutput(type);
-				stringBuilder.AppendLine($"# {type.GetTag(Name).Value ?? type.Name}");
-				stringBuilder.AppendLine();
-				stringBuilder.AppendLine(@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>");
-				stringBuilder.AppendLine();
-				stringBuilder.AppendLine("The source code for all benchmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking).");
-				stringBuilder.AppendLine();
-				stringBuilder.AppendLine(output);
-				if (updateDocumentation)
+				if (type.Name == singleBenchmark)
 				{
-					string documentationPath = Path.Combine(thisPath, "..", "docfx_project", "benchmarks", type.GetTag(OutputFile).Value + ".md");
-					if (Directory.Exists(Path.GetDirectoryName(documentationPath)))
+					StringBuilder stringBuilder = new();
+					string output = RunBenchmarkAndGetMarkdownOutput(type);
+					stringBuilder.AppendLine($"# {type.GetTag(Name).Value ?? type.Name}");
+					stringBuilder.AppendLine();
+					stringBuilder.AppendLine(@"<a href=""https://github.com/ZacharyPatten/Towel"" alt=""Github Repository""><img alt=""github repo"" src=""https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat"" title=""Go To Github Repo"" alt=""Github Repository""></a>");
+					stringBuilder.AppendLine();
+					stringBuilder.AppendLine("The source code for all benchmarks are in [Tools/Towel.Benchmarking](https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking).");
+					stringBuilder.AppendLine();
+					stringBuilder.AppendLine(output);
+					if (updateDocumentation)
 					{
-						File.WriteAllText(documentationPath, stringBuilder.ToString());
+						string documentationPath = Path.Combine(thisPath, "..", "docfx_project", "benchmarks", type.GetTag(OutputFile).Value + ".md");
+						if (Directory.Exists(Path.GetDirectoryName(documentationPath)))
+						{
+							File.WriteAllText(documentationPath, stringBuilder.ToString());
+						}
+						else
+						{
+							Console.ForegroundColor = ConsoleColor.Red;
+							Console.Error.WriteLine("-----------------------------------");
+							Console.Error.WriteLine("ERROR: documentation path not found");
+							Console.Error.WriteLine($"    documentation path: {documentationPath}");
+							Console.Error.WriteLine("-----------------------------------");
+							Console.ResetColor();
+						}
 					}
 					else
 					{
-						Console.ForegroundColor = ConsoleColor.Red;
-						Console.Error.WriteLine("-----------------------------------");
-						Console.Error.WriteLine("ERROR: documentation path not found");
-						Console.Error.WriteLine($"    documentation path: {documentationPath}");
-						Console.Error.WriteLine("-----------------------------------");
-						Console.ResetColor();
+						Console.WriteLine(stringBuilder.ToString());
 					}
-				}
-				else
-				{
-					Console.WriteLine(stringBuilder.ToString());
 				}
 				if (refreshToc)
 				{
