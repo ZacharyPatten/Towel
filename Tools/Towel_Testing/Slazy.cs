@@ -156,6 +156,7 @@ namespace Towel_Testing
 				SLazy<int> b = a;
 				Assert.IsTrue(a.Value is 1);
 				Assert.IsTrue(b.IsValueCreated);
+				Assert.IsTrue(b.Value is 1);
 			}
 		}
 	}
