@@ -139,6 +139,24 @@ namespace Towel_Testing
 				Assert.IsTrue(slazyB.Value is 2);
 				Assert.IsTrue(value is 2);
 			}
+			{
+				int test = 1;
+				SLazy<object> a = new(() => { test++; throw new Exception("Expected"); });
+				Assert.IsTrue(test is 1);
+				Assert.ThrowsException<Exception>(() => _ = a.Value);
+				Assert.IsTrue(test is 2);
+				Assert.ThrowsException<Exception>(() => _ = a.Value);
+				Assert.IsTrue(test is 2);
+				Assert.ThrowsException<Exception>(() => _ = a.Value);
+				Assert.IsTrue(test is 2);
+				Assert.ThrowsException<Exception>(() => _ = a.Value);
+			}
+			{
+				SLazy<int> a = new(() => 1);
+				SLazy<int> b = a;
+				Assert.IsTrue(a.Value is 1);
+				Assert.IsTrue(b.IsValueCreated);
+			}
 		}
 	}
 }

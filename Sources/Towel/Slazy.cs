@@ -43,40 +43,56 @@ namespace Towel
 
 		internal bool GetIsValueCreated()
 		{
-			if (_reference!._func is null)
+			Reference? reference = _reference;
+			if (reference is not null)
 			{
-				_value = _reference._value;
-				_reference = null;
-				return true;
+				if (reference._func is null)
+				{
+					_value = reference._value;
+					_reference = null;
+					return true;
+				}
 			}
 			return false;
 		}
 
 		internal T GetValue()
 		{
-			if (_reference!._func is null)
+			Reference? reference = _reference;
+			if (reference is not null)
 			{
-				_value = _reference._value;
-				_reference = null;
-			}
-			else
-			{
-				lock (_reference)
+				if (reference._func is null)
 				{
-					if (_reference is not null)
+					_value = reference._value;
+					_reference = null;
+				}
+				else
+				{
+					lock (reference)
 					{
-						if (_reference._func is null)
+						if (_reference is not null)
 						{
-							_value = _reference._value;
+							if (_reference._func is null)
+							{
+								_value = _reference._value;
+							}
+							else
+							{
+								try
+								{
+									T value = _reference._func.Invoke();
+									_reference._func = default;
+									_reference._value = value;
+									_value = value;
+								}
+								catch (Exception exception)
+								{
+									_reference._func = () => throw exception;
+									throw;
+								}
+							}
+							_reference = null;
 						}
-						else
-						{
-							T value = _reference._func.Invoke();
-							_reference._func = default;
-							_reference._value = value;
-							_value = value;
-						}
-						_reference = null;
 					}
 				}
 			}
