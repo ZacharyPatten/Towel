@@ -80,8 +80,8 @@ namespace Towel
 								try
 								{
 									T value = reference._func.Invoke();
-									reference._func = default;
 									reference._value = value;
+									reference._func = null;
 									_value = value;
 								}
 								catch (Exception exception)
