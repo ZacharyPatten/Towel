@@ -184,6 +184,10 @@ namespace Towel_Testing
 		public void ToString_Testing()
 		{
 			{
+				SLazy<string?> a = new(() => null);
+				Assert.IsTrue(a.ToString() is null);
+			}
+			{
 				SLazy<int> a = new(() => 1);
 				Assert.IsTrue(a.ToString() == 1.ToString());
 			}
@@ -208,6 +212,10 @@ namespace Towel_Testing
 		[TestMethod]
 		public void GetHashCode_Testing()
 		{
+			{
+				SLazy<object?> a = new(() => null);
+				Assert.IsTrue(a.GetHashCode() is default(int));
+			}
 			{
 				SLazy<int> a = new(() => 1);
 				Assert.IsTrue(a.GetHashCode() == 1.GetHashCode());
