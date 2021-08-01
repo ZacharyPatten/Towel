@@ -71,22 +71,22 @@ namespace Towel
 					{
 						if (_reference is not null)
 						{
-							if (_reference._func is null)
+							if (reference._func is null)
 							{
-								_value = _reference._value;
+								_value = reference._value;
 							}
 							else
 							{
 								try
 								{
-									T value = _reference._func.Invoke();
-									_reference._func = default;
-									_reference._value = value;
+									T value = reference._func.Invoke();
+									reference._func = default;
+									reference._value = value;
 									_value = value;
 								}
 								catch (Exception exception)
 								{
-									_reference._func = () => throw exception;
+									reference._func = () => throw exception;
 									throw;
 								}
 							}
