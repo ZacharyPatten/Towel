@@ -48,6 +48,7 @@ namespace Towel_Benchmarking
 		/// <param name="tocPath">The path to the docfx documentation file.</param>
 		/// <param name="singleBenchmark">Allows you to run a single benchmark at a time.</param>
 		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True</example>
+		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True --singleBenchmark BENCHMARK</example>
 		[Command]
 		public static void run(
 			bool updateDocumentation = false,

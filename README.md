@@ -835,7 +835,7 @@ SearchGraph<...>(...);
 IEnumerable<(T A, T B)> CombineRanges<T>(IEnumerable<(T A, T B)> ranges)
 ```
 
-> [Sorting Algorithm Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SortBenchmarks.html)
+> [Sorting Algorithm Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SortBenchmarks.html)<br/>
 > [Permute Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/PermuteBenchmarks.html)
 
 ## Extensions

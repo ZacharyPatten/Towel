@@ -22,7 +22,7 @@
   href: HeapGenericsVsDelegatesBenchmarks.md
 - name: SLazy Initialization
   href: SLazyInitializationBenchmarks.md
-- name: Slazy Caching
+- name: SLazy Caching
   href: SLazyCachingBenchmarks.md
 - name: SLazy Construction
   href: SLazyConstructionBenchmarks.md
