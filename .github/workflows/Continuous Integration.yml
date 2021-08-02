@@ -7,14 +7,18 @@ on:
     paths-ignore:
       - '.vscode/**'
       - '.github/**'
+      - 'License.md'
       - 'README.md'
+      - 'Tools/docfx_project/**'
   pull_request:
     branches:
       - main
     paths-ignore:
       - '.vscode/**'
       - '.github/**'
+      - 'License.md'
       - 'README.md'
+      - 'Tools/docfx_project/**'
 jobs:
   continuous-integration:
     runs-on: ubuntu-latest
