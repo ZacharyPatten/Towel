@@ -2,14 +2,14 @@
 using Towel;
 using Towel.Mathematics;
 using Towel.Measurements;
-using static Towel.Measurements.MeasurementsSyntax; // allows measurement syntax
+using static Towel.Measurements.MeasurementsSyntax;
 using Speedf = Towel.Measurements.Speed<float>;
 
 namespace Measurements
 {
-	class Program
+	public class Program
 	{
-		static void Main()
+		public static void Main()
 		{
 			Console.WriteLine("You are runnning the Measurements example.");
 			Console.WriteLine("==========================================");
@@ -96,7 +96,7 @@ namespace Measurements
 			Console.WriteLine("    length1 != length2 = " + (length1 != length2));
 			Console.WriteLine();
 
-			//object result = angle1 + length1; // WILL NOT COMPILE (this is a good thing) :)
+			// object result = angle1 + length1; // WILL NOT COMPILE (this is a good thing) :)
 
 			#endregion
 
@@ -344,7 +344,7 @@ namespace Measurements
 
 			#region Syntax Sugar Example (removing the generic type via alias)
 
-			// If you hate seeing the "<float>" or "<double>" you can add syntax 
+			// If you hate seeing the "<float>" or "<double>" you can add syntax
 			// sugar to your files with an alias in C#:
 			//
 			// using Speedf = Towel.Measurements.Speed<float>;

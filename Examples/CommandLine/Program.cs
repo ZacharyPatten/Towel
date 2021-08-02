@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO;
 using Towel;
-using static Towel.Statics;
 using static Towel.CommandLine;
+using static Towel.Statics;
 
 namespace CommandLine
 {
-	static class Program
+	public static class Program
 	{
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
 			if (args is not null && args.Length > 0)
 			{
@@ -43,7 +43,7 @@ namespace CommandLine
 				Console.WriteLine("Example args: " + example);
 				args = example.Split(' ');
 
-				// This line of code and the attributes are the only 
+				// This line of code and the attributes are the only
 				// lines of code you would need to add to your code.
 				HandleArguments(args);
 
@@ -59,7 +59,8 @@ namespace CommandLine
 
 		/// <summary>This is a test method A.</summary>
 		/// <param name="a">The parameter a.</param>
-		[Command] public static void A(
+		[Command]
+		public static void A(
 			string? a = default)
 		{
 			Console.WriteLine($"Method A Called.");
@@ -69,7 +70,8 @@ namespace CommandLine
 		/// <summary>This is a test method B.</summary>
 		/// <param name="a">The parameter a.</param>
 		/// <param name="b">The parameter b.</param>
-		[Command] public static void B(
+		[Command]
+		public static void B(
 			string? a = default,
 			int b = default)
 		{
@@ -82,7 +84,8 @@ namespace CommandLine
 		/// <param name="a">The parameter a.</param>
 		/// <param name="b">The parameter b.</param>
 		/// <param name="c">The parameter c.</param>
-		[Command] public static void C(
+		[Command]
+		public static void C(
 			string a,
 			int b,
 			FileInfo c)

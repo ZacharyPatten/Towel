@@ -4,14 +4,14 @@ using System.Linq.Expressions;
 using Towel;
 using Towel.Mathematics;
 using Towel.Measurements;
-using static Towel.Statics;
 using static Towel.Mathematics.MathematicsSyntax;
+using static Towel.Statics;
 
 namespace Mathematics
 {
-	class Program
+	public class Program
 	{
-		static void Main()
+		public static void Main()
 		{
 			Console.WriteLine("You are runnning the Mathematics example.");
 			Console.WriteLine("==========================================");
@@ -176,7 +176,7 @@ namespace Mathematics
 			double[] dataArray = new double[random.Next(5, 7)];
 			dataArray.Format(x => random.NextDouble() * 100);
 
-			// Lets copy a value in the array to ensure there is at least one 
+			// Lets copy a value in the array to ensure there is at least one
 			// duplicate (so the "Mode" example will has something to show)
 			dataArray[^1] = dataArray[0];
 
@@ -194,14 +194,14 @@ namespace Mathematics
 			double median = Median(data);
 			Console.WriteLine("    Median(data): " + Format(median));
 
-			//// Here is an example if you just want the values in a list
+			// // Here is an example if you just want the values in a list
 			//
-			//IList<double> modes = new ListArray<double>();
-			//Mode(data, x => modes.Add(x));
-			//Console.WriteLine("    Mode(data): " +
-			//	(modes.Count > 0
-			//	? string.Join(",", modes.Select(x => Format(x)))
-			//	: "None"));
+			// IList<double> modes = new ListArray<double>();
+			// Mode(data, x => modes.Add(x));
+			// Console.WriteLine("    Mode(data): " +
+			// 	(modes.Count > 0
+			// 	? string.Join(",", modes.Select(x => Format(x)))
+			// 	: "None"));
 
 			bool noModes = true;
 			Console.Write("    Mode(data): ");
@@ -317,9 +317,9 @@ namespace Mathematics
 			Console.WriteLine("    minor(M, 1, 1): ");
 			ConsoleWrite(M.Minor(1, 1));
 
-			//// Matrix Reduced Row Echelon
-			//Console.WriteLine("    ref(M): ");
-			//ConsoleWrite(Matrix<double>.Echelon(M));
+			// // Matrix Reduced Row Echelon
+			// Console.WriteLine("    ref(M): ");
+			// ConsoleWrite(Matrix<double>.Echelon(M));
 
 			// Matrix Reduced Row Echelon
 			Console.WriteLine("    rref(M): ");
@@ -333,15 +333,15 @@ namespace Mathematics
 			Console.WriteLine("    M * V: ");
 			ConsoleWrite(M * V);
 
-			//// Matrix Lower-Upper Decomposition
-			//Matrix<double> l = null, u = null;
-			//Matrix<double>.DecomposeLowerUpper(M, ref l, ref u); // this method is probably bugged... working on it
-			//Console.WriteLine("    Lower-Upper Decomposition:");
-			//Console.WriteLine();
-			//Console.WriteLine("    	lower(M):");
-			//ConsoleWrite(l);
-			//Console.WriteLine("    	upper(M):");
-			//ConsoleWrite(u);
+			// // Matrix Lower-Upper Decomposition
+			// Matrix<double> l = null, u = null;
+			// Matrix<double>.DecomposeLowerUpper(M, ref l, ref u); // this method is probably bugged... working on it
+			// Console.WriteLine("    Lower-Upper Decomposition:");
+			// Console.WriteLine();
+			// Console.WriteLine("    	lower(M):");
+			// ConsoleWrite(l);
+			// Console.WriteLine("    	upper(M):");
+			// ConsoleWrite(u);
 
 			// Matrix Inverse
 			Matrix<double> inverse = M.Inverse();
@@ -364,7 +364,7 @@ namespace Mathematics
 
 			// Quaternion-Vector Rotation
 			Console.WriteLine("    Q * V3 * Q':");
-			// Note: the vector should be normalized on the 4th component 
+			// Note: the vector should be normalized on the 4th component
 			// for a proper rotation. (I did not do that)
 			ConsoleWrite(V3.RotateBy(Q));
 
@@ -372,27 +372,27 @@ namespace Mathematics
 
 			#region Convex Optimization
 
-			//Console.WriteLine("  Convex Optimization-----------------------------------");
-			//Console.WriteLine();
+			// Console.WriteLine("  Convex Optimization-----------------------------------");
+			// Console.WriteLine();
 
-			//double[,] tableau = new double[,]
-			//{																	
-			//	{ 0.0, -0.5, -3.0, -1.0, -4.0, },
-			//	{ 40.0, 1.0, 1.0, 1.0, 1.0, },
-			//	{ 10.0, -2.0, -1.0, 1.0, 1.0, },
-			//	{ 10.0, 0.0, 1.0, 0.0, -1.0, },
-			//};
+			// double[,] tableau = new double[,]
+			// {
+			// 	{ 0.0, -0.5, -3.0, -1.0, -4.0, },
+			// 	{ 40.0, 1.0, 1.0, 1.0, 1.0, },
+			// 	{ 10.0, -2.0, -1.0, 1.0, 1.0, },
+			// 	{ 10.0, 0.0, 1.0, 0.0, -1.0, },
+			// };
 
-			//Console.WriteLine("    tableau (double): ");
-			//ConsoleWrite(tableau); Console.WriteLine();
+			// Console.WriteLine("    tableau (double): ");
+			// ConsoleWrite(tableau); Console.WriteLine();
 
-			//Vector<double> simplex_result = LinearAlgebra.Simplex(ref tableau);
+			// Vector<double> simplex_result = LinearAlgebra.Simplex(ref tableau);
 
-			//Console.WriteLine("    simplex(tableau): ");
-			//ConsoleWrite(tableau); Console.WriteLine();
+			// Console.WriteLine("    simplex(tableau): ");
+			// ConsoleWrite(tableau); Console.WriteLine();
 
-			//Console.WriteLine("    resulting maximization: ");
-			//ConsoleWrite(simplex_result);
+			// Console.WriteLine("    resulting maximization: ");
+			// ConsoleWrite(simplex_result);
 
 			#endregion
 
@@ -448,12 +448,12 @@ namespace Mathematics
 
 		#region Output Helpers
 
-		static string Format(double value)
+		internal static string Format(double value)
 		{
 			return string.Format("{0:0.00}", value);
 		}
 
-		static void ConsoleWrite(Quaternion<double> quaternion)
+		internal static void ConsoleWrite(Quaternion<double> quaternion)
 		{
 			Console.WriteLine(
 				"      [ x " +
@@ -464,7 +464,7 @@ namespace Mathematics
 			Console.WriteLine();
 		}
 
-		static void ConsoleWrite(Vector<double> vector)
+		internal static void ConsoleWrite(Vector<double> vector)
 		{
 			Console.Write("      [ ");
 			for (int i = 0; i < vector.Dimensions - 1; i++)
@@ -473,7 +473,7 @@ namespace Mathematics
 			Console.WriteLine();
 		}
 
-		static void ConsoleWrite(Matrix<double> matrix)
+		internal static void ConsoleWrite(Matrix<double> matrix)
 		{
 			for (int i = 0; i < matrix.Rows; i++)
 			{

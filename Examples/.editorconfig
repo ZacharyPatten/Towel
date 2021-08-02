@@ -1,0 +1,16 @@
+[*.cs]
+
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none
+
+# SA1003: Symbols should be spaced correctly
+dotnet_diagnostic.SA1003.severity = none
+
+# SA1110: Opening parenthesis or bracket should be on declaration line
+dotnet_diagnostic.SA1110.severity = none
+
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = none
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = none

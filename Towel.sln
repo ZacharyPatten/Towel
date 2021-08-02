@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel", "Sources\Towel\Towel.csproj", "{DCE2E35A-1EB6-4B8E-8A2F-DE0BF05D4CDE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}"
+	ProjectSection(SolutionItems) = preProject
+		Examples\.editorconfig = Examples\.editorconfig
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathematics", "Examples\Mathematics\Mathematics.csproj", "{B2BF10AF-C7BC-45C0-B5BE-E6320C3A788E}"
 EndProject

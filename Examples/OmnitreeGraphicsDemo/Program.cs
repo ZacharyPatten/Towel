@@ -1,20 +1,19 @@
-﻿using Silk.NET.Input;
-using Silk.NET.OpenGL;
-using Silk.NET.Windowing;
-
-using System;
+﻿using System;
 using System.Drawing;
 using System.Linq;
 using System.Numerics;
+using Silk.NET.Input;
+using Silk.NET.OpenGL;
+using Silk.NET.Windowing;
 using Towel;
 using Towel.DataStructures;
 using Towel.Measurements;
-using static Towel.Statics;
 using static Towel.Measurements.MeasurementsSyntax;
+using static Towel.Statics;
 
 namespace OmnitreeGraphicsDemo
 {
-	class Cube
+	public class Cube
 	{
 		public float HalfLength;
 
@@ -30,7 +29,7 @@ namespace OmnitreeGraphicsDemo
 		public float MaxZ => Position.Z + HalfLength;
 	}
 
-	class Program
+	public class Program
 	{
 		#region From Silk.Net
 
@@ -54,7 +53,7 @@ namespace OmnitreeGraphicsDemo
 
 		#region Vertex Shader Source
 
-		readonly static string _vertextShaderSource =
+		internal static readonly string _vertextShaderSource =
 @"#version 330 core
 
 layout(location = 0) in vec3 aPosition;
@@ -78,7 +77,7 @@ void main(void)
 
 		#region Fragment Shader Source
 
-		readonly static string _fragmentShaderSource =
+		internal static readonly string _fragmentShaderSource =
 @"#version 330
 
 in vec3 colorPass;
@@ -94,6 +93,8 @@ void main()
 
 		#region Cube Geometry Data
 
+		// Visualization
+		//
 		//        G  ______________________  H
 		//          /|                    /|
 		//         / |                   / |
@@ -106,21 +107,21 @@ void main()
 		//      |    |       +        |    |
 		//      |  E |________________|____| F
 		//      |    /                |    /
-		//      |   /                 |   / 
-		//      |  /                  |  /  
-		//      | /                   | /   
-		//    A |/____________________|/ B   
+		//      |   /                 |   /
+		//      |  /                  |  /
+		//      | /                   | /
+		//    A |/____________________|/ B
 
 		private static readonly float[] vertices =
 		{
-			-.5f, -.5f, -.5f, // A
-			 .5f, -.5f, -.5f, // B
-			-.5f,  .5f, -.5f, // C
-			 .5f,  .5f, -.5f, // D
-			-.5f, -.5f,  .5f, // E
-			 .5f, -.5f,  .5f, // F
-			-.5f,  .5f,  .5f, // G
-			 .5f,  .5f,  .5f, // H
+			/* A */ -.5f, -.5f, -.5f,
+			/* B */  .5f, -.5f, -.5f,
+			/* C */ -.5f,  .5f, -.5f,
+			/* D */  .5f,  .5f, -.5f,
+			/* E */ -.5f, -.5f,  .5f,
+			/* F */  .5f, -.5f,  .5f,
+			/* G */ -.5f,  .5f,  .5f,
+			/* H */  .5f,  .5f,  .5f,
 		};
 
 		private static readonly uint[] indices =
@@ -146,17 +147,16 @@ void main()
 
 		#endregion
 
-		static IOmnitreePoints<Cube, float, float, float>? _omnitree;
-		static ListArray<Cube>? _objects;
+		internal static IOmnitreePoints<Cube, float, float, float>? _omnitree;
+		internal static ListArray<Cube>? _objects;
 
-		static uint _cubeElementBufferId;
-		static uint _cubeVertexBufferId;
-		static uint _cubeVertexArrayId;
+		internal static uint _cubeElementBufferId;
+		internal static uint _cubeVertexBufferId;
+		internal static uint _cubeVertexArrayId;
 
-		static uint _cubeShaderProgramId;
+		internal static uint _cubeShaderProgramId;
 
 		private static readonly Random random = new();
-
 
 		private static void Main()
 		{
@@ -176,7 +176,7 @@ void main()
 			window.Run();
 		}
 
-		private unsafe static void OnLoad()
+		private static unsafe void OnLoad()
 		{
 			IInputContext input = window!.CreateInput();
 			primaryKeyboard = input.Keyboards.FirstOrDefault();
@@ -257,7 +257,7 @@ void main()
 			// construction of the omnitree
 			_omnitree = new OmnitreePointsLinked<Cube, float, float, float>(
 				Locate,
-				// Override the subdivision algorithms to use mean instead of median. We can do this because we are 
+				// Override the subdivision algorithms to use mean instead of median. We can do this because we are
 				// working with numerical values. We could also speed things up even more in this case by dividing
 				// the bounding space (using the "bounds" parameter below rather than "stepper"), but I wanted to
 				// show the mean algorithm in this example.
@@ -415,7 +415,7 @@ void main()
 			{
 				_omnitree.Add(obj);
 			}
-			//_omnitree.Update();
+			// _omnitree.Update();
 
 			#endregion
 
@@ -447,7 +447,10 @@ void main()
 		private static unsafe void OnMouseMove(IMouse mouse, Vector2 position)
 		{
 			var lookSensitivity = 0.1f;
-			if (LastMousePosition == default) { LastMousePosition = position; }
+			if (LastMousePosition == default)
+			{
+				LastMousePosition = position;
+			}
 			else
 			{
 				var xOffset = (position.X - LastMousePosition.X) * lookSensitivity;
@@ -465,7 +468,7 @@ void main()
 
 		private static unsafe void OnMouseWheel(IMouse mouse, ScrollWheel scrollWheel)
 		{
-			//We don't want to be able to zoom in too close or too far away so clamp to these values
+			// We don't want to be able to zoom in too close or too far away so clamp to these values
 			CameraZoom = Math.Clamp(CameraZoom - scrollWheel.Y, 1.0f, 45f);
 		}
 

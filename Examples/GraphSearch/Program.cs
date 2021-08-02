@@ -8,9 +8,9 @@ using Vector2 = System.Numerics.Vector2;
 
 namespace GraphSearch
 {
-	class Program
+	public class Program
 	{
-		static void Main()
+		public static void Main()
 		{
 			Console.WriteLine("You are runnning the GraphSearch example.");
 			Console.WriteLine("======================================================");
@@ -96,8 +96,8 @@ namespace GraphSearch
 				PrintPathToConsole(graphDijkstraPath);
 				Console.WriteLine();
 
-				/// You don't have to use the graph data structure. Instead, you can use
-				/// a function to get the neighbors of a node.
+				// You don't have to use the graph data structure. Instead, you can use
+				// a function to get the neighbors of a node.
 				static void Neighbors(int node, Action<int> step)
 				{
 					switch (node)
@@ -200,11 +200,11 @@ namespace GraphSearch
 					HandleNeighbor(new Vector2(x + 1, y)); // south
 					HandleNeighbor(new Vector2(x, y - 1)); // west
 
-					//// if you want to allow diaganol movement, uncomment the following lines
-					//HandleNeighbor(new Vector2(x + 1, y + 1)); // south-east
-					//HandleNeighbor(new Vector2(x + 1, y - 1)); // north-east
-					//HandleNeighbor(new Vector2(x - 1, y + 1)); // south-west
-					//HandleNeighbor(new Vector2(x - 1, y - 1)); // north-west
+					// // if you want to allow diaganol movement, uncomment the following lines
+					// HandleNeighbor(new Vector2(x + 1, y + 1)); // south-east
+					// HandleNeighbor(new Vector2(x + 1, y - 1)); // north-east
+					// HandleNeighbor(new Vector2(x - 1, y + 1)); // south-west
+					// HandleNeighbor(new Vector2(x - 1, y - 1)); // north-west
 				}
 
 				float Heuristic(Vector2 node) => Vector2.Distance(node, playerLocation);

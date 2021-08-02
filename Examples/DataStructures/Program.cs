@@ -5,9 +5,9 @@ using static Towel.Statics;
 
 namespace DataStructures
 {
-	class Program
+	public class Program
 	{
-		static void Main()
+		public static void Main()
 		{
 			Random random = new();
 			int test = 10;
@@ -294,25 +294,25 @@ namespace DataStructures
 
 			#region Tree
 			{
-				//Console.WriteLine("  Tree-----------------------------");
+				// Console.WriteLine("  Tree-----------------------------");
 
-				//Tree<int> tree_Map = new TreeMap<int>(0, Compute.Equal, Hash.Default);
+				// Tree<int> tree_Map = new TreeMap<int>(0, Compute.Equal, Hash.Default);
 
-				//for (int i = 1; i < test; i++)
-				//{
-				//    tree_Map.Add(i, i / Compute.SquareRoot(i));
-				//}
-				//Console.Write("    Children of 0 (root): ");
-				//tree_Map.Children(0, (int i) => { Console.Write(i + " "); });
-				//Console.WriteLine();
-				//Console.Write("    Children of " + ((int)System.Math.Sqrt(test) - 1) + " (root): ");
-				//tree_Map.Children(((int)System.Math.Sqrt(test) - 1), (int i) => { Console.Write(i + " "); });
-				//Console.WriteLine();
-				//Console.Write("    Traversal: ");
-				//tree_Map.Stepper((int i) => { Console.Write(i + " "); });
-				//Console.WriteLine();
+				// for (int i = 1; i < test; i++)
+				// {
+				//     tree_Map.Add(i, i / Compute.SquareRoot(i));
+				// }
+				// Console.Write("    Children of 0 (root): ");
+				// tree_Map.Children(0, (int i) => { Console.Write(i + " "); });
+				// Console.WriteLine();
+				// Console.Write("    Children of " + ((int)System.Math.Sqrt(test) - 1) + " (root): ");
+				// tree_Map.Children(((int)System.Math.Sqrt(test) - 1), (int i) => { Console.Write(i + " "); });
+				// Console.WriteLine();
+				// Console.Write("    Traversal: ");
+				// tree_Map.Stepper((int i) => { Console.Write(i + " "); });
+				// Console.WriteLine();
 
-				//Pause();
+				// Pause();
 			}
 			#endregion
 
@@ -339,15 +339,15 @@ namespace DataStructures
 				avlTree.Stepper(Console.Write);
 				Console.WriteLine();
 
-				//// The "foreach" enumeration works for avl trees, but it is not optimized
-				//// and you should prefer the stepper function (it is faster).
+				// // The "foreach" enumeration works for avl trees, but it is not optimized
+				// // and you should prefer the stepper function (it is faster).
 				//
-				//Console.Write("    Traversal Foreach: ");
-				//foreach (int i in avlTree)
-				//{
-				//    Console.Write(i);
-				//}
-				//Console.WriteLine();
+				// Console.Write("    Traversal Foreach: ");
+				// foreach (int i in avlTree)
+				// {
+				//     Console.Write(i);
+				// }
+				// Console.WriteLine();
 
 				int minimum = random.Next(1, test / 2);
 				int maximum = random.Next(1, test / 2) + test / 2;
@@ -422,18 +422,18 @@ namespace DataStructures
 
 			#region BTree
 			{
-				//Console.WriteLine("  B Tree------------------------------------------------");
-				//Console.WriteLine();
-				//Console.WriteLine("    A B Tree is a sorted binary tree that allows multiple values to");
-				//Console.WriteLine("    be stored per node. This makes it sort of a hybrid between a");
-				//Console.WriteLine("    binary tree and an array. Because multiple values are stored ");
-				//Console.WriteLine("    per node, it means less nodes must be traversed to completely");
-				//Console.WriteLine("    traverse the values in the B tree.");
-				//Console.WriteLine();
+				// Console.WriteLine("  B Tree------------------------------------------------");
+				// Console.WriteLine();
+				// Console.WriteLine("    A B Tree is a sorted binary tree that allows multiple values to");
+				// Console.WriteLine("    be stored per node. This makes it sort of a hybrid between a");
+				// Console.WriteLine("    binary tree and an array. Because multiple values are stored ");
+				// Console.WriteLine("    per node, it means less nodes must be traversed to completely");
+				// Console.WriteLine("    traverse the values in the B tree.");
+				// Console.WriteLine();
 
-				//Console.WriteLine("    The generic B Tree in Towel is still in development.");
+				// Console.WriteLine("    The generic B Tree in Towel is still in development.");
 
-				//Pause();
+				// Pause();
 			}
 			#endregion
 
@@ -588,15 +588,15 @@ namespace DataStructures
 				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
-				//// The "foreach" enumeration works for omnitrees, but it is not optimized
-				//// and you should prefer the stepper function (it is faster).
+				// // The "foreach" enumeration works for omnitrees, but it is not optimized
+				// // and you should prefer the stepper function (it is faster).
 				//
-				//Console.Write("    Traversal (Foreach): ");
-				//foreach (var i in omnitree)
-				//{
-				//	Console.Write(i);
-				//}
-				//Console.WriteLine();
+				// Console.Write("    Traversal (Foreach): ");
+				// foreach (var i in omnitree)
+				// {
+				// 	Console.Write(i);
+				// }
+				// Console.WriteLine();
 
 				int minimumXZ = random.Next(1, test / 2);
 				int maximumXZ = random.Next(1, test / 2) + test / 2;
@@ -701,15 +701,15 @@ namespace DataStructures
 				omnitree.Stepper(Console.Write);
 				Console.WriteLine();
 
-				//// The "foreach" enumeration works for omnitrees, but it is not optimized
-				//// and you should prefer the stepper function (it is faster).
+				// // The "foreach" enumeration works for omnitrees, but it is not optimized
+				// // and you should prefer the stepper function (it is faster).
 				//
-				//Console.Write("    Traversal (Foreach): ");
-				//foreach (var i in omnitree)
-				//{
-				//	Console.Write(i);
-				//}
-				//Console.WriteLine();
+				// Console.Write("    Traversal (Foreach): ");
+				// foreach (var i in omnitree)
+				// {
+				// 	Console.Write(i);
+				// }
+				// Console.WriteLine();
 
 				int minimumXZ = random.Next(1, test / 2);
 				int maximumXZ = random.Next(1, test / 2) + test / 2;
@@ -775,17 +775,17 @@ namespace DataStructures
 
 			#region KD Tree
 			{
-				//Console.WriteLine("  KD Tree------------------------------------------------");
-				//Console.WriteLine();
-				//Console.WriteLine("    A KD Tree binary tree that stores points sorted along along an");
-				//Console.WriteLine("    arbitrary number of dimensions. So it performs multidimensional");
-				//Console.WriteLine("    sorting similar to the Omnitree (Quadtree/Octree) in Towel, but");
-				//Console.WriteLine("    it uses a completely different algorithm and format.");
-				//Console.WriteLine();
+				// Console.WriteLine("  KD Tree------------------------------------------------");
+				// Console.WriteLine();
+				// Console.WriteLine("    A KD Tree binary tree that stores points sorted along along an");
+				// Console.WriteLine("    arbitrary number of dimensions. So it performs multidimensional");
+				// Console.WriteLine("    sorting similar to the Omnitree (Quadtree/Octree) in Towel, but");
+				// Console.WriteLine("    it uses a completely different algorithm and format.");
+				// Console.WriteLine();
 
-				//Console.WriteLine("    The generic KD Tree in Towel is still in development.");
+				// Console.WriteLine("    The generic KD Tree in Towel is still in development.");
 
-				//Pause();
+				// Pause();
 			}
 			#endregion
 
@@ -895,14 +895,14 @@ namespace DataStructures
 				Console.WriteLine("    Traversal:");
 				trie.Stepper(pair => Console.WriteLine($"      {pair.Item1.ConcatToString()}: {pair.Item2}"));
 
-				//// The "foreach" enumeration works for tries, but it is not optimized
-				//// and you should prefer the stepper function (it is faster).
+				// // The "foreach" enumeration works for tries, but it is not optimized
+				// // and you should prefer the stepper function (it is faster).
 				//
-				//Console.WriteLine("    Traversal (Foreach): ");
-				//foreach (var i in trie)
-				//{
-				//	Console.WriteLine("      " + i.ConcatToString());
-				//}
+				// Console.WriteLine("    Traversal (Foreach): ");
+				// foreach (var i in trie)
+				// {
+				// 	Console.WriteLine("      " + i.ConcatToString());
+				// }
 
 				Console.WriteLine($"    Count: {trie.Count}");
 

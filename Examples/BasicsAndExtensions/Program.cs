@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Linq;
 using Towel;
 using Towel.DataStructures;
 using Towel.Mathematics;
-using System.Linq;
 using static Towel.Statics;
 
 namespace BasicsAndExtensions
 {
-	class Program
+	public class Program
 	{
-		static void Main()
+		public static void Main()
 		{
 			Console.WriteLine("You are runnning the BasicsAndExtensions example.");
 			Console.WriteLine("============================================");
@@ -301,9 +301,9 @@ namespace BasicsAndExtensions
 				Console.WriteLine($"      Cycle:     {DataSetToString()}");
 
 				Console.WriteLine("      Bogo:      commented out (very slow...)");
-				//Shuffle<int>(dataSet);
-				//SortBogo<int>(dataSet);
-				//Console.WriteLine($"      Bogo:      {DataSetToString()}");
+				// Shuffle<int>(dataSet);
+				// SortBogo<int>(dataSet);
+				// Console.WriteLine($"      Bogo:      {DataSetToString()}");
 
 				Console.WriteLine();
 				Console.WriteLine("    non-comparison-based sorting algorithms");
@@ -356,7 +356,7 @@ namespace BasicsAndExtensions
 
 				string[] d = { "a", "ba", "cba", "dcba", }; // least to greatest (strings)
 				Console.WriteLine($"    IsOrdered({string.Join(", ", d)}) -> {IsOrdered<string>(d)}");
-				
+
 				Pause();
 			}
 			#endregion
@@ -770,11 +770,11 @@ namespace BasicsAndExtensions
 				}
 				// invalid syntax
 				{
-					//// this will not compile (a good thing)
-					//if ((Inequality<float>) 1)
-					//{
+					// // this will not compile (a good thing)
+					// if ((Inequality<float>) 1)
+					// {
 					//
-					//}
+					// }
 
 					try
 					{
@@ -825,8 +825,8 @@ namespace BasicsAndExtensions
 				stepper(value => Console.Write(" " + value));
 				Console.WriteLine();
 
-				/// In order to break the traversal you can return a "StepStatus"
-				/// from a "StepperBreak" method.
+				// In order to break the traversal you can return a "StepStatus"
+				// from a "StepperBreak" method.
 				Func<Func<int, StepStatus>, StepStatus> stepperBreak = Ɐ(1, 2, 3, 4, 5, 6);
 				Console.Write("    stepperBreak values:");
 				stepperBreak(value =>
@@ -836,7 +836,7 @@ namespace BasicsAndExtensions
 				});
 				Console.WriteLine();
 
-				/// Steppers can be defined as functions without a backing data structure.
+				// Steppers can be defined as functions without a backing data structure.
 				static void stepperFunctional(Action<int> s) { s(1); s(2); s(3); }
 				Console.Write("    stepperFunctional values:");
 				stepperFunctional(value => Console.Write(" " + value));
