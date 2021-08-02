@@ -2060,79 +2060,79 @@ namespace Towel_Generating
 
 				#region Stepper
 
-				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-				///// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
-				///// <param name="axis1">The axis of the removal along the  1D axis.</param>
-				///// <param name="axis2">The axis of the removal along the  2D axis.</param>
-				///// <param name="axis3">The axis of the removal along the  3D axis.</param>
-				//public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
-				//	Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
+				// /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				// /// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
+				// /// <param name="axis1">The axis of the removal along the  1D axis.</param>
+				// /// <param name="axis2">The axis of the removal along the  2D axis.</param>
+				// /// <param name="axis3">The axis of the removal along the  3D axis.</param>
+				// public void Stepper(Action<T> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+				// 	Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
 
-				//internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
-				//{
-				//	Node current = node;
-				//	while (current is not null)
-				//	{
-				//		if (current is Leaf)
-				//		{
-				//			for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
-				//				if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
-				//					step(leaf_node.Value);
-				//			break;
-				//		}
-				//		else
-				//		{
-				//			Branch branch = current as Branch;
-				//			int child_index = DetermineChildIndex(branch.PointOfDivision, vector);
-				//			current = branch[child_index];
-				//		}
-				//	}
-				//}
+				// internal void Stepper(Action<T> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+				// {
+				// 	Node current = node;
+				// 	while (current is not null)
+				// 	{
+				// 		if (current is Leaf)
+				// 		{
+				// 			for (Leaf.Node leaf_node = (current as Leaf).Head; leaf_node is not null; leaf_node = leaf_node.Next)
+				// 				if (EqualsCheck(vector, LocateVector(leaf_node.Value)))
+				// 					step(leaf_node.Value);
+				// 			break;
+				// 		}
+				// 		else
+				// 		{
+				// 			Branch branch = current as Branch;
+				// 			int child_index = DetermineChildIndex(branch.PointOfDivision, vector);
+				// 			current = branch[child_index];
+				// 		}
+				// 	}
+				// }
 
-				///// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
-				///// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
-				///// <param name="axis1">The axis of the removal along the  1D axis.</param>
-				///// <param name="axis2">The axis of the removal along the  2D axis.</param>
-				///// <param name="axis3">The axis of the removal along the  3D axis.</param>
-				//public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
-				//	Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
+				// /// <summary>Performs and specialized traversal of the structure and performs a delegate on every node within the provided dimensions.</summary>
+				// /// <param name="step">The delegate to perform on all items in the tree within the given bounds.</param>
+				// /// <param name="axis1">The axis of the removal along the  1D axis.</param>
+				// /// <param name="axis2">The axis of the removal along the  2D axis.</param>
+				// /// <param name="axis3">The axis of the removal along the  3D axis.</param>
+				// public StepStatus Stepper(Func<T, StepStatus> step, Axis1 axis1, Axis2 axis2, Axis3 axis3) =>
+				// 	Stepper(step, _top, new Omnitree.Vector<Axis1, Axis2, Axis3>(axis1, axis2, axis3));
 
-				//internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
-				//{
-				//	Node current = node;
-				//	while (current is not null)
-				//	{
-				//		if (current is Leaf)
-				//		{
-				//			for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
-				//			{
-				//				StepStatus status = StepStatus.Continue;
-				//				if (EqualsCheck(vector, LocateVector(list.Value)) &&
-				//					(status = step(list.Value)) != StepStatus.Continue)
-				//					return status;
-				//			}
-				//		}
-				//		else
-				//		{
-				//			Branch branch = current as Branch;
-				//			int child_index = DetermineChildIndex(branch.PointOfDivision, vector);
-				//			current = branch[child_index];
-				//		}
-				//	}
-				//	return StepStatus.Continue;
-				//}
+				// internal StepStatus Stepper(Func<T, StepStatus> step, Node node, Omnitree.Vector<Axis1, Axis2, Axis3> vector)
+				// {
+				// 	Node current = node;
+				// 	while (current is not null)
+				// 	{
+				// 		if (current is Leaf)
+				// 		{
+				// 			for (Leaf.Node list = (current as Leaf).Head; list is not null; list = list.Next)
+				// 			{
+				// 				StepStatus status = StepStatus.Continue;
+				// 				if (EqualsCheck(vector, LocateVector(list.Value)) &&
+				// 					(status = step(list.Value)) != StepStatus.Continue)
+				// 					return status;
+				// 			}
+				// 		}
+				// 		else
+				// 		{
+				// 			Branch branch = current as Branch;
+				// 			int child_index = DetermineChildIndex(branch.PointOfDivision, vector);
+				// 			current = branch[child_index];
+				// 		}
+				// 	}
+				// 	return StepStatus.Continue;
+				// }
 
-				//System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+				// System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
-				//public System.Collections.Generic.IEnumerator<T> GetEnumerator()
-				//{
-				//	// Note: this can be optimized.
-				//	IList<T> list = new ListLinked<T>();
-				//	Stepper(x => list.Add(x));
-				//	return list.GetEnumerator();
-				//}
+				// public System.Collections.Generic.IEnumerator<T> GetEnumerator()
+				// {
+				// 	// Note: this can be optimized.
+				// 	IList<T> list = new ListLinked<T>();
+				// 	Stepper(x => list.Add(x));
+				// 	return list.GetEnumerator();
+				// }
 
-				//#endregion
+				// #endregion
 
 				#endregion
 

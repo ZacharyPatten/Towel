@@ -780,7 +780,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static new  readonly int HashCode = nameof(One<T>).GetHashCode();
+			internal static new readonly int HashCode = nameof(One<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -822,7 +822,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static new  readonly int HashCode = nameof(Two<T>).GetHashCode();
+			internal static new readonly int HashCode = nameof(Two<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -864,7 +864,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static new  readonly int HashCode = nameof(Three<T>).GetHashCode();
+			internal static new readonly int HashCode = nameof(Three<T>).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -902,7 +902,7 @@ namespace Towel.Mathematics
 				return false;
 			}
 
-			internal static new  readonly int HashCode = nameof(True).GetHashCode();
+			internal static new readonly int HashCode = nameof(True).GetHashCode();
 
 			/// <summary>The default hash code computation.</summary>
 			/// <returns>The computed hash code for this instance.</returns>
@@ -3511,21 +3511,8 @@ namespace Towel.Mathematics
 								}
 							}
 
-							if (IsUnaryLeftOperator())// first character in the expression
-													  // currentMatch.Index is 0 ||
-													  //// nothing but white space to the left
-													  // (previousMatch is not null &&
-
-							// string.IsNullOrWhiteSpace(
-							//    @string.Substring(
-							//        0
-							//        currentMatch.Index +
-							//        previousMatch.Index + previousMatch.Length,
-							//        currentMatch.Index - (previousMatch.Index + previousMatch.Length) - 1)) &&
-							//        ParsableLeftUnaryOperators.ContainsKey(currentMatch.Value)))
-
+							if (IsUnaryLeftOperator())
 							{
-								// Unary-Left Operator
 								if (@operator is null || priority > ParsableLeftUnaryOperators![currentMatch.Value].Item1)
 								{
 									@operator = currentMatch;
@@ -3536,17 +3523,7 @@ namespace Towel.Mathematics
 								}
 							}
 							else if (IsUnaryRightOperator())
-							//// last character(s) in the expression
-							// (currentMatch.Index + currentMatch.Length - 1) == @string.Length - 1 ||
-							//// nothing but white space until the next operator
-							// (nextMatch is not null &&
-							// string.IsNullOrWhiteSpace(
-							//    @string.Substring(
-							//        currentMatch.Index + currentMatch.Length,
-							//        nextMatch.Index - (currentMatch.Index + currentMatch.Length) - 1)) &&
-							//        ParsableRightUnaryOperators.ContainsKey(currentMatch.Value)))
 							{
-								// Unary Right Operator
 								if (@operator is null || priority > ParsableRightUnaryOperators![currentMatch.Value].Item1)
 								{
 									@operator = currentMatch;
