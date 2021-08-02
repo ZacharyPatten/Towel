@@ -836,7 +836,7 @@ SearchGraph<...>(...);
 IEnumerable<(T A, T B)> CombineRanges<T>(IEnumerable<(T A, T B)> ranges)
 ```
 
-> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/articles/benchmarks.html) are included for the sorting algorithms._
+> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SortBenchmarks.html) are included for the sorting algorithms._
 
 ## Extensions
 
@@ -919,6 +919,18 @@ Console.WriteLine("Value: " + Value);
 
 [Tag("My Tag", "hello world")]
 public class MyClass { }
+```
+
+## SLazy<T>
+
+```cs
+// SLazy<T> is a slightly faster Lazy<T> when using the default
+// LazyThreadSafetyMode.ExecutionAndPublication setting.
+
+SLazy<string> slazy = new(() => "hello world");
+Console.WriteLine(slazy.IsValueCreated); // False
+Console.WriteLine(slazy.Value);          // hello world
+Console.WriteLine(slazy.IsValueCreated); // True
 ```
 
 ## Maintainer(s)
