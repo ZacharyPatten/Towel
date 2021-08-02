@@ -933,6 +933,8 @@ Console.WriteLine(slazy.Value);          // hello world
 Console.WriteLine(slazy.IsValueCreated); // True
 ```
 
+> _**Note** [SLazy&lt;T&gt; Initialization Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyInitializationBenchmarks.html) and [SLazy&lt;T&gt; Caching Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyCachingBenchmarks.html) included._
+
 ## Maintainer(s)
 
 <a href="https://github.com/ZacharyPatten"><img src="https://img.shields.io/badge/Zachary-Patten-gray?style=flat-square&logo=github" title="Go To ZacharyPatten's Profile"/></a></br>
