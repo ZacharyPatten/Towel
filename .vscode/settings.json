@@ -2,12 +2,9 @@
 	"files.exclude":
 	{
 		".vs": true,
-		".gitignore": true,
-		".gitattributes": true,
 		"TestResults/**": true,
 		"**/bin": true,
-		"**/obj": true,
-		".github": true
+		"**/obj": true
 	},
 	"csharp.semanticHighlighting.enabled": true,
 
