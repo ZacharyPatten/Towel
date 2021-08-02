@@ -74,7 +74,7 @@ namespace Towel_Benchmarking
 		}
 	}
 
-	[Tag(Program.Name, "Slazy Caching")]
+	[Tag(Program.Name, "SLazy Caching")]
 	[Tag(Program.OutputFile, nameof(SLazyCachingBenchmarks))]
 	public class SLazyCachingBenchmarks
 	{
