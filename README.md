@@ -921,7 +921,7 @@ Console.WriteLine("Value: " + Value);
 public class MyClass { }
 ```
 
-## SLazy<T>
+## SLazy&lt;T&gt;
 
 ```cs
 // SLazy<T> is a slightly faster Lazy<T> when using the default
