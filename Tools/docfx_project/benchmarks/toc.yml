@@ -4,8 +4,8 @@
   href: SortBenchmarks.md
 - name: Data Structures
   href: DataStructuresBenchmarks.md
-- name: Random
-  href: RandomBenchmarks.md
+- name: Weighted Random
+  href: WeightedRandomBenchmarks.md
 - name: decimal To English Words
   href: ToEnglishWordsBenchmarks.md
 - name: Permute
@@ -24,3 +24,5 @@
   href: SLazyInitializationBenchmarks.md
 - name: Slazy Caching
   href: SLazyCachingBenchmarks.md
+- name: SLazy Construction
+  href: SLazyConstructionBenchmarks.md

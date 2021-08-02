@@ -5,9 +5,9 @@ using Towel;
 
 namespace Towel_Benchmarking
 {
-	[Tag(Program.Name, "Random")]
-	[Tag(Program.OutputFile, nameof(RandomBenchmarks))]
-	public class RandomBenchmarks
+	[Tag(Program.Name, "Weighted Random")]
+	[Tag(Program.OutputFile, nameof(WeightedRandomBenchmarks))]
+	public class WeightedRandomBenchmarks
 	{
 		[Params(10, 100, 1000, 10000, 100000)]
 		public int N;

@@ -50,7 +50,7 @@
 > > 
 > > 2. Open the <sub><a href="Towel.sln"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-16.svg" title="File"></a></sub> **`Towel.sln`** file in Visual Studio.
 > > 
-> > _**Note** (optional) [Here are some recommended settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
+> > - _(optional) [Here are some settings you change in Visual Studio](https://gist.github.com/ZacharyPatten/693f35653f6c21fbe6c85444792e524b)._
 >
 > </p>
 > </details>
@@ -67,13 +67,13 @@
 > > 
 > > 3. Open the <sub><a href="#"><img src="https://raw.githubusercontent.com/ZacharyPatten/Towel/main/.github/Resources/file-directory-16.svg" title="Directory"></a></sub> **`root folder`** of the repository in Visual Studio Code.
 > > 
-> > _**Note** The following files are included in the repository:_
+> > _The following files are included in the repository:_
 > > - `.vscode/extensions.json` <sub>recommends Vistual Studio Code extension dependencies</sub>
 > > - `.vscode/launch.json` <sub>includes the configurations for debugging the examples</sub>
 > > - `.vscode/settings.json` <sub>automatically applies settings to the workspace</sub>
 > > - `.vscode/tasks.json` <sub>includes the commands to build the projects</sub>
 > > 
-> > _**Note** Visual Studio Code Extensions (will be prompted to install these when you open the folder):_
+> > _Visual Studio Code Extensions (will be prompted to install these when you open the folder):_
 > > - `ms-vscode.csharp` <sub>C# support</sub>
 > > - `formulahendry.dotnet-test-explorer` _(optional)_ <sub>MSTest unit testing support</sub>
 > > - `aisoftware.tt-processor` _(optional)_ <sub>T4 Template support</sub>
@@ -400,7 +400,7 @@ double force1 = Force<double>.Convert(9d,
 double angle4 = Measurement.Convert(10d,
 	Radians,  // from
 	Degrees); // to
-// Note: The unit conversion on the Measurement class
+// The unit conversion on the Measurement class
 // is still compile-time-safe.
 
 // Measurement Parsing
@@ -687,8 +687,7 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 > // the mean algorithm can be used (and is much faster than median). If you know the data set will be
 > // relatively evenly distributed within a sub-space, you can even set the subdivision algorithm to
 > // calculate the subdivision from parent spaces rather than looking at the current contents of the
-> // space. Note: In a future enhancement I will automatically detect if the mean algorithm is possible
-> // for a given type, and then the default will depend on the type in use.
+> // space.
 > 
 > // The depth of the omnitree is bounded by "ln(count)" the natural log of the current count. When adding
 > // and item to the tree, if the number of items in the respective child is greater than ln(count) and 
@@ -780,16 +779,16 @@ Force<decimal>.TryParse(".1234 Kilograms * Meters / Seconds / Seconds",
 ## Algorithms
 
 ```cs
-// Note: supports System.Span<T> and any (non ref struct) int-indexed type
+// supports System.Span<T> and any (non ref struct) int-indexed type
 IsPalindrome<...>(...);
 
-// Note: supports System.ReadOnlySpan<T>
+// supports System.ReadOnlySpan<T>
 IsInterleavedRecursive<...>(...);
 IsInterleavedIterative<...>(...);
 
 IsReorderOf<...>(...); // aka "anagrams"
 
-// Note: supports System.Span<T> and any (non ref struct) int-indexed type
+// supports System.Span<T> and any (non ref struct) int-indexed type
 SortShuffle<T>(...);
 SortBubble<T>(...);
 SortSelection<T>(...);
@@ -812,16 +811,16 @@ SortCounting<T>(...); // uint-based (non-comparative sort)
 SortRadix<T>(...); // uint-based (non-comparative sort)
 SortPidgeonHole<T>(...); // int-based (non-comparative sort)
 
-// Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
+// supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
 SearchBinary<T>(...);
 
-// Note: supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
+// supports System.ReadOnlySpan<T> and any (non ref struct) int-indexed type
 int HammingDistanceIterative<...>(...);
 int LevenshteinDistanceRecursive<...>(...);
 int LevenshteinDistanceIterative<...>(...);
 
 // Permutations of sequences
-// Note: supports System.Span<T> and any (non ref struct) int-indexed type
+// supports System.Span<T> and any (non ref struct) int-indexed type
 void PermuteRecursive<...>(...);
 void PermuteIterative<...>(...);
 
@@ -829,20 +828,21 @@ void PermuteIterative<...>(...);
 void Combinations<...>(...);
 
 // Path Finding (Graph Search)
-// Note: overloads for A*, Dijkstra, and Breadth-First-Search algorithms
+// overloads for A*, Dijkstra, and Breadth-First-Search algorithms
 SearchGraph<...>(...);
 
 // Combines ranges without gaps between them
 IEnumerable<(T A, T B)> CombineRanges<T>(IEnumerable<(T A, T B)> ranges)
 ```
 
-> _**Note** [Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SortBenchmarks.html) are included for the sorting algorithms._
+> [Sorting Algorithm Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SortBenchmarks.html)
+> [Permute Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/PermuteBenchmarks.html)
 
 ## Extensions
 
 ```cs
 // System.Random extensions to generate more random types
-// Note: there are overloads to specify possible ranges
+// there are overloads to specify possible ranges
 string NextString(this Random random, int length);
 char NextChar(this Random random);
 decimal NextDecimal(this Random random);
@@ -877,6 +877,10 @@ string GetDocumentation(this MethodInfo methodInfo);
 string GetDocumentation(this MemberInfo memberInfo);
 string GetDocumentation(this ParameterInfo parameterInfo);
 ```
+
+> [Weighted Random Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/WeightedRandomBenchmarks.html)<br/>
+> [Random With Exclusions Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/RandomWithExclusionsBenchmarks.html)<br/>
+> [decimal To English Words Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/ToEnglishWordsBenchmarks.html)
 
 ## Console Helpers
 
@@ -924,7 +928,7 @@ public class MyClass { }
 ## SLazy&lt;T&gt;
 
 ```cs
-// SLazy<T> is a slightly faster Lazy<T> when using the default
+// SLazy<T> is a faster Lazy<T> when using the default
 // LazyThreadSafetyMode.ExecutionAndPublication setting.
 
 SLazy<string> slazy = new(() => "hello world");
@@ -933,7 +937,9 @@ Console.WriteLine(slazy.Value);          // hello world
 Console.WriteLine(slazy.IsValueCreated); // True
 ```
 
-> _**Note** [SLazy&lt;T&gt; Initialization Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyInitializationBenchmarks.html) and [SLazy&lt;T&gt; Caching Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyCachingBenchmarks.html) included._
+> [Initialization Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyInitializationBenchmarks.html)<br/>
+> [Caching Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyCachingBenchmarks.html)<br/>
+> [Construction Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyConstructionBenchmarks.html)
 
 ## Maintainer(s)
 

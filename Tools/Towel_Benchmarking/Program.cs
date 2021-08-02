@@ -29,7 +29,7 @@ namespace Towel_Benchmarking
 		{
 			typeof(SortBenchmarks),
 			typeof(DataStructuresBenchmarks),
-			typeof(RandomBenchmarks),
+			typeof(WeightedRandomBenchmarks),
 			typeof(ToEnglishWordsBenchmarks),
 			typeof(PermuteBenchmarks),
 			typeof(MapVsDictionaryAddBenchmarks),
@@ -39,6 +39,7 @@ namespace Towel_Benchmarking
 			typeof(HeapGenericsVsDelegatesBenchmarks),
 			typeof(SLazyInitializationBenchmarks),
 			typeof(SLazyCachingBenchmarks),
+			typeof(SLazyConstructionBenchmarks),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>

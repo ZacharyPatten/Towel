@@ -69,7 +69,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", 
 		Tools\docfx_project\benchmarks\MapVsDictionaryAddBenchmarks.md = Tools\docfx_project\benchmarks\MapVsDictionaryAddBenchmarks.md
 		Tools\docfx_project\benchmarks\MapVsDictionaryLookUpBenchmarks.md = Tools\docfx_project\benchmarks\MapVsDictionaryLookUpBenchmarks.md
 		Tools\docfx_project\benchmarks\PermuteBenchmarks.md = Tools\docfx_project\benchmarks\PermuteBenchmarks.md
-		Tools\docfx_project\benchmarks\RandomBenchmarks.md = Tools\docfx_project\benchmarks\RandomBenchmarks.md
 		Tools\docfx_project\benchmarks\RandomWithExclusionsBenchmarks.md = Tools\docfx_project\benchmarks\RandomWithExclusionsBenchmarks.md
 		Tools\docfx_project\benchmarks\SLazyCachingBenchmarks.md = Tools\docfx_project\benchmarks\SLazyCachingBenchmarks.md
 		Tools\docfx_project\benchmarks\SLazyInitializationBenchmarks.md = Tools\docfx_project\benchmarks\SLazyInitializationBenchmarks.md
@@ -77,6 +76,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", 
 		Tools\docfx_project\benchmarks\SpanVsArraySortingBenchmarks.md = Tools\docfx_project\benchmarks\SpanVsArraySortingBenchmarks.md
 		Tools\docfx_project\benchmarks\toc.yml = Tools\docfx_project\benchmarks\toc.yml
 		Tools\docfx_project\benchmarks\ToEnglishWordsBenchmarks.md = Tools\docfx_project\benchmarks\ToEnglishWordsBenchmarks.md
+		Tools\docfx_project\benchmarks\WeightedRandomBenchmarks.md = Tools\docfx_project\benchmarks\WeightedRandomBenchmarks.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{458E97BA-A2BA-4092-A128-62B71078DE6A}"

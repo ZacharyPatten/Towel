@@ -6,7 +6,7 @@ The source code for all becnhmarks are in [Tools/ Towel.Benchmarking](https://gi
 
 - [Sorting Algorithms](SortBenchmarks.md)
 - [Data Structures](DataStructuresBenchmarks.md)
-- [Random](RandomBenchmarks.md)
+- [Weighted Random](WeightedRandomBenchmarks.md)
 - [decimal To English Words](ToEnglishWordsBenchmarks.md)
 - [Permute](PermuteBenchmarks.md)
 - [Map vs Dictionary (Add)](MapVsDictionaryAddBenchmarks.md)
@@ -16,3 +16,4 @@ The source code for all becnhmarks are in [Tools/ Towel.Benchmarking](https://gi
 - [Heap Generics Vs Delegates](HeapGenericsVsDelegatesBenchmarks.md)
 - [SLazy Initialization](SLazyInitializationBenchmarks.md)
 - [Slazy Caching](SLazyCachingBenchmarks.md)
+- [SLazy Construction](SLazyConstructionBenchmarks.md)

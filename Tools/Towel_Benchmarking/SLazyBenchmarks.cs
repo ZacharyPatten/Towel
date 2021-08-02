@@ -119,4 +119,40 @@ namespace Towel_Benchmarking
 			}
 		}
 	}
+
+	[Tag(Program.Name, "SLazy Construction")]
+	[Tag(Program.OutputFile, nameof(SLazyConstructionBenchmarks))]
+	[MemoryDiagnoser]
+	public class SLazyConstructionBenchmarks
+	{
+		[Params(1, 10, 100, 1000, 10000)]
+		public int N;
+
+		[Benchmark(Baseline = true)]
+		public void Lazy()
+		{
+			for (int i = 0; i < N; i++)
+			{
+				_ =  new Lazy<int>(() => i);
+			}
+		}
+
+		[Benchmark]
+		public void LazyExecutionAndPublication()
+		{
+			for (int i = 0; i < N; i++)
+			{
+				_ = new Lazy<int>(() => i, LazyThreadSafetyMode.ExecutionAndPublication);
+			}
+		}
+
+		[Benchmark]
+		public void SLazy()
+		{
+			for (int i = 0; i < N; i++)
+			{
+				_ = new SLazy<int>(() => i);
+			}
+		}
+	}
 }
