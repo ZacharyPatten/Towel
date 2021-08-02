@@ -60,12 +60,7 @@ namespace Towel
 			Reference? reference = _reference;
 			if (reference is not null)
 			{
-				if (reference._func is null)
-				{
-					_value = reference._value;
-					_reference = null;
-				}
-				else
+				if (reference._func is not null)
 				{
 					lock (reference)
 					{
@@ -93,6 +88,11 @@ namespace Towel
 							_reference = null;
 						}
 					}
+				}
+				else
+				{
+					_value = reference._value;
+					_reference = null;
 				}
 			}
 			return _value!;
