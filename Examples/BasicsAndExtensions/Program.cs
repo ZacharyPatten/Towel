@@ -914,22 +914,63 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
-			#region SLazy<T>
+			#region SLazy<T> + ValueLazy<T>
 			{
 				Console.WriteLine("  SLazy<T>----------------------");
 				Console.WriteLine();
-				Console.WriteLine(@"    SLazy<T> is a struct alternative to Lazy<T> with some");
-				Console.WriteLine(@"    minor differences to: ToString, Equals, GetHashCode, and");
-				Console.WriteLine(@"    default constructor. There are benchmarks included in");
-				Console.WriteLine(@"    Towel's documentation.");
+				Console.WriteLine(@"    SLazy<T> is a faster Lazy<T> when using the default");
+				Console.WriteLine(@"    LazyThreadSafetyMode.ExecutionAndPublication setting.");
 				Console.WriteLine();
 
 				SLazy<string> slazy = new(() => "hello world");
 
-				Console.WriteLine(@$"    SLazy<string> slazy = new(() => ""hello world"");");
-				Console.WriteLine(@$"    slazy.IsValueCreated: {slazy.IsValueCreated}");
-				Console.WriteLine(@$"    slazy.Value: {slazy.Value}");
-				Console.WriteLine(@$"    slazy.IsValueCreated: {slazy.IsValueCreated}");
+				Console.WriteLine(@$"      SLazy<string> slazy = new(() => ""hello world"");");
+				Console.WriteLine(@$"      slazy.IsValueCreated: {slazy.IsValueCreated}");
+				Console.WriteLine(@$"      slazy.Value: {slazy.Value}");
+				Console.WriteLine(@$"      slazy.IsValueCreated: {slazy.IsValueCreated}");
+				Console.WriteLine();
+
+				Console.WriteLine(@$"    ValueLazy<T> is even faster than SLazy<T> but it");
+				Console.WriteLine(@$"    is unsafe as it will potentially call the factory");
+				Console.WriteLine(@$"    delegate multiple times if the struct is copied.");
+				Console.WriteLine(@$"    So please use ValueLazy<T> with caution.");
+				Console.WriteLine();
+
+				ValueLazy<string> valueLazy = new(() => "hello world");
+
+				Console.WriteLine(@$"      ValueLazy<string> valueLazy = new(() => ""hello world"");");
+				Console.WriteLine(@$"      valueLazy.IsValueCreated: {valueLazy.IsValueCreated}");
+				Console.WriteLine(@$"      valueLazy.Value: {valueLazy.Value}");
+				Console.WriteLine(@$"      valueLazy.IsValueCreated: {valueLazy.IsValueCreated}");
+				Console.WriteLine();
+
+				Console.WriteLine(@$"    Here is the main different between SLazy<T> and ValueLazy<T>:");
+				Console.WriteLine();
+
+				int sLazyCount = 0;
+				SLazy<int> sLazy1 = new(() => ++sLazyCount);
+				SLazy<int> sLazy2 = sLazy1;
+				Console.WriteLine(@$"      int sLazyCount = 0;");
+				Console.WriteLine(@$"      SLazy<int> sLazy1 = new(() => ++sLazyCount);");
+				Console.WriteLine(@$"      SLazy<int> sLazy2 = sLazy1;");
+				Console.WriteLine(@$"      Console.WriteLine(sLazy1.Value); -> {sLazy1.Value}");
+				Console.WriteLine(@$"      Console.WriteLine(sLazy2.Value); -> {sLazy2.Value}");
+				Console.WriteLine();
+
+				int valueLazyCount = 0;
+				ValueLazy<int> valueLazy1 = new(() => ++valueLazyCount);
+				ValueLazy<int> valueLazy2 = valueLazy1;
+				Console.WriteLine(@$"      int valueLazyCount = 0;");
+				Console.WriteLine(@$"      ValueLazy<int> valueLazy1 = new(() => ++valueLazyCount);");
+				Console.WriteLine(@$"      ValueLazy<int> valueLazy2 = valueLazy1;");
+				Console.WriteLine(@$"      Console.WriteLine(valueLazy1.Value); -> {valueLazy1.Value}");
+				Console.WriteLine(@$"      Console.WriteLine(valueLazy2.Value); -> {valueLazy2.Value}");
+				Console.WriteLine();
+
+				Console.WriteLine(@$"    Because the ValueLazy<T> was copied, it called the factory delegate");
+				Console.WriteLine(@$"    multiple times. That is why SLazy<T> is safe to use but you need to");
+				Console.WriteLine(@$"    be careful when using ValueLazy<T>.");
+
 				Pause();
 			}
 			#endregion

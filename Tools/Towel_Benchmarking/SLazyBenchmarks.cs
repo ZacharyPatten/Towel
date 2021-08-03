@@ -12,6 +12,7 @@ namespace Towel_Benchmarking
 		private Lazy<int>[]? lazys;
 		private Lazy<int>[]? lazysExecutionAndPublication;
 		private SLazy<int>[]? slazys;
+		private ValueLazy<int>[]? valueLazys;
 
 		[Params(1, 10, 100, 1000, 10000)]
 		public int N;
@@ -37,6 +38,12 @@ namespace Towel_Benchmarking
 			for (int i = 0; i < N; i++)
 			{
 				slazys[i] = new(() => i);
+			}
+
+			valueLazys = new ValueLazy<int>[N];
+			for (int i = 0; i < N; i++)
+			{
+				valueLazys[i] = new(() => i);
 			}
 		}
 
@@ -70,6 +77,15 @@ namespace Towel_Benchmarking
 			for (int i = 0; i < N; i++)
 			{
 				temp = slazys![i].Value;
+			}
+		}
+
+		[Benchmark]
+		public void ValueLazy()
+		{
+			for (int i = 0; i < N; i++)
+			{
+				temp = valueLazys![i].Value;
 			}
 		}
 	}
@@ -118,6 +134,16 @@ namespace Towel_Benchmarking
 				temp = value.Value;
 			}
 		}
+
+		[Benchmark]
+		public void ValueLazy()
+		{
+			ValueLazy<int> value = new(() => -1);
+			for (int i = 0; i < N; i++)
+			{
+				temp = value.Value;
+			}
+		}
 	}
 
 	[Tag(Program.Name, "SLazy Construction")]
@@ -152,6 +178,15 @@ namespace Towel_Benchmarking
 			for (int i = 0; i < N; i++)
 			{
 				_ = new SLazy<int>(() => i);
+			}
+		}
+
+		[Benchmark]
+		public void ValueLazy()
+		{
+			for (int i = 0; i < N; i++)
+			{
+				_ = new ValueLazy<int>(() => i);
 			}
 		}
 	}

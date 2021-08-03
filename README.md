@@ -925,7 +925,7 @@ Console.WriteLine("Value: " + Value);
 public class MyClass { }
 ```
 
-## SLazy&lt;T&gt;
+## SLazy&lt;T&gt; + ValueLazy&lt;T&gt;
 
 ```cs
 // SLazy<T> is a faster Lazy<T> when using the default
@@ -935,6 +935,11 @@ SLazy<string> slazy = new(() => "hello world");
 Console.WriteLine(slazy.IsValueCreated); // False
 Console.WriteLine(slazy.Value);          // hello world
 Console.WriteLine(slazy.IsValueCreated); // True
+
+// ValueLazy<T> is even faster than SLazy<T> but it 
+// is unsafe as it will potentially call the factory
+// delegate multiple times if the struct is copied.
+// So please use ValueLazy<T> with caution.
 ```
 
 > [Initialization Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyInitializationBenchmarks.html)<br/>
