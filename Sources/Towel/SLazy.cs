@@ -15,23 +15,19 @@ namespace Towel
 
 			internal T SafeGetValue()
 			{
-				if (_func is not null)
+				lock (this)
 				{
-					lock (this)
+					if (_func is not null)
 					{
-						if (_func is not null)
+						try
 						{
-							try
-							{
-								T value = _func();
-								_value = value;
-								_func = null;
-							}
-							catch (Exception exception)
-							{
-								_func = () => throw exception;
-								throw;
-							}
+							_value = _func();
+							_func = null;
+						}
+						catch (Exception exception)
+						{
+							_func = () => throw exception;
+							throw;
 						}
 					}
 				}
@@ -48,13 +44,17 @@ namespace Towel
 			get
 			{
 				Reference? reference = _reference;
-				if (reference is not null && reference._func is null)
+				if (reference is not null)
 				{
-					_value = reference._value;
-					_reference = null;
-					return true;
+					if (reference._func is null)
+					{
+						_value = reference._value;
+						_reference = null;
+						return true;
+					}
+					return false;
 				}
-				return reference is null;
+				return true;
 			}
 		}
 
