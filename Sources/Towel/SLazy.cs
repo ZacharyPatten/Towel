@@ -10,17 +10,67 @@ namespace Towel
 		{
 			internal Func<T>? _func;
 			internal T? _value;
+
 			internal Reference(Func<T> func) => _func = func;
+
+			internal T SafeGetValue()
+			{
+				if (_func is not null)
+				{
+					lock (this)
+					{
+						if (_func is not null)
+						{
+							try
+							{
+								T value = _func();
+								_value = value;
+								_func = null;
+							}
+							catch (Exception exception)
+							{
+								_func = () => throw exception;
+								throw;
+							}
+						}
+					}
+				}
+				return _value!;
+			}
 		}
 
 		internal Reference? _reference;
 		internal T? _value;
 
 		/// <summary>True if <see cref="Value"/> has been initialized.</summary>
-		public bool IsValueCreated => _reference is null ? true : GetIsValueCreated();
+		public bool IsValueCreated
+		{
+			get
+			{
+				Reference? reference = _reference;
+				if (reference is not null && reference._func is null)
+				{
+					_value = reference._value;
+					_reference = null;
+					return true;
+				}
+				return reference is null;
+			}
+		}
 
 		/// <summary>Gets the lazily initialized value.</summary>
-		public T Value => _reference is null ? _value! : GetValue();
+		public T Value
+		{
+			get
+			{
+				if (_reference is not null)
+				{
+					_value = _reference.SafeGetValue();
+					_reference = null;
+				}
+				return _value!;
+			}
+		}
 
 		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <typeparamref name="T"/>.</summary>
 		/// <param name="value">The value to initialize <see cref="Value"/> with.</param>
@@ -36,66 +86,8 @@ namespace Towel
 		public SLazy(Func<T> func)
 		{
 			if (func is null) throw new ArgumentNullException(nameof(func));
-			_reference = new(func);
 			_value = default;
-		}
-
-		internal bool GetIsValueCreated()
-		{
-			Reference? reference = _reference;
-			if (reference is not null)
-			{
-				if (reference._func is null)
-				{
-					_value = reference._value;
-					_reference = null;
-					return true;
-				}
-			}
-			return false;
-		}
-
-		internal T GetValue()
-		{
-			Reference? reference = _reference;
-			if (reference is not null)
-			{
-				if (reference._func is not null)
-				{
-					lock (reference)
-					{
-						if (_reference is not null)
-						{
-							if (reference._func is null)
-							{
-								_value = reference._value;
-							}
-							else
-							{
-								try
-								{
-									T value = reference._func.Invoke();
-									reference._value = value;
-									reference._func = null;
-									_value = value;
-								}
-								catch (Exception exception)
-								{
-									reference._func = () => throw exception;
-									throw;
-								}
-							}
-							_reference = null;
-						}
-					}
-				}
-				else
-				{
-					_value = reference._value;
-					_reference = null;
-				}
-			}
-			return _value!;
+			_reference = new(func);
 		}
 
 		/// <summary>Constructs a new <see cref="SLazy{T}"/> from a <see cref="Func{T}"/>.</summary>
