@@ -942,9 +942,9 @@ Console.WriteLine(slazy.IsValueCreated); // True
 // So please use ValueLazy<T> with caution.
 ```
 
-> [Initialization Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyInitializationBenchmarks.html)<br/>
-> [Caching Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyCachingBenchmarks.html)<br/>
-> [Construction Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SLazyConstructionBenchmarks.html)
+> [Initialization Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/LazyInitializationBenchmarks.html)<br/>
+> [Caching Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/LazyCachingBenchmarks.html)<br/>
+> [Construction Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/LazyConstructionBenchmarks.html)
 
 ## Maintainer(s)
 
