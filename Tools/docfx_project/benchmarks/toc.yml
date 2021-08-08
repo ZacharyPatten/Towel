@@ -20,9 +20,9 @@
   href: RandomWithExclusionsBenchmarks.md
 - name: Heap Generics Vs Delegates
   href: HeapGenericsVsDelegatesBenchmarks.md
-- name: SLazy Initialization
-  href: SLazyInitializationBenchmarks.md
-- name: SLazy Caching
-  href: SLazyCachingBenchmarks.md
-- name: SLazy Construction
-  href: SLazyConstructionBenchmarks.md
+- name: Lazy Initialization
+  href: LazyInitializationBenchmarks.md
+- name: Lazy Caching
+  href: LazyCachingBenchmarks.md
+- name: Lazy Construction
+  href: LazyConstructionBenchmarks.md

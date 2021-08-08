@@ -5,3 +5,6 @@ dotnet_diagnostic.SA1601.severity = none
 
 # SA1021: Negative signs should be spaced correctly
 dotnet_diagnostic.SA1021.severity = none
+
+# SA1501: Statement should not be on a single line
+dotnet_diagnostic.SA1501.severity = none

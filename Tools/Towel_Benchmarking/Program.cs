@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using BenchmarkDotNet.Running;
 using Towel;
 using static Towel.CommandLine;
@@ -37,24 +38,24 @@ namespace Towel_Benchmarking
 			typeof(SpanVsArraySortingBenchmarks),
 			typeof(RandomWithExclusionsBenchmarks),
 			typeof(HeapGenericsVsDelegatesBenchmarks),
-			typeof(SLazyInitializationBenchmarks),
-			typeof(SLazyCachingBenchmarks),
-			typeof(SLazyConstructionBenchmarks),
+			typeof(LazyInitializationBenchmarks),
+			typeof(LazyCachingBenchmarks),
+			typeof(LazyConstructionBenchmarks),
 		};
 
 		/// <summary>Runs the benchmarks.</summary>
 		/// <param name="updateDocumentation">Whether or not to update the docfx documentation.</param>
 		/// <param name="refreshToc">Whether or not to refresh "toc.yml".</param>
 		/// <param name="tocPath">The path to the docfx documentation file.</param>
-		/// <param name="singleBenchmark">Allows you to run a single benchmark at a time.</param>
+		/// <param name="includeRegex">Runs all the benchmarks that match a regex pattern.</param>
 		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True</example>
-		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True --singleBenchmark BENCHMARK</example>
+		/// <example>dotnet run --configuration Release run --updateDocumentation True --refreshToc True --includeRegex PATTERN</example>
 		[Command]
 		public static void run(
 			bool updateDocumentation = false,
 			bool refreshToc = false,
 			string? tocPath = null,
-			string? singleBenchmark = null)
+			string? includeRegex = null)
 		{
 			string thisPath = Path.GetDirectoryName(sourcefilepath())!;
 			if (refreshToc)
@@ -84,7 +85,7 @@ namespace Towel_Benchmarking
 			}
 			foreach (Type type in Benchmarks)
 			{
-				if (type.Name == singleBenchmark)
+				if (includeRegex is null || Regex.Match(type.Name, includeRegex).Success)
 				{
 					StringBuilder stringBuilder = new();
 					string output = RunBenchmarkAndGetMarkdownOutput(type);
