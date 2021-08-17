@@ -179,6 +179,8 @@ namespace Towel_Testing
 			(  101.101m, "One Hundred One And One Hundred One Thousandths"),
 			(1001.1001m, "One Thousand One And One Thousand One Ten-Thousandths"),
 
+			(-0.0100m, "Negative One Hundredths"),
+
 			(decimal.MinValue, "Negative Seventy-Nine Octillion Two Hundred Twenty-Eight Septillion One Hundred Sixty-Two Sextillion Five Hundred Fourteen Quintillion Two Hundred Sixty-Four Quadrillion Three Hundred Thirty-Seven Trillion Five Hundred Ninety-Three Billion Five Hundred Forty-Three Million Nine Hundred Fifty Thousand Three Hundred Thirty-Five"),
 			(decimal.MaxValue, "Seventy-Nine Octillion Two Hundred Twenty-Eight Septillion One Hundred Sixty-Two Sextillion Five Hundred Fourteen Quintillion Two Hundred Sixty-Four Quadrillion Three Hundred Thirty-Seven Trillion Five Hundred Ninety-Three Billion Five Hundred Forty-Three Million Nine Hundred Fifty Thousand Three Hundred Thirty-Five"),
 		};
@@ -252,7 +254,7 @@ namespace Towel_Testing
 		[TestMethod]
 		public void EnglishWordsSynchronize_Test()
 		{
-			for (decimal i = 0; i < 1000000; i += 13)
+			for (decimal i = 0; i < 1000000m; i += 13m)
 			{
 				try
 				{
@@ -268,7 +270,7 @@ namespace Towel_Testing
 				}
 			}
 
-			for (decimal i = -10000; i < 10000; i += 1.0001m)
+			for (decimal i = -10000m; i < 10000m; i += 1.0001m)
 			{
 				try
 				{

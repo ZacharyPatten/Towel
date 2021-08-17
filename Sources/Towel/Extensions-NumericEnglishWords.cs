@@ -116,7 +116,7 @@ namespace Towel
 				number = number[1..];
 			}
 			int decimalIndex = number.IndexOf('.');
-			if (decimalIndex > 0)
+			if (decimalIndex >= 0)
 			{
 				while (number.Length > 0 && number[^1] is '0')
 				{
