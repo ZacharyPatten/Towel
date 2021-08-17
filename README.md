@@ -271,6 +271,8 @@
 > 
 > string ToEnglishWords(this decimal @decimal);
 > // Example: 42 -> "Forty-Two"
+> (bool Success, decimal Value) TryParseEnglishWordsToDecimal(string words);
+> // Example: "Forty-Two" -> 42
 > 
 > int TryParseRomanNumeral(string @string);
 > // Example: "XLII" -> 42

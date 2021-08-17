@@ -128,6 +128,10 @@ namespace Towel
 					decimalIndex = -1;
 				}
 			}
+			if (number.Length is 0)
+			{
+				return "Zero";
+			}
 			if (decimalIndex is not 0)
 			{
 				ReadOnlySpan<char> wholeNumber = decimalIndex >= 0
