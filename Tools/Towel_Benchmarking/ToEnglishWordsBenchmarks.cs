@@ -47,7 +47,7 @@ namespace Towel_Benchmarking
 		}
 
 		[Benchmark]
-		public void Decimal_ToEnglishWords()
+		public void Span()
 		{
 			for (decimal i = start; i < end; i += increment)
 			{
@@ -171,6 +171,22 @@ namespace Towel_Benchmarking
 				number = number[1..];
 			}
 			int decimalIndex = number.IndexOf('.');
+			if (decimalIndex >= 0)
+			{
+				while (number[^1] is '0')
+				{
+					number = number[..^1];
+				}
+				if (number.Length - 1 == decimalIndex)
+				{
+					number = number[..^1];
+					decimalIndex = -1;
+				}
+			}
+			if (number.Length is 0)
+			{
+				return "Zero";
+			}
 			if (decimalIndex is not 0)
 			{
 				ReadOnlySpan<char> wholeNumber = decimalIndex >= 0

@@ -6,19 +6,19 @@ The source code for all benchmarks are in [Tools/Towel.Benchmarking](https://git
 
 ``` ini
 
-BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1165 (20H2/October2020Update)
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
-.NET SDK=6.0.100-preview.6.21355.2
-  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
-  Job-FANCYY : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+.NET SDK=6.0.100-preview.7.21379.14
+  [Host]     : .NET 5.0.9 (5.0.921.35908), X64 RyuJIT
+  Job-HLNVHB : .NET 5.0.9 (5.0.921.35908), X64 RyuJIT
 
 InvocationCount=1  UnrollFactor=1  
 
 ```
-|                 Method |             Range |      Mean |    Error |    StdDev |       Gen 0 | Gen 1 | Gen 2 | Allocated |
-|----------------------- |------------------ |----------:|---------:|----------:|------------:|------:|------:|----------:|
-|          **StringBuilder** | **0...1 (+=.000005)** |  **66.20 ms** | **1.313 ms** |  **2.798 ms** |  **28000.0000** |     **-** |     **-** |    **114 MB** |
-| Decimal_ToEnglishWords | 0...1 (+=.000005) |  43.15 ms | 0.606 ms |  0.506 ms |   7000.0000 |     - |     - |     28 MB |
-|          **StringBuilder** | **0...1000000 (+=1)** | **293.35 ms** | **5.753 ms** | **11.357 ms** | **121000.0000** |     **-** |     **-** |    **486 MB** |
-| Decimal_ToEnglishWords | 0...1000000 (+=1) | 215.54 ms | 3.926 ms |  7.658 ms |  30000.0000 |     - |     - |    123 MB |
+|        Method |             Range |      Mean |    Error |   StdDev |       Gen 0 | Gen 1 | Gen 2 | Allocated |
+|-------------- |------------------ |----------:|---------:|---------:|------------:|------:|------:|----------:|
+| **StringBuilder** | **0...1 (+=.000005)** |  **63.53 ms** | **1.181 ms** | **2.641 ms** |  **29000.0000** |     **-** |     **-** |    **116 MB** |
+|          Span | 0...1 (+=.000005) |  45.84 ms | 0.870 ms | 1.002 ms |   7000.0000 |     - |     - |     28 MB |
+| **StringBuilder** | **0...1000000 (+=1)** | **282.17 ms** | **3.501 ms** | **3.274 ms** | **121000.0000** |     **-** |     **-** |    **486 MB** |
+|          Span | 0...1000000 (+=1) | 207.02 ms | 1.308 ms | 1.223 ms |  30000.0000 |     - |     - |    123 MB |
 
