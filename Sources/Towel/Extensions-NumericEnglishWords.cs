@@ -307,10 +307,15 @@ namespace Towel
 			return ToEnglishWords(span[..length]);
 		}
 
-		/// <summary>Converts a <see cref="ushort"/> to the English words <see cref="string"/> representation.</summary>
-		/// <param name="ushort">The <see cref="ushort"/> value to convert to English words <see cref="string"/> representation.</param>
-		/// <returns>The English words <see cref="string"/> representation of the <see cref="ushort"/> value.</returns>
-		public static string ToEnglishWords(this ushort @ushort) => ToEnglishWords(@ushort.ToString(System.Globalization.CultureInfo.InvariantCulture));
+		/// <summary>Converts a <see cref="decimal"/> to the English words <see cref="string"/> representation.</summary>
+		/// <param name="decimal">The <see cref="decimal"/> value to convert to English words <see cref="string"/> representation.</param>
+		/// <returns>The English words <see cref="string"/> representation of the <see cref="ulong"/> value.</returns>
+		public static string ToEnglishWords(this decimal @decimal)
+		{
+			Span<char> span = stackalloc char[NumberToStringBufferSize];
+			@decimal.TryFormat(span, out int length, provider: System.Globalization.CultureInfo.InvariantCulture);
+			return ToEnglishWords(span[..length]);
+		}
 
 		internal interface ITryParseReadOnlySpan<T>
 		{
