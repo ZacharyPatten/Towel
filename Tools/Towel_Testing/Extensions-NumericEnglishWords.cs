@@ -248,6 +248,7 @@ namespace Towel_Testing
 				"OneThousand",
 				"One Thousand One ",
 				"One Tenths ",
+				"One Tenths Tenths",
 				"One Tenths One",
 				"TwentyOne",
 				"Twenty One",
@@ -258,12 +259,16 @@ namespace Towel_Testing
 				"Eleven One",
 				"ElevenOne",
 				"Twenty- One",
+				"Twenty-Tenths",
 				"Twenty-OneOne",
 				"One Thousand One Thousand",
+				"One Thousand One Million",
 				"One Tenths And One Tenths",
 				"One And And One Tenths",
 				"One And One Tenths And",
 				"One And One Tenths And One",
+				"One And One One Thousand One Million Ten-Millionths"
+
 			};
 
 			foreach (string? @case in shouldFailCases)
@@ -301,6 +306,22 @@ namespace Towel_Testing
 			}
 
 			for (decimal i = -10000m; i < 10000m; i += 1.0001m)
+			{
+				try
+				{
+					string toEnglishWords = i.ToEnglishWords();
+					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					Assert.IsTrue(result == (true, i), i.ToString());
+				}
+				catch
+				{
+					string toEnglishWords = i.ToEnglishWords();
+					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					Assert.IsTrue(result == (true, i), i.ToString());
+				}
+			}
+
+			for (decimal i = 0m; i < 0.2m; i += 0.0000001m)
 			{
 				try
 				{
