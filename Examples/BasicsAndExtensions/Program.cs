@@ -99,19 +99,34 @@ namespace BasicsAndExtensions
 			}
 			#endregion
 
-			#region Decimal To Words
+			#region Decimal To/From Words
 			{
-				Console.WriteLine("  Converting Decimal To Words---------------------------");
+				Console.WriteLine("  Converting Decimal To/From Words----------------------");
+				Console.WriteLine();
+				Console.WriteLine("    ToEnglishWords:");
 				Console.WriteLine();
 
 				decimal a = 12345.6789m;
-				Console.WriteLine($"    {a} -> {a.ToEnglishWords()}");
+				Console.WriteLine($"      {a} -> {a.ToEnglishWords()}");
 
 				decimal b = 999.888m;
-				Console.WriteLine($"    {b} -> {b.ToEnglishWords()}");
+				Console.WriteLine($"      {b} -> {b.ToEnglishWords()}");
 
 				decimal c = 1111111.2m;
-				Console.WriteLine($"    {c} -> {c.ToEnglishWords()}");
+				Console.WriteLine($"      {c} -> {c.ToEnglishWords()}");
+
+				Console.WriteLine();
+				Console.WriteLine("    TryParseEnglishWordsToDecimal:");
+				Console.WriteLine();
+
+				string A = "Forty-Two";
+				Console.WriteLine($@"      ""{A}"" -> {Extensions.TryParseEnglishWordsToDecimal(A)}");
+
+				string B = "Negative One Hundredths";
+				Console.WriteLine($@"      ""{B}"" -> {Extensions.TryParseEnglishWordsToDecimal(B)}");
+
+				string C = "One Thousand One And One Thousand One Ten-Thousandths";
+				Console.WriteLine($@"      ""{C}"" -> {Extensions.TryParseEnglishWordsToDecimal(C)}");
 
 				Pause();
 			}

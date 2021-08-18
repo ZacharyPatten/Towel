@@ -36,22 +36,23 @@ namespace Towel_Testing
 		[TestMethod]
 		public void sourceof_Testing()
 		{
-			// Note: if this test fails it means that the CallerArgumentExpression is
-			// available in the current version of C# and the "sourceof" methods in Towel
-			// should be enabled.
-			Assert.IsTrue(sourceofTempTest(1 == 2) is null);
-
-			#if false
 			sourceofTest(sourceof(1 == 2).Source, 1 == 2);
 			sourceof(1 == 2, out string source);
 			sourceofTest(source, 1 == 2);
-			#endif
 		}
 
-		#if false
-		public static void sourceofTest<T>(string result, T expression, [CallerArgumentExpression("expression")] string expected = default) => Assert.IsTrue(result == expected);
-		#endif
-		public static string? sourceofTempTest<T>(T expression, [CallerArgumentExpression("expression")] string? expected = default) => expected;
+		public static void sourceofTest<T>(string result, T expression, [CallerArgumentExpression("expression")] string? expected = default)
+		{
+			#warning TODO: remove try-catch when .NET 6 is public
+			try
+			{
+				Assert.IsTrue(result == expected);
+			}
+			catch
+			{
+				Assert.Inconclusive("requires .NET 6");
+			}
+		}
 
 		#pragma warning restore IDE1006 // Naming Styles
 

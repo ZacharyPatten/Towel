@@ -2,6 +2,7 @@
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
+using static Towel.Statics;
 
 namespace Towel_Testing
 {
@@ -21,57 +22,57 @@ namespace Towel_Testing
 			#region ILazy<T> test cases
 
 			{
-				Assert.ThrowsException<ArgumentNullException>(() => newLazyString(default(Func<string>)!));
-				Assert.ThrowsException<ArgumentNullException>(() => newLazyInt(default(Func<int>)!));
-				Assert.ThrowsException<ArgumentNullException>(() => newLazyObject(default(Func<object>)!));
+				Assert.ThrowsException<ArgumentNullException>(() => newLazyString(default(Func<string>)!), "Line Number: " + sourcelinenumber());
+				Assert.ThrowsException<ArgumentNullException>(() => newLazyInt(default(Func<int>)!), "Line Number: " + sourcelinenumber());
+				Assert.ThrowsException<ArgumentNullException>(() => newLazyObject(default(Func<object>)!), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => null);
-				Assert.IsTrue(!a.IsValueCreated);
+				Assert.IsTrue(!a.IsValueCreated, "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => null);
-				Assert.IsTrue(!a.Equals("not null"));
+				Assert.IsTrue(!a.Equals("not null"), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => "not null");
-				Assert.IsTrue(!a.Equals(null));
+				Assert.IsTrue(!a.Equals(null), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyInt a = newLazyIntValue(1);
 				TLazyInt b = newLazyIntValue(1);
-				Assert.IsTrue(a.Equals(b));
+				Assert.IsTrue(a.Equals(b), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyStringValue("hello world");
 				TLazyString b = newLazyStringValue("hello world");
-				Assert.IsTrue(a.Equals(b));
+				Assert.IsTrue(a.Equals(b), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyStringValue(default(string));
 				TLazyString b = newLazyStringValue(default(string));
-				Assert.IsTrue(a.Equals(b));
+				Assert.IsTrue(a.Equals(b), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyStringValue(default(string));
-				Assert.IsTrue(a.Equals(a));
+				Assert.IsTrue(a.Equals(a), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyObject a = newLazyObject(() => new());
 				TLazyObject b = newLazyObject(() => new());
-				Assert.IsFalse(a.Equals(b));
+				Assert.IsFalse(a.Equals(b), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyInt a = newLazyIntValue(1);
-				Assert.IsTrue(a.Equals(1));
+				Assert.IsTrue(a.Equals(1), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyStringValue("hello world");
-				Assert.IsTrue(a.Equals("hello world"));
+				Assert.IsTrue(a.Equals("hello world"), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyStringValue(default(string));
-				Assert.IsTrue(a.Equals(null));
+				Assert.IsTrue(a.Equals(null), "Line Number: " + sourcelinenumber());
 			}
 			if (default(TLazyInt).ThreadSafety is LazyThreadSafetyMode.ExecutionAndPublication)
 			{
@@ -102,12 +103,12 @@ namespace Towel_Testing
 						sw.SpinOnce();
 					}
 
-					Assert.IsTrue(!slazy.IsValueCreated);
+					Assert.IsTrue(!slazy.IsValueCreated, "Line Number: " + sourcelinenumber());
 					ready = true;
 					thread1.Join();
 					thread2.Join();
-					Assert.IsTrue(slazy.Value is 2);
-					Assert.IsTrue(value is 2);
+					Assert.IsTrue(slazy.Value is 2, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(value is 2, "Line Number: " + sourcelinenumber());
 				}
 			}
 			else if (default(TLazyInt).ThreadSafety is LazyThreadSafetyMode.PublicationOnly)
@@ -118,6 +119,8 @@ namespace Towel_Testing
 					bool ready = false;
 					bool thread1Ready = false;
 					bool thread2Ready = false;
+					Thread thread1 = null!;
+					Thread thread2 = null!;
 					TLazyInt slazy = newLazyInt(() =>
 					{
 						while (!ready)
@@ -126,11 +129,16 @@ namespace Towel_Testing
 						}
 						lock (@lock)
 						{
+							if (value > 1)
+							{
+								Thread other = Thread.CurrentThread == thread1 ? thread2 : thread1;
+								other.Join();
+							}
 							return ++value;
 						}
 					});
-					Thread thread1 = new(() => { thread1Ready = true; _ = slazy.Value; });
-					Thread thread2 = new(() => { thread2Ready = true; _ = slazy.Value; });
+					thread1 = new(() => { thread1Ready = true; _ = slazy.Value; });
+					thread2 = new(() => { thread2Ready = true; _ = slazy.Value; });
 					thread1.Start();
 					thread2.Start();
 					SpinWait.SpinUntil(() => thread1Ready && thread2Ready);
@@ -143,12 +151,12 @@ namespace Towel_Testing
 						sw.SpinOnce();
 					}
 
-					Assert.IsTrue(!slazy.IsValueCreated);
+					Assert.IsTrue(!slazy.IsValueCreated, "Line Number: " + sourcelinenumber());
 					ready = true;
 					thread1.Join();
 					thread2.Join();
-					Assert.IsTrue(slazy.Value is 2);
-					Assert.IsTrue(value is 3);
+					Assert.IsTrue(slazy.Value is 2, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(value is 3, "Line Number: " + sourcelinenumber());
 				}
 			}
 			else if (default(TLazyInt).ThreadSafety is LazyThreadSafetyMode.None)
@@ -159,6 +167,8 @@ namespace Towel_Testing
 					bool ready = false;
 					bool thread1Ready = false;
 					bool thread2Ready = false;
+					Thread thread1 = null!;
+					Thread thread2 = null!;
 					TLazyInt slazy = newLazyInt(() =>
 					{
 						while (!ready)
@@ -167,11 +177,16 @@ namespace Towel_Testing
 						}
 						lock (@lock)
 						{
+							if (value > 1)
+							{
+								Thread other = Thread.CurrentThread == thread1 ? thread2 : thread1;
+								other.Join();
+							}
 							return ++value;
 						}
 					});
-					Thread thread1 = new(() => { thread1Ready = true; _ = slazy.Value; });
-					Thread thread2 = new(() => { thread2Ready = true; _ = slazy.Value; });
+					thread1 = new(() => { thread1Ready = true; _ = slazy.Value; });
+					thread2 = new(() => { thread2Ready = true; _ = slazy.Value; });
 					thread1.Start();
 					thread2.Start();
 					SpinWait.SpinUntil(() => thread1Ready && thread2Ready);
@@ -184,12 +199,12 @@ namespace Towel_Testing
 						sw.SpinOnce();
 					}
 
-					Assert.IsTrue(!slazy.IsValueCreated);
+					Assert.IsTrue(!slazy.IsValueCreated, "Line Number: " + sourcelinenumber());
 					ready = true;
 					thread1.Join();
 					thread2.Join();
-					Assert.IsTrue(slazy.Value is 3);
-					Assert.IsTrue(value is 3);
+					Assert.IsTrue(slazy.Value is 3, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(value is 3, "Line Number: " + sourcelinenumber());
 				}
 			}
 			if (default(TLazyObject).IsCachingExceptions)
@@ -199,13 +214,13 @@ namespace Towel_Testing
 					TLazyObject a = newLazyObject(() => { test++; throw new Exception("Expected"); });
 					Exception? exception = null;
 					Assert.IsTrue(test is 1);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { exception = e; throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { exception = e; throw; } }, "Line Number: " + sourcelinenumber());
 					Assert.IsTrue(test is 2);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(ReferenceEquals(exception, e)); throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(ReferenceEquals(exception, e)); throw; } }, "Line Number: " + sourcelinenumber());
 					Assert.IsTrue(test is 2);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(ReferenceEquals(exception, e)); throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(ReferenceEquals(exception, e)); throw; } }, "Line Number: " + sourcelinenumber());
 					Assert.IsTrue(test is 2);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(ReferenceEquals(exception, e)); throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(ReferenceEquals(exception, e)); throw; } }, "Line Number: " + sourcelinenumber());
 				}
 			}
 			else
@@ -215,13 +230,13 @@ namespace Towel_Testing
 					TLazyObject a = newLazyObject(() => { test++; throw new Exception("Expected"); });
 					Exception? exception = null;
 					Assert.IsTrue(test is 1);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { exception = e; throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { exception = e; throw; } }, "Line Number: " + sourcelinenumber());
 					Assert.IsTrue(test is 2);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(!ReferenceEquals(exception, e)); throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(!ReferenceEquals(exception, e)); throw; } }, "Line Number: " + sourcelinenumber());
 					Assert.IsTrue(test is 3);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(!ReferenceEquals(exception, e)); throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(!ReferenceEquals(exception, e)); throw; } }, "Line Number: " + sourcelinenumber());
 					Assert.IsTrue(test is 4);
-					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(!ReferenceEquals(exception, e)); throw; } });
+					Assert.ThrowsException<Exception>(() => { try { _ = a.Value; } catch (Exception e) { Assert.IsTrue(!ReferenceEquals(exception, e)); throw; } }, "Line Number: " + sourcelinenumber());
 				}
 			}
 			if (default(TLazyString).IsStructCopySafe)
@@ -229,28 +244,28 @@ namespace Towel_Testing
 				{
 					TLazyString a = newLazyStringValue("hello world");
 					TLazyString b = a;
-					Assert.IsTrue(a.Equals(b));
+					Assert.IsTrue(a.Equals(b), "Line Number: " + sourcelinenumber());
 				}
 				{
 					TLazyInt a = newLazyIntValue(1);
-					Assert.IsTrue(a.Equals(a));
+					Assert.IsTrue(a.Equals(a), "Line Number: " + sourcelinenumber());
 				}
 				{
 					TLazyString a = newLazyStringValue("hello world");
-					Assert.IsTrue(a.Equals(a));
+					Assert.IsTrue(a.Equals(a), "Line Number: " + sourcelinenumber());
 				}
 				{
 					TLazyObject a = newLazyObject(() => new());
 					TLazyObject b = a;
-					Assert.IsTrue(a.Equals(b));
+					Assert.IsTrue(a.Equals(b), "Line Number: " + sourcelinenumber());
 				}
 				{
 					TLazyObject a = newLazyObject(() => new());
-					Assert.IsTrue(a.Equals(a));
+					Assert.IsTrue(a.Equals(a), "Line Number: " + sourcelinenumber());
 				}
 				{
 					TLazyInt a = newLazyInt(() => 1);
-					Assert.IsTrue(a.Equals(a));
+					Assert.IsTrue(a.Equals(a), "Line Number: " + sourcelinenumber());
 				}
 				if (default(TLazyInt).ThreadSafety is LazyThreadSafetyMode.ExecutionAndPublication)
 				{
@@ -281,14 +296,14 @@ namespace Towel_Testing
 						sw.SpinOnce();
 					}
 
-					Assert.IsTrue(!slazyA.IsValueCreated);
-					Assert.IsTrue(!slazyB.IsValueCreated);
+					Assert.IsTrue(!slazyA.IsValueCreated, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(!slazyB.IsValueCreated, "Line Number: " + sourcelinenumber());
 					ready = true;
 					thread1.Join();
 					thread2.Join();
-					Assert.IsTrue(slazyA.Value is 2);
-					Assert.IsTrue(slazyB.Value is 2);
-					Assert.IsTrue(value is 2);
+					Assert.IsTrue(slazyA.Value is 2, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(slazyB.Value is 2, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(value is 2, "Line Number: " + sourcelinenumber());
 				}
 				else if (default(TLazyInt).ThreadSafety is LazyThreadSafetyMode.PublicationOnly)
 				{
@@ -297,6 +312,8 @@ namespace Towel_Testing
 					bool ready = false;
 					bool thread1Ready = false;
 					bool thread2Ready = false;
+					Thread thread1 = null!;
+					Thread thread2 = null!;
 					TLazyInt slazyA = newLazyInt(() =>
 					{
 						while (!ready)
@@ -305,12 +322,17 @@ namespace Towel_Testing
 						}
 						lock (@lock)
 						{
+							if (value > 1)
+							{
+								Thread other = Thread.CurrentThread == thread1 ? thread2 : thread1;
+								other.Join();
+							}
 							return ++value;
 						}
 					});
 					TLazyInt slazyB = slazyA;
-					Thread thread1 = new(() => { thread1Ready = true; _ = slazyA.Value; });
-					Thread thread2 = new(() => { thread2Ready = true; _ = slazyB.Value; });
+					thread1 = new(() => { thread1Ready = true; _ = slazyA.Value; });
+					thread2 = new(() => { thread2Ready = true; _ = slazyB.Value; });
 					thread1.Start();
 					thread2.Start();
 					SpinWait.SpinUntil(() => thread1Ready && thread2Ready);
@@ -323,14 +345,14 @@ namespace Towel_Testing
 						sw.SpinOnce();
 					}
 
-					Assert.IsTrue(!slazyA.IsValueCreated);
-					Assert.IsTrue(!slazyB.IsValueCreated);
+					Assert.IsTrue(!slazyA.IsValueCreated, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(!slazyB.IsValueCreated, "Line Number: " + sourcelinenumber());
 					ready = true;
 					thread1.Join();
 					thread2.Join();
-					Assert.IsTrue(slazyA.Value is 2);
-					Assert.IsTrue(slazyB.Value is 2);
-					Assert.IsTrue(value is 3);
+					Assert.IsTrue(slazyA.Value is 2, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(slazyB.Value is 2, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(value is 3, "Line Number: " + sourcelinenumber());
 				}
 				else if (default(TLazyInt).ThreadSafety is LazyThreadSafetyMode.None)
 				{
@@ -339,6 +361,8 @@ namespace Towel_Testing
 					bool ready = false;
 					bool thread1Ready = false;
 					bool thread2Ready = false;
+					Thread thread1 = null!;
+					Thread thread2 = null!;
 					TLazyInt slazyA = newLazyInt(() =>
 					{
 						while (!ready)
@@ -347,12 +371,17 @@ namespace Towel_Testing
 						}
 						lock (@lock)
 						{
+							if (value > 1)
+							{
+								Thread other = Thread.CurrentThread == thread1 ? thread2 : thread1;
+								other.Join();
+							}
 							return ++value;
 						}
 					});
 					TLazyInt slazyB = slazyA;
-					Thread thread1 = new(() => { thread1Ready = true; _ = slazyA.Value; });
-					Thread thread2 = new(() => { thread2Ready = true; _ = slazyB.Value; });
+					thread1 = new(() => { thread1Ready = true; _ = slazyA.Value; });
+					thread2 = new(() => { thread2Ready = true; _ = slazyB.Value; });
 					thread1.Start();
 					thread2.Start();
 					SpinWait.SpinUntil(() => thread1Ready && thread2Ready);
@@ -365,21 +394,20 @@ namespace Towel_Testing
 						sw.SpinOnce();
 					}
 
-					Assert.IsTrue(!slazyA.IsValueCreated);
-					Assert.IsTrue(!slazyB.IsValueCreated);
+					Assert.IsTrue(!slazyA.IsValueCreated, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(!slazyB.IsValueCreated, "Line Number: " + sourcelinenumber());
 					ready = true;
 					thread1.Join();
 					thread2.Join();
-					Assert.IsTrue(slazyA.Value is 2 or 3);
-					Assert.IsTrue(slazyB.Value is 2 or 3);
-					Assert.IsTrue(value is 2 or 3);
+					Assert.IsTrue(slazyA.Value != slazyB.Value, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(value is 3, "Line Number: " + sourcelinenumber());
 				}
 				{
 					TLazyInt a = newLazyInt(() => 1);
 					TLazyInt b = a;
-					Assert.IsTrue(a.Value is 1);
-					Assert.IsTrue(b.IsValueCreated);
-					Assert.IsTrue(b.Value is 1);
+					Assert.IsTrue(a.Value is 1, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(b.IsValueCreated, "Line Number: " + sourcelinenumber());
+					Assert.IsTrue(b.Value is 1, "Line Number: " + sourcelinenumber());
 				}
 			}
 
@@ -389,31 +417,31 @@ namespace Towel_Testing
 
 			{
 				TLazyString a = newLazyStringValue(default(string));
-				Assert.IsTrue(a.GetHashCode() is default(int));
+				Assert.IsTrue(a.GetHashCode() is default(int), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => null);
-				Assert.IsTrue(a.ToString() is null);
+				Assert.IsTrue(a.ToString() is null, "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyInt a = newLazyInt(() => 1);
-				Assert.IsTrue(a.ToString() == 1.ToString());
+				Assert.IsTrue(a.ToString() == 1.ToString(), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => "hello world");
-				Assert.IsTrue(a.ToString() is "hello world");
+				Assert.IsTrue(a.ToString() is "hello world", "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyInt a = newLazyInt(() => 1);
-				Assert.IsTrue(a.Value is 1);
-				Assert.IsTrue(a.IsValueCreated);
-				Assert.IsTrue(a.ToString() == 1.ToString());
+				Assert.IsTrue(a.Value is 1, "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.IsValueCreated, "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.ToString() == 1.ToString(), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => "hello world");
-				Assert.IsTrue(a.Value is "hello world");
-				Assert.IsTrue(a.IsValueCreated);
-				Assert.IsTrue(a.ToString() is "hello world");
+				Assert.IsTrue(a.Value is "hello world", "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.IsValueCreated, "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.ToString() is "hello world", "Line Number: " + sourcelinenumber());
 			}
 
 			#endregion
@@ -422,31 +450,31 @@ namespace Towel_Testing
 
 			{
 				TLazyObject a = newLazyObjectValue(default(object)!);
-				Assert.IsTrue(a.GetHashCode() is default(int));
+				Assert.IsTrue(a.GetHashCode() is default(int), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyObject a = newLazyObject(() => null);
-				Assert.IsTrue(a.GetHashCode() is default(int));
+				Assert.IsTrue(a.GetHashCode() is default(int), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyInt a = newLazyInt(() => 1);
-				Assert.IsTrue(a.GetHashCode() == 1.GetHashCode());
+				Assert.IsTrue(a.GetHashCode() == 1.GetHashCode(), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => "hello world");
-				Assert.IsTrue(a.GetHashCode() == "hello world".GetHashCode());
+				Assert.IsTrue(a.GetHashCode() == "hello world".GetHashCode(), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyInt a = newLazyInt(() => 1);
-				Assert.IsTrue(a.Value is 1);
-				Assert.IsTrue(a.IsValueCreated);
-				Assert.IsTrue(a.GetHashCode() == 1.GetHashCode());
+				Assert.IsTrue(a.Value is 1, "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.IsValueCreated, "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.GetHashCode() == 1.GetHashCode(), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => "hello world");
-				Assert.IsTrue(a.Value is "hello world");
-				Assert.IsTrue(a.IsValueCreated);
-				Assert.IsTrue(a.GetHashCode() == "hello world".GetHashCode());
+				Assert.IsTrue(a.Value is "hello world", "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.IsValueCreated, "Line Number: " + sourcelinenumber());
+				Assert.IsTrue(a.GetHashCode() == "hello world".GetHashCode(), "Line Number: " + sourcelinenumber());
 			}
 
 			#endregion

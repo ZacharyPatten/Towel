@@ -119,26 +119,24 @@ namespace Towel
 		/// <returns>The line number of the current location in source code.</returns>
 		public static int sourcelinenumber([CallerLineNumber] int @default = default) => @default;
 
-#if false
 		/// <summary>Gets the source code and evaluation of an expression.</summary>
 		/// <typeparam name="T">The type the expression will evaluate to.</typeparam>
 		/// <param name="expression">The expression to evaluate and get the source of.</param>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerArgumentExpressionAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerArgumentExpressionAttribute"/>.</param>
 		/// <returns>The source code and evaluation of the expression.</returns>
-		public static (T Value, string Source) sourceof<T>(T expression, [CallerArgumentExpression("expression")] string DEFAULT = default) => (expression, DEFAULT);
+		public static (T Value, string Source) sourceof<T>(T expression, [CallerArgumentExpression("expression")] string? @default = default) => (expression, @default!);
 
 		/// <summary>Gets the source code and evaluation of an expression.</summary>
 		/// <typeparam name="T">The type the expression will evaluate to.</typeparam>
 		/// <param name="expression">The expression to evaluate and get the source of.</param>
 		/// <param name="source">The source code of the expression.</param>
-		/// <param name="DEFAULT">Intended to leave default. This value is set by the compiler via <see cref="CallerArgumentExpressionAttribute"/>.</param>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerArgumentExpressionAttribute"/>.</param>
 		/// <returns>The evaluation of the expression.</returns>
-		public static T sourceof<T>(T expression, out string source, [CallerArgumentExpression("expression")] string DEFAULT = default)
+		public static T sourceof<T>(T expression, out string source, [CallerArgumentExpression("expression")] string? @default = default)
 		{
-			source = DEFAULT;
+			source = @default!;
 			return expression;
 		}
-#endif
 
 #pragma warning restore IDE1006 // Naming Styles
 
