@@ -232,6 +232,7 @@ namespace Towel_Testing
 				"",
 				" One",
 				"One ",
+				"OneOne",
 				"One  Hundred",
 				"One Hundred ",
 				"One Hundred One ",
@@ -252,6 +253,17 @@ namespace Towel_Testing
 				"Twenty One",
 				"Twenty-One ",
 				"OneTwenty",
+				"OneEleven",
+				"One Eleven",
+				"Eleven One",
+				"ElevenOne",
+				"Twenty- One",
+				"Twenty-OneOne",
+				"One Thousand One Thousand",
+				"One Tenths And One Tenths",
+				"One And And One Tenths",
+				"One And One Tenths And",
+				"One And One Tenths And One",
 			};
 
 			foreach (string? @case in shouldFailCases)
