@@ -4,6 +4,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#pragma warning disable
+
 using System;
 using System.Numerics;
 using static Towel.Statics;
@@ -4289,3 +4291,5 @@ string documentation_axisX = string.Empty; for (int j = 1; j <= i; j++) { docume
 
 	#endregion
 }
+
+#pragma warning enable

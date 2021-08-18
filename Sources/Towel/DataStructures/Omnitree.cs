@@ -4,6 +4,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+#pragma warning disable
+
 using System;
 using System.Numerics;
 using static Towel.Statics;
@@ -30945,3 +30947,5 @@ namespace Towel.DataStructures
 
 	#endregion
 }
+
+#pragma warning enable

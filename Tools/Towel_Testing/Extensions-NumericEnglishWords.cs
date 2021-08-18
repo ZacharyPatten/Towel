@@ -182,6 +182,10 @@ namespace Towel_Testing
 			(-0.0100m, "Negative One Hundredths"),
 
 			(-0.0000m, "Zero"),
+			(-0m, "Zero"),
+
+			(00123.123m, "One Hundred Twenty-Three And One Hundred Twenty-Three Thousandths"),
+			(-00123.123m, "Negative One Hundred Twenty-Three And One Hundred Twenty-Three Thousandths"),
 
 			(decimal.MinValue, "Negative Seventy-Nine Octillion Two Hundred Twenty-Eight Septillion One Hundred Sixty-Two Sextillion Five Hundred Fourteen Quintillion Two Hundred Sixty-Four Quadrillion Three Hundred Thirty-Seven Trillion Five Hundred Ninety-Three Billion Five Hundred Forty-Three Million Nine Hundred Fifty Thousand Three Hundred Thirty-Five"),
 			(decimal.MaxValue, "Seventy-Nine Octillion Two Hundred Twenty-Eight Septillion One Hundred Sixty-Two Sextillion Five Hundred Fourteen Quintillion Two Hundred Sixty-Four Quadrillion Three Hundred Thirty-Seven Trillion Five Hundred Ninety-Three Billion Five Hundred Forty-Three Million Nine Hundred Fifty Thousand Three Hundred Thirty-Five"),

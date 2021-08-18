@@ -118,7 +118,7 @@ namespace Towel
 			int decimalIndex = number.IndexOf('.');
 			if (decimalIndex >= 0)
 			{
-				while (number.Length > 0 && number[^1] is '0')
+				while (number[^1] is '0')
 				{
 					number = number[..^1];
 				}
@@ -286,6 +286,8 @@ namespace Towel
 			(bool Success, T Value) TryParse(ReadOnlySpan<char> span);
 		}
 
+#pragma warning disable IDE1006 // Naming Styles
+
 		internal struct decimal_TryParse : ITryParseReadOnlySpan<decimal>
 		{
 			public (bool, decimal) TryParse(ReadOnlySpan<char> span) => (decimal.TryParse(span, out decimal result), result);
@@ -367,6 +369,8 @@ namespace Towel
 		public static (bool Success, sbyte Value) TryParseEnglishWordsToSbyte(ReadOnlySpan<char> span) =>
 			TryParseEnglishWords<sbyte, sbyte_TryParse>(span);
 
+#pragma warning restore IDE1006 // Naming Styles
+
 		/// <summary>Attempts to parse a string of English words to a numeric value.</summary>
 		/// <typeparam name="T">The numerical type to parse the string into.</typeparam>
 		/// <typeparam name="TTryParse">The type of tryparse function for the numeric type.</typeparam>
@@ -376,7 +380,7 @@ namespace Towel
 			where TTryParse : struct, ITryParseReadOnlySpan<T>
 		{
 
-#pragma warning TODO: clean this code up :P
+			#warning TODO: clean this code up :P
 
 			const string Negative = "Negative ";
 			const string Zero = "Zero";
