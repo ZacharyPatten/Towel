@@ -105,11 +105,10 @@ namespace Towel
 			{
 				return "Zero";
 			}
-			Span<char> span = stackalloc char[EnglishWordsBufferSize];
-			int length = 0;
+			SpanBuilder<char> span = stackalloc char[EnglishWordsBufferSize];
 			if (number[0] is '-')
 			{
-				Append(span, ref length, "Negative");
+				span.Append("Negative");
 				number = number[1..];
 			}
 			if (number[0] is '0')
@@ -136,31 +135,24 @@ namespace Towel
 			if (decimalIndex is not 0)
 			{
 				ReadOnlySpan<char> wholeNumber = number[..(decimalIndex >= 0 ? decimalIndex : ^0)];
-				WholeNumber(span, ref length, wholeNumber);
+				WholeNumber(ref span, wholeNumber);
 			}
 			if (decimalIndex >= 0)
 			{
 				if (decimalIndex != 0)
 				{
-					Append(span, ref length, " And");
+					span.Append(" And");
 				}
 				ReadOnlySpan<char> fractionalNumber = number[(decimalIndex + 1)..];
-				WholeNumber(span, ref length, fractionalNumber);
-				AppendChar(span, ref length, ' ');
-				Append(span, ref length, ToEnglishWordsFractionalSufix[fractionalNumber.Length]);
+				WholeNumber(ref span, fractionalNumber);
+				span.Append(' ');
+				span.Append(ToEnglishWordsFractionalSufix[fractionalNumber.Length]);
 			}
-			return new string(span[(span[0] is ' ' ? 1 : 0)..length]);
+			Span<char> result = span;
+			return new string(result[(result[0] is ' ' ? 1 : 0)..]);
 		}
 
-		internal static void AppendChar(Span<char> span, ref int length, char c) => span[length++] = c;
-
-		internal static void Append(Span<char> span, ref int length, ReadOnlySpan<char> append)
-		{
-			append.CopyTo(span[length..(length + append.Length)]);
-			length += append.Length;
-		}
-
-		internal static void WholeNumber(Span<char> span, ref int length, ReadOnlySpan<char> wholeNumber)
+		internal static void WholeNumber(ref SpanBuilder<char> span, ReadOnlySpan<char> wholeNumber)
 		{
 			// A "digit group" is a set of hundreds + tens + ones digits.
 			// In the number 123456789 the digit groups are the following: 123, 456, 789
@@ -180,50 +172,50 @@ namespace Towel
 
 				if (c__X > '0' || c_X_ > '0' || cX__ > '0')
 				{
-					DigitGroup(span, ref length, cX__, c_X_, c__X);
+					DigitGroup(ref span, cX__, c_X_, c__X);
 					if (digitGroup > 1)
 					{
-						AppendChar(span, ref length, ' ');
-						Append(span, ref length, ToEnglishWordsGroup[digitGroup]);
+						span.Append(' ');
+						span.Append(ToEnglishWordsGroup[digitGroup]);
 					}
 				}
 				digitGroup--;
 			}
 		}
 
-		internal static void DigitGroup(Span<char> span, ref int length, char hundredsDigit, char tensDigit, char onesDigit)
+		internal static void DigitGroup(ref SpanBuilder<char> span, char hundredsDigit, char tensDigit, char onesDigit)
 		{
 			int hundred = hundredsDigit - '0';
 			int ten = tensDigit - '0';
 			int one = onesDigit - '0';
 			if (hundred > 0)
 			{
-				AppendChar(span, ref length, ' ');
-				Append(span, ref length, ToEnglishWordsDigit[hundred]);
-				Append(span, ref length, " Hundred");
+				span.Append(' ');
+				span.Append(ToEnglishWordsDigit[hundred]);
+				span.Append(" Hundred");
 			}
 			if (ten > 0)
 			{
-				AppendChar(span, ref length, ' ');
+				span.Append(' ');
 				if (one is 0)
 				{
-					Append(span, ref length, ToEnglishWordsTen[ten]);
+					span.Append(ToEnglishWordsTen[ten]);
 				}
 				else if (ten is 1)
 				{
-					Append(span, ref length, ToEnglishWordsTeen[one]);
+					span.Append(ToEnglishWordsTeen[one]);
 				}
 				else
 				{
-					Append(span, ref length, ToEnglishWordsTen[ten]);
-					AppendChar(span, ref length, '-');
-					Append(span, ref length, ToEnglishWordsDigit[one]);
+					span.Append(ToEnglishWordsTen[ten]);
+					span.Append('-');
+					span.Append(ToEnglishWordsDigit[one]);
 				}
 			}
 			else if (one > 0)
 			{
-				AppendChar(span, ref length, ' ');
-				Append(span, ref length, ToEnglishWordsDigit[one]);
+				span.Append(' ');
+				span.Append(ToEnglishWordsDigit[one]);
 			}
 		}
 

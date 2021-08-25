@@ -110,27 +110,27 @@ namespace Towel
 		public static (bool Success, string? RomanNumeral) TryToRomanNumeral(int value)
 		{
 			if (value < 1 || value > 3999) return (false, null);
-			StringBuilder sb = new();
+			SpanBuilder<char> span = stackalloc char[15];
 			while (value > 0)
 			{
 				switch (value)
 				{
-					case >= 1000: sb.Append( 'M'); value -= 1000; break;
-					case >=  900: sb.Append("CM"); value -=  900; break;
-					case >=  500: sb.Append( 'D'); value -=  500; break;
-					case >=  400: sb.Append("CD"); value -=  400; break;
-					case >=  100: sb.Append( 'C'); value -=  100; break;
-					case >=   90: sb.Append("XC"); value -=   90; break;
-					case >=   50: sb.Append( 'L'); value -=   50; break;
-					case >=   40: sb.Append("XL"); value -=   40; break;
-					case >=   10: sb.Append( 'X'); value -=   10; break;
-					case >=    9: sb.Append("IX"); value -=    9; break;
-					case >=    5: sb.Append( 'V'); value -=    5; break;
-					case >=    4: sb.Append("IV"); value -=    4; break;
-					case >=    1: sb.Append( 'I'); value -=    1; break;
+					case >= 1000: span.Append( 'M'); value -= 1000; break;
+					case >=  900: span.Append("CM"); value -=  900; break;
+					case >=  500: span.Append( 'D'); value -=  500; break;
+					case >=  400: span.Append("CD"); value -=  400; break;
+					case >=  100: span.Append( 'C'); value -=  100; break;
+					case >=   90: span.Append("XC"); value -=   90; break;
+					case >=   50: span.Append( 'L'); value -=   50; break;
+					case >=   40: span.Append("XL"); value -=   40; break;
+					case >=   10: span.Append( 'X'); value -=   10; break;
+					case >=    9: span.Append("IX"); value -=    9; break;
+					case >=    5: span.Append( 'V'); value -=    5; break;
+					case >=    4: span.Append("IV"); value -=    4; break;
+					case >=    1: span.Append( 'I'); value -=    1; break;
 				}
 			}
-			return (true, sb.ToString());
+			return (true, new string(span));
 		}
 	}
 }
