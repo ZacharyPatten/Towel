@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
 using Towel.DataStructures;
+using static Towel.Statics;
 
 namespace Towel_Testing.DataStructures
 {
@@ -14,11 +15,11 @@ namespace Towel_Testing.DataStructures
 			{ // int
 				const int count = 100000;
 				ISet<int> set = SetHashLinked.New<int>();
-				Extensions.Iterate(count, i => set.Add(i));
+				Iterate(count, i => set.Add(i));
 				set.Add(int.MinValue);
 				set.Add(int.MaxValue);
 
-				Extensions.Iterate(count, i => Assert.IsTrue(set.Contains(i)));
+				Iterate(count, i => Assert.IsTrue(set.Contains(i)));
 				Assert.IsTrue(set.Contains(int.MinValue));
 				Assert.IsTrue(set.Contains(int.MaxValue));
 				Assert.IsFalse(set.Contains(-1));
@@ -32,11 +33,11 @@ namespace Towel_Testing.DataStructures
 			{ // string
 				const int count = 100000;
 				ISet<string> set = SetHashLinked.New<string>();
-				Extensions.Iterate(count, i => set.Add(i.ToString()));
+				Iterate(count, i => set.Add(i.ToString()));
 				set.Add(int.MinValue.ToString());
 				set.Add(int.MaxValue.ToString());
 
-				Extensions.Iterate(count, i => Assert.IsTrue(set.Contains(i.ToString())));
+				Iterate(count, i => Assert.IsTrue(set.Contains(i.ToString())));
 				Assert.IsTrue(set.Contains(int.MinValue.ToString()));
 				Assert.IsTrue(set.Contains(int.MaxValue.ToString()));
 				Assert.IsFalse(set.Contains((-1).ToString()));
@@ -54,7 +55,7 @@ namespace Towel_Testing.DataStructures
 			{ // int
 				const int count = 100000;
 				ISet<int> set = SetHashLinked.New<int>();
-				Extensions.Iterate(count, i => set.Add(i));
+				Iterate(count, i => set.Add(i));
 				for (int i = 0; i < count; i += 3)
 				{
 					set.Remove(i);
@@ -77,7 +78,7 @@ namespace Towel_Testing.DataStructures
 			{ // string
 				const int count = 100000;
 				ISet<string> set = SetHashLinked.New<string>();
-				Extensions.Iterate(count, i => set.Add(i.ToString()));
+				Iterate(count, i => set.Add(i.ToString()));
 				for (int i = 0; i < count; i += 3)
 				{
 					set.Remove(i.ToString());

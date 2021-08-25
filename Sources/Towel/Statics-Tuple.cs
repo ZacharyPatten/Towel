@@ -8,7 +8,7 @@ using System;
 
 namespace Towel
 {
-	public static partial class Extensions
+	public static partial class Statics
 	{
 		/// <summary>Gets an enumerator for a tuple.</summary>
 		/// <param name="tuple">The tuple to get an enumerator for.</param>

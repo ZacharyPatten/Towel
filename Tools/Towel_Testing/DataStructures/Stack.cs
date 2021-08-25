@@ -28,18 +28,14 @@ namespace Towel_Testing.DataStructures
 		public static void Push_Pop_Int32_Testing<TStack>()
 			where TStack : IStack<int>, new()
 		{
-			const int count = 10000;
-			int[] values = new int[count];
-			Extensions.Iterate(count, i => values[i] = i);
+			int[] values = (..10000).ToArray();
 			Push_Pop_Testing<int, TStack>(values);
 		}
 
 		public static void Push_Pop_String_Testing<TStack>()
 			where TStack : IStack<string>, new()
 		{
-			const int count = 10000;
-			string[] values = new string[count];
-			Extensions.Iterate(count, i => values[i] = i.ToString());
+			string[] values = (..10000).ToArray(i => i.ToString());
 			Push_Pop_Testing<string, TStack>(values);
 		}
 

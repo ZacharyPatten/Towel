@@ -120,13 +120,13 @@ namespace BasicsAndExtensions
 				Console.WriteLine();
 
 				string A = "Forty-Two";
-				Console.WriteLine($@"      ""{A}"" -> {Extensions.TryParseEnglishWordsToDecimal(A)}");
+				Console.WriteLine($@"      ""{A}"" -> {TryParseEnglishWordsToDecimal(A)}");
 
 				string B = "Negative One Hundredths";
-				Console.WriteLine($@"      ""{B}"" -> {Extensions.TryParseEnglishWordsToDecimal(B)}");
+				Console.WriteLine($@"      ""{B}"" -> {TryParseEnglishWordsToDecimal(B)}");
 
 				string C = "One Thousand One And One Thousand One Ten-Thousandths";
-				Console.WriteLine($@"      ""{C}"" -> {Extensions.TryParseEnglishWordsToDecimal(C)}");
+				Console.WriteLine($@"      ""{C}"" -> {TryParseEnglishWordsToDecimal(C)}");
 
 				Pause();
 			}

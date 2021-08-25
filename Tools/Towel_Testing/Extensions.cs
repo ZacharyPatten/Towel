@@ -18,7 +18,7 @@ namespace Towel_Testing
 
 			Assert.AreEqual("aaa bbb c d e", "a b c d e".Replace(("a", "aaa"), ("b", "bbb"), ("aaa", "ERROR")));
 
-			Assert.ThrowsException<ArgumentNullException>(() => Extensions.Replace(null!, ("a", "b")));
+			Assert.ThrowsException<ArgumentNullException>(() => Statics.Replace(null!, ("a", "b")));
 			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(null!));
 			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace((null!, "a")));
 			Assert.ThrowsException<ArgumentNullException>(() => string.Empty.Replace(("a", null!)));

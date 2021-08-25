@@ -27,18 +27,14 @@ namespace Towel_Testing.DataStructures
 		public static void Enqueue_Dequeue_Int32_Testing<TQueue>()
 			where TQueue : IQueue<int>, new()
 		{
-			const int count = 100000;
-			int[] values = new int[count];
-			Extensions.Iterate(count, i => values[i] = i);
+			int[] values = (..100000).ToArray();
 			Enqueue_Dequeue_Testing<int, TQueue>(values);
 		}
 
 		public static void Enqueue_Dequeue_String_Testing<TQueue>()
 			where TQueue : IQueue<string>, new()
 		{
-			const int count = 100000;
-			string[] values = new string[count];
-			Extensions.Iterate(count, i => values[i] = i.ToString());
+			string[] values = (..100000).ToArray(i => i.ToString());
 			Enqueue_Dequeue_Testing<string, TQueue>(values);
 		}
 

@@ -32,9 +32,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IAvlTree<int> tree = AvlTreeLinked.New<int>();
-				Extensions.Iterate(100, i => tree.TryAdd(i));
+				Iterate(100, i => tree.TryAdd(i));
 				Assert.IsTrue(tree.Count is 100);
-				Extensions.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
+				Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
 			}
 		}
 
@@ -60,9 +60,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IAvlTree<int> tree = AvlTreeLinked.New<int>();
-				Extensions.Iterate(100, i => tree.Add(i));
+				Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count == 100);
-				Extensions.Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
+				Iterate(100, i => Assert.IsTrue(tree.Contains(i)));
 			}
 		}
 
@@ -95,9 +95,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IAvlTree<int> tree = AvlTreeLinked.New<int>();
-				Extensions.Iterate(100, i => tree.Add(i));
+				Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count is 100);
-				Extensions.Iterate(100, i => tree.Remove(i));
+				Iterate(100, i => tree.Remove(i));
 				Assert.IsTrue(tree.Count is 0);
 			}
 		}
@@ -131,9 +131,9 @@ namespace Towel_Testing.DataStructures
 			}
 			{
 				IAvlTree<int> tree = AvlTreeLinked.New<int>();
-				Extensions.Iterate(100, i => tree.Add(i));
+				Iterate(100, i => tree.Add(i));
 				Assert.IsTrue(tree.Count is 100);
-				Extensions.Iterate(100, i => tree.Remove(i));
+				Iterate(100, i => tree.Remove(i));
 				Assert.IsTrue(tree.Count is 0);
 			}
 			// large randomized data set

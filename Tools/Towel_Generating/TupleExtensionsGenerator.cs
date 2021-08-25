@@ -24,7 +24,7 @@ namespace Towel_Generating
 			code.AppendLine($@"");
 			code.AppendLine($@"namespace Towel");
 			code.AppendLine($@"{{");
-			code.AppendLine($@"	public static partial class Extensions");
+			code.AppendLine($@"	public static partial class Statics");
 			code.AppendLine($@"	{{");
 			code.AppendLine($@"		/// <summary>Gets an enumerator for a tuple.</summary>");
 			code.AppendLine($@"		/// <param name=""tuple"">The tuple to get an enumerator for.</param>");

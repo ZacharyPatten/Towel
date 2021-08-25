@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel;
+using static Towel.Statics;
 
 namespace Towel_Testing
 {
@@ -217,12 +218,12 @@ namespace Towel_Testing
 			{
 				try
 				{
-					var result = Extensions.TryParseEnglishWordsToDecimal(words);
+					var result = TryParseEnglishWordsToDecimal(words);
 					Assert.IsTrue(result == (true, value), $"Expected[{(true, value)}] Actual[{result}]");
 				}
 				catch
 				{
-					var result = Extensions.TryParseEnglishWordsToDecimal(words);
+					var result = TryParseEnglishWordsToDecimal(words);
 					Assert.IsTrue(result == (true, value), $"Expected[{(true, value)}] Actual[{result}]");
 				}
 			}
@@ -276,12 +277,12 @@ namespace Towel_Testing
 			{
 				try
 				{
-					var result = Extensions.TryParseEnglishWordsToDecimal(@case);
+					var result = TryParseEnglishWordsToDecimal(@case);
 					Assert.IsTrue(result == (false, default(decimal)), $"Expected[{(false, default(decimal))}] Actual[{result}]");
 				}
 				catch
 				{
-					var result = Extensions.TryParseEnglishWordsToDecimal(@case);
+					var result = TryParseEnglishWordsToDecimal(@case);
 					Assert.IsTrue(result == (false, default(decimal)), $"Expected[{(false, default(decimal))}] Actual[{result}]");
 				}
 			}
@@ -295,13 +296,13 @@ namespace Towel_Testing
 				try
 				{
 					string toEnglishWords = i.ToEnglishWords();
-					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					var result = TryParseEnglishWordsToDecimal(toEnglishWords);
 					Assert.IsTrue(result == (true, i), i.ToString());
 				}
 				catch
 				{
 					string toEnglishWords = i.ToEnglishWords();
-					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					var result = TryParseEnglishWordsToDecimal(toEnglishWords);
 					Assert.IsTrue(result == (true, i), i.ToString());
 				}
 			}
@@ -311,13 +312,13 @@ namespace Towel_Testing
 				try
 				{
 					string toEnglishWords = i.ToEnglishWords();
-					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					var result = TryParseEnglishWordsToDecimal(toEnglishWords);
 					Assert.IsTrue(result == (true, i), i.ToString());
 				}
 				catch
 				{
 					string toEnglishWords = i.ToEnglishWords();
-					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					var result = TryParseEnglishWordsToDecimal(toEnglishWords);
 					Assert.IsTrue(result == (true, i), i.ToString());
 				}
 			}
@@ -327,13 +328,13 @@ namespace Towel_Testing
 				try
 				{
 					string toEnglishWords = i.ToEnglishWords();
-					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					var result = TryParseEnglishWordsToDecimal(toEnglishWords);
 					Assert.IsTrue(result == (true, i), i.ToString());
 				}
 				catch
 				{
 					string toEnglishWords = i.ToEnglishWords();
-					var result = Extensions.TryParseEnglishWordsToDecimal(toEnglishWords);
+					var result = TryParseEnglishWordsToDecimal(toEnglishWords);
 					Assert.IsTrue(result == (true, i), i.ToString());
 				}
 			}

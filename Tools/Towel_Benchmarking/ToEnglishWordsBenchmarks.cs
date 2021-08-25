@@ -51,7 +51,7 @@ namespace Towel_Benchmarking
 		{
 			for (decimal i = start; i < end; i += increment)
 			{
-				_ = Extensions.ToEnglishWords(i);
+				_ = Statics.ToEnglishWords(i);
 			}
 		}
 	}

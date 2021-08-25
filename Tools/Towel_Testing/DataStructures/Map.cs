@@ -15,19 +15,19 @@ namespace Towel_Testing.DataStructures
 			{ // string, int
 				const int count = 100000;
 				IMap<string, int> map = MapHashLinked.New<string, int>();
-				Extensions.Iterate(count, i => map.Add(i, i.ToString()));
+				Iterate(count, i => map.Add(i, i.ToString()));
 				map.Add(int.MinValue, int.MinValue.ToString());
 				map.Add(int.MaxValue, int.MaxValue.ToString());
 
 				// contains
-				Extensions.Iterate(count, i => Assert.IsTrue(map.Contains(i)));
+				Iterate(count, i => Assert.IsTrue(map.Contains(i)));
 				Assert.IsTrue(map.Contains(int.MinValue));
 				Assert.IsTrue(map.Contains(int.MaxValue));
 				Assert.IsFalse(map.Contains(-1));
 				Assert.IsFalse(map.Contains(count));
 
 				// get
-				Extensions.Iterate(count, i => Assert.IsTrue(map[i] == i.ToString()));
+				Iterate(count, i => Assert.IsTrue(map[i] == i.ToString()));
 				Assert.IsTrue(map[int.MinValue] == int.MinValue.ToString());
 				Assert.IsTrue(map[int.MaxValue] == int.MaxValue.ToString());
 
@@ -39,19 +39,19 @@ namespace Towel_Testing.DataStructures
 			{ // int, string
 				const int count = 100000;
 				IMap<int, string> map = MapHashLinked.New<int, string>();
-				Extensions.Iterate(count, i => map.Add(i.ToString(), i));
+				Iterate(count, i => map.Add(i.ToString(), i));
 				map.Add(int.MinValue.ToString(), int.MinValue);
 				map.Add(int.MaxValue.ToString(), int.MaxValue);
 
 				// contains
-				Extensions.Iterate(count, i => Assert.IsTrue(map.Contains(i.ToString())));
+				Iterate(count, i => Assert.IsTrue(map.Contains(i.ToString())));
 				Assert.IsTrue(map.Contains(int.MinValue.ToString()));
 				Assert.IsTrue(map.Contains(int.MaxValue.ToString()));
 				Assert.IsFalse(map.Contains((-1).ToString()));
 				Assert.IsFalse(map.Contains(count.ToString()));
 
 				// get
-				Extensions.Iterate(count, i => Assert.IsTrue(map[i.ToString()] == i));
+				Iterate(count, i => Assert.IsTrue(map[i.ToString()] == i));
 				Assert.IsTrue(map[int.MinValue.ToString()] == int.MinValue);
 				Assert.IsTrue(map[int.MaxValue.ToString()] == int.MaxValue);
 
@@ -67,19 +67,19 @@ namespace Towel_Testing.DataStructures
 			{ // string, int
 				const int count = 100000;
 				IMap<string, int> map = MapHashLinked.New<string, int>();
-				Extensions.Iterate(count, i => map[i] = i.ToString());
+				Iterate(count, i => map[i] = i.ToString());
 				map[int.MinValue] = int.MinValue.ToString();
 				map[int.MaxValue] = int.MaxValue.ToString();
 
 				// contains
-				Extensions.Iterate(count, i => Assert.IsTrue(map.Contains(i)));
+				Iterate(count, i => Assert.IsTrue(map.Contains(i)));
 				Assert.IsTrue(map.Contains(int.MinValue));
 				Assert.IsTrue(map.Contains(int.MaxValue));
 				Assert.IsFalse(map.Contains(-1));
 				Assert.IsFalse(map.Contains(count));
 
 				// get
-				Extensions.Iterate(count, i => Assert.IsTrue(map[i] == i.ToString()));
+				Iterate(count, i => Assert.IsTrue(map[i] == i.ToString()));
 				Assert.IsTrue(map[int.MinValue] == int.MinValue.ToString());
 				Assert.IsTrue(map[int.MaxValue] == int.MaxValue.ToString());
 			}
@@ -87,19 +87,19 @@ namespace Towel_Testing.DataStructures
 			{ // int, string
 				const int count = 100000;
 				IMap<int, string> map = MapHashLinked.New<int, string>();
-				Extensions.Iterate(count, i => map[i.ToString()] = i);
+				Iterate(count, i => map[i.ToString()] = i);
 				map[int.MinValue.ToString()] = int.MinValue;
 				map[int.MaxValue.ToString()] = int.MaxValue;
 
 				// contains
-				Extensions.Iterate(count, i => Assert.IsTrue(map.Contains(i.ToString())));
+				Iterate(count, i => Assert.IsTrue(map.Contains(i.ToString())));
 				Assert.IsTrue(map.Contains(int.MinValue.ToString()));
 				Assert.IsTrue(map.Contains(int.MaxValue.ToString()));
 				Assert.IsFalse(map.Contains((-1).ToString()));
 				Assert.IsFalse(map.Contains(count.ToString()));
 
 				// get
-				Extensions.Iterate(count, i => Assert.IsTrue(map[i.ToString()] == i));
+				Iterate(count, i => Assert.IsTrue(map[i.ToString()] == i));
 				Assert.IsTrue(map[int.MinValue.ToString()] == int.MinValue);
 				Assert.IsTrue(map[int.MaxValue.ToString()] == int.MaxValue);
 			}
@@ -111,7 +111,7 @@ namespace Towel_Testing.DataStructures
 			{ // string, int
 				const int count = 100000;
 				IMap<string, int> map = MapHashLinked.New<string, int>();
-				Extensions.Iterate(count, i => map.Add(i, i.ToString()));
+				Iterate(count, i => map.Add(i, i.ToString()));
 				for (int i = 0; i < count; i += 3)
 				{
 					map.Remove(i);
@@ -134,7 +134,7 @@ namespace Towel_Testing.DataStructures
 			{ // int, string
 				const int count = 100000;
 				IMap<int, string> map = MapHashLinked.New<int, string>();
-				Extensions.Iterate(count, i => map.Add(i.ToString(), i));
+				Iterate(count, i => map.Add(i.ToString(), i));
 				for (int i = 0; i < count; i += 3)
 				{
 					map.Remove(i.ToString());

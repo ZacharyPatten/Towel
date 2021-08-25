@@ -17,8 +17,7 @@ namespace Towel_Benchmarking
 		[IterationSetup]
 		public void IterationSetup()
 		{
-			Values = new int[N];
-			Extensions.Iterate(N, i => Values[i] = i);
+			Values = (..N).ToArray();
 			Random random = new(7);
 			Shuffle<int>(Values, random);
 		}

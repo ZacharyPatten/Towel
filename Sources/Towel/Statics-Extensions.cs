@@ -8,8 +8,8 @@ using static Towel.Statics;
 
 namespace Towel
 {
-	/// <summary>Contains Extension methods on common System types.</summary>
-	public static partial class Extensions
+	/// <summary>Root type of the static functional methods in Towel.</summary>
+	public static partial class Statics
 	{
 		#region System.String
 
