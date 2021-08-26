@@ -14,7 +14,9 @@ namespace Towel_Testing
 			Func<Func<int>, TLazyInt> newLazyInt,
 			Func<int, TLazyInt> newLazyIntValue,
 			Func<Func<object?>, TLazyObject> newLazyObject,
-			Func<object, TLazyObject> newLazyObjectValue)
+			Func<object, TLazyObject> newLazyObjectValue,
+			Func<TLazyInt, TLazyInt, bool> equalOperator,
+			Func<TLazyInt, TLazyInt, bool> notEqualOperator)
 			where TLazyString : struct, ILazy<string?>
 			where TLazyInt : struct, ILazy<int>
 			where TLazyObject : struct, ILazy<object?>
@@ -25,6 +27,16 @@ namespace Towel_Testing
 				Assert.ThrowsException<ArgumentNullException>(() => newLazyString(default!), "Line Number: " + sourcelinenumber());
 				Assert.ThrowsException<ArgumentNullException>(() => newLazyInt(default!), "Line Number: " + sourcelinenumber());
 				Assert.ThrowsException<ArgumentNullException>(() => newLazyObject(default!), "Line Number: " + sourcelinenumber());
+			}
+			{
+				TLazyInt a = newLazyIntValue(1);
+				TLazyInt b = newLazyIntValue(1);
+				Assert.IsTrue(equalOperator(a, b), "Line Number: " + sourcelinenumber());
+			}
+			{
+				TLazyInt a = newLazyIntValue(1);
+				TLazyInt b = newLazyIntValue(2);
+				Assert.IsTrue(notEqualOperator(a, b), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => null);
@@ -493,7 +505,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -509,7 +523,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -525,7 +541,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -541,7 +559,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -557,7 +577,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -573,7 +595,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -589,7 +613,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -605,7 +631,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -621,7 +649,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -637,7 +667,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -653,7 +685,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 
@@ -669,7 +703,9 @@ namespace Towel_Testing
 				func => func,
 				value => value,
 				func => func,
-				value => value);
+				value => value,
+				(a, b) => a == b,
+				(a, b) => a != b);
 		}
 	}
 }
