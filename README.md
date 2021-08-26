@@ -937,9 +937,6 @@
 > ```cs
 > // Just some helper methods for console applications...
 > 
-> // command line argument parser/handler
-> CommandLine.HandleArguments();
-> 
 > // wait for keypress to continue an intercept input
 > ConsoleHelper.PromptPressToContinue(...);
 > // generic method for retrieving validated console input
@@ -1034,6 +1031,67 @@
 > // rather than throwing like SpanBuilder<T> does.
 > SStringBuilder<char> span = stackalloc char[10];
 > span.AppendLine("abcdefghijklmnopqrztuvwxyz");
+> ```
+
+</p>
+</details>
+
+<details>
+<summary>
+:page_facing_up: <strong>Command Line Parser </strong><sub>[Expand]</sub>
+</summary>
+<p>
+
+> ```cs
+> // Just put the [Command] attribute on any method you want to call
+> // from the command line, and call the "HandleArguments" method.
+>
+> using System;
+> using static Towel.CommandLine;
+>
+> public static class Program
+> {
+> 	public static void Main(string[] args)
+> 	{
+> 		HandleArguments(args);
+> 	}
+>
+> 	[Command]
+> 	public static void A(int a)
+> 	{
+> 		Console.WriteLine(nameof(A) + " called");
+> 		Console.WriteLine(nameof(a) + ": " + a);
+> 	}
+> }
+>
+> // output:
+> // dotnet run A --a 7
+> // A called
+> // a: 7
+> ```
+
+</p>
+</details>
+
+<details>
+<summary>
+:page_facing_up: <strong>XML docs via Reflection </strong><sub>[Expand]</sub>
+</summary>
+<p>
+
+> ```cs
+> // Get the XML docs on code members via reflection.
+>
+> using System;
+> using Towel;
+>
+> string xmlDocs = typeof(MyClass).GetDocumentation();
+> Console.WriteLine(xmlDocs.Trim());
+>
+> /// <summary>hello world</summary>
+> public class MyClass { }
+>
+> // Write "<summary>hello world</summary>" to standard output.
 > ```
 
 </p>
