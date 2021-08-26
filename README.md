@@ -1004,11 +1004,37 @@
 > // is unsafe as it will potentially call the factory
 > // delegate multiple times if the struct is copied.
 > // So please use ValueLazy<T> with caution.
+>
+> // There are various types for supporting no multithread lock,
+> // no exception caching, and publication only locks.
 > ```
 > 
 > > [Initialization Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/LazyInitializationBenchmarks.html)<br/>
 > > [Caching Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/LazyCachingBenchmarks.html)<br/>
 > > [Construction Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/LazyConstructionBenchmarks.html)
+
+</p>
+</details>
+
+<details>
+<summary>
+:page_facing_up: <strong>SpanBuilder&lt;T&gt; + SStringBuilder </strong><sub>[Expand]</sub>
+</summary>
+<p>
+
+> ```cs
+> // SpanBuilder<char> is a small helper for initializing
+> // stack allocated spans.
+> SpanBuilder<char> span = stackalloc char[10];
+> span.AppendLine("ab");
+>
+> // SStringBuilder is a small helper for initializing strings.
+> // It will append to the span until the capacity is reached
+> // and then it will revert to a StringBuilder if necessary
+> // rather than throwing like SpanBuilder<T> does.
+> SStringBuilder<char> span = stackalloc char[10];
+> span.AppendLine("abcdefghijklmnopqrztuvwxyz");
+> ```
 
 </p>
 </details>
