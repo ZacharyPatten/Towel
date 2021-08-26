@@ -71,7 +71,8 @@ namespace Towel_Testing
 				Assert.IsTrue(sb._stringBuilder is null);
 				sb.Append('a');
 				sb.Append('b');
-				Assert.IsTrue(EquateSequence<char>(sb.ToString(), "ab"));
+				sb.Append('c');
+				Assert.IsTrue(EquateSequence<char>(sb.ToString(), "abc"));
 			}
 			{
 				SStringBuilder sb = stackalloc char[10];
