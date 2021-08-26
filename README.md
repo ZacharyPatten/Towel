@@ -1072,27 +1072,3 @@
 
 </p>
 </details>
-
-<details>
-<summary>
-:page_facing_up: XML docs via Reflection <sub>[Expand]</sub>
-</summary>
-<p>
-
-> ```cs
-> // Get the XML docs on code members via reflection.
->
-> using System;
-> using Towel;
->
-> string xmlDocs = typeof(MyClass).GetDocumentation();
-> Console.WriteLine(xmlDocs.Trim());
->
-> /// <summary>hello world</summary>
-> public class MyClass { }
->
-> // Write "<summary>hello world</summary>" to standard output.
-> ```
-
-</p>
-</details>
