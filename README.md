@@ -30,7 +30,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Run The Included Examples </strong><sub>[Expand]</sub>
+:page_facing_up: Run The Included Examples <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -42,7 +42,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Visual Studio </strong><sub>[Expand]</sub>
+> :page_facing_up: Visual Studio <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -57,7 +57,7 @@
 >
 > <details>
 > <summary>
-> :page_facing_up: <strong>Visual Studio Code </strong><sub>[Expand]</sub>
+> :page_facing_up: Visual Studio Code <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -87,7 +87,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Use Towel In Your .NET Projects </strong><sub>[Expand]</sub>
+:page_facing_up: Use Towel In Your .NET Projects <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -107,7 +107,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>View Documentation </strong><sub>[Expand]</sub>
+:page_facing_up: View Documentation <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -155,7 +155,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Get Involved </strong><sub>[Expand]</sub>
+:page_facing_up: Get Involved <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -177,7 +177,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Algorithms </strong><sub>[Expand]</sub>
+:page_facing_up: Algorithms <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -246,7 +246,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Extensions </strong><sub>[Expand]</sub>
+:page_facing_up: Extensions <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -299,13 +299,13 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Data Structures </strong><sub>[Expand]</sub>
+:page_facing_up: Data Structures <sub>[Expand]</sub>
 </summary>
 <p>
 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Heap </strong><sub>[Expand]</sub>
+> :page_facing_up: Heap <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -354,7 +354,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: <strong>AVL Tree </strong><sub>[Expand]</sub>
+> :page_facing_up: AVL Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -405,7 +405,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Red Black Tree </strong><sub>[Expand]</sub>
+> :page_facing_up: Red Black Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -454,7 +454,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Omnitree </strong><sub>[Expand]</sub>
+> :page_facing_up: Omnitree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -591,7 +591,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Tree </strong><sub>[Expand]</sub>
+> :page_facing_up: Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -604,7 +604,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Graph </strong><sub>[Expand]</sub>
+> :page_facing_up: Graph <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -641,7 +641,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Trie </strong><sub>[Expand]</sub>
+> :page_facing_up: Trie <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -672,13 +672,13 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Generic Mathematics & Logic </strong><sub>[Expand]</sub>
+:page_facing_up: Generic Mathematics & Logic <sub>[Expand]</sub>
 </summary>
 <p>
 
 > <details>
 > <summary>
-> :page_facing_up: <strong>How It Works </strong><sub>[Expand]</sub>
+> :page_facing_up: How It Works <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -795,7 +795,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Symbolic Mathematics </strong><sub>[Expand]</sub>
+:page_facing_up: Symbolic Mathematics <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -819,13 +819,13 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Measurement Mathematics </strong><sub>[Expand]</sub>
+:page_facing_up: Measurement Mathematics <sub>[Expand]</sub>
 </summary>
 <p>
 
 > <details>
 > <summary>
-> :page_facing_up: <strong>Supported Measurements </strong><sub>[Expand]</sub>
+> :page_facing_up: Supported Measurements <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -930,7 +930,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Console Helpers </strong><sub>[Expand]</sub>
+:page_facing_up: Console Helpers <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -958,7 +958,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>TagAttribute </strong><sub>[Expand]</sub>
+:page_facing_up: TagAttribute <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -984,7 +984,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>SLazy&lt;T&gt; + ValueLazy&lt;T&gt; </strong><sub>[Expand]</sub>
+:page_facing_up: SLazy&lt;T&gt; + ValueLazy&lt;T&gt; <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -1015,7 +1015,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>SpanBuilder&lt;T&gt; + SStringBuilder </strong><sub>[Expand]</sub>
+:page_facing_up: SpanBuilder&lt;T&gt; + SStringBuilder <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -1038,7 +1038,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>Command Line Parser </strong><sub>[Expand]</sub>
+:page_facing_up: Command Line Parser <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -1075,7 +1075,7 @@
 
 <details>
 <summary>
-:page_facing_up: <strong>XML docs via Reflection </strong><sub>[Expand]</sub>
+:page_facing_up: XML docs via Reflection <sub>[Expand]</sub>
 </summary>
 <p>
 
