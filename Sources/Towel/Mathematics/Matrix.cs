@@ -1368,8 +1368,7 @@ namespace Towel.Mathematics
 
 		#region Minor
 
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning disable SA1625 // ElementDocumentationMustNotBeCopiedAndPasted
+#pragma warning disable CS1572, SA1625, SA1617
 
 		/// <summary>Gets the minor of a matrix.</summary>
 		/// <param name="a">The matrix to get the minor of.</param>
@@ -1378,10 +1377,9 @@ namespace Towel.Mathematics
 		/// <param name="b">The minor of the matrix.</param>
 		/// <returns>The minor of the matrix.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_Minor() => throw new DocumentationMethodException();
+		public static void XML_Minor() => throw new DocumentationMethodException();
 
-#pragma warning restore SA1625 // ElementDocumentationMustNotBeCopiedAndPasted
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning restore CS1572, SA1625, SA1617
 
 		/// <inheritdoc cref="XML_Minor"/>
 		public Matrix<T> Minor(int row, int column) =>

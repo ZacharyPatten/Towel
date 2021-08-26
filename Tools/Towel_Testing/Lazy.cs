@@ -22,9 +22,9 @@ namespace Towel_Testing
 			#region ILazy<T> test cases
 
 			{
-				Assert.ThrowsException<ArgumentNullException>(() => newLazyString(default(Func<string>)!), "Line Number: " + sourcelinenumber());
-				Assert.ThrowsException<ArgumentNullException>(() => newLazyInt(default(Func<int>)!), "Line Number: " + sourcelinenumber());
-				Assert.ThrowsException<ArgumentNullException>(() => newLazyObject(default(Func<object>)!), "Line Number: " + sourcelinenumber());
+				Assert.ThrowsException<ArgumentNullException>(() => newLazyString(default!), "Line Number: " + sourcelinenumber());
+				Assert.ThrowsException<ArgumentNullException>(() => newLazyInt(default!), "Line Number: " + sourcelinenumber());
+				Assert.ThrowsException<ArgumentNullException>(() => newLazyObject(default!), "Line Number: " + sourcelinenumber());
 			}
 			{
 				TLazyString a = newLazyString(() => null);
@@ -49,12 +49,12 @@ namespace Towel_Testing
 				Assert.IsTrue(a.Equals(b), "Line Number: " + sourcelinenumber());
 			}
 			{
-				TLazyString a = newLazyStringValue(default(string));
-				TLazyString b = newLazyStringValue(default(string));
+				TLazyString a = newLazyStringValue(default);
+				TLazyString b = newLazyStringValue(default);
 				Assert.IsTrue(a.Equals(b), "Line Number: " + sourcelinenumber());
 			}
 			{
-				TLazyString a = newLazyStringValue(default(string));
+				TLazyString a = newLazyStringValue(default);
 				Assert.IsTrue(a.Equals(a), "Line Number: " + sourcelinenumber());
 			}
 			{
@@ -71,7 +71,7 @@ namespace Towel_Testing
 				Assert.IsTrue(a.Equals("hello world"), "Line Number: " + sourcelinenumber());
 			}
 			{
-				TLazyString a = newLazyStringValue(default(string));
+				TLazyString a = newLazyStringValue(default);
 				Assert.IsTrue(a.Equals(null), "Line Number: " + sourcelinenumber());
 			}
 			if (default(TLazyInt).ThreadSafety is LazyThreadSafetyMode.ExecutionAndPublication)
@@ -416,7 +416,7 @@ namespace Towel_Testing
 			#region ToString() test cases
 
 			{
-				TLazyString a = newLazyStringValue(default(string));
+				TLazyString a = newLazyStringValue(default);
 				Assert.IsTrue(a.GetHashCode() is default(int), "Line Number: " + sourcelinenumber());
 			}
 			{
@@ -449,7 +449,7 @@ namespace Towel_Testing
 			#region GetHashCode() test cases
 
 			{
-				TLazyObject a = newLazyObjectValue(default(object)!);
+				TLazyObject a = newLazyObjectValue(default!);
 				Assert.IsTrue(a.GetHashCode() is default(int), "Line Number: " + sourcelinenumber());
 			}
 			{

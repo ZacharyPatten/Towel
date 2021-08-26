@@ -45,8 +45,7 @@ namespace Towel
 
 		#region Shuffle
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
+#pragma warning disable CS1711, CS1572
 
 		/// <summary>
 		/// Sorts values into a randomized order.<br/>
@@ -65,8 +64,7 @@ namespace Towel
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static void XML_Shuffle() => throw new DocumentationMethodException();
 
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning restore CS1711, CS1572
 
 		/// <inheritdoc cref="XML_Shuffle"/>
 		public static void Shuffle<T>(int start, int end, Func<int, T> get, Action<int, T> set, Random? random = null) =>
@@ -110,9 +108,7 @@ namespace Towel
 
 		#region XML
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning disable SA1604 // Element documentation should have summary
+#pragma warning disable SA1604, CS1572, CS1711
 
 		/// <typeparam name="T">The type of values to sort.</typeparam>
 		/// <typeparam name="TCompare">The type of compare function.</typeparam>
@@ -128,9 +124,7 @@ namespace Towel
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static void XML_Sort() => throw new DocumentationMethodException();
 
-#pragma warning restore SA1604 // Element documentation should have summary
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning restore SA1604, CS1572, CS1711
 
 		#endregion
 
@@ -1227,7 +1221,7 @@ namespace Towel
 		{
 			for (int i = end; i > start; i--)
 			{
-				int index = MaximumIndex<T, TGet, TSet, TCompare>(start, i, get, set, compare);
+				int index = MaximumIndex<T, TGet, TCompare>(start, i, get, compare);
 				if (index != i)
 				{
 					Reverse<T, TGet, TSet>(start, index, get, set);

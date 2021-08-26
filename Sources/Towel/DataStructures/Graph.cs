@@ -545,14 +545,7 @@ namespace Towel.DataStructures
 		public GraphMap<T, TEquate, THash> Clone() => new(this);
 
 		/// <inheritdoc/>
-		public T[] ToArray()
-		{
-			#warning TODO: Make a "K[] KeysToArray()" method on MapHashLinked
-			T[] nodes = new T[_map.Count];
-			int i = 0;
-			_map.Keys(key => nodes[i++] = key);
-			return nodes;
-		}
+		public T[] ToArray() => _map.KeysToArray();
 
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 

@@ -324,10 +324,7 @@ namespace Towel
 
 		#region XML_Stepper
 
-#pragma warning disable SA1625 // Element documentation should not be copied and pasted
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
+#pragma warning disable CS1735, CS1572, CS1711, SA1625, SA1617
 
 		/// <summary>Performs a method on every value in a sequence.</summary>
 		/// <typeparam name="T">The type of values in the sequence.</typeparam>
@@ -340,15 +337,12 @@ namespace Towel
 		[Obsolete(TowelConstants.NotIntended, true)]
 		public static void XML_Stepper() => throw new DocumentationMethodException();
 
-#pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning restore SA1625 // Element documentation should not be copied and pasted
-
 		/// <inheritdoc cref="XML_Stepper"/>
 		/// <returns><see cref="StepStatus"/></returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static StepStatus XML_StepperBreak() => throw new DocumentationMethodException();
+		public static void XML_StepperBreak() => throw new DocumentationMethodException();
+
+#pragma warning restore CS1735, CS1572, CS1711, SA1625, SA1617
 
 		#endregion
 

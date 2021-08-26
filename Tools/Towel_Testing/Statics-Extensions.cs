@@ -6,8 +6,8 @@ using static Towel.Statics;
 
 namespace Towel_Testing
 {
-	[TestClass]
-	public partial class Extensions_Testing
+	// [TestClass]
+	public partial class Statics_Testing
 	{
 		#region string.Replace (multiple)
 

@@ -2,3 +2,6 @@
 
 # SA0001: XML comment analysis disabled
 dotnet_diagnostic.SA0001.severity = none
+
+# SA1611: Element parameters should be documented
+dotnet_diagnostic.SA1611.severity = silent

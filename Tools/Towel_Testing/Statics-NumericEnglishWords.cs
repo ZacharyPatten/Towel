@@ -5,7 +5,7 @@ using static Towel.Statics;
 namespace Towel_Testing
 {
 	// [TestClass]
-	public partial class Extensions_Testing
+	public partial class Statics_Testing
 	{
 		internal (decimal Value, string Words)[] ExplicitTestCases =
 		{

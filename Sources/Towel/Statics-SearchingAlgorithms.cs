@@ -8,10 +8,7 @@ namespace Towel
 	{
 		#region SearchBinary
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning disable CS1734 // XML comment has a paramref tag, but there is no parameter by that name
-#pragma warning disable CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
+#pragma warning disable CS1711, CS1572, CS1734, CS1735, SA1617
 
 		/// <summary>Performs a binary search on sorted indexed data.</summary>
 		/// <typeparam name="T">The type of values to search through.</typeparam>
@@ -32,12 +29,9 @@ namespace Towel
 		/// - <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.
 		/// </returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_SearchBinary() => throw new DocumentationMethodException();
+		public static void XML_SearchBinary() => throw new DocumentationMethodException();
 
-#pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
-#pragma warning restore CS1734 // XML comment has a paramref tag, but there is no parameter by that name
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning restore CS1711, CS1572, CS1734, CS1735, SA1617
 
 		/// <inheritdoc cref="XML_SearchBinary"/>
 		public static (bool Found, int Index, T? Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
@@ -297,9 +291,7 @@ namespace Towel
 
 		#region Graph (Shared)
 
-#pragma warning disable CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
-#pragma warning disable CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning disable SA1604 // Element documentation should have summary
+#pragma warning disable CS1711, CS1572, SA1604, SA1617
 
 		/// <typeparam name="TNode">The node type of the graph being searched.</typeparam>
 		/// <typeparam name="TNumeric">The numeric to use when performing calculations.</typeparam>
@@ -313,11 +305,9 @@ namespace Towel
 		/// <param name="graph">The graph to perform the search on.</param>
 		/// <returns>Stepper of the shortest path or null if no path exists.</returns>
 		[Obsolete(TowelConstants.NotIntended, true)]
-		public static object XML_SearchGraph() => throw new DocumentationMethodException();
+		public static void XML_SearchGraph() => throw new DocumentationMethodException();
 
-#pragma warning restore SA1604 // Element documentation should have summary
-#pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name
-#pragma warning restore CS1711 // XML comment has a typeparam tag, but there is no type parameter by that name
+#pragma warning restore CS1711, CS1572, SA1604, SA1617
 
 		#endregion
 

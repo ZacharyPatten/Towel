@@ -9,8 +9,6 @@ namespace Towel
 		internal Span<T> _span;
 		internal int _i;
 
-		#warning TODO: add indexers for int and System.Range?
-
 		/// <summary>Constructs a new <see cref="SpanBuilder{T}"/>.</summary>
 		/// <param name="span">The <see cref="Span{T}"/> to initialize.</param>
 		public SpanBuilder(Span<T> span)
@@ -24,7 +22,7 @@ namespace Towel
 		public void Append(T value)
 		{
 			if (_i >= _span.Length) throw new InvalidOperationException("The span to append was larger than span being appended to could support.");
-			_span[_i++] = value;
+			AppendInternal(value);
 		}
 
 		/// <summary>Appends a <typeparamref name="T"/> span to this <see cref="SpanBuilder{T}"/>.</summary>
@@ -32,6 +30,12 @@ namespace Towel
 		public void Append(ReadOnlySpan<T> span)
 		{
 			if (_i + span.Length > _span.Length) throw new InvalidOperationException("The span to append was larger than span being appended to could support.");
+			AppendInternal(span);
+		}
+
+		internal void AppendInternal(T value) => _span[_i++] = value;
+		internal void AppendInternal(ReadOnlySpan<T> span)
+		{
 			span.CopyTo(_span[_i..(_i + span.Length)]);
 			_i += span.Length;
 		}
@@ -57,8 +61,9 @@ namespace Towel
 		/// <param name="value">The <see cref="char"/> to append to the <paramref name="spanBuilder"/>.</param>
 		public static void AppendLine(this ref SpanBuilder<char> spanBuilder, char value)
 		{
-			spanBuilder.Append(value);
-			spanBuilder.Append(Environment.NewLine);
+			if (spanBuilder._i + 1 + Environment.NewLine.Length > spanBuilder._span.Length) throw new InvalidOperationException("The span to append was larger than span being appended to could support.");
+			spanBuilder.AppendInternal(value);
+			spanBuilder.AppendInternal(Environment.NewLine);
 		}
 
 		/// <summary>Appends a <see cref="char"/> span followed by <see cref="Environment.NewLine"/> to a <paramref name="spanBuilder"/>.</summary>
@@ -66,8 +71,9 @@ namespace Towel
 		/// <param name="span">The <see cref="char"/> span to append to the <paramref name="spanBuilder"/>.</param>
 		public static void AppendLine(this ref SpanBuilder<char> spanBuilder, ReadOnlySpan<char> span)
 		{
-			spanBuilder.Append(span);
-			spanBuilder.Append(Environment.NewLine);
+			if (spanBuilder._i + span.Length + Environment.NewLine.Length > spanBuilder._span.Length) throw new InvalidOperationException("The span to append was larger than span being appended to could support.");
+			spanBuilder.AppendInternal(span);
+			spanBuilder.AppendInternal(Environment.NewLine);
 		}
 
 		/// <summary>Appends a <see cref="Environment.NewLine"/> to a <paramref name="spanBuilder"/>.</summary>

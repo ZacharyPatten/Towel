@@ -12,7 +12,7 @@ namespace Towel_Testing
 		#region string.Replace (multiple)
 
 		[TestMethod]
-		public void newFromRanges()
+		public void NewFromRanges()
 		{
 			{
 				int[] array = ArrayHelper.NewFromRanges();
@@ -28,67 +28,67 @@ namespace Towel_Testing
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(0..1);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 0 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 0 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(0..2);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 0, 1 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 0, 1 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(1..2);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 1 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 1 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(1..3);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 1, 2 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 1, 2 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(1..3);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 1, 2 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 1, 2 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(3..0);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 3, 2, 1, }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 3, 2, 1, }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(0..1, 0..1);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 0, 0 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 0, 0 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(0..2, 0..1);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 0, 1, 0 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 0, 1, 0 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(0..2, 0..2);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 0, 1, 0, 1 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 0, 1, 0, 1 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(1..2, 1..2);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 1, 1 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 1, 1 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(1..3, 1..3);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 1, 2, 1, 2 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 1, 2, 1, 2 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(0..1, 0..1, 0..1);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 0, 0, 0 }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 0, 0, 0 }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(0..2, 0..2, 0..2);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 0, 1, 0, 1, 0, 1, }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 0, 1, 0, 1, 0, 1, }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(1..3, 1..3, 1..3);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 1, 2, 1, 2, 1, 2, }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 1, 2, 1, 2, 1, 2, }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(3..1, 1..3, 3..1);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 3, 2, 1, 2, 3, 2, }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 3, 2, 1, 2, 3, 2, }));
 			}
 			{
 				int[] array = ArrayHelper.NewFromRanges(1..3, 3..1, 1..3);
-				Assert.IsTrue(EquateSequence(array, stackalloc int[] { 1, 2, 3, 2, 1, 2, }));
+				Assert.IsTrue(EquateSequence<int>(array, stackalloc int[] { 1, 2, 3, 2, 1, 2, }));
 			}
 		}
 

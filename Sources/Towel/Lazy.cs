@@ -265,6 +265,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(SLazy<T> left, SLazy<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(SLazy<T> left, SLazy<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -373,6 +385,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(SLazyNoCatch<T> left, SLazyNoCatch<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(SLazyNoCatch<T> left, SLazyNoCatch<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -481,6 +505,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(SLazyNoLock<T> left, SLazyNoLock<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(SLazyNoLock<T> left, SLazyNoLock<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -589,6 +625,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(SLazyNoLockNoCatch<T> left, SLazyNoLockNoCatch<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(SLazyNoLockNoCatch<T> left, SLazyNoLockNoCatch<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -697,6 +745,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(SLazyPublicationLock<T> left, SLazyPublicationLock<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(SLazyPublicationLock<T> left, SLazyPublicationLock<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -805,6 +865,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(SLazyPublicationLockNoCatch<T> left, SLazyPublicationLockNoCatch<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(SLazyPublicationLockNoCatch<T> left, SLazyPublicationLockNoCatch<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -910,6 +982,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(ValueLazy<T> left, ValueLazy<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(ValueLazy<T> left, ValueLazy<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -1007,6 +1091,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(ValueLazyNoCatch<T> left, ValueLazyNoCatch<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(ValueLazyNoCatch<T> left, ValueLazyNoCatch<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -1105,6 +1201,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(ValueLazyNoLock<T> left, ValueLazyNoLock<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(ValueLazyNoLock<T> left, ValueLazyNoLock<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -1195,6 +1303,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(ValueLazyNoLockNoCatch<T> left, ValueLazyNoLockNoCatch<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(ValueLazyNoLockNoCatch<T> left, ValueLazyNoLockNoCatch<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -1321,6 +1441,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(ValueLazyPublicationLock<T> left, ValueLazyPublicationLock<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(ValueLazyPublicationLock<T> left, ValueLazyPublicationLock<T> right) => !(left == right);
 	}
 
 	#endregion
@@ -1420,6 +1552,18 @@ namespace Towel
 		/// <summary>Gets the hash code of <see cref="Value"/>.</summary>
 		/// <returns>The hash code of <see cref="Value"/>.</returns>
 		public override int GetHashCode() => Value?.GetHashCode() ?? default;
+
+		/// <summary>Checks for equality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the equality check.</param>
+		/// <param name="right">The second value of the equality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are equal or False if not.</returns>
+		public static bool operator ==(ValueLazyPublicationLockNoCatch<T> left, ValueLazyPublicationLockNoCatch<T> right) => left.Equals(right);
+
+		/// <summary>Checks for inequality between <paramref name="left"/> and <paramref name="right"/>.</summary>
+		/// <param name="left">The first value of the inequality check.</param>
+		/// <param name="right">The second value of the inequality check.</param>
+		/// <returns>True if <paramref name="left"/> and <paramref name="right"/> are not equal or False if not.</returns>
+		public static bool operator !=(ValueLazyPublicationLockNoCatch<T> left, ValueLazyPublicationLockNoCatch<T> right) => !(left == right);
 	}
 
 	#endregion

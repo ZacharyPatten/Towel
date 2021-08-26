@@ -9,7 +9,7 @@ namespace Towel_Testing
 	// [TestClass]
 	public partial class Statics_Testing
 	{
-		internal void TestPermuteAlgorithm(Action<char[], Action> algorithm)
+		internal static void TestPermuteAlgorithm(Action<char[], Action> algorithm)
 		{
 			{
 				char[] array = { 'a' };
