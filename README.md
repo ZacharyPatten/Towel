@@ -1030,7 +1030,7 @@
 > // and then it will revert to a StringBuilder if necessary
 > // rather than throwing like SpanBuilder<T> does.
 > SStringBuilder<char> span = stackalloc char[10];
-> span.AppendLine("abcdefghijklmnopqrztuvwxyz");
+> span.AppendLine("abcdefghijklmnopqrstuvwxyz");
 > ```
 
 </p>
