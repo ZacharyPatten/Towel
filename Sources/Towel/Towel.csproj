@@ -13,16 +13,20 @@
 		<Copyright>Copyright (c) 2020 Zachary Patten</Copyright>
 		<RepositoryType>git</RepositoryType>
 		<RepositoryUrl>https://github.com/ZacharyPatten/Towel</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 	<ItemGroup>
-		<None Include="..\..\.github\Resources\icon.png">
-			<Pack>True</Pack>
-			<PackagePath></PackagePath>
-		</None>
 		<PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+		<None Include="..\..\.github\Resources\icon.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
 		<None Update="Measurements\MeasurementTypes.tt">
 			<Generator>TextTemplatingFileGenerator</Generator>
 			<LastGenOutput>MeasurementTypes.cs</LastGenOutput>
