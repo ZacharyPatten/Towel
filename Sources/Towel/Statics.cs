@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -103,6 +104,11 @@ namespace Towel
 		#region source...
 
 #pragma warning disable IDE1006 // Naming Styles
+
+		/// <summary>Gets the directory path of the current location in source code.</summary>
+		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
+		/// <returns>The directory path of the current location in source code.</returns>
+		public static string? sourcedirectory([CallerFilePath] string @default = default!) => Path.GetDirectoryName(@default);
 
 		/// <summary>Gets the file path of the current location in source code.</summary>
 		/// <param name="default">Intended to leave default. This value is set by the compiler via <see cref="CallerFilePathAttribute"/>.</param>
