@@ -37,29 +37,29 @@ namespace Towel_Testing
 
 			// TestAttribute1 -----------------------------------
 
-			Assert.IsTrue(type.GetTag(TestAttribute1) is (true, TestValue1));
-			Assert.IsTrue(methodInfo.GetTag(TestAttribute1) is (true, TestValue1));
-			Assert.IsTrue(eventInfo.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(type.GetTag(TestAttribute1)            is (true, TestValue1));
+			Assert.IsTrue(methodInfo.GetTag(TestAttribute1)      is (true, TestValue1));
+			Assert.IsTrue(eventInfo.GetTag(TestAttribute1)       is (true, TestValue1));
 			Assert.IsTrue(constructorInfo.GetTag(TestAttribute1) is (true, TestValue1));
-			Assert.IsTrue(fieldInfo.GetTag(TestAttribute1) is (true, TestValue1));
-			Assert.IsTrue(propertyInfo.GetTag(TestAttribute1) is (true, TestValue1));
-			Assert.IsTrue(parameterInfo.GetTag(TestAttribute1) is (true, TestValue1));
+			Assert.IsTrue(fieldInfo.GetTag(TestAttribute1)       is (true, TestValue1));
+			Assert.IsTrue(propertyInfo.GetTag(TestAttribute1)    is (true, TestValue1));
+			Assert.IsTrue(parameterInfo.GetTag(TestAttribute1)   is (true, TestValue1));
 
 			// TestAttribute2 -----------------------------------
 
-			Assert.IsTrue(type.GetTag(TestAttribute2) is (true, TestValue2));
-			Assert.IsTrue(methodInfo.GetTag(TestAttribute2) is (true, TestValue2));
-			Assert.IsTrue(eventInfo.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(type.GetTag(TestAttribute2)            is (true, TestValue2));
+			Assert.IsTrue(methodInfo.GetTag(TestAttribute2)      is (true, TestValue2));
+			Assert.IsTrue(eventInfo.GetTag(TestAttribute2)       is (true, TestValue2));
 			Assert.IsTrue(constructorInfo.GetTag(TestAttribute2) is (true, TestValue2));
-			Assert.IsTrue(fieldInfo.GetTag(TestAttribute2) is (true, TestValue2));
-			Assert.IsTrue(propertyInfo.GetTag(TestAttribute2) is (true, TestValue2));
-			Assert.IsTrue(parameterInfo.GetTag(TestAttribute2) is (true, TestValue2));
+			Assert.IsTrue(fieldInfo.GetTag(TestAttribute2)       is (true, TestValue2));
+			Assert.IsTrue(propertyInfo.GetTag(TestAttribute2)    is (true, TestValue2));
+			Assert.IsTrue(parameterInfo.GetTag(TestAttribute2)   is (true, TestValue2));
 
 			// Testing null -----------------------------------
 
-			Assert.IsTrue(typeof(C).GetTag(null) is (true, null));
+			Assert.IsTrue(typeof(C).GetTag(null)     is (true, null));
 			Assert.IsTrue(typeof(D).GetTag(not_null) is (true, null));
-			Assert.IsTrue(typeof(E).GetTag(null) is (true, not_null));
+			Assert.IsTrue(typeof(E).GetTag(null)     is (true, not_null));
 
 			// Test int ----------------------------------
 
@@ -67,13 +67,13 @@ namespace Towel_Testing
 
 			// Failure Not Found -----------------------------------
 
-			Assert.IsTrue(type.GetTag(TestAttributeFail) is (false, null));
-			Assert.IsTrue(methodInfo.GetTag(TestAttributeFail) is (false, null));
-			Assert.IsTrue(eventInfo.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(type.GetTag(TestAttributeFail)            is (false, null));
+			Assert.IsTrue(methodInfo.GetTag(TestAttributeFail)      is (false, null));
+			Assert.IsTrue(eventInfo.GetTag(TestAttributeFail)       is (false, null));
 			Assert.IsTrue(constructorInfo.GetTag(TestAttributeFail) is (false, null));
-			Assert.IsTrue(fieldInfo.GetTag(TestAttributeFail) is (false, null));
-			Assert.IsTrue(propertyInfo.GetTag(TestAttributeFail) is (false, null));
-			Assert.IsTrue(parameterInfo.GetTag(TestAttributeFail) is (false, null));
+			Assert.IsTrue(fieldInfo.GetTag(TestAttributeFail)       is (false, null));
+			Assert.IsTrue(propertyInfo.GetTag(TestAttributeFail)    is (false, null));
+			Assert.IsTrue(parameterInfo.GetTag(TestAttributeFail)   is (false, null));
 
 			// Failure Ambiguous -----------------------------------
 
@@ -82,6 +82,15 @@ namespace Towel_Testing
 
 			Assert.IsTrue(typeof(B).GetTag(AmbiguousAttribute) is (false, null));
 			Assert.IsTrue(b_parameterInfo.GetTag(AmbiguousAttribute) is (false, null));
+
+			// Enum Value Tests -------------------------------------
+
+			Assert.IsTrue(G.A.GetTag(TestAttribute1)     is (true, TestValue1));
+			Assert.IsTrue(G.A.GetTag(TestAttribute2)     is (true, TestValue2));
+			Assert.IsTrue(G.B.GetTag(AmbiguousAttribute) is (false, null));
+			Assert.IsTrue(G.C.GetTag(null)               is (true, null));
+			Assert.IsTrue(G.D.GetTag(not_null)           is (true, null));
+			Assert.IsTrue(G.E.GetTag(null)               is (true, not_null));
 		}
 
 		[Tag(TestAttribute1, TestValue1)]
@@ -133,5 +142,21 @@ namespace Towel_Testing
 
 		[Tag(IntValueOne, IntValueTwo)]
 		public class F { }
+
+		public enum G
+		{
+			[Tag(TestAttribute1, TestValue1)]
+			[Tag(TestAttribute2, TestValue2)]
+			A,
+			[Tag(AmbiguousAttribute, 1)]
+			[Tag(AmbiguousAttribute, 1)]
+			B,
+			[Tag(null, null)]
+			C,
+			[Tag(not_null, null)]
+			D,
+			[Tag(null, not_null)]
+			E,
+		}
 	}
 }
