@@ -12,14 +12,14 @@ namespace Towel_Testing
 	{
 		#region Type Testing
 
+#pragma warning disable SA1121 // Use built-in type alias
+
 		[TestMethod]
 		public void Type_ConvertToCsharpSource()
 		{
 			{ // showGenericParameters = false
 				var tests = new (Type Type, string String)[]
 				{
-#pragma warning disable SA1121 // Use built-in type alias
-
 					(typeof(System.Int32), "System.Int32"),
 					(typeof(Towel.Mathematics.Symbolics.Expression), "Towel.Mathematics.Symbolics.Expression"),
 					(typeof(Towel.Mathematics.Symbolics.Constant<System.Int32>), "Towel.Mathematics.Symbolics.Constant<System.Int32>"),
@@ -50,8 +50,6 @@ namespace Towel_Testing
 					(typeof(int), "System.Int32"),
 					(typeof(string), "System.String"),
 					(typeof(short), "System.Int16"),
-
-#pragma warning restore SA1121 // Use built-in type alias
 				};
 				foreach (var test in tests)
 				{
@@ -95,7 +93,43 @@ namespace Towel_Testing
 					}
 				}
 			}
+
+			{
+				MethodInfo methodInfo = typeof(Meta_Testing).GetMethod(nameof(Type_ConvertToCsharpSource_Test1))!;
+				Type parameterType = methodInfo.GetParameters()[0].ParameterType;
+				{
+					string actual = parameterType.ConvertToCSharpSource(true);
+					string expected = "System.ValueTuple<System.ValueTuple<T>>";
+					Assert.IsTrue(actual.Equals(expected), parameterType.ToString());
+				}
+				{
+					string actual = parameterType.ConvertToCSharpSource(false);
+					string expected = "System.ValueTuple<System.ValueTuple<>>";
+					Assert.IsTrue(actual.Equals(expected), parameterType.ToString());
+				}
+			}
+			{
+				MethodInfo methodInfo = typeof(Meta_Testing).GetMethod(nameof(Type_ConvertToCsharpSource_Test2))!;
+				Type parameterType = methodInfo.GetParameters()[0].ParameterType;
+				{
+					string actual = parameterType.ConvertToCSharpSource(true);
+					string expected = "System.ValueTuple<System.ValueTuple<T, System.Int32>>";
+					Assert.IsTrue(actual.Equals(expected), parameterType.ToString());
+				}
+				{
+					#warning TODO: review this test case
+					//string actual = parameterType.ConvertToCSharpSource(false);
+					//string expected = "System.ValueTuple<System.ValueTuple<,>>";
+					//Assert.IsTrue(actual.Equals(expected), parameterType.ToString());
+				}
+			}
 		}
+
+		public static void Type_ConvertToCsharpSource_Test1<T>(System.ValueTuple<System.ValueTuple<T>> tuple) { }
+
+		public static void Type_ConvertToCsharpSource_Test2<T>(System.ValueTuple<System.ValueTuple<T, System.Int32>> tuple) { }
+
+#pragma warning restore SA1121 // Use built-in type alias
 
 		#endregion
 
