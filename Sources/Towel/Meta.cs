@@ -843,7 +843,11 @@ namespace Towel
 				}
 				else if (methodInfo.DeclaringType.IsGenericType)
 				{
-					methodInfo = methodInfo.DeclaringType.GetGenericTypeDefinition().GetMethods().First(x => x.MetadataToken == methodInfo.MetadataToken);
+					methodInfo = methodInfo.DeclaringType.GetGenericTypeDefinition().GetMethods(
+						BindingFlags.Static |
+						BindingFlags.Public |
+						BindingFlags.Instance |
+						BindingFlags.NonPublic).First(x => x.MetadataToken == methodInfo.MetadataToken);
 				}
 			}
 

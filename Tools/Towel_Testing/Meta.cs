@@ -169,6 +169,27 @@ namespace Towel_Testing
 
 				Meta.ClearXmlDocumentation();
 
+				#region GitHub Issue 93
+				{
+					BindingFlags bf = BindingFlags.Static | BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic;
+					foreach (MemberInfo memberInfo in typeof(XmlDocumentationFromMethod.GitHubIssue93Class<>).GetMembers(bf))
+					{
+						bool shouldHaveDocumentation = memberInfo.GetTag("Test") is (true, true);
+						try
+						{
+							string? xmlDocumentation = memberInfo.GetDocumentation();
+							Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation) == shouldHaveDocumentation);
+						}
+						catch
+						{
+							Debugger.Break();
+							string? xmlDocumentation = memberInfo.GetDocumentation();
+							Assert.IsTrue(!string.IsNullOrWhiteSpace(xmlDocumentation) == shouldHaveDocumentation);
+						}
+					}
+				}
+				#endregion
+
 				#region GitHub Issue 52
 
 				try
@@ -623,6 +644,23 @@ namespace Towel_Testing
 
 	public class XmlDocumentationFromMethod
 	{
+		public class GitHubIssue93Class<T>
+		{
+			/// <summary>hello world</summary>
+			[Tag("Test", true)]
+			private int private_int_property { get; set; }
+			/// <summary>hello world</summary>
+			[Tag("Test", true)]
+			private string? private_string_property { get; set; }
+
+			/// <summary>hello world</summary>
+			[Tag("Test", true)]
+			public int public_int_property { get; set; }
+			/// <summary>hello world</summary>
+			[Tag("Test", true)]
+			public string? public_string_property { get; set; }
+		}
+
 		public class GitHubIssue52Class<T1>
 		{
 			/// <summary>hello world</summary>
