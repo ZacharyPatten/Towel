@@ -7,9 +7,6 @@
 		"**/obj": true
 	},
 	"csharp.semanticHighlighting.enabled": true,
-
-	// color/theme settings
-	"workbench.colorTheme": "Default Dark+",
 	"editor.semanticTokenColorCustomizations":
 	{
 		"[Default Dark+]":
