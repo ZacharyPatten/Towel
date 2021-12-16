@@ -1093,7 +1093,7 @@ namespace Towel.Mathematics
 			/// <returns>The string represnetation of this expression.</returns>
 			public override string ToString()
 			{
-				if (!(A is Constant) && !(A is Variable))
+				if (A is not Constant && A is not Variable)
 				{
 					return "-(" + A + ")";
 				}
@@ -3048,9 +3048,9 @@ namespace Towel.Mathematics
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression, Unary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Unary>>(newExpression, A).Compile();
 					string operationName = type.Name;
-					if (operationName.Contains("+"))
+					if (operationName.Contains('+'))
 					{
-						int index = operationName.LastIndexOf("+");
+						int index = operationName.LastIndexOf('+');
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableUnaryOperations.Add(operationName.ToLower(), newFunction);
@@ -3091,9 +3091,9 @@ namespace Towel.Mathematics
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B);
 					Func<Expression, Expression, Binary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Binary>>(newExpression, A, B).Compile();
 					string operationName = type.Name;
-					if (operationName.Contains("+"))
+					if (operationName.Contains('+'))
 					{
-						int index = operationName.LastIndexOf("+");
+						int index = operationName.LastIndexOf('+');
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableBinaryOperations.Add(operationName.ToLower(), newFunction);
@@ -3128,9 +3128,9 @@ namespace Towel.Mathematics
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A, B, C);
 					Func<Expression, Expression, Expression, Ternary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression, Expression, Expression, Ternary>>(newExpression, A, B, C).Compile();
 					string operationName = type.Name;
-					if (operationName.Contains("+"))
+					if (operationName.Contains('+'))
 					{
-						int index = operationName.LastIndexOf("+");
+						int index = operationName.LastIndexOf('+');
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableTernaryOperations.Add(operationName.ToLower(), newFunction);
@@ -3157,9 +3157,9 @@ namespace Towel.Mathematics
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo, A);
 					Func<Expression[], Multinary> newFunction = System.Linq.Expressions.Expression.Lambda<Func<Expression[], Multinary>>(newExpression, A).Compile();
 					string operationName = type.Name;
-					if (operationName.Contains("+"))
+					if (operationName.Contains('+'))
 					{
-						int index = operationName.LastIndexOf("+");
+						int index = operationName.LastIndexOf('+');
 						operationName = operationName[(index + 1)..];
 					}
 					ParsableMultinaryOperations.Add(operationName.ToLower(), newFunction);
@@ -3185,9 +3185,9 @@ namespace Towel.Mathematics
 					NewExpression newExpression = System.Linq.Expressions.Expression.New(constructorInfo);
 					Func<KnownConstantOfUnknownType> newFunction = System.Linq.Expressions.Expression.Lambda<Func<KnownConstantOfUnknownType>>(newExpression).Compile();
 					// string knownConstant = type.ConvertToCsharpSource();
-					// if (knownConstant.Contains("+"))
+					// if (knownConstant.Contains('+'))
 					// {
-					//     int index = knownConstant.LastIndexOf("+");
+					//     int index = knownConstant.LastIndexOf('+');
 					//     knownConstant = knownConstant.Substring(index + 1);
 					// }
 					// ParsableKnownConstants.Add(knownConstant.ToLower(), newFunction);
@@ -3464,7 +3464,7 @@ namespace Towel.Mathematics
 								}
 								if (leftSpecialMatch is null)
 								{
-									string substring = @string.Substring(0, rightIndex);
+									string substring = @string[..rightIndex];
 									return string.IsNullOrWhiteSpace(substring);
 								}
 								else if (ParsableRightUnaryOperators!.ContainsKey(leftSpecialMatch.Value)) // This will need to be fixed in the future
@@ -3559,7 +3559,7 @@ namespace Towel.Mathematics
 				}
 
 				// if an operator was found, parse the expression
-				if (!(@operator is null))
+				if (@operator is not null)
 				{
 					if (isUnaryLeftOperator)
 					{
@@ -3570,7 +3570,7 @@ namespace Towel.Mathematics
 					}
 					else if (isUnaryRightOperator)
 					{
-						string a = @string.Substring(0, @operator.Index);
+						string a = @string[..@operator.Index];
 						Expression A = Parse(a, tryParse);
 						expression = ParsableRightUnaryOperators![@operator.Value].Item2(A);
 						return true;
@@ -3614,7 +3614,7 @@ namespace Towel.Mathematics
 				// Check for implicit multiplications to the left of the parenthesis pattern
 				if (parenthesisMatch.Index > 0)
 				{
-					string leftExpression = @string.Substring(0, parenthesisMatch.Index);
+					string leftExpression = @string[..parenthesisMatch.Index];
 					expression *= Parse(leftExpression, tryParse);
 				}
 
@@ -3680,7 +3680,7 @@ namespace Towel.Mathematics
 				// handle implicit multiplications if any exist
 				if (operationMatch.Index != 0) // Left
 				{
-					Expression A = Parse(@string.Substring(0, operationMatch.Index), tryParse);
+					Expression A = Parse(@string[..operationMatch.Index], tryParse);
 					expression *= A;
 				}
 				if (operationMatch.Length + operationMatch.Index < @string.Length) // Right
@@ -3787,7 +3787,7 @@ namespace Towel.Mathematics
 				// implied multiplications to the left and right
 				if (knownConstantMatch.Index != 0)
 				{
-					Expression A = Parse<T>(@string.Substring(0, knownConstantMatch.Index), tryParse);
+					Expression A = Parse<T>(@string[..knownConstantMatch.Index], tryParse);
 					parsedExpression *= A;
 				}
 				if (knownConstantMatch.Index < @string.Length - 1)

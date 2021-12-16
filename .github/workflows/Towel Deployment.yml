@@ -10,7 +10,7 @@ jobs:
     - name: setup dotnet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: dotnet pack
       run: dotnet pack Sources/Towel/Towel.csproj --configuration Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/ZacharyPatten/Towel/releases/tag/${{ github.event.release.tag_name }}"   
     - name: archive nuget
