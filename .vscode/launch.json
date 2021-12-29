@@ -1,7 +1,4 @@
 {
-	// Use IntelliSense to learn about possible attributes.
-	// Hover to view descriptions of existing attributes.
-	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations":
 	[
@@ -10,9 +7,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build BasicsAndExtensions Example [Debug]",
-			"program": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug/net5.0/BasicsAndExtensions.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug/BasicsAndExtensions.dll",
+			"cwd": "${workspaceFolder}/Examples/BasicsAndExtensions/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -21,9 +17,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build CommandLine Example [Debug]",
-			"program": "${workspaceFolder}/Examples/CommandLine/bin/Debug/net5.0/CommandLine.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/CommandLine/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/CommandLine/bin/Debug/CommandLine.dll",
+			"cwd": "${workspaceFolder}/Examples/CommandLine/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -32,9 +27,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build ConsoleHelpers Example [Debug]",
-			"program": "${workspaceFolder}/Examples/ConsoleHelpers/bin/Debug/net5.0/ConsoleHelpers.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/ConsoleHelpers/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/ConsoleHelpers/bin/Debug/ConsoleHelpers.dll",
+			"cwd": "${workspaceFolder}/Examples/ConsoleHelpers/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -43,9 +37,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build Data Structures Example [Debug]",
-			"program": "${workspaceFolder}/Examples/DataStructures/bin/Debug/net5.0/DataStructures.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/DataStructures/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/DataStructures/bin/Debug/DataStructures.dll",
+			"cwd": "${workspaceFolder}/Examples/DataStructures/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -54,9 +47,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build GraphSearch Example [Debug]",
-			"program": "${workspaceFolder}/Examples/GraphSearch/bin/Debug/net5.0/GraphSearch.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/GraphSearch/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/GraphSearch/bin/Debug/GraphSearch.dll",
+			"cwd": "${workspaceFolder}/Examples/GraphSearch/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -65,9 +57,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build Mathematics Example [Debug]",
-			"program": "${workspaceFolder}/Examples/Mathematics/bin/Debug/net5.0/Mathematics.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/Mathematics/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/Mathematics/bin/Debug/Mathematics.dll",
+			"cwd": "${workspaceFolder}/Examples/Mathematics/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -76,9 +67,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build Measurements Example [Debug]",
-			"program": "${workspaceFolder}/Examples/Measurements/bin/Debug/net5.0/Measurements.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/Measurements/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/Measurements/bin/Debug/Measurements.dll",
+			"cwd": "${workspaceFolder}/Examples/Measurements/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -87,9 +77,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build OmnitreeGraphicsDemo Example [Debug]",
-			"program": "${workspaceFolder}/Examples/OmnitreeGraphicsDemo/bin/Debug/net5.0/OmnitreeGraphicsDemo.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/OmnitreeGraphicsDemo/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/OmnitreeGraphicsDemo/bin/Debug/OmnitreeGraphicsDemo.dll",
+			"cwd": "${workspaceFolder}/Examples/OmnitreeGraphicsDemo/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
@@ -98,9 +87,8 @@
 			"type": "coreclr",
 			"request": "launch",
 			"preLaunchTask": "Build TagAttributes Example [Debug]",
-			"program": "${workspaceFolder}/Examples/TagAttributes/bin/Debug/net5.0/TagAttributes.dll",
-			"args": [],
-			"cwd": "${workspaceFolder}/Examples/TagAttributes/bin/Debug/net5.0",
+			"program": "${workspaceFolder}/Examples/TagAttributes/bin/Debug/TagAttributes.dll",
+			"cwd": "${workspaceFolder}/Examples/TagAttributes/bin/Debug",
 			"console": "externalTerminal",
 			"stopAtEntry": false
 		},
