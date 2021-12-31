@@ -304,30 +304,96 @@ namespace Towel.DataStructures
 		public bool Remove(T item)
 		{
 			if (Count == 0) return false;
-			BTreeNode<T> node = Top;
-			BTreeNode<T>? child;
-			int MinCount = (MaxNodeDegree >> 1) - 1;
-			while (!node.IsLeaf)
+			BTreeNode<T>? node = Top, child;
+			int t = (MaxNodeDegree >> 1);
+			// All nodes (except root) must contain at least this many items 
+			// [value of (t) in Cormen's "Introduction to Algorithms"]
+			do
 			{
 				int i = 0, c;
 				while (i < node.Count && (c = node.Items[i].CompareTo(item)) <= 0)
 				{
 					if (c == 0)
 					{
-						// TODO: Case 2 a/b/c
+						if (node.IsLeaf) //CASE 1
+						{
+							for (int j = i + 1; j < node.Count; j++)
+							{
+								node.Items[i] = node.Items[j];
+							}
+							node.Count--;
+							node = null;
+						}
+						else
+						{
+							BTreeNode<T>? lc = node.Children[i], rc = node.Children[i + 1];
+							if (lc == null || rc == null) throw new Exception("Found null children of an internal node!");
+							if (lc.Count >= t) //CASE 2a
+							{
+								do
+								{
+									child = lc;
+									lc = lc.Children[lc.Count];
+								}
+								while (lc != null);
+								//At this point lc is null, child is the rightmost node of subtree preceeding `item`
+								item = node.Items[i] = child.Items[child.Count - 1];
+							}
+							else if (rc.Count >= t) //Case 2b
+							{
+								do
+								{
+									child = rc;
+									rc = rc.Children[0];
+								} while (rc != null);
+								//At this point rc is null, child is the leftmost node of subtree following `item`
+								item = node.Items[i++] = child.Items[0];
+							}
+							else //Case 2c
+							{
+								int p, q, r = lc.Count;
+								lc.Items[lc.Count++] = node.Items[i];
+								for (p = i, q = i + 1; q < node.Count; p++, q++)
+								{
+									node.Items[p] = node.Items[q];
+								}
+								for (p = i + 1, q = p + 1; q <= node.Count; p++, q++)
+								{
+									child = node.Children[p] = node.Children[q];
+									if (child != null) child.ParentIndex = (byte)p;
+									else throw new Exception("Found null children of an internal node!");
+								}
+								node.Count--;
+								for (p = lc.Count, q = 0; q < rc.Count; p++, q++, lc.Count++)
+								{
+									lc.Items[p] = rc.Items[q];
+								}
+								for (p = r, q = 0; q <= rc.Count; p++, q++)
+								{
+									child = lc.Children[p] = rc.Children[q];
+									if (child != null)
+									{
+										child.ParentIndex = (byte)p;
+										child.Parent = lc;
+									}
+								}//delete rc from memory
+								if (node == Top && node.Count == 0) Top = lc; //delete node from memory
+							}
+						}
+						break;
 					}
 					i++;
 				}
-				child = node.Children[i];
-				if (child != null && child.Count < MinCount)
+				if (node == null) break; // `node` would be null after Case 1
+				else child = node.Children[i]; // `child` will be null only if `node` is a Leaf node
+				if (child == null) return false; // Reached a leaf node, could not find item in the tree!
+				else if (child.Count < t)
 				{
 					// TODO: Case 3 a/b
 				}
-				node = child ?? throw new Exception("Expected a non-null internal node, but found a null node");
+				node = child;
 			}
-			{
-				// TODO: Case 1 (Remove item from leaf node)
-			}
+			while (node != null);
 			Count--;
 			return true;
 		}
