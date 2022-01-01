@@ -72,14 +72,8 @@ namespace Towel.DataStructures
 				}
 				return (p, lastpos);
 			}
-			else if (p != null)
-			{
-				return (LeftmostNode(p), 0);
-			}
-			else
-			{
-				return (node, lastpos);
-			}
+			else if (p != null) return (LeftmostNode(p), 0);
+			else return (node, lastpos);
 		}
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
@@ -211,26 +205,28 @@ namespace Towel.DataStructures
 			for (i = MedianIndex + 1, j = 0; i < l; i++, j++)
 			{
 				right.Items[j] = fullNode.Items[i];
+				fullNode.Items[i] = default!;
 			}
 			right.Count = (byte)j;
 			if (!fullNode.IsLeaf)
 			{
 				for (i = MedianIndex + 1, j = 0; i <= l; i++, j++)
 				{
-					x = fullNode.Children[i];
-					right.Children[j] = x;
+					right.Children[j] = x = fullNode.Children[i];
 					if (x != null)
 					{
 						x.Parent = right;
 						x.ParentIndex = (byte)j;
 					}
+					fullNode.Children[i] = null;
 				}
 			}
 			fullNode.Count = (byte)MedianIndex;
-			if (parent == null)
+			if (parent == null) // `fullnode` is Root
 			{
 				Top = new(MaxNodeDegree);
 				Top.Items[0] = fullNode.Items[MedianIndex];
+				fullNode.Items[MedianIndex] = default!;
 				Top.Count = 1;
 				Top.Children[0] = fullNode;
 				fullNode.ParentIndex = 0;
@@ -242,19 +238,15 @@ namespace Towel.DataStructures
 			{
 				for (i = parent.Count + 1, j = i--; i > fullNode.ParentIndex; j--, i--)
 				{
-					x = parent.Children[i];
-					parent.Children[j] = x;
-					if (x != null)
-					{
-						x.ParentIndex = (byte)j;
-					}
-
+					parent.Children[j] = x = parent.Children[i];
+					if (x != null) x.ParentIndex = (byte)j;
 				}
 				for (i = parent.Count, j = i--; i >= fullNode.ParentIndex; j--, i--)
 				{
 					parent.Items[j] = parent.Items[i];
 				}
 				parent.Items[j] = fullNode.Items[MedianIndex];
+				fullNode.Items[MedianIndex] = default!;
 				parent.Children[j] = fullNode;
 				fullNode.ParentIndex = (byte)j;
 				parent.Children[j + 1] = right;
@@ -321,7 +313,7 @@ namespace Towel.DataStructures
 							{
 								node.Items[i] = node.Items[j];
 							}
-							node.Count--;
+							node.Items[--node.Count] = default!;
 							node = null;
 						}
 						else
@@ -357,16 +349,19 @@ namespace Towel.DataStructures
 								{
 									node.Items[p] = node.Items[q];
 								}
+								node.Items[p] = default!;
 								for (p = i + 1, q = p + 1; q <= node.Count; p++, q++)
 								{
 									child = node.Children[p] = node.Children[q];
 									if (child != null) child.ParentIndex = (byte)p;
 									else throw new Exception("Found null children of an internal node!");
 								}
+								node.Children[p] = null;
 								node.Count--;
 								for (p = lc.Count, q = 0; q < rc.Count; p++, q++, lc.Count++)
 								{
 									lc.Items[p] = rc.Items[q];
+									rc.Items[q] = default!;
 								}
 								for (p = r, q = 0; q <= rc.Count; p++, q++)
 								{
@@ -376,8 +371,13 @@ namespace Towel.DataStructures
 										child.ParentIndex = (byte)p;
 										child.Parent = lc;
 									}
-								}//delete rc from memory
-								if (node == Top && node.Count == 0) Top = lc; //delete node from memory
+									rc.Children[q] = null;
+								} //delete rc from memory
+								if (node == Top && node.Count == 0)
+								{
+									Top = lc; //delete node from memory
+									Top.Parent = null;
+								}
 							}
 						}
 						break;
@@ -389,7 +389,28 @@ namespace Towel.DataStructures
 				if (child == null) return false; // Reached a leaf node, could not find item in the tree!
 				else if (child.Count < t)
 				{
-					// TODO: Case 3 a/b
+					BTreeNode<T>? lc, rc;
+					lc = i > 0 ? node.Children[i - 1] : null;
+					rc = i < node.Count ? node.Children[i + 1] : null;
+					if (lc != null && lc.Count >= t) // Case 3a-Left
+					{
+						lc.Count--;
+						child.Count++;
+					}
+					else if (rc != null && rc.Count >= t) // Case 3a-Right
+					{
+						rc.Count--;
+						child.Count++;
+					}
+					else if (lc != null) // Case 3b-Left
+					{
+
+					}
+					else if (rc != null) // Case 3b-Right || PS: can leave it at else {...} but this avoids Null reference warning
+					{
+
+					}
+					else throw new Exception("Found null children of an internal node!");
 				}
 				node = child;
 			}
