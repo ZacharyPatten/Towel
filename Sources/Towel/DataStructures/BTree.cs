@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-
 namespace Towel.DataStructures
 {
 	/// <summary>A single node of BTree</summary>
@@ -529,7 +528,6 @@ namespace Towel.DataStructures
 			StepperBreak(itr);
 			return itr.array;
 		}
-
 		/// <summary>
 		/// Prepares an enumerator to enumerate every item in the tree
 		/// </summary>
@@ -550,7 +548,6 @@ namespace Towel.DataStructures
 			}
 			yield break;
 		}
-
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 		/// <summary>
 		/// Checks wheter the given node is the parent of the other or not
@@ -565,14 +562,6 @@ namespace Towel.DataStructures
 		/// <param name="child">The node whose parent is to be found</param>
 		/// <returns>The parent node of the current node, if it exists</returns>
 		public BTreeNode<T>? Parent(BTreeNode<T> child) => child.Parent;
-		public (bool Success, Exception? Exception) TryAdd(BTreeNode<T> addition, BTreeNode<T> parent)
-		{
-			throw new NotImplementedException();
-		}
-		public (bool Success, Exception? Exception) TryRemove(BTreeNode<T> value)
-		{
-			throw new NotImplementedException();
-		}
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
 		{
