@@ -108,8 +108,8 @@ namespace Towel.DataStructures
 		/// <param name="maxdegree">The maximum degree/children a node can have. Must be even</param>
 		public BTree(byte maxdegree)
 		{
-			if (maxdegree < 2)
-				throw new ArgumentException("Maximum degree should be at least 2", nameof(maxdegree));
+			if (maxdegree < 4)
+				throw new ArgumentException("Maximum degree should be at least 4", nameof(maxdegree));
 			else if (maxdegree % 2 != 0)
 				throw new ArgumentException("Maximum degree should be an even number", nameof(maxdegree));
 			Top = new(maxdegree);
@@ -311,7 +311,7 @@ namespace Towel.DataStructures
 						{
 							for (int j = i + 1; j < node.Count; j++)
 							{
-								node.Items[i] = node.Items[j];
+								node.Items[j - 1] = node.Items[j];
 							}
 							node.Items[--node.Count] = default!;
 							node = null;
@@ -372,11 +372,14 @@ namespace Towel.DataStructures
 										child.Parent = lc;
 									}
 									rc.Children[q] = null;
-								} //delete rc from memory
+								}
+								rc.Parent = null; // delete rc from memory ?
 								if (node == Top && node.Count == 0)
 								{
-									Top = lc; //delete node from memory
+									Top = lc;
 									Top.Parent = null;
+									node.Items = default!;
+									node.Children = default!; // delete node from memory ?
 								}
 							}
 						}
@@ -392,25 +395,101 @@ namespace Towel.DataStructures
 					BTreeNode<T>? lc, rc;
 					lc = i > 0 ? node.Children[i - 1] : null;
 					rc = i < node.Count ? node.Children[i + 1] : null;
+					int j;
 					if (lc != null && lc.Count >= t) // Case 3a-Left
 					{
-						lc.Count--;
+						for (j = child.Count; j > 0; j--)
+						{
+							child.Items[j] = child.Items[j - 1];
+						}
 						child.Count++;
+						for (j = child.Count; j > 0; j--)
+						{
+							rc = child.Children[j] = child.Children[j - 1];
+							if (rc != null) rc.ParentIndex = (byte)j;
+						}
+						rc = lc.Children[lc.Count];
+						if (rc != null)
+						{
+							child.Children[0] = rc;
+							rc.Parent = child;
+							rc.ParentIndex = 0;
+						}
+						child.Items[0] = node.Items[i - 1];
+						node.Items[i - 1] = lc.Items[--lc.Count];
+						lc.Items[lc.Count] = default!;
 					}
 					else if (rc != null && rc.Count >= t) // Case 3a-Right
 					{
-						rc.Count--;
-						child.Count++;
+						child.Items[child.Count++] = node.Items[i];
+						node.Items[i] = rc.Items[0];
+						lc = rc.Children[0];
+						if (lc != null)
+						{
+							child.Children[child.Count] = lc;
+							lc.ParentIndex = (byte)child.Count;
+							lc.Parent = child;
+						}
+						for (j = 1; j < rc.Count; j++)
+						{
+							rc.Items[j - 1] = rc.Items[j];
+						}
+						for (j = 1; j <= rc.Count; j++)
+						{
+							lc = rc.Children[j - 1] = rc.Children[j];
+							if (lc != null) lc.ParentIndex = (byte)(j - 1);
+						}
+						rc.Children[rc.Count--] = null;
+						rc.Items[rc.Count] = default!;
 					}
-					else if (lc != null) // Case 3b-Left
+					else
 					{
-
+						int k;
+						if (lc != null) // Case 3b-Left
+						{
+							lc.Items[lc.Count++] = node.Items[i - 1];
+							for (j = lc.Count, k = 0; k <= child.Count; j++, k++)
+							{
+								rc = lc.Children[j] = child.Children[k];
+								if (rc != null)
+								{
+									rc.ParentIndex = (byte)j;
+									rc.Parent = lc;
+								}
+							}
+							for (k = 0; k < child.Count; k++) lc.Items[lc.Count++] = child.Items[k];
+							child.Items = default!;
+							child.Children = default!;
+							child.Parent = null;
+							child = lc;
+						}
+						else if (rc != null) // Case 3b-Right || PS: can leave it at else {...} but this avoids Null reference warning
+						{
+							child.Items[child.Count++] = node.Items[i];
+							for (j = child.Count, k = 0; k <= rc.Count; j++, k++)
+							{
+								lc = child.Children[j] = rc.Children[k];
+								if (lc != null)
+								{
+									lc.ParentIndex = (byte)j;
+									lc.Parent = child;
+								}
+							}
+							for (k = 0; k < rc.Count; k++) child.Items[child.Count++] = rc.Items[k];
+							rc.Items = default!;
+							rc.Children = default!;
+							rc.Parent = null;
+						}
+						else throw new Exception("Found null children of an internal node!");
+						for (k = child.ParentIndex + 1; k < node.Count; k++)
+						{
+							node.Items[k - 1] = node.Items[k];
+							lc = node.Children[k] = node.Children[k + 1];
+							if (lc != null) lc.ParentIndex = (byte)k;
+						}
+						node.Children[node.Count--] = null;
+						node.Items[node.Count] = default!;
 					}
-					else if (rc != null) // Case 3b-Right || PS: can leave it at else {...} but this avoids Null reference warning
-					{
-
-					}
-					else throw new Exception("Found null children of an internal node!");
 				}
 				node = child;
 			}

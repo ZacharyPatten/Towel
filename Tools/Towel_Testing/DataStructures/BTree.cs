@@ -28,8 +28,8 @@ namespace Towel_Testing.DataStructures
 		public void FalseAddTest_1()
 		{
 			BTree<int> tree = new(6);
-			tree.Add(1);
-			tree.Add(2);
+			Assert.IsTrue(tree.Add(1));
+			Assert.IsTrue(tree.Add(2));
 			Assert.IsTrue(tree.Add(3));
 			Assert.IsFalse(tree.Add(3));
 			Assert.IsFalse(tree.Add(2));
@@ -38,20 +38,58 @@ namespace Towel_Testing.DataStructures
 		public void FalseAddTest_2()
 		{
 			BTree<int> tree = new(4);
-			for (int i = 10; i < 1000; i++) tree.Add(i);
-			tree.Add(1);
-			tree.Add(2);
+			for (int i = 10; i < 1000; i++) Assert.IsTrue(tree.Add(i));
+			Assert.IsTrue(tree.Add(1));
+			Assert.IsTrue(tree.Add(2));
 			Assert.IsTrue(tree.Add(3));
 			Assert.IsFalse(tree.Add(3));
 			Assert.IsFalse(tree.Add(2));
 		}
 		[TestMethod]
-		public void SearchTest()
+		public void FalseRemoveTest_1()
+		{
+			BTree<int> tree = new(6);
+			Assert.IsTrue(tree.Add(1));
+			Assert.IsTrue(tree.Add(2));
+			Assert.IsTrue(tree.Add(3));
+			Assert.IsFalse(tree.Add(3));
+			Assert.IsFalse(tree.Add(2));
+			Assert.IsTrue(tree.Remove(3));
+		}
+		[TestMethod]
+		public void FalseRemoveTest_2()
+		{
+			BTree<int> tree = new(6);
+			for (int i = 10; i < 2000; i++) Assert.IsTrue(tree.Add(i));
+			for (int i = 0; i < 10; i++) Assert.IsFalse(tree.Remove(i));
+		}
+		[TestMethod]
+		public void Add_SearchTest()
 		{
 			BTree<int> tree = new(10);
 			for (int i = 0; i < 1000; i++)
 			{
-				tree.Add(i * 3);
+				Assert.IsTrue(tree.Add(i * 3));
+			}
+			for (int i = 0; i < 3000; i += 3)
+			{
+				Assert.IsTrue(tree.Search(i));
+				Assert.IsFalse(tree.Search(i + 1));
+				Assert.IsFalse(tree.Search(i + 2));
+			}
+		}
+		[TestMethod]
+		public void Add_Remove_SearchTest()
+		{
+			BTree<int> tree = new(10);
+			for (int i = 0; i <= 3000; i++)
+			{
+				Assert.IsTrue(tree.Add(i));
+			}
+			for (int i = 0; i < 1000; i++)
+			{
+				Assert.IsTrue(tree.Remove((3 * i) + 1));
+				Assert.IsTrue(tree.Remove((3 * i) + 2));
 			}
 			for (int i = 0; i < 3000; i += 3)
 			{
