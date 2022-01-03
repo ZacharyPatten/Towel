@@ -124,41 +124,47 @@ namespace Towel.DataStructures
 			}
 			return false;
 		}
-		/// <summary>Removes all elements in the list</summary>
+		/// <inheritdoc/>
 		public void Clear()
 		{
-			throw new NotImplementedException();
+			Count = 0;
+			for (byte c = 0; c < Levels; c++) Front.Next[c] = null; //Can GC Clean this???
 		}
+		/// <summary>
+		/// Enumerates the SkipList
+		/// </summary>
+		/// <returns>Enumerator</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			throw new NotImplementedException();
+			SkipListNode<T>? node = Front.Next[0];
+			while (node != null)
+			{
+				yield return node.Data;
+			}
+			yield break;
 		}
-
+		/// <inheritdoc/>
 		public void RemoveAll<TPredicate>(TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
 			throw new NotImplementedException();
 		}
-
-		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
-		{
-			throw new NotImplementedException();
-		}
-
+		/// <inheritdoc/>
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus> => Front.StepperBreak<TStep>(step);
+		/// <inheritdoc/>
 		public T[] ToArray()
 		{
 			throw new NotImplementedException();
 		}
-
+		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
 			throw new NotImplementedException();
 		}
-
+		/// <inheritdoc/>
 		public bool TryRemoveFirst<TPredicate>(out Exception? exception, TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
 			throw new NotImplementedException();
 		}
-
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 	}
 }
