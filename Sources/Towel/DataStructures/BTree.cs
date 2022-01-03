@@ -71,8 +71,14 @@ namespace Towel.DataStructures
 				}
 				return (p, lastpos);
 			}
-			else if (p != null) return (LeftmostNode(p), 0);
-			else return (node, lastpos);
+			else if (p != null)
+			{
+				return (LeftmostNode(p), 0);
+			}
+			else
+			{
+				return (node, lastpos);
+			}
 		}
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
@@ -297,7 +303,7 @@ namespace Towel.DataStructures
 			if (Count == 0) return false;
 			BTreeNode<T>? node = Top, child;
 			int t = (MaxNodeDegree >> 1);
-			// All nodes (except root) must contain at least this many items 
+			// All nodes (except root) must contain at least this many items
 			// [value of (t) in Cormen's "Introduction to Algorithms"]
 			do
 			{
@@ -388,7 +394,10 @@ namespace Towel.DataStructures
 				}
 				if (node == null) break; // `node` would be null after Case 1
 				else child = node.Children[i]; // `child` will be null only if `node` is a Leaf node
-				if (child == null) return false; // Reached a leaf node, could not find item in the tree!
+				if (child == null)
+				{
+					return false; // Reached a leaf node, could not find item in the tree!
+				}
 				else if (child.Count < t)
 				{
 					BTreeNode<T>? lc, rc;
@@ -479,7 +488,10 @@ namespace Towel.DataStructures
 							rc.Children = default!;
 							rc.Parent = null;
 						}
-						else throw new Exception("Found null children of an internal node!");
+						else
+						{
+							throw new Exception("Found null children of an internal node!");
+						}
 						for (k = child.ParentIndex + 1; k < node.Count; k++)
 						{
 							node.Items[k - 1] = node.Items[k];
