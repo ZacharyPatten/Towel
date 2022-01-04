@@ -104,6 +104,15 @@ namespace Towel.DataStructures
 			}
 			Count++;
 		}
+		internal void Remove(SkipListNode<T> node, SkipListNode<T>[] prev)
+		{
+			for (int i = node.Level - 1; i >= 0; i--)
+			{
+				prev[i].Next[i] = node.Next[i];
+			}
+			Count--;
+			node.Next = null!;
+		}
 		/// <summary>
 		/// Searches and removes an element from the list (if found)
 		/// </summary>
@@ -114,7 +123,12 @@ namespace Towel.DataStructures
 			Search(value, out var node, out var links);
 			if (node != null)
 			{
-				Remove(node, links);
+				Count--;
+				for (int i = node!.Level - 1; i >= 0; i++)
+				{
+					links[i].Next[i] = node.Next[i];
+				}
+				node.Next = null!;
 				return true;
 			}
 			return false;
