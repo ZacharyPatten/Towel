@@ -19,7 +19,7 @@ namespace Towel.DataStructures
 		}
 		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
 		{
-			SkipListNode<T>? node = Next[0];
+			SkipListNode<T>? node = this;
 			while (node != null)
 			{
 				step.Invoke(node.Data);
@@ -114,12 +114,7 @@ namespace Towel.DataStructures
 			Search(value, out var node, out var links);
 			if (node != null)
 			{
-				Count--;
-				for (int i = node!.Level - 1; i >= 0; i++)
-				{
-					links[i].Next[i] = node.Next[i];
-				}
-				node.Next = null!;
+				Remove(node, links);
 				return true;
 			}
 			return false;
