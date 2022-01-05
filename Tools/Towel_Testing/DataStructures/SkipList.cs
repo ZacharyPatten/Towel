@@ -102,6 +102,21 @@ namespace Towel_Testing.DataStructures
 			Assert.IsTrue(list.Count == 0);
 		}
 		[TestMethod]
+		public void ClearTest()
+		{
+			int size = 4000;
+			int[] arr = new int[size];
+			int max = size * size;
+			Random r = new();
+			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
+			SkipList<int> list = new(20);
+			for (int i = 0; i < size; i++) list.Add(max + r.Next(max));
+			list.Clear();
+			foreach (var x in arr) list.Add(x);
+			Array.Sort(arr);
+			CollectionAssert.AreEqual(arr, list.ToArray());
+		}
+		[TestMethod]
 		public void RemoveFirstTest()
 		{
 			int[] arr = new int[] { 90, 10, 23, 25, 37, 14, 38, 11, 24, 98, 77 };
