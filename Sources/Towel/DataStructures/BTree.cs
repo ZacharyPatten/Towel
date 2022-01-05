@@ -556,7 +556,7 @@ namespace Towel.DataStructures
 		/// <returns>Enumerator to enumerate the tree</returns>
 		public IEnumerator<T> GetEnumerator()
 		{
-			if (Top != null)
+			if (Count > 0)
 			{
 				int pos = 0;
 				BTreeNode<T> node;

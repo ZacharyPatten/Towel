@@ -7,6 +7,15 @@ namespace Towel_Testing.DataStructures
 	public class BTree_Testing
 	{
 		[TestMethod]
+		public void EnumeratorTest()
+		{
+			BTree<int> tree = new(8);
+			foreach (int item in tree)
+			{
+				Assert.Fail();
+			}
+		}
+		[TestMethod]
 		public void AddTest()
 		{
 			BTree<int> tree = new(8);
