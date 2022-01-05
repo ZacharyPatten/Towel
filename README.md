@@ -591,6 +591,66 @@
 > 
 > <details>
 > <summary>
+> :page_facing_up: B-Tree <sub>[Expand]</sub>
+> </summary>
+> <p>
+> 
+> > ```cs
+> > // a B-tree is a self-balancing tree data structure that maintains 
+> > // sorted data and allows searches, sequential access, insertions, 
+> > // and deletions in logarithmic time. The B-tree generalizes the 
+> > // binary search tree, allowing for nodes with more than two children.
+> > 
+> > // There are two ways to Add and Remove elements in a B-Tree
+> > // 1) Pre-emptive: Search the tree from top to bottom (for place to add/ 
+> > // 			node to delete) and perform fixing of the B-Tree (Splitting
+> > //			or Merging) in a single pass
+> > // 2) Non Pre-emptive: Add/Remove the required node and go up the tree to 
+> > // 			fix the tree as needed
+> > //
+> > // Pre-emptive methods are optimal, especially if the Maximum Degree of
+> > // a node is set to an even number. This implementation of B-Tree 
+> > // uses Pre-emptive modes of Add/Removal methods and therefore the 
+> > // value of Maximum Degree is mandated to be even
+> > 
+> > // This implementation is taken from Thomas H. Cormen's book "Introduction 
+> > // to Algorithms, 3rd edition", Chapter 18: B-Trees
+> > 
+> > BTree<int> tree = new BTree<int>(4); 
+> >
+> > tree.Add(20);
+> > tree.Add(10);
+> > tree.Add(30);
+> > tree.Add(50);
+> > tree.Add(40);
+> > tree.Add(5);
+> > tree.Add(15);
+> > // 
+> > //                       [20]
+> > //                      /    \
+> > //                     /      \
+> > //           [5, 10, 15]       [30, 40, 50]
+> > // 
+> > // All elements added in the BTree, where each node can have a maximum
+> > // of 4 children (and therefore, a maximum of 3 elements)
+> > 
+> > bool r1 = tree.Remove(50); // r1 = true
+> > bool r2 = tree.Remove(50); // r2 = false, 20 is no longer in the tree
+> >
+> > // 
+> > //                       [20]
+> > //                      /    \
+> > //                     /      \
+> > //           [5, 10, 15]       [30, 40]
+> >
+> > int[] array = tree.ToArray(); // array = [5, 10, 15, 20, 30, 40]
+> > ```
+> >
+> </p>
+> </details>
+> 
+> <details>
+> <summary>
 > :page_facing_up: Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
