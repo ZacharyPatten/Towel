@@ -10,10 +10,26 @@ namespace Towel_Testing.DataStructures
 		public void EnumeratorTest()
 		{
 			BTree<int> tree = new(8);
-			foreach (int item in tree)
+			foreach (int _ in tree)
 			{
 				Assert.Fail();
 			}
+		}
+		[TestMethod]
+		public void ClearTest()
+		{
+			BTree<int> tree = new(8);
+			for (int i = 0; i < 10000; i++) tree.Add(i);
+			tree.Clear();
+			Assert.IsTrue(tree.Count == 0);
+			int[] arr = new int[100];
+			for (int i = 0; i < 100; i++)
+			{
+				arr[i] = 300 - i;
+				tree.Add(arr[i]);
+			}
+			Array.Sort(arr);
+			CollectionAssert.AreEqual(arr, tree.ToArray());
 		}
 		[TestMethod]
 		public void AddTest()

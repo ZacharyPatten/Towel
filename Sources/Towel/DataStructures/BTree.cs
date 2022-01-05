@@ -122,6 +122,15 @@ namespace Towel.DataStructures
 			MaxNodeDegree = maxdegree;
 		}
 		/// <summary>
+		/// Removes all elements from the B-Tree
+		/// </summary>
+		public void Clear()
+		{
+			Count = 0;
+			Top.Count = 0;
+			for (int i = 0; i < MaxNodeDegree; i++) Top.Children[i] = null;
+		}
+		/// <summary>
 		/// Searches for an item in the tree and provides the
 		/// node it is contained in and its index in the array (as `out` variables)
 		/// if it exists. Otherwise provides the leaf node where the item shold be inserted
