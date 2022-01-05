@@ -368,7 +368,7 @@ namespace Towel.DataStructures
 									lc.Items[p] = rc.Items[q];
 									rc.Items[q] = default!;
 								}
-								for (p = r, q = 0; q <= rc.Count; p++, q++)
+								for (p = r + 1, q = 0; q <= rc.Count; p++, q++)
 								{
 									child = lc.Children[p] = rc.Children[q];
 									if (child != null)
@@ -385,6 +385,9 @@ namespace Towel.DataStructures
 									Top.Parent = null;
 									node.Items = default!;
 									node.Children = default!; // delete node from memory ?
+									node = lc;
+									i = 0;
+									continue;
 								}
 							}
 						}
