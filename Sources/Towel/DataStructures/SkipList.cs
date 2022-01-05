@@ -19,7 +19,7 @@ namespace Towel.DataStructures
 		}
 		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
 		{
-			SkipListNode<T>? node = this;
+			SkipListNode<T>? node = Next[0];
 			while (node != null)
 			{
 				step.Invoke(node.Data);
@@ -34,8 +34,7 @@ namespace Towel.DataStructures
 	/// <typeparam name="T">The type of data elements within the list</typeparam>
 	public class SkipList<T> : IList<T> where T : IComparable<T>
 	{
-		/// <summary> Number of elements in the data structure </summary>
-		/// <value>int</value>
+		/// <inheritdoc/>
 		public int Count { get; internal set; }
 		internal SkipListNode<T> Front;
 		/// <summary> The levels of lists within this list </summary>
@@ -57,8 +56,9 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to search</param>
 		/// <param name="node">The output node</param>
 		/// <param name="links">The previous nodes on the search path</param>
+		/// <param name="quick">Performs search with incomplete previous links</param>
 		/// <returns>true on successful search, false otherwise</returns>
-		internal bool Search(T value, out SkipListNode<T>? node, out SkipListNode<T>[] links)
+		internal bool Search(T value, out SkipListNode<T>? node, out SkipListNode<T>[] links, bool quick=false)
 		{
 			node = Front;
 			links = new SkipListNode<T>[Levels];
@@ -68,10 +68,12 @@ namespace Towel.DataStructures
 			int next = Levels - 1;
 			do
 			{
+				links[next] = node;
 				x = node.Next[next];
-				if (x == null || (c = value.CompareTo(x.Data)) < 0) links[next--] = node;
-				else if (c == 0) return x == (node = x);
-				else node = links[next] = x;
+				if (x == null || (c = value.CompareTo(x.Data)) < 0) next--;
+				else if (c > 0) node = links[next] = x;
+				else if (quick || next == 0) return x == (node = x);
+				else next--;
 			} while (next >= 0);
 			node = null;
 			return false;
@@ -81,12 +83,28 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to search</param>
 		/// <returns>Returns true if search is successful, otherwise false</returns>
-		public bool Search(T value) => Search(value, out var _, out var _);
+		public bool Search(T value) => Search(value, out var _, out var _, true);
+		internal (SkipListNode<T>? Node, SkipListNode<T>[] prevs) SearchNext<TPredicate>(SkipListNode<T>[]? prev = null, TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
+		{
+			if (prev == null)
+			{
+				prev = new SkipListNode<T>[Levels];
+				for (int i = 0; i < Levels; i++) prev[i] = Front;
+			}
+			SkipListNode<T>? node = prev[0].Next[0];
+			while (node != null)
+			{
+				if (predicate.Invoke(node.Data)) break;
+				for (int i = node.Level - 1; i >= 0; i--) prev[i] = node;
+				node = node.Next[0];
+			}
+			return (node, prev);
+		}
 		internal SkipListNode<T> RandomLevelNode(T value)
 		{
 			Random r = new();
-			byte l = 0;
-			while (r.Next(2) == 1 && l <= Levels) l++;
+			byte l = 1;
+			while (r.Next(2) == 1 && l < Levels) l++;
 			return new(l, value);
 		}
 		/// <summary>
@@ -97,9 +115,9 @@ namespace Towel.DataStructures
 		{
 			Search(value, out var _, out var links);
 			SkipListNode<T> node = RandomLevelNode(value);
-			for (int i = node.Level - 1; i >= 0; i++)
+			for (int i = node.Level - 1; i >= 0; i--)
 			{
-				node.Next[i] = links[i];
+				node.Next[i] = links[i].Next[i];
 				links[i].Next[i] = node;
 			}
 			Count++;
@@ -123,12 +141,7 @@ namespace Towel.DataStructures
 			Search(value, out var node, out var links);
 			if (node != null)
 			{
-				Count--;
-				for (int i = node!.Level - 1; i >= 0; i++)
-				{
-					links[i].Next[i] = node.Next[i];
-				}
-				node.Next = null!;
+				Remove(node, links);
 				return true;
 			}
 			return false;
@@ -155,24 +168,78 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public void RemoveAll<TPredicate>(TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
-			throw new NotImplementedException();
+			SkipListNode<T>[]? links = null;
+			SkipListNode<T>? node;
+			(node, links) = SearchNext(links, predicate);
+			while (node != null)
+			{
+				Remove(node, links);
+				(node, links) = SearchNext(links, predicate);
+			}
+		}
+		/// <summary>
+		/// Struct for Stepper function outputting to array
+		/// </summary>
+		protected struct StepperToArray : IFunc<T, StepStatus>
+		{
+			/// <summary>The resultant array</summary>
+			public T[] array;
+			private int i;
+			/// <summary>
+			/// Returns the array of elements
+			/// </summary>
+			/// <param name="size">Size of the array</param>
+			public StepperToArray(int size)
+			{
+				array = new T[size];
+				i = 0;
+			}
+			/// <inheritdoc/>
+			public StepStatus Invoke(T arg1)
+			{
+				array[i++] = arg1;
+				return StepStatus.Continue;
+			}
 		}
 		/// <inheritdoc/>
 		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus> => Front.StepperBreak<TStep>(step);
 		/// <inheritdoc/>
 		public T[] ToArray()
 		{
-			throw new NotImplementedException();
+			if (Count == 0) return Array.Empty<T>();
+			StepperToArray itr = new(Count);
+			StepperBreak(itr);
+			return itr.array;
 		}
 		/// <inheritdoc/>
 		public (bool Success, Exception? Exception) TryAdd(T value)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				Add(value);
+			}
+			catch (Exception ex)
+			{
+				return (false, ex);
+			}
+			return (true, null);
 		}
 		/// <inheritdoc/>
 		public bool TryRemoveFirst<TPredicate>(out Exception? exception, TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
-			throw new NotImplementedException();
+			exception = null;
+			try
+			{
+				var found = SearchNext(null, predicate);
+				if (found.Node == null) return false;
+				Remove(found.Node, found.prevs);
+				return true;
+			}
+			catch (Exception ex)
+			{
+				exception = ex;
+				return false;
+			}
 		}
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 	}
