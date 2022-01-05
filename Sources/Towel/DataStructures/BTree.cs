@@ -302,7 +302,7 @@ namespace Towel.DataStructures
 		{
 			if (Count == 0) return false;
 			BTreeNode<T>? node = Top, child;
-			int t = (MaxNodeDegree >> 1);
+			int t = MaxNodeDegree >> 1;
 			// All nodes (except root) must contain at least this many items
 			// [value of (t) in Cormen's "Introduction to Algorithms"]
 			do
@@ -368,7 +368,7 @@ namespace Towel.DataStructures
 									lc.Items[p] = rc.Items[q];
 									rc.Items[q] = default!;
 								}
-								for (p = r, q = 0; q <= rc.Count; p++, q++)
+								for (p = r + 1, q = 0; q <= rc.Count; p++, q++)
 								{
 									child = lc.Children[p] = rc.Children[q];
 									if (child != null)
@@ -385,6 +385,9 @@ namespace Towel.DataStructures
 									Top.Parent = null;
 									node.Items = default!;
 									node.Children = default!; // delete node from memory ?
+									node = lc;
+									i = 0;
+									continue;
 								}
 							}
 						}
@@ -500,6 +503,13 @@ namespace Towel.DataStructures
 						}
 						node.Children[node.Count--] = null;
 						node.Items[node.Count] = default!;
+						if (node == Top && node.Count == 0)
+						{
+							node.Children = null!;
+							Top = child;
+							Top.Parent = null;
+							Top.ParentIndex = 0;
+						}
 					}
 				}
 				node = child;
