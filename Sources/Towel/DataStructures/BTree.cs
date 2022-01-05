@@ -302,7 +302,7 @@ namespace Towel.DataStructures
 		{
 			if (Count == 0) return false;
 			BTreeNode<T>? node = Top, child;
-			int t = (MaxNodeDegree >> 1);
+			int t = MaxNodeDegree >> 1;
 			// All nodes (except root) must contain at least this many items
 			// [value of (t) in Cormen's "Introduction to Algorithms"]
 			do
