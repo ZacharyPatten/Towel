@@ -500,6 +500,13 @@ namespace Towel.DataStructures
 						}
 						node.Children[node.Count--] = null;
 						node.Items[node.Count] = default!;
+						if (node == Top && node.Count == 0)
+						{
+							node.Children = null!;
+							Top = child;
+							Top.Parent = null;
+							Top.ParentIndex = 0;
+						}
 					}
 				}
 				node = child;
