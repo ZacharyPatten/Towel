@@ -1,6 +1,6 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Towel.DataStructures;
-
 namespace Towel_Testing.DataStructures
 {
 	[TestClass]
@@ -82,21 +82,93 @@ namespace Towel_Testing.DataStructures
 		public void Add_Remove_SearchTest()
 		{
 			BTree<int> tree = new(10);
-			for (int i = 0; i <= 3000; i++)
+			Random r = new();
+			int size = 1000;
+			size *= 3;
+			int[] arr = new int[size];
+			for (int i = 0, j; i < size; i++)
 			{
-				Assert.IsTrue(tree.Add(i));
+				do
+				{
+					j = r.Next(size * size);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+				arr[i] = j;
 			}
-			for (int i = 0; i < 1000; i++)
+			for (int i = 0; i < size; i++)
 			{
-				Assert.IsTrue(tree.Remove((3 * i) + 1));
-				Assert.IsTrue(tree.Remove((3 * i) + 2));
+				Assert.IsTrue(tree.Add(arr[i]));
 			}
-			for (int i = 0; i < 3000; i += 3)
+			for (int i = 0; i < size; i += 3)
 			{
-				Assert.IsTrue(tree.Search(i));
-				Assert.IsFalse(tree.Search(i + 1));
-				Assert.IsFalse(tree.Search(i + 2));
+				Assert.IsTrue(tree.Remove(arr[i + 1]));
+				Assert.IsTrue(tree.Remove(arr[i + 2]));
 			}
+			for (int i = 0; i < size; i += 3)
+			{
+				Assert.IsTrue(tree.Search(arr[i]));
+				Assert.IsFalse(tree.Search(arr[i + 1]));
+				Assert.IsFalse(tree.Search(arr[i + 2]));
+			}
+		}
+		[TestMethod]
+		public void RemoveAll_1()
+		{
+			Random r = new();
+			int size = 14, max = size * size;
+			BTree<int> tree = new(4);
+			int[] arr = new int[size];
+			for (int i = 0, j; i < size; i++)
+			{
+				do
+				{
+					j = max + r.Next(max);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+				arr[i] = j;
+			}
+			for (int i = 0; i < size; i++)
+				Assert.IsTrue(tree.Add(arr[i]));
+			for (int i = 0, j; i < size; i++)
+			{
+				Assert.IsTrue(tree.Remove(arr[i]));
+				do
+				{
+					j = r.Next(max);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+			}
+			Assert.IsTrue(tree.Count == 0);
+			for (int i = 0; i < size; i++) Assert.IsTrue(tree.Add(arr[i]));
+			Array.Sort(arr);
+			CollectionAssert.AreEqual(arr, tree.ToArray());
+		}
+		[TestMethod]
+		public void RemoveAll_2()
+		{
+			Random r = new();
+			int size = 400, max = size * size;
+			BTree<int> tree = new(8);
+			int[] arr = new int[size];
+			for (int i = 0, j; i < size; i++)
+			{
+				do
+				{
+					j = max + r.Next(max);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+				arr[i] = j;
+			}
+			for (int i = 0; i < size; i++)
+				Assert.IsTrue(tree.Add(arr[i]));
+			for (int i = 0, j; i < size; i++)
+			{
+				Assert.IsTrue(tree.Remove(arr[i]));
+				do
+				{
+					j = r.Next(max);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+			}
+			Assert.IsTrue(tree.Count == 0);
+			for (int i = 0; i < size; i++) Assert.IsTrue(tree.Add(arr[i]));
+			Array.Sort(arr);
+			CollectionAssert.AreEqual(arr, tree.ToArray());
 		}
 	}
 }
