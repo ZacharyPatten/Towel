@@ -82,24 +82,36 @@ namespace Towel_Testing.DataStructures
 		public void Add_Remove_SearchTest()
 		{
 			BTree<int> tree = new(10);
-			for (int i = 0; i <= 3000; i++)
+			Random r = new();
+			int size = 1000;
+			size *= 3;
+			int[] arr = new int[size];
+			for (int i = 0, j; i < size; i++)
 			{
-				Assert.IsTrue(tree.Add(i));
+				do
+				{
+					j = r.Next(size * size);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+				arr[i] = j;
 			}
-			for (int i = 0; i < 1000; i++)
+			for (int i = 0; i < size; i++)
 			{
-				Assert.IsTrue(tree.Remove((3 * i) + 1));
-				Assert.IsTrue(tree.Remove((3 * i) + 2));
+				Assert.IsTrue(tree.Add(arr[i]));
 			}
-			for (int i = 0; i < 3000; i += 3)
+			for (int i = 0; i < size; i += 3)
 			{
-				Assert.IsTrue(tree.Search(i));
-				Assert.IsFalse(tree.Search(i + 1));
-				Assert.IsFalse(tree.Search(i + 2));
+				Assert.IsTrue(tree.Remove(arr[i + 1]));
+				Assert.IsTrue(tree.Remove(arr[i + 2]));
+			}
+			for (int i = 0; i < size; i += 3)
+			{
+				Assert.IsTrue(tree.Search(arr[i]));
+				Assert.IsFalse(tree.Search(arr[i + 1]));
+				Assert.IsFalse(tree.Search(arr[i + 2]));
 			}
 		}
 		[TestMethod]
-		public void RemoveAll()
+		public void RemoveAll_1()
 		{
 			Random r = new();
 			int size = 14, max = size * size;
@@ -117,8 +129,6 @@ namespace Towel_Testing.DataStructures
 				Assert.IsTrue(tree.Add(arr[i]));
 			for (int i = 0, j; i < size; i++)
 			{
-				TreeOutput(tree.Top);
-				Console.WriteLine("***********************\n*****************\nNow deleting: " + arr[i].ToString());
 				Assert.IsTrue(tree.Remove(arr[i]));
 				do
 				{
@@ -130,31 +140,35 @@ namespace Towel_Testing.DataStructures
 			Array.Sort(arr);
 			CollectionAssert.AreEqual(arr, tree.ToArray());
 		}
-		public static void TreeOutput<T>(BTreeNode<T> node)
+		[TestMethod]
+		public void RemoveAll_2()
 		{
-			Console.WriteLine($"Node.ParentIndex = {node.ParentIndex}");
-			Console.WriteLine($"Node.Parent = {(node.Parent == null ? "NULL" : "(BN)")}");
-			Console.WriteLine($"Node.Count = {node.Count}");
-			Console.Write("Node.Items : [ ");
-			foreach (var item in node.Items)
+			Random r = new();
+			int size = 400, max = size * size;
+			BTree<int> tree = new(8);
+			int[] arr = new int[size];
+			for (int i = 0, j; i < size; i++)
 			{
-				Console.Write($"{item}, ");
-			}
-			Console.WriteLine(" ]");
-			Console.Write("Node.Children : [ ");
-			foreach (var item in node.Children)
-			{
-				Console.Write($"{(item == null ? "NULL" : "(BN)")}, ");
-			}
-			Console.WriteLine(" ]");
-			if (!node.IsLeaf)
-			{
-				for (int i = 0; i <= node.Count; i++)
+				do
 				{
-					Console.WriteLine($"Explore node {i}/{node.Count}:");
-					TreeOutput(node.Children[i]);
-				}
+					j = max + r.Next(max);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+				arr[i] = j;
 			}
+			for (int i = 0; i < size; i++)
+				Assert.IsTrue(tree.Add(arr[i]));
+			for (int i = 0, j; i < size; i++)
+			{
+				Assert.IsTrue(tree.Remove(arr[i]));
+				do
+				{
+					j = r.Next(max);
+				} while (Array.IndexOf(arr, j, 0, i) >= 0);
+			}
+			Assert.IsTrue(tree.Count == 0);
+			for (int i = 0; i < size; i++) Assert.IsTrue(tree.Add(arr[i]));
+			Array.Sort(arr);
+			CollectionAssert.AreEqual(arr, tree.ToArray());
 		}
 	}
 }
