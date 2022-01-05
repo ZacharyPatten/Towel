@@ -325,7 +325,7 @@ namespace Towel.DataStructures
 						{
 							BTreeNode<T>? lc = node.Children[i], rc = node.Children[i + 1];
 							if (lc == null || rc == null) throw new Exception("Found null children of an internal node!");
-							if (lc.Count >= t) // CASE 2a or 2-L
+							if (lc.Count >= t) //CASE 2a
 							{
 								do
 								{
@@ -336,7 +336,7 @@ namespace Towel.DataStructures
 								//At this point lc is null, child is the rightmost node of subtree preceeding `item`
 								item = node.Items[i] = child.Items[child.Count - 1];
 							}
-							else if (rc.Count >= t) // Case 2b or 2-R
+							else if (rc.Count >= t) //Case 2b
 							{
 								do
 								{
@@ -346,7 +346,7 @@ namespace Towel.DataStructures
 								//At this point rc is null, child is the leftmost node of subtree following `item`
 								item = node.Items[i++] = child.Items[0];
 							}
-							else // Case 2c or 2-LR
+							else //Case 2c
 							{
 								int p, q, r = lc.Count;
 								lc.Items[lc.Count++] = node.Items[i];
@@ -355,7 +355,7 @@ namespace Towel.DataStructures
 									node.Items[p] = node.Items[q];
 								}
 								node.Items[p] = default!;
-								for (p = i, q = p + 1; q <= node.Count; p++, q++)
+								for (p = i + 1, q = p + 1; q <= node.Count; p++, q++)
 								{
 									child = node.Children[p] = node.Children[q];
 									if (child != null) child.ParentIndex = (byte)p;
@@ -378,7 +378,6 @@ namespace Towel.DataStructures
 									}
 									rc.Children[q] = null;
 								}
-								node.Children[i + 1] = null;
 								rc.Parent = null; // delete rc from memory ?
 								if (node == Top && node.Count == 0)
 								{
@@ -470,7 +469,6 @@ namespace Towel.DataStructures
 							child.Items = default!;
 							child.Children = default!;
 							child.Parent = null;
-							k = child.ParentIndex;
 							child = lc;
 						}
 						else if (rc != null) // Case 3b-Right || PS: can leave it at else {...} but this avoids Null reference warning
@@ -489,13 +487,12 @@ namespace Towel.DataStructures
 							rc.Items = default!;
 							rc.Children = default!;
 							rc.Parent = null;
-							k = rc.ParentIndex;
 						}
 						else
 						{
 							throw new Exception("Found null children of an internal node!");
 						}
-						for (; k < node.Count; k++)
+						for (k = child.ParentIndex + 1; k < node.Count; k++)
 						{
 							node.Items[k - 1] = node.Items[k];
 							lc = node.Children[k] = node.Children[k + 1];
@@ -503,11 +500,6 @@ namespace Towel.DataStructures
 						}
 						node.Children[node.Count--] = null;
 						node.Items[node.Count] = default!;
-						if (node.Count == 0 && node == Top)
-						{
-							Top = child;
-							Top.Parent = null;
-						}
 					}
 				}
 				node = child;
