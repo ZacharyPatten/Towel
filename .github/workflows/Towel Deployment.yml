@@ -12,7 +12,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: dotnet pack
-      run: dotnet pack Sources/Towel/Towel.csproj --configuration Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/ZacharyPatten/Towel/releases/tag/${{ github.event.release.tag_name }}"   
+      run: dotnet pack Sources/Towel/Towel.csproj --configuration Release /p:Version=${{ github.event.release.tag_name }} /p:PackageReleaseNotes="See https://github.com/ZacharyPatten/Towel/releases/tag/${{ github.event.release.tag_name }}" /nowarn:cs1030
     - name: archive nuget
       uses: actions/upload-artifact@v1
       with:

@@ -29,6 +29,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: dotnet build
-      run: dotnet build --configuration 'Release'
+      run: dotnet build --configuration Release /nowarn:cs1030
     - name: dotnet test
-      run: dotnet test --configuration 'Release'
+      run: dotnet test --configuration Release /nowarn:cs1030
