@@ -634,8 +634,8 @@
 > > // All elements added in the BTree, where each node can have a maximum
 > > // of 4 children (and therefore, a maximum of 3 elements)
 > > 
-> > bool r1 = tree.Remove(50); // r1 = true
-> > bool r2 = tree.Remove(50); // r2 = false, 20 is no longer in the tree
+> > bool r1 = tree.TryRemove(50).Success; // r1 = true
+> > bool r2 = tree.TryRemove(50).Success; // r2 = false, 20 is no longer in the tree
 > >
 > > // 
 > > //                       [20]
