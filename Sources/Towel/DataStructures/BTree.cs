@@ -25,9 +25,8 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	DataStructure.ICountable,
 	DataStructure.IClearable,
 	DataStructure.IAuditable<T>,
-	DataStructure.IComparing<T, TCompare>
-	#warning TODO: implement clone
-	//ICloneable<BTreeLinked<T, TCompare>>
+	DataStructure.IComparing<T, TCompare>,
+	ICloneable<BTreeLinked<T, TCompare>>
 	where TCompare : struct, IFunc<T, T, CompareResult>
 {
 	internal Node _root;
@@ -279,8 +278,8 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 				c = Compare.Invoke(node._values[i], value);
 				switch (c)
 				{
-					case Greater: child = node._children[i];     break;
-					case Less:    child = node._children[i + 1]; break;
+					case Greater: child = node._children[i]; break;
+					case Less: child = node._children[i + 1]; break;
 					case Equal: return (false, new ArgumentException($"Adding to add a duplicate value to an {nameof(BTreeLinked<T, TCompare>)}: {value}.", nameof(value)));
 				}
 			}
@@ -649,6 +648,37 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 		} while (node is not null);
 		return Continue;
 	}
-
+	/// <summary>
+	/// Creates a new copy of this tree
+	/// </summary>
+	/// <returns>Copy of this tree</returns>
+	public BTreeLinked<T, TCompare> Clone()
+	{
+		BTreeLinked<T, TCompare> clone = new(_maxDegree, _compare);
+		Node ClonedRoot = clone._root;
+		CloneSubTree(_root, ClonedRoot);
+		clone._count = _count;
+		return clone;
+		void CloneSubTree(Node original, Node copy)
+		{
+			copy._parentIndex = original._parentIndex;
+			copy._count = original._count;
+			for (int i = 0; i < original._count; i++)
+			{
+				copy._values[i] = original._values[i];
+			}
+			if (!original.IsLeaf)
+			{
+				for (int i = 0; i <= original._count; i++)
+				{
+					Node c = copy._children[i] = new(MaxDegree);
+					c._parent = copy;
+					Node? o = original._children[i];
+					if (o == null) throw new CorruptedDataStructureException("Found null children of an internal node!");
+					CloneSubTree(o, c);
+				}
+			}
+		}
+	}
 	#endregion
 }
