@@ -655,12 +655,12 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	public BTreeLinked<T, TCompare> Clone()
 	{
 		BTreeLinked<T, TCompare> clone = new(_maxDegree, _compare);
-		Node ClonedRoot = clone._root;
-		CloneSubTree(_root, ClonedRoot);
 		clone._count = _count;
-		return clone;
-		void CloneSubTree(Node original, Node copy)
+		StackLinked<(Node original, Node copy)> stack = new();
+		stack.Push((_root, clone._root));
+		while (stack._count > 0)
 		{
+			(Node original, Node copy) = stack.Pop();
 			copy._parentIndex = original._parentIndex;
 			copy._count = original._count;
 			for (int i = 0; i < original._count; i++)
@@ -675,10 +675,11 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 					c._parent = copy;
 					Node? o = original._children[i];
 					if (o == null) throw new CorruptedDataStructureException("Found null children of an internal node!");
-					CloneSubTree(o, c);
+					stack.Push((o, c));
 				}
 			}
 		}
+		return clone;
 	}
 	#endregion
 }
