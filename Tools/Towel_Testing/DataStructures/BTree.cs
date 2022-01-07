@@ -63,11 +63,11 @@ public class BTree_Testing
 	public void FalseAddTest_1()
 	{
 		BTreeLinked<int, SFunc<int, int, CompareResult>>? tree = BTreeLinked.New<int>(6);
-		Assert.IsTrue(tree.TryAdd(1));
-		Assert.IsTrue(tree.TryAdd(2));
-		Assert.IsTrue(tree.TryAdd(3));
-		Assert.IsFalse(tree.TryAdd(3));
-		Assert.IsFalse(tree.TryAdd(2));
+		Assert.IsTrue(tree.TryAdd(1).Success);
+		Assert.IsTrue(tree.TryAdd(2).Success);
+		Assert.IsTrue(tree.TryAdd(3).Success);
+		Assert.IsFalse(tree.TryAdd(3).Success);
+		Assert.IsFalse(tree.TryAdd(2).Success);
 	}
 
 	[TestMethod]
@@ -76,25 +76,25 @@ public class BTree_Testing
 		BTreeLinked<int, SFunc<int, int, CompareResult>>? tree = BTreeLinked.New<int>(4);
 		for (int i = 10; i < 1000; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(i));
+			Assert.IsTrue(tree.TryAdd(i).Success);
 		}
-		Assert.IsTrue(tree.TryAdd(1));
-		Assert.IsTrue(tree.TryAdd(2));
-		Assert.IsTrue(tree.TryAdd(3));
-		Assert.IsFalse(tree.TryAdd(3));
-		Assert.IsFalse(tree.TryAdd(2));
+		Assert.IsTrue(tree.TryAdd(1).Success);
+		Assert.IsTrue(tree.TryAdd(2).Success);
+		Assert.IsTrue(tree.TryAdd(3).Success);
+		Assert.IsFalse(tree.TryAdd(3).Success);
+		Assert.IsFalse(tree.TryAdd(2).Success);
 	}
 
 	[TestMethod]
 	public void FalseRemoveTest_1()
 	{
 		BTreeLinked<int, SFunc<int, int, CompareResult>>? tree = BTreeLinked.New<int>(6);
-		Assert.IsTrue(tree.TryAdd(1));
-		Assert.IsTrue(tree.TryAdd(2));
-		Assert.IsTrue(tree.TryAdd(3));
-		Assert.IsFalse(tree.TryAdd(3));
-		Assert.IsFalse(tree.TryAdd(2));
-		Assert.IsTrue(tree.Remove(3));
+		Assert.IsTrue(tree.TryAdd(1).Success);
+		Assert.IsTrue(tree.TryAdd(2).Success);
+		Assert.IsTrue(tree.TryAdd(3).Success);
+		Assert.IsFalse(tree.TryAdd(3).Success);
+		Assert.IsFalse(tree.TryAdd(2).Success);
+		Assert.IsTrue(tree.TryRemove(3).Success);
 	}
 
 	[TestMethod]
@@ -103,11 +103,11 @@ public class BTree_Testing
 		BTreeLinked<int, SFunc<int, int, CompareResult>>? tree = BTreeLinked.New<int>(6);
 		for (int i = 10; i < 2000; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(i));
+			Assert.IsTrue(tree.TryAdd(i).Success);
 		}
 		for (int i = 0; i < 10; i++)
 		{
-			Assert.IsFalse(tree.Remove(i));
+			Assert.IsFalse(tree.TryRemove(i).Success);
 		}
 	}
 
@@ -117,7 +117,7 @@ public class BTree_Testing
 		BTreeLinked<int, SFunc<int, int, CompareResult>>? tree = BTreeLinked.New<int>(10);
 		for (int i = 0; i < 1000; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(i * 3));
+			Assert.IsTrue(tree.TryAdd(i * 3).Success);
 		}
 		for (int i = 0; i < 3000; i += 3)
 		{
@@ -144,12 +144,12 @@ public class BTree_Testing
 		}
 		for (int i = 0; i < size; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(arr[i]));
+			Assert.IsTrue(tree.TryAdd(arr[i]).Success);
 		}
 		for (int i = 0; i < size; i += 3)
 		{
-			Assert.IsTrue(tree.Remove(arr[i + 1]));
-			Assert.IsTrue(tree.Remove(arr[i + 2]));
+			Assert.IsTrue(tree.TryRemove(arr[i + 1]).Success);
+			Assert.IsTrue(tree.TryRemove(arr[i + 2]).Success);
 		}
 		for (int i = 0; i < size; i += 3)
 		{
@@ -177,11 +177,11 @@ public class BTree_Testing
 		}
 		for (int i = 0; i < size; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(arr[i]));
+			Assert.IsTrue(tree.TryAdd(arr[i]).Success);
 		}
 		for (int i = 0, j; i < size; i++)
 		{
-			Assert.IsTrue(tree.Remove(arr[i]));
+			Assert.IsTrue(tree.TryRemove(arr[i]).Success);
 			do
 			{
 				j = r.Next(max);
@@ -190,7 +190,7 @@ public class BTree_Testing
 		Assert.IsTrue(tree.Count is 0);
 		for (int i = 0; i < size; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(arr[i]));
+			Assert.IsTrue(tree.TryAdd(arr[i]).Success);
 		}
 		Array.Sort(arr);
 		CollectionAssert.AreEqual(arr, tree.ToArray());
@@ -214,11 +214,11 @@ public class BTree_Testing
 		}
 		for (int i = 0; i < size; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(arr[i]));
+			Assert.IsTrue(tree.TryAdd(arr[i]).Success);
 		}
 		for (int i = 0, j; i < size; i++)
 		{
-			Assert.IsTrue(tree.Remove(arr[i]));
+			Assert.IsTrue(tree.TryRemove(arr[i]).Success);
 			do
 			{
 				j = r.Next(max);
@@ -227,7 +227,7 @@ public class BTree_Testing
 		Assert.IsTrue(tree.Count is 0);
 		for (int i = 0; i < size; i++)
 		{
-			Assert.IsTrue(tree.TryAdd(arr[i]));
+			Assert.IsTrue(tree.TryAdd(arr[i]).Success);
 		}
 		Array.Sort(arr);
 		CollectionAssert.AreEqual(arr, tree.ToArray());

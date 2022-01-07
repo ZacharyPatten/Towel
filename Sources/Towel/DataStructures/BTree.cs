@@ -20,12 +20,14 @@ public static class BTreeLinked
 /// <typeparam name="T">The type to store</typeparam>
 /// <typeparam name="TCompare">The type that is comparing <typeparamref name="T"/> values.</typeparam>
 public class BTreeLinked<T, TCompare> : IDataStructure<T>,
-	//DataStructure.IAddable<T>,
-	//DataStructure.IRemovable<T>,
+	DataStructure.IAddable<T>,
+	DataStructure.IRemovable<T>,
 	DataStructure.ICountable,
 	DataStructure.IClearable,
 	DataStructure.IAuditable<T>,
 	DataStructure.IComparing<T, TCompare>
+	#warning TODO: implement clone
+	//ICloneable<BTreeLinked<T, TCompare>>
 	where TCompare : struct, IFunc<T, T, CompareResult>
 {
 	internal Node _root;
@@ -52,63 +54,6 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 		public bool IsLeaf => _children[0] is null;
 
 		public bool IsFull => _count + 1 == _children.Length;
-
-		public static Node LeftmostNode(Node node)
-		{
-			Node? leftChild = node._children[0];
-			while (leftChild is not null)
-			{
-				node = leftChild;
-				leftChild = node._children[0];
-			}
-			return node;
-		}
-
-		/// <summary>Given a value's index in a node, returns the node and index of the value which is next to the given value.</summary>
-		/// <param name="node">The node in which the current value is contained</param>
-		/// <param name="lastPosition">The index of the value within the node</param>
-		/// <returns>The node and index of the next value</returns>
-		public static (Node?, int) NextNode(Node node, int lastPosition)
-		{
-			lastPosition++;
-			Node? p = node._children[lastPosition];
-			if (lastPosition >= node._count && p is null)
-			{
-				lastPosition = node._parentIndex;
-				p = node._parent;
-				while (p is not null && lastPosition == p._count)
-				{
-					node = p;
-					p = p._parent;
-					lastPosition = node._parentIndex;
-				}
-				return (p, lastPosition);
-			}
-			else if (p is not null)
-			{
-				return (LeftmostNode(p), 0);
-			}
-			else
-			{
-				return (node, lastPosition);
-			}
-		}
-
-		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
-		{
-			int position = 0;
-			Node? nextnode = LeftmostNode(this);
-			do
-			{
-				Node node = nextnode;
-				if (step.Invoke(node._values[position]) is Break)
-				{
-					return Break;
-				}
-				(nextnode, position) = NextNode(node, position);
-			} while (nextnode is not null);
-			return Break;
-		}
 	}
 
 	#endregion
@@ -121,7 +66,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	public BTreeLinked(byte maxdegree, TCompare compare = default)
 	{
 		if (maxdegree < 4) throw new ArgumentException("Maximum degree should be at least 4", nameof(maxdegree));
-		else if (maxdegree % 2 is not 0) throw new ArgumentException("Maximum degree should be an even number", nameof(maxdegree));
+		if (maxdegree % 2 is not 0) throw new ArgumentException("Maximum degree should be an even number", nameof(maxdegree));
 		_root = new(maxdegree);
 		_count = 0;
 		_maxDegree = maxdegree;
@@ -207,7 +152,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	/// <param name="value">value to add</param>
 	/// <param name="node">The node in which the value is to be added</param>
 	/// <returns>returns true if addition was successful. If a duplicate is found, addition fails and the method returns false</returns>
-	internal bool TryAdd(T value, Node node)
+	internal (bool Success, Exception? Exception) TryAdd(T value, Node node)
 	{
 		int index = 0;
 		if (node._count > 0)
@@ -217,7 +162,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 				CompareResult c = Compare.Invoke(node._values[index], value);
 				if (c is Equal)
 				{
-					return false;
+					return (false, new ArgumentException($"Adding to add a duplicate value to an {nameof(BTreeLinked<T, TCompare>)}: {value}.", nameof(value)));
 				}
 				else if (c is Greater)
 				{
@@ -232,7 +177,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 		node._values[index] = value;
 		node._count++;
 		_count++;
-		return true;
+		return (true, default);
 	}
 
 	/// <summary>
@@ -306,13 +251,8 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 		}
 	}
 
-	/// <summary>
-	/// Adds a unique element to the tree. <br/> Top down insertion
-	/// </summary>
-	/// <param name="value">The element to add</param>
-	/// <returns>if element is already present in tree,
-	/// additon fails and returns false. Otherwise returns true</returns>
-	public bool TryAdd(T value)
+	/// <inheritdoc />
+	public (bool Success, Exception? Exception) TryAdd(T value)
 	{
 		if (_root.IsFull)
 		{
@@ -328,7 +268,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 			{
 				if (c is Equal)
 				{
-					return false;
+					return (false, new ArgumentException($"Adding to add a duplicate value to an {nameof(BTreeLinked<T, TCompare>)}: {value}.", nameof(value)));
 				}
 				i++;
 			}
@@ -341,24 +281,24 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 				{
 					case Greater: child = node._children[i];     break;
 					case Less:    child = node._children[i + 1]; break;
-					case Equal: return false;
+					case Equal: return (false, new ArgumentException($"Adding to add a duplicate value to an {nameof(BTreeLinked<T, TCompare>)}: {value}.", nameof(value)));
 				}
 			}
-			node = child ?? throw new Exception("Expected a non-null internal node, but found a null node");
+			if (child is null)
+			{
+				return (false, new CorruptedDataStructureException("Expected a non-null internal node, but found a null node"));
+			}
+			node = child;
 		}
 		return TryAdd(value, node);
 	}
 
-	/// <summary>
-	/// Searches and removes the value in the tree if it exists. <br/> Top down deletion
-	/// </summary>
-	/// <param name="value">value to remove</param>
-	/// <returns>true on successful deletion, otherwise false</returns>
-	public bool Remove(T value)
+	/// <inheritdoc />
+	public (bool Success, Exception? Exception) TryRemove(T value)
 	{
 		if (_count is 0)
 		{
-			return false;
+			return (false, new ArgumentException($"Attempting to remove a non-existing entry: {value}.", nameof(value)));
 		}
 		Node? node = _root;
 		Node? child;
@@ -386,7 +326,10 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 					{
 						Node? lc = node._children[i];
 						Node? rc = node._children[i + 1];
-						if (lc is null || rc is null) throw new Exception("Found null children of an internal node!");
+						if (lc is null || rc is null)
+						{
+							return (false, new CorruptedDataStructureException("Found null children of an internal node!"));
+						}
 						if (lc._count >= t) // CASE 2a
 						{
 							do
@@ -421,8 +364,14 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 							for (p = i + 1, q = p + 1; q <= node._count; p++, q++)
 							{
 								child = node._children[p] = node._children[q];
-								if (child is not null) child._parentIndex = (byte)p;
-								else throw new Exception("Found null children of an internal node!");
+								if (child is not null)
+								{
+									child._parentIndex = (byte)p;
+								}
+								else
+								{
+									return (false, new CorruptedDataStructureException("Found null children of an internal node!"));
+								}
 							}
 							node._children[p] = null;
 							node._count--;
@@ -468,7 +417,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 			}
 			if (child is null)
 			{
-				return false; // Reached a leaf node, could not find value in the tree!
+				return (false, new ArgumentException($"Attempting to remove a non-existing entry: {value}.", nameof(value)));
 			}
 			else if (child._count < t)
 			{
@@ -573,7 +522,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 					}
 					else
 					{
-						throw new Exception("Found null children of an internal node!");
+						return (false, new CorruptedDataStructureException("Found null children of an internal node!"));
 					}
 					for (k = child._parentIndex + 1; k < node._count; k++)
 					{
@@ -598,7 +547,7 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 			node = child;
 		} while (node is not null);
 		_count--;
-		return true;
+		return (true, default);
 	}
 
 	/// <inheritdoc />
@@ -609,9 +558,49 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 			return Array.Empty<T>();
 		}
 		T[] array = new T[_count];
-		FillArray<T> action = array;
-		this.Stepper(action);
+		this.Stepper<T, FillArray<T>>(array);
 		return array;
+	}
+
+	internal static Node LeftmostNode(Node node)
+	{
+		Node? leftChild = node._children[0];
+		while (leftChild is not null)
+		{
+			node = leftChild;
+			leftChild = node._children[0];
+		}
+		return node;
+	}
+
+	/// <summary>Given a value's index in a node, returns the node and index of the value which is next to the given value.</summary>
+	/// <param name="node">The node in which the current value is contained</param>
+	/// <param name="index">The index of the value within the node</param>
+	/// <returns>The node and index of the next value</returns>
+	internal static (Node? Node, int Index) NextNode(Node node, int index)
+	{
+		index++;
+		Node? p = node._children[index];
+		if (index >= node._count && p is null)
+		{
+			index = node._parentIndex;
+			p = node._parent;
+			while (p is not null && index == p._count)
+			{
+				node = p;
+				p = p._parent;
+				index = node._parentIndex;
+			}
+			return (p, index);
+		}
+		else if (p is not null)
+		{
+			return (LeftmostNode(p), 0);
+		}
+		else
+		{
+			return (node, index);
+		}
 	}
 
 	/// <inheritdoc />
@@ -619,14 +608,14 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	{
 		if (_count > 0)
 		{
-			int pos = 0;
+			int index = 0;
 			Node node;
-			Node? nextnode = Node.LeftmostNode(_root);
+			Node? nextnode = LeftmostNode(_root);
 			do
 			{
 				node = nextnode;
-				yield return node._values[pos];
-				(nextnode, pos) = Node.NextNode(node, pos);
+				yield return node._values[index];
+				(nextnode, index) = NextNode(node, index);
 			} while (nextnode is not null);
 		}
 		yield break;
@@ -635,13 +624,30 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
 
 	/// <inheritdoc />
-	public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<T, StepStatus>
 	{
 		if (_count is 0)
 		{
 			return Continue;
 		}
-		return _root.StepperBreak(step);
+		return StepperBreak(_root, step);
+	}
+
+	internal StepStatus StepperBreak<TStep>(Node start, TStep step = default)
+		where TStep : struct, IFunc<T, StepStatus>
+	{
+		int index = 0;
+		Node? node = LeftmostNode(start);
+		do
+		{
+			if (step.Invoke(node._values[index]) is Break)
+			{
+				return Break;
+			}
+			(node, index) = NextNode(node!, index);
+		} while (node is not null);
+		return Continue;
 	}
 
 	#endregion
