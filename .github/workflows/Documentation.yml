@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: dotnet test
-      run: dotnet test --collect:"XPlat Code Coverage"
+      run: dotnet test --collect:"XPlat Code Coverage" /nowarn:cs1030
     - name: find coverage.cobertura.xml path
       run: find . -print | grep -i 'coverage.cobertura.xml' > COVERAGEPATH.txt
     - name: move coverage.cobertura.xml file
