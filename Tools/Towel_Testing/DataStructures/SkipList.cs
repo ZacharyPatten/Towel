@@ -183,5 +183,63 @@ namespace Towel_Testing.DataStructures
 			int[] actual = list.ToArray();
 			CollectionAssert.AreEqual(arr, actual);
 		}
+		[TestMethod]
+		public void EmptyIterationTest_1()
+		{
+			SkipList<int> list = new(5);
+			CollectionAssert.AreEqual(Array.Empty<int>(), list.ToArray());
+		}
+		[TestMethod]
+		public void EmptyIterationTest_2()
+		{
+			SkipList<int> list = new(5);
+			foreach (var _ in list)
+			{
+				Assert.Fail();
+			}
+		}
+		[TestMethod]
+		public void EmptyIterationTest_3()
+		{
+			SkipList<int> list = new(5);
+			int[] x = RandomIntArray(100, 1000000);
+			foreach (var item in x)
+			{
+				list.Add(item);
+			}
+			foreach (var item in x)
+			{
+				Assert.IsTrue(list.Remove(item));
+			}
+			CollectionAssert.AreEqual(Array.Empty<int>(), list.ToArray());
+		}
+		[TestMethod]
+		public void EmptyIterationTest_4()
+		{
+			SkipList<int> list = new(5);
+			int[] x = RandomIntArray(100, 1000000);
+			foreach (var item in x)
+			{
+				list.Add(item);
+			}
+			foreach (var item in x)
+			{
+				Assert.IsTrue(list.Remove(item));
+			}
+			foreach (var _ in list)
+			{
+				Assert.Fail();
+			}
+		}
+		public static int[] RandomIntArray(int size, int max)
+		{
+			int[] array = new int[size];
+			Random r = new();
+			for (int i = 0; i < size; i++)
+			{
+				array[i] = r.Next(max);
+			}
+			return array;
+		}
 	}
 }
