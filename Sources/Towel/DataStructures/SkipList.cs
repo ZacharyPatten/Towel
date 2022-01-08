@@ -50,7 +50,12 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to search</param>
 		/// <param name="node">The output node</param>
 		/// <param name="links">The previous nodes on the search path</param>
-		/// <param name="quick">Performs search with incomplete previous links</param>
+		/// <param name="quick">If true performs search with previous links
+		/// partially initialized. <br/>
+		/// This is faster since as soon as the node with the given value is
+		/// found, the search terminates. <br/>
+		/// If false, all the previous links are prepared.
+		/// </param>
 		/// <returns>true on successful search, false otherwise</returns>
 		internal bool Search(T value, out SkipListNode? node, out SkipListNode[] links, bool quick = false)
 		{
@@ -77,7 +82,7 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to search</param>
 		/// <returns>Returns true if search is successful, otherwise false</returns>
-		public bool Search(T value) => Search(value, out var _, out var _, true); //Perform quick search
+		public bool Search(T value) => Search(value, out var _, out var _, true); // Perform quick search
 		internal (SkipListNode? Node, SkipListNode[] prevs) SearchNext<TPredicate>(SkipListNode[]? prev = null, TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
 			if (prev == null)
@@ -107,9 +112,19 @@ namespace Towel.DataStructures
 		/// <param name="value">The value to add</param>
 		public void Add(T value)
 		{
-			Search(value, out var _, out var links);
+			Search(value, out var x, out var links, true); // Perfrom quick search
 			SkipListNode node = RandomLevelNode(value);
-			for (int i = node.Level - 1; i >= 0; i--)
+			int i = 0, nl = node.Level;
+			if (x != null) // Since prev is incomplete, the remaining data is obtained from x
+			{
+				int xl = x.Level;
+				for (; i < xl && i < nl; i++)
+				{
+					node.Next[i] = x.Next[i];
+					x.Next[i] = node;
+				}
+			} // If x is not found, then prev is complete
+			for (; i < nl; i++)
 			{
 				node.Next[i] = links[i].Next[i];
 				links[i].Next[i] = node;
@@ -132,7 +147,7 @@ namespace Towel.DataStructures
 		/// <returns>True if item is found and removed, otherwise false</returns>
 		public bool Remove(T value)
 		{
-			Search(value, out var node, out var links);
+			Search(value, out var node, out var links, false); // Need to do slow search only here
 			if (node != null)
 			{
 				Remove(node, links);
