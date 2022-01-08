@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-using static Towel.Statics;
+﻿using System.Threading;
 
 namespace Towel_Testing
 {

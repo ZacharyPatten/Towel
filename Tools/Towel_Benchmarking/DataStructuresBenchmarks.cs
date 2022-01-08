@@ -1,9 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
-using Towel;
-using Towel.DataStructures;
-using static Towel.Statics;
-
-namespace Towel_Benchmarking
+﻿namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Data Structures")]
 	[Tag(Program.OutputFile, nameof(DataStructuresBenchmarks))]

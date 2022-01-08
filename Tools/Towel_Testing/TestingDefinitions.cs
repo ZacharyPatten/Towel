@@ -1,8 +1,4 @@
-﻿using System;
-using Towel;
-using static Towel.Statics;
-
-namespace Towel_Testing
+﻿namespace Towel_Testing
 {
 	#region TestingRandom
 

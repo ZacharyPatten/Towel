@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>Polymorphism base for all data structures in Towel.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>

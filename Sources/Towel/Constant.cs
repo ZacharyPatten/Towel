@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq.Expressions;
-using static Towel.Statics;
+﻿using System.Linq.Expressions;
 
 #pragma warning disable IDE1006 // Naming Styles
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Represents an exception in mathematical computation.</summary>
 	public class MathematicsException : Exception

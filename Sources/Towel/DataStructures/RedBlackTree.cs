@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>A self sorting binary tree using the red-black tree algorithms.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>

@@ -1,11 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Towel;
-using static Towel.Statics;
-
-namespace Towel_Generating
+﻿namespace Towel_Generating
 {
 	public static class MeasurementTypesGenerator
 	{

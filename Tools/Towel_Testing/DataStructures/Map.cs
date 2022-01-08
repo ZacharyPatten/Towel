@@ -1,10 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-using Towel.DataStructures;
-using static Towel.Statics;
-
-namespace Towel_Testing.DataStructures
+﻿namespace Towel_Testing.DataStructures
 {
 	[TestClass]
 	public class MapHashLinked_Testing

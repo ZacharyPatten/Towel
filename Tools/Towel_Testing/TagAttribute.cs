@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
+﻿using System.Reflection;
 
 namespace Towel_Testing
 {

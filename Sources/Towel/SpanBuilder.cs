@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Represents a <see cref="Span{T}"/> in the process of being initialized.</summary>
 	/// <typeparam name="T">The type of values in the <see cref="Span{T}"/>.</typeparam>

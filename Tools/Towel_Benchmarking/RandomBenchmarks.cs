@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using BenchmarkDotNet.Attributes;
-using Towel;
-
-namespace Towel_Benchmarking
+﻿namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Weighted Random")]
 	[Tag(Program.OutputFile, nameof(WeightedRandomBenchmarks))]

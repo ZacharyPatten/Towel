@@ -1,9 +1,4 @@
-﻿using System;
-using BenchmarkDotNet.Attributes;
-using Towel;
-using static Towel.Statics;
-
-namespace Towel_Benchmarking
+﻿namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Span vs Array Sorting")]
 	[Tag(Program.OutputFile, nameof(SpanVsArraySortingBenchmarks))]

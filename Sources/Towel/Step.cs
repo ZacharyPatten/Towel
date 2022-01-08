@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Status of iteration.</summary>
 	public enum StepStatus

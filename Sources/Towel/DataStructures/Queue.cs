@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>Implements First-In-First-Out queue data structure.</summary>
 	/// <typeparam name="T">The generic type within the structure.</typeparam>

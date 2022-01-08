@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel.Mathematics;
-
-namespace Towel_Testing.Mathematics
+﻿namespace Towel_Testing.Mathematics
 {
 	[TestClass]
 	public class Symbolics_Testing

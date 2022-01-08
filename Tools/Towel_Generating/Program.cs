@@ -1,8 +1,5 @@
-﻿using System;
-using System.IO;
-using Towel;
+﻿using System.IO;
 using static Towel.CommandLine;
-using static Towel.Statics;
 
 namespace Towel_Generating
 {

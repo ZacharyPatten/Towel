@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>An unsorted structure of unique items.</summary>
 	/// <typeparam name="T">The type of values to store in the set.</typeparam>

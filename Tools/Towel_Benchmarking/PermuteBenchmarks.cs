@@ -1,8 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
-using Towel;
-using static Towel.Statics;
-
-namespace Towel_Benchmarking
+﻿namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Permute")]
 	[Tag(Program.OutputFile, nameof(PermuteBenchmarks))]

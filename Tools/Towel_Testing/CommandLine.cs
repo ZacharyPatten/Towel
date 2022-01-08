@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Towel.CommandLine;
 
 namespace Towel_Testing

@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Static helper methods for arrays.</summary>
 	public static class ArrayHelper

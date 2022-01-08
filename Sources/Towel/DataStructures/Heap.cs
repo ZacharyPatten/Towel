@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>Stores items based on priorities and allows access to the highest priority item.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>

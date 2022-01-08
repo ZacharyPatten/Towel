@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-using BenchmarkDotNet.Attributes;
-using Towel;
-using static Towel.Statics;
-
-namespace Towel_Benchmarking
+﻿namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Random With Exclusions")]
 	[Tag(Program.OutputFile, nameof(RandomWithExclusionsBenchmarks))]

@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-
-namespace Towel_Testing
+﻿namespace Towel_Testing
 {
 	[TestClass]
 	public class Serialization_Testing

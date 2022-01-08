@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Contains static helper methods for <see cref="Console"/>.</summary>
 	public static class ConsoleHelper

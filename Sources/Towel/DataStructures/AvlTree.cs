@@ -1,8 +1,4 @@
-﻿using System;
-using Towel;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>A self-sorting binary tree based on the heights of each node.</summary>
 	/// <typeparam name="T">The type of values stored in this data structure.</typeparam>

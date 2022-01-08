@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
-using Towel.Measurements;
-using static Towel.Statics;
 
 namespace Towel.Mathematics
 {

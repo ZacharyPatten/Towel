@@ -1,7 +1,4 @@
-﻿using System;
-using Towel.Measurements;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics

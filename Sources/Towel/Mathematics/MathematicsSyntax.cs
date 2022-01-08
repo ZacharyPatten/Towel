@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.Mathematics
+﻿namespace Towel.Mathematics
 {
 	/// <summary>Contains static methods for mathematics syntax.</summary>
 	public static class MathematicsSyntax

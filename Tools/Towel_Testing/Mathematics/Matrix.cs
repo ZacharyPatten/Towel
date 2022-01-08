@@ -1,9 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-using Towel.Mathematics;
-
-namespace Towel_Testing.Mathematics
+﻿namespace Towel_Testing.Mathematics
 {
 	[TestClass]
 	public class Matrix_Testing

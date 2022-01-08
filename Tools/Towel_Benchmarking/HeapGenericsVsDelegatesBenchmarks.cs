@@ -1,9 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using BenchmarkDotNet.Attributes;
-using Towel;
-using Towel.DataStructures;
-using static Towel.Statics;
+﻿using System.Runtime.CompilerServices;
 
 namespace Towel_Benchmarking
 {

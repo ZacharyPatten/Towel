@@ -1,10 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Towel.DataStructures;
-using static Towel.Statics;
 
 namespace Towel.Mathematics
 {

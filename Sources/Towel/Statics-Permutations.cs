@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics

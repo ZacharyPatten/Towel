@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-using Towel.DataStructures;
-
-namespace Towel_Testing.DataStructures
+﻿namespace Towel_Testing.DataStructures
 {
 	public static class IList_Testing
 	{

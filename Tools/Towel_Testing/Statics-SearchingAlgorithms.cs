@@ -1,9 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-using static Towel.Statics;
-
-namespace Towel_Testing
+﻿namespace Towel_Testing
 {
 	// [TestClass]
 	public partial class Statics_Testing

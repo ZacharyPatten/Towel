@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel.DataStructures;
-
-namespace Towel_Testing.DataStructures
+﻿namespace Towel_Testing.DataStructures
 {
 	[TestClass]
 	public class Link_Testing

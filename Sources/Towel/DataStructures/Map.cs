@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>A map between instances of two types. The polymorphism base for Map implementations in Towel.</summary>
 	/// <typeparam name="T">The generic type to be stored in this data structure.</typeparam>

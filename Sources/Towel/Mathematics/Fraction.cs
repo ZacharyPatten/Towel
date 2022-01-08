@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.Mathematics
+﻿namespace Towel.Mathematics
 {
 	/// <summary>Represents a rational value with a numerator and a denominator.</summary>
 	/// <typeparam name="T">The type of the numerator and denominator.</typeparam>

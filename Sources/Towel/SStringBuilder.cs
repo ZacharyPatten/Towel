@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using Towel;
-using static Towel.Statics;
+﻿using System.Text;
 
 namespace Towel_Testing
 {

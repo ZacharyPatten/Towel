@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using BenchmarkDotNet.Attributes;
-using Towel;
+﻿using System.Threading;
 
 namespace Towel_Benchmarking
 {

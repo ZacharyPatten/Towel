@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>A primitive dynamic sized data structure.</summary>
 	/// <typeparam name="T">The type of items to store in the list.</typeparam>

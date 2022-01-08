@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using Towel.DataStructures;
-
-namespace Towel
+﻿namespace Towel
 {
 	/// <summary>Root type of the static functional methods in Towel.</summary>
 	public static partial class Statics

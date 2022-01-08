@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>Extension methods for <see cref="ITrie{T}"/> and <see cref="ITrie{T, D}"/>.</summary>
 	public static class Trie

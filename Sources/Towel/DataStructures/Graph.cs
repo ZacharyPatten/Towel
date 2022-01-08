@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>Static helpers for <see cref="IGraph{T}"/>.</summary>
 	public static class Graph

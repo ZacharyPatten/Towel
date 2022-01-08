@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel.Measurements;
-
-namespace Towel_Testing.Measurements
+﻿namespace Towel_Testing.Measurements
 {
 	[TestClass]
 	public class Time_Testing

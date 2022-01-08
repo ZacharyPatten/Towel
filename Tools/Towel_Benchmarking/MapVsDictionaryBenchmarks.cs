@@ -1,9 +1,4 @@
-﻿using System;
-using BenchmarkDotNet.Attributes;
-using Towel;
-using Towel.DataStructures;
-
-namespace Towel_Benchmarking
+﻿namespace Towel_Benchmarking
 {
 	[Tag(Program.Name, "Map vs Dictionary (Add)")]
 	[Tag(Program.OutputFile, nameof(MapVsDictionaryAddBenchmarks))]

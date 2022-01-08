@@ -1,7 +1,4 @@
-﻿using System;
-using static Towel.Statics;
-
-namespace Towel.DataStructures
+﻿namespace Towel.DataStructures
 {
 	/// <summary>A generic tree data structure.</summary>
 	/// <typeparam name="T">The generic type stored in this data structure.</typeparam>

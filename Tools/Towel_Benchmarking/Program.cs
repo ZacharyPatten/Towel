@@ -1,11 +1,8 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using BenchmarkDotNet.Running;
-using Towel;
 using static Towel.CommandLine;
-using static Towel.Statics;
 
 namespace Towel_Benchmarking
 {

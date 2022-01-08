@@ -1,11 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-using Towel.Mathematics;
-using Towel.Measurements;
-using static Towel.Statics;
-
-namespace Towel_Testing.Mathematics
+﻿namespace Towel_Testing.Mathematics
 {
 	[TestClass]
 	public class Vector_Testing
