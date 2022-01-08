@@ -1,42 +1,36 @@
-using System;
 using System.Collections;
-
 namespace Towel.DataStructures
 {
-	/// <summary>
-	/// A node within the SkipList
-	/// </summary>
-	/// <typeparam name="T">The type of data elements within the list</typeparam>
-	internal class SkipListNode<T> : ISteppable<T> where T : IComparable<T>
-	{
-		internal T Data;
-		internal SkipListNode<T>?[] Next;
-		public byte Level => (byte)Next.Length;
-		public SkipListNode(byte length, T data)
-		{
-			Data = data;
-			Next = new SkipListNode<T>[length];
-		}
-		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
-		{
-			SkipListNode<T>? node = Next[0];
-			while (node != null)
-			{
-				step.Invoke(node.Data);
-				node = node.Next[0];
-			}
-			return StepStatus.Break;
-		}
-	}
 	/// <summary>
 	/// SkipList Data structure
 	/// </summary>
 	/// <typeparam name="T">The type of data elements within the list</typeparam>
 	public class SkipList<T> : IList<T> where T : IComparable<T>
 	{
+		internal class SkipListNode
+		{
+			internal T Data;
+			internal SkipListNode?[] Next;
+			public byte Level => (byte)Next.Length;
+			public SkipListNode(byte length, T data)
+			{
+				Data = data;
+				Next = new SkipListNode[length];
+			}
+			public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus>
+			{
+				SkipListNode? node = Next[0];
+				while (node != null)
+				{
+					step.Invoke(node.Data);
+					node = node.Next[0];
+				}
+				return StepStatus.Break;
+			}
+		}
 		/// <inheritdoc/>
 		public int Count { get; internal set; }
-		internal SkipListNode<T> Front;
+		internal SkipListNode Front;
 		/// <summary> The levels of lists within this list </summary>
 		public readonly byte Levels;
 		/// <summary> Creates a new SkipList object</summary>
@@ -45,7 +39,7 @@ namespace Towel.DataStructures
 		{
 			if (levels <= 1) throw new ArgumentException("SkipList must have at least 2 levels", nameof(levels));
 			Levels = levels;
-			Front = new SkipListNode<T>(Levels, default!);
+			Front = new SkipListNode(Levels, default!);
 			Count = 0;
 		}
 		/// <summary>
@@ -58,11 +52,11 @@ namespace Towel.DataStructures
 		/// <param name="links">The previous nodes on the search path</param>
 		/// <param name="quick">Performs search with incomplete previous links</param>
 		/// <returns>true on successful search, false otherwise</returns>
-		internal bool Search(T value, out SkipListNode<T>? node, out SkipListNode<T>[] links, bool quick=false)
+		internal bool Search(T value, out SkipListNode? node, out SkipListNode[] links, bool quick = false)
 		{
 			node = Front;
-			links = new SkipListNode<T>[Levels];
-			SkipListNode<T>? x;
+			links = new SkipListNode[Levels];
+			SkipListNode? x;
 			int c;
 			for (c = 0; c < Levels; c++) links[c] = Front;
 			int next = Levels - 1;
@@ -83,15 +77,15 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to search</param>
 		/// <returns>Returns true if search is successful, otherwise false</returns>
-		public bool Search(T value) => Search(value, out var _, out var _, true);
-		internal (SkipListNode<T>? Node, SkipListNode<T>[] prevs) SearchNext<TPredicate>(SkipListNode<T>[]? prev = null, TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
+		public bool Search(T value) => Search(value, out var _, out var _, true); //Perform quick search
+		internal (SkipListNode? Node, SkipListNode[] prevs) SearchNext<TPredicate>(SkipListNode[]? prev = null, TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
 			if (prev == null)
 			{
-				prev = new SkipListNode<T>[Levels];
+				prev = new SkipListNode[Levels];
 				for (int i = 0; i < Levels; i++) prev[i] = Front;
 			}
-			SkipListNode<T>? node = prev[0].Next[0];
+			SkipListNode? node = prev[0].Next[0];
 			while (node != null)
 			{
 				if (predicate.Invoke(node.Data)) break;
@@ -100,7 +94,7 @@ namespace Towel.DataStructures
 			}
 			return (node, prev);
 		}
-		internal SkipListNode<T> RandomLevelNode(T value)
+		internal SkipListNode RandomLevelNode(T value)
 		{
 			Random r = new();
 			byte l = 1;
@@ -114,7 +108,7 @@ namespace Towel.DataStructures
 		public void Add(T value)
 		{
 			Search(value, out var _, out var links);
-			SkipListNode<T> node = RandomLevelNode(value);
+			SkipListNode node = RandomLevelNode(value);
 			for (int i = node.Level - 1; i >= 0; i--)
 			{
 				node.Next[i] = links[i].Next[i];
@@ -122,7 +116,7 @@ namespace Towel.DataStructures
 			}
 			Count++;
 		}
-		internal void Remove(SkipListNode<T> node, SkipListNode<T>[] prev)
+		internal void Remove(SkipListNode node, SkipListNode[] prev)
 		{
 			for (int i = node.Level - 1; i >= 0; i--)
 			{
@@ -150,7 +144,7 @@ namespace Towel.DataStructures
 		public void Clear()
 		{
 			Count = 0;
-			for (byte c = 0; c < Levels; c++) Front.Next[c] = null; //Can GC Clean this???
+			for (byte c = 0; c < Levels; c++) Front.Next[c] = null;
 		}
 		/// <summary>
 		/// Enumerates the SkipList
@@ -158,7 +152,7 @@ namespace Towel.DataStructures
 		/// <returns>Enumerator</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			SkipListNode<T>? node = Front.Next[0];
+			SkipListNode? node = Front.Next[0];
 			while (node != null)
 			{
 				yield return node.Data;
@@ -168,8 +162,8 @@ namespace Towel.DataStructures
 		/// <inheritdoc/>
 		public void RemoveAll<TPredicate>(TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
-			SkipListNode<T>[]? links = null;
-			SkipListNode<T>? node;
+			SkipListNode[]? links = null;
+			SkipListNode? node;
 			(node, links) = SearchNext(links, predicate);
 			while (node != null)
 			{
