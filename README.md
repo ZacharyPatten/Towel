@@ -701,6 +701,42 @@
 > 
 > <details>
 > <summary>
+> :page_facing_up: SkipList <sub>[Expand]</sub>
+> </summary>
+> <p>
+> 
+> > ```cs
+> > // A skip list is a probabilistic data structure that stores data 
+> > // similar to a Linked List, but has additional layers which allow
+> > // the list to perform basic operations (add/search/delete) in 
+> > // O(log n) average complexity
+> > 
+> > SkipList<int, SFunc<int, int, CompareResult>>? list = SkipList.New<int>(5); // create a list with 5 levels
+> > list.Add(60);
+> > list.Add(20);
+> > list.Add(30);
+> > list.Add(40);
+> > list.Add(20);
+> > list.Add(90);
+> > list.Add(80);
+> > // #-------------------->|  |----------------------------------NULL
+> > // #-------------------->|  |--------------------------->|  |--NULL
+> > // # ------------------->|  |------------------->|  |--->|  |--NULL
+> > // # ----------->|  |--->|  |--->|  |----------->|  |--->|  |--NULL
+> > // # --->|20|--->|20|--->|30|--->|40|--->|60|--->|80|--->|90|--NULL
+> > // 
+> > // PS: SkipList nodes are assigned levels randomly, so this is one of the possible configurations obtainable
+> > bool result;
+> > result = list.Contains(40); //result = true
+> > list.Remove(40); // result = (true, null)
+> > result = list.Contains(40); //result = false
+> > ```
+> 
+> </p>
+> </details>
+> 
+> <details>
+> <summary>
 > :page_facing_up: Trie <sub>[Expand]</sub>
 > </summary>
 > <p>
