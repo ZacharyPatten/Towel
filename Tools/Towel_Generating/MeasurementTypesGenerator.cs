@@ -1,12 +1,12 @@
-﻿namespace Towel_Generating
-{
-	public static class MeasurementTypesGenerator
-	{
-		public static string Run()
-		{
-			throw new NotImplementedException("still under development");
+﻿namespace Towel_Generating;
 
-			#if false
+public static class MeasurementTypesGenerator
+{
+	public static string Run()
+	{
+		throw new NotImplementedException("still under development");
+
+#if false
 
 			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath())!, "..", ".."), sourcefilepath());
 
@@ -1436,7 +1436,6 @@
 			//}
 			return code.ToString();
 
-			#endif
-		}
+#endif
 	}
 }

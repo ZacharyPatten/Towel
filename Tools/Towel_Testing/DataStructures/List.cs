@@ -1,148 +1,147 @@
-﻿namespace Towel_Testing.DataStructures
-{
-	public static class IList_Testing
-	{
-		internal static void Populate<T, TList>(this TList list, int count, Func<int, T> func)
-			where TList : IList<T>, new()
-		{
-			Assert.IsTrue(list.Count is 0);
-			for (int i = 0; i < count; i++)
-			{
-				list.Add(func(i));
-				Assert.IsTrue(list.Count == i + 1);
-				bool contains = false;
-				list.Stepper(x => contains = contains || x!.Equals(func(i)));
-				Assert.IsTrue(contains);
-			}
-			Assert.IsTrue(list.Count == count);
-		}
+﻿namespace Towel_Testing.DataStructures;
 
-		public static void Add_Testing<T, TList>(int count, Func<int, T> func)
-			where TList : IList<T>, new()
+public static class IList_Testing
+{
+	internal static void Populate<T, TList>(this TList list, int count, Func<int, T> func)
+		where TList : IList<T>, new()
+	{
+		Assert.IsTrue(list.Count is 0);
+		for (int i = 0; i < count; i++)
 		{
+			list.Add(func(i));
+			Assert.IsTrue(list.Count == i + 1);
+			bool contains = false;
+			list.Stepper(x => contains = contains || x!.Equals(func(i)));
+			Assert.IsTrue(contains);
+		}
+		Assert.IsTrue(list.Count == count);
+	}
+
+	public static void Add_Testing<T, TList>(int count, Func<int, T> func)
+		where TList : IList<T>, new()
+	{
+		TList list = new();
+		list.Populate(count, func);
+	}
+
+	public static void RemoveFirst_Testing<T, TList>(int count, Func<int, T> func)
+		where TList : IList<T>, new()
+	{
+		{ // removing from the front of the list
 			TList list = new();
 			list.Populate(count, func);
-		}
-
-		public static void RemoveFirst_Testing<T, TList>(int count, Func<int, T> func)
-			where TList : IList<T>, new()
-		{
-			{ // removing from the front of the list
-				TList list = new();
-				list.Populate(count, func);
-				for (int i = 0; i < count; i++)
-				{
-					list.RemoveFirst(func(i));
-					bool contains = false;
-					list.Stepper(x => contains = contains || x!.Equals(func(i)));
-					Assert.IsFalse(contains);
-				}
-				Assert.IsTrue(list.Count == 0);
-			}
-			{ // removing from the end of the list
-				TList list = new();
-				list.Populate(count, func);
-				for (int i = count - 1; i >= 0; i--)
-				{
-					list.RemoveFirst(func(i));
-					bool contains = false;
-					list.Stepper(x => contains = contains || x!.Equals(func(i)));
-					Assert.IsFalse(contains);
-				}
-				Assert.IsTrue(list.Count == 0);
-			}
-			{ // removing every third value
-				TList list = new();
-				list.Populate(count, func);
-				for (int i = 0; i < count; i += 3)
-				{
-					list.RemoveFirst(func(i));
-					bool contains = false;
-					list.Stepper(x => contains = contains || x!.Equals(func(i)));
-					Assert.IsFalse(contains);
-				}
-				Assert.IsTrue(list.Count == count / 3 * 2);
-			}
-			{ // removing from an empty list exception
-				TList list = new();
-				Assert.IsTrue(list.Count == 0);
-				Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(func(0)));
-			}
-			{ // removing non-existant value exception
-				TList list = new();
-				list.Populate(10, func);
-				Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(func(11)));
-			}
-		}
-
-		public static void RemoveAll_Testing<T, TList>(int count, params T[] values)
-			where TList : IList<T>, new()
-		{
+			for (int i = 0; i < count; i++)
 			{
-				TList list = new();
-				list.Populate(count, i => values[i % values.Length]);
-				bool Predicate(T x) => x!.Equals(values[0]);
-				int removals = list.Count(Predicate);
-				if (removals == 0)
-				{
-					throw new TowelBugException("Testing Error.");
-				}
-				int fullCount = list.Count;
-				list.RemoveAll(x => x!.Equals(values[0]));
-				int occurences = list.Count(Predicate);
-				Assert.IsTrue(occurences == 0);
-				Assert.IsTrue(list.Count == fullCount - removals);
+				list.RemoveFirst(func(i));
+				bool contains = false;
+				list.Stepper(x => contains = contains || x!.Equals(func(i)));
+				Assert.IsFalse(contains);
 			}
+			Assert.IsTrue(list.Count == 0);
+		}
+		{ // removing from the end of the list
+			TList list = new();
+			list.Populate(count, func);
+			for (int i = count - 1; i >= 0; i--)
+			{
+				list.RemoveFirst(func(i));
+				bool contains = false;
+				list.Stepper(x => contains = contains || x!.Equals(func(i)));
+				Assert.IsFalse(contains);
+			}
+			Assert.IsTrue(list.Count == 0);
+		}
+		{ // removing every third value
+			TList list = new();
+			list.Populate(count, func);
+			for (int i = 0; i < count; i += 3)
+			{
+				list.RemoveFirst(func(i));
+				bool contains = false;
+				list.Stepper(x => contains = contains || x!.Equals(func(i)));
+				Assert.IsFalse(contains);
+			}
+			Assert.IsTrue(list.Count == count / 3 * 2);
+		}
+		{ // removing from an empty list exception
+			TList list = new();
+			Assert.IsTrue(list.Count == 0);
+			Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(func(0)));
+		}
+		{ // removing non-existant value exception
+			TList list = new();
+			list.Populate(10, func);
+			Assert.ThrowsException<ArgumentException>(() => list.RemoveFirst(func(11)));
 		}
 	}
 
-	[TestClass]
-	public class ListArray_Testing
+	public static void RemoveAll_Testing<T, TList>(int count, params T[] values)
+		where TList : IList<T>, new()
 	{
-		[TestMethod]
-		public void Add_Testing()
 		{
-			IList_Testing.Add_Testing<int, ListArray<int>>(100, i => i);
-			IList_Testing.Add_Testing<string, ListArray<string>>(100, i => i.ToString());
-		}
-
-		[TestMethod]
-		public void RemoveFirst_Testing()
-		{
-			IList_Testing.RemoveFirst_Testing<int, ListArray<int>>(100, i => i);
-			IList_Testing.RemoveFirst_Testing<string, ListArray<string>>(100, i => i.ToString());
-		}
-
-		[TestMethod]
-		public void RemoveAll_Testing()
-		{
-			IList_Testing.RemoveAll_Testing<int, ListArray<int>>(100, 0, 1, 2, 3, 4, 5, 6, 7);
-			IList_Testing.RemoveAll_Testing<string, ListArray<string>>(100, "0", "1", "2", "3", "4", "5", "6", "7");
+			TList list = new();
+			list.Populate(count, i => values[i % values.Length]);
+			bool Predicate(T x) => x!.Equals(values[0]);
+			int removals = list.Count(Predicate);
+			if (removals == 0)
+			{
+				throw new TowelBugException("Testing Error.");
+			}
+			int fullCount = list.Count;
+			list.RemoveAll(x => x!.Equals(values[0]));
+			int occurences = list.Count(Predicate);
+			Assert.IsTrue(occurences == 0);
+			Assert.IsTrue(list.Count == fullCount - removals);
 		}
 	}
+}
 
-	[TestClass]
-	public class ListLinked_Testing
+[TestClass]
+public class ListArray_Testing
+{
+	[TestMethod]
+	public void Add_Testing()
 	{
-		[TestMethod]
-		public void Add_Testing()
-		{
-			IList_Testing.Add_Testing<int, ListLinked<int>>(100, i => i);
-			IList_Testing.Add_Testing<string, ListLinked<string>>(100, i => i.ToString());
-		}
+		IList_Testing.Add_Testing<int, ListArray<int>>(100, i => i);
+		IList_Testing.Add_Testing<string, ListArray<string>>(100, i => i.ToString());
+	}
 
-		[TestMethod]
-		public void RemoveFirst_Testing()
-		{
-			IList_Testing.RemoveFirst_Testing<int, ListLinked<int>>(100, i => i);
-			IList_Testing.RemoveFirst_Testing<string, ListLinked<string>>(100, i => i.ToString());
-		}
+	[TestMethod]
+	public void RemoveFirst_Testing()
+	{
+		IList_Testing.RemoveFirst_Testing<int, ListArray<int>>(100, i => i);
+		IList_Testing.RemoveFirst_Testing<string, ListArray<string>>(100, i => i.ToString());
+	}
 
-		[TestMethod]
-		public void RemoveAll_Testing()
-		{
-			IList_Testing.RemoveAll_Testing<int, ListLinked<int>>(100, 0, 1, 2, 3, 4, 5, 6, 7);
-			IList_Testing.RemoveAll_Testing<string, ListLinked<string>>(100, "0", "1", "2", "3", "4", "5", "6", "7");
-		}
+	[TestMethod]
+	public void RemoveAll_Testing()
+	{
+		IList_Testing.RemoveAll_Testing<int, ListArray<int>>(100, 0, 1, 2, 3, 4, 5, 6, 7);
+		IList_Testing.RemoveAll_Testing<string, ListArray<string>>(100, "0", "1", "2", "3", "4", "5", "6", "7");
+	}
+}
+
+[TestClass]
+public class ListLinked_Testing
+{
+	[TestMethod]
+	public void Add_Testing()
+	{
+		IList_Testing.Add_Testing<int, ListLinked<int>>(100, i => i);
+		IList_Testing.Add_Testing<string, ListLinked<string>>(100, i => i.ToString());
+	}
+
+	[TestMethod]
+	public void RemoveFirst_Testing()
+	{
+		IList_Testing.RemoveFirst_Testing<int, ListLinked<int>>(100, i => i);
+		IList_Testing.RemoveFirst_Testing<string, ListLinked<string>>(100, i => i.ToString());
+	}
+
+	[TestMethod]
+	public void RemoveAll_Testing()
+	{
+		IList_Testing.RemoveAll_Testing<int, ListLinked<int>>(100, 0, 1, 2, 3, 4, 5, 6, 7);
+		IList_Testing.RemoveAll_Testing<string, ListLinked<string>>(100, "0", "1", "2", "3", "4", "5", "6", "7");
 	}
 }

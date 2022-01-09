@@ -1,96 +1,95 @@
-﻿namespace Towel_Testing.DataStructures
+﻿namespace Towel_Testing.DataStructures;
+
+[TestClass]
+public class SetHashLinked_Testing
 {
-	[TestClass]
-	public class SetHashLinked_Testing
+	[TestMethod]
+	public void Add_Testing()
 	{
-		[TestMethod]
-		public void Add_Testing()
-		{
-			{ // int
-				const int count = 100000;
-				ISet<int> set = SetHashLinked.New<int>();
-				Iterate(count, i => set.Add(i));
-				set.Add(int.MinValue);
-				set.Add(int.MaxValue);
+		{ // int
+			const int count = 100000;
+			ISet<int> set = SetHashLinked.New<int>();
+			Iterate(count, i => set.Add(i));
+			set.Add(int.MinValue);
+			set.Add(int.MaxValue);
 
-				Iterate(count, i => Assert.IsTrue(set.Contains(i)));
-				Assert.IsTrue(set.Contains(int.MinValue));
-				Assert.IsTrue(set.Contains(int.MaxValue));
-				Assert.IsFalse(set.Contains(-1));
-				Assert.IsFalse(set.Contains(count));
+			Iterate(count, i => Assert.IsTrue(set.Contains(i)));
+			Assert.IsTrue(set.Contains(int.MinValue));
+			Assert.IsTrue(set.Contains(int.MaxValue));
+			Assert.IsFalse(set.Contains(-1));
+			Assert.IsFalse(set.Contains(count));
 
-				Assert.ThrowsException<ArgumentException>(() => set.Add(0));
-				Assert.ThrowsException<ArgumentException>(() => set.Add(int.MinValue));
-				Assert.ThrowsException<ArgumentException>(() => set.Add(int.MaxValue));
-			}
-
-			{ // string
-				const int count = 100000;
-				ISet<string> set = SetHashLinked.New<string>();
-				Iterate(count, i => set.Add(i.ToString()));
-				set.Add(int.MinValue.ToString());
-				set.Add(int.MaxValue.ToString());
-
-				Iterate(count, i => Assert.IsTrue(set.Contains(i.ToString())));
-				Assert.IsTrue(set.Contains(int.MinValue.ToString()));
-				Assert.IsTrue(set.Contains(int.MaxValue.ToString()));
-				Assert.IsFalse(set.Contains((-1).ToString()));
-				Assert.IsFalse(set.Contains(count.ToString()));
-
-				Assert.ThrowsException<ArgumentException>(() => set.Add(0.ToString()));
-				Assert.ThrowsException<ArgumentException>(() => set.Add(int.MinValue.ToString()));
-				Assert.ThrowsException<ArgumentException>(() => set.Add(int.MaxValue.ToString()));
-			}
+			Assert.ThrowsException<ArgumentException>(() => set.Add(0));
+			Assert.ThrowsException<ArgumentException>(() => set.Add(int.MinValue));
+			Assert.ThrowsException<ArgumentException>(() => set.Add(int.MaxValue));
 		}
 
-		[TestMethod]
-		public void Remove_Testing()
-		{
-			{ // int
-				const int count = 100000;
-				ISet<int> set = SetHashLinked.New<int>();
-				Iterate(count, i => set.Add(i));
-				for (int i = 0; i < count; i += 3)
-				{
-					set.Remove(i);
-				}
-				for (int i = 0; i < count; i++)
-				{
-					if (i % 3 == 0)
-					{
-						Assert.IsFalse(set.Contains(i));
-					}
-					else
-					{
-						Assert.IsTrue(set.Contains(i));
-					}
-				}
-				Assert.IsFalse(set.Contains(-1));
-				Assert.IsFalse(set.Contains(count));
-			}
+		{ // string
+			const int count = 100000;
+			ISet<string> set = SetHashLinked.New<string>();
+			Iterate(count, i => set.Add(i.ToString()));
+			set.Add(int.MinValue.ToString());
+			set.Add(int.MaxValue.ToString());
 
-			{ // string
-				const int count = 100000;
-				ISet<string> set = SetHashLinked.New<string>();
-				Iterate(count, i => set.Add(i.ToString()));
-				for (int i = 0; i < count; i += 3)
-				{
-					set.Remove(i.ToString());
-				}
-				for (int i = 0; i < count; i++)
-				{
-					if (i % 3 == 0)
-					{
-						Assert.IsFalse(set.Contains(i.ToString()));
-					}
-					else
-					{
-						Assert.IsTrue(set.Contains(i.ToString()));
-					}
-				}
-				Assert.IsFalse(set.Contains((-1).ToString()));
-				Assert.IsFalse(set.Contains(count.ToString()));
+			Iterate(count, i => Assert.IsTrue(set.Contains(i.ToString())));
+			Assert.IsTrue(set.Contains(int.MinValue.ToString()));
+			Assert.IsTrue(set.Contains(int.MaxValue.ToString()));
+			Assert.IsFalse(set.Contains((-1).ToString()));
+			Assert.IsFalse(set.Contains(count.ToString()));
+
+			Assert.ThrowsException<ArgumentException>(() => set.Add(0.ToString()));
+			Assert.ThrowsException<ArgumentException>(() => set.Add(int.MinValue.ToString()));
+			Assert.ThrowsException<ArgumentException>(() => set.Add(int.MaxValue.ToString()));
+		}
+	}
+
+	[TestMethod]
+	public void Remove_Testing()
+	{
+		{ // int
+			const int count = 100000;
+			ISet<int> set = SetHashLinked.New<int>();
+			Iterate(count, i => set.Add(i));
+			for (int i = 0; i < count; i += 3)
+			{
+				set.Remove(i);
 			}
+			for (int i = 0; i < count; i++)
+			{
+				if (i % 3 == 0)
+				{
+					Assert.IsFalse(set.Contains(i));
+				}
+				else
+				{
+					Assert.IsTrue(set.Contains(i));
+				}
+			}
+			Assert.IsFalse(set.Contains(-1));
+			Assert.IsFalse(set.Contains(count));
+		}
+
+		{ // string
+			const int count = 100000;
+			ISet<string> set = SetHashLinked.New<string>();
+			Iterate(count, i => set.Add(i.ToString()));
+			for (int i = 0; i < count; i += 3)
+			{
+				set.Remove(i.ToString());
+			}
+			for (int i = 0; i < count; i++)
+			{
+				if (i % 3 == 0)
+				{
+					Assert.IsFalse(set.Contains(i.ToString()));
+				}
+				else
+				{
+					Assert.IsTrue(set.Contains(i.ToString()));
+				}
+			}
+			Assert.IsFalse(set.Contains((-1).ToString()));
+			Assert.IsFalse(set.Contains(count.ToString()));
 		}
 	}
 }
