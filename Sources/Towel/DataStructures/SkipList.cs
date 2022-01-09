@@ -1,11 +1,27 @@
 using System.Collections;
 namespace Towel.DataStructures
 {
+	public static class SkipList
+	{
+		public static SkipList<T, SFunc<T, T, CompareResult>> New<T>(
+		byte maxDegree,
+		Func<T, T, CompareResult>? compare = null) =>
+		new(maxDegree, compare ?? Compare);
+	}
 	/// <summary>
 	/// SkipList Data structure
 	/// </summary>
 	/// <typeparam name="T">The type of data elements within the list</typeparam>
-	public class SkipList<T> : IList<T> where T : IComparable<T>
+	/// <typeparam name="TCompare">The type for comparing</typeparam>
+	public class SkipList<T, TCompare> : IList<T>,
+	IDataStructure<T>,
+	DataStructure.IAddable<T>,
+	DataStructure.IRemovable<T>,
+	DataStructure.ICountable,
+	DataStructure.IClearable,
+	DataStructure.IAuditable<T>,
+	DataStructure.IComparing<T, TCompare>
+	where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal class SkipListNode
 		{
@@ -30,17 +46,21 @@ namespace Towel.DataStructures
 		}
 		/// <inheritdoc/>
 		public int Count { get; internal set; }
-		internal SkipListNode Front;
+		TCompare DataStructure.IComparing<T, TCompare>.Compare => _compare;
+		private readonly TCompare _compare;
+		private readonly SkipListNode _front;
 		/// <summary> The levels of lists within this list </summary>
 		public readonly byte Levels;
 		/// <summary> Creates a new SkipList object</summary>
 		/// <param name="levels">The levels of lists within this list</param>
-		public SkipList(byte levels)
+		/// <param name="comp">The compare type for this list</param>
+		public SkipList(byte levels, TCompare comp = default)
 		{
 			if (levels <= 1) throw new ArgumentException("SkipList must have at least 2 levels", nameof(levels));
 			Levels = levels;
-			Front = new SkipListNode(Levels, default!);
+			_front = new SkipListNode(Levels, default!);
 			Count = 0;
+			_compare = comp;
 		}
 		/// <summary>
 		/// Searches for a value in the list.
@@ -59,18 +79,19 @@ namespace Towel.DataStructures
 		/// <returns>true on successful search, false otherwise</returns>
 		internal bool Search(T value, out SkipListNode? node, out SkipListNode[] links, bool quick = false)
 		{
-			node = Front;
+			node = _front;
 			links = new SkipListNode[Levels];
 			SkipListNode? x;
 			int c;
-			for (c = 0; c < Levels; c++) links[c] = Front;
+			for (c = 0; c < Levels; c++) links[c] = _front;
 			int next = Levels - 1;
+			CompareResult res;
 			do
 			{
 				links[next] = node;
 				x = node.Next[next];
-				if (x == null || (c = value.CompareTo(x.Data)) < 0) next--;
-				else if (c > 0) node = links[next] = x;
+				if (x == null || (res = _compare.Invoke(value, x.Data)) is Less) next--;
+				else if (res is Greater) node = links[next] = x;
 				else if (quick || next == 0) return x == (node = x);
 				else next--;
 			} while (next >= 0);
@@ -82,13 +103,13 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to search</param>
 		/// <returns>Returns true if search is successful, otherwise false</returns>
-		public bool Search(T value) => Search(value, out var _, out var _, true); // Perform quick search
+		public bool Contains(T value) => Search(value, out var _, out var _, true); // Perform quick search
 		internal (SkipListNode? Node, SkipListNode[] prevs) SearchNext<TPredicate>(SkipListNode[]? prev = null, TPredicate predicate = default) where TPredicate : struct, IFunc<T, bool>
 		{
 			if (prev == null)
 			{
 				prev = new SkipListNode[Levels];
-				for (int i = 0; i < Levels; i++) prev[i] = Front;
+				for (int i = 0; i < Levels; i++) prev[i] = _front;
 			}
 			SkipListNode? node = prev[0].Next[0];
 			while (node != null)
@@ -145,21 +166,28 @@ namespace Towel.DataStructures
 		/// </summary>
 		/// <param name="value">The value to remove from the list</param>
 		/// <returns>True if item is found and removed, otherwise false</returns>
-		public bool Remove(T value)
+		public (bool Success, Exception? Exception) TryRemove(T value)
 		{
-			Search(value, out var node, out var links, false); // Need to do slow search only here
-			if (node != null)
+			try
 			{
-				Remove(node, links);
-				return true;
+				Search(value, out var node, out var links, false); // Need to do slow search only here
+				if (node != null)
+				{
+					Remove(node, links);
+					return (true, null);
+				}
+				return (false, null);
 			}
-			return false;
+			catch (Exception ex)
+			{
+				return (false, ex);
+			}
 		}
 		/// <inheritdoc/>
 		public void Clear()
 		{
 			Count = 0;
-			for (byte c = 0; c < Levels; c++) Front.Next[c] = null;
+			for (byte c = 0; c < Levels; c++) _front.Next[c] = null;
 		}
 		/// <summary>
 		/// Enumerates the SkipList
@@ -167,7 +195,7 @@ namespace Towel.DataStructures
 		/// <returns>Enumerator</returns>
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator()
 		{
-			SkipListNode? node = Front.Next[0];
+			SkipListNode? node = _front.Next[0];
 			while (node != null)
 			{
 				yield return node.Data;
@@ -211,7 +239,7 @@ namespace Towel.DataStructures
 			}
 		}
 		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus> => Front.StepperBreak<TStep>(step);
+		public StepStatus StepperBreak<TStep>(TStep step = default) where TStep : struct, IFunc<T, StepStatus> => _front.StepperBreak<TStep>(step);
 		/// <inheritdoc/>
 		public T[] ToArray()
 		{

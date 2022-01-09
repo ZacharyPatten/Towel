@@ -14,7 +14,7 @@ namespace Towel_Testing.DataStructures
 			int max = size * size;
 			Random r = new();
 			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
-			SkipList<int> list = new(12);
+			var list = SkipList.New<int>(12);
 			foreach (var x in arr)
 			{
 				list.Add(x);
@@ -27,7 +27,7 @@ namespace Towel_Testing.DataStructures
 		public void IteratorTest()
 		{
 			int[] arr = new int[] { 54, 12, 21, 33, 43, 45, 54, 81, 92, 93, 54, 99, 54 };
-			SkipList<int> list = new(5);
+			var list = SkipList.New<int>(5);
 			foreach (var x in arr)
 			{
 				list.Add(x);
@@ -39,13 +39,13 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void False_Removal_Test()
 		{
-			SkipList<int> list = new(4);
+			var list = SkipList.New<int>(4);
 			for (int i = 0; i < 10; i++)
-				Assert.IsFalse(list.Remove(i));
+				Assert.IsFalse(list.TryRemove(i).Success);
 			for (int i = 100; i <= 200; i++)
 				list.Add(i);
 			for (int i = 0; i < 100; i++)
-				Assert.IsFalse(list.Remove(i));
+				Assert.IsFalse(list.TryRemove(i).Success);
 		}
 		[TestMethod]
 		public void Add_Remove_Search_Test_1()
@@ -55,7 +55,7 @@ namespace Towel_Testing.DataStructures
 			int max = size * size;
 			Random r = new();
 			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
-			SkipList<int> list = new(15);
+			var list = SkipList.New<int>(15);
 			foreach (var x in arr)
 			{
 				list.Add(x);
@@ -64,13 +64,14 @@ namespace Towel_Testing.DataStructures
 			for (int i = 0; i < max; i++)
 			{
 				if (Array.BinarySearch(arr, 0, size, i) >= 0)
-					Assert.IsTrue(list.Search(i));
+					Assert.IsTrue(list.Contains(i));
 				else
-					Assert.IsFalse(list.Search(i));
+					Assert.IsFalse(list.Contains(i));
 			}
 			foreach (var x in arr)
 			{
-				Assert.IsTrue(list.Remove(x));
+				Assert.IsTrue(list.Contains(x));
+				Assert.IsTrue(list.TryRemove(x).Success);
 			}
 			Assert.IsTrue(list.Count == 0);
 		}
@@ -82,7 +83,7 @@ namespace Towel_Testing.DataStructures
 			int max = size * size;
 			Random r = new();
 			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
-			SkipList<int> list = new(20);
+			var list = SkipList.New<int>(20);
 			foreach (var x in arr)
 			{
 				list.Add(x);
@@ -91,13 +92,13 @@ namespace Towel_Testing.DataStructures
 			for (int i = 0; i < max; i++)
 			{
 				if (Array.BinarySearch(arr, 0, size, i) >= 0)
-					Assert.IsTrue(list.Search(i));
+					Assert.IsTrue(list.Contains(i));
 				else
-					Assert.IsFalse(list.Search(i));
+					Assert.IsFalse(list.Contains(i));
 			}
 			foreach (var x in arr)
 			{
-				Assert.IsTrue(list.Remove(x));
+				Assert.IsTrue(list.TryRemove(x).Success);
 			}
 			Assert.IsTrue(list.Count == 0);
 		}
@@ -109,7 +110,7 @@ namespace Towel_Testing.DataStructures
 			int max = size * size;
 			Random r = new();
 			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
-			SkipList<int> list = new(20);
+			var list = SkipList.New<int>(20);
 			for (int i = 0; i < size; i++) list.Add(max + r.Next(max));
 			list.Clear();
 			foreach (var x in arr) list.Add(x);
@@ -124,7 +125,7 @@ namespace Towel_Testing.DataStructures
 			int max = size * size;
 			Random r = new();
 			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
-			SkipList<int> list = new(20);
+			var list = SkipList.New<int>(20);
 			for (int i = 0; i < size; i++) list.Add(max + r.Next(max));
 			list.Clear();
 			foreach (var x in arr) list.Add(x);
@@ -135,7 +136,7 @@ namespace Towel_Testing.DataStructures
 		public void RemoveFirstTest()
 		{
 			int[] arr = new int[] { 90, 10, 23, 25, 37, 14, 38, 11, 24, 98, 77 };
-			SkipList<int> list = new(3);
+			var list = SkipList.New<int>(3);
 			foreach (var x in arr)
 			{
 				list.Add(x);
@@ -159,7 +160,7 @@ namespace Towel_Testing.DataStructures
 			int max = 500;
 			Random r = new();
 			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
-			SkipList<int> list = new(7);
+			var list = SkipList.New<int>(7);
 			foreach (var x in arr) list.Add(x);
 			for (int i = 0; i < size; i++) list.Add(max + r.Next(max));
 			list.RemoveAll(x => x > max);
@@ -175,7 +176,7 @@ namespace Towel_Testing.DataStructures
 			int max = 5000;
 			Random r = new();
 			for (int i = 0; i < size; i++) arr[i] = r.Next(max) * 2; // Even numbers
-			SkipList<int> list = new(7);
+			var list = SkipList.New<int>(7);
 			foreach (var x in arr) list.Add(x);
 			for (int i = 0; i < size; i++) list.Add(1 + (2 * r.Next(max))); // Odd numbers
 			list.RemoveAll(x => x % 2 != 0);
@@ -186,13 +187,13 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void EmptyIterationTest_1()
 		{
-			SkipList<int> list = new(5);
+			var list = SkipList.New<int>(5);
 			CollectionAssert.AreEqual(Array.Empty<int>(), list.ToArray());
 		}
 		[TestMethod]
 		public void EmptyIterationTest_2()
 		{
-			SkipList<int> list = new(5);
+			var list = SkipList.New<int>(5);
 			foreach (var _ in list)
 			{
 				Assert.Fail();
@@ -201,7 +202,7 @@ namespace Towel_Testing.DataStructures
 		[TestMethod]
 		public void EmptyIterationTest_3()
 		{
-			SkipList<int> list = new(5);
+			var list = SkipList.New<int>(5);
 			int[] x = RandomIntArray(100, 1000000);
 			foreach (var item in x)
 			{
@@ -209,14 +210,14 @@ namespace Towel_Testing.DataStructures
 			}
 			foreach (var item in x)
 			{
-				Assert.IsTrue(list.Remove(item));
+				Assert.IsTrue(list.TryRemove(item).Success);
 			}
 			CollectionAssert.AreEqual(Array.Empty<int>(), list.ToArray());
 		}
 		[TestMethod]
 		public void EmptyIterationTest_4()
 		{
-			SkipList<int> list = new(5);
+			var list = SkipList.New<int>(5);
 			int[] x = RandomIntArray(100, 1000000);
 			foreach (var item in x)
 			{
@@ -224,7 +225,7 @@ namespace Towel_Testing.DataStructures
 			}
 			foreach (var item in x)
 			{
-				Assert.IsTrue(list.Remove(item));
+				Assert.IsTrue(list.TryRemove(item).Success);
 			}
 			foreach (var _ in list)
 			{
