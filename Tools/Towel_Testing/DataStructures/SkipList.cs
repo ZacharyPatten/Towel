@@ -103,6 +103,36 @@ namespace Towel_Testing.DataStructures
 			Assert.IsTrue(list.Count == 0);
 		}
 		[TestMethod]
+		public void CloneTest()
+		{
+			int size = 4000;
+			int[] arr = new int[size];
+			int max = size * size;
+			Random r = new();
+			for (int i = 0; i < size; i++) arr[i] = r.Next(max);
+			var list = SkipList.New<int>(20);
+			foreach (var x in arr)
+			{
+				list.Add(x);
+			}
+			var clone = list.Clone();
+			list.RemoveAll(x => true);
+			Assert.IsTrue(list.Count == 0);
+			System.Array.Sort(arr);
+			for (int i = 0; i < max; i++)
+			{
+				if (Array.BinarySearch(arr, 0, size, i) >= 0)
+					Assert.IsTrue(clone.Contains(i));
+				else
+					Assert.IsFalse(clone.Contains(i));
+			}
+			foreach (var x in arr)
+			{
+				Assert.IsTrue(clone.TryRemove(x).Success);
+			}
+			Assert.IsTrue(clone.Count == 0);
+		}
+		[TestMethod]
 		public void Remove_Test()
 		{
 			int size = 4000;
@@ -163,7 +193,7 @@ namespace Towel_Testing.DataStructures
 			var list = SkipList.New<int>(7);
 			foreach (var x in arr) list.Add(x);
 			for (int i = 0; i < size; i++) list.Add(max + r.Next(max));
-			list.RemoveAll(x => x > max);
+			list.RemoveAll(x => x >= max);
 			System.Array.Sort(arr);
 			int[] actual = list.ToArray();
 			CollectionAssert.AreEqual(arr, actual);

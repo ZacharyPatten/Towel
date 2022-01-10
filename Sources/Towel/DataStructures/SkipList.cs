@@ -20,7 +20,8 @@ namespace Towel.DataStructures
 	DataStructure.ICountable,
 	DataStructure.IClearable,
 	DataStructure.IAuditable<T>,
-	DataStructure.IComparing<T, TCompare>
+	DataStructure.IComparing<T, TCompare>,
+	ICloneable<SkipList<T, TCompare>>
 	where TCompare : struct, IFunc<T, T, CompareResult>
 	{
 		internal class SkipListNode
@@ -279,5 +280,27 @@ namespace Towel.DataStructures
 			}
 		}
 		IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+		/// <inheritdoc/>
+		public SkipList<T, TCompare> Clone()
+		{
+			var clone = new SkipList<T, TCompare>(Levels, _compare);
+			SkipListNode? orig = _front.Next[0];
+			SkipListNode[] prev = new SkipListNode[Levels];
+			SkipListNode clonenode = clone._front;
+			int i;
+			for (i = Levels - 1; i >= 0; i--)
+				prev[i] = clonenode; // = clone._front
+			while (orig != null)
+			{
+				clonenode = clonenode.Next[0] = new SkipListNode(orig.Level, orig.Data);
+				orig = orig.Next[0];
+				for (i = clonenode.Level - 1; i >= 0; i--)
+					prev[i] = prev[i].Next[i] = clonenode;
+			}
+			for (i = clonenode.Level - 1; i >= 0; i--)
+				prev[i].Next[i] = null;
+			clone.Count = Count;
+			return clone;
+		}
 	}
 }
