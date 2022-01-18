@@ -278,8 +278,8 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 				c = Compare.Invoke(node._values[i], value);
 				switch (c)
 				{
-					case Greater: child = node._children[i]; break;
-					case Less: child = node._children[i + 1]; break;
+					case Greater: child = node._children[i];     break;
+					case Less:    child = node._children[i + 1]; break;
 					case Equal: return (false, new ArgumentException($"Adding to add a duplicate value to an {nameof(BTreeLinked<T, TCompare>)}: {value}.", nameof(value)));
 				}
 			}
@@ -648,10 +648,8 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 		} while (node is not null);
 		return Continue;
 	}
-	/// <summary>
-	/// Creates a new copy of this tree
-	/// </summary>
-	/// <returns>Copy of this tree</returns>
+
+	/// <inheritdoc />
 	public BTreeLinked<T, TCompare> Clone()
 	{
 		BTreeLinked<T, TCompare> clone = new(_maxDegree, _compare);
@@ -681,5 +679,6 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 		}
 		return clone;
 	}
+
 	#endregion
 }
