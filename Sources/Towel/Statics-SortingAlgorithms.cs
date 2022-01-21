@@ -1793,4 +1793,224 @@ public static partial class Statics
 	}
 
 	#endregion
+
+	#region IntroSort
+
+	/// <summary>
+	/// Sorts values using the introspective sort algorithm.<br/>
+	/// Runtime: Ω(n*ln(n)), ε(n*ln(n)), O(n*ln(n))<br/>
+	/// Memory: Θ(n)<br/>
+	/// Stable: False
+	/// </summary>
+	/// <inheritdoc cref="XML_Sort"/>
+	/// <citation>
+	/// The code for introspective sort was forked from the dotnet/runtime repo. Here is their license:
+	/// https://github.com/dotnet/runtime/blob/358ee3c9f61d8c11f7cac067307db1b2d6690f3c/src/libraries/System.Private.CoreLib/src/System/Array.cs#L2027
+	///
+	/// The MIT License (MIT)
+	///
+	/// Copyright(c) .NET Foundation and Contributors
+	///
+	/// All rights reserved.
+	///
+	/// Permission is hereby granted, free of charge, to any person obtaining a copy
+	/// of this software and associated documentation files(the "Software"), to deal
+	/// in the Software without restriction, including without limitation the rights
+	/// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	/// copies of the Software, and to permit persons to whom the Software is
+	/// furnished to do so, subject to the following conditions:
+	///
+	/// The above copyright notice and this permission notice shall be included in all
+	/// copies or substantial portions of the Software.
+	///
+	/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+	/// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	/// SOFTWARE.
+	/// </citation>
+	[Obsolete(TowelConstants.NotIntended, true)]
+	public static void XML_SortIntro() => throw new DocumentationMethodException();
+
+	internal const int IntrosortSizeThreshold = 16;
+
+	/// <inheritdoc cref="XML_SortIntro"/>
+	public static void SortIntro<T>(int start, int end, Func<int, T> get, Action<int, T> set, Func<T, T, CompareResult>? compare = null) =>
+		SortIntro<T, SFunc<int, T>, SAction<int, T>, SFunc<T, T, CompareResult>>(start, end, get, set, compare ?? Compare);
+
+	/// <inheritdoc cref="XML_SortIntro"/>
+	public static void SortIntro<T, TGet, TSet, TCompare>(int start, int end, TGet get = default, TSet set = default, TCompare compare = default)
+		where TCompare : struct, IFunc<T, T, CompareResult>
+		where TGet : struct, IFunc<int, T>
+		where TSet : struct, IAction<int, T>
+	{
+		if (end - start > 0)
+		{
+			SortIntro<T, TGet, TSet, TCompare>(start, end, 2 * (System.Numerics.BitOperations.Log2((uint)(end - start)) + 1), get, set, compare);
+		}
+	}
+
+	internal static void SortIntro<T, TGet, TSet, TCompare>(int lo, int hi, int depthLimit, TGet get = default, TSet set = default, TCompare compare = default)
+		where TCompare : struct, IFunc<T, T, CompareResult>
+		where TGet : struct, IFunc<int, T>
+		where TSet : struct, IAction<int, T>
+	{
+		while (hi > lo)
+		{
+			int partitionSize = hi - lo + 1;
+			if (partitionSize <= IntrosortSizeThreshold)
+			{
+				if (partitionSize is 2)
+				{
+					if (compare.Invoke(get.Invoke(lo), get.Invoke(hi)) is Greater) Swap<T, TGet, TSet>(lo, hi, get, set);
+					return;
+				}
+
+				if (partitionSize is 3)
+				{
+					if (compare.Invoke(get.Invoke(lo), get.Invoke(hi - 1)) is Greater) Swap<T, TGet, TSet>(lo, hi - 1, get, set);
+					if (compare.Invoke(get.Invoke(lo), get.Invoke(hi)) is Greater) Swap<T, TGet, TSet>(lo, hi, get, set);
+					if (compare.Invoke(get.Invoke(hi - 1), get.Invoke(hi)) is Greater) Swap<T, TGet, TSet>(hi - 1, hi, get, set);
+					return;
+				}
+				SortInsertion<T, TGet, TSet, TCompare>(lo, hi, get, set, compare);
+				return;
+			}
+			if (depthLimit is 0)
+			{
+				SortHeap<T, TGet, TSet, TCompare>(lo, hi, get, set, compare);
+				return;
+			}
+			int p = PickPivotAndPartition<T, TGet, TSet, TCompare>(lo, hi, get, set, compare);
+			SortIntro<T, TGet, TSet, TCompare>(p + 1, hi, --depthLimit, get, set, compare);
+			hi = p - 1;
+		}
+	}
+
+	internal static int PickPivotAndPartition<T, TGet, TSet, TCompare>(int lo, int hi, TGet get = default, TSet set = default, TCompare compare = default)
+		where TCompare : struct, IFunc<T, T, CompareResult>
+		where TGet : struct, IFunc<int, T>
+		where TSet : struct, IAction<int, T>
+	{
+		int mid = lo + (hi - lo) / 2;
+		if (compare.Invoke(get.Invoke(lo), get.Invoke(mid)) is Greater) Swap<T, TGet, TSet>(lo, mid, get, set);
+		if (compare.Invoke(get.Invoke(lo), get.Invoke(hi)) is Greater) Swap<T, TGet, TSet>(lo, hi, get, set);
+		if (compare.Invoke(get.Invoke(mid), get.Invoke(hi)) is Greater) Swap<T, TGet, TSet>(mid, hi, get, set);
+		T pivot = get.Invoke(mid);
+		Swap<T, TGet, TSet>(mid, hi - 1, get, set);
+		int left = lo;
+		int right = hi - 1;
+		while (left < right)
+		{
+			while (compare.Invoke(get.Invoke(++left), pivot) is Less)
+			{
+				// spin
+			}
+			while (compare.Invoke(pivot, get.Invoke(--right)) is Less)
+			{
+				// spin
+			}
+			if (left >= right)
+			{
+				break;
+			}
+			Swap<T, TGet, TSet>(left, right, get, set);
+		}
+		if (left != hi - 1)
+		{
+			Swap<T, TGet, TSet>(left, hi - 1, get, set);
+		}
+		return left;
+	}
+
+	/// <inheritdoc cref="XML_SortIntro"/>
+	public static void SortIntro<T>(Span<T> span, Func<T, T, CompareResult>? compare = null) =>
+		SortIntro<T, SFunc<T, T, CompareResult>>(span, compare ?? Compare);
+
+	/// <inheritdoc cref="XML_SortIntro"/>
+	public static void SortIntro<T, TCompare>(Span<T> span, TCompare compare = default)
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+		if (span.Length > 1)
+		{
+			SortIntro(span, 2 * (System.Numerics.BitOperations.Log2((uint)span.Length) + 1), compare);
+		}
+	}
+
+	internal static void SortIntro<T, TCompare>(Span<T> span, int depthLimit, TCompare compare = default)
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+		if (span.Length > 1)
+		{
+			int lo = 0;
+			int hi = span.Length - 1;
+			while (hi > lo)
+			{
+				int partitionSize = hi - lo + 1;
+				if (partitionSize <= IntrosortSizeThreshold)
+				{
+					if (partitionSize is 2)
+					{
+						if (compare.Invoke(span[lo], span[hi]) is Greater) Swap(ref span[lo], ref span[hi]);
+						return;
+					}
+					if (partitionSize is 3)
+					{
+						if (compare.Invoke(span[lo], span[hi - 1]) is Greater) Swap(ref span[lo], ref span[hi - 1]);
+						if (compare.Invoke(span[lo], span[hi]) is Greater) Swap(ref span[lo], ref span[hi]);
+						if (compare.Invoke(span[hi - 1], span[hi]) is Greater) Swap(ref span[hi - 1], ref span[hi]);
+						return;
+					}
+					SortInsertion(span[lo..(hi + 1)], compare);
+					return;
+				}
+				if (depthLimit is 0)
+				{
+					SortHeap(span[lo..(hi + 1)], compare);
+					return;
+				}
+				int p = PickPivotAndPartition(span, lo, hi, compare);
+				SortIntro(span[(p + 1)..(hi + 1)], --depthLimit, compare);
+				hi = p - 1;
+			}
+		}
+	}
+
+	internal static int PickPivotAndPartition<T, TCompare>(Span<T> span, int lo, int hi, TCompare compare = default)
+		where TCompare : struct, IFunc<T, T, CompareResult>
+	{
+		int mid = lo + (hi - lo) / 2;
+		if (compare.Invoke(span[lo], span[mid]) is Greater) Swap(ref span[lo], ref span[mid]);
+		if (compare.Invoke(span[lo], span[hi]) is Greater) Swap(ref span[lo], ref span[hi]);
+		if (compare.Invoke(span[mid], span[hi]) is Greater) Swap(ref span[mid], ref span[hi]);
+		T pivot = span[mid];
+		Swap(ref span[mid], ref span[hi - 1]);
+		int left = lo;
+		int right = hi - 1;
+		while (left < right)
+		{
+			while (compare.Invoke(span[++left], pivot) is Less)
+			{
+				// spin
+			}
+			while (compare.Invoke(pivot, span[--right]) is Less)
+			{
+				// spin
+			}
+			if (left >= right)
+			{
+				break;
+			}
+			Swap(ref span[left], ref span[right]);
+		}
+		if (left != hi - 1)
+		{
+			Swap(ref span[left], ref span[hi - 1]);
+		}
+		return left;
+	}
+
+	#endregion
 }

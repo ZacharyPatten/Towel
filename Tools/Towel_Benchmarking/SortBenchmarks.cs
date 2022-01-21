@@ -63,6 +63,12 @@ public class SortBenchmarks
 	public void HeapCompileTime() => SortHeap<int, Int32Compare>(Values);
 
 	[Benchmark]
+	public void IntroRunTime() => SortIntro<int>(Values);
+
+	[Benchmark]
+	public void IntroCompileTime() => SortIntro<int, Int32Compare>(Values);
+
+	[Benchmark]
 	public void OddEvenRunTime() => SortOddEven<int>(Values);
 
 	[Benchmark]
