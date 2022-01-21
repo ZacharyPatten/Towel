@@ -380,5 +380,11 @@ public partial class Statics_Testing
 	[TestMethod]
 	public void PidgeonHole_Span_Testing() => TestSortAlgorithm((start, end, array) => SortPidgeonHole(array.AsSpan()[start..(end + 1)]));
 
+	[TestMethod]
+	public void Intro_Testing() => TestSortAlgorithm((start, end, array) => SortIntro(start, end, i => array[i], (i, v) => array[i] = v));
+
+	[TestMethod]
+	public void Intro_Span_Testing() => TestSortAlgorithm((start, end, array) => SortIntro(array.AsSpan()[start..(end + 1)]));
+
 	#endregion
 }
