@@ -1,19 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Towel;
-using static Towel.Statics;
+﻿namespace Towel_Generating;
 
-namespace Towel_Generating
+public static class MeasurementTypesGenerator
 {
-	public static class MeasurementTypesGenerator
+	public static string Run()
 	{
-		public static string Run()
-		{
-			throw new NotImplementedException("still under development");
+		throw new NotImplementedException("still under development");
 
-			#if false
+#if false
 
 			string generatorPath = Path.GetRelativePath(Path.Combine(Path.GetDirectoryName(sourcefilepath())!, "..", ".."), sourcefilepath());
 
@@ -1443,7 +1436,6 @@ namespace Towel_Generating
 			//}
 			return code.ToString();
 
-			#endif
-		}
+#endif
 	}
 }

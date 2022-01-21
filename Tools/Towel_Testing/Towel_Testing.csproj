@@ -5,6 +5,7 @@
 		<DocumentationFile>Towel_Testing.xml</DocumentationFile>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<Nullable>enable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 	  <NoWarn>1701;1702;1591</NoWarn>

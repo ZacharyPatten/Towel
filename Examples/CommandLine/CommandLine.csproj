@@ -5,6 +5,7 @@
 		<IsPackable>false</IsPackable>
 		<DocumentationFile>CommandLine.xml</DocumentationFile>
 		<Nullable>enable</Nullable>
+		<ImplicitUsings>disable</ImplicitUsings>
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
