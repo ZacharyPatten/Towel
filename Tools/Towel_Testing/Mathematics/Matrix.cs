@@ -1,1252 +1,1247 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Towel;
-using Towel.Mathematics;
+﻿namespace Towel_Testing.Mathematics;
 
-namespace Towel_Testing.Mathematics
+[TestClass]
+public class Matrix_Testing
 {
-	[TestClass]
-	public class Matrix_Testing
+	#region FactoryIdentity
+
+	[TestMethod]
+	public void FactoryIdentity()
 	{
-		#region FactoryIdentity
-
-		[TestMethod]
-		public void FactoryIdentity()
-		{
-			{ // 1 x 1
-				Matrix<int> a = Matrix<int>.FactoryIdentity(1, 1);
-				Matrix<int> b = new int[,]
-				{
+		{ // 1 x 1
+			Matrix<int> a = Matrix<int>.FactoryIdentity(1, 1);
+			Matrix<int> b = new int[,]
+			{
 					{ 1 },
-				};
-				Assert.IsTrue(a == b);
-			}
+			};
+			Assert.IsTrue(a == b);
+		}
 
-			{ // 2 x 2
-				Matrix<int> a = Matrix<int>.FactoryIdentity(2, 2);
-				Matrix<int> b = new int[,]
-				{
+		{ // 2 x 2
+			Matrix<int> a = Matrix<int>.FactoryIdentity(2, 2);
+			Matrix<int> b = new int[,]
+			{
 					{ 1, 0, },
 					{ 0, 1, },
-				};
-				Assert.IsTrue(a == b);
-			}
+			};
+			Assert.IsTrue(a == b);
+		}
 
-			{ // 3 x 3
-				Matrix<int> a = Matrix<int>.FactoryIdentity(3, 3);
-				Matrix<int> b = new int[,]
-				{
+		{ // 3 x 3
+			Matrix<int> a = Matrix<int>.FactoryIdentity(3, 3);
+			Matrix<int> b = new int[,]
+			{
 					{ 1, 0, 0, },
 					{ 0, 1, 0, },
 					{ 0, 0, 1, },
-				};
-				Assert.IsTrue(a == b);
-			}
+			};
+			Assert.IsTrue(a == b);
+		}
 
-			{ // 4 x 4
-				Matrix<int> a = Matrix<int>.FactoryIdentity(4, 4);
-				Matrix<int> b = new int[,]
-				{
+		{ // 4 x 4
+			Matrix<int> a = Matrix<int>.FactoryIdentity(4, 4);
+			Matrix<int> b = new int[,]
+			{
 					{ 1, 0, 0, 0, },
 					{ 0, 1, 0, 0, },
 					{ 0, 0, 1, 0, },
 					{ 0, 0, 0, 1, },
-				};
-			}
-
-			// Exceptions
-			{
-				Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryIdentity(0, 1));
-				Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryIdentity(1, 0));
-			}
+			};
 		}
 
-		#endregion
-
-		#region FactoryZero
-
-		[TestMethod]
-		public void FactoryZero()
+		// Exceptions
 		{
-			{ // 1 x 1
-				Matrix<int> a = Matrix<int>.FactoryZero(1, 1);
-				Matrix<int> b = new int[,]
-				{
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryIdentity(0, 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryIdentity(1, 0));
+		}
+	}
+
+	#endregion
+
+	#region FactoryZero
+
+	[TestMethod]
+	public void FactoryZero()
+	{
+		{ // 1 x 1
+			Matrix<int> a = Matrix<int>.FactoryZero(1, 1);
+			Matrix<int> b = new int[,]
+			{
 					{ 0, },
-				};
-				Assert.IsTrue(a == b);
-			}
-
-			{ // 2 x 2
-				Matrix<int> a = Matrix<int>.FactoryZero(2, 2);
-				Matrix<int> b = new int[,]
-				{
-					{ 0, 0 },
-					{ 0, 0 },
-				};
-				Assert.IsTrue(a == b);
-			}
-
-			{ // 3 x 3
-				Matrix<int> a = Matrix<int>.FactoryZero(3, 3);
-				Matrix<int> b = new int[,]
-				{
-					{ 0, 0, 0 },
-					{ 0, 0, 0 },
-					{ 0, 0, 0 },
-				};
-				Assert.IsTrue(a == b);
-			}
-
-			{ // 4 x 4
-				Matrix<int> a = Matrix<int>.FactoryZero(4, 4);
-				Matrix<int> b = new int[,]
-				{
-					{ 0, 0, 0, 0 },
-					{ 0, 0, 0, 0 },
-					{ 0, 0, 0, 0 },
-					{ 0, 0, 0, 0 },
-				};
-				Assert.IsTrue(a == b);
-			}
-
-			// Exceptions
-			{
-				Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryZero(0, 1));
-				Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryZero(1, 0));
-			}
+			};
+			Assert.IsTrue(a == b);
 		}
 
-		#endregion
-
-		#region Negate
-
-		[TestMethod]
-		public void Negate()
-		{
-			// int
+		{ // 2 x 2
+			Matrix<int> a = Matrix<int>.FactoryZero(2, 2);
+			Matrix<int> b = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
+					{ 0, 0 },
+					{ 0, 0 },
+			};
+			Assert.IsTrue(a == b);
+		}
+
+		{ // 3 x 3
+			Matrix<int> a = Matrix<int>.FactoryZero(3, 3);
+			Matrix<int> b = new int[,]
+			{
+					{ 0, 0, 0 },
+					{ 0, 0, 0 },
+					{ 0, 0, 0 },
+			};
+			Assert.IsTrue(a == b);
+		}
+
+		{ // 4 x 4
+			Matrix<int> a = Matrix<int>.FactoryZero(4, 4);
+			Matrix<int> b = new int[,]
+			{
+					{ 0, 0, 0, 0 },
+					{ 0, 0, 0, 0 },
+					{ 0, 0, 0, 0 },
+					{ 0, 0, 0, 0 },
+			};
+			Assert.IsTrue(a == b);
+		}
+
+		// Exceptions
+		{
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryZero(0, 1));
+			Assert.ThrowsException<ArgumentOutOfRangeException>(() => Matrix<int>.FactoryZero(1, 0));
+		}
+	}
+
+	#endregion
+
+	#region Negate
+
+	[TestMethod]
+	public void Negate()
+	{
+		// int
+		{
+			Matrix<int> A = new int[,]
+			{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ -1, -2, -3, },
 					{ -4, -5, -6, },
 					{ -7, -8, -9, },
-				};
-				Assert.IsTrue(-A == B);
-			}
+			};
+			Assert.IsTrue(-A == B);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ -1f, -2f, -3f, },
 					{ -4f, -5f, -6f, },
 					{ -7f, -8f, -9f, },
-				};
-				Assert.IsTrue(-A == B);
-			}
+			};
+			Assert.IsTrue(-A == B);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ -1d, -2d, -3d, },
 					{ -4d, -5d, -6d, },
 					{ -7d, -8d, -9d, },
-				};
-				Assert.IsTrue(-A == B);
-			}
+			};
+			Assert.IsTrue(-A == B);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ -1m, -2m, -3m, },
 					{ -4m, -5m, -6m, },
 					{ -7m, -8m, -9m, },
-				};
-				Assert.IsTrue(-A == B);
-			}
+			};
+			Assert.IsTrue(-A == B);
 		}
+	}
 
-		#endregion
+	#endregion
 
-		#region Add
+	#region Add
 
-		[TestMethod]
-		public void Add()
+	[TestMethod]
+	public void Add()
+	{
+		// int
 		{
-			// int
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{  2,  4,  6, },
 					{  8, 10, 12, },
 					{ 14, 16, 18, },
-				};
-				Assert.IsTrue(A + A == B);
-			}
+			};
+			Assert.IsTrue(A + A == B);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{  2f,  4f,  6f, },
 					{  8f, 10f, 12f, },
 					{ 14f, 16f, 18f, },
-				};
-				Assert.IsTrue(A + A == B);
-			}
+			};
+			Assert.IsTrue(A + A == B);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{  2d,  4d,  6d, },
 					{  8d, 10d, 12d, },
 					{ 14d, 16d, 18d, },
-				};
-				Assert.IsTrue(A + A == B);
-			}
+			};
+			Assert.IsTrue(A + A == B);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{  2m,  4m,  6m, },
 					{  8m, 10m, 12m, },
 					{ 14m, 16m, 18m, },
-				};
-				Assert.IsTrue(A + A == B);
-			}
-
-			// Exceptions
-			{
-				Matrix<decimal> A = new(2, 2);
-				Matrix<decimal> B = new(3, 3);
-				Assert.ThrowsException<MathematicsException>(() => A + B);
-			}
+			};
+			Assert.IsTrue(A + A == B);
 		}
 
-		#endregion
-
-		#region Subtract
-
-		[TestMethod]
-		public void Subtract()
+		// Exceptions
 		{
-			// int
+			Matrix<decimal> A = new(2, 2);
+			Matrix<decimal> B = new(3, 3);
+			Assert.ThrowsException<MathematicsException>(() => A + B);
+		}
+	}
+
+	#endregion
+
+	#region Subtract
+
+	[TestMethod]
+	public void Subtract()
+	{
+		// int
+		{
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{  3,  5,  7, },
 					{  9, 11, 13, },
 					{ 15, 17, 19, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 2, 3,  4, },
 					{ 5, 6,  7, },
 					{ 8, 9, 10, },
-				};
-				Matrix<int> C = new int[,]
-				{
+			};
+			Matrix<int> C = new int[,]
+			{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Assert.IsTrue(A - B == C);
-			}
+			};
+			Assert.IsTrue(A - B == C);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{  3f,  5f,  7f, },
 					{  9f, 11f, 13f, },
 					{ 15f, 17f, 19f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 2f, 3f,  4f, },
 					{ 5f, 6f,  7f, },
 					{ 8f, 9f, 10f, },
-				};
-				Matrix<float> C = new float[,]
-				{
+			};
+			Matrix<float> C = new float[,]
+			{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Assert.IsTrue(A - B == C);
-			}
+			};
+			Assert.IsTrue(A - B == C);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{  3d,  5d,  7d, },
 					{  9d, 11d, 13d, },
 					{ 15d, 17d, 19d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ 2d, 3d,  4d, },
 					{ 5d, 6d,  7d, },
 					{ 8d, 9d, 10d, },
-				};
-				Matrix<double> C = new double[,]
-				{
+			};
+			Matrix<double> C = new double[,]
+			{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Assert.IsTrue(A - B == C);
-			}
+			};
+			Assert.IsTrue(A - B == C);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{  3m,  5m,  7m, },
 					{  9m, 11m, 13m, },
 					{ 15m, 17m, 19m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ 2m, 3m,  4m, },
 					{ 5m, 6m,  7m, },
 					{ 8m, 9m, 10m, },
-				};
-				Matrix<decimal> C = new decimal[,]
-				{
+			};
+			Matrix<decimal> C = new decimal[,]
+			{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Assert.IsTrue(A - B == C);
-			}
-
-			// Exceptions
-			{
-				Matrix<decimal> A = new(2, 2);
-				Matrix<decimal> B = new(3, 3);
-				Assert.ThrowsException<MathematicsException>(() => A - B);
-			}
+			};
+			Assert.IsTrue(A - B == C);
 		}
 
-		#endregion
-
-		#region Multiply_Matrix
-
-		[TestMethod]
-		public void Multiply_Matrix()
+		// Exceptions
 		{
-			// int
+			Matrix<decimal> A = new(2, 2);
+			Matrix<decimal> B = new(3, 3);
+			Assert.ThrowsException<MathematicsException>(() => A - B);
+		}
+	}
+
+	#endregion
+
+	#region Multiply_Matrix
+
+	[TestMethod]
+	public void Multiply_Matrix()
+	{
+		// int
+		{
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{  7,  8, },
 					{  9, 10, },
 					{ 11, 12, },
-				};
-				Matrix<int> C = new int[,]
-				{
+			};
+			Matrix<int> C = new int[,]
+			{
 					{  58,  64, },
 					{ 139, 154, },
-				};
-				Assert.IsTrue(A * B == C);
-			}
+			};
+			Assert.IsTrue(A * B == C);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{  7f,  8f, },
 					{  9f, 10f, },
 					{ 11f, 12f, },
-				};
-				Matrix<float> C = new float[,]
-				{
+			};
+			Matrix<float> C = new float[,]
+			{
 					{  58f,  64f, },
 					{ 139f, 154f, },
-				};
-				Assert.IsTrue(A * B == C);
-			}
+			};
+			Assert.IsTrue(A * B == C);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{  7d,  8d, },
 					{  9d, 10d, },
 					{ 11d, 12d, },
-				};
-				Matrix<double> C = new double[,]
-				{
+			};
+			Matrix<double> C = new double[,]
+			{
 					{  58d,  64d, },
 					{ 139d, 154d, },
-				};
-				Assert.IsTrue(A * B == C);
-			}
+			};
+			Assert.IsTrue(A * B == C);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{  7m,  8m, },
 					{  9m, 10m, },
 					{ 11m, 12m, },
-				};
-				Matrix<decimal> C = new decimal[,]
-				{
+			};
+			Matrix<decimal> C = new decimal[,]
+			{
 					{  58m,  64m, },
 					{ 139m, 154m, },
-				};
-				Assert.IsTrue(A * B == C);
-			}
-
-			// Exceptions
-			{
-				Matrix<decimal> A = new(2, 2);
-				Matrix<decimal> B = new(3, 3);
-				Assert.ThrowsException<MathematicsException>(() => A * B);
-			}
+			};
+			Assert.IsTrue(A * B == C);
 		}
 
-		#endregion
-
-		#region Multiply_Vector
-
-		[TestMethod]
-		public void Multiply_Vector()
+		// Exceptions
 		{
-			// int
-			{
-				Matrix<int> A = new(3, 3)
-				{
-					[0] =  2, [1] = 3, [2] = -4,
-					[3] = 11, [4] = 8, [5] =  7,
-					[6] =  2, [7] = 5, [8] =  3,
-				};
-				Vector<int> B = new(3, 7, 5);
-				Vector<int> C = new(7, 124, 56);
-				Assert.IsTrue(A * B == C);
-			}
+			Matrix<decimal> A = new(2, 2);
+			Matrix<decimal> B = new(3, 3);
+			Assert.ThrowsException<MathematicsException>(() => A * B);
+		}
+	}
 
-			// float
+	#endregion
+
+	#region Multiply_Vector
+
+	[TestMethod]
+	public void Multiply_Vector()
+	{
+		// int
+		{
+			Matrix<int> A = new(3, 3)
 			{
-				Matrix<float> A = new float[,]
-				{
+				[0] =  2, [1] = 3, [2] = -4,
+				[3] = 11, [4] = 8, [5] =  7,
+				[6] =  2, [7] = 5, [8] =  3,
+			};
+			Vector<int> B = new(3, 7, 5);
+			Vector<int> C = new(7, 124, 56);
+			Assert.IsTrue(A * B == C);
+		}
+
+		// float
+		{
+			Matrix<float> A = new float[,]
+			{
 					{  2f, 3f, -4f, },
 					{ 11f, 8f,  7f, },
 					{  2f, 5f,  3f, },
-				};
-				Vector<float> B = new(3, 7, 5);
-				Vector<float> C = new(7, 124, 56);
-				Assert.IsTrue(A * B == C);
-			}
+			};
+			Vector<float> B = new(3, 7, 5);
+			Vector<float> C = new(7, 124, 56);
+			Assert.IsTrue(A * B == C);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{  2d, 3d, -4d, },
 					{ 11d, 8d,  7d, },
 					{  2d, 5d,  3d, },
-				};
-				Vector<double> B = new(3d, 7d, 5d);
-				Vector<double> C = new(7d, 124d, 56d);
-				Assert.IsTrue(A * B == C);
-			}
+			};
+			Vector<double> B = new(3d, 7d, 5d);
+			Vector<double> C = new(7d, 124d, 56d);
+			Assert.IsTrue(A * B == C);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{  2m, 3m, -4m, },
 					{ 11m, 8m,  7m, },
 					{  2m, 5m,  3m, },
-				};
-				Vector<decimal> B = new(3m, 7m, 5m);
-				Vector<decimal> C = new(7m, 124m, 56m);
-				Assert.IsTrue(A * B == C);
-			}
-
-			// Exceptions
-			{
-				Vector<int> V = new(1);
-				Matrix<int> M = new(2, 2);
-				Assert.ThrowsException<MathematicsException>(() => M * V);
-			}
+			};
+			Vector<decimal> B = new(3m, 7m, 5m);
+			Vector<decimal> C = new(7m, 124m, 56m);
+			Assert.IsTrue(A * B == C);
 		}
 
-		#endregion
-
-		#region Multiply_Scalar
-
-		[TestMethod]
-		public void Multiply_Scalar()
+		// Exceptions
 		{
-			// int
+			Vector<int> V = new(1);
+			Matrix<int> M = new(2, 2);
+			Assert.ThrowsException<MathematicsException>(() => M * V);
+		}
+	}
+
+	#endregion
+
+	#region Multiply_Scalar
+
+	[TestMethod]
+	public void Multiply_Scalar()
+	{
+		// int
+		{
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{  2,  4,  6, },
 					{  8, 10, 12, },
 					{ 14, 16, 18, },
-				};
-				Assert.IsTrue(A * 2 == B);
-			}
+			};
+			Assert.IsTrue(A * 2 == B);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{  2f,  4f,  6f, },
 					{  8f, 10f, 12f, },
 					{ 14f, 16f, 18f, },
-				};
-				Assert.IsTrue(A * 2f == B);
-			}
+			};
+			Assert.IsTrue(A * 2f == B);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{  2d,  4d,  6d, },
 					{  8d, 10d, 12d, },
 					{ 14d, 16d, 18d, },
-				};
-				Assert.IsTrue(A * 2d == B);
-			}
+			};
+			Assert.IsTrue(A * 2d == B);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{  2m,  4m,  6m, },
 					{  8m, 10m, 12m, },
 					{ 14m, 16m, 18m, },
-				};
-				Assert.IsTrue(A * 2m == B);
-			}
+			};
+			Assert.IsTrue(A * 2m == B);
 		}
+	}
 
-		#endregion
+	#endregion
 
-		#region Divide
+	#region Divide
 
-		[TestMethod]
-		public void Divide()
+	[TestMethod]
+	public void Divide()
+	{
+		// int
 		{
-			// int
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{  2,  4,  6, },
 					{  8, 10, 12, },
 					{ 14, 16, 18, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Assert.IsTrue(A / 2 == B);
-			}
+			};
+			Assert.IsTrue(A / 2 == B);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{  2f,  4f,  6f, },
 					{  8f, 10f, 12f, },
 					{ 14f, 16f, 18f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Assert.IsTrue(A / 2f == B);
-			}
+			};
+			Assert.IsTrue(A / 2f == B);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{  2d,  4d,  6d, },
 					{  8d, 10d, 12d, },
 					{ 14d, 16d, 18d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Assert.IsTrue(A / 2d == B);
-			}
+			};
+			Assert.IsTrue(A / 2d == B);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{  2m,  4m,  6m, },
 					{  8m, 10m, 12m, },
 					{ 14m, 16m, 18m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Assert.IsTrue(A / 2m == B);
-			}
+			};
+			Assert.IsTrue(A / 2m == B);
 		}
+	}
 
-		#endregion
+	#endregion
 
-		#region Power
+	#region Power
 
-		[TestMethod]
-		public void Power()
+	[TestMethod]
+	public void Power()
+	{
+		// int
 		{
-			// int
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, },
 					{ 3, 4, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 37,  54, },
 					{ 81, 118, },
-				};
-				Assert.IsTrue((A.Power(3)) == B);
-			}
+			};
+			Assert.IsTrue((A.Power(3)) == B);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, },
 					{ 3f, 4f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 37f,  54f, },
 					{ 81f, 118f, },
-				};
-				Assert.IsTrue((A.Power(3)) == B);
-			}
+			};
+			Assert.IsTrue((A.Power(3)) == B);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, },
 					{ 3d, 4d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ 37d,  54d, },
 					{ 81d, 118d, },
-				};
-				Assert.IsTrue((A.Power(3)) == B);
-			}
+			};
+			Assert.IsTrue((A.Power(3)) == B);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{ 1m, 2m, },
 					{ 3m, 4m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ 37m,  54m, },
 					{ 81m, 118m, },
-				};
-				Assert.IsTrue((A.Power(3)) == B);
-			}
-
-			// Exceptions
-			{
-				Matrix<decimal> A = new(2, 3);
-				Assert.ThrowsException<MathematicsException>(() => A.Power(3));
-			}
+			};
+			Assert.IsTrue((A.Power(3)) == B);
 		}
 
-		#endregion
-
-		#region Determinant
-
-		[TestMethod]
-		public void DeterminantLaplace()
+		// Exceptions
 		{
-			// int
+			Matrix<decimal> A = new(2, 3);
+			Assert.ThrowsException<MathematicsException>(() => A.Power(3));
+		}
+	}
+
+	#endregion
+
+	#region Determinant
+
+	[TestMethod]
+	public void DeterminantLaplace()
+	{
+		// int
+		{
+			Matrix<int> a = new int[,]
 			{
-				Matrix<int> a = new int[,]
-				{
 					{ 1, 2, },
 					{ 3, 4, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == -2);
+		}
+		{
+			Matrix<int> a = new int[,]
 			{
-				Matrix<int> a = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == 0);
-			}
-			// float
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == 0);
+		}
+		// float
+		{
+			Matrix<float> a = new float[,]
 			{
-				Matrix<float> a = new float[,]
-				{
 					{ 1f, 2f, },
 					{ 3f, 4f, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == -2);
+		}
+		{
+			Matrix<float> a = new float[,]
 			{
-				Matrix<float> a = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == 0);
-			}
-			// double
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == 0);
+		}
+		// double
+		{
+			Matrix<double> a = new double[,]
 			{
-				Matrix<double> a = new double[,]
-				{
 					{ 1d, 2d, },
 					{ 3d, 4d, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == -2);
+		}
+		{
+			Matrix<double> a = new double[,]
 			{
-				Matrix<double> a = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == 0);
-			}
-			// decimal
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == 0);
+		}
+		// decimal
+		{
+			Matrix<decimal> a = new decimal[,]
 			{
-				Matrix<decimal> a = new decimal[,]
-				{
 					{ 1m, 2m, },
 					{ 3m, 4m, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == -2);
+		}
+		{
+			Matrix<decimal> a = new decimal[,]
 			{
-				Matrix<decimal> a = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Assert.IsTrue(a.DeterminantLaplace() == 0);
-			}
-			// Exceptions
-			{
-				Matrix<decimal> a = new(2, 3);
-				Assert.ThrowsException<MathematicsException>(() => a.DeterminantLaplace());
-			}
+			};
+			Assert.IsTrue(a.DeterminantLaplace() == 0);
 		}
-
-		[TestMethod]
-		public void DeterminantGaussian()
+		// Exceptions
 		{
-			// int
+			Matrix<decimal> a = new(2, 3);
+			Assert.ThrowsException<MathematicsException>(() => a.DeterminantLaplace());
+		}
+	}
+
+	[TestMethod]
+	public void DeterminantGaussian()
+	{
+		// int
+		{
+			Matrix<int> a = new int[,]
 			{
-				Matrix<int> a = new int[,]
-				{
 					{ 1, 2, },
 					{ 3, 4, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == -2);
+		}
+		{
+			Matrix<int> a = new int[,]
 			{
-				Matrix<int> a = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == 0);
-			}
-			// float
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == 0);
+		}
+		// float
+		{
+			Matrix<float> a = new float[,]
 			{
-				Matrix<float> a = new float[,]
-				{
 					{ 1f, 2f, },
 					{ 3f, 4f, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == -2);
+		}
+		{
+			Matrix<float> a = new float[,]
 			{
-				Matrix<float> a = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == 0);
-			}
-			// double
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == 0);
+		}
+		// double
+		{
+			Matrix<double> a = new double[,]
 			{
-				Matrix<double> a = new double[,]
-				{
 					{ 1d, 2d, },
 					{ 3d, 4d, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == -2);
+		}
+		{
+			Matrix<double> a = new double[,]
 			{
-				Matrix<double> a = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == 0);
-			}
-			// decimal
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == 0);
+		}
+		// decimal
+		{
+			Matrix<decimal> a = new decimal[,]
 			{
-				Matrix<decimal> a = new decimal[,]
-				{
 					{ 1m, 2m, },
 					{ 3m, 4m, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == -2);
-			}
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == -2);
+		}
+		{
+			Matrix<decimal> a = new decimal[,]
 			{
-				Matrix<decimal> a = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Assert.IsTrue(a.DeterminantGaussian() == 0);
-			}
-			// Exceptions
-			{
-				Matrix<decimal> a = new(2, 3);
-				Assert.ThrowsException<MathematicsException>(() => a.DeterminantGaussian());
-			}
+			};
+			Assert.IsTrue(a.DeterminantGaussian() == 0);
 		}
-
-		#endregion
-
-		#region Trace
-
-		[TestMethod]
-		public void Trace()
+		// Exceptions
 		{
-			// int
+			Matrix<decimal> a = new(2, 3);
+			Assert.ThrowsException<MathematicsException>(() => a.DeterminantGaussian());
+		}
+	}
+
+	#endregion
+
+	#region Trace
+
+	[TestMethod]
+	public void Trace()
+	{
+		// int
+		{
+			Matrix<int> a = new int[,]
 			{
-				Matrix<int> a = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Assert.IsTrue(a.Trace() == 15);
-			}
+			};
+			Assert.IsTrue(a.Trace() == 15);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> a = new float[,]
 			{
-				Matrix<float> a = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Assert.IsTrue(a.Trace() == 15f);
-			}
+			};
+			Assert.IsTrue(a.Trace() == 15f);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> a = new double[,]
 			{
-				Matrix<double> a = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Assert.IsTrue(a.Trace() == 15d);
-			}
+			};
+			Assert.IsTrue(a.Trace() == 15d);
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> a = new decimal[,]
 			{
-				Matrix<decimal> a = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Assert.IsTrue(a.Trace() == 15m);
-			}
-
-			// Exceptions
-			{
-				Matrix<decimal> a = new(2, 3);
-				Assert.ThrowsException<MathematicsException>(() => a.Trace());
-			}
+			};
+			Assert.IsTrue(a.Trace() == 15m);
 		}
 
-		#endregion
-
-		#region Minor
-
-		[TestMethod]
-		public void Minor()
+		// Exceptions
 		{
-			#region 2x2 Success
+			Matrix<decimal> a = new(2, 3);
+			Assert.ThrowsException<MathematicsException>(() => a.Trace());
+		}
+	}
+
+	#endregion
+
+	#region Minor
+
+	[TestMethod]
+	public void Minor()
+	{
+		#region 2x2 Success
+		{
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, },
 					{ 3, 4, },
-				};
+			};
 
-				{ // row 0, column 0
-					Matrix<int> B = new int[,]
-					{
+			{ // row 0, column 0
+				Matrix<int> B = new int[,]
+				{
 						{ 4, },
-					};
-					Assert.IsTrue(A.Minor(0, 0) == B);
-				}
-				{ // row 0, column 1
-					Matrix<int> B = new int[,]
-					{
-						{ 3, },
-					};
-					Assert.IsTrue(A.Minor(0, 1) == B);
-				}
-				{ // row 1, column 0
-					Matrix<int> B = new int[,]
-					{
-						{ 2, },
-					};
-					Assert.IsTrue(A.Minor(1, 0) == B);
-				}
-				{ // row 1, column 1
-					Matrix<int> B = new int[,]
-					{
-						{ 1, },
-					};
-					Assert.IsTrue(A.Minor(1, 1) == B);
-				}
+				};
+				Assert.IsTrue(A.Minor(0, 0) == B);
 			}
-			#endregion
-
-			#region 3x3 Success
-			{
-				Matrix<int> A = new int[,]
+			{ // row 0, column 1
+				Matrix<int> B = new int[,]
 				{
+						{ 3, },
+				};
+				Assert.IsTrue(A.Minor(0, 1) == B);
+			}
+			{ // row 1, column 0
+				Matrix<int> B = new int[,]
+				{
+						{ 2, },
+				};
+				Assert.IsTrue(A.Minor(1, 0) == B);
+			}
+			{ // row 1, column 1
+				Matrix<int> B = new int[,]
+				{
+						{ 1, },
+				};
+				Assert.IsTrue(A.Minor(1, 1) == B);
+			}
+		}
+		#endregion
+
+		#region 3x3 Success
+		{
+			Matrix<int> A = new int[,]
+			{
 					{ 1, 2, 3 },
 					{ 4, 5, 6 },
 					{ 7, 8, 9 },
+			};
+
+			{ // row 0, column 0
+				Matrix<int> B = new int[,]
+				{
+						{ 5, 6, },
+						{ 8, 9, },
 				};
-
-				{ // row 0, column 0
-					Matrix<int> B = new int[,]
-					{
-						{ 5, 6, },
-						{ 8, 9, },
-					};
-					Assert.IsTrue(A.Minor(0, 0) == B);
-				}
-				{ // row 0, column 1
-					Matrix<int> B = new int[,]
-					{
-						{ 4, 6, },
-						{ 7, 9, },
-					};
-					Assert.IsTrue(A.Minor(0, 1) == B);
-				}
-				{ // row 0, column 2
-					Matrix<int> B = new int[,]
-					{
-						{ 4, 5, },
-						{ 7, 8, },
-					};
-					Assert.IsTrue(A.Minor(0, 2) == B);
-				}
-				{ // row 1, column 0
-					Matrix<int> B = new int[,]
-					{
-						{ 2, 3, },
-						{ 8, 9, },
-					};
-					Assert.IsTrue(A.Minor(1, 0) == B);
-				}
-				{ // row 1, column 1
-					Matrix<int> B = new int[,]
-					{
-						{ 1, 3, },
-						{ 7, 9, },
-					};
-					Assert.IsTrue(A.Minor(1, 1) == B);
-				}
-				{ // row 1, column 2
-					Matrix<int> B = new int[,]
-					{
-						{ 1, 2, },
-						{ 7, 8, },
-					};
-					Assert.IsTrue(A.Minor(1, 2) == B);
-				}
-				{ // row 2, column 0
-					Matrix<int> B = new int[,]
-					{
-						{ 2, 3, },
-						{ 5, 6, },
-					};
-					Assert.IsTrue(A.Minor(2, 0) == B);
-				}
-				{ // row 2, column 1
-					Matrix<int> B = new int[,]
-					{
-						{ 1, 3, },
-						{ 4, 6, },
-					};
-					Assert.IsTrue(A.Minor(2, 1) == B);
-				}
-				{ // row 2, column 2
-					Matrix<int> B = new int[,]
-					{
-						{ 1, 2, },
-						{ 4, 5, },
-					};
-					Assert.IsTrue(A.Minor(2, 2) == B);
-				}
+				Assert.IsTrue(A.Minor(0, 0) == B);
 			}
-			#endregion
+			{ // row 0, column 1
+				Matrix<int> B = new int[,]
+				{
+						{ 4, 6, },
+						{ 7, 9, },
+				};
+				Assert.IsTrue(A.Minor(0, 1) == B);
+			}
+			{ // row 0, column 2
+				Matrix<int> B = new int[,]
+				{
+						{ 4, 5, },
+						{ 7, 8, },
+				};
+				Assert.IsTrue(A.Minor(0, 2) == B);
+			}
+			{ // row 1, column 0
+				Matrix<int> B = new int[,]
+				{
+						{ 2, 3, },
+						{ 8, 9, },
+				};
+				Assert.IsTrue(A.Minor(1, 0) == B);
+			}
+			{ // row 1, column 1
+				Matrix<int> B = new int[,]
+				{
+						{ 1, 3, },
+						{ 7, 9, },
+				};
+				Assert.IsTrue(A.Minor(1, 1) == B);
+			}
+			{ // row 1, column 2
+				Matrix<int> B = new int[,]
+				{
+						{ 1, 2, },
+						{ 7, 8, },
+				};
+				Assert.IsTrue(A.Minor(1, 2) == B);
+			}
+			{ // row 2, column 0
+				Matrix<int> B = new int[,]
+				{
+						{ 2, 3, },
+						{ 5, 6, },
+				};
+				Assert.IsTrue(A.Minor(2, 0) == B);
+			}
+			{ // row 2, column 1
+				Matrix<int> B = new int[,]
+				{
+						{ 1, 3, },
+						{ 4, 6, },
+				};
+				Assert.IsTrue(A.Minor(2, 1) == B);
+			}
+			{ // row 2, column 2
+				Matrix<int> B = new int[,]
+				{
+						{ 1, 2, },
+						{ 4, 5, },
+				};
+				Assert.IsTrue(A.Minor(2, 2) == B);
+			}
+		}
+		#endregion
 
-			#region Exceptions
+		#region Exceptions
+		{
+			// null
 			{
-				// null
+				Assert.ThrowsException<ArgumentNullException>(() => Matrix<int>.Minor(null!, 0, 0));
+			}
+			// 1x1
+			{
+				Matrix<int> A = new int[,]
 				{
-					Assert.ThrowsException<ArgumentNullException>(() => Matrix<int>.Minor(null!, 0, 0));
-				}
-				// 1x1
-				{
-					Matrix<int> A = new int[,]
-					{
 						{ 1, },
-					};
-					Assert.ThrowsException<MathematicsException>(() => A.Minor(0, 0));
-				}
-				// 2x2
+				};
+				Assert.ThrowsException<MathematicsException>(() => A.Minor(0, 0));
+			}
+			// 2x2
+			{
+				Matrix<int> A = new int[,]
 				{
-					Matrix<int> A = new int[,]
-					{
 						{ 1, 2, },
 						{ 3, 4, },
-					};
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  2));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  0));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  2));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -2));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2,  0));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2, -2));
-				}
-				// 3x3
+				};
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  2));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  0));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 2,  2));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -2));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2,  0));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-2, -2));
+			}
+			// 3x3
+			{
+				Matrix<int> A = new int[,]
 				{
-					Matrix<int> A = new int[,]
-					{
 						{ 1, 2, 3 },
 						{ 4, 5, 6 },
 						{ 7, 8, 9 },
-					};
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  3));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  0));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  3));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -3));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3,  0));
-					Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3, -3));
-				}
-			}
-			#endregion
-		}
-
-		#endregion
-
-		#region ConcatenateRowWise
-
-		[TestMethod]
-		public void ConcatenateRowWise()
-		{
-			{ // [2 x 2] + [2 x 2] = [2 x 4]
-				Matrix<int> A = new int[,]
-				{
-					{ 2, 2, },
-					{ 2, 2, },
 				};
-				Matrix<int> B = new int[,]
-				{
-					{ 3, 3, },
-					{ 3, 3, },
-				};
-				Matrix<int> C = new int[,]
-				{
-					{ 2, 2, 3, 3, },
-					{ 2, 2, 3, 3, },
-				};
-				Assert.IsTrue(A.ConcatenateRowWise(B) == C);
-			}
-			{ // [2 x 3] + [2 x 1] = [2 x 3]
-				Matrix<int> A = new int[,]
-				{
-					{ 2, 2, 2, },
-					{ 2, 2, 2, },
-				};
-				Matrix<int> B = new int[,]
-				{
-					{ 3, },
-					{ 3, },
-				};
-				Matrix<int> C = new int[,]
-				{
-					{ 2, 2, 2, 3, },
-					{ 2, 2, 2, 3, },
-				};
-				Assert.IsTrue(A.ConcatenateRowWise(B) == C);
-			}
-			{ // [3 x 3] + [3 x 4] = [3 x 7]
-				Matrix<int> A = new int[,]
-				{
-					{ 2, 2, 2, },
-					{ 2, 2, 2, },
-					{ 2, 2, 2, },
-				};
-				Matrix<int> B = new int[,]
-				{
-					{ 3, 3, 3, 3, },
-					{ 3, 3, 3, 3, },
-					{ 3, 3, 3, 3, },
-				};
-				Matrix<int> C = new int[,]
-				{
-					{ 2, 2, 2, 3, 3, 3, 3, },
-					{ 2, 2, 2, 3, 3, 3, 3, },
-					{ 2, 2, 2, 3, 3, 3, 3, },
-				};
-				Assert.IsTrue(A.ConcatenateRowWise(B) == C);
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0,  3));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  0));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 3,  3));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor( 0, -3));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3,  0));
+				Assert.ThrowsException<ArgumentOutOfRangeException>(() => A.Minor(-3, -3));
 			}
 		}
-
 		#endregion
+	}
 
-		#region Echelon
+	#endregion
+
+	#region ConcatenateRowWise
+
+	[TestMethod]
+	public void ConcatenateRowWise()
+	{
+		{ // [2 x 2] + [2 x 2] = [2 x 4]
+			Matrix<int> A = new int[,]
+			{
+					{ 2, 2, },
+					{ 2, 2, },
+			};
+			Matrix<int> B = new int[,]
+			{
+					{ 3, 3, },
+					{ 3, 3, },
+			};
+			Matrix<int> C = new int[,]
+			{
+					{ 2, 2, 3, 3, },
+					{ 2, 2, 3, 3, },
+			};
+			Assert.IsTrue(A.ConcatenateRowWise(B) == C);
+		}
+		{ // [2 x 3] + [2 x 1] = [2 x 3]
+			Matrix<int> A = new int[,]
+			{
+					{ 2, 2, 2, },
+					{ 2, 2, 2, },
+			};
+			Matrix<int> B = new int[,]
+			{
+					{ 3, },
+					{ 3, },
+			};
+			Matrix<int> C = new int[,]
+			{
+					{ 2, 2, 2, 3, },
+					{ 2, 2, 2, 3, },
+			};
+			Assert.IsTrue(A.ConcatenateRowWise(B) == C);
+		}
+		{ // [3 x 3] + [3 x 4] = [3 x 7]
+			Matrix<int> A = new int[,]
+			{
+					{ 2, 2, 2, },
+					{ 2, 2, 2, },
+					{ 2, 2, 2, },
+			};
+			Matrix<int> B = new int[,]
+			{
+					{ 3, 3, 3, 3, },
+					{ 3, 3, 3, 3, },
+					{ 3, 3, 3, 3, },
+			};
+			Matrix<int> C = new int[,]
+			{
+					{ 2, 2, 2, 3, 3, 3, 3, },
+					{ 2, 2, 2, 3, 3, 3, 3, },
+					{ 2, 2, 2, 3, 3, 3, 3, },
+			};
+			Assert.IsTrue(A.ConcatenateRowWise(B) == C);
+		}
+	}
+
+	#endregion
+
+	#region Echelon
 
 #if false
 
@@ -1345,504 +1340,503 @@ namespace Towel_Testing.Mathematics
 
 #endif
 
-		#endregion
+	#endregion
 
-		#region ReducedEchelon
+	#region ReducedEchelon
 
-		[TestMethod]
-		public void ReducedEchelon()
+	[TestMethod]
+	public void ReducedEchelon()
+	{
+		// int
 		{
-			// int
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 1, 0, -1, },
 					{ 0, 1,  2, },
 					{ 0, 0,  0, },
-				};
-				Assert.IsTrue(A.ReducedEchelon() == B);
-			}
+			};
+			Assert.IsTrue(A.ReducedEchelon() == B);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 1f, 0f, -1f, },
 					{ 0f, 1f,  2f, },
 					{ 0f, 0f,  0f, },
-				};
-				Assert.IsTrue(A.ReducedEchelon() == B);
-			}
+			};
+			Assert.IsTrue(A.ReducedEchelon() == B);
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ 1d, 0d, -1d, },
 					{ 0d, 1d,  2d, },
 					{ 0d, 0d,  0d, },
-				};
-				Assert.IsTrue(A.ReducedEchelon() == B);
-			}
-			{ // decimal
-				Matrix<decimal> A = new decimal[,]
-				{
+			};
+			Assert.IsTrue(A.ReducedEchelon() == B);
+		}
+		{ // decimal
+			Matrix<decimal> A = new decimal[,]
+			{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ 1m, 0m, -1m, },
 					{ 0m, 1m,  2m, },
 					{ 0m, 0m,  0m, },
-				};
-				Assert.IsTrue(A.ReducedEchelon() == B);
-			}
-
+			};
+			Assert.IsTrue(A.ReducedEchelon() == B);
 		}
 
-		#endregion
+	}
 
-		#region Inverse
+	#endregion
 
-		[TestMethod]
-		public void Inverse()
-		{
-			{ // float
-				Matrix<float> A = new float[,]
-				{
+	#region Inverse
+
+	[TestMethod]
+	public void Inverse()
+	{
+		{ // float
+			Matrix<float> A = new float[,]
+			{
 					{ 1f, 2f, 3f, },
 					{ 0f, 4f, 5f, },
 					{ 1f, 0f, 6f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 12f / 11f, -6f / 11f, -1f / 11f, },
 					{  5f / 22f,  3f / 22f, -5f / 22f, },
 					{ -2f / 11f,  1f / 11f,  2f / 11f, },
-				};
-				Assert.IsTrue(A.Inverse() == B);
-			}
-			{ // double
-				Matrix<double> A = new double[,]
-				{
+			};
+			Assert.IsTrue(A.Inverse() == B);
+		}
+		{ // double
+			Matrix<double> A = new double[,]
+			{
 					{ 1d, 2d, 3d, },
 					{ 0d, 4d, 5d, },
 					{ 1d, 0d, 6d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ 12d / 11d, -6d / 11d, -1d / 11d, },
 					{  5d / 22d,  3d / 22d, -5d / 22d, },
 					{ -2d / 11d,  1d / 11d,  2d / 11d, },
-				};
-				Assert.IsTrue(A.Inverse() == B);
-			}
+			};
+			Assert.IsTrue(A.Inverse() == B);
 		}
+	}
 
-		#endregion
+	#endregion
 
-		#region Ajoint
+	#region Ajoint
 
-		[TestMethod]
-		public void Ajoint()
-		{
-			{   // int
-				Matrix<int> A = new int[,]
-				{
+	[TestMethod]
+	public void Ajoint()
+	{
+		{   // int
+			Matrix<int> A = new int[,]
+			{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ -3,   6, -3, },
 					{  6, -12,  6, },
 					{ -3,   6, -3, },
-				};
-				Assert.IsTrue(A.Adjoint() == B);
-			}
-			{ // float
-				Matrix<float> A = new float[,]
-				{
+			};
+			Assert.IsTrue(A.Adjoint() == B);
+		}
+		{ // float
+			Matrix<float> A = new float[,]
+			{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ -3f,   6f, -3f, },
 					{  6f, -12f,  6f, },
 					{ -3f,   6f, -3f, },
-				};
-				Assert.IsTrue(A.Adjoint().Equal(B, 0.01f));
-			}
-			{ // double
-				Matrix<double> A = new double[,]
-				{
+			};
+			Assert.IsTrue(A.Adjoint().Equal(B, 0.01f));
+		}
+		{ // double
+			Matrix<double> A = new double[,]
+			{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ -3d,   6d, -3d, },
 					{  6d, -12d,  6d, },
 					{ -3d,   6d, -3d, },
-				};
-				Assert.IsTrue(A.Adjoint().Equal(B, 0.01d));
-			}
-			{ // decimal
-				Matrix<decimal> A = new decimal[,]
-				{
+			};
+			Assert.IsTrue(A.Adjoint().Equal(B, 0.01d));
+		}
+		{ // decimal
+			Matrix<decimal> A = new decimal[,]
+			{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ -3m,   6m, -3m, },
 					{  6m, -12m,  6m, },
 					{ -3m,   6m, -3m, },
-				};
-				Assert.IsTrue(A.Adjoint() == B);
-			}
+			};
+			Assert.IsTrue(A.Adjoint() == B);
 		}
+	}
 
-		#endregion
+	#endregion
 
-		#region Transpose
+	#region Transpose
 
-		[TestMethod]
-		public void Transpose()
+	[TestMethod]
+	public void Transpose()
+	{
 		{
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1 },
-				};
-				Matrix<int> B = new int[,]
-				{
-					{ 1 },
-				};
-				Assert.IsTrue(A.Transpose() == B);
-			}
+			};
+			Matrix<int> B = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
+					{ 1 },
+			};
+			Assert.IsTrue(A.Transpose() == B);
+		}
+		{
+			Matrix<int> A = new int[,]
+			{
 					{ 1, 2, },
 					{ 3, 4, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 1, 3, },
 					{ 2, 4, },
-				};
-				Assert.IsTrue(A.Transpose() == B);
-			}
+			};
+			Assert.IsTrue(A.Transpose() == B);
+		}
+		{
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 1, 4, },
 					{ 2, 5, },
 					{ 3, 6, },
-				};
-				Assert.IsTrue(A.Transpose() == B);
-			}
+			};
+			Assert.IsTrue(A.Transpose() == B);
 		}
+	}
 
-		#endregion
+	#endregion
 
-		#region DecomposeLowerUpper
+	#region DecomposeLowerUpper
 
-		[TestMethod]
-		public void DecomposeLowerUpper()
+	[TestMethod]
+	public void DecomposeLowerUpper()
+	{
+		Assert.Inconclusive("Test Not Implemented");
+	}
+
+	#endregion
+
+	#region Rotate
+
+	[TestMethod]
+	public void Rotate()
+	{
+		Assert.Inconclusive("Test Not Implemented");
+	}
+
+	#endregion
+
+	#region Equal
+
+	[TestMethod]
+	public void Equal()
+	{
+		// int
 		{
-			Assert.Inconclusive("Test Not Implemented");
-		}
-
-		#endregion
-
-		#region Rotate
-
-		[TestMethod]
-		public void Rotate()
-		{
-			Assert.Inconclusive("Test Not Implemented");
-		}
-
-		#endregion
-
-		#region Equal
-
-		[TestMethod]
-		public void Equal()
-		{
-			// int
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Assert.IsTrue(A == B);
-			}
+			};
+			Assert.IsTrue(A == B);
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Assert.IsTrue(A == B);
-			}
-
-			// double
-			{
-				Matrix<double> A = new double[,]
-				{
-					{ 1d, 2d, 3d, },
-					{ 4d, 5d, 6d, },
-					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
-					{ 1d, 2d, 3d, },
-					{ 4d, 5d, 6d, },
-					{ 7d, 8d, 9d, },
-				};
-				Assert.IsTrue(A == B);
-			}
-
-			// decimal
-			{
-				Matrix<decimal> A = new decimal[,]
-				{
-					{ 1m, 2m, 3m, },
-					{ 4m, 5m, 6m, },
-					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
-					{ 1m, 2m, 3m, },
-					{ 4m, 5m, 6m, },
-					{ 7m, 8m, 9m, },
-				};
-				Assert.IsTrue(A == B);
-			}
+			};
+			Assert.IsTrue(A == B);
 		}
 
-		#endregion
-
-		#region Equal_Leniency
-
-		[TestMethod]
-		public void Equal_Leniency()
+		// double
 		{
-			// int
+			Matrix<double> A = new double[,]
 			{
-				Matrix<int> A = new int[,]
-				{
+					{ 1d, 2d, 3d, },
+					{ 4d, 5d, 6d, },
+					{ 7d, 8d, 9d, },
+			};
+			Matrix<double> B = new double[,]
+			{
+					{ 1d, 2d, 3d, },
+					{ 4d, 5d, 6d, },
+					{ 7d, 8d, 9d, },
+			};
+			Assert.IsTrue(A == B);
+		}
+
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
+			{
+					{ 1m, 2m, 3m, },
+					{ 4m, 5m, 6m, },
+					{ 7m, 8m, 9m, },
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
+					{ 1m, 2m, 3m, },
+					{ 4m, 5m, 6m, },
+					{ 7m, 8m, 9m, },
+			};
+			Assert.IsTrue(A == B);
+		}
+	}
+
+	#endregion
+
+	#region Equal_Leniency
+
+	[TestMethod]
+	public void Equal_Leniency()
+	{
+		// int
+		{
+			Matrix<int> A = new int[,]
+			{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 2, 3, 4, },
 					{ 5, 6, 7, },
 					{ 8, 9, 10, },
-				};
-				Assert.IsTrue(A.Equal(B, 1));
-			}
+			};
+			Assert.IsTrue(A.Equal(B, 1));
+		}
+		{
+			Matrix<int> A = new int[,]
 			{
-				Matrix<int> A = new int[,]
-				{
 					{ 1, 2, 3, },
 					{ 4, 5, 6, },
 					{ 7, 8, 9, },
-				};
-				Matrix<int> B = new int[,]
-				{
+			};
+			Matrix<int> B = new int[,]
+			{
 					{ 3, 4, 5, },
 					{ 6, 7, 8, },
 					{ 9, 10, 11, },
-				};
-				Assert.IsFalse(A.Equal(B, 1));
-			}
+			};
+			Assert.IsFalse(A.Equal(B, 1));
+		}
 
-			// float
+		// float
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 2f, 3f, 4f, },
 					{ 5f, 6f, 7f, },
 					{ 8f, 9f, 10f, },
-				};
-				Assert.IsTrue(A.Equal(B, 1f));
-			}
+			};
+			Assert.IsTrue(A.Equal(B, 1f));
+		}
+		{
+			Matrix<float> A = new float[,]
 			{
-				Matrix<float> A = new float[,]
-				{
 					{ 1f, 2f, 3f, },
 					{ 4f, 5f, 6f, },
 					{ 7f, 8f, 9f, },
-				};
-				Matrix<float> B = new float[,]
-				{
+			};
+			Matrix<float> B = new float[,]
+			{
 					{ 3f, 4f, 5f, },
 					{ 6f, 7f, 8f, },
 					{ 9f, 10f, 11f, },
-				};
-				Assert.IsFalse(A.Equal(B, 1f));
-			}
+			};
+			Assert.IsFalse(A.Equal(B, 1f));
+		}
 
-			// double
+		// double
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ 2d, 3d, 4d, },
 					{ 5d, 6d, 7d, },
 					{ 8d, 9d, 10d, },
-				};
-				Assert.IsTrue(A.Equal(B, 1d));
-			}
+			};
+			Assert.IsTrue(A.Equal(B, 1d));
+		}
+		{
+			Matrix<double> A = new double[,]
 			{
-				Matrix<double> A = new double[,]
-				{
 					{ 1d, 2d, 3d, },
 					{ 4d, 5d, 6d, },
 					{ 7d, 8d, 9d, },
-				};
-				Matrix<double> B = new double[,]
-				{
+			};
+			Matrix<double> B = new double[,]
+			{
 					{ 3d, 4d, 5d, },
 					{ 6d, 7d, 8d, },
 					{ 9d, 10d, 11d, },
-				};
-				Assert.IsFalse(A.Equal(B, 1d));
-			}
+			};
+			Assert.IsFalse(A.Equal(B, 1d));
+		}
 
-			// decimal
+		// decimal
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ 2m, 3m, 4m, },
 					{ 5m, 6m, 7m, },
 					{ 8m, 9m, 10m, },
-				};
-				Assert.IsTrue(A.Equal(B, 1m));
-			}
+			};
+			Assert.IsTrue(A.Equal(B, 1m));
+		}
+		{
+			Matrix<decimal> A = new decimal[,]
 			{
-				Matrix<decimal> A = new decimal[,]
-				{
 					{ 1m, 2m, 3m, },
 					{ 4m, 5m, 6m, },
 					{ 7m, 8m, 9m, },
-				};
-				Matrix<decimal> B = new decimal[,]
-				{
+			};
+			Matrix<decimal> B = new decimal[,]
+			{
 					{ 3m, 4m, 5m, },
 					{ 6m, 7m, 8m, },
 					{ 9m, 10m, 11m, },
-				};
-				Assert.IsFalse(A.Equal(B, 1m));
-			}
-		}
-
-		#endregion
-
-		#region Github Issue #53
-
-		[TestMethod]
-		public void GithubIssue53()
-		{
-			var a = new Matrix<Ref<float>>(3, 5);
-			for (int i = 0; i < a.Rows; i++)
-			{
-				for (int j = 0; j < a.Columns; j++)
-				{
-					a[i, j] = 3;
-				}
-			}
-
-			var b = new Matrix<Ref<float>>(5, 6);
-			for (int i = 0; i < b.Rows; i++)
-			{
-				for (int j = 0; j < b.Columns; j++)
-				{
-					b[i, j] = 5;
-				}
-			}
-
-			var c = a * b;
-
-			Matrix<Ref<float>> expectedResult = new Ref<float>[,]
-			{
-				{ 75,  75,  75,  75,  75,  75, },
-				{ 75,  75,  75,  75,  75,  75, },
-				{ 75,  75,  75,  75,  75,  75, },
 			};
-			Assert.IsTrue(c == expectedResult);
+			Assert.IsFalse(A.Equal(B, 1m));
+		}
+	}
+
+	#endregion
+
+	#region Github Issue #53
+
+	[TestMethod]
+	public void GithubIssue53()
+	{
+		var a = new Matrix<Ref<float>>(3, 5);
+		for (int i = 0; i < a.Rows; i++)
+		{
+			for (int j = 0; j < a.Columns; j++)
+			{
+				a[i, j] = 3;
+			}
 		}
 
-		#endregion
+		var b = new Matrix<Ref<float>>(5, 6);
+		for (int i = 0; i < b.Rows; i++)
+		{
+			for (int j = 0; j < b.Columns; j++)
+			{
+				b[i, j] = 5;
+			}
+		}
+
+		var c = a * b;
+
+		Matrix<Ref<float>> expectedResult = new Ref<float>[,]
+		{
+				{ 75,  75,  75,  75,  75,  75, },
+				{ 75,  75,  75,  75,  75,  75, },
+				{ 75,  75,  75,  75,  75,  75, },
+		};
+		Assert.IsTrue(c == expectedResult);
 	}
+
+	#endregion
 }

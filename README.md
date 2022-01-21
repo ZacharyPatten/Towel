@@ -210,6 +210,7 @@
 > SortPancake<T>(...);
 > SortStooge<T>(...);
 > SortTim<T>(...);
+> SortIntro<T>(...);
 > SortCounting<T>(...); // uint-based (non-comparative sort)
 > SortRadix<T>(...); // uint-based (non-comparative sort)
 > SortPidgeonHole<T>(...); // int-based (non-comparative sort)
@@ -238,7 +239,7 @@
 > IEnumerable<(T A, T B)> CombineRanges<T>(IEnumerable<(T A, T B)> ranges)
 > ```
 > 
-> > [Sorting Algorithm Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SortBenchmarks.html)<br/>
+> > [Sorting Algorithm Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/SortBenchmarks.html) <sub>Note: not all permuations of the input are benchmarked, so take with a grain of salt.</sub><br/>
 > > [Permute Benchmarks](https://zacharypatten.github.io/Towel/benchmarks/PermuteBenchmarks.html)
 
 </p>

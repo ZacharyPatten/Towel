@@ -1,8 +1,7 @@
-﻿namespace Towel.DataStructures
+﻿namespace Towel.DataStructures;
+
+internal class Node<T>
 {
-	internal class Node<T>
-	{
-		internal T? Value;
-		internal Node<T>? Next;
-	}
+	internal T? Value;
+	internal Node<T>? Next;
 }

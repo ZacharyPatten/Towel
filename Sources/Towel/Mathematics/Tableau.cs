@@ -1,5 +1,5 @@
-﻿namespace Towel.Source.Mathematics
-{
+﻿namespace Towel.Source.Mathematics;
+
 #if false
 
 	//public class Tableau
@@ -169,4 +169,3 @@
 	//}
 
 #endif
-}
