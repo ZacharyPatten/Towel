@@ -179,6 +179,13 @@ public struct ComparePersonFirstName : IFunc<Person, Person, CompareResult>
 	public CompareResult Invoke(Person a, Person b) => Compare(a.FirstName, b.FirstName);
 }
 
+public struct RandomNext : IFunc<int, int, int>
+{
+	public Random Random = new();
+
+	public int Invoke(int arg1, int arg2) => Random.Next(arg1, arg2);
+}
+
 public static partial class RandomData
 {
 	public static class DataStructures
@@ -209,9 +216,9 @@ public static partial class RandomData
 
 			return new Person[][]
 			{
-					GenerateData(10),
-					GenerateData(100),
-					GenerateData(1000),
+				GenerateData(10),
+				GenerateData(100),
+				GenerateData(1000),
 			};
 		}
 	}

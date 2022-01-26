@@ -34,7 +34,7 @@ public class DataStructuresBenchmarks
 	// ListLinked
 
 	[Benchmark]
-	public void Add()
+	public void ListLinked_Add()
 	{
 		IList<Person> list = new ListLinked<Person>();
 		foreach (Person person in RandomTestData!)
@@ -177,6 +177,30 @@ public class DataStructuresBenchmarks
 		foreach (Person person in RandomTestData!)
 		{
 			set.Add(person);
+		}
+	}
+
+	// SkipList
+
+	[Benchmark]
+	public void SkipList_Add()
+	{
+		SkipList<Person, ComparePersonFirstName, RandomNext> list = new SkipList<Person, ComparePersonFirstName, RandomNext>((byte)Math.Max(Math.Log(RandomData.Length), 4), random: new());
+		foreach (Person person in RandomTestData!)
+		{
+			list.Add(person);
+		}
+	}
+
+	// BTree
+
+	[Benchmark]
+	public void BTreeLinked_Add()
+	{
+		BTreeLinked<Person, ComparePersonFirstName> list = new BTreeLinked<Person, ComparePersonFirstName>(4);
+		foreach (Person person in RandomTestData!)
+		{
+			list.Add(person);
 		}
 	}
 }
