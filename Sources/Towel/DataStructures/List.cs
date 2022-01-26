@@ -14,6 +14,7 @@ public interface IList<T> : IDataStructure<T>,
 	/// <param name="exception">The exception that occurred if the remove failed.</param>
 	/// <param name="predicate">The predicate to determine removal.</param>
 	/// <returns>True if the value was removed. False if the value did not exist.</returns>
+#warning TODO: convert to (bool Success, Exception Exception) return value?
 	bool TryRemoveFirst<TPredicate>(out Exception? exception, TPredicate predicate = default)
 		where TPredicate : struct, IFunc<T, bool>;
 

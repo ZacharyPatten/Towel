@@ -6,59 +6,65 @@ The source code for all benchmarks are in [Tools/Towel.Benchmarking](https://git
 
 ``` ini
 
-BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.1469 (21H2)
 Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
-.NET SDK=6.0.100-preview.6.21355.2
-  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
-  DefaultJob : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+.NET SDK=6.0.200-preview.21617.4
+  [Host]     : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+  DefaultJob : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
 
 
 ```
-|                         Method | RandomTestData |          Mean |         Error |        StdDev |        Median |
-|------------------------------- |--------------- |--------------:|--------------:|--------------:|--------------:|
-|                  **ListArray_Add** |   **Person[1000]** |  **11,015.90 ns** |     **81.497 ns** |     **72.245 ns** |  **10,998.10 ns** |
-|      ListArray_AddWithCapacity |   Person[1000] |  10,335.02 ns |    121.002 ns |    113.185 ns |  10,298.58 ns |
-|                            Add |   Person[1000] |  13,570.85 ns |    140.211 ns |    109.468 ns |  13,570.42 ns |
-|             QueueArray_Enqueue |   Person[1000] |   9,458.07 ns |     55.164 ns |     48.902 ns |   9,461.79 ns |
-| QueueArray_EnqueueWithCapacity |   Person[1000] |   9,624.94 ns |     65.120 ns |     57.727 ns |   9,618.21 ns |
-|            QueueLinked_Enqueue |   Person[1000] |  10,308.74 ns |    201.484 ns |    188.468 ns |  10,296.75 ns |
-|                StackArray_Push |   Person[1000] |   6,319.35 ns |    100.663 ns |     89.235 ns |   6,287.48 ns |
-|    StackArray_PushWithCapacity |   Person[1000] |   5,155.39 ns |     45.183 ns |     40.054 ns |   5,139.53 ns |
-|               StackLinked_Push |   Person[1000] |   9,692.62 ns |     55.127 ns |     51.566 ns |   9,711.06 ns |
-|       AvlTreeLinked_AddRunTime |   Person[1000] | 915,860.04 ns | 16,403.690 ns | 14,541.444 ns | 914,604.35 ns |
-|   AvlTreeLinked_AddCompileTime |   Person[1000] | 873,177.48 ns | 17,206.094 ns | 25,220.469 ns | 875,975.59 ns |
-|        RedBlackTree_AddRunTime |   Person[1000] | 854,808.08 ns | 17,055.066 ns | 38,843.016 ns | 856,955.57 ns |
-|    RedBlackTree_AddCompileTime |   Person[1000] | 835,680.94 ns | 16,427.580 ns | 31,650.369 ns | 829,658.20 ns |
-|       SetHashLinked_AddRunTime |   Person[1000] |  59,599.87 ns |  1,189.346 ns |  2,174.787 ns |  59,220.92 ns |
-|   SetHashLinked_AddCompileTime |   Person[1000] |  52,755.17 ns |  1,042.306 ns |  1,741.459 ns |  52,718.70 ns |
-|                  **ListArray_Add** |    **Person[100]** |   **1,150.45 ns** |     **22.362 ns** |     **27.462 ns** |   **1,139.59 ns** |
-|      ListArray_AddWithCapacity |    Person[100] |     964.81 ns |     11.200 ns |      9.928 ns |     960.69 ns |
-|                            Add |    Person[100] |   1,344.19 ns |     26.186 ns |     45.862 ns |   1,347.19 ns |
-|             QueueArray_Enqueue |    Person[100] |   1,091.15 ns |     20.993 ns |     26.549 ns |   1,083.57 ns |
-| QueueArray_EnqueueWithCapacity |    Person[100] |     997.42 ns |     18.816 ns |     34.876 ns |   1,002.33 ns |
-|            QueueLinked_Enqueue |    Person[100] |     999.09 ns |      7.021 ns |      6.568 ns |     999.79 ns |
-|                StackArray_Push |    Person[100] |     770.46 ns |      5.229 ns |      4.083 ns |     770.46 ns |
-|    StackArray_PushWithCapacity |    Person[100] |     530.65 ns |      6.248 ns |      5.539 ns |     528.92 ns |
-|               StackLinked_Push |    Person[100] |   1,002.70 ns |     19.979 ns |     44.272 ns |     985.68 ns |
-|       AvlTreeLinked_AddRunTime |    Person[100] |  52,447.65 ns |    356.975 ns |    298.090 ns |  52,446.02 ns |
-|   AvlTreeLinked_AddCompileTime |    Person[100] |  51,185.53 ns |    745.975 ns |    697.786 ns |  51,282.73 ns |
-|        RedBlackTree_AddRunTime |    Person[100] |  53,718.77 ns |    702.302 ns |    586.454 ns |  53,601.14 ns |
-|    RedBlackTree_AddCompileTime |    Person[100] |  54,187.34 ns |    588.843 ns |    459.730 ns |  54,144.57 ns |
-|       SetHashLinked_AddRunTime |    Person[100] |   6,087.62 ns |    100.355 ns |    111.544 ns |   6,081.36 ns |
-|   SetHashLinked_AddCompileTime |    Person[100] |   4,940.82 ns |     97.212 ns |    129.775 ns |   4,893.09 ns |
-|                  **ListArray_Add** |     **Person[10]** |     **164.82 ns** |      **1.601 ns** |      **1.497 ns** |     **164.53 ns** |
-|      ListArray_AddWithCapacity |     Person[10] |     109.52 ns |      0.738 ns |      0.654 ns |     109.40 ns |
-|                            Add |     Person[10] |     137.26 ns |      2.738 ns |      3.839 ns |     135.87 ns |
-|             QueueArray_Enqueue |     Person[10] |     126.00 ns |      0.580 ns |      0.484 ns |     125.93 ns |
-| QueueArray_EnqueueWithCapacity |     Person[10] |     107.46 ns |      0.699 ns |      0.584 ns |     107.23 ns |
-|            QueueLinked_Enqueue |     Person[10] |     107.07 ns |      1.075 ns |      0.898 ns |     106.74 ns |
-|                StackArray_Push |     Person[10] |     133.98 ns |      1.253 ns |      1.111 ns |     133.74 ns |
-|    StackArray_PushWithCapacity |     Person[10] |      59.79 ns |      0.592 ns |      0.525 ns |      59.77 ns |
-|               StackLinked_Push |     Person[10] |     104.34 ns |      1.328 ns |      1.631 ns |     104.14 ns |
-|       AvlTreeLinked_AddRunTime |     Person[10] |   2,323.73 ns |     44.924 ns |     48.068 ns |   2,313.07 ns |
-|   AvlTreeLinked_AddCompileTime |     Person[10] |   2,311.27 ns |     35.614 ns |     33.314 ns |   2,296.56 ns |
-|        RedBlackTree_AddRunTime |     Person[10] |   2,725.51 ns |     38.273 ns |     35.801 ns |   2,708.83 ns |
-|    RedBlackTree_AddCompileTime |     Person[10] |   2,686.89 ns |     26.898 ns |     22.461 ns |   2,685.79 ns |
-|       SetHashLinked_AddRunTime |     Person[10] |     635.50 ns |     11.374 ns |     10.640 ns |     630.80 ns |
-|   SetHashLinked_AddCompileTime |     Person[10] |     499.24 ns |      7.215 ns |      6.396 ns |     498.29 ns |
+|                         Method | RandomTestData |            Mean |         Error |         StdDev |
+|------------------------------- |--------------- |----------------:|--------------:|---------------:|
+|                  **ListArray_Add** |   **Person[1000]** |    **11,953.79 ns** |    **238.245 ns** |     **512.847 ns** |
+|      ListArray_AddWithCapacity |   Person[1000] |    11,264.89 ns |    126.023 ns |     111.716 ns |
+|                 ListLinked_Add |   Person[1000] |    14,724.64 ns |    260.631 ns |     243.795 ns |
+|             QueueArray_Enqueue |   Person[1000] |    10,033.62 ns |    156.998 ns |     146.856 ns |
+| QueueArray_EnqueueWithCapacity |   Person[1000] |    10,556.92 ns |    121.369 ns |     107.590 ns |
+|            QueueLinked_Enqueue |   Person[1000] |    11,149.43 ns |    222.536 ns |     601.639 ns |
+|                StackArray_Push |   Person[1000] |     6,784.71 ns |    133.005 ns |     271.694 ns |
+|    StackArray_PushWithCapacity |   Person[1000] |     5,827.44 ns |     78.805 ns |      73.715 ns |
+|               StackLinked_Push |   Person[1000] |     9,975.14 ns |    179.241 ns |     167.662 ns |
+|       AvlTreeLinked_AddRunTime |   Person[1000] |   978,537.46 ns | 37,366.842 ns | 108,407.985 ns |
+|   AvlTreeLinked_AddCompileTime |   Person[1000] |   900,494.22 ns | 17,988.664 ns |  38,335.310 ns |
+|        RedBlackTree_AddRunTime |   Person[1000] |   889,709.68 ns | 16,173.330 ns |  13,505.463 ns |
+|    RedBlackTree_AddCompileTime |   Person[1000] | 1,034,283.42 ns | 20,464.748 ns |  58,717.198 ns |
+|       SetHashLinked_AddRunTime |   Person[1000] |    65,663.44 ns |    928.168 ns |     868.209 ns |
+|   SetHashLinked_AddCompileTime |   Person[1000] |    54,765.16 ns |    886.181 ns |     910.043 ns |
+|                   SkipList_Add |   Person[1000] | 3,755,378.84 ns | 41,136.672 ns |  32,116.808 ns |
+|                BTreeLinked_Add |   Person[1000] |   892,964.50 ns | 17,733.868 ns |  33,740.528 ns |
+|                  **ListArray_Add** |    **Person[100]** |     **1,349.97 ns** |     **26.256 ns** |      **39.299 ns** |
+|      ListArray_AddWithCapacity |    Person[100] |     1,012.64 ns |      6.842 ns |       6.400 ns |
+|                 ListLinked_Add |    Person[100] |     1,510.59 ns |     29.630 ns |      48.683 ns |
+|             QueueArray_Enqueue |    Person[100] |     1,187.26 ns |     23.653 ns |      39.519 ns |
+| QueueArray_EnqueueWithCapacity |    Person[100] |     1,053.07 ns |     21.093 ns |      25.110 ns |
+|            QueueLinked_Enqueue |    Person[100] |     1,110.71 ns |     21.718 ns |      23.238 ns |
+|                StackArray_Push |    Person[100] |       837.50 ns |     15.113 ns |      17.404 ns |
+|    StackArray_PushWithCapacity |    Person[100] |       596.88 ns |     11.342 ns |      11.648 ns |
+|               StackLinked_Push |    Person[100] |     1,047.26 ns |     20.521 ns |      52.604 ns |
+|       AvlTreeLinked_AddRunTime |    Person[100] |    59,298.06 ns |    961.996 ns |     852.784 ns |
+|   AvlTreeLinked_AddCompileTime |    Person[100] |    54,780.93 ns |    867.949 ns |     677.637 ns |
+|        RedBlackTree_AddRunTime |    Person[100] |    61,468.98 ns |  1,221.374 ns |   2,410.873 ns |
+|    RedBlackTree_AddCompileTime |    Person[100] |    59,874.35 ns |  1,130.306 ns |   1,691.789 ns |
+|       SetHashLinked_AddRunTime |    Person[100] |     6,387.72 ns |    107.977 ns |     101.002 ns |
+|   SetHashLinked_AddCompileTime |    Person[100] |     5,188.74 ns |     68.079 ns |      60.350 ns |
+|                   SkipList_Add |    Person[100] |   648,496.75 ns |  8,526.228 ns |   7,975.439 ns |
+|                BTreeLinked_Add |    Person[100] |    51,567.06 ns |    921.117 ns |     861.614 ns |
+|                  **ListArray_Add** |     **Person[10]** |       **183.83 ns** |      **3.361 ns** |       **3.143 ns** |
+|      ListArray_AddWithCapacity |     Person[10] |       118.53 ns |      1.141 ns |       1.067 ns |
+|                 ListLinked_Add |     Person[10] |       149.97 ns |      1.812 ns |       1.607 ns |
+|             QueueArray_Enqueue |     Person[10] |       142.48 ns |      2.083 ns |       1.846 ns |
+| QueueArray_EnqueueWithCapacity |     Person[10] |       119.23 ns |      1.473 ns |       1.306 ns |
+|            QueueLinked_Enqueue |     Person[10] |       119.53 ns |      2.377 ns |       2.920 ns |
+|                StackArray_Push |     Person[10] |       147.56 ns |      2.933 ns |       2.880 ns |
+|    StackArray_PushWithCapacity |     Person[10] |        70.39 ns |      1.349 ns |       1.262 ns |
+|               StackLinked_Push |     Person[10] |       114.01 ns |      1.840 ns |       1.722 ns |
+|       AvlTreeLinked_AddRunTime |     Person[10] |     2,569.00 ns |     49.350 ns |      56.832 ns |
+|   AvlTreeLinked_AddCompileTime |     Person[10] |     2,389.07 ns |     47.099 ns |      46.258 ns |
+|        RedBlackTree_AddRunTime |     Person[10] |     2,924.05 ns |     57.001 ns |      90.409 ns |
+|    RedBlackTree_AddCompileTime |     Person[10] |     2,760.31 ns |     48.891 ns |      71.664 ns |
+|       SetHashLinked_AddRunTime |     Person[10] |       701.38 ns |      5.353 ns |       4.180 ns |
+|   SetHashLinked_AddCompileTime |     Person[10] |       560.00 ns |      6.663 ns |       5.907 ns |
+|                   SkipList_Add |     Person[10] |   577,439.00 ns | 11,119.887 ns |  12,359.725 ns |
+|                BTreeLinked_Add |     Person[10] |     2,011.85 ns |     39.734 ns |      37.167 ns |
 

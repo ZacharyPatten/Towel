@@ -25,9 +25,8 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	DataStructure.ICountable,
 	DataStructure.IClearable,
 	DataStructure.IAuditable<T>,
-	DataStructure.IComparing<T, TCompare>
-	#warning TODO: implement clone
-	//ICloneable<BTreeLinked<T, TCompare>>
+	DataStructure.IComparing<T, TCompare>,
+	ICloneable<BTreeLinked<T, TCompare>>
 	where TCompare : struct, IFunc<T, T, CompareResult>
 {
 	internal Node _root;
@@ -648,6 +647,37 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 			(node, index) = NextNode(node!, index);
 		} while (node is not null);
 		return Continue;
+	}
+
+	/// <inheritdoc />
+	public BTreeLinked<T, TCompare> Clone()
+	{
+		BTreeLinked<T, TCompare> clone = new(_maxDegree, _compare);
+		clone._count = _count;
+		StackLinked<(Node original, Node copy)> stack = new();
+		stack.Push((_root, clone._root));
+		while (stack._count > 0)
+		{
+			(Node original, Node copy) = stack.Pop();
+			copy._parentIndex = original._parentIndex;
+			copy._count = original._count;
+			for (int i = 0; i < original._count; i++)
+			{
+				copy._values[i] = original._values[i];
+			}
+			if (!original.IsLeaf)
+			{
+				for (int i = 0; i <= original._count; i++)
+				{
+					Node c = copy._children[i] = new(MaxDegree);
+					c._parent = copy;
+					Node? o = original._children[i];
+					if (o == null) throw new CorruptedDataStructureException("Found null children of an internal node!");
+					stack.Push((o, c));
+				}
+			}
+		}
+		return clone;
 	}
 
 	#endregion

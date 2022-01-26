@@ -232,4 +232,34 @@ public class BTree_Testing
 		Array.Sort(arr);
 		CollectionAssert.AreEqual(arr, tree.ToArray());
 	}
+	[TestMethod]
+	public void CloneTest_1()
+	{
+		Random r = new();
+		const int size = 400;
+		const int max = size * size;
+		BTreeLinked<int, SFunc<int, int, CompareResult>>? tree = BTreeLinked.New<int>(8);
+		int[] arr = new int[size];
+		for (int i = 0, j; i < size; i++)
+		{
+			do
+			{
+				j = max + r.Next(max);
+			} while (Array.IndexOf(arr, j, 0, i) >= 0);
+			arr[i] = j;
+		}
+		foreach (var x in arr)
+			Assert.IsTrue(tree.TryAdd(x).Success);
+		var clonedTree = tree.Clone();
+		tree.Clear();
+		Array.Sort(arr);
+		CollectionAssert.AreEqual(arr, clonedTree.ToArray());
+	}
+	[TestMethod]
+	public void CloneTest_2()
+	{
+		BTreeLinked<int, SFunc<int, int, CompareResult>>? tree = BTreeLinked.New<int>(8);
+		BTreeLinked<int, SFunc<int, int, CompareResult>>? clonedTree = tree.Clone();
+		CollectionAssert.AreEqual(Array.Empty<int>(), clonedTree.ToArray());
+	}
 }
