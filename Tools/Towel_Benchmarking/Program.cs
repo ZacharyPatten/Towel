@@ -181,8 +181,8 @@ public struct ComparePersonFirstName : IFunc<Person, Person, CompareResult>
 
 public struct RandomNext : IFunc<int, int, int>
 {
-	public Random Random = new();
-
+	public Random Random;
+	public RandomNext() => Random = new();
 	public int Invoke(int arg1, int arg2) => Random.Next(arg1, arg2);
 }
 
