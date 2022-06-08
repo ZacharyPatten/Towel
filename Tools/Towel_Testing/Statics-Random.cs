@@ -3,6 +3,120 @@
 // [TestClass]
 public partial class Statics_Testing
 {
+	#region NextPoolTracking (with exclusions)
+
+	[TestMethod]
+	public void NextPoolTracking_exclusions_Testing()
+	{
+		// count > sqrt(max - min)
+		{
+			Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+			int[] output = NextPoolTracking<SFunc<int, int, int>>(
+				count: 5,
+				minValue: 0,
+				maxValue: 10,
+				excluded: new[] { 1, 3, 5, 7, 9, },
+				random: next);
+			Assert.IsTrue(EquateSet<int>(output, new[] { 0, 0, 0, 0, 0, }));
+		}
+		{
+			Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+			int[] output = NextPoolTracking<SFunc<int, int, int>>(
+				count: 5,
+				minValue: 0,
+				maxValue: 10,
+				excluded: new[] { 0, 2, 4, 6, 8, },
+				random: next);
+			Assert.IsTrue(EquateSet<int>(output, new[] { 1, 1, 1, 1, 1, }));
+		}
+		{
+			Random random = new();
+			const int minValue = 0;
+			const int maxValue = 1000;
+			const int count = 6;
+			for (int i = 0; i < 1000; i++)
+			{
+				const int excludeCount = 100;
+				int[] excludes = new int[excludeCount];
+				for (int j = 0; j < excludeCount; j++)
+				{
+					excludes[j] = random.Next(minValue, maxValue);
+				}
+				int[] output = random.NextPoolTracking(
+					count: count,
+					minValue: minValue,
+					maxValue: maxValue,
+					excluded: excludes);
+				Assert.IsTrue(output.Length is count);
+				Assert.IsTrue(!Any<int>(output, value => value < minValue));
+				Assert.IsTrue(!Any<int>(output, value => value >= maxValue));
+				Assert.IsTrue(!Any<int>(output, value => Contains(excludes, value)));
+			}
+		}
+		// exceptions
+		Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextRollTracking<SFunc<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+		Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextRollTracking<SFunc<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+	}
+
+	#endregion
+
+	#region NextPoolTracking (with exclusions)
+
+	[TestMethod]
+	public void NextRollTracking_exclusions_Testing()
+	{
+		// count > sqrt(max - min)
+		{
+			Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+			int[] output = NextRollTracking<SFunc<int, int, int>>(
+				count: 5,
+				minValue: 0,
+				maxValue: 10,
+				excluded: new[] { 1, 3, 5, 7, 9, },
+				random: next);
+			Assert.IsTrue(EquateSet<int>(output, new[] { 0, 0, 0, 0, 0, }));
+		}
+		{
+			Func<int, int, int> next = (_, max) => 0; // 0, 0, 0, 0, 0
+			int[] output = NextRollTracking<SFunc<int, int, int>>(
+				count: 5,
+				minValue: 0,
+				maxValue: 10,
+				excluded: new[] { 0, 2, 4, 6, 8, },
+				random: next);
+			Assert.IsTrue(EquateSet<int>(output, new[] { 1, 1, 1, 1, 1, }));
+		}
+		{
+			Random random = new();
+			const int minValue = 0;
+			const int maxValue = 1000;
+			const int count = 6;
+			for (int i = 0; i < 1000; i++)
+			{
+				const int excludeCount = 100;
+				int[] excludes = new int[excludeCount];
+				for (int j = 0; j < excludeCount; j++)
+				{
+					excludes[j] = random.Next(minValue, maxValue);
+				}
+				int[] output = random.NextRollTracking(
+					count: count,
+					minValue: minValue,
+					maxValue: maxValue,
+					excluded: excludes);
+				Assert.IsTrue(output.Length is count);
+				Assert.IsTrue(!Any<int>(output, value => value < minValue));
+				Assert.IsTrue(!Any<int>(output, value => value >= maxValue));
+				Assert.IsTrue(!Any<int>(output, value => Contains(excludes, value)));
+			}
+		}
+		// exceptions
+		Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextRollTracking<SFunc<int, int, int>>(-1, 0, 1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+		Assert.ThrowsException<ArgumentOutOfRangeException>(() => NextRollTracking<SFunc<int, int, int>>(1, 0, -1, excluded: new[] { -2 }, new Func<int, int, int>((_, _) => default)));
+	}
+
+	#endregion
+
 	#region NextUniqueRollTracking
 
 	[TestMethod]

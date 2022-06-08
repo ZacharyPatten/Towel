@@ -83,8 +83,8 @@ public static partial class Statics
 		}
 		for (int i = 0; i < count; i++) // Θ(count)
 		{
-			int roll = random.Invoke(minValue, maxValue - i - excludeCount);
-			if (roll < minValue || roll >= maxValue - i - excludeCount)
+			int roll = random.Invoke(minValue, maxValue - excludeCount);
+			if (roll < minValue || roll >= maxValue - excludeCount)
 			{
 				throw new ArgumentException("The Random provided returned a value outside the requested range.");
 			}
