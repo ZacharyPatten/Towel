@@ -1,0 +1,2634 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Struct Fraction&lt;T&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct Fraction&lt;T&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.Mathematics.Fraction`1">
+  
+  
+  <h1 id="Towel_Mathematics_Fraction_1" data-uid="Towel.Mathematics.Fraction`1" class="text-break">Struct Fraction&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Represents a rational value with a numerator and a denominator.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.Mathematics.html">Towel.Mathematics</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_Mathematics_Fraction_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct Fraction&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the numerator and denominator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1__ctor__0_.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.%23ctor(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L39">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1__ctor_" data-uid="Towel.Mathematics.Fraction`1.#ctor*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1__ctor__0_" data-uid="Towel.Mathematics.Fraction`1.#ctor(`0)">Fraction(T)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new fraction [<code data-dev-comment-type="paramref" class="paramref">numerator</code> / 1].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Fraction(T numerator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">numerator</span></td>
+        <td><p>The numerator of the fraction.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1__ctor__0__0_.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.%23ctor(%600%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L48">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1__ctor_" data-uid="Towel.Mathematics.Fraction`1.#ctor*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1__ctor__0__0_" data-uid="Towel.Mathematics.Fraction`1.#ctor(`0,`0)">Fraction(T, T)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new fraction [<code data-dev-comment-type="paramref" class="paramref">numerator</code> / <code data-dev-comment-type="paramref" class="paramref">deniminator</code>].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Fraction(T numerator, T deniminator)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">numerator</span></td>
+        <td><p>The numerator of the fraction.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">deniminator</span></td>
+        <td><p>The denominator of the fraction.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Denominator.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Denominator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L20">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Denominator_" data-uid="Towel.Mathematics.Fraction`1.Denominator*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Denominator" data-uid="Towel.Mathematics.Fraction`1.Denominator">Denominator</h4>
+  <div class="markdown level1 summary"><p>The denominator of the fraction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Denominator { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Numerator.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Numerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L13">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Numerator_" data-uid="Towel.Mathematics.Fraction`1.Numerator*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Numerator" data-uid="Towel.Mathematics.Fraction`1.Numerator">Numerator</h4>
+  <div class="markdown level1 summary"><p>The numerator of the fraction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Numerator { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Add_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Add(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L93">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Add_" data-uid="Towel.Mathematics.Fraction`1.Add*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Add_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Add(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Add(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Adds two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; Add(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the addition.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Compare_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Compare(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L407">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Compare_" data-uid="Towel.Mathematics.Fraction`1.Compare*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Compare_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Compare(Towel.Mathematics.Fraction{`0})">Compare(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Compares two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CompareResult Compare(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.CompareResult.html">CompareResult</a></td>
+        <td><p>The result of the comparison.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Compare_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Compare(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L414">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Compare_" data-uid="Towel.Mathematics.Fraction`1.Compare*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Compare_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Compare(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Compare(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Compares two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static CompareResult Compare(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.CompareResult.html">CompareResult</a></td>
+        <td><p>The result of the comparison.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Divide_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Divide(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L161">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Divide_" data-uid="Towel.Mathematics.Fraction`1.Divide*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Divide_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Divide(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Divide(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Divides two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; Divide(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the division.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Equality_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Equality(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L254">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Equality_" data-uid="Towel.Mathematics.Fraction`1.Equality*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Equality_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Equality(Towel.Mathematics.Fraction{`0})">Equality(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for equality between two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equality(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The result of the equality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Equality_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Equality(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L247">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Equality_" data-uid="Towel.Mathematics.Fraction`1.Equality*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Equality_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Equality(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Equality(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for equality between two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Equality(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The first operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The result of the equality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Equals_System_Nullable_System_Object__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Equals(System.Nullable%7BSystem.Object%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L260">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Equals_" data-uid="Towel.Mathematics.Fraction`1.Equals*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Equals_System_Nullable_System_Object__" data-uid="Towel.Mathematics.Fraction`1.Equals(System.Nullable{System.Object})">Equals(Nullable&lt;Object&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for equality with another object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Object</span>&gt;</td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The object to equate with this.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The result of the equate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_GetHashCode.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L425">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_GetHashCode_" data-uid="Towel.Mathematics.Fraction`1.GetHashCode*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_GetHashCode" data-uid="Towel.Mathematics.Fraction`1.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Gets the default hash code for this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>Teh computed hash code.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_GreaterThan_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.GreaterThan(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L341">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_GreaterThan_" data-uid="Towel.Mathematics.Fraction`1.GreaterThan*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_GreaterThan_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.GreaterThan(Towel.Mathematics.Fraction{`0})">GreaterThan(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is greater than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GreaterThan(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the greater than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_GreaterThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.GreaterThan(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L331">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_GreaterThan_" data-uid="Towel.Mathematics.Fraction`1.GreaterThan*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_GreaterThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.GreaterThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">GreaterThan(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is greater than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool GreaterThan(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the greater than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_GreaterThanOrEqual_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.GreaterThanOrEqual(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L397">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_GreaterThanOrEqual_" data-uid="Towel.Mathematics.Fraction`1.GreaterThanOrEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_GreaterThanOrEqual_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.GreaterThanOrEqual(Towel.Mathematics.Fraction{`0})">GreaterThanOrEqual(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is greater than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GreaterThanOrEqual(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the greater than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_GreaterThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.GreaterThanOrEqual(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L387">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_GreaterThanOrEqual_" data-uid="Towel.Mathematics.Fraction`1.GreaterThanOrEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_GreaterThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.GreaterThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">GreaterThanOrEqual(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is greater than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool GreaterThanOrEqual(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the greater than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_LessThan_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.LessThan(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L313">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_LessThan_" data-uid="Towel.Mathematics.Fraction`1.LessThan*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_LessThan_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.LessThan(Towel.Mathematics.Fraction{`0})">LessThan(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is less than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool LessThan(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the less than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_LessThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.LessThan(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L303">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_LessThan_" data-uid="Towel.Mathematics.Fraction`1.LessThan*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_LessThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.LessThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">LessThan(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is less than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool LessThan(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the less than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_LessThanOrEqual_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.LessThanOrEqual(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L369">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_LessThanOrEqual_" data-uid="Towel.Mathematics.Fraction`1.LessThanOrEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_LessThanOrEqual_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.LessThanOrEqual(Towel.Mathematics.Fraction{`0})">LessThanOrEqual(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is less than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool LessThanOrEqual(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the less than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_LessThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.LessThanOrEqual(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L359">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_LessThanOrEqual_" data-uid="Towel.Mathematics.Fraction`1.LessThanOrEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_LessThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.LessThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">LessThanOrEqual(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is less than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool LessThanOrEqual(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the less than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Multiply_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Multiply(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L141">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Multiply_" data-uid="Towel.Mathematics.Fraction`1.Multiply*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Multiply_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Multiply(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Multiply(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; Multiply(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the multiplication.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Negate_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Negate(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L76">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Negate_" data-uid="Towel.Mathematics.Fraction`1.Negate*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Negate_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Negate(Towel.Mathematics.Fraction{`0})">Negate(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Negates a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; Negate(Fraction&lt;T&gt; a)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The value to negate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the negation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_NotEqual_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.NotEqual(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L285">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_NotEqual_" data-uid="Towel.Mathematics.Fraction`1.NotEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_NotEqual_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.NotEqual(Towel.Mathematics.Fraction{`0})">NotEqual(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for inequality between two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool NotEqual(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The result of the inequality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_NotEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.NotEqual(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L278">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_NotEqual_" data-uid="Towel.Mathematics.Fraction`1.NotEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_NotEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.NotEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">NotEqual(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for inequality between two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool NotEqual(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The first operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The result of the inequality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Parse_System_String_.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Parse(System.String)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L478">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Parse_" data-uid="Towel.Mathematics.Fraction`1.Parse*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Parse_System_String_" data-uid="Towel.Mathematics.Fraction`1.Parse(System.String)">Parse(String)</h4>
+  <div class="markdown level1 summary"><p>Parses a string into a fraction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Fraction&lt;T&gt; Parse(string string)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">string</span></td>
+        <td><p>The string to parse.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The parsed value from the string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Reduce.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Reduce%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L229">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Reduce_" data-uid="Towel.Mathematics.Fraction`1.Reduce*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Reduce" data-uid="Towel.Mathematics.Fraction`1.Reduce">Reduce()</h4>
+  <div class="markdown level1 summary"><p>Reduces a fractional value if possible.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Fraction&lt;T&gt; Reduce()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The fraction in the reduced form.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Reduce_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Reduce(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L221">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Reduce_" data-uid="Towel.Mathematics.Fraction`1.Reduce*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Reduce_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Reduce(Towel.Mathematics.Fraction{`0})">Reduce(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Reduces a fractional value if possible.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; Reduce(Fraction&lt;T&gt; a)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The fractional value to reduce.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The fraction in the reduced form.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Remainder_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Remainder(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L193">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Remainder_" data-uid="Towel.Mathematics.Fraction`1.Remainder*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Remainder_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Remainder(Towel.Mathematics.Fraction{`0})">Remainder(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Computes the remainder of two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Fraction&lt;T&gt; Remainder(Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the remainder operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Remainder_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Remainder(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L181">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Remainder_" data-uid="Towel.Mathematics.Fraction`1.Remainder*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Remainder_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Remainder(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Remainder(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Computes the remainder of two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; Remainder(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the remainder operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_Subtract_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.Subtract(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L117">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_Subtract_" data-uid="Towel.Mathematics.Fraction`1.Subtract*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_Subtract_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.Subtract(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Subtract(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Subtracts two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; Subtract(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the subtraction.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_ToString.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L497">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_ToString_" data-uid="Towel.Mathematics.Fraction`1.ToString*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_ToString" data-uid="Towel.Mathematics.Fraction`1.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Default conversion to string for fractions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string? ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>The value represented as a string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_ToString_Towel_Mathematics_Fraction__0__System_Nullable_Func__0_System_Nullable_System_String____.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.ToString(Towel.Mathematics.Fraction%7B%600%7D%2CSystem.Nullable%7BFunc%7B%600%2CSystem.Nullable%7BSystem.String%7D%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L503">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_ToString_" data-uid="Towel.Mathematics.Fraction`1.ToString*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_ToString_Towel_Mathematics_Fraction__0__System_Nullable_Func__0_System_Nullable_System_String____" data-uid="Towel.Mathematics.Fraction`1.ToString(Towel.Mathematics.Fraction{`0},System.Nullable{Func{`0,System.Nullable{System.String}}})">ToString(Fraction&lt;T&gt;, Nullable&lt;Func&lt;T, Nullable&lt;String&gt;&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Default conversion to string for fractions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string? ToString(Fraction&lt;T&gt; fraction, Func&lt;T, string?&gt;? toString = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">fraction</span></td>
+        <td><p>The value to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">Func</span>&lt;T, <span class="xref">System.Nullable</span>&lt;<span class="xref">System.String</span>&gt;&gt;&gt;</td>
+        <td><span class="parametername">toString</span></td>
+        <td><p>The string conversion function for the numerator and denominator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>The value represented as a string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_ToString__1_Towel_Mathematics_Fraction__0____0_.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.ToString%60%601(Towel.Mathematics.Fraction%7B%600%7D%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L511">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_ToString_" data-uid="Towel.Mathematics.Fraction`1.ToString*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_ToString__1_Towel_Mathematics_Fraction__0____0_" data-uid="Towel.Mathematics.Fraction`1.ToString``1(Towel.Mathematics.Fraction{`0},``0)">ToString&lt;TToString&gt;(Fraction&lt;T&gt;, TToString)</h4>
+  <div class="markdown level1 summary"><p>Default conversion to string for fractions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static string? ToString&lt;TToString&gt;(Fraction&lt;T&gt; fraction, TToString toString = default(TToString))
+    where TToString : struct, IFunc&lt;T, string?&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">fraction</span></td>
+        <td><p>The value to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TToString</span></td>
+        <td><span class="parametername">toString</span></td>
+        <td><p>The string conversion function for the numerator and denominator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>The value represented as a string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TToString</span></td>
+        <td><p>The type of the string conversion function for the numerator and denominator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_TryParse_System_String_System_Nullable_Func_System_String_System_ValueTuple_System_Boolean__0____.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.TryParse(System.String%2CSystem.Nullable%7BFunc%7BSystem.String%2CSystem.ValueTuple%7BSystem.Boolean%2C%600%7D%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L438">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_TryParse_" data-uid="Towel.Mathematics.Fraction`1.TryParse*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_TryParse_System_String_System_Nullable_Func_System_String_System_ValueTuple_System_Boolean__0____" data-uid="Towel.Mathematics.Fraction`1.TryParse(System.String,System.Nullable{Func{System.String,System.ValueTuple{System.Boolean,`0}}})">TryParse(String, Nullable&lt;Func&lt;String, (Boolean, T)&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Tries to parse a <see cref="!:System.String"></see> into a value of the type <a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction&lt;T&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Fraction&lt;T&gt; Value) TryParse(string string, Func&lt;string, (bool, T)&gt;? tryParse = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">string</span></td>
+        <td><p>The <see cref="!:System.String"></see> to parse into a value ot type <a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction&lt;T&gt;</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">Func</span>&lt;<span class="xref">System.String</span>, <span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, T&gt;&gt;&gt;</td>
+        <td><span class="parametername">tryParse</span></td>
+        <td><p>The <a class="xref" href="Towel.Statics.html#Towel_Statics_TryParse__1_System_String_">TryParse&lt;T&gt;(String)</a> method of the numerator and denomiator types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: True if the parse was successful; False if not.<br></li>
+<li><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction&lt;T&gt;</a> Value: The value if the parse was successful or default if not.</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_TryParse__1_System_String___0_.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.TryParse%60%601(System.String%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L449">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_TryParse_" data-uid="Towel.Mathematics.Fraction`1.TryParse*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_TryParse__1_System_String___0_" data-uid="Towel.Mathematics.Fraction`1.TryParse``1(System.String,``0)">TryParse&lt;TryParse&gt;(String, TryParse)</h4>
+  <div class="markdown level1 summary"><p>Tries to parse a <see cref="!:System.String"></see> into a value of the type <a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction&lt;T&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Fraction&lt;T&gt; Value) TryParse&lt;TryParse&gt;(string string, TryParse tryParse = default(TryParse))
+    where TryParse : struct, IFunc&lt;string, (bool Success, T Value)&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.String</span></td>
+        <td><span class="parametername">string</span></td>
+        <td><p>The <see cref="!:System.String"></see> to parse into a value ot type <a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction&lt;T&gt;</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TryParse</span></td>
+        <td><span class="parametername">tryParse</span></td>
+        <td><p>The TryParse method of the numerator and denomiator types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: True if the parse was successful; False if not.<br></li>
+<li><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction&lt;T&gt;</a> Value: The value if the parse was successful or default if not.</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TryParse</span></td>
+        <td><p>The type of TryParse method of the numerator and denomiator types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Addition_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Addition(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L87">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Addition_" data-uid="Towel.Mathematics.Fraction`1.op_Addition*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Addition_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_Addition(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Addition(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Adds two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; operator +(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the addition.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Division_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Division(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L154">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Division_" data-uid="Towel.Mathematics.Fraction`1.op_Division*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Division_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_Division(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Division(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Divides two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; operator /(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the division.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Equality_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Equality(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L240">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Equality_" data-uid="Towel.Mathematics.Fraction`1.op_Equality*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Equality_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_Equality(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Equality(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for equality between two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The first operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The result of the equality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_GreaterThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_GreaterThan(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L324">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_GreaterThan_" data-uid="Towel.Mathematics.Fraction`1.op_GreaterThan*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_GreaterThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_GreaterThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">GreaterThan(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is greater than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator&gt;(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the greater than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_GreaterThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_GreaterThanOrEqual(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L380">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_GreaterThanOrEqual_" data-uid="Towel.Mathematics.Fraction`1.op_GreaterThanOrEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_GreaterThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_GreaterThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">GreaterThanOrEqual(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is greater than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &gt;=(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the greater than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Implicit__0__Towel_Mathematics_Fraction__0_.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Implicit(%600)~Towel.Mathematics.Fraction%7B%600%7D%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L61">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Implicit_" data-uid="Towel.Mathematics.Fraction`1.op_Implicit*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Implicit__0__Towel_Mathematics_Fraction__0_" data-uid="Towel.Mathematics.Fraction`1.op_Implicit(`0)~Towel.Mathematics.Fraction{`0}">Implicit(T to Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Implicitly converts a value into a fraction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator Fraction&lt;T&gt;(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to convert to a fraction.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Inequality_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Inequality(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L271">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Inequality_" data-uid="Towel.Mathematics.Fraction`1.op_Inequality*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Inequality_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_Inequality(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Inequality(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for inequality between two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The first operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The result of the inequality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_LessThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_LessThan(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L296">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_LessThan_" data-uid="Towel.Mathematics.Fraction`1.op_LessThan*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_LessThan_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_LessThan(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">LessThan(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is less than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the less than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_LessThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_LessThanOrEqual(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L352">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_LessThanOrEqual_" data-uid="Towel.Mathematics.Fraction`1.op_LessThanOrEqual*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_LessThanOrEqual_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_LessThanOrEqual(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">LessThanOrEqual(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines if one value is less than another.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator &lt;=(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>The value of the less than operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Modulus_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Modulus(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L174">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Modulus_" data-uid="Towel.Mathematics.Fraction`1.op_Modulus*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Modulus_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_Modulus(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Modulus(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Computes the remainder of two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; operator %(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the remainder operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Multiply_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Multiply(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L134">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Multiply_" data-uid="Towel.Mathematics.Fraction`1.op_Multiply*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Multiply_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_Multiply(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Multiply(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Multiplies two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; operator *(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the multiplication.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_Subtraction_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_Subtraction(Towel.Mathematics.Fraction%7B%600%7D%2CTowel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L110">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_Subtraction_" data-uid="Towel.Mathematics.Fraction`1.op_Subtraction*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_Subtraction_Towel_Mathematics_Fraction__0__Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_Subtraction(Towel.Mathematics.Fraction{`0},Towel.Mathematics.Fraction{`0})">Subtraction(Fraction&lt;T&gt;, Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Subtracts two values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; operator -(Fraction&lt;T&gt; a, Fraction&lt;T&gt; b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The left operand.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The right operand.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the subtraction.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1_op_UnaryNegation_Towel_Mathematics_Fraction__0__.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601.op_UnaryNegation(Towel.Mathematics.Fraction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L71">View Source</a>
+  </span>
+  <a id="Towel_Mathematics_Fraction_1_op_UnaryNegation_" data-uid="Towel.Mathematics.Fraction`1.op_UnaryNegation*"></a>
+  <h4 id="Towel_Mathematics_Fraction_1_op_UnaryNegation_Towel_Mathematics_Fraction__0__" data-uid="Towel.Mathematics.Fraction`1.op_UnaryNegation(Towel.Mathematics.Fraction{`0})">UnaryNegation(Fraction&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Negates a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Fraction&lt;T&gt; operator -(Fraction&lt;T&gt; a)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The fraction to negate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.Mathematics.Fraction-1.html">Fraction</a>&lt;T&gt;</td>
+        <td><p>The result of the negation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_Mathematics_Fraction_1.md&amp;value=---%0Auid%3A%20Towel.Mathematics.Fraction%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Mathematics/Fraction.cs/#L5" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

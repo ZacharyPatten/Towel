@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Map vs Dictionary (Add) </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Map vs Dictionary (Add) ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="map-vs-dictionary-add">Map vs Dictionary (Add)</h1>
+
+<p><a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a></p>
+<p>The source code for all benchmarks are in <a href="https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking">Tools/Towel.Benchmarking</a>.</p>
+<pre><code class="lang-ini">
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.100-preview.6.21355.2
+  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+  DefaultJob : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+
+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>N</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MapDelegates</strong></td>
+<td><strong>10</strong></td>
+<td style="text-align: right;"><strong>520.4 ns</strong></td>
+<td style="text-align: right;"><strong>7.94 ns</strong></td>
+<td style="text-align: right;"><strong>8.16 ns</strong></td>
+</tr>
+<tr>
+<td>MapStructs</td>
+<td>10</td>
+<td style="text-align: right;">455.2 ns</td>
+<td style="text-align: right;">9.10 ns</td>
+<td style="text-align: right;">12.76 ns</td>
+</tr>
+<tr>
+<td>Dictionary</td>
+<td>10</td>
+<td style="text-align: right;">197.4 ns</td>
+<td style="text-align: right;">3.29 ns</td>
+<td style="text-align: right;">2.92 ns</td>
+</tr>
+<tr>
+<td><strong>MapDelegates</strong></td>
+<td><strong>100</strong></td>
+<td style="text-align: right;"><strong>4,133.3 ns</strong></td>
+<td style="text-align: right;"><strong>37.15 ns</strong></td>
+<td style="text-align: right;"><strong>31.02 ns</strong></td>
+</tr>
+<tr>
+<td>MapStructs</td>
+<td>100</td>
+<td style="text-align: right;">3,716.8 ns</td>
+<td style="text-align: right;">72.63 ns</td>
+<td style="text-align: right;">117.28 ns</td>
+</tr>
+<tr>
+<td>Dictionary</td>
+<td>100</td>
+<td style="text-align: right;">1,700.2 ns</td>
+<td style="text-align: right;">33.61 ns</td>
+<td style="text-align: right;">57.07 ns</td>
+</tr>
+<tr>
+<td><strong>MapDelegates</strong></td>
+<td><strong>1000</strong></td>
+<td style="text-align: right;"><strong>32,807.2 ns</strong></td>
+<td style="text-align: right;"><strong>372.95 ns</strong></td>
+<td style="text-align: right;"><strong>330.61 ns</strong></td>
+</tr>
+<tr>
+<td>MapStructs</td>
+<td>1000</td>
+<td style="text-align: right;">27,958.3 ns</td>
+<td style="text-align: right;">490.14 ns</td>
+<td style="text-align: right;">458.48 ns</td>
+</tr>
+<tr>
+<td>Dictionary</td>
+<td>1000</td>
+<td style="text-align: right;">15,436.3 ns</td>
+<td style="text-align: right;">204.14 ns</td>
+<td style="text-align: right;">190.95 ns</td>
+</tr>
+<tr>
+<td><strong>MapDelegates</strong></td>
+<td><strong>10000</strong></td>
+<td style="text-align: right;"><strong>499,552.4 ns</strong></td>
+<td style="text-align: right;"><strong>4,540.48 ns</strong></td>
+<td style="text-align: right;"><strong>3,791.51 ns</strong></td>
+</tr>
+<tr>
+<td>MapStructs</td>
+<td>10000</td>
+<td style="text-align: right;">478,678.6 ns</td>
+<td style="text-align: right;">8,563.30 ns</td>
+<td style="text-align: right;">7,150.74 ns</td>
+</tr>
+<tr>
+<td>Dictionary</td>
+<td>10000</td>
+<td style="text-align: right;">256,607.8 ns</td>
+<td style="text-align: right;">5,117.49 ns</td>
+<td style="text-align: right;">13,025.64 ns</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Tools/docfx_project/benchmarks/MapVsDictionaryAddBenchmarks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

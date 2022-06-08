@@ -1,0 +1,961 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MapHashLinked&lt;T, TKey, TEquate, THash&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MapHashLinked&lt;T, TKey, TEquate, THash&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.MapHashLinked`4">
+  
+  
+  <h1 id="Towel_DataStructures_MapHashLinked_4" data-uid="Towel.DataStructures.MapHashLinked`4" class="text-break">Class MapHashLinked&lt;T, TKey, TEquate, THash&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>An unsorted structure of unique items.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">MapHashLinked&lt;T, TKey, TEquate, THash&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Towel.DataStructures.IMap-2.html">IMap</a>&lt;T, TKey&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.ISteppable-1.html">ISteppable</a>&lt;T&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html">DataStructure.IAuditable</a>&lt;TKey&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable</a>&lt;TKey&gt;</div>
+    <div><a class="xref" href="Towel.ICloneable-1.html">ICloneable</a>&lt;<a class="xref" href="Towel.DataStructures.MapHashLinked-4.html">MapHashLinked</a>&lt;T, TKey, TEquate, THash&gt;&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IEquating-2.html">DataStructure.IEquating</a>&lt;TKey, TEquate&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IHashing-2.html">DataStructure.IHashing</a>&lt;TKey, THash&gt;</div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_MapHashLinked_4_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class MapHashLinked&lt;T, TKey, TEquate, THash&gt; : object, IMap&lt;T, TKey&gt;, IDataStructure&lt;T&gt;, ISteppable&lt;T&gt;, System.Collections.Generic.IEnumerable&lt;T&gt;, DataStructure.ICountable, DataStructure.IClearable, DataStructure.IAuditable&lt;TKey&gt;, DataStructure.IRemovable&lt;TKey&gt;, ICloneable&lt;MapHashLinked&lt;T, TKey, TEquate, THash&gt;&gt;, DataStructure.IEquating&lt;TKey, TEquate&gt;, DataStructure.IHashing&lt;TKey, THash&gt; where TEquate : struct, IFunc&lt;TKey, TKey, bool&gt; where THash : struct, IFunc&lt;TKey, int&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic type of the structure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TKey</span></td>
+        <td><p>The generic key type of this map.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TEquate</span></td>
+        <td><p>The type of function for quality checking <code data-dev-comment-type="typeparamref" class="typeparamref">TKey</code> values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">THash</span></td>
+        <td><p>The type of function for hashing <code data-dev-comment-type="typeparamref" class="typeparamref">TKey</code> values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4__ctor__2__3_System_Nullable_System_Int32__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.%23ctor(%602%2C%603%2CSystem.Nullable%7BSystem.Int32%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L429">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4__ctor_" data-uid="Towel.DataStructures.MapHashLinked`4.#ctor*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4__ctor__2__3_System_Nullable_System_Int32__" data-uid="Towel.DataStructures.MapHashLinked`4.#ctor(`2,`3,System.Nullable{System.Int32})">MapHashLinked(TEquate, THash, Nullable&lt;Int32&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new <a class="xref" href="Towel.DataStructures.MapHashLinked-4.html">MapHashLinked&lt;T, TKey, TEquate, THash&gt;</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MapHashLinked(TEquate equate = default(TEquate), THash hash = default(THash), int? expectedCount = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEquate</span></td>
+        <td><span class="parametername">equate</span></td>
+        <td><p>The function for quality checking <code data-dev-comment-type="typeparamref" class="typeparamref">TKey</code> values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">THash</span></td>
+        <td><span class="parametername">hash</span></td>
+        <td><p>The function for hashing <code data-dev-comment-type="typeparamref" class="typeparamref">TKey</code> values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Int32</span>&gt;</td>
+        <td><span class="parametername">expectedCount</span></td>
+        <td><p>The expected count of the map.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_Count.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L470">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_Count_" data-uid="Towel.DataStructures.MapHashLinked`4.Count*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_Count" data-uid="Towel.DataStructures.MapHashLinked`4.Count">Count</h4>
+  <div class="markdown level1 summary"><p>Gets the current count of the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_Equate.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.Equate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L476">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_Equate_" data-uid="Towel.DataStructures.MapHashLinked`4.Equate*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_Equate" data-uid="Towel.DataStructures.MapHashLinked`4.Equate">Equate</h4>
+  <div class="markdown level1 summary"><p>Gets the value of the type that is checking <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values for equality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TEquate Equate { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEquate</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_Hash.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.Hash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L473">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_Hash_" data-uid="Towel.DataStructures.MapHashLinked`4.Hash*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_Hash" data-uid="Towel.DataStructures.MapHashLinked`4.Hash">Hash</h4>
+  <div class="markdown level1 summary"><p>Gets the value of the type that is hashing <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public THash Hash { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">THash</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_Item__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.Item(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L481">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_Item_" data-uid="Towel.DataStructures.MapHashLinked`4.Item*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_Item__1_" data-uid="Towel.DataStructures.MapHashLinked`4.Item(`1)">Item[TKey]</h4>
+  <div class="markdown level1 summary"><p>Gets the value of a specified key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T this[TKey key] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key to get the value of.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The value of the key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TableSize.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TableSize%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L467">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TableSize_" data-uid="Towel.DataStructures.MapHashLinked`4.TableSize*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TableSize" data-uid="Towel.DataStructures.MapHashLinked`4.TableSize">TableSize</h4>
+  <div class="markdown level1 summary"><p>The current size of the hashed table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int TableSize { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TryAdd__1__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TryAdd(%601%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L490">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TryAdd_" data-uid="Towel.DataStructures.MapHashLinked`4.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TryAdd__1__0_" data-uid="Towel.DataStructures.MapHashLinked`4.TryAdd(`1,`0)">TryAdd(TKey, T)</h4>
+  <div class="markdown level1 summary"><p>Tries to add a value to the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryAdd(TKey key, T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to be added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the key+value was added or false if not<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the add failed</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TryAddOrUpdate__1__1__0___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TryAddOrUpdate%60%601(%601%2C%600%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L519">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TryAddOrUpdate_" data-uid="Towel.DataStructures.MapHashLinked`4.TryAddOrUpdate*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TryAddOrUpdate__1__1__0___0_" data-uid="Towel.DataStructures.MapHashLinked`4.TryAddOrUpdate``1(`1,`0,``0)">TryAddOrUpdate&lt;TUpdate&gt;(TKey, T, TUpdate)</h4>
+  <div class="markdown level1 summary"><p>Adds or updates the value at the given key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception, bool? Existed, T OldValue) TryAddOrUpdate&lt;TUpdate&gt;(TKey key, T value, TUpdate update = default(TUpdate))
+    where TUpdate : struct, IFunc&lt;T, T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the value to add or update.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to add if not already present.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TUpdate</span></td>
+        <td><span class="parametername">update</span></td>
+        <td><p>The function to update the value if present.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;, <span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;, T&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the value was added or updated or false if not.<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the add or update failed.<br></li>
+<li><see cref="!:System.Boolean"></see>? Existed: if the key existed prior to the add or update<br></li>
+<li><code data-dev-comment-type="typeparamref" class="typeparamref">T</code>? OldValue: the old value if the key existed prior to the add or update</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TUpdate</span></td>
+        <td><p>The type of function to update the value if present.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TryGet__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TryGet(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L606">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TryGet_" data-uid="Towel.DataStructures.MapHashLinked`4.TryGet*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TryGet__1_" data-uid="Towel.DataStructures.MapHashLinked`4.TryGet(`1)">TryGet(TKey)</h4>
+  <div class="markdown level1 summary"><p>Tries to get a value by key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception, T Value) TryGet(TKey key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the value to get.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;, T&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the key was found or false if not.<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the get failed.<br></li>
+<li><code data-dev-comment-type="typeparamref" class="typeparamref">T</code>? Value: the value if the key was found or default if not.</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TryRemove__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TryRemove(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L654">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TryRemove_" data-uid="Towel.DataStructures.MapHashLinked`4.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TryRemove__1_" data-uid="Towel.DataStructures.MapHashLinked`4.TryRemove(`1)">TryRemove(TKey)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryRemove(TKey key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the value was removed or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TryRemoveOrUpdate__2__1___0___1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TryRemoveOrUpdate%60%602(%601%2C%60%600%2C%60%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L554">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TryRemoveOrUpdate_" data-uid="Towel.DataStructures.MapHashLinked`4.TryRemoveOrUpdate*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TryRemoveOrUpdate__2__1___0___1_" data-uid="Towel.DataStructures.MapHashLinked`4.TryRemoveOrUpdate``2(`1,``0,``1)">TryRemoveOrUpdate&lt;TRemovePredicate, TUpdate&gt;(TKey, TRemovePredicate, TUpdate)</h4>
+  <div class="markdown level1 summary"><p>Tries to update a value in the map the relative key exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception, bool? Removed, T OldValue, T NewValue) TryRemoveOrUpdate&lt;TRemovePredicate, TUpdate&gt;(TKey key, TRemovePredicate removePredicate = default(TRemovePredicate), TUpdate update = default(TUpdate))
+    where TRemovePredicate : struct, IFunc&lt;T, bool&gt; where TUpdate : struct, IFunc&lt;T, T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the value to update.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TRemovePredicate</span></td>
+        <td><span class="parametername">removePredicate</span></td>
+        <td><p>The predicate determining if the pair should be removed.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TUpdate</span></td>
+        <td><span class="parametername">update</span></td>
+        <td><p>The function to update the value relative to the key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;, <span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;, T, T&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the key was found or false if not<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the add failed<br></li>
+<li><code data-dev-comment-type="typeparamref" class="typeparamref">T</code>? OldValue: the non-updated value if the key was found or default if not<br></li>
+<li><code data-dev-comment-type="typeparamref" class="typeparamref">T</code>? NewValue: the updated value if the key was found or default if not</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TRemovePredicate</span></td>
+        <td><p>The type of predicate determining if the pair should be removed.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TUpdate</span></td>
+        <td><p>The type of function to update the value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TryRemoveWithoutTrim__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TryRemoveWithoutTrim(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L676">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TryRemoveWithoutTrim_" data-uid="Towel.DataStructures.MapHashLinked`4.TryRemoveWithoutTrim*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TryRemoveWithoutTrim__1_" data-uid="Towel.DataStructures.MapHashLinked`4.TryRemoveWithoutTrim(`1)">TryRemoveWithoutTrim(TKey)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a keyed value without shrinking the hash table.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryRemoveWithoutTrim(TKey key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the value to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the removal was successful for false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TrySet__1__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TrySet(%601%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L620">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TrySet_" data-uid="Towel.DataStructures.MapHashLinked`4.TrySet*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TrySet__1__0_" data-uid="Towel.DataStructures.MapHashLinked`4.TrySet(`1,`0)">TrySet(TKey, T)</h4>
+  <div class="markdown level1 summary"><p>Sets value in the map.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception, bool? Existed, T OldValue) TrySet(TKey key, T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to be set.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;, <span class="xref">System.Nullable</span>&lt;<span class="xref">System.Boolean</span>&gt;, T&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the key+value was set or false if not.<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the set failed.<br></li>
+<li><see cref="!:System.Boolean"></see>? Existed: if the key existed prior to being set<br></li>
+<li><code data-dev-comment-type="typeparamref" class="typeparamref">T</code>? OldValue: the previous value if the key existed prior to being set</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4_TryUpdate__1__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604.TryUpdate%60%601(%601%2C%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L589">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_MapHashLinked_4_TryUpdate_" data-uid="Towel.DataStructures.MapHashLinked`4.TryUpdate*"></a>
+  <h4 id="Towel_DataStructures_MapHashLinked_4_TryUpdate__1__1___0_" data-uid="Towel.DataStructures.MapHashLinked`4.TryUpdate``1(`1,``0)">TryUpdate&lt;TUpdate&gt;(TKey, TUpdate)</h4>
+  <div class="markdown level1 summary"><p>Tries to update a value in the map the relative key exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception, T OldValue, T NewValue) TryUpdate&lt;TUpdate&gt;(TKey key, TUpdate update = default(TUpdate))
+    where TUpdate : struct, IFunc&lt;T, T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TKey</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key of the value to update.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TUpdate</span></td>
+        <td><span class="parametername">update</span></td>
+        <td><p>The function to update the value relative to the key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;, T, T&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the key was found or false if not<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the add failed<br></li>
+<li><code data-dev-comment-type="typeparamref" class="typeparamref">T</code>? OldValue: the non-updated value if the key was found or default if not<br></li>
+<li><code data-dev-comment-type="typeparamref" class="typeparamref">T</code>? NewValue: the updated value if the key was found or default if not</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TUpdate</span></td>
+        <td><p>The type of function to update the value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IMap-2.html">IMap&lt;T, TKey&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.ISteppable-1.html">ISteppable&lt;T&gt;</a>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;&gt;</span>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html">DataStructure.IAuditable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.ICloneable-1.html">ICloneable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IEquating-2.html">DataStructure.IEquating&lt;T, TEquate&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IHashing-2.html">DataStructure.IHashing&lt;T, THash&gt;</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_MapHashLinked_4.md&amp;value=---%0Auid%3A%20Towel.DataStructures.MapHashLinked%604%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Map.cs/#L390" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

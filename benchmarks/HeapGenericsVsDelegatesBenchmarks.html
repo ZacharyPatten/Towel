@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Heap Generics Vs Delegates </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Heap Generics Vs Delegates ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="heap-generics-vs-delegates">Heap Generics Vs Delegates</h1>
+
+<p><a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a></p>
+<p>The source code for all benchmarks are in <a href="https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking">Tools/Towel.Benchmarking</a>.</p>
+<pre><code class="lang-ini">
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.100-preview.6.21355.2
+  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+  DefaultJob : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+
+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>RandomTestData</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HeapGAD_Add</strong></td>
+<td><strong>Person[1000]</strong></td>
+<td style="text-align: right;"><strong>29,591.3 ns</strong></td>
+<td style="text-align: right;"><strong>203.10 ns</strong></td>
+<td style="text-align: right;"><strong>169.60 ns</strong></td>
+</tr>
+<tr>
+<td>HeapGA_Add</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">26,643.2 ns</td>
+<td style="text-align: right;">97.54 ns</td>
+<td style="text-align: right;">86.47 ns</td>
+</tr>
+<tr>
+<td>HeapG_Add</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">30,825.6 ns</td>
+<td style="text-align: right;">116.24 ns</td>
+<td style="text-align: right;">97.06 ns</td>
+</tr>
+<tr>
+<td>HeapD_Enqueue</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">32,277.3 ns</td>
+<td style="text-align: right;">145.15 ns</td>
+<td style="text-align: right;">135.77 ns</td>
+</tr>
+<tr>
+<td><strong>HeapGAD_Add</strong></td>
+<td><strong>Person[100]</strong></td>
+<td style="text-align: right;"><strong>2,628.3 ns</strong></td>
+<td style="text-align: right;"><strong>16.33 ns</strong></td>
+<td style="text-align: right;"><strong>14.47 ns</strong></td>
+</tr>
+<tr>
+<td>HeapGA_Add</td>
+<td>Person[100]</td>
+<td style="text-align: right;">2,455.2 ns</td>
+<td style="text-align: right;">48.57 ns</td>
+<td style="text-align: right;">77.04 ns</td>
+</tr>
+<tr>
+<td>HeapG_Add</td>
+<td>Person[100]</td>
+<td style="text-align: right;">2,820.9 ns</td>
+<td style="text-align: right;">13.00 ns</td>
+<td style="text-align: right;">11.53 ns</td>
+</tr>
+<tr>
+<td>HeapD_Enqueue</td>
+<td>Person[100]</td>
+<td style="text-align: right;">3,034.3 ns</td>
+<td style="text-align: right;">12.72 ns</td>
+<td style="text-align: right;">11.90 ns</td>
+</tr>
+<tr>
+<td><strong>HeapGAD_Add</strong></td>
+<td><strong>Person[10]</strong></td>
+<td style="text-align: right;"><strong>217.2 ns</strong></td>
+<td style="text-align: right;"><strong>0.99 ns</strong></td>
+<td style="text-align: right;"><strong>0.87 ns</strong></td>
+</tr>
+<tr>
+<td>HeapGA_Add</td>
+<td>Person[10]</td>
+<td style="text-align: right;">197.9 ns</td>
+<td style="text-align: right;">1.36 ns</td>
+<td style="text-align: right;">1.27 ns</td>
+</tr>
+<tr>
+<td>HeapG_Add</td>
+<td>Person[10]</td>
+<td style="text-align: right;">239.0 ns</td>
+<td style="text-align: right;">4.77 ns</td>
+<td style="text-align: right;">9.52 ns</td>
+</tr>
+<tr>
+<td>HeapD_Enqueue</td>
+<td>Person[10]</td>
+<td style="text-align: right;">251.6 ns</td>
+<td style="text-align: right;">5.00 ns</td>
+<td style="text-align: right;">6.14 ns</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Tools/docfx_project/benchmarks/HeapGenericsVsDelegatesBenchmarks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
