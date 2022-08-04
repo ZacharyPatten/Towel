@@ -30,22 +30,16 @@ public partial class Statics_Testing
 	[TestMethod]
 	public void sourceof_Testing()
 	{
-		sourceofTest(sourceof(1 == 2).Source, 1 == 2);
-		sourceof(1 == 2, out string source);
-		sourceofTest(source, 1 == 2);
+#pragma warning disable CS8519 // The given expression never matches the provided pattern.
+		sourceofTest(sourceof(1 is 2).Source, 1 is 2);
+		sourceof(1 is 2, out string source);
+		sourceofTest(source, 1 is 2);
+#pragma warning restore CS8519 // The given expression never matches the provided pattern.
 	}
 
 	public static void sourceofTest<T>(string result, T expression, [CallerArgumentExpression("expression")] string? expected = default)
 	{
-#warning TODO: remove try-catch when .NET 6 is public
-		try
-		{
-			Assert.IsTrue(result == expected);
-		}
-		catch
-		{
-			Assert.Inconclusive("requires .NET 6");
-		}
+		Assert.IsTrue(result == expected);
 	}
 
 #pragma warning restore IDE1006 // Naming Styles

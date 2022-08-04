@@ -633,6 +633,8 @@ public class A
 #pragma warning disable SA1314 // Type parameter names should begin with T
 #pragma warning disable SA1618 // Generic type parameters should be documented
 #pragma warning disable SA1611 // Element parameters should be documented
+#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable IDE1006 // Naming Styles
 
 #region XML Documentation From MethodInfo
 
@@ -1398,7 +1400,7 @@ public class XmlDocumentationFromParameter
 	public void Test1(object a) => throw new Exception();
 }
 
-	#endregion
+#endregion
 
 #pragma warning restore SA1611 // Element parameters should be documented
 #pragma warning restore SA1618 // Generic type parameters should be documented
@@ -1407,5 +1409,7 @@ public class XmlDocumentationFromParameter
 #pragma warning restore CA1822 // Mark members as static
 #pragma warning restore CS0067 // The event is never used
 #pragma warning restore IDE0060 // Remove unused parameter
+#pragma warning restore IDE0051 // Remove unused private members
+#pragma warning restore IDE1006 // Naming Styles
 
-	#endregion
+#endregion

@@ -179,11 +179,8 @@ public class Matrix<T>
 	/// <param name="data">The data of the matrix in ROW MAJOR ORDER.</param>
 	public Matrix(int rows, int columns, params T[] data) : this(rows, columns)
 	{
-		_ = data ?? throw new ArgumentNullException(nameof(data));
-		if (data.Length != rows * columns)
-		{
-			throw new ArgumentException("!(" + nameof(rows) + " * " + nameof(columns) + " == " + nameof(data) + "." + nameof(data.Length) + ")");
-		}
+		if (data is null) throw new ArgumentNullException(nameof(data));
+		if (sourceof(data.Length != rows * columns, out string c1)) throw new ArgumentException(c1);
 		_rows = rows;
 		_columns = columns;
 		_matrix = data;
@@ -550,7 +547,7 @@ public class Matrix<T>
 	/// <returns>True if the matrix is symetric; false if not.</returns>
 	public static bool GetIsSymetric(Matrix<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		int rows = a._rows;
 		if (rows != a._columns)
 		{
@@ -589,7 +586,7 @@ public class Matrix<T>
 	/// <param name="b">The resulting matrix after the negation.</param>
 	public static void Negate(Matrix<T> a, ref Matrix<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		int Length = a._matrix.Length;
 		T[] A = a._matrix;
 		T[] B;
@@ -652,14 +649,9 @@ public class Matrix<T>
 	/// <param name="c">The resulting matrix after the addition.</param>
 	public static void Add(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (a._rows != b._rows || a._columns != b._columns)
-		{
-			throw new MathematicsException("Arguments invalid !(" +
-				nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + " && " +
-				nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Columns) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (sourceof(a._rows != b._rows || a._columns != b._columns, out string c1)) throw new ArgumentException(c1);
 		int Length = a._matrix.Length;
 		T[] A = a._matrix;
 		T[] B = b._matrix;
@@ -727,14 +719,9 @@ public class Matrix<T>
 	/// <param name="c">The resulting matrix after the subtraction.</param>
 	public static void Subtract(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (a._rows != b._rows || a._columns != b._columns)
-		{
-			throw new MathematicsException("Arguments invalid !(" +
-				nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + " && " +
-				nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Columns) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (sourceof(a._rows != b._rows || a._columns != b._columns, out string c1)) throw new ArgumentException(c1);
 		T[] A = a._matrix;
 		T[] B = b._matrix;
 		int Length = A.Length;
@@ -802,13 +789,10 @@ public class Matrix<T>
 	/// <param name="c">The resulting matrix of the multiplication.</param>
 	public static void Multiply(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (a._columns != b._rows)
-		{
-			throw new MathematicsException("Arguments invalid !(" +
-				nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Rows) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (sourceof(a._columns != b._rows, out string c1)) throw new ArgumentException(c1);
+
 		if (ReferenceEquals(a, b) && ReferenceEquals(a, c))
 		{
 			Matrix<T> clone = a.Clone();
@@ -902,15 +886,11 @@ public class Matrix<T>
 	/// <param name="c">The resulting vector of the multiplication.</param>
 	public static void Multiply(Matrix<T> a, Vector<T> b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		int rows = a._rows;
 		int columns = a._columns;
-		if (columns != b.Dimensions)
-		{
-			throw new MathematicsException("Arguments invalid !(" +
-				nameof(a) + "." + nameof(a.Columns) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
-		}
+		if (sourceof(columns != b.Dimensions, out string c1)) throw new ArgumentException(c1);
 		T[] A = a._matrix;
 		T[] B = b._vector;
 		T[] C;
@@ -981,7 +961,7 @@ public class Matrix<T>
 	/// <param name="c">The resulting matrix after the multiplications.</param>
 	public static void Multiply(Matrix<T> a, T b, ref Matrix<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		T[] A = a._matrix;
 		int Length = A.Length;
 		T[] C;
@@ -1066,7 +1046,7 @@ public class Matrix<T>
 	/// <param name="c">The resulting matrix after the division.</param>
 	public static void Divide(Matrix<T> a, T b, ref Matrix<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		T[] A = a._matrix;
 		int Length = A.Length;
 		T[] C;
@@ -1133,15 +1113,9 @@ public class Matrix<T>
 	/// <param name="c">The resulting matrix of the power operation.</param>
 	public static void Power(Matrix<T> a, int b, ref Matrix<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		if (!a.IsSquare)
-		{
-			throw new MathematicsException("Invalid power (!" + nameof(a) + ".IsSquare)");
-		}
-		if (b < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(b), b, "!(" + nameof(b) + " >= 0)");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(!a.IsSquare, out string c1)) throw new ArgumentException(c1);
+		if (sourceof(b < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(b), b, c2);
 		if (b is 0)
 		{
 			if (c is not null && c._matrix.Length == a._matrix.Length)
@@ -1283,11 +1257,8 @@ public class Matrix<T>
 	/// <returns>The computed determinant.</returns>
 	public static T DeterminantGaussian(Matrix<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		if (!a.IsSquare)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(!a.IsSquare, out string c1)) throw new ArgumentException(c1);
 		return GetDeterminantGaussian(a, a.Rows);
 	}
 
@@ -1299,11 +1270,8 @@ public class Matrix<T>
 	/// <returns>The computed determinant.</returns>
 	public static T DeterminantLaplace(Matrix<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		if (!a.IsSquare)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(!a.IsSquare, out string c1)) throw new ArgumentException(c1);
 		return GetDeterminantLaplace(a, a.Rows);
 	}
 
@@ -1337,11 +1305,8 @@ public class Matrix<T>
 	/// <returns>The computed trace.</returns>
 	public static T Trace(Matrix<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		if (!a.IsSquare)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(!a.IsSquare, out string c1)) throw new ArgumentException(c1);
 		T trace = Addition((Action<T> step) =>
 		{
 			T[] A = a._matrix;
@@ -1373,7 +1338,7 @@ public class Matrix<T>
 	/// <param name="column">The restricted column to form the minor.</param>
 	/// <param name="b">The minor of the matrix.</param>
 	/// <returns>The minor of the matrix.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_Minor() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572, SA1625, SA1617
@@ -1397,19 +1362,10 @@ public class Matrix<T>
 	/// <inheritdoc cref="XML_Minor"/>
 	public static void Minor(Matrix<T> a, int row, int column, ref Matrix<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		if (a._rows < 2 || a._columns < 2)
-		{
-			throw new MathematicsException($"{nameof(a)}.{nameof(a.Rows)} < 2 || {nameof(a)}.{nameof(a.Columns)} < 2");
-		}
-		if (!(0 <= row && row < a._rows))
-		{
-			throw new ArgumentOutOfRangeException(nameof(row), row, $"!(0 <= {nameof(row)} < {nameof(a)}.{nameof(a.Rows)})");
-		}
-		if (!(0 <= column && column < a._columns))
-		{
-			throw new ArgumentOutOfRangeException(nameof(column), column, $"!(0 <= {nameof(column)} < {nameof(a)}.{nameof(a.Columns)})");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(a._rows < 2 || a._columns < 2, out string c1)) throw new ArgumentException(c1);
+		if (sourceof(!(0 <= row && row < a._rows), out string c2)) throw new ArgumentOutOfRangeException(nameof(row), row, c2);
+		if (sourceof(!(0 <= column && column < a._columns), out string c3)) throw new ArgumentOutOfRangeException(nameof(column), column, c3);
 		if (ReferenceEquals(a, b))
 		{
 			a = a.Clone();
@@ -1463,14 +1419,9 @@ public class Matrix<T>
 	/// <param name="c">The resulting matrix of the concatenation.</param>
 	public static void ConcatenateRowWise(Matrix<T> a, Matrix<T> b, ref Matrix<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (a._rows != b._rows)
-		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Rows) + " == " + nameof(b) + "." + nameof(b.Rows) + ")");
-		}
-		int a_columns = a._columns;
-		int b_columns = b._columns;
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (sourceof(a.Rows != b.Rows, out string c1)) throw new ArgumentException(c1);
 		int c_rows = a._rows;
 		int c_columns = a._columns + b._columns;
 		int c_length = c_rows * c_columns;
@@ -1491,18 +1442,18 @@ public class Matrix<T>
 		T[] C = c._matrix;
 		for (int i = 0; i < c_rows; i++)
 		{
-			int i_times_a_columns = i * a_columns;
-			int i_times_b_columns = i * b_columns;
+			int i_times_a_columns = i * a.Columns;
+			int i_times_b_columns = i * b.Columns;
 			int i_times_c_columns = i * c_columns;
 			for (int j = 0; j < c_columns; j++)
 			{
-				if (j < a_columns)
+				if (j < a.Columns)
 				{
 					C[i_times_c_columns + j] = A[i_times_a_columns + j];
 				}
 				else
 				{
-					C[i_times_c_columns + j] = B[i_times_b_columns + j - a_columns];
+					C[i_times_c_columns + j] = B[i_times_b_columns + j - a.Columns];
 				}
 			}
 		}
@@ -1550,7 +1501,7 @@ public class Matrix<T>
 		/// <bug>Failing for non-floating point rational types due to zero how values are being compared.</bug>
 		public static void Echelon(Matrix<T> a, ref Matrix<T> b)
 		{
-			_ = a ?? throw new ArgumentNullException(nameof(a));
+			if (a is null) throw new ArgumentNullException(nameof(a));
 			if (ReferenceEquals(a, b))
 			{
 				a = a.Clone();
@@ -1637,7 +1588,7 @@ public class Matrix<T>
 	/// <param name="b">The reduced echelon of the matrix (aka RREF).</param>
 	public static void ReducedEchelon(Matrix<T> a, ref Matrix<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		int Rows = a.Rows;
 		int Columns = a.Columns;
 		if (object.ReferenceEquals(a, b))
@@ -1798,15 +1749,12 @@ public class Matrix<T>
 	/// <param name="b">The inverse of the matrix.</param>
 	public static void Inverse(Matrix<T> a, ref Matrix<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		if (!a.IsSquare)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(!a.IsSquare, out string c1)) throw new ArgumentException(c1);
 		T determinant = Determinant(a);
 		if (Equate(determinant, Constant<T>.Zero))
 		{
-			throw new MathematicsException("Singular matrix encountered during inverse caluculation (cannot be inversed).");
+			throw new ArgumentException("Singular matrix encountered during inverse caluculation (cannot be inversed).");
 		}
 		Matrix<T> adjoint = a.Adjoint();
 		int dimension = a.Rows;
@@ -1936,14 +1884,11 @@ public class Matrix<T>
 	/// <param name="b">The adjoint of the matrix.</param>
 	public static void Adjoint(Matrix<T> a, ref Matrix<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		if (!a.IsSquare)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(a) + "." + nameof(a.IsSquare) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(!a.IsSquare, out string c1)) throw new ArgumentException(c1);
 		int dimension = a.Rows;
 		int Length = a.Length;
-		if (object.ReferenceEquals(a, b))
+		if (ReferenceEquals(a, b))
 		{
 			b = a.Clone();
 		}
@@ -2049,7 +1994,7 @@ public class Matrix<T>
 	/// <param name="b">The transpose of the matrix.</param>
 	public static void Transpose(Matrix<T> a, ref Matrix<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		if (ReferenceEquals(a, b))
 		{
 			if (b.IsSquare)
@@ -2137,11 +2082,9 @@ public class Matrix<T>
 			}
 			if (Equate(p, Constant<T>.Zero))
 			{
-				throw new MathematicsException("The matrix is singular!");
+				throw new ArgumentException("The matrix is singular!");
 			}
-			int pom1 = permutation[k];
-			permutation[k] = permutation[k0];
-			permutation[k0] = pom1;
+			(permutation[k0], permutation[k]) = (permutation[k], permutation[k0]);
 			for (int i = 0; i < k; i++)
 			{
 				pom2 = lower[k, i];
@@ -2234,16 +2177,10 @@ public class Matrix<T>
 	/// <returns>The rotated matrix.</returns>
 	public static Matrix<T> Rotate4x4(Matrix<T> matrix, Angle<T> angle, Vector<T> axis)
 	{
-		_ = axis ?? throw new ArgumentNullException(nameof(axis));
-		_ = matrix ?? throw new ArgumentNullException(nameof(matrix));
-		if (axis._vector.Length is not 3)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(axis) + "." + nameof(axis.Dimensions) + " == 3)");
-		}
-		if (matrix._rows is not 4 || matrix._columns is not 4)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(matrix) + "." + nameof(matrix.Rows) + " == 4 && " + nameof(matrix) + "." + nameof(matrix.Columns) + " == 4)");
-		}
+		if (axis is null) throw new ArgumentNullException(nameof(axis));
+		if (matrix is null) throw new ArgumentNullException(nameof(matrix));
+		if (sourceof(axis._vector.Length is not 3, out string c1)) throw new ArgumentException(c1);
+		if (sourceof(matrix._rows is not 4 || matrix._columns is not 4, out string c2)) throw new ArgumentException(c2);
 
 		// if the angle is zero, no rotation is required
 		if (Equate(angle._measurement, Constant<T>.Zero))
@@ -2294,27 +2231,16 @@ public class Matrix<T>
 		T _3_2 = Constant<T>.Zero;
 		T _3_3 = Constant<T>.One;
 
+#pragma warning disable CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
 		return new Matrix<T>(4, 4, (row, column) =>
 			(row, column) switch
 			{
-				(0, 0) => _0_0,
-				(0, 1) => _0_1,
-				(0, 2) => _0_2,
-				(0, 3) => _0_3,
-				(1, 0) => _1_0,
-				(1, 1) => _1_1,
-				(1, 2) => _1_2,
-				(1, 3) => _1_3,
-				(2, 0) => _2_0,
-				(2, 1) => _2_1,
-				(2, 2) => _2_2,
-				(2, 3) => _2_3,
-				(3, 0) => _3_0,
-				(3, 1) => _3_1,
-				(3, 2) => _3_2,
-				(3, 3) => _3_3,
-				_ => throw new MathematicsException("BUG"),
+				/* 0 */ (0, 0) => _0_0, (0, 1) => _0_1, (0, 2) => _0_2, (0, 3) => _0_3,
+				/* 1 */ (1, 0) => _1_0, (1, 1) => _1_1, (1, 2) => _1_2, (1, 3) => _1_3,
+				/* 2 */ (2, 0) => _2_0, (2, 1) => _2_1, (2, 2) => _2_2, (2, 3) => _2_3,
+				/* 3 */ (3, 0) => _3_0, (3, 1) => _3_1, (3, 2) => _3_2, (3, 3) => _3_3,
 			});
+#pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
 	}
 
 	/// <summary>Converts an angle around an axis into a 4x4 rotational matrix.</summary>
@@ -2538,7 +2464,7 @@ public class Matrix<T>
 	/// <returns>The copy of this matrix.</returns>
 	public static Matrix<T> Clone(Matrix<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		return new Matrix<T>(a);
 	}
 

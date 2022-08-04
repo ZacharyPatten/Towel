@@ -69,7 +69,7 @@ public static class CommandLine
 		ParameterInfo[] parameterInfos = methodInfo.GetParameters();
 		foreach (ParameterInfo parameterInfo in parameterInfos)
 		{
-			_ = parameterInfo.Name ?? throw new Exception("encountered a null parameter name");
+			if (parameterInfo.Name is null) throw new Exception("encountered a null parameter name");
 			parameterMap.Add(parameterInfo.Name, parameterCount++);
 		}
 		object?[] parameters = new object[parameterCount];
@@ -82,7 +82,7 @@ public static class CommandLine
 				return;
 			}
 			arg = arg[2..];
-			var (success, exception, index) = parameterMap.TryGet(arg);
+			var (success, _, index) = parameterMap.TryGet(arg);
 			if (!success)
 			{
 				Console.Error.WriteLine($"Invalid parameter --{arg} in index {i}.");

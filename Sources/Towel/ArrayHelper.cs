@@ -26,8 +26,13 @@ public static class ArrayHelper
 		int length = 0;
 		foreach (var range in ranges)
 		{
-			if (range.Start.IsFromEnd) throw new ArgumentException(nameof(ranges));
-			if (range.End.IsFromEnd) throw new ArgumentException(nameof(ranges));
+			{
+				if (sourceof(range.Start.IsFromEnd, out string c1))
+				{
+					throw new ArgumentException(c1, nameof(ranges));
+				}
+			}
+			{ if (sourceof(range.End.IsFromEnd, out string c2)) throw new ArgumentException(c2, nameof(ranges)); }
 			if (range.Start.Value < range.End.Value)
 			{
 				length += range.End.Value - range.Start.Value;

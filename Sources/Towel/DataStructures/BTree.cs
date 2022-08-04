@@ -653,7 +653,6 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 	public BTreeLinked<T, TCompare> Clone()
 	{
 		BTreeLinked<T, TCompare> clone = new(_maxDegree, _compare);
-		clone._count = _count;
 		StackLinked<(Node original, Node copy)> stack = new();
 		stack.Push((_root, clone._root));
 		while (stack._count > 0)
@@ -672,11 +671,12 @@ public class BTreeLinked<T, TCompare> : IDataStructure<T>,
 					Node c = copy._children[i] = new(MaxDegree);
 					c._parent = copy;
 					Node? o = original._children[i];
-					if (o == null) throw new CorruptedDataStructureException("Found null children of an internal node!");
+					if (o is null) throw new CorruptedDataStructureException("Found null children of an internal node!");
 					stack.Push((o, c));
 				}
 			}
 		}
+		clone._count = _count;
 		return clone;
 	}
 

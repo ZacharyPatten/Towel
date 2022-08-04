@@ -11,6 +11,18 @@ public static partial class Statics
 {
 	#region Internals
 
+	#region Constants
+
+	/// <summary>Related: https://github.com/dotnet/roslyn/issues/49568</summary>
+	internal const string NotIntended = "This member is not intended to be used.";
+
+	/// <summary>The max <see cref="byte"/>s to stackalloc.</summary>
+	internal const int Stackalloc = 256;
+
+	#endregion
+
+	#region Optimizations
+
 	// These are some shared internal optimizations that I don't want to expose because it might confuse people.
 	// If you need to use it, just copy this code into your own project.
 
@@ -43,9 +55,13 @@ public static partial class Statics
 		};
 	}
 
+	#endregion
+
+	#region Helpers
+
 	internal static T OperationOnStepper<T>(Action<Action<T>> stepper, Func<T, T, T> operation)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		T? result = default;
 		bool assigned = false;
 		stepper(a =>
@@ -67,18 +83,15 @@ public static partial class Statics
 
 	#endregion
 
+	#endregion
+
 	#region Swap
 
 	/// <summary>Swaps two values.</summary>
 	/// <typeparam name="T">The type of values to swap.</typeparam>
 	/// <param name="a">The first value of the swap.</param>
 	/// <param name="b">The second value of the swap.</param>
-	public static void Swap<T>(ref T a, ref T b)
-	{
-		T temp = a;
-		a = b;
-		b = temp;
-	}
+	public static void Swap<T>(ref T a, ref T b) => (a, b) = (b, a);
 
 	/// <summary>Swaps two values.</summary>
 	/// <typeparam name="T">The type of values to swap.</typeparam>
@@ -215,7 +228,7 @@ public static partial class Statics
 	/// <returns>The computed hash code using the base GetHashCode instance method.</returns>
 	public static int Hash<T>(T value)
 	{
-		_ = value ?? throw new ArgumentNullException(nameof(value));
+		if (value is null) throw new ArgumentNullException(nameof(value));
 		return value.GetHashCode();
 	}
 
@@ -286,7 +299,7 @@ public static partial class Statics
 	/// <returns>True if all operands are equal or false if not.</returns>
 	public static bool Equate<T>(T a, T b, params T[] c)
 	{
-		_ = c ?? throw new ArgumentNullException(nameof(c));
+		if (c is null) throw new ArgumentNullException(nameof(c));
 		if (c.Length is 0) throw new ArgumentException("The array is empty.", nameof(c));
 		if (!Equate(a, b))
 		{
@@ -1395,19 +1408,22 @@ public static partial class Statics
 	/// <returns>The computed greatest common factor of the set of numbers.</returns>
 	public static T GreatestCommonFactor<T>(Action<Action<T>> stepper)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		bool assigned = false;
 		T answer = Constant<T>.Zero;
 		stepper((T n) =>
 		{
-			_ = n ?? throw new ArgumentNullException(nameof(n));
+			if (n is null)
+			{
+				throw new ArgumentNullException(null, nameof(stepper) + " contians null values");
+			}
 			if (Equate(n, Constant<T>.Zero))
 			{
-				throw new MathematicsException("Encountered Zero (0) while computing the " + nameof(GreatestCommonFactor));
+				throw new ArgumentException("Encountered Zero (0) while computing the " + nameof(GreatestCommonFactor));
 			}
 			else if (!IsInteger(n))
 			{
-				throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
+				throw new ArgumentException(nameof(stepper) + " contains non-integer value(s).");
 			}
 			if (!assigned)
 			{
@@ -1456,18 +1472,18 @@ public static partial class Statics
 	/// <returns>The computed least common least common multiple of the set of numbers.</returns>
 	public static T LeastCommonMultiple<T>(Action<Action<T>> stepper)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		bool assigned = false;
 		T? answer = default;
 		stepper(parameter =>
 		{
 			if (Equate(parameter, Constant<T>.Zero))
 			{
-				throw new MathematicsException(nameof(stepper) + " contains 0 value(s).");
+				throw new ArgumentException(nameof(stepper) + " contains 0 value(s).");
 			}
 			if (!IsInteger(parameter))
 			{
-				throw new MathematicsException(nameof(stepper) + " contains non-integer value(s).");
+				throw new ArgumentException(nameof(stepper) + " contains non-integer value(s).");
 			}
 			parameter = AbsoluteValue(parameter);
 			if (!assigned)
@@ -1505,13 +1521,13 @@ public static partial class Statics
 			GreaterThan(x, x1) ||
 			LessThan(x, x0))
 		{
-			throw new MathematicsException($"!({nameof(x0)}[{x0}] <= {nameof(x)}[{x}] <= {nameof(x1)}[{x1}])");
+			throw new ArgumentException($"!({nameof(x0)}[{x0}] <= {nameof(x)}[{x}] <= {nameof(x1)}[{x1}])");
 		}
 		if (Equate(x0, x1))
 		{
 			if (Inequate(y0, y1))
 			{
-				throw new MathematicsException($"{nameof(x0)}[{x0}] == {nameof(x1)}[{x1}] && {nameof(y0)}[{y0}] != {nameof(y1)}[{y1}]");
+				throw new ArgumentException($"{nameof(x0)}[{x0}] == {nameof(x1)}[{x1}] && {nameof(y0)}[{y0}] != {nameof(y1)}[{y1}]");
 			}
 			else
 			{
@@ -1592,7 +1608,7 @@ public static partial class Statics
 		}
 		if (GreaterThan(sum, N))
 		{
-			throw new MathematicsException("Aurguments out of range !(" + nameof(N) + " < Add(" + nameof(n) + ") [" + N + " < " + sum + "].");
+			throw new ArgumentException("Aurguments out of range !(" + nameof(N) + " < Add(" + nameof(n) + ") [" + N + " < " + sum + "].");
 		}
 		return result;
 	}
@@ -1622,7 +1638,7 @@ public static partial class Statics
 		}
 		if (LessThan(N, n))
 		{
-			throw new MathematicsException("Arguments out of range !(" + nameof(N) + " <= " + nameof(n) + ") [" + N + " <= " + n + "].");
+			throw new ArgumentException("Arguments out of range !(" + nameof(N) + " <= " + nameof(n) + ") [" + N + " <= " + n + "].");
 		}
 		return Division(Factorial(N), Multiplication(Factorial(n), Factorial(Subtraction(N, n))));
 	}
@@ -1684,7 +1700,7 @@ public static partial class Statics
 	/// <param name="y_intercept">The y intercept of the computed best fit line [y = slope * x + y_intercept].</param>
 	public static void LinearRegression2D<T>(Action<Action<T, T>> points, out T slope, out T y_intercept)
 	{
-		_ = points ?? throw new ArgumentNullException(nameof(points));
+		if (points is null) throw new ArgumentNullException(nameof(points));
 		int count = 0;
 		T sumx = Constant<T>.Zero;
 		T sumy = Constant<T>.Zero;
@@ -1696,7 +1712,7 @@ public static partial class Statics
 		});
 		if (count < 2)
 		{
-			throw new MathematicsException("At least 3 points must be provided for linear regressions");
+			throw new ArgumentException("At least 3 points must be provided for linear regressions");
 		}
 		T tcount = Convert<int, T>(count);
 		T meanx = Division(sumx, tcount);

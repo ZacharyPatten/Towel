@@ -260,7 +260,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Variable)
 			{
 				return Name.Equals(b as Variable);
@@ -377,7 +376,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Pi)
 			{
 				return true;
@@ -422,7 +420,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Zero)
 			{
 				return true;
@@ -468,7 +465,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is One)
 			{
 				return true;
@@ -514,7 +510,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Two)
 			{
 				return true;
@@ -560,7 +555,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Three)
 			{
 				return true;
@@ -624,7 +618,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Constant<T> B)
 			{
 				return Equate(Value, B.Value);
@@ -684,7 +677,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Pi<T>)
 			{
 				return true;
@@ -726,7 +718,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Zero<T>)
 			{
 				return true;
@@ -768,7 +759,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is One<T>)
 			{
 				return true;
@@ -810,7 +800,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Two<T>)
 			{
 				return true;
@@ -852,7 +841,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is Three<T>)
 			{
 				return true;
@@ -890,7 +878,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is True)
 			{
 				return true;
@@ -928,7 +915,6 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
 			if (b is False)
 			{
 				return true;
@@ -997,8 +983,7 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
-			if (GetType() == b.GetType())
+			if (b is not null && GetType() == b.GetType())
 			{
 				return A.Equals(((Unary)b).A);
 			}
@@ -1697,8 +1682,7 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
-			if (GetType() == b.GetType())
+			if (b is not null && GetType() == b.GetType())
 			{
 				return A.Equals(((Binary)b).A) && B.Equals(((Binary)b).B);
 			}
@@ -2948,8 +2932,7 @@ public static class Symbolics
 		/// <returns>True if equal. False if not.</returns>
 		public override bool Equals(object? b)
 		{
-			_ = b ?? throw new ArgumentNullException(nameof(b));
-			if (GetType() == b.GetType())
+			if (b is not null && GetType() == b.GetType())
 			{
 				return A.Equals(((Ternary)b).A) && B.Equals(((Ternary)b).B) && C.Equals(((Ternary)b).C);
 			}

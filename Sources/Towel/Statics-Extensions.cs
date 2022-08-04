@@ -48,8 +48,8 @@ public static partial class Statics
 	/// <returns>True if the string contains any of the provided characters. False if not.</returns>
 	public static bool ContainsAny(this string @string, params char[] chars)
 	{
-		_ = chars ?? throw new ArgumentNullException(nameof(chars));
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
+		if (chars is null) throw new ArgumentNullException(nameof(chars));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
 		if (chars.Length < 1)
 		{
 			throw new InvalidOperationException("Attempting a contains check with an empty set.");
@@ -85,11 +85,8 @@ public static partial class Statics
 	/// <returns>The string of the repeated string to repeat.</returns>
 	public static string Repeat(this string @string, int count)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), count, "!(" + nameof(count) + " >= 0)");
-		}
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
+		if (sourceof(count < 0, out string c1)) throw new ArgumentOutOfRangeException(nameof(count), count, c1);
 		string[] sets = new string[count];
 		for (int i = 0; i < count; i++)
 		{
@@ -103,7 +100,7 @@ public static partial class Statics
 	/// <returns>an array of the individual lines of the string.</returns>
 	public static string[] SplitLines(this string @string)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
 		return @string.RemoveCarriageReturns().Split('\n');
 	}
 
@@ -160,8 +157,8 @@ public static partial class Statics
 	/// <returns>The padded string.</returns>
 	public static string PadLinesLeft(this string @string, string padding)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
-		_ = padding ?? throw new ArgumentNullException(nameof(padding));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
+		if (padding is null) throw new ArgumentNullException(nameof(padding));
 		if (padding.CompareTo(string.Empty) is 0)
 		{
 			return @string;
@@ -175,8 +172,8 @@ public static partial class Statics
 	/// <returns>The padded string.</returns>
 	public static string PadSubstringLinesRight(this string @string, string padding)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
-		_ = padding ?? throw new ArgumentNullException(nameof(padding));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
+		if (padding is null) throw new ArgumentNullException(nameof(padding));
 		if (padding.CompareTo(string.Empty) is 0)
 		{
 			return @string;
@@ -192,8 +189,8 @@ public static partial class Statics
 	/// <returns>The padded string.</returns>
 	public static string PadLinesLeftBetweenIndeces(this string @string, string padding, int start, int end)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
-		_ = padding ?? throw new ArgumentNullException(nameof(padding));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
+		if (padding is null) throw new ArgumentNullException(nameof(padding));
 		if (start < 0 || start >= @string.Length)
 		{
 			throw new ArgumentOutOfRangeException(nameof(start), start, "!(0 <= " + nameof(start) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
@@ -202,7 +199,7 @@ public static partial class Statics
 		{
 			throw new ArgumentOutOfRangeException(nameof(end), end, "!(" + nameof(start) + " <= " + nameof(end) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
 		}
-		string header = @string.Substring(0, start).StandardizeNewLines();
+		string header = @string[..start].StandardizeNewLines();
 		string body = string.Concat(@string[start..end].RemoveCarriageReturns().Replace("\n", Environment.NewLine + padding));
 		string footer = @string[end..].StandardizeNewLines();
 		return string.Concat(header, body, footer);
@@ -216,8 +213,8 @@ public static partial class Statics
 	/// <returns>The padded string.</returns>
 	public static string PadLinesRightBetweenIndeces(this string @string, string padding, int start, int end)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
-		_ = padding ?? throw new ArgumentNullException(nameof(padding));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
+		if (padding is null) throw new ArgumentNullException(nameof(padding));
 		if (start < 0 || start >= @string.Length)
 		{
 			throw new ArgumentOutOfRangeException(nameof(start), start, "!(0 <= " + nameof(start) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
@@ -226,7 +223,7 @@ public static partial class Statics
 		{
 			throw new ArgumentOutOfRangeException(nameof(end), end, "!(" + nameof(start) + " <= " + nameof(end) + " <= " + nameof(@string) + "." + nameof(@string.Length) + ")");
 		}
-		string header = @string.Substring(0, start).StandardizeNewLines();
+		string header = @string[..start].StandardizeNewLines();
 		string body = string.Concat(@string[start..end].RemoveCarriageReturns().Replace("\n", padding + Environment.NewLine));
 		string footer = @string[end..].StandardizeNewLines();
 		return string.Concat(header, body, footer);
@@ -240,8 +237,8 @@ public static partial class Statics
 	/// <returns>The padded string.</returns>
 	public static string PadLinesLeft(this string @string, string padding, int startingLineNumber, int endingLineNumber)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
-		_ = padding ?? throw new ArgumentNullException(nameof(padding));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
+		if (padding is null) throw new ArgumentNullException(nameof(padding));
 		string[] lines = @string.SplitLines();
 		if (startingLineNumber < 0 || startingLineNumber >= lines.Length)
 		{
@@ -266,8 +263,8 @@ public static partial class Statics
 	/// <returns>The padded string.</returns>
 	public static string PadLinesRight(this string @string, string padding, int startingLineNumber, int endingLineNumber)
 	{
-		_ = @string ?? throw new ArgumentNullException(nameof(@string));
-		_ = padding ?? throw new ArgumentNullException(nameof(padding));
+		if (@string is null) throw new ArgumentNullException(nameof(@string));
+		if (padding is null) throw new ArgumentNullException(nameof(padding));
 		string[] lines = @string.SplitLines();
 		if (startingLineNumber < 0 || startingLineNumber >= lines.Length)
 		{
@@ -331,12 +328,12 @@ public static partial class Statics
 	/// <param name="step">The method to perform on every <typeparamref name="T"/> value.</param>
 	/// <param name="start">The inclusive starting index.</param>
 	/// <param name="end">The exclusive ending index.</param>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_Stepper() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_Stepper"/>
 	/// <returns><see cref="StepStatus"/></returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_StepperBreak() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1735, CS1572, CS1711, SA1625, SA1617
@@ -662,7 +659,7 @@ public static partial class Statics
 	/// <inheritdoc cref="ToSpan{T, TSelect}(Range, TSelect)" />
 	public static Span<T> ToSpan<T>(this Range range, Func<int, T> select)
 	{
-		_ = select ?? throw new ArgumentNullException(nameof(select));
+		if (select is null) throw new ArgumentNullException(nameof(select));
 		return ToArray<T, SFunc<int, T>>(range, select);
 	}
 
@@ -683,7 +680,7 @@ public static partial class Statics
 	/// <inheritdoc cref="ToArray{T, TSelect}(Range, TSelect)"/>
 	public static T[] ToArray<T>(this Range range, Func<int, T> select)
 	{
-		_ = select ?? throw new ArgumentNullException(nameof(select));
+		if (select is null) throw new ArgumentNullException(nameof(select));
 		return ToArray<T, SFunc<int, T>>(range, select);
 	}
 
@@ -726,7 +723,7 @@ public static partial class Statics
 	/// <inheritdoc cref="Select{T, TSelect}(Range, TSelect)"/>
 	public static System.Collections.Generic.IEnumerable<T> Select<T>(this Range range, Func<int, T> select)
 	{
-		_ = select ?? throw new ArgumentNullException(nameof(select));
+		if (select is null) throw new ArgumentNullException(nameof(select));
 		return Select<T, SFunc<int, T>>(range, select);
 	}
 
@@ -916,7 +913,7 @@ public static partial class Statics
 	/// <returns>The reduced stepper function.</returns>
 	public static Action<Action<T>> EveryNth<T>(this Action<Action<T>> stepper, int nth)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		if (nth <= 0)
 		{
 			throw new ArgumentOutOfRangeException(nameof(nth), nth, "!(" + nameof(nth) + " > 0)");

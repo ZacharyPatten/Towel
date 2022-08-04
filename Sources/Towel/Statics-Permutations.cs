@@ -21,19 +21,19 @@ public static partial class Statics
 	/// <param name="array">The array to iterate the permutations of.</param>
 	/// <param name="list">The list to iterate the permutations of.</param>
 	/// <param name="span">The span of the permutation.</param>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_Permute() => throw new DocumentationMethodException();
 
 #pragma warning restore SA1604 // Element documentation should have summary
 
 	/// <summary>Iterates through all the permutations of an indexed collection (using a recursive algorithm).</summary>
 	/// <inheritdoc cref="XML_Permute"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_PermuteRecursive() => throw new DocumentationMethodException();
 
 	/// <summary>Iterates through all the permutations of an indexed collection (using an iterative algorithm).</summary>
 	/// <inheritdoc cref="XML_Permute"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_PermuteIterative() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1572 // XML comment has a param tag, but there is no parameter by that name

@@ -37,7 +37,7 @@ internal class Program
 	public static void TupleExtensions(string? output = null) => Output(TupleExtensionsGenerator.Run(), output);
 
 	/// <summary>Generates the source code.</summary>
-	/// <example>dotnet run All --omnitreeOutput "..\..\Sources\Towel\DataStructures\Omnitree2.cs" --linkOutput "..\..\Sources\Towel\DataStructures\Link.cs" --functionalOutput "..\..\..\..\..\Sources\Towel\Functional.cs" --tupleExtensionsOutput "..\..\Sources\Towel\Statics-Tuple.cs"</example>
+	/// <example>dotnet run All --omnitreeOutput "..\..\Sources\Towel\DataStructures\Omnitree2.cs" --linkOutput "..\..\Sources\Towel\DataStructures\Link.cs" --functionalOutput "..\..\Sources\Towel\Functional.cs" --tupleExtensionsOutput "..\..\Sources\Towel\Statics-Tuple.cs"</example>
 	[Command]
 	public static void All(
 		string omnitreeOutput,

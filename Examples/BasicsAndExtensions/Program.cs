@@ -188,7 +188,6 @@ namespace BasicsAndExtensions
 
 				Random random = new();
 
-				Console.WriteLine($"    Random.NextLong(): {random.NextLong()}");
 				Console.WriteLine($"    Random.NextDateTime(): {random.NextDateTime()}");
 				Console.WriteLine($"    Random.NextAlphaNumericString(15): {random.NextEnglishAlphaNumericString(15)}");
 				Console.WriteLine($"    Random.NextChar('a', 'z'): {random.NextChar('a', 'z')}");

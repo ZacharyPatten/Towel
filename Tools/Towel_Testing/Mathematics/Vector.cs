@@ -282,7 +282,7 @@ public class Vector_Testing
 		{ // dimension missmatch
 			Vector<int> A = new(2);
 			Vector<int> B = new(3);
-			Assert.ThrowsException<MathematicsException>(() => A.CrossProduct(B));
+			Assert.ThrowsException<ArgumentException>(() => A.CrossProduct(B));
 		}
 	}
 
@@ -316,7 +316,7 @@ public class Vector_Testing
 		{ // dimension missmatch
 			Vector<int> A = new(2);
 			Vector<int> B = new(3);
-			Assert.ThrowsException<MathematicsException>(() => A.DotProduct(B));
+			Assert.ThrowsException<ArgumentException>(() => A.DotProduct(B));
 		}
 	}
 
@@ -407,7 +407,7 @@ public class Vector_Testing
 		{ // dimension missmatch
 			Vector<float> A = new(2);
 			Vector<float> B = new(3);
-			Assert.ThrowsException<MathematicsException>(() => A.Projection(B));
+			Assert.ThrowsException<ArgumentException>(() => A.Projection(B));
 		}
 	}
 

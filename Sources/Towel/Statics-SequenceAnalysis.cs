@@ -152,7 +152,7 @@ public static partial class Statics
 	/// - <see cref="int"/> Index: the index of the first occurence of the maximum value<br/>
 	/// - <typeparamref name="T"/> Value: the maximum value in the sequence
 	/// </returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_Maximum() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, CS1735, SA1617
@@ -197,7 +197,7 @@ public static partial class Statics
 	/// <param name="a">The first value to compare.</param>
 	/// <param name="b">The second value to compare.</param>
 	/// <returns>The maximum of the two values.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_MaximumValue_Two() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, SA1617, CS1735
@@ -220,7 +220,7 @@ public static partial class Statics
 	/// <param name="values">The values to find the maximum value in.</param>
 	/// <param name="span">The span of values to find the maximum value in.</param>
 	/// <returns>The maximum value in the sequence.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_MaximumValue() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1735, CS1572, SA1617
@@ -307,7 +307,7 @@ public static partial class Statics
 	/// <param name="values">The values to find the maximum value in.</param>
 	/// <param name="span">The span of values to find the maximum value in.</param>
 	/// <returns>The index of the first occurence of the maximum value in the sequence.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_MaximumIndex() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, SA1617, CS1735
@@ -355,7 +355,7 @@ public static partial class Statics
 	/// - <see cref="int"/> Index: the index of the first occurence of the minimum value<br/>
 	/// - <typeparamref name="T"/> Value: the minimum value in the sequence
 	/// </returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_Minimum() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, CS1735, SA1617
@@ -400,7 +400,7 @@ public static partial class Statics
 	/// <param name="a">The first value to compare.</param>
 	/// <param name="b">The second value to compare.</param>
 	/// <returns>The minimum of the two values.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_MinimumValue_Two() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, CS1735, SA1617
@@ -423,7 +423,7 @@ public static partial class Statics
 	/// <param name="values">The values to find the minimum value in.</param>
 	/// <param name="span">The span of values to find the minimum value in.</param>
 	/// <returns>The minimum value in the sequence.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_MinimumValue() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1735, CS1572, SA1617
@@ -468,7 +468,7 @@ public static partial class Statics
 	/// <param name="values">The values to find the minimum value in.</param>
 	/// <param name="span">The span of values to find the minimum value in.</param>
 	/// <returns>The index of the first occurence of the minimum value in the sequence.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 
 	public static void XML_MinimumIndex() => throw new DocumentationMethodException();
 
@@ -524,7 +524,7 @@ public static partial class Statics
 	/// <exception cref="ArgumentException">Throws when stepper is empty.</exception>
 	public static void Range<T>(Action<Action<T>> stepper, out T minimum, out T maximum)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		// Note: can't use out parameters as capture variables
 		T? min = default;
 		T? max = default;
@@ -673,7 +673,7 @@ public static partial class Statics
 	/// <returns>The computed mean of the set of data.</returns>
 	public static T Mean<T>(Action<Action<T>> stepper)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		T i = Constant<T>.Zero;
 		T sum = Constant<T>.Zero;
 		stepper(step =>
@@ -699,8 +699,8 @@ public static partial class Statics
 	/// <returns>The computed median value of the set of data.</returns>
 	public static T Median<T>(Func<T, T, CompareResult> compare, params T[] values)
 	{
-		_ = compare ?? throw new ArgumentNullException(nameof(compare));
-		_ = values ?? throw new ArgumentNullException(nameof(values));
+		if (compare is null) throw new ArgumentNullException(nameof(compare));
+		if (values is null) throw new ArgumentNullException(nameof(values));
 		// standard algorithm (sort and grab middle value)
 		SortMerge(values, compare);
 		if (values.Length % 2 is 1) // odd... just grab middle value
@@ -722,7 +722,7 @@ public static partial class Statics
 	/// <returns>The computed median value of the set of data.</returns>
 	public static T Median<T>(Func<T, T, CompareResult> compare, Action<Action<T>> stepper)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		return Median<T>(compare, stepper.ToArray());
 	}
 
@@ -741,7 +741,7 @@ public static partial class Statics
 	/// <returns>The computed median value of the set of data.</returns>
 	public static T Median<T>(Action<Action<T>> stepper)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		return Median(Compare, stepper.ToArray());
 	}
 
@@ -1308,13 +1308,13 @@ public static partial class Statics
 	/// <param name="step">The action to perform on every value that is in order.</param>
 	/// <param name="compare">The function for comparing <typeparamref name="T"/> values.</param>
 	/// <param name="span">The sequence of <typeparamref name="T"/> values to filter.</param>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_FilterOrdered() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_FilterOrdered"/>
 	/// <param name="enumerable">The sequence of <typeparamref name="T"/> values to filter.</param>
 	/// <returns>The sequence of filtered values.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_FilterOrderedEnumerable() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, CS1735, SA1617
@@ -1404,7 +1404,7 @@ public static partial class Statics
 	/// <param name="start">The starting index of the sort.</param>
 	/// <param name="end">The ending index of the sort.</param>
 	/// <param name="span">The span to be sorted.</param>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_IsOrdered() => throw new DocumentationMethodException();
 
 #pragma warning restore SA1604, CS1711, CS1572
@@ -1490,7 +1490,7 @@ public static partial class Statics
 	/// <param name="equate">The method for comparing <typeparamref name="T"/> values for equality.</param>
 	/// <param name="span">The sequence to check.</param>
 	/// <returns>True if the sequence is a palindrome; False if not.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_IsPalindrome() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1735 // XML comment has a typeparamref tag, but there is no type parameter by that name
@@ -1562,7 +1562,7 @@ public static partial class Statics
 	/// IsInterleaved("abc", "xyz", "012345") // False
 	/// </code>
 	/// </example>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_IsInterleaved() => throw new DocumentationMethodException();
 
 	/// <summary>
@@ -1573,7 +1573,7 @@ public static partial class Statics
 	/// Memory: O(1)
 	/// </summary>
 	/// <inheritdoc cref="XML_IsInterleaved"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_IsInterleavedRecursive() => throw new DocumentationMethodException();
 
 	/// <summary>
@@ -1584,7 +1584,7 @@ public static partial class Statics
 	/// Memory: O(<paramref name="a"/>.Length * <paramref name="b"/>.Length)
 	/// </summary>
 	/// <inheritdoc cref="XML_IsInterleaved"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_IsInterleavedIterative() => throw new DocumentationMethodException();
 
 #pragma warning restore SA1604, CS1572, CS1734, SA1617, CS1735, CS1711

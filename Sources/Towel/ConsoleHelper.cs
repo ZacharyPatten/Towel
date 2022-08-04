@@ -60,7 +60,7 @@ public static class ConsoleHelper
 		string? invalidMessage = null,
 		params (string DisplayName, Action Action)[] options)
 	{
-		_ = options ?? throw new ArgumentNullException(nameof(options));
+		if (options is null) throw new ArgumentNullException(nameof(options));
 		if (options.Length <= 0)
 		{
 			throw new ArgumentException($"{nameof(options)} is empty", nameof(options));
@@ -324,7 +324,7 @@ public static class ConsoleHelper
 			}
 			else
 			{
-				if (!(keyInfo.KeyChar is '\0'))
+				if (keyInfo.KeyChar is not '\0')
 				{
 					if (position == GetLength())
 					{
@@ -358,12 +358,9 @@ public static class ConsoleHelper
 		Action delay,
 		int length = 3)
 	{
-		_ = condition ?? throw new ArgumentNullException(nameof(condition));
-		_ = delay ?? throw new ArgumentNullException(nameof(delay));
-		if (length < 1)
-		{
-			throw new ArgumentOutOfRangeException(nameof(length), length, $"{nameof(length)} < 1");
-		}
+		if (condition is null) throw new ArgumentNullException(nameof(condition));
+		if (delay is null) throw new ArgumentNullException(nameof(delay));
+		if (sourceof(length < 1, out string c1)) throw new ArgumentOutOfRangeException(nameof(length), length, c1);
 
 		void MoveToOrigin() => MoveNegative(length);
 
@@ -415,11 +412,8 @@ public static class ConsoleHelper
 		char errorDigit = '?',
 		bool postClear = true)
 	{
-		_ = action ?? throw new ArgumentNullException(nameof(action));
-		if (length < 6)
-		{
-			throw new ArgumentOutOfRangeException(nameof(length), length, $"{length} < 6");
-		}
+		if (action is null) throw new ArgumentNullException(nameof(action));
+		if (sourceof(length < 6, out string c1)) throw new ArgumentOutOfRangeException(nameof(length), length, c1);
 
 		void MoveToOrigin() => MoveNegative(length);
 

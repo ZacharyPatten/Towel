@@ -1,9 +1,10 @@
-name: Towel Deployment
+name: Deployment
 on:
   release:
     types: [published]
 jobs:
   deployment:
+    if: ${{ github.repository == 'ZacharyPatten/Towel' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

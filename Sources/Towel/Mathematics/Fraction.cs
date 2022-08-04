@@ -22,7 +22,7 @@ public struct Fraction<T>
 		get => _denominator;
 		set
 		{
-			if (Statics.Equate(value, Constant<T>.Zero))
+			if (Equate(value, Constant<T>.Zero))
 			{
 				throw new ArgumentOutOfRangeException(nameof(value), value, "!(" + nameof(value) + " != 0)");
 			}
@@ -47,6 +47,10 @@ public struct Fraction<T>
 	/// <param name="deniminator">The denominator of the fraction.</param>
 	public Fraction(T numerator, T deniminator)
 	{
+		if (Equate(deniminator, Constant<T>.Zero))
+		{
+			throw new ArgumentOutOfRangeException(nameof(deniminator), deniminator, nameof(deniminator) + " is 0");
+		}
 		ReduceInternal(numerator, deniminator, out T reducedNumerator, out T reducedDenominator);
 		_numerator = reducedNumerator;
 		_denominator = reducedDenominator;
@@ -435,7 +439,7 @@ public struct Fraction<T>
 	/// - <see cref="bool"/> Success: True if the parse was successful; False if not.<br/>
 	/// - <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.
 	/// </returns>
-	public (bool Success, Fraction<T?> Value) TryParse(string @string, Func<string, (bool, T?)>? tryParse = null) =>
+	public static (bool Success, Fraction<T?> Value) TryParse(string @string, Func<string, (bool, T?)>? tryParse = null) =>
 		TryParse<SFunc<string, (bool, T?)>>(@string, tryParse ?? Statics.TryParse<T>);
 
 	/// <summary>Tries to parse a <see cref="string"/> into a value of the type <see cref="Fraction{T}"/>.</summary>
@@ -446,27 +450,41 @@ public struct Fraction<T>
 	/// - <see cref="bool"/> Success: True if the parse was successful; False if not.<br/>
 	/// - <see cref="Fraction{T}"/> Value: The value if the parse was successful or default if not.
 	/// </returns>
-	public (bool Success, Fraction<T?> Value) TryParse<TryParse>(string @string, TryParse tryParse = default)
+	public static (bool Success, Fraction<T?> Value) TryParse<TryParse>(string @string, TryParse tryParse = default)
 		where TryParse : struct, IFunc<string, (bool Success, T? Value)>
 	{
-		if (@string.Contains("/"))
+		bool containsWhiteSpace = false;
+		foreach (char c in @string)
+		{
+			containsWhiteSpace = containsWhiteSpace || char.IsWhiteSpace(c);
+		}
+		if (!containsWhiteSpace)
 		{
 			int divideIndex = @string.IndexOf("/");
-			string numeratorString = @string.Substring(0, divideIndex - 1);
-			string denominatorString = @string[(divideIndex + 1)..];
-			var (numeratorSuccess, numerator) = tryParse.Invoke(@string);
-			var (denominatorSuccess, denominator) = tryParse.Invoke(@string);
-			if (numeratorSuccess && denominatorSuccess)
+			if (divideIndex >= 0)
 			{
-				return (true, new Fraction<T?>(numerator, denominator));
+				string numeratorString = @string[..divideIndex];
+				string denominatorString = @string[(divideIndex + 1)..];
+				if (denominatorString is not "0")
+				{
+					var (numeratorSuccess, numerator) = tryParse.Invoke(numeratorString);
+					if (numeratorSuccess)
+					{
+						var (denominatorSuccess, denominator) = tryParse.Invoke(denominatorString);
+						if (denominatorSuccess && !Equate(denominator, Constant<T>.Zero))
+						{
+							return (true, new Fraction<T?>(numerator, denominator));
+						}
+					}
+				}
 			}
-		}
-		else
-		{
-			var (success, value) = tryParse.Invoke(@string);
-			if (success)
+			else
 			{
-				return (true, new Fraction<T?>(value));
+				var (success, value) = tryParse.Invoke(@string);
+				if (success)
+				{
+					return (true, new Fraction<T?>(value));
+				}
 			}
 		}
 		return (false, default);
@@ -475,7 +493,7 @@ public struct Fraction<T>
 	/// <summary>Parses a string into a fraction.</summary>
 	/// <param name="string">The string to parse.</param>
 	/// <returns>The parsed value from the string.</returns>
-	public Fraction<T?> Parse(string @string)
+	public static Fraction<T?> Parse(string @string)
 	{
 		var (success, value) = TryParse(@string);
 		if (success)

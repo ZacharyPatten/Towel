@@ -16,29 +16,27 @@ public static class FunctionalGenerator
 		code.AppendLine($@"// </auto-generated>");
 		code.AppendLine($@"//------------------------------------------------------------------------------");
 		code.AppendLine($@"");
-		code.AppendLine($@"using System;");
+		code.AppendLine($@"namespace Towel;");
 		code.AppendLine($@"");
-		code.AppendLine($@"namespace Towel");
-		code.AppendLine($@"{{");
 		for (int i = 0, I = 1; i <= parameters; i++, I++)
 		{
 			if (i is 0)
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""Action""/>");
-				code.AppendLine($@"	public interface IAction");
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		/// <inheritdoc cref=""Action.Invoke""/>");
-				code.AppendLine($@"		void Invoke();");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"/// <inheritdoc cref=""Action""/>");
+				code.AppendLine($@"public interface IAction");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	/// <inheritdoc cref=""Action.Invoke""/>");
+				code.AppendLine($@"	void Invoke();");
+				code.AppendLine($@"}}");
 			}
 			else
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/>");
-				code.AppendLine($@"	public interface IAction<{Join(1..I, n => $"T{n}", ", ")}>");
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}.Invoke""/>");
-				code.AppendLine($@"		void Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")});");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/>");
+				code.AppendLine($@"public interface IAction<{Join(1..I, n => $"T{n}", ", ")}>");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}.Invoke""/>");
+				code.AppendLine($@"	void Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")});");
+				code.AppendLine($@"}}");
 			}
 			code.AppendLine($@"");
 		}
@@ -46,22 +44,22 @@ public static class FunctionalGenerator
 		{
 			if (i is 0)
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""Func{{TResult}}""/>");
-				code.AppendLine($@"	public interface IFunc<TResult>");
+				code.AppendLine($@"/// <inheritdoc cref=""Func{{TResult}}""/>");
+				code.AppendLine($@"public interface IFunc<TResult>");
 
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		/// <inheritdoc cref=""Func{{TResult}}.Invoke""/>");
-				code.AppendLine($@"		TResult Invoke();");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	/// <inheritdoc cref=""Func{{TResult}}.Invoke""/>");
+				code.AppendLine($@"	TResult Invoke();");
+				code.AppendLine($@"}}");
 			}
 			else
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>");
-				code.AppendLine($@"	public interface IFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult>");
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}.Invoke""/>");
-				code.AppendLine($@"		TResult Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")});");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>");
+				code.AppendLine($@"public interface IFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult>");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}.Invoke""/>");
+				code.AppendLine($@"	TResult Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")});");
+				code.AppendLine($@"}}");
 			}
 			code.AppendLine($@"");
 		}
@@ -69,33 +67,33 @@ public static class FunctionalGenerator
 		{
 			if (i is 0)
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""System.Action""/>");
-				code.AppendLine($@"	public struct SAction : IAction");
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		internal Action Action;");
+				code.AppendLine($@"/// <inheritdoc cref=""System.Action""/>");
+				code.AppendLine($@"public struct SAction : IAction");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	internal Action Action;");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <inheritdoc cref=""Action.Invoke""/>");
-				code.AppendLine($@"		public void Invoke() => Action();");
+				code.AppendLine($@"	/// <inheritdoc cref=""Action.Invoke""/>");
+				code.AppendLine($@"	public void Invoke() => Action();");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Wraps an <see cref=""Action""/> in an <see cref=""SAction""/>.</summary>");
-				code.AppendLine($@"		/// <param name=""action"">The <see cref=""Action""/> wrapped in an <see cref=""SAction""/>.</param>");
-				code.AppendLine($@"		public static implicit operator SAction(Action action) => new() {{ Action = action, }};");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"	/// <summary>Wraps an <see cref=""Action""/> in an <see cref=""SAction""/>.</summary>");
+				code.AppendLine($@"	/// <param name=""action"">The <see cref=""Action""/> wrapped in an <see cref=""SAction""/>.</param>");
+				code.AppendLine($@"	public static implicit operator SAction(Action action) => new() {{ Action = action, }};");
+				code.AppendLine($@"}}");
 			}
 			else
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/>");
-				code.AppendLine($@"	public struct SAction<{Join(1..I, n => $"T{n}", ", ")}> : IAction<{Join(1..I, n => $"T{n}", ", ")}>");
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		internal Action<{Join(1..I, n => $"T{n}", ", ")}> Action;");
+				code.AppendLine($@"/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/>");
+				code.AppendLine($@"public struct SAction<{Join(1..I, n => $"T{n}", ", ")}> : IAction<{Join(1..I, n => $"T{n}", ", ")}>");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	internal Action<{Join(1..I, n => $"T{n}", ", ")}> Action;");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}.Invoke""/>");
-				code.AppendLine($@"		public void Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")}) => Action({Join(1..I, n => $"arg{n}", ", ")});");
+				code.AppendLine($@"	/// <inheritdoc cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}.Invoke""/>");
+				code.AppendLine($@"	public void Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")}) => Action({Join(1..I, n => $"arg{n}", ", ")});");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Wraps an <see cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/> in an <see cref=""SAction{{{Join(1..I, n => $"T{n}", ", ")}}}""/>.</summary>");
-				code.AppendLine($@"		/// <param name=""action"">The <see cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/> wrapped in an <see cref=""SAction{{{Join(1..I, n => $"T{n}", ", ")}}}""/>.</param>");
-				code.AppendLine($@"		public static implicit operator SAction<{Join(1..I, n => $"T{n}", ", ")}>(Action<{Join(1..I, n => $"T{n}", ", ")}> action) => new() {{ Action = action, }};");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"	/// <summary>Wraps an <see cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/> in an <see cref=""SAction{{{Join(1..I, n => $"T{n}", ", ")}}}""/>.</summary>");
+				code.AppendLine($@"	/// <param name=""action"">The <see cref=""Action{{{Join(1..I, n => $"T{n}", ", ")}}}""/> wrapped in an <see cref=""SAction{{{Join(1..I, n => $"T{n}", ", ")}}}""/>.</param>");
+				code.AppendLine($@"	public static implicit operator SAction<{Join(1..I, n => $"T{n}", ", ")}>(Action<{Join(1..I, n => $"T{n}", ", ")}> action) => new() {{ Action = action, }};");
+				code.AppendLine($@"}}");
 			}
 			code.AppendLine($@"");
 		}
@@ -103,37 +101,35 @@ public static class FunctionalGenerator
 		{
 			if (i is 0)
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""Func{{TResult}}""/>");
-				code.AppendLine($@"	public struct SFunc<TResult> : IFunc<TResult>");
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		internal Func<TResult> Func;");
+				code.AppendLine($@"/// <inheritdoc cref=""Func{{TResult}}""/>");
+				code.AppendLine($@"public struct SFunc<TResult> : IFunc<TResult>");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	internal Func<TResult> Func;");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <inheritdoc cref=""Func{{TResult}}.Invoke""/>");
-				code.AppendLine($@"		public TResult Invoke() => Func();");
+				code.AppendLine($@"	/// <inheritdoc cref=""Func{{TResult}}.Invoke""/>");
+				code.AppendLine($@"	public TResult Invoke() => Func();");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Wraps an <see cref=""Func{{TResult}}""/> in an <see cref=""SFunc{{TResult}}""/>.</summary>");
-				code.AppendLine($@"		/// <param name=""func"">The <see cref=""Func{{TResult}}""/> wrapped in an <see cref=""SFunc{{TResult}}""/>.</param>");
-				code.AppendLine($@"		public static implicit operator SFunc<TResult>(Func<TResult> func) => new() {{ Func = func, }};");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"	/// <summary>Wraps an <see cref=""Func{{TResult}}""/> in an <see cref=""SFunc{{TResult}}""/>.</summary>");
+				code.AppendLine($@"	/// <param name=""func"">The <see cref=""Func{{TResult}}""/> wrapped in an <see cref=""SFunc{{TResult}}""/>.</param>");
+				code.AppendLine($@"	public static implicit operator SFunc<TResult>(Func<TResult> func) => new() {{ Func = func, }};");
+				code.AppendLine($@"}}");
 			}
 			else
 			{
-				code.AppendLine($@"	/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>");
-				code.AppendLine($@"	public struct SFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult> : IFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult>");
-				code.AppendLine($@"	{{");
-				code.AppendLine($@"		internal Func<{Join(1..I, n => $"T{n}", ", ")}, TResult> Func;");
+				code.AppendLine($@"/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>");
+				code.AppendLine($@"public struct SFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult> : IFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult>");
+				code.AppendLine($@"{{");
+				code.AppendLine($@"	internal Func<{Join(1..I, n => $"T{n}", ", ")}, TResult> Func;");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}.Invoke""/>");
-				code.AppendLine($@"		public TResult Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")}) => Func({Join(1..I, n => $"arg{n}", ", ")});");
+				code.AppendLine($@"	/// <inheritdoc cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}.Invoke""/>");
+				code.AppendLine($@"	public TResult Invoke({Join(1..I, n => $"T{n} arg{n}", ", ")}) => Func({Join(1..I, n => $"arg{n}", ", ")});");
 				code.AppendLine($@"");
-				code.AppendLine($@"		/// <summary>Wraps an <see cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/> in an <see cref=""SFunc{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>.</summary>");
-				code.AppendLine($@"		/// <param name=""func"">The <see cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/> wrapped in an <see cref=""SFunc{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>.</param>");
-				code.AppendLine($@"		public static implicit operator SFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult>(Func<{Join(1..I, n => $"T{n}", ", ")}, TResult> func) => new() {{ Func = func, }};");
-				code.AppendLine($@"	}}");
+				code.AppendLine($@"	/// <summary>Wraps an <see cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/> in an <see cref=""SFunc{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>.</summary>");
+				code.AppendLine($@"	/// <param name=""func"">The <see cref=""Func{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/> wrapped in an <see cref=""SFunc{{{Join(1..I, n => $"T{n}", ", ")}, TResult}}""/>.</param>");
+				code.AppendLine($@"	public static implicit operator SFunc<{Join(1..I, n => $"T{n}", ", ")}, TResult>(Func<{Join(1..I, n => $"T{n}", ", ")}, TResult> func) => new() {{ Func = func, }};");
+				code.AppendLine($@"}}");
 			}
-			code.AppendLine($@"");
 		}
-		code.AppendLine($@"}}");
 		return code.ToString();
 	}
 }

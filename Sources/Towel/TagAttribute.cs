@@ -31,7 +31,7 @@ public static class TagAttributeExtensions
 	/// </returns>
 	public static (bool Found, object? Value) GetTag(this MemberInfo memberInfo, object? tag)
 	{
-		_ = memberInfo ?? throw new ArgumentNullException(nameof(memberInfo));
+		if (memberInfo is null) throw new ArgumentNullException(nameof(memberInfo));
 		bool found = false;
 		object? value = default;
 		foreach (TagAttribute valueAttribute in memberInfo.GetCustomAttributes<TagAttribute>())
@@ -58,7 +58,7 @@ public static class TagAttributeExtensions
 	/// </returns>
 	public static (bool Found, object? Value) GetTag(this ParameterInfo parameterInfo, object? tag)
 	{
-		_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
+		if (parameterInfo is null) throw new ArgumentNullException(nameof(parameterInfo));
 		bool found = false;
 		object? value = default;
 		foreach (TagAttribute valueAttribute in parameterInfo.GetCustomAttributes<TagAttribute>())
@@ -87,7 +87,7 @@ public static class TagAttributeExtensions
 	public static (bool Found, object? Value) GetTag<TEnum>(this TEnum enumValue, object? tag)
 		where TEnum : Enum
 	{
-		_ = enumValue ?? throw new ArgumentNullException(nameof(enumValue));
+		if (enumValue is null) throw new ArgumentNullException(nameof(enumValue));
 		bool found = false;
 		object? value = default;
 		foreach (TagAttribute valueAttribute in enumValue.GetEnumAttributes<TagAttribute>())

@@ -258,7 +258,7 @@ public class TrieLinkedHashLinked<T, TEquate, THash> : ITrie<T>,
 	/// <inheritdoc/>
 	public bool Contains(Action<Action<T>> stepper)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		Node? node = null;
 		bool contains = true;
 		stepper(key =>
@@ -576,7 +576,7 @@ public class TrieLinkedHashLinked<T, TData, TEquate, THash> : ITrie<T, TData>,
 	/// <inheritdoc/>
 	public bool Contains(Action<Action<T>> stepper)
 	{
-		_ = stepper ?? throw new ArgumentNullException(nameof(stepper));
+		if (stepper is null) throw new ArgumentNullException(nameof(stepper));
 		Node? node = null;
 		bool contains = true;
 		stepper(key =>

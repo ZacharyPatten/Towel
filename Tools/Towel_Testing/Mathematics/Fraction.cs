@@ -3,11 +3,11 @@
 [TestClass]
 public class Fraction_Testing
 {
-	#region Addition
-
 	[TestMethod]
 	public void Addition()
 	{
+		#region Tests
+
 		{ // int
 			{
 				Fraction<int> a = new(1, 1);
@@ -136,15 +136,15 @@ public class Fraction_Testing
 				Assert.IsTrue(a + b == c);
 			}
 		}
+
+		#endregion
 	}
-
-	#endregion
-
-	#region Subtraction
 
 	[TestMethod]
 	public void Subtraction()
 	{
+		#region Tests
+
 		{ // int
 			{
 				Fraction<int> a = new(1, 1);
@@ -225,15 +225,15 @@ public class Fraction_Testing
 				Assert.IsTrue(a - b == c);
 			}
 		}
+
+		#endregion
 	}
-
-	#endregion
-
-	#region Multiplication
 
 	[TestMethod]
 	public void Multiplication()
 	{
+		#region Tests
+
 		{ // int
 			{
 				Fraction<int> a = new(1, 1);
@@ -338,7 +338,78 @@ public class Fraction_Testing
 				Assert.IsTrue(a * b == c);
 			}
 		}
+
+		#endregion
 	}
 
-	#endregion
+	[TestMethod]
+	public void TryParse()
+	{
+		#region Tests
+
+		(string Input, Fraction<int> ExpectedOutput)[] successTests =
+		{
+			("1", new(1, 1)),
+			("2", new(2, 1)),
+			("3", new(3, 1)),
+			("1/1", new(1, 1)),
+			("2/1", new(2, 1)),
+			("3/1", new(3, 1)),
+			("2/2", new(1, 1)),
+			("2/2", new(2, 2)),
+			("1/2", new(1, 2)),
+		};
+		foreach (var (input, expectedOutput) in successTests)
+		{
+			var (success, output) = Fraction<int>.TryParse(input);
+			Assert.IsTrue(success && expectedOutput == output);
+		}
+
+		string[] failTests =
+		{
+			"",
+			" ",
+			"0/0",
+
+			// spaces
+			" 0/0",
+			"0/ 0",
+			"0 /0",
+			"0/0 ",
+			" 1/1",
+			"1/ 1",
+			"1 /1",
+			"1/1 ",
+
+			// tabs
+			"\t0/0",
+			"0/\t0",
+			"0\t/0",
+			"0/0\t",
+			"\t1/1",
+			"1/\t1",
+			"1\t/1",
+			"1/1\t",
+
+			"1.1",
+			"2.2",
+			"1.1/1.1",
+			"a",
+			"a/1",
+			"1/a",
+		};
+		foreach (string test in failTests)
+		{
+			try
+			{
+				Assert.IsTrue(!Fraction<int>.TryParse(test).Success);
+			}
+			catch
+			{
+				Assert.IsTrue(!Fraction<int>.TryParse(test).Success);
+			}
+		}
+
+		#endregion
+	}
 }

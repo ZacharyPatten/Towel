@@ -17,18 +17,12 @@ public class Vector<T>
 	{
 		get
 		{
-			if (Dimensions < 1)
-			{
-				throw new MathematicsException("This vector doesn't have an " + nameof(X) + " component.");
-			}
+			if (sourceof(Dimensions < 1, out string c1)) throw new InvalidOperationException(c1);
 			return _vector[0];
 		}
 		set
 		{
-			if (Dimensions < 1)
-			{
-				throw new MathematicsException("This vector doesn't have an " + nameof(X) + " component.");
-			}
+			if (sourceof(Dimensions < 1, out string c1)) throw new InvalidOperationException(c1);
 			_vector[0] = value;
 		}
 	}
@@ -38,18 +32,12 @@ public class Vector<T>
 	{
 		get
 		{
-			if (Dimensions < 2)
-			{
-				throw new MathematicsException("This vector doesn't have an " + nameof(Y) + " component.");
-			}
+			if (sourceof(Dimensions < 2, out string c1)) throw new InvalidOperationException(c1);
 			return _vector[1];
 		}
 		set
 		{
-			if (Dimensions < 2)
-			{
-				throw new MathematicsException("This vector doesn't have an " + nameof(Y) + " component.");
-			}
+			if (sourceof(Dimensions < 2, out string c1)) throw new InvalidOperationException(c1);
 			_vector[1] = value;
 		}
 	}
@@ -59,30 +47,18 @@ public class Vector<T>
 	{
 		get
 		{
-			if (Dimensions < 3)
-			{
-				throw new MathematicsException("This vector doesn't have an " + nameof(Z) + " component.");
-			}
+			if (sourceof(Dimensions < 3, out string c1)) throw new InvalidOperationException(c1);
 			return _vector[2];
 		}
 		set
 		{
-			if (Dimensions < 3)
-			{
-				throw new MathematicsException("This vector doesn't have an " + nameof(Z) + " component.");
-			}
+			if (sourceof(Dimensions < 3, out string c1)) throw new InvalidOperationException(c1);
 			_vector[2] = value;
 		}
 	}
 
 	/// <summary>The number of components in this vector.</summary>
-	public int Dimensions
-	{
-		get
-		{
-			return _vector is null ? 0 : _vector.Length;
-		}
-	}
+	public int Dimensions => _vector is null ? 0 : _vector.Length;
 
 	/// <summary>Allows indexed access to this vector.</summary>
 	/// <param name="index">The index to access.</param>
@@ -91,18 +67,12 @@ public class Vector<T>
 	{
 		get
 		{
-			if (0 > index || index > Dimensions)
-			{
-				throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Dimensions) + ")");
-			}
+			if (sourceof(0 > index || index > Dimensions, out string c1)) throw new ArgumentOutOfRangeException(nameof(index), index, c1);
 			return _vector[index];
 		}
 		set
 		{
-			if (0 > index || index > Dimensions)
-			{
-				throw new ArgumentOutOfRangeException(nameof(index), index, "!(0 <= " + nameof(index) + " <= " + nameof(Dimensions) + ")");
-			}
+			if (sourceof(0 > index || index > Dimensions, out string c1)) throw new ArgumentOutOfRangeException(nameof(index), index, c1);
 			_vector[index] = value;
 		}
 	}
@@ -233,7 +203,7 @@ public class Vector<T>
 	/// <returns>The length of this vector.</returns>
 	public static T GetMagnitude(Vector<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		return SquareRoot(GetMagnitudeSquared(a));
 	}
 
@@ -250,7 +220,7 @@ public class Vector<T>
 	/// <returns>The squared length of the vector.</returns>
 	public static T GetMagnitudeSquared(Vector<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		int Length = a.Dimensions;
 		T result = Constant<T>.Zero;
 		T[] A = a._vector;
@@ -274,7 +244,7 @@ public class Vector<T>
 	/// <param name="b">The result of the negations.</param>
 	public static void Negate(Vector<T> a, ref Vector<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		T[] A = a._vector;
 		int Length = A.Length;
 		T[] B;
@@ -340,15 +310,12 @@ public class Vector<T>
 	/// <param name="c">The result of the addition.</param>
 	public static void Add(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		T[] A = a._vector;
 		T[] B = b._vector;
 		int Length = A.Length;
-		if (Length != B.Length)
-		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
-		}
+		if (sourceof(Length != B.Length, out string c1)) throw new ArgumentException(c1);
 		T[] C;
 		if (c is null)
 		{
@@ -416,15 +383,12 @@ public class Vector<T>
 	/// <param name="c">The result of the vector subtracton.</param>
 	public static void Subtract(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		T[] A = a._vector;
 		T[] B = b._vector;
 		int Length = A.Length;
-		if (Length != B.Length)
-		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
-		}
+		if (sourceof(Length != B.Length, out string c1)) throw new ArgumentException(c1);
 		T[] C;
 		if (c is null)
 		{
@@ -442,7 +406,7 @@ public class Vector<T>
 		}
 		for (int i = 0; i < Length; i++)
 		{
-			C[i] = Statics.Subtraction(A[i], B[i]);
+			C[i] = Subtraction(A[i], B[i]);
 		}
 	}
 
@@ -492,7 +456,7 @@ public class Vector<T>
 	/// <param name="c">The result of the multiplication.</param>
 	public static void Multiply(Vector<T> a, T b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		T[] A = a._vector;
 		int Length = A.Length;
 		T[] C;
@@ -512,7 +476,7 @@ public class Vector<T>
 		}
 		for (int i = 0; i < Length; i++)
 		{
-			C[i] = Statics.Multiplication(A[i], b);
+			C[i] = Multiplication(A[i], b);
 		}
 	}
 
@@ -571,7 +535,7 @@ public class Vector<T>
 	/// <param name="c">The resulting vector after the divisions.</param>
 	public static void Divide(Vector<T> a, T b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		T[] A = a._vector;
 		int Length = A.Length;
 		T[] C;
@@ -591,7 +555,7 @@ public class Vector<T>
 		}
 		for (int i = 0; i < Length; i++)
 		{
-			C[i] = Statics.Division(A[i], b);
+			C[i] = Division(A[i], b);
 		}
 	}
 
@@ -632,13 +596,10 @@ public class Vector<T>
 	/// <returns>The result of the dot product operation.</returns>
 	public static T DotProduct(Vector<T> a, Vector<T> b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		int Length = a.Dimensions;
-		if (Length != b.Dimensions)
-		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
-		}
+		if (sourceof(Length != b.Dimensions, out string c1)) throw new ArgumentException(c1);
 		T result = Constant<T>.Zero;
 		T[] A = a._vector;
 		T[] B = b._vector;
@@ -667,26 +628,20 @@ public class Vector<T>
 	/// <param name="c">The result of the cross product operation.</param>
 	public static void CrossProduct(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		T[] A = a._vector;
 		T[] B = b._vector;
-		if (A.Length != 3)
-		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == 3)");
-		}
-		if (B.Length != 3)
-		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
-		}
+		if (sourceof(A.Length != 3, out string c1)) throw new ArgumentException(c1);
+		if (sourceof(B.Length != 3, out string c2)) throw new ArgumentException(c2);
 		if (c is null || c.Dimensions != 3)
 		{
 			c = new Vector<T>(3);
 		}
 		T[] C = c._vector;
-		C[0] = Statics.Subtraction(Statics.Multiplication(A[1], B[2]), Statics.Multiplication(A[2], B[1]));
-		C[1] = Statics.Subtraction(Statics.Multiplication(A[2], B[0]), Statics.Multiplication(A[0], B[2]));
-		C[2] = Statics.Subtraction(Statics.Multiplication(A[0], B[1]), Statics.Multiplication(A[1], B[0]));
+		C[0] = Subtraction(Multiplication(A[1], B[2]), Multiplication(A[2], B[1]));
+		C[1] = Subtraction(Multiplication(A[2], B[0]), Multiplication(A[0], B[2]));
+		C[2] = Subtraction(Multiplication(A[0], B[1]), Multiplication(A[1], B[0]));
 	}
 
 	/// <summary>Computes the cross product of two vectors.</summary>
@@ -725,26 +680,20 @@ public class Vector<T>
 	/// <param name="b">The result of the normalization.</param>
 	public static void Normalize(Vector<T> a, ref Vector<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		int Dimensions = a.Dimensions;
-		if (Dimensions < 1)
-		{
-			throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Dimensions) + " > 0)");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (sourceof(a.Dimensions < 1, out string c1)) throw new ArgumentOutOfRangeException(nameof(a), a, c1);
 		T magnitude = a.Magnitude;
-		if (Statics.Equate(magnitude, Constant<T>.Zero))
+		if (Equate(magnitude, Constant<T>.Zero))
 		{
 			throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 		}
-		if (b is null ||
-			b.Dimensions != Dimensions)
+		if (b is null || b.Dimensions != a.Dimensions)
 		{
-			b = new Vector<T>(Dimensions);
+			b = new Vector<T>(a.Dimensions);
 		}
-		T[] B = b._vector;
-		for (int i = 0; i < Dimensions; i++)
+		for (int i = 0; i < a.Dimensions; i++)
 		{
-			B[i] = Statics.Division(a[i], magnitude);
+			b._vector[i] = Division(a[i], magnitude);
 		}
 	}
 
@@ -787,11 +736,11 @@ public class Vector<T>
 	{
 		// a ⋅ b = |a| * |b| * cosθ
 
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		T dotProduct = a.DotProduct(b);
-		T aMagTimesbMag = Statics.Multiplication(a.Magnitude, b.Magnitude);
-		T divided = Statics.Division(dotProduct, aMagTimesbMag);
+		T aMagTimesbMag = Multiplication(a.Magnitude, b.Magnitude);
+		T divided = Division(dotProduct, aMagTimesbMag);
 		return arccos.Invoke(divided);
 	}
 
@@ -828,24 +777,21 @@ public class Vector<T>
 	/// <param name="c">The result of the cross product operation.</param>
 	public static void Projection(Vector<T> a, Vector<T> b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (a.Dimensions != b.Dimensions)
-		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " == " + nameof(b) + "." + nameof(b.Dimensions) + ")");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (sourceof(a.Dimensions != b.Dimensions, out string c1)) throw new ArgumentException(c1);
 		int Dimensions = a.Dimensions;
 		if (c is null || c.Dimensions != Dimensions)
 		{
 			c = new Vector<T>(Dimensions);
 		}
 		T magSquared = a.MagnitudeSquared;
-		if (Statics.Equate(magSquared, Constant<T>.Zero))
+		if (Equate(magSquared, Constant<T>.Zero))
 		{
 			throw new ArgumentOutOfRangeException(nameof(a), a, "!(" + nameof(a) + "." + nameof(a.Magnitude) + " > 0)");
 		}
 		T dot = a.DotProduct(b);
-		T divided = Statics.Division(dot, magSquared);
+		T divided = Division(dot, magSquared);
 		a.Multiply(divided, ref c);
 	}
 
@@ -942,25 +888,18 @@ public class Vector<T>
 	/// <param name="c">The result of the interpolation.</param>
 	public static void LinearInterpolation(Vector<T> a, Vector<T> b, T blend, ref Vector<T>? c)
 	{
-		if (Statics.LessThan(blend, Constant<T>.Zero) || Statics.GreaterThan(blend, Constant<T>.One))
+		if (LessThan(blend, Constant<T>.Zero) || GreaterThan(blend, Constant<T>.One))
 		{
 			throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
 		}
-		int Length = a.Dimensions;
-		if (Length != b.Dimensions)
+		if (sourceof(a.Dimensions != b.Dimensions, out string c2)) throw new ArgumentException(c2);
+		if (c is null || c.Dimensions != a.Dimensions)
 		{
-			throw new MathematicsException("Arguments invalid !(" + nameof(a) + "." + nameof(a.Dimensions) + " ==" + nameof(b) + "." + nameof(b.Dimensions) + ")");
+			c = new Vector<T>(a.Dimensions);
 		}
-		if (c is null || c.Dimensions != Length)
+		for (int i = 0; i < a.Dimensions; i++)
 		{
-			c = new Vector<T>(Length);
-		}
-		T[] A = a._vector;
-		T[] B = b._vector;
-		T[] C = c._vector;
-		for (int i = 0; i < Length; i++)
-		{
-			C[i] = Statics.Addition(A[i], Statics.Multiplication(blend, Statics.Subtraction(B[i], A[i])));
+			c._vector[i] = Addition(a._vector[i], Multiplication(blend, Subtraction(b._vector[i], a._vector[i])));
 		}
 	}
 
@@ -1039,12 +978,12 @@ public class Vector<T>
 	/// <param name="d">The result of the interpolation.</param>
 	public static void BarycentricInterpolation(Vector<T> a, Vector<T> b, Vector<T> c, T u, T v, ref Vector<T>? d)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		_ = c ?? throw new ArgumentNullException(nameof(c));
-		if (Statics.Equate(a.Dimensions, b.Dimensions, c.Dimensions))
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (c is null) throw new ArgumentNullException(nameof(c));
+		if (Equate(a.Dimensions, b.Dimensions, c.Dimensions))
 		{
-			throw new MathematicsException("Arguments invalid !(" +
+			throw new ArgumentException("Arguments invalid !(" +
 				nameof(a) + "." + nameof(a.Dimensions) + " == " +
 				nameof(b) + "." + nameof(b.Dimensions) + " == " +
 				nameof(c) + "." + nameof(c.Dimensions) + ")");
@@ -1232,7 +1171,7 @@ public class Vector<T>
 	/// <returns>The copy of this vector.</returns>
 	public static Vector<T> Clone(Vector<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		return new Vector<T>(a);
 	}
 

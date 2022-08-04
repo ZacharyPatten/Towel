@@ -8,9 +8,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Towel", "Sources\Towel\Towel.csproj", "{DCE2E35A-1EB6-4B8E-8A2F-DE0BF05D4CDE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}"
-	ProjectSection(SolutionItems) = preProject
-		Examples\.editorconfig = Examples\.editorconfig
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mathematics", "Examples\Mathematics\Mathematics.csproj", "{B2BF10AF-C7BC-45C0-B5BE-E6320C3A788E}"
 EndProject
@@ -37,94 +34,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleHelpers", "Examples\ConsoleHelpers\ConsoleHelpers.csproj", "{84268336-B88E-4DBA-8CE0-7BA24BFCCA58}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagAttributes", "Examples\TagAttributes\TagAttributes.csproj", "{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E4C40549-0A4C-4565-BF8D-99568025318D}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		License.md = License.md
-		README.md = README.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docfx_project", "docfx_project", "{3C768A5A-BF45-479E-8071-54073A020BA8}"
-	ProjectSection(SolutionItems) = preProject
-		Tools\docfx_project\.gitignore = Tools\docfx_project\.gitignore
-		Tools\docfx_project\docfx.json = Tools\docfx_project\docfx.json
-		Tools\docfx_project\index.md = Tools\docfx_project\index.md
-		Tools\docfx_project\toc.yml = Tools\docfx_project\toc.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{9815EC99-EF53-4DE2-96EB-721C9377EAD6}"
-	ProjectSection(SolutionItems) = preProject
-		Tools\docfx_project\api\.gitignore = Tools\docfx_project\api\.gitignore
-		Tools\docfx_project\api\index.md = Tools\docfx_project\api\index.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "benchmarks", "benchmarks", "{65AD9E4D-6A59-4D60-B046-606EA3BFDAC2}"
-	ProjectSection(SolutionItems) = preProject
-		Tools\docfx_project\benchmarks\DataStructuresBenchmarks.md = Tools\docfx_project\benchmarks\DataStructuresBenchmarks.md
-		Tools\docfx_project\benchmarks\HeapGenericsVsDelegatesBenchmarks.md = Tools\docfx_project\benchmarks\HeapGenericsVsDelegatesBenchmarks.md
-		Tools\docfx_project\benchmarks\index.md = Tools\docfx_project\benchmarks\index.md
-		Tools\docfx_project\benchmarks\LazyCachingBenchmarks.md = Tools\docfx_project\benchmarks\LazyCachingBenchmarks.md
-		Tools\docfx_project\benchmarks\LazyConstructionBenchmarks.md = Tools\docfx_project\benchmarks\LazyConstructionBenchmarks.md
-		Tools\docfx_project\benchmarks\LazyInitializationBenchmarks.md = Tools\docfx_project\benchmarks\LazyInitializationBenchmarks.md
-		Tools\docfx_project\benchmarks\MapVsDictionaryAddBenchmarks.md = Tools\docfx_project\benchmarks\MapVsDictionaryAddBenchmarks.md
-		Tools\docfx_project\benchmarks\MapVsDictionaryLookUpBenchmarks.md = Tools\docfx_project\benchmarks\MapVsDictionaryLookUpBenchmarks.md
-		Tools\docfx_project\benchmarks\PermuteBenchmarks.md = Tools\docfx_project\benchmarks\PermuteBenchmarks.md
-		Tools\docfx_project\benchmarks\RandomWithExclusionsBenchmarks.md = Tools\docfx_project\benchmarks\RandomWithExclusionsBenchmarks.md
-		Tools\docfx_project\benchmarks\SortBenchmarks.md = Tools\docfx_project\benchmarks\SortBenchmarks.md
-		Tools\docfx_project\benchmarks\SpanVsArraySortingBenchmarks.md = Tools\docfx_project\benchmarks\SpanVsArraySortingBenchmarks.md
-		Tools\docfx_project\benchmarks\toc.yml = Tools\docfx_project\benchmarks\toc.yml
-		Tools\docfx_project\benchmarks\ToEnglishWordsBenchmarks.md = Tools\docfx_project\benchmarks\ToEnglishWordsBenchmarks.md
-		Tools\docfx_project\benchmarks\WeightedRandomBenchmarks.md = Tools\docfx_project\benchmarks\WeightedRandomBenchmarks.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "articles", "articles", "{458E97BA-A2BA-4092-A128-62B71078DE6A}"
-	ProjectSection(SolutionItems) = preProject
-		Tools\docfx_project\articles\benchmarks.md = Tools\docfx_project\articles\benchmarks.md
-		Tools\docfx_project\articles\index.md = Tools\docfx_project\articles\index.md
-		Tools\docfx_project\articles\toc.yml = Tools\docfx_project\articles\toc.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3C94FE0F-6812-4F0A-BE0F-5E93A137D53C}"
-	ProjectSection(SolutionItems) = preProject
-		.github\pull_request_template.md = .github\pull_request_template.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6FF6B239-F532-47C3-A5E5-AD2385B28D93}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\Continuous Integration.yml = .github\workflows\Continuous Integration.yml
-		.github\workflows\Documentation.yml = .github\workflows\Documentation.yml
-		.github\workflows\Towel Deployment.yml = .github\workflows\Towel Deployment.yml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{4CD4AF31-E78D-4879-AFD0-F8A1E0B75813}"
-	ProjectSection(SolutionItems) = preProject
-		.github\Resources\docfx-badge.svg = .github\Resources\docfx-badge.svg
-		.github\Resources\file-16.svg = .github\Resources\file-16.svg
-		.github\Resources\file-directory-16.svg = .github\Resources\file-directory-16.svg
-		.github\Resources\git-branch-16.svg = .github\Resources\git-branch-16.svg
-		.github\Resources\icon.png = .github\Resources\icon.png
-		.github\Resources\Logo.svg = .github\Resources\Logo.svg
-		.github\Resources\play-16.svg = .github\Resources\play-16.svg
-		.github\Resources\UsingTowel.svg = .github\Resources\UsingTowel.svg
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{58E2BE55-76C5-4F4A-8F4D-F3E252707E73}"
-	ProjectSection(SolutionItems) = preProject
-		.github\ISSUE_TEMPLATE\bug.md = .github\ISSUE_TEMPLATE\bug.md
-		.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
-		.github\ISSUE_TEMPLATE\enhancement.md = .github\ISSUE_TEMPLATE\enhancement.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".vscode", ".vscode", "{9D6FCF1F-4DC7-422C-8C19-4E62422585E8}"
-	ProjectSection(SolutionItems) = preProject
-		.vscode\extensions.json = .vscode\extensions.json
-		.vscode\launch.json = .vscode\launch.json
-		.vscode\settings.json = .vscode\settings.json
-		.vscode\tasks.json = .vscode\tasks.json
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -202,13 +111,6 @@ Global
 		{F150D97E-33BB-43C8-8A1D-4FA279E0751C} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
 		{84268336-B88E-4DBA-8CE0-7BA24BFCCA58} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
 		{EFC33B0A-7AB9-4D5B-AB8F-FE0C600C5CA6} = {3FFBF0C3-A7A8-4246-9B21-AE9581E8C17E}
-		{3C768A5A-BF45-479E-8071-54073A020BA8} = {D7881A58-FA47-4F77-B8ED-C1922261375A}
-		{9815EC99-EF53-4DE2-96EB-721C9377EAD6} = {3C768A5A-BF45-479E-8071-54073A020BA8}
-		{65AD9E4D-6A59-4D60-B046-606EA3BFDAC2} = {3C768A5A-BF45-479E-8071-54073A020BA8}
-		{458E97BA-A2BA-4092-A128-62B71078DE6A} = {3C768A5A-BF45-479E-8071-54073A020BA8}
-		{6FF6B239-F532-47C3-A5E5-AD2385B28D93} = {3C94FE0F-6812-4F0A-BE0F-5E93A137D53C}
-		{4CD4AF31-E78D-4879-AFD0-F8A1E0B75813} = {3C94FE0F-6812-4F0A-BE0F-5E93A137D53C}
-		{58E2BE55-76C5-4F4A-8F4D-F3E252707E73} = {3C94FE0F-6812-4F0A-BE0F-5E93A137D53C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2A91906B-FC15-4030-9A67-D5E8286EBC4F}

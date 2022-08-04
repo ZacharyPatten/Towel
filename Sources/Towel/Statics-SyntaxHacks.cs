@@ -183,9 +183,6 @@ public static partial class Statics
 	/// <summary>Struct that allows percentage syntax that will be evaluated at runtime.</summary>
 	public struct ChanceSyntax
 	{
-		/// <summary>The random algorithm currently being used by chance syntax.</summary>
-		public static Random Algorithm = new();
-
 		/// <summary>Creates a chance from a percentage that will be evaluated at runtime.</summary>
 		/// <param name="percentage">The value of the percentage.</param>
 		/// <param name="chance">The chance syntax struct object.</param>
@@ -195,7 +192,7 @@ public static partial class Statics
 			percentage > 100d ? throw new ArgumentOutOfRangeException(nameof(chance)) :
 			percentage is 100d ? true :
 			percentage is 0d ? false :
-			Algorithm.NextDouble() < percentage / 100d;
+			Random.Shared.NextDouble() < percentage / 100d;
 	}
 
 #pragma warning restore IDE0060 // Remove unused parameter
@@ -275,17 +272,17 @@ public static partial class Statics
 
 		/// <summary>This member is not intended to be invoked.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, true)]
+		[Obsolete(NotIntended, true)]
 		public override string ToString() => throw new InequalitySyntaxException();
 
 		/// <summary>This member is not intended to be invoked.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, true)]
+		[Obsolete(NotIntended, true)]
 		public override bool Equals(object? obj) => throw new InequalitySyntaxException();
 
 		/// <summary>This member is not intended to be invoked.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, true)]
+		[Obsolete(NotIntended, true)]
 		public override int GetHashCode() => throw new InequalitySyntaxException();
 
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
@@ -354,12 +351,12 @@ public static partial class Statics
 
 			/// <summary>This member is not intended to be invoked.</summary>
 			/// <inheritdoc/>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			[Obsolete(NotIntended, true)]
 			public override bool Equals(object? obj) => throw new InequalitySyntaxException();
 
 			/// <summary>This member is not intended to be invoked.</summary>
 			/// <inheritdoc/>
-			[Obsolete(TowelConstants.NotIntended, true)]
+			[Obsolete(NotIntended, true)]
 			public override int GetHashCode() => throw new InequalitySyntaxException();
 
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
@@ -385,32 +382,32 @@ public static partial class Statics
 	public struct UniversalQuantification<T> :
 		System.Collections.Generic.IEnumerable<T>,
 		System.Collections.Generic.IList<T>,
-		Towel.DataStructures.IArray<T>
+		IArray<T>
 	{
 		internal T[] Value;
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <param name="array">The array value of the universal quantification.</param>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		internal UniversalQuantification(T[] array) => Value = array;
 
 		#region Towel.Datastructures.IArray<T>
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public int Length => Value.Length;
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public StepStatus StepperBreak<TStep>(TStep step = default)
 			where TStep : struct, IFunc<T, StepStatus> =>
 			Value.StepperBreak(step);
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public T[] ToArray() => Value;
 
 		#endregion
@@ -419,7 +416,7 @@ public static partial class Statics
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public T this[int index]
 		{
 			get => Value[index];
@@ -428,17 +425,17 @@ public static partial class Statics
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public int Count => Value.Length;
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public bool IsReadOnly => false;
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public void Add(T item)
 		{
 			T[] newValue = new T[Value.Length + 1];
@@ -448,28 +445,28 @@ public static partial class Statics
 		}
 
 		/// <summary>Not intended to be invoked directly.</summary>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public void Clear() => Value = Array.Empty<T>();
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public bool Contains(T item) => Value.Contains(item);
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public void CopyTo(T[] array, int arrayIndex) =>
 			Array.Copy(Value, 0, array, arrayIndex, Value.Length);
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public int IndexOf(T item) => Array.IndexOf(Value, item);
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public void Insert(int index, T item)
 		{
 			T[] newValue = new T[Value.Length + 1];
@@ -486,7 +483,7 @@ public static partial class Statics
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public bool Remove(T item)
 		{
 			T[] newValue = new T[Value.Length - 1];
@@ -516,7 +513,7 @@ public static partial class Statics
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public void RemoveAt(int index)
 		{
 			T[] newValue = new T[Value.Length - 1];
@@ -542,12 +539,12 @@ public static partial class Statics
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		public System.Collections.Generic.IEnumerator<T> GetEnumerator() => ((System.Collections.Generic.IEnumerable<T>)Value).GetEnumerator();
 
 		/// <summary>Not intended to be invoked directly.</summary>
 		/// <inheritdoc/>
-		[Obsolete(TowelConstants.NotIntended, false)]
+		[Obsolete(NotIntended, false)]
 		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => Value.GetEnumerator();
 
 		#endregion

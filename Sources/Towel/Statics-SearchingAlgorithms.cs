@@ -25,7 +25,7 @@ public static partial class Statics
 	/// - <see cref="int"/> Index: The resulting index of the search that will always be &lt;= the desired match.<br/>
 	/// - <typeparamref name="T"/> Value: The resulting value of the binary search if a match was found or default if not.
 	/// </returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SearchBinary() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, CS1734, CS1735, SA1617
@@ -33,8 +33,8 @@ public static partial class Statics
 	/// <inheritdoc cref="XML_SearchBinary"/>
 	public static (bool Found, int Index, T? Value) SearchBinary<T>(int length, Func<int, T> get, Func<T, CompareResult> sift)
 	{
-		_ = get ?? throw new ArgumentNullException(nameof(get));
-		_ = sift ?? throw new ArgumentNullException(nameof(sift));
+		if (get is null) throw new ArgumentNullException(nameof(get));
+		if (sift is null) throw new ArgumentNullException(nameof(sift));
 		return SearchBinary<T, SFunc<int, T>, SFunc<T, CompareResult>>(0, length, get, sift);
 	}
 
@@ -83,7 +83,7 @@ public static partial class Statics
 	/// <inheritdoc cref="XML_SearchBinary"/>
 	public static (bool Found, int Index, T? Value) SearchBinary<T>(ReadOnlySpan<T> span, Func<T, CompareResult> sift)
 	{
-		_ = sift ?? throw new ArgumentNullException(nameof(sift));
+		if (sift is null) throw new ArgumentNullException(nameof(sift));
 		return SearchBinary<T, SFunc<T, CompareResult>>(span, sift);
 	}
 
@@ -301,7 +301,7 @@ public static partial class Statics
 	/// <param name="goal">The goal of the search.</param>
 	/// <param name="graph">The graph to perform the search on.</param>
 	/// <returns>Stepper of the shortest path or null if no path exists.</returns>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SearchGraph() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572, SA1604, SA1617
@@ -312,7 +312,7 @@ public static partial class Statics
 
 	/// <summary>Runs the A* search algorithm on a graph.</summary>
 	/// <inheritdoc cref="XML_SearchGraph"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SearchGraph_Astar() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SearchGraph_Astar"/>
@@ -426,7 +426,7 @@ public static partial class Statics
 
 	/// <summary>Runs the Dijkstra search algorithm on a graph.</summary>
 	/// <inheritdoc cref="XML_SearchGraph"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SearchGraph_Dijkstra() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SearchGraph_Dijkstra"/>
@@ -534,7 +534,7 @@ public static partial class Statics
 
 	/// <summary>Runs the Breadth-First-Search search algorithm on a graph.</summary>
 	/// <inheritdoc cref="XML_SearchGraph"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SearchGraph_BreadthFirst() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SearchGraph_BreadthFirst"/>

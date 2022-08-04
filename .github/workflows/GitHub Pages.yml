@@ -1,4 +1,4 @@
-name: Documentation
+name: GitHub Pages
 on:
   workflow_dispatch:
   push:
@@ -10,6 +10,7 @@ on:
       - 'Tools/Towel_Testing/**'
 jobs:
   documentation:
+    if: ${{ github.repository == 'ZacharyPatten/Towel' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -53,8 +54,13 @@ jobs:
         echo '<coverage line-rate-percentage="'$LINEPERCENTAGE'%" />' >> coverage.xml
     - name: move coverage.xml
       run: mv coverage.xml Tools/docfx_project/_site/coveragereport/coverage.xml
-    - uses: maxheld83/ghpages@master
-      name: gh-pages publish
-      env:
-        BUILD_DIR: Tools/docfx_project/_site
-        GH_PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+    - name: deploy to github-pages branch
+      run: |
+        cd Tools/docfx_project/_site
+        echo "* @ZacharyPatten" > CODEOWNERS
+        git init --initial-branch=github-pages
+        git config user.name "${GITHUB_ACTOR}"
+        git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+        git add .
+        git commit -m 'deploy to github-pages branch'
+        git push --force "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" github-pages:github-pages

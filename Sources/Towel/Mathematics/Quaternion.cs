@@ -191,8 +191,8 @@ public class Quaternion<T>
 	/// <returns>The magnitude of this quaternion.</returns>
 	public static T GetMagnitude(Quaternion<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		return Statics.SquareRoot(GetMagnitudeSquared(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		return SquareRoot(GetMagnitudeSquared(a));
 	}
 
 	/// <summary>Computes the magnitude of this quaternion.</summary>
@@ -208,7 +208,7 @@ public class Quaternion<T>
 	/// <returns>The squared length of the quaternion.</returns>
 	public static T GetMagnitudeSquared(Quaternion<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		return GetMagnitudeSquaredImplementation.Function(a._x, a._y, a._z, a._w);
 	}
 
@@ -244,12 +244,12 @@ public class Quaternion<T>
 	/// <param name="c">The result of the addition.</param>
 	public static void Add(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		T x = Statics.Addition(a._x, b._x);
-		T y = Statics.Addition(a._y, b._y);
-		T z = Statics.Addition(a._z, b._z);
-		T w = Statics.Addition(a._w, b._w);
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		T x = Addition(a._x, b._x);
+		T y = Addition(a._y, b._y);
+		T z = Addition(a._z, b._z);
+		T w = Addition(a._w, b._w);
 		if (c is null)
 		{
 			c = new Quaternion<T>(x, y, z, w);
@@ -300,12 +300,12 @@ public class Quaternion<T>
 	/// <param name="c">The result of the subtraction.</param>
 	public static void Subtract(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		T x = Statics.Subtraction(a._x, b._x);
-		T y = Statics.Subtraction(a._y, b._y);
-		T z = Statics.Subtraction(a._z, b._z);
-		T w = Statics.Subtraction(a._w, b._w);
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		T x = Subtraction(a._x, b._x);
+		T y = Subtraction(a._y, b._y);
+		T z = Subtraction(a._z, b._z);
+		T w = Subtraction(a._w, b._w);
 		if (c is null)
 		{
 			c = new Quaternion<T>(x, y, z, w);
@@ -356,8 +356,8 @@ public class Quaternion<T>
 	/// <param name="c">The resulting quaternion after the multiplication.</param>
 	internal static void Multiply(Quaternion<T> a, Quaternion<T> b, ref Quaternion<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		T x = QuaternionMiltiplyXYZComponentImplementation.Function(a.X, b.W, a.W, b.X, a.Y, b.Z, a.Z, b.Y);
 		T y = QuaternionMiltiplyXYZComponentImplementation.Function(a.Y, b.W, a.W, b.Y, a.Z, b.X, a.X, b.Z);
 		T z = QuaternionMiltiplyXYZComponentImplementation.Function(a.Z, b.W, a.W, b.Z, a.X, b.Y, a.Y, b.X);
@@ -471,12 +471,9 @@ public class Quaternion<T>
 	/// <param name="c">The resulting quaternion after the multiplication.</param>
 	public static void Multiply(Quaternion<T> a, Vector<T> b, ref Quaternion<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (b.Dimensions != 3)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " == 3)");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (sourceof(b.Dimensions != 3, out string c1)) throw new ArgumentException(c1);
 		T x = QuaternionMiltiplyVectorXYZComponentImplementation.Function(a.W, b.X, a.Y, b.Z, a.Z, b.Y);
 		T y = QuaternionMiltiplyVectorXYZComponentImplementation.Function(a.W, b.Y, a.Z, b.X, a.X, b.Z);
 		T z = QuaternionMiltiplyVectorXYZComponentImplementation.Function(a.W, b.Z, a.X, b.Y, a.Y, b.X);
@@ -582,11 +579,11 @@ public class Quaternion<T>
 	/// <param name="c">The resulting quaternion after the multiplications.</param>
 	internal static void Multiply(Quaternion<T> a, T b, ref Quaternion<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		T x = Statics.Multiplication(a._x, b);
-		T y = Statics.Multiplication(a._y, b);
-		T z = Statics.Multiplication(a._z, b);
-		T w = Statics.Multiplication(a._w, b);
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		T x = Multiplication(a._x, b);
+		T y = Multiplication(a._y, b);
+		T z = Multiplication(a._z, b);
+		T w = Multiplication(a._w, b);
 		if (c is null)
 		{
 			c = new Quaternion<T>(x, y, z, w);
@@ -649,12 +646,9 @@ public class Quaternion<T>
 	/// <param name="c">The result of the rotation.</param>
 	public static void Rotate(Quaternion<T> a, Vector<T> b, ref Vector<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (b.Dimensions != 3)
-		{
-			throw new MathematicsException("Argument invalid !(" + nameof(b) + "." + nameof(b.Dimensions) + " != 3 || " + nameof(b) + "." + nameof(b.Dimensions) + " != 4)");
-		}
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		if (sourceof(b.Dimensions != 3, out string c1)) throw new ArgumentException(c1);
 		if (c is null || c.Dimensions != 3)
 		{
 			c = new Vector<T>(3);
@@ -705,10 +699,10 @@ public class Quaternion<T>
 	/// <param name="b">The result of the conjugation.</param>
 	public static void Conjugate(Quaternion<T> a, ref Quaternion<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		T x = Statics.Negation(a._x);
-		T y = Statics.Negation(a._y);
-		T z = Statics.Negation(a._z);
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		T x = Negation(a._x);
+		T y = Negation(a._y);
+		T z = Negation(a._z);
 		T w = a._w;
 		if (b is null)
 		{
@@ -755,12 +749,12 @@ public class Quaternion<T>
 	/// <param name="b">The result of the normalization.</param>
 	public static void Normalize(Quaternion<T> a, ref Quaternion<T>? b)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		T magnitude = a.Magnitude;
-		T x = Statics.Division(a._x, magnitude);
-		T y = Statics.Division(a._y, magnitude);
-		T z = Statics.Division(a._z, magnitude);
-		T w = Statics.Division(a._w, magnitude);
+		T x = Division(a._x, magnitude);
+		T y = Division(a._y, magnitude);
+		T z = Division(a._z, magnitude);
+		T w = Division(a._w, magnitude);
 		if (b is null)
 		{
 			b = new Quaternion<T>(x, y, z, w);
@@ -808,13 +802,13 @@ public class Quaternion<T>
 	{
 		// Note: I think this function is incorrect. Need to research.
 
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		T magnitudeSquared = a.MagnitudeSquared;
 		T x;
 		T y;
 		T z;
 		T w;
-		if (Statics.Equate(magnitudeSquared, Constant<T>.Zero))
+		if (Equate(magnitudeSquared, Constant<T>.Zero))
 		{
 			x = a._x;
 			y = a._y;
@@ -823,10 +817,10 @@ public class Quaternion<T>
 		}
 		else
 		{
-			x = Statics.Multiplication(Statics.Negation(a.X), magnitudeSquared);
-			y = Statics.Multiplication(Statics.Negation(a.Y), magnitudeSquared);
-			z = Statics.Multiplication(Statics.Negation(a.Z), magnitudeSquared);
-			w = Statics.Multiplication(a.W, magnitudeSquared);
+			x = Multiplication(Negation(a.X), magnitudeSquared);
+			y = Multiplication(Negation(a.Y), magnitudeSquared);
+			z = Multiplication(Negation(a.Z), magnitudeSquared);
+			w = Multiplication(a.W, magnitudeSquared);
 		}
 		if (b is null)
 		{
@@ -875,9 +869,10 @@ public class Quaternion<T>
 	/// <param name="c">The result of the linear interpolation.</param>
 	public static void LinearInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
-		if (Statics.LessThan(blend, Constant<T>.Zero) || Statics.GreaterThan(blend, Constant<T>.One))
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
+		#warning TODO: sourceof with generic mathematics
+		if (LessThan(blend, Constant<T>.Zero) || GreaterThan(blend, Constant<T>.One))
 		{
 			throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
 		}
@@ -911,10 +906,10 @@ public class Quaternion<T>
 		}
 		else
 		{
-			x = Statics.Addition(Statics.Subtraction(Constant<T>.One, Statics.Multiplication(blend, a.X)), Statics.Multiplication(blend, b.X));
-			y = Statics.Addition(Statics.Subtraction(Constant<T>.One, Statics.Multiplication(blend, a.Y)), Statics.Multiplication(blend, b.Y));
-			z = Statics.Addition(Statics.Subtraction(Constant<T>.One, Statics.Multiplication(blend, a.Z)), Statics.Multiplication(blend, b.Z));
-			w = Statics.Addition(Statics.Subtraction(Constant<T>.One, Statics.Multiplication(blend, a.W)), Statics.Multiplication(blend, b.W));
+			x = Addition(Subtraction(Constant<T>.One, Multiplication(blend, a.X)), Multiplication(blend, b.X));
+			y = Addition(Subtraction(Constant<T>.One, Multiplication(blend, a.Y)), Multiplication(blend, b.Y));
+			z = Addition(Subtraction(Constant<T>.One, Multiplication(blend, a.Z)), Multiplication(blend, b.Z));
+			w = Addition(Subtraction(Constant<T>.One, Multiplication(blend, a.W)), Multiplication(blend, b.W));
 		}
 		if (c is null)
 		{
@@ -983,8 +978,8 @@ public class Quaternion<T>
 	[Obsolete("Not Implemented", true)]
 	public static void SphericalInterpolation(Quaternion<T> a, Quaternion<T> b, T blend, ref Quaternion<T>? c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		if (LessThan(blend, Constant<T>.Zero) || GreaterThan(blend, Constant<T>.One))
 		{
 			throw new ArgumentOutOfRangeException(nameof(blend), blend, "!(0 <= " + nameof(blend) + " <= 1)");
@@ -1033,20 +1028,21 @@ public class Quaternion<T>
 	{
 		// Note: this Method needs optimization...
 
+#pragma warning disable CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
 		return new Matrix<T>(3, 3, (int x, int y) =>
 			(x, y) switch
 			{
-				(0, 0) => Statics.Subtraction(Statics.Subtraction(Statics.Addition(Statics.Multiplication(quaternion.W, quaternion.W), Statics.Multiplication(quaternion.X, quaternion.X)), Statics.Multiplication(quaternion.Y, quaternion.Y)), Statics.Multiplication(quaternion.Z, quaternion.Z)),
-				(0, 1) => Statics.Subtraction(Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z)),
-				(0, 2) => Statics.Addition(Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y)),
-				(1, 0) => Statics.Addition(Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z)),
-				(1, 1) => Statics.Subtraction(Statics.Addition(Statics.Subtraction(Statics.Multiplication(quaternion.W, quaternion.W), Statics.Multiplication(quaternion.X, quaternion.X)), Statics.Multiplication(quaternion.Y, quaternion.Y)), Statics.Multiplication(quaternion.Z, quaternion.Z)),
-				(1, 2) => Statics.Addition(Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X)),
-				(2, 0) => Statics.Subtraction(Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y)),
-				(2, 1) => Statics.Subtraction(Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Statics.Multiplication(Statics.Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X)),
-				(2, 2) => Statics.Addition(Statics.Subtraction(Statics.Subtraction(Statics.Multiplication(quaternion.W, quaternion.W), Statics.Multiplication(quaternion.X, quaternion.X)), Statics.Multiplication(quaternion.Y, quaternion.Y)), Statics.Multiplication(quaternion.Z, quaternion.Z)),
-				_ => throw new MathematicsException("BUG"),
+				(0, 0) => Subtraction(Subtraction(Addition(Multiplication(quaternion.W, quaternion.W), Multiplication(quaternion.X, quaternion.X)), Multiplication(quaternion.Y, quaternion.Y)), Multiplication(quaternion.Z, quaternion.Z)),
+				(0, 1) => Subtraction(Multiplication(Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Multiplication(Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z)),
+				(0, 2) => Addition(Multiplication(Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Multiplication(Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y)),
+				(1, 0) => Addition(Multiplication(Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Y), Multiplication(Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Z)),
+				(1, 1) => Subtraction(Addition(Subtraction(Multiplication(quaternion.W, quaternion.W), Multiplication(quaternion.X, quaternion.X)), Multiplication(quaternion.Y, quaternion.Y)), Multiplication(quaternion.Z, quaternion.Z)),
+				(1, 2) => Addition(Multiplication(Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Multiplication(Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X)),
+				(2, 0) => Subtraction(Multiplication(Multiplication(Convert<int, T>(2), quaternion.X), quaternion.Z), Multiplication(Multiplication(Convert<int, T>(2), quaternion.W), quaternion.Y)),
+				(2, 1) => Subtraction(Multiplication(Multiplication(Convert<int, T>(2), quaternion.Y), quaternion.Z), Multiplication(Multiplication(Convert<int, T>(2), quaternion.W), quaternion.X)),
+				(2, 2) => Addition(Subtraction(Subtraction(Multiplication(quaternion.W, quaternion.W), Multiplication(quaternion.X, quaternion.X)), Multiplication(quaternion.Y, quaternion.Y)), Multiplication(quaternion.Z, quaternion.Z)),
 			});
+#pragma warning restore CS8509 // The switch expression does not handle all possible values of its input type (it is not exhaustive).
 	}
 
 	#endregion
@@ -1150,7 +1146,7 @@ public class Quaternion<T>
 	/// <returns>The copy of this quaternion.</returns>
 	public static Quaternion<T> Clone(Quaternion<T> a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		return new Quaternion<T>(a._x, a._y, a._z, a._w);
 	}
 

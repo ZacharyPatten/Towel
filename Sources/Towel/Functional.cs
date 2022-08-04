@@ -4,328 +4,317 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
+namespace Towel;
 
-namespace Towel
+/// <inheritdoc cref="Action"/>
+public interface IAction
 {
-	/// <inheritdoc cref="Action"/>
-	public interface IAction
-	{
-		/// <inheritdoc cref="Action.Invoke"/>
-		void Invoke();
-	}
-
-	/// <inheritdoc cref="Action{T1}"/>
-	public interface IAction<T1>
-	{
-		/// <inheritdoc cref="Action{T1}.Invoke"/>
-		void Invoke(T1 arg1);
-	}
-
-	/// <inheritdoc cref="Action{T1, T2}"/>
-	public interface IAction<T1, T2>
-	{
-		/// <inheritdoc cref="Action{T1, T2}.Invoke"/>
-		void Invoke(T1 arg1, T2 arg2);
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3}"/>
-	public interface IAction<T1, T2, T3>
-	{
-		/// <inheritdoc cref="Action{T1, T2, T3}.Invoke"/>
-		void Invoke(T1 arg1, T2 arg2, T3 arg3);
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4}"/>
-	public interface IAction<T1, T2, T3, T4>
-	{
-		/// <inheritdoc cref="Action{T1, T2, T3, T4}.Invoke"/>
-		void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}"/>
-	public interface IAction<T1, T2, T3, T4, T5>
-	{
-		/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}.Invoke"/>
-		void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}"/>
-	public interface IAction<T1, T2, T3, T4, T5, T6>
-	{
-		/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}.Invoke"/>
-		void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}"/>
-	public interface IAction<T1, T2, T3, T4, T5, T6, T7>
-	{
-		/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}.Invoke"/>
-		void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
-	}
-
-	/// <inheritdoc cref="Func{TResult}"/>
-	public interface IFunc<TResult>
-	{
-		/// <inheritdoc cref="Func{TResult}.Invoke"/>
-		TResult Invoke();
-	}
-
-	/// <inheritdoc cref="Func{T1, TResult}"/>
-	public interface IFunc<T1, TResult>
-	{
-		/// <inheritdoc cref="Func{T1, TResult}.Invoke"/>
-		TResult Invoke(T1 arg1);
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, TResult}"/>
-	public interface IFunc<T1, T2, TResult>
-	{
-		/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke"/>
-		TResult Invoke(T1 arg1, T2 arg2);
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, TResult}"/>
-	public interface IFunc<T1, T2, T3, TResult>
-	{
-		/// <inheritdoc cref="Func{T1, T2, T3, TResult}.Invoke"/>
-		TResult Invoke(T1 arg1, T2 arg2, T3 arg3);
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}"/>
-	public interface IFunc<T1, T2, T3, T4, TResult>
-	{
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}.Invoke"/>
-		TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}"/>
-	public interface IFunc<T1, T2, T3, T4, T5, TResult>
-	{
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}.Invoke"/>
-		TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/>
-	public interface IFunc<T1, T2, T3, T4, T5, T6, TResult>
-	{
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}.Invoke"/>
-		TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/>
-	public interface IFunc<T1, T2, T3, T4, T5, T6, T7, TResult>
-	{
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}.Invoke"/>
-		TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
-	}
-
-	/// <inheritdoc cref="System.Action"/>
-	public struct SAction : IAction
-	{
-		internal Action Action;
-
-		/// <inheritdoc cref="Action.Invoke"/>
-		public void Invoke() => Action();
-
-		/// <summary>Wraps an <see cref="Action"/> in an <see cref="SAction"/>.</summary>
-		/// <param name="action">The <see cref="Action"/> wrapped in an <see cref="SAction"/>.</param>
-		public static implicit operator SAction(Action action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Action{T1}"/>
-	public struct SAction<T1> : IAction<T1>
-	{
-		internal Action<T1> Action;
-
-		/// <inheritdoc cref="Action{T1}.Invoke"/>
-		public void Invoke(T1 arg1) => Action(arg1);
-
-		/// <summary>Wraps an <see cref="Action{T1}"/> in an <see cref="SAction{T1}"/>.</summary>
-		/// <param name="action">The <see cref="Action{T1}"/> wrapped in an <see cref="SAction{T1}"/>.</param>
-		public static implicit operator SAction<T1>(Action<T1> action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Action{T1, T2}"/>
-	public struct SAction<T1, T2> : IAction<T1, T2>
-	{
-		internal Action<T1, T2> Action;
-
-		/// <inheritdoc cref="Action{T1, T2}.Invoke"/>
-		public void Invoke(T1 arg1, T2 arg2) => Action(arg1, arg2);
-
-		/// <summary>Wraps an <see cref="Action{T1, T2}"/> in an <see cref="SAction{T1, T2}"/>.</summary>
-		/// <param name="action">The <see cref="Action{T1, T2}"/> wrapped in an <see cref="SAction{T1, T2}"/>.</param>
-		public static implicit operator SAction<T1, T2>(Action<T1, T2> action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3}"/>
-	public struct SAction<T1, T2, T3> : IAction<T1, T2, T3>
-	{
-		internal Action<T1, T2, T3> Action;
-
-		/// <inheritdoc cref="Action{T1, T2, T3}.Invoke"/>
-		public void Invoke(T1 arg1, T2 arg2, T3 arg3) => Action(arg1, arg2, arg3);
-
-		/// <summary>Wraps an <see cref="Action{T1, T2, T3}"/> in an <see cref="SAction{T1, T2, T3}"/>.</summary>
-		/// <param name="action">The <see cref="Action{T1, T2, T3}"/> wrapped in an <see cref="SAction{T1, T2, T3}"/>.</param>
-		public static implicit operator SAction<T1, T2, T3>(Action<T1, T2, T3> action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4}"/>
-	public struct SAction<T1, T2, T3, T4> : IAction<T1, T2, T3, T4>
-	{
-		internal Action<T1, T2, T3, T4> Action;
-
-		/// <inheritdoc cref="Action{T1, T2, T3, T4}.Invoke"/>
-		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) => Action(arg1, arg2, arg3, arg4);
-
-		/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4}"/> in an <see cref="SAction{T1, T2, T3, T4}"/>.</summary>
-		/// <param name="action">The <see cref="Action{T1, T2, T3, T4}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4}"/>.</param>
-		public static implicit operator SAction<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}"/>
-	public struct SAction<T1, T2, T3, T4, T5> : IAction<T1, T2, T3, T4, T5>
-	{
-		internal Action<T1, T2, T3, T4, T5> Action;
-
-		/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}.Invoke"/>
-		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) => Action(arg1, arg2, arg3, arg4, arg5);
-
-		/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4, T5}"/> in an <see cref="SAction{T1, T2, T3, T4, T5}"/>.</summary>
-		/// <param name="action">The <see cref="Action{T1, T2, T3, T4, T5}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4, T5}"/>.</param>
-		public static implicit operator SAction<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}"/>
-	public struct SAction<T1, T2, T3, T4, T5, T6> : IAction<T1, T2, T3, T4, T5, T6>
-	{
-		internal Action<T1, T2, T3, T4, T5, T6> Action;
-
-		/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}.Invoke"/>
-		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) => Action(arg1, arg2, arg3, arg4, arg5, arg6);
-
-		/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4, T5, T6}"/> in an <see cref="SAction{T1, T2, T3, T4, T5, T6}"/>.</summary>
-		/// <param name="action">The <see cref="Action{T1, T2, T3, T4, T5, T6}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4, T5, T6}"/>.</param>
-		public static implicit operator SAction<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}"/>
-	public struct SAction<T1, T2, T3, T4, T5, T6, T7> : IAction<T1, T2, T3, T4, T5, T6, T7>
-	{
-		internal Action<T1, T2, T3, T4, T5, T6, T7> Action;
-
-		/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}.Invoke"/>
-		public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) => Action(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-
-		/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4, T5, T6, T7}"/> in an <see cref="SAction{T1, T2, T3, T4, T5, T6, T7}"/>.</summary>
-		/// <param name="action">The <see cref="Action{T1, T2, T3, T4, T5, T6, T7}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4, T5, T6, T7}"/>.</param>
-		public static implicit operator SAction<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action) => new() { Action = action, };
-	}
-
-	/// <inheritdoc cref="Func{TResult}"/>
-	public struct SFunc<TResult> : IFunc<TResult>
-	{
-		internal Func<TResult> Func;
-
-		/// <inheritdoc cref="Func{TResult}.Invoke"/>
-		public TResult Invoke() => Func();
-
-		/// <summary>Wraps an <see cref="Func{TResult}"/> in an <see cref="SFunc{TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{TResult}"/> wrapped in an <see cref="SFunc{TResult}"/>.</param>
-		public static implicit operator SFunc<TResult>(Func<TResult> func) => new() { Func = func, };
-	}
-
-	/// <inheritdoc cref="Func{T1, TResult}"/>
-	public struct SFunc<T1, TResult> : IFunc<T1, TResult>
-	{
-		internal Func<T1, TResult> Func;
-
-		/// <inheritdoc cref="Func{T1, TResult}.Invoke"/>
-		public TResult Invoke(T1 arg1) => Func(arg1);
-
-		/// <summary>Wraps an <see cref="Func{T1, TResult}"/> in an <see cref="SFunc{T1, TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{T1, TResult}"/> wrapped in an <see cref="SFunc{T1, TResult}"/>.</param>
-		public static implicit operator SFunc<T1, TResult>(Func<T1, TResult> func) => new() { Func = func, };
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, TResult}"/>
-	public struct SFunc<T1, T2, TResult> : IFunc<T1, T2, TResult>
-	{
-		internal Func<T1, T2, TResult> Func;
-
-		/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke"/>
-		public TResult Invoke(T1 arg1, T2 arg2) => Func(arg1, arg2);
-
-		/// <summary>Wraps an <see cref="Func{T1, T2, TResult}"/> in an <see cref="SFunc{T1, T2, TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{T1, T2, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, TResult}"/>.</param>
-		public static implicit operator SFunc<T1, T2, TResult>(Func<T1, T2, TResult> func) => new() { Func = func, };
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, TResult}"/>
-	public struct SFunc<T1, T2, T3, TResult> : IFunc<T1, T2, T3, TResult>
-	{
-		internal Func<T1, T2, T3, TResult> Func;
-
-		/// <inheritdoc cref="Func{T1, T2, T3, TResult}.Invoke"/>
-		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3) => Func(arg1, arg2, arg3);
-
-		/// <summary>Wraps an <see cref="Func{T1, T2, T3, TResult}"/> in an <see cref="SFunc{T1, T2, T3, TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{T1, T2, T3, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, TResult}"/>.</param>
-		public static implicit operator SFunc<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func) => new() { Func = func, };
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}"/>
-	public struct SFunc<T1, T2, T3, T4, TResult> : IFunc<T1, T2, T3, T4, TResult>
-	{
-		internal Func<T1, T2, T3, T4, TResult> Func;
-
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}.Invoke"/>
-		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) => Func(arg1, arg2, arg3, arg4);
-
-		/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{T1, T2, T3, T4, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, TResult}"/>.</param>
-		public static implicit operator SFunc<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func) => new() { Func = func, };
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}"/>
-	public struct SFunc<T1, T2, T3, T4, T5, TResult> : IFunc<T1, T2, T3, T4, T5, TResult>
-	{
-		internal Func<T1, T2, T3, T4, T5, TResult> Func;
-
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}.Invoke"/>
-		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) => Func(arg1, arg2, arg3, arg4, arg5);
-
-		/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, T5, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, T5, TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{T1, T2, T3, T4, T5, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, T5, TResult}"/>.</param>
-		public static implicit operator SFunc<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> func) => new() { Func = func, };
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/>
-	public struct SFunc<T1, T2, T3, T4, T5, T6, TResult> : IFunc<T1, T2, T3, T4, T5, T6, TResult>
-	{
-		internal Func<T1, T2, T3, T4, T5, T6, TResult> Func;
-
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}.Invoke"/>
-		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) => Func(arg1, arg2, arg3, arg4, arg5, arg6);
-
-		/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, TResult}"/>.</param>
-		public static implicit operator SFunc<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> func) => new() { Func = func, };
-	}
-
-	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/>
-	public struct SFunc<T1, T2, T3, T4, T5, T6, T7, TResult> : IFunc<T1, T2, T3, T4, T5, T6, T7, TResult>
-	{
-		internal Func<T1, T2, T3, T4, T5, T6, T7, TResult> Func;
-
-		/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}.Invoke"/>
-		public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) => Func(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
-
-		/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, T7, TResult}"/>.</summary>
-		/// <param name="func">The <see cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, T7, TResult}"/>.</param>
-		public static implicit operator SFunc<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) => new() { Func = func, };
-	}
-
+	/// <inheritdoc cref="Action.Invoke"/>
+	void Invoke();
+}
+
+/// <inheritdoc cref="Action{T1}"/>
+public interface IAction<T1>
+{
+	/// <inheritdoc cref="Action{T1}.Invoke"/>
+	void Invoke(T1 arg1);
+}
+
+/// <inheritdoc cref="Action{T1, T2}"/>
+public interface IAction<T1, T2>
+{
+	/// <inheritdoc cref="Action{T1, T2}.Invoke"/>
+	void Invoke(T1 arg1, T2 arg2);
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3}"/>
+public interface IAction<T1, T2, T3>
+{
+	/// <inheritdoc cref="Action{T1, T2, T3}.Invoke"/>
+	void Invoke(T1 arg1, T2 arg2, T3 arg3);
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4}"/>
+public interface IAction<T1, T2, T3, T4>
+{
+	/// <inheritdoc cref="Action{T1, T2, T3, T4}.Invoke"/>
+	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}"/>
+public interface IAction<T1, T2, T3, T4, T5>
+{
+	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}.Invoke"/>
+	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}"/>
+public interface IAction<T1, T2, T3, T4, T5, T6>
+{
+	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}.Invoke"/>
+	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}"/>
+public interface IAction<T1, T2, T3, T4, T5, T6, T7>
+{
+	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}.Invoke"/>
+	void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
+}
+
+/// <inheritdoc cref="Func{TResult}"/>
+public interface IFunc<TResult>
+{
+	/// <inheritdoc cref="Func{TResult}.Invoke"/>
+	TResult Invoke();
+}
+
+/// <inheritdoc cref="Func{T1, TResult}"/>
+public interface IFunc<T1, TResult>
+{
+	/// <inheritdoc cref="Func{T1, TResult}.Invoke"/>
+	TResult Invoke(T1 arg1);
+}
+
+/// <inheritdoc cref="Func{T1, T2, TResult}"/>
+public interface IFunc<T1, T2, TResult>
+{
+	/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke"/>
+	TResult Invoke(T1 arg1, T2 arg2);
+}
+
+/// <inheritdoc cref="Func{T1, T2, T3, TResult}"/>
+public interface IFunc<T1, T2, T3, TResult>
+{
+	/// <inheritdoc cref="Func{T1, T2, T3, TResult}.Invoke"/>
+	TResult Invoke(T1 arg1, T2 arg2, T3 arg3);
+}
+
+/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}"/>
+public interface IFunc<T1, T2, T3, T4, TResult>
+{
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}.Invoke"/>
+	TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4);
+}
+
+/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}"/>
+public interface IFunc<T1, T2, T3, T4, T5, TResult>
+{
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}.Invoke"/>
+	TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
+}
+
+/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/>
+public interface IFunc<T1, T2, T3, T4, T5, T6, TResult>
+{
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}.Invoke"/>
+	TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
+}
+
+/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/>
+public interface IFunc<T1, T2, T3, T4, T5, T6, T7, TResult>
+{
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}.Invoke"/>
+	TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
+}
+
+/// <inheritdoc cref="System.Action"/>
+public struct SAction : IAction
+{
+	internal Action Action;
+
+	/// <inheritdoc cref="Action.Invoke"/>
+	public void Invoke() => Action();
+
+	/// <summary>Wraps an <see cref="Action"/> in an <see cref="SAction"/>.</summary>
+	/// <param name="action">The <see cref="Action"/> wrapped in an <see cref="SAction"/>.</param>
+	public static implicit operator SAction(Action action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Action{T1}"/>
+public struct SAction<T1> : IAction<T1>
+{
+	internal Action<T1> Action;
+
+	/// <inheritdoc cref="Action{T1}.Invoke"/>
+	public void Invoke(T1 arg1) => Action(arg1);
+
+	/// <summary>Wraps an <see cref="Action{T1}"/> in an <see cref="SAction{T1}"/>.</summary>
+	/// <param name="action">The <see cref="Action{T1}"/> wrapped in an <see cref="SAction{T1}"/>.</param>
+	public static implicit operator SAction<T1>(Action<T1> action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Action{T1, T2}"/>
+public struct SAction<T1, T2> : IAction<T1, T2>
+{
+	internal Action<T1, T2> Action;
+
+	/// <inheritdoc cref="Action{T1, T2}.Invoke"/>
+	public void Invoke(T1 arg1, T2 arg2) => Action(arg1, arg2);
+
+	/// <summary>Wraps an <see cref="Action{T1, T2}"/> in an <see cref="SAction{T1, T2}"/>.</summary>
+	/// <param name="action">The <see cref="Action{T1, T2}"/> wrapped in an <see cref="SAction{T1, T2}"/>.</param>
+	public static implicit operator SAction<T1, T2>(Action<T1, T2> action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3}"/>
+public struct SAction<T1, T2, T3> : IAction<T1, T2, T3>
+{
+	internal Action<T1, T2, T3> Action;
+
+	/// <inheritdoc cref="Action{T1, T2, T3}.Invoke"/>
+	public void Invoke(T1 arg1, T2 arg2, T3 arg3) => Action(arg1, arg2, arg3);
+
+	/// <summary>Wraps an <see cref="Action{T1, T2, T3}"/> in an <see cref="SAction{T1, T2, T3}"/>.</summary>
+	/// <param name="action">The <see cref="Action{T1, T2, T3}"/> wrapped in an <see cref="SAction{T1, T2, T3}"/>.</param>
+	public static implicit operator SAction<T1, T2, T3>(Action<T1, T2, T3> action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4}"/>
+public struct SAction<T1, T2, T3, T4> : IAction<T1, T2, T3, T4>
+{
+	internal Action<T1, T2, T3, T4> Action;
+
+	/// <inheritdoc cref="Action{T1, T2, T3, T4}.Invoke"/>
+	public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) => Action(arg1, arg2, arg3, arg4);
+
+	/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4}"/> in an <see cref="SAction{T1, T2, T3, T4}"/>.</summary>
+	/// <param name="action">The <see cref="Action{T1, T2, T3, T4}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4}"/>.</param>
+	public static implicit operator SAction<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}"/>
+public struct SAction<T1, T2, T3, T4, T5> : IAction<T1, T2, T3, T4, T5>
+{
+	internal Action<T1, T2, T3, T4, T5> Action;
+
+	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5}.Invoke"/>
+	public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) => Action(arg1, arg2, arg3, arg4, arg5);
+
+	/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4, T5}"/> in an <see cref="SAction{T1, T2, T3, T4, T5}"/>.</summary>
+	/// <param name="action">The <see cref="Action{T1, T2, T3, T4, T5}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4, T5}"/>.</param>
+	public static implicit operator SAction<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}"/>
+public struct SAction<T1, T2, T3, T4, T5, T6> : IAction<T1, T2, T3, T4, T5, T6>
+{
+	internal Action<T1, T2, T3, T4, T5, T6> Action;
+
+	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6}.Invoke"/>
+	public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) => Action(arg1, arg2, arg3, arg4, arg5, arg6);
+
+	/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4, T5, T6}"/> in an <see cref="SAction{T1, T2, T3, T4, T5, T6}"/>.</summary>
+	/// <param name="action">The <see cref="Action{T1, T2, T3, T4, T5, T6}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4, T5, T6}"/>.</param>
+	public static implicit operator SAction<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}"/>
+public struct SAction<T1, T2, T3, T4, T5, T6, T7> : IAction<T1, T2, T3, T4, T5, T6, T7>
+{
+	internal Action<T1, T2, T3, T4, T5, T6, T7> Action;
+
+	/// <inheritdoc cref="Action{T1, T2, T3, T4, T5, T6, T7}.Invoke"/>
+	public void Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) => Action(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+
+	/// <summary>Wraps an <see cref="Action{T1, T2, T3, T4, T5, T6, T7}"/> in an <see cref="SAction{T1, T2, T3, T4, T5, T6, T7}"/>.</summary>
+	/// <param name="action">The <see cref="Action{T1, T2, T3, T4, T5, T6, T7}"/> wrapped in an <see cref="SAction{T1, T2, T3, T4, T5, T6, T7}"/>.</param>
+	public static implicit operator SAction<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action) => new() { Action = action, };
+}
+
+/// <inheritdoc cref="Func{TResult}"/>
+public struct SFunc<TResult> : IFunc<TResult>
+{
+	internal Func<TResult> Func;
+
+	/// <inheritdoc cref="Func{TResult}.Invoke"/>
+	public TResult Invoke() => Func();
+
+	/// <summary>Wraps an <see cref="Func{TResult}"/> in an <see cref="SFunc{TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{TResult}"/> wrapped in an <see cref="SFunc{TResult}"/>.</param>
+	public static implicit operator SFunc<TResult>(Func<TResult> func) => new() { Func = func, };
+}
+/// <inheritdoc cref="Func{T1, TResult}"/>
+public struct SFunc<T1, TResult> : IFunc<T1, TResult>
+{
+	internal Func<T1, TResult> Func;
+
+	/// <inheritdoc cref="Func{T1, TResult}.Invoke"/>
+	public TResult Invoke(T1 arg1) => Func(arg1);
+
+	/// <summary>Wraps an <see cref="Func{T1, TResult}"/> in an <see cref="SFunc{T1, TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{T1, TResult}"/> wrapped in an <see cref="SFunc{T1, TResult}"/>.</param>
+	public static implicit operator SFunc<T1, TResult>(Func<T1, TResult> func) => new() { Func = func, };
+}
+/// <inheritdoc cref="Func{T1, T2, TResult}"/>
+public struct SFunc<T1, T2, TResult> : IFunc<T1, T2, TResult>
+{
+	internal Func<T1, T2, TResult> Func;
+
+	/// <inheritdoc cref="Func{T1, T2, TResult}.Invoke"/>
+	public TResult Invoke(T1 arg1, T2 arg2) => Func(arg1, arg2);
+
+	/// <summary>Wraps an <see cref="Func{T1, T2, TResult}"/> in an <see cref="SFunc{T1, T2, TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{T1, T2, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, TResult}"/>.</param>
+	public static implicit operator SFunc<T1, T2, TResult>(Func<T1, T2, TResult> func) => new() { Func = func, };
+}
+/// <inheritdoc cref="Func{T1, T2, T3, TResult}"/>
+public struct SFunc<T1, T2, T3, TResult> : IFunc<T1, T2, T3, TResult>
+{
+	internal Func<T1, T2, T3, TResult> Func;
+
+	/// <inheritdoc cref="Func{T1, T2, T3, TResult}.Invoke"/>
+	public TResult Invoke(T1 arg1, T2 arg2, T3 arg3) => Func(arg1, arg2, arg3);
+
+	/// <summary>Wraps an <see cref="Func{T1, T2, T3, TResult}"/> in an <see cref="SFunc{T1, T2, T3, TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{T1, T2, T3, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, TResult}"/>.</param>
+	public static implicit operator SFunc<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func) => new() { Func = func, };
+}
+/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}"/>
+public struct SFunc<T1, T2, T3, T4, TResult> : IFunc<T1, T2, T3, T4, TResult>
+{
+	internal Func<T1, T2, T3, T4, TResult> Func;
+
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, TResult}.Invoke"/>
+	public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4) => Func(arg1, arg2, arg3, arg4);
+
+	/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{T1, T2, T3, T4, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, TResult}"/>.</param>
+	public static implicit operator SFunc<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func) => new() { Func = func, };
+}
+/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}"/>
+public struct SFunc<T1, T2, T3, T4, T5, TResult> : IFunc<T1, T2, T3, T4, T5, TResult>
+{
+	internal Func<T1, T2, T3, T4, T5, TResult> Func;
+
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, TResult}.Invoke"/>
+	public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) => Func(arg1, arg2, arg3, arg4, arg5);
+
+	/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, T5, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, T5, TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{T1, T2, T3, T4, T5, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, T5, TResult}"/>.</param>
+	public static implicit operator SFunc<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> func) => new() { Func = func, };
+}
+/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/>
+public struct SFunc<T1, T2, T3, T4, T5, T6, TResult> : IFunc<T1, T2, T3, T4, T5, T6, TResult>
+{
+	internal Func<T1, T2, T3, T4, T5, T6, TResult> Func;
+
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, TResult}.Invoke"/>
+	public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6) => Func(arg1, arg2, arg3, arg4, arg5, arg6);
+
+	/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{T1, T2, T3, T4, T5, T6, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, TResult}"/>.</param>
+	public static implicit operator SFunc<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> func) => new() { Func = func, };
+}
+/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/>
+public struct SFunc<T1, T2, T3, T4, T5, T6, T7, TResult> : IFunc<T1, T2, T3, T4, T5, T6, T7, TResult>
+{
+	internal Func<T1, T2, T3, T4, T5, T6, T7, TResult> Func;
+
+	/// <inheritdoc cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}.Invoke"/>
+	public TResult Invoke(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7) => Func(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+
+	/// <summary>Wraps an <see cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/> in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, T7, TResult}"/>.</summary>
+	/// <param name="func">The <see cref="Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/> wrapped in an <see cref="SFunc{T1, T2, T3, T4, T5, T6, T7, TResult}"/>.</param>
+	public static implicit operator SFunc<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func) => new() { Func = func, };
 }

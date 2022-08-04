@@ -86,7 +86,7 @@ public static class Meta
 	/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetTryParseMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod("TryParse",
 			BindingFlags.Static |
 			BindingFlags.Public |
@@ -118,7 +118,7 @@ public static class Meta
 	/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetFactorialMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod("Factorial",
 			BindingFlags.Static |
 			BindingFlags.Public |
@@ -150,7 +150,7 @@ public static class Meta
 	/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetIsPrimeMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod("IsPrime",
 			BindingFlags.Static |
 			BindingFlags.Public |
@@ -182,7 +182,7 @@ public static class Meta
 	/// <returns>The IsNonNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetIsNonNegativeMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod("IsNonNegative",
 			BindingFlags.Static |
 			BindingFlags.Public |
@@ -214,7 +214,7 @@ public static class Meta
 	/// <returns>The IsNegative <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetIsNegativeMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod("IsNegative",
 			BindingFlags.Static |
 			BindingFlags.Public |
@@ -246,7 +246,7 @@ public static class Meta
 	/// <returns>The IsPositive <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetIsPositiveMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod("IsPositive",
 			BindingFlags.Static |
 			BindingFlags.Public |
@@ -278,7 +278,7 @@ public static class Meta
 	/// <returns>The IsEven <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetIsEvenMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod(
 			"IsOdd",
 			BindingFlags.Static |
@@ -311,7 +311,7 @@ public static class Meta
 	/// <returns>The IsOdd <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetIsOddMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod(
 			"IsOdd",
 			BindingFlags.Static |
@@ -344,7 +344,7 @@ public static class Meta
 	/// <returns>The TryParse <see cref="MethodInfo"/> if found or null if not.</returns>
 	public static MethodInfo? GetIsIntegerMethod(Type a)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
+		if (a is null) throw new ArgumentNullException(nameof(a));
 		MethodInfo? methodInfo = a.GetMethod(
 			"IsInteger",
 			BindingFlags.Static |
@@ -381,8 +381,8 @@ public static class Meta
 	/// <returns>True if the op_LessThan member exists or false if not.</returns>
 	internal static MethodInfo? GetLessThanMethod(Type a, Type b, Type c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		MethodInfo? CheckType(Type type)
 		{
 			MethodInfo? methodInfo = type.GetMethod(
@@ -425,8 +425,8 @@ public static class Meta
 	/// <returns>True if the op_GreaterThan member exists or false if not.</returns>
 	internal static MethodInfo? GetGreaterThanMethod(Type a, Type b, Type c)
 	{
-		_ = a ?? throw new ArgumentNullException(nameof(a));
-		_ = b ?? throw new ArgumentNullException(nameof(b));
+		if (a is null) throw new ArgumentNullException(nameof(a));
+		if (b is null) throw new ArgumentNullException(nameof(b));
 		MethodInfo? CheckType(Type type)
 		{
 			MethodInfo? methodInfo = type.GetMethod(
@@ -483,8 +483,8 @@ public static class Meta
 
 	internal static bool HasCast(Type fromType, Type toType, bool @implicit)
 	{
-		_ = fromType ?? throw new ArgumentNullException(nameof(fromType));
-		_ = toType ?? throw new ArgumentNullException(nameof(toType));
+		if (fromType is null) throw new ArgumentNullException(nameof(fromType));
+		if (toType is null) throw new ArgumentNullException(nameof(toType));
 		string methodName = @implicit
 			? "op_Implicit"
 			: "op_Explicit";
@@ -531,9 +531,9 @@ public static class Meta
 
 		string ConvertToCsharpSource(Type type)
 		{
-			_ = type ?? throw new ArgumentNullException(nameof(type));
+			if (type is null) throw new ArgumentNullException(nameof(type));
 			string result = type.IsNested
-				? ConvertToCsharpSource(type.DeclaringType ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.DeclaringType)} is null", nameof(type))) + "."
+				? ConvertToCsharpSource(sourceof(type.DeclaringType, out string c1) ?? throw new ArgumentException(c1)) + "."
 				: type.Namespace + ".";
 			result += Regex.Replace(type.Name, "`.*", string.Empty);
 			if (type.IsGenericType)
@@ -765,10 +765,10 @@ public static class Meta
 	/// <returns>The XML name of <paramref name="type"/> as it appears in the XML docs.</returns>
 	public static string GetXmlName(this Type type)
 	{
-		_ = type ?? throw new ArgumentNullException(nameof(type));
-		_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
+		if (type is null) throw new ArgumentNullException(nameof(type));
+		if (sourceof(type.FullName is null, out string c1)) throw new ArgumentException(c1, nameof(type));
 		LoadXmlDocumentation(type.Assembly);
-		return "T:" + GetXmlNameTypeSegment(type.FullName);
+		return "T:" + GetXmlNameTypeSegment(type.FullName!);
 	}
 
 	/// <summary>Gets the XML name of an <see cref="MethodInfo"/> as it appears in the XML docs.</summary>
@@ -776,8 +776,8 @@ public static class Meta
 	/// <returns>The XML name of <paramref name="methodInfo"/> as it appears in the XML docs.</returns>
 	public static string GetXmlName(this MethodInfo methodInfo)
 	{
-		_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
-		_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
+		if (methodInfo is null) throw new ArgumentNullException(nameof(methodInfo));
+		if (sourceof(methodInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(methodInfo));
 		return GetXmlNameMethodBase(methodInfo: methodInfo);
 	}
 
@@ -786,8 +786,8 @@ public static class Meta
 	/// <returns>The XML name of <paramref name="constructorInfo"/> as it appears in the XML docs.</returns>
 	public static string GetXmlName(this ConstructorInfo constructorInfo)
 	{
-		_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
-		_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
+		if (constructorInfo is null) throw new ArgumentNullException(nameof(constructorInfo));
+		if (sourceof(constructorInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(constructorInfo));
 		return GetXmlNameMethodBase(constructorInfo: constructorInfo);
 	}
 
@@ -796,10 +796,10 @@ public static class Meta
 	/// <returns>The XML name of <paramref name="propertyInfo"/> as it appears in the XML docs.</returns>
 	public static string GetXmlName(this PropertyInfo propertyInfo)
 	{
-		_ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
-		_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
-		_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
-		return "P:" + GetXmlNameTypeSegment(propertyInfo.DeclaringType.FullName) + "." + propertyInfo.Name;
+		if (propertyInfo is null) throw new ArgumentNullException(nameof(propertyInfo));
+		if (sourceof(propertyInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(propertyInfo));
+		if (sourceof(propertyInfo.DeclaringType!.FullName is null, out string c2)) throw new ArgumentException(c2, nameof(propertyInfo));
+		return "P:" + GetXmlNameTypeSegment(propertyInfo.DeclaringType.FullName!) + "." + propertyInfo.Name;
 	}
 
 	/// <summary>Gets the XML name of an <see cref="FieldInfo"/> as it appears in the XML docs.</summary>
@@ -807,10 +807,10 @@ public static class Meta
 	/// <returns>The XML name of <paramref name="fieldInfo"/> as it appears in the XML docs.</returns>
 	public static string GetXmlName(this FieldInfo fieldInfo)
 	{
-		_ = fieldInfo ?? throw new ArgumentNullException(nameof(fieldInfo));
-		_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
-		_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
-		return "F:" + GetXmlNameTypeSegment(fieldInfo.DeclaringType.FullName) + "." + fieldInfo.Name;
+		if (fieldInfo is null) throw new ArgumentNullException(nameof(fieldInfo));
+		if (sourceof(fieldInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(fieldInfo));
+		if (sourceof(fieldInfo.DeclaringType!.FullName is null, out string c2)) throw new ArgumentException(c2, nameof(fieldInfo));
+		return "F:" + GetXmlNameTypeSegment(fieldInfo.DeclaringType.FullName!) + "." + fieldInfo.Name;
 	}
 
 	/// <summary>Gets the XML name of an <see cref="EventInfo"/> as it appears in the XML docs.</summary>
@@ -818,10 +818,10 @@ public static class Meta
 	/// <returns>The XML name of <paramref name="eventInfo"/> as it appears in the XML docs.</returns>
 	public static string GetXmlName(this EventInfo eventInfo)
 	{
-		_ = eventInfo ?? throw new ArgumentNullException(nameof(eventInfo));
-		_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
-		_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
-		return "E:" + GetXmlNameTypeSegment(eventInfo.DeclaringType.FullName) + "." + eventInfo.Name;
+		if (eventInfo is null) throw new ArgumentNullException(nameof(eventInfo));
+		if (sourceof(eventInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(eventInfo));
+		if (sourceof(eventInfo.DeclaringType!.FullName is null, out string c2)) throw new ArgumentException(c2, nameof(eventInfo));
+		return "E:" + GetXmlNameTypeSegment(eventInfo.DeclaringType.FullName!) + "." + eventInfo.Name;
 	}
 
 	internal static string GetXmlNameMethodBase(MethodInfo? methodInfo = null, ConstructorInfo? constructorInfo = null)
@@ -848,10 +848,10 @@ public static class Meta
 		}
 
 		MethodBase? methodBase = methodInfo ?? (MethodBase?)constructorInfo;
-		_ = methodBase ?? throw new TowelBugException($"{nameof(GetDocumentation)} {nameof(methodInfo)} is null && {nameof(constructorInfo)} is null");
-		_ = methodBase.DeclaringType ?? throw new ArgumentException($"{nameof(methodBase)}.{nameof(Type.DeclaringType)} is null");
+		if (sourceof(methodBase is null, out string c1)) throw new TowelBugException(c1);
+		if (sourceof(methodBase!.DeclaringType is null, out string c2)) throw new ArgumentException(c2);
 
-		LoadXmlDocumentation(methodBase.DeclaringType.Assembly);
+		LoadXmlDocumentation(methodBase.DeclaringType!.Assembly);
 
 		MapHashLinked<int, string, StringEquate, StringHash> typeGenericMap = new();
 		Type[] typeGenericArguments = methodBase.DeclaringType.GetGenericArguments();
@@ -1077,8 +1077,8 @@ public static class Meta
 	/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
 	public static string? GetDocumentation(this Type type)
 	{
-		_ = type ?? throw new ArgumentNullException(nameof(type));
-		_ = type.FullName ?? throw new ArgumentException($"{nameof(type)}.{nameof(Type.FullName)} is null", nameof(type));
+		if (type is null) throw new ArgumentNullException(nameof(type));
+		if (sourceof(type.FullName is null, out string c1)) throw new ArgumentException(c1, nameof(type));
 		return GetDocumentation(type.GetXmlName(), type.Assembly);
 	}
 
@@ -1088,9 +1088,9 @@ public static class Meta
 	/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
 	public static string? GetDocumentation(this MethodInfo methodInfo)
 	{
-		_ = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
-		_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(methodInfo)}.{nameof(Type.DeclaringType)} is null", nameof(methodInfo));
-		return GetDocumentation(methodInfo.GetXmlName(), methodInfo.DeclaringType.Assembly);
+		if (methodInfo is null) throw new ArgumentNullException(nameof(methodInfo));
+		if (sourceof(methodInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(methodInfo));
+		return GetDocumentation(methodInfo.GetXmlName(), methodInfo.DeclaringType!.Assembly);
 	}
 
 	/// <summary>Gets the XML documentation on a constructor.</summary>
@@ -1099,9 +1099,9 @@ public static class Meta
 	/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
 	public static string? GetDocumentation(this ConstructorInfo constructorInfo)
 	{
-		_ = constructorInfo ?? throw new ArgumentNullException(nameof(constructorInfo));
-		_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(constructorInfo)}.{nameof(Type.DeclaringType)} is null", nameof(constructorInfo));
-		return GetDocumentation(constructorInfo.GetXmlName(), constructorInfo.DeclaringType.Assembly);
+		if (constructorInfo is null) throw new ArgumentNullException(nameof(constructorInfo));
+		if (sourceof(constructorInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(constructorInfo));
+		return GetDocumentation(constructorInfo.GetXmlName(), constructorInfo.DeclaringType!.Assembly);
 	}
 
 	/// <summary>Gets the XML documentation on a property.</summary>
@@ -1110,9 +1110,9 @@ public static class Meta
 	/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
 	public static string? GetDocumentation(this PropertyInfo propertyInfo)
 	{
-		_ = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
-		_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(Type.DeclaringType)} is null", nameof(propertyInfo));
-		_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(propertyInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(propertyInfo));
+		if (propertyInfo is null) throw new ArgumentNullException(nameof(propertyInfo));
+		if (sourceof(propertyInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(propertyInfo));
+		if (sourceof(propertyInfo.DeclaringType!.FullName is null, out string c2)) throw new ArgumentException(c2, nameof(propertyInfo));
 		return GetDocumentation(propertyInfo.GetXmlName(), propertyInfo.DeclaringType.Assembly);
 	}
 
@@ -1122,9 +1122,9 @@ public static class Meta
 	/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
 	public static string? GetDocumentation(this FieldInfo fieldInfo)
 	{
-		_ = fieldInfo ?? throw new ArgumentNullException(nameof(fieldInfo));
-		_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(Type.DeclaringType)} is null", nameof(fieldInfo));
-		_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(fieldInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(fieldInfo));
+		if (fieldInfo is null) throw new ArgumentNullException(nameof(fieldInfo));
+		if (sourceof(fieldInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(fieldInfo));
+		if (sourceof(fieldInfo.DeclaringType!.FullName is null, out string c2)) throw new ArgumentException(c2, nameof(fieldInfo));
 		return GetDocumentation(fieldInfo.GetXmlName(), fieldInfo.DeclaringType.Assembly);
 	}
 
@@ -1134,9 +1134,9 @@ public static class Meta
 	/// <remarks>The XML documentation must be loaded into memory for this function to work.</remarks>
 	public static string? GetDocumentation(this EventInfo eventInfo)
 	{
-		_ = eventInfo ?? throw new ArgumentNullException(nameof(eventInfo));
-		_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(Type.DeclaringType)} is null", nameof(eventInfo));
-		_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(eventInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(eventInfo));
+		if (eventInfo is null) throw new ArgumentNullException(nameof(eventInfo));
+		if (sourceof(eventInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(eventInfo));
+		if (sourceof(eventInfo.DeclaringType!.FullName is null, out string c2)) throw new ArgumentException(c2, nameof(eventInfo));
 		return GetDocumentation(eventInfo.GetXmlName(), eventInfo.DeclaringType.Assembly);
 	}
 
@@ -1149,30 +1149,30 @@ public static class Meta
 		switch (memberInfo)
 		{
 			case FieldInfo fieldInfo:
-				_ = fieldInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-				_ = fieldInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+				if (sourceof(fieldInfo.DeclaringType is null, out string c1)) throw new ArgumentException(c1, nameof(memberInfo));
+				if (sourceof(fieldInfo.DeclaringType!.FullName is null, out string c2)) throw new ArgumentException(c2, nameof(memberInfo));
 				return fieldInfo.GetDocumentation();
 			case PropertyInfo propertyInfo:
-				_ = propertyInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-				_ = propertyInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+				if (sourceof(propertyInfo.DeclaringType is null, out string c3)) throw new ArgumentException(c3, nameof(memberInfo));
+				if (sourceof(propertyInfo.DeclaringType!.FullName is null, out string c4)) throw new ArgumentException(c4, nameof(memberInfo));
 				return propertyInfo.GetDocumentation();
 			case EventInfo eventInfo:
-				_ = eventInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
-				_ = eventInfo.DeclaringType.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(EventInfo.DeclaringType)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+				if (sourceof(eventInfo.DeclaringType is null, out string c5)) throw new ArgumentException(c5, nameof(memberInfo));
+				if (sourceof(eventInfo.DeclaringType!.FullName is null, out string c6)) throw new ArgumentException(c6, nameof(memberInfo));
 				return eventInfo.GetDocumentation();
 			case ConstructorInfo constructorInfo:
-				_ = constructorInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+				if (sourceof(constructorInfo.DeclaringType is null, out string c7)) throw new ArgumentException(c7, nameof(memberInfo));
 				return constructorInfo.GetDocumentation();
 			case MethodInfo methodInfo:
-				_ = methodInfo.DeclaringType ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.DeclaringType)} is null", nameof(memberInfo));
+				if (sourceof(methodInfo.DeclaringType is null, out string c8)) throw new ArgumentException(c8, nameof(memberInfo));
 				return methodInfo.GetDocumentation();
 			case Type type:
-				_ = type.FullName ?? throw new ArgumentException($"{nameof(memberInfo)}.{nameof(Type.FullName)} is null", nameof(memberInfo));
+				if (sourceof(type.FullName is null, out string c9)) throw new ArgumentException(c9, nameof(memberInfo));
 				return type.GetDocumentation();
 			case null:
 				throw new ArgumentNullException(nameof(memberInfo));
 			default:
-				throw new TowelBugException($"{nameof(GetDocumentation)} encountered an unhandled {nameof(MemberInfo)} type: {memberInfo}");
+				throw new NotImplementedException($"{nameof(GetDocumentation)} encountered an unhandled {nameof(MemberInfo)} type: {memberInfo}");
 		}
 	}
 
@@ -1181,7 +1181,7 @@ public static class Meta
 	/// <returns>The XML documenation of the parameter.</returns>
 	public static string? GetDocumentation(this ParameterInfo parameterInfo)
 	{
-		_ = parameterInfo ?? throw new ArgumentNullException(nameof(parameterInfo));
+		if (parameterInfo is null) throw new ArgumentNullException(nameof(parameterInfo));
 		string? memberDocumentation = parameterInfo.Member.GetDocumentation();
 		if (memberDocumentation is not null)
 		{

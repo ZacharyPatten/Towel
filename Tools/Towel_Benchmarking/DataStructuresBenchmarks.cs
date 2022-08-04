@@ -185,7 +185,7 @@ public class DataStructuresBenchmarks
 	[Benchmark]
 	public void SkipList_Add()
 	{
-		SkipList<Person, ComparePersonFirstName, RandomNext> list = new SkipList<Person, ComparePersonFirstName, RandomNext>((byte)Math.Max(Math.Log(RandomData.Length), 4), random: new());
+		SkipList<Person, ComparePersonFirstName, RandomNext> list = new((byte)Math.Max(Math.Log(RandomData.Length), 4), random: new());
 		foreach (Person person in RandomTestData!)
 		{
 			list.Add(person);
@@ -197,7 +197,7 @@ public class DataStructuresBenchmarks
 	[Benchmark]
 	public void BTreeLinked_Add()
 	{
-		BTreeLinked<Person, ComparePersonFirstName> list = new BTreeLinked<Person, ComparePersonFirstName>(4);
+		BTreeLinked<Person, ComparePersonFirstName> list = new(4);
 		foreach (Person person in RandomTestData!)
 		{
 			list.Add(person);

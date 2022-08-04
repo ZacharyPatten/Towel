@@ -539,10 +539,7 @@ public static partial class Statics
 								return (false, default);
 							}
 						}
-						if (fractionalSuffix is null)
-						{
-							fractionalSuffix = GetNextFractionalSuffix(ref span);
-						}
+						fractionalSuffix ??= GetNextFractionalSuffix(ref span);
 						if (fractionalSuffix is not null)
 						{
 							c = temp1.Value;
@@ -687,10 +684,7 @@ public static partial class Statics
 
 			if (span.Length > 0)
 			{
-				if (fractionalSuffix is null)
-				{
-					fractionalSuffix = GetNextFractionalSuffix(ref span);
-				}
+				fractionalSuffix ??= GetNextFractionalSuffix(ref span);
 				if (fractionalSuffix is not null)
 				{
 					goto FractionalSuffix;
@@ -797,10 +791,7 @@ public static partial class Statics
 				span = span[And.Length..];
 			}
 
-			if (fractionalSuffix is null)
-			{
-				fractionalSuffix = GetNextFractionalSuffix(ref span);
-			}
+			fractionalSuffix ??= GetNextFractionalSuffix(ref span);
 			if (fractionalSuffix is not null)
 			{
 				if (span.Length > 0)

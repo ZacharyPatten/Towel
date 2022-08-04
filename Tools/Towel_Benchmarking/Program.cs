@@ -38,6 +38,7 @@ public class Program
 		typeof(LazyInitializationBenchmarks),
 		typeof(LazyCachingBenchmarks),
 		typeof(LazyConstructionBenchmarks),
+		typeof(SourceOfBenchmarks),
 	};
 
 	/// <summary>Runs the benchmarks.</summary>

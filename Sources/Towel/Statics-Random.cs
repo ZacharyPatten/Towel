@@ -37,14 +37,8 @@ public static partial class Statics
 		where TStep : struct, IAction<int>
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		// Algorithm B: O(count * excluded.Length + .5*excluded.Length^2)
 		Node<int>? head = null;
 		int excludeCount = 0;
@@ -103,14 +97,8 @@ public static partial class Statics
 		where TStep : struct, IAction<int>
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		// Algorithm: Θ(range + count + 2*excluded.Length)
 		SetHashLinked<int, Int32Equate, Int32Hash> set = new(expectedCount: excluded.Length); // Θ(excluded)
 		foreach (int value in excluded)
@@ -152,20 +140,11 @@ public static partial class Statics
 #pragma warning disable CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
 	public static void Next<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
 #pragma warning restore CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-			where TRandom : struct, IFunc<int, int, int>
+		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		Next<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 	}
 
@@ -173,18 +152,9 @@ public static partial class Statics
 	public static void NextRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextRollTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 	}
 
@@ -192,18 +162,9 @@ public static partial class Statics
 	public static void NextPoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextPoolTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 	}
 
@@ -212,14 +173,8 @@ public static partial class Statics
 	public static int[] Next<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		int[] values = new int[count];
 		Next<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 		return values;
@@ -229,14 +184,8 @@ public static partial class Statics
 	public static int[] NextRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		int[] values = new int[count];
 		NextRollTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 		return values;
@@ -246,14 +195,8 @@ public static partial class Statics
 	public static int[] NextPoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		int[] values = new int[count];
 		NextPoolTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 		return values;
@@ -296,18 +239,9 @@ public static partial class Statics
 		where TStep : struct, IAction<int>
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 #if stackalloc
 			if (count <= 128)
 			{
@@ -373,29 +307,12 @@ public static partial class Statics
 		where TStep : struct, IAction<int>
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 		// Algorithm: Θ(range + count)
 		int pool = maxValue - minValue;
-		Span<int> span =
-#if stackalloc
-				pool <= 128
-				?
-				stackalloc int[pool]
-				:
-#endif
-				new int[pool];
-
+		Span<int> span = sizeof(int) * pool <= Stackalloc ? stackalloc int[pool] : new int[pool];
 		for (int i = 0, j = minValue; j < maxValue; i++, j++) // Θ(range)
 		{
 			span[i] = j;
@@ -420,20 +337,11 @@ public static partial class Statics
 #pragma warning disable CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
 	public static void NextUnique<TRandom>(int count, int minValue, int maxValue, Action<int> step, TRandom random = default)
 #pragma warning restore CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
-			where TRandom : struct, IFunc<int, int, int>
+		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextUnique<SAction<int>, TRandom>(count, minValue, maxValue, random, step);
 	}
 
@@ -441,18 +349,9 @@ public static partial class Statics
 	public static void NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, Action<int> step, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextUniqueRollTracking<SAction<int>, TRandom>(count, minValue, maxValue, random, step);
 	}
 
@@ -460,18 +359,9 @@ public static partial class Statics
 	public static void NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, Action<int> step, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextUniquePoolTracking<SAction<int>, TRandom>(count, minValue, maxValue, random, step);
 	}
 
@@ -480,18 +370,9 @@ public static partial class Statics
 	public static int[] NextUnique<TRandom>(int count, int minValue, int maxValue, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 		int[] values = new int[count];
 		NextUnique<FillArray<int>, TRandom>(count, minValue, maxValue, random, values);
 		return values;
@@ -501,18 +382,9 @@ public static partial class Statics
 	public static int[] NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 		int[] values = new int[count];
 		NextUniqueRollTracking<FillArray<int>, TRandom>(count, minValue, maxValue, random, values);
 		return values;
@@ -522,18 +394,9 @@ public static partial class Statics
 	public static int[] NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 		int[] values = new int[count];
 		NextUniquePoolTracking<FillArray<int>, TRandom>(count, minValue, maxValue, random, values);
 		return values;
@@ -577,18 +440,9 @@ public static partial class Statics
 		where TStep : struct, IAction<int>
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 #if stackalloc
 			if (count + excluded.Length <= 128)
 			{
@@ -729,18 +583,9 @@ public static partial class Statics
 		{
 			throw new ArgumentException($"{nameof(maxValue)} - {nameof(minValue)} - {nameof(excluded)}.Length [{maxValue - minValue - set.Count < count}] < {nameof(count)} [{count}]");
 		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c2)) throw new ArgumentOutOfRangeException(nameof(maxValue), c2);
+		if (sourceof(count < 0, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
+		if (sourceof(maxValue - minValue < count, out string c4)) throw new ArgumentOutOfRangeException(nameof(count), c4);
 		int pool = maxValue - minValue - set.Count;
 		Span<int> span =
 #if stackalloc
@@ -779,18 +624,9 @@ public static partial class Statics
 #pragma warning restore CS1573 // Parameter has no matching param tag in the XML comment (but other parameters do)
 			where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextUnique<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 	}
 
@@ -798,18 +634,9 @@ public static partial class Statics
 	public static void NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextUniqueRollTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 	}
 
@@ -817,18 +644,9 @@ public static partial class Statics
 	public static void NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (step is null)
-		{
-			throw new ArgumentNullException(nameof(step));
-		}
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
+		if (step is null) throw new ArgumentNullException(nameof(step));
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
 		NextUniquePoolTracking<SAction<int>, TRandom>(count, minValue, maxValue, excluded, random, step);
 	}
 
@@ -837,18 +655,9 @@ public static partial class Statics
 	public static int[] NextUnique<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 		int[] values = new int[count];
 		NextUnique<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 		return values;
@@ -858,18 +667,9 @@ public static partial class Statics
 	public static int[] NextUniqueRollTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 		int[] values = new int[count];
 		NextUniqueRollTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 		return values;
@@ -879,18 +679,9 @@ public static partial class Statics
 	public static int[] NextUniquePoolTracking<TRandom>(int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TRandom random = default)
 		where TRandom : struct, IFunc<int, int, int>
 	{
-		if (maxValue < minValue)
-		{
-			throw new ArgumentOutOfRangeException(nameof(maxValue), $"{nameof(minValue)} > {nameof(maxValue)}");
-		}
-		if (count < 0)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} < 0");
-		}
-		if (maxValue - minValue < count)
-		{
-			throw new ArgumentOutOfRangeException(nameof(count), $"{nameof(count)} is larger than {nameof(maxValue)} - {nameof(minValue)}.");
-		}
+		if (sourceof(maxValue < minValue, out string c1)) throw new ArgumentOutOfRangeException(nameof(maxValue), c1);
+		if (sourceof(count < 0, out string c2)) throw new ArgumentOutOfRangeException(nameof(count), c2);
+		if (sourceof(maxValue - minValue < count, out string c3)) throw new ArgumentOutOfRangeException(nameof(count), c3);
 		int[] values = new int[count];
 		NextUniquePoolTracking<FillArray<int>, TRandom>(count, minValue, maxValue, excluded, random, values);
 		return values;
@@ -918,11 +709,8 @@ public static partial class Statics
 	/// <returns>The generated randomized <see cref="string"/>.</returns>
 	public static string NextString(this Random random, int length)
 	{
-		_ = random ?? throw new ArgumentNullException(nameof(random));
-		if (length < 1)
-		{
-			throw new ArgumentException("(" + nameof(length) + " < 1)");
-		}
+		if (random is null) throw new ArgumentNullException(nameof(random));
+		if (sourceof(length < 0, out string c))  throw new ArgumentOutOfRangeException(nameof(length), c);
 		char[] randomstring = new char[length];
 		for (int i = 0; i < randomstring.Length; i++)
 		{
@@ -938,8 +726,8 @@ public static partial class Statics
 	/// <returns>The generated randomized <see cref="string"/>.</returns>
 	public static string NextString(this Random random, int length, char[] characterPool)
 	{
-		_ = random ?? throw new ArgumentNullException(nameof(random));
-		_ = characterPool ?? throw new ArgumentNullException(nameof(characterPool));
+		if (random is null) throw new ArgumentNullException(nameof(random));
+		if (characterPool is null) throw new ArgumentNullException(nameof(characterPool));
 		if (length < 1)
 		{
 			throw new ArgumentException("(" + nameof(length) + " < 1)");
@@ -951,7 +739,7 @@ public static partial class Statics
 		char[] randomstring = new char[length];
 		for (int i = 0; i < randomstring.Length; i++)
 		{
-			randomstring[i] = random.Choose(characterPool);
+			randomstring[i] = random.From(characterPool);
 		}
 		return new string(randomstring);
 	}
@@ -1023,37 +811,6 @@ public static partial class Statics
 	public static char NextChar(this Random random, char min, char max) =>
 		(char)random.Next(min, max);
 
-	/// <summary>Generates a random long value.</summary>
-	/// <param name="random">The random generation algorithm.</param>
-	/// <returns>A randomly generated long value.</returns>
-	public static long NextLong(this Random random) =>
-		NextLong(random, long.MaxValue);
-
-	/// <summary>Generates a random long value.</summary>
-	/// <param name="random">The random generation algorithm.</param>
-	/// <param name="max">Maximum allowed value of the random generation.</param>
-	/// <returns>A randomly generated long value.</returns>
-	public static long NextLong(this Random random, long max) =>
-		NextLong(random, 0, max);
-
-	/// <summary>Generates a random long value.</summary>
-	/// <param name="random">The random generation algorithm.</param>
-	/// <param name="min">Minimum allowed value of the random generation.</param>
-	/// <param name="max">Maximum allowed value of the random generation.</param>
-	/// <returns>A randomly generated long value.</returns>
-	public static long NextLong(this Random random, long min, long max)
-	{
-		_ = random ?? throw new ArgumentNullException(nameof(random));
-		if (min > max)
-		{
-			throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
-		}
-		byte[] buffer = new byte[8];
-		random.NextBytes(buffer);
-		long longRand = BitConverter.ToInt64(buffer, 0);
-		return Math.Abs(longRand % (max - min)) + min;
-	}
-
 	/// <summary>Generates a random <see cref="decimal"/> value.</summary>
 	/// <param name="random">The random generation algorithm.</param>
 	/// <returns>A randomly generated <see cref="decimal"/> value.</returns>
@@ -1103,11 +860,8 @@ public static partial class Statics
 	/// <returns>A randomly generated DateTime value.</returns>
 	public static DateTime NextDateTime(this Random random, DateTime min, DateTime max)
 	{
-		_ = random ?? throw new ArgumentNullException(nameof(random));
-		if (min > max)
-		{
-			throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
-		}
+		if (random is null) throw new ArgumentNullException(nameof(random));
+		if (sourceof(min > max, out string c)) throw new ArgumentException(c);
 		TimeSpan randomTimeSpan = NextTimeSpan(random, TimeSpan.Zero, max - min);
 		return min.Add(randomTimeSpan);
 	}
@@ -1132,41 +886,38 @@ public static partial class Statics
 	/// <returns>A randomly generated TimeSpan value.</returns>
 	public static TimeSpan NextTimeSpan(this Random random, TimeSpan min, TimeSpan max)
 	{
-		_ = random ?? throw new ArgumentNullException(nameof(random));
-		if (min > max)
-		{
-			throw new ArgumentException("!(" + nameof(min) + " <= " + nameof(max) + ")");
-		}
+		if (random is null) throw new ArgumentNullException(nameof(random));
+		if (sourceof(min > max, out string c)) throw new ArgumentException(c);
 		long tickRange = max.Ticks - min.Ticks;
-		long randomLong = random.NextLong(0, tickRange);
+		long randomLong = random.NextInt64(0, tickRange);
 		return TimeSpan.FromTicks(min.Ticks + randomLong);
 	}
 
 	#region Next (with exclusions)
 
-	/// <inheritdoc cref="Statics.Next{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"/>
+	/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"/>
 	public static void Next(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
-		Statics.Next<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+		Next<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
 
 	/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
 	public static void NextRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
-		Statics.NextRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+		NextRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
 
 	/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
 	public static void NextPoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
-		Statics.NextPoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+		NextPoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
 
-	/// <inheritdoc cref="Statics.Next{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
+	/// <inheritdoc cref="Next{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
 	public static int[] Next(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-		Statics.Next<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		Next<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 	/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int})"/>
 	public static int[] NextRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-		Statics.NextRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		NextRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 	/// <inheritdoc cref="Next(Random, int, int, int, ReadOnlySpan{int})"/>
 	public static int[] NextPoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-		Statics.NextPoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		NextPoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 	/// <inheritdoc cref="Next{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
 	public static void Next<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
@@ -1187,29 +938,29 @@ public static partial class Statics
 
 	#region NextUnique
 
-	/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, Action{int}, Random)"/>
+	/// <inheritdoc cref="NextUnique{Random}(int, int, int, Action{int}, Random)"/>
 	public static void NextUnique(this Random random, int count, int minValue, int maxValue, Action<int> step) =>
-		Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
+		NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int, Action{int})"/>
 	public static void NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue, Action<int> step) =>
-		Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
+		NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int, Action{int})"/>
 	public static void NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue, Action<int> step) =>
-		Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
+		NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, step, random ?? new Random());
 
-	/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, Random)"/>
+	/// <inheritdoc cref="NextUnique{Random}(int, int, int, Random)"/>
 	public static int[] NextUnique(this Random random, int count, int minValue, int maxValue) =>
-		Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
+		NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int)"/>
 	public static int[] NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue) =>
-		Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
+		NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int)"/>
 	public static int[] NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue) =>
-		Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
+		NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, Random, Step)"/>
 	public static void NextUnique<TStep>(this Random random, int count, int minValue, int maxValue, TStep step = default)
@@ -1230,29 +981,29 @@ public static partial class Statics
 
 	#region NextUnique (with exclusions)
 
-	/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"/>
+	/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Action{int}, Random)"/>
 	public static void NextUnique(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
-		Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+		NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
 	public static void NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
-		Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+		NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int}, Action{int})"/>
 	public static void NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, Action<int> step) =>
-		Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
+		NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, step, random ?? new Random());
 
-	/// <inheritdoc cref="Statics.NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
+	/// <inheritdoc cref="NextUnique{Random}(int, int, int, ReadOnlySpan{int}, Random)"/>
 	public static int[] NextUnique(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-		Statics.NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		NextUnique<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int})"/>
 	public static int[] NextUniqueRollTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-		Statics.NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		NextUniqueRollTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique(Random, int, int, int, ReadOnlySpan{int})"/>
 	public static int[] NextUniquePoolTracking(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded) =>
-		Statics.NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
+		NextUniquePoolTracking<RandomNextIntMinValueIntMaxValue>(count, minValue, maxValue, excluded, random ?? new Random());
 
 	/// <inheritdoc cref="NextUnique{Step, Random}(int, int, int, ReadOnlySpan{int}, Random, Step)"/>
 	public static void NextUnique<TStep>(this Random random, int count, int minValue, int maxValue, ReadOnlySpan<int> excluded, TStep step = default)
@@ -1271,32 +1022,31 @@ public static partial class Statics
 
 	#endregion
 
-	/// <summary>Chooses an item at random (all equally weighted).</summary>
+	/// <summary>Chooses a value at random from <paramref name="values"/>.</summary>
 	/// <typeparam name="T">The generic type of the items to choose from.</typeparam>
 	/// <param name="random">The random algorithm for index generation.</param>
 	/// <param name="values">The values to choose from.</param>
 	/// <returns>A randomly selected value from the supplied options.</returns>
-	public static T Choose<T>(this Random random, params T[] values)
+	public static T From<T>(this Random random, params T[] values)
 	{
-		if (values is null)
-		{
-			throw new ArgumentNullException(nameof(values));
-		}
-		if (values.Length < 1)
-		{
-			throw new ArgumentException($"{nameof(values)}.{nameof(values.Length)} < 1");
-		}
+		if (values is null) throw new ArgumentNullException(nameof(values));
+		if (sourceof(values.Length < 1, out string c)) throw new ArgumentException(c, nameof(values));
 		return values[random.Next(values.Length)];
 	}
 
-	/// <inheritdoc cref="Choose{T}(Random, T[])"/>
-	public static T Choose<T>(this Random random, Span<T> values)
+	/// <inheritdoc cref="From{T}(Random, T[])"/>
+	public static T From<T>(this Random random, ReadOnlySpan<T> values)
 	{
-		if (values.IsEmpty)
-		{
-			throw new ArgumentException($"{nameof(values)}.{nameof(values.IsEmpty)}", nameof(values));
-		}
+		if (sourceof(values.IsEmpty, out string c)) throw new ArgumentException(c, nameof(values));
 		return values[random.Next(values.Length)];
+	}
+
+	/// <inheritdoc cref="From{T}(Random, T[])"/>
+	public static T From<T>(this Random random, System.Collections.Generic.IList<T> values)
+	{
+		if (values is null) throw new ArgumentNullException(nameof(values));
+		if (sourceof(values.Count < 1, out string c)) throw new ArgumentException(c);
+		return values[random.Next(values.Count)];
 	}
 
 	/// <summary>Selects a random value from a collection of weighted options.</summary>

@@ -593,7 +593,7 @@ public interface IGraphWeighted<T, TWeight> : IGraph<T>
 	/// <param name="a">The starting node of the edge.</param>
 	/// <param name="b">The ending node of the edge.</param>
 	/// <returns>The weight of the edge.</returns>
-	TWeight GetWeight(T a, T b);
+	TWeight? GetWeight(T a, T b);
 
 	/// <summary>Enumerates and returns all edges present in the graph</summary>
 	/// <returns>Array of Tuple of nodes that represent an edge</returns>
@@ -879,7 +879,20 @@ public class GraphWeightedMap<T, TWeight, TEquate, THash> : IGraphWeighted<T, TW
 	public System.Collections.Generic.IEnumerable<T> GetNeighbours(T node) => _map[node].OutgoingEdges.GetKeys();
 
 	/// <inheritdoc/>
-	public TWeight GetWeight(T a, T b) => _map[a].OutgoingEdges[b] ?? throw new ArgumentException("No edge found between the queired nodes");
+	public TWeight? GetWeight(T a, T b)
+	{
+		var get1 = _map.TryGet(a);
+		if (!get1.Success)
+		{
+			throw new ArgumentException("No edge found between the queried nodes");
+		}
+		var get2 = get1.Value.OutgoingEdges.TryGet(b);
+		if (!get2.Success)
+		{
+			throw new ArgumentException("No edge found between the queried nodes");
+		}
+		return get2.Value;
+	}
 
 	#endregion
 }

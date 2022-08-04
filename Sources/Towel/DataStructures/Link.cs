@@ -4,2135 +4,2131 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using static Towel.Statics;
+namespace Towel.DataStructures;
 
-namespace Towel.DataStructures
+/// <summary>Represents a link between objects.</summary>
+public interface Link : IDataStructure<object>, System.Runtime.CompilerServices.ITuple
 {
-	/// <summary>Represents a link between objects.</summary>
-	public interface Link : IDataStructure<object>, System.Runtime.CompilerServices.ITuple
+	#region Properties
+
+	int System.Runtime.CompilerServices.ITuple.Length => Size;
+
+	/// <summary>The number of values in the tuple.</summary>
+	int Size { get; }
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+public class Link<T1> : Link, ICloneable<Link<T1>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Constructs a link of values.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	public Link(T1 value1)
 	{
-		#region Properties
-
-		int System.Runtime.CompilerServices.ITuple.Length => Size;
-
-		/// <summary>The number of values in the tuple.</summary>
-		int Size { get; }
-
-		#endregion
+		Value1 = value1;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	public class Link<T1> : Link, ICloneable<Link<T1>>
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 1;
+
+	/// <inheritdoc/>
+	public object this[int index]
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Constructs a link of values.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		public Link(T1 value1)
+		get => index switch
 		{
-			Value1 = value1;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 1;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 1 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1>(ValueTuple<T1> tuple) =>
-			new(tuple.Item1);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator ValueTuple<T1>(Link<T1> link) =>
-			new(link.Value1);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1>(Tuple<T1> tuple) =>
-			new(tuple.Item1);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1>(Link<T1> link) =>
-			new(link.Value1);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator Link<T1>(LinkStruct<T1> link) =>
-			new(link.Value1);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public Link<T1> Clone() => new(Value1);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1> link && Equals(link) ||
-			obj is ValueTuple<T1> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(Link<T1> b) =>
-			Equate(Value1, b.Value1);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		public void Deconstruct(out T1 value1)
-		{
-			value1 = Value1;
-		}
-
-		#endregion
+			1 => Value1,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 1 < {nameof(index)}"),
+		};
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	public struct LinkStruct<T1> : Link, ICloneable<LinkStruct<T1>>
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1>(ValueTuple<T1> tuple) =>
+		new(tuple.Item1);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator ValueTuple<T1>(Link<T1> link) =>
+		new(link.Value1);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1>(Tuple<T1> tuple) =>
+		new(tuple.Item1);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1>(Link<T1> link) =>
+		new(link.Value1);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator Link<T1>(LinkStruct<T1> link) =>
+		new(link.Value1);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Creates a link between objects.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		public LinkStruct(T1 value1)
-		{
-			Value1 = value1;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 1;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 1 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1>(ValueTuple<T1> tuple) =>
-			new(tuple.Item1);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator ValueTuple<T1>(LinkStruct<T1> link) =>
-			new(link.Value1);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1>(Tuple<T1> tuple) =>
-			new(tuple.Item1);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1>(LinkStruct<T1> link) =>
-			new(link.Value1);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator LinkStruct<T1>(Link<T1> link) =>
-			new(link.Value1);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public LinkStruct<T1> Clone() => new(Value1);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1> link && Equals(link) ||
-			obj is ValueTuple<T1> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(LinkStruct<T1> b) =>
-			Equate(Value1, b.Value1);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		public void Deconstruct(out T1 value1)
-		{
-			value1 = Value1;
-		}
-
-		#endregion
+		yield return Value1;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	public class Link<T1, T2> : Link, ICloneable<Link<T1, T2>>
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Constructs a link of values.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		public Link(T1 value1, T2 value2)
-		{
-			Value1 = value1;
-			Value2 = value2;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 2;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 2 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2>((T1, T2) tuple) =>
-			new(tuple.Item1, tuple.Item2);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2)(Link<T1, T2> link) =>
-			(link.Value1, link.Value2);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2>(Tuple<T1, T2> tuple) =>
-			new(tuple.Item1, tuple.Item2);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2>(Link<T1, T2> link) =>
-			new(link.Value1, link.Value2);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator Link<T1, T2>(LinkStruct<T1, T2> link) =>
-			new(link.Value1, link.Value2);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public Link<T1, T2> Clone() => new(Value1, Value2);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2> link && Equals(link) ||
-			obj is ValueTuple<T1, T2> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(Link<T1, T2> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2)
-		{
-			value1 = Value1;
-			value2 = Value2;
-		}
-
-		#endregion
+		if (step.Invoke(Value1) is Break) return Break;
+		return Continue;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2> : Link, ICloneable<LinkStruct<T1, T2>>
+	/// <inheritdoc/>
+	public Link<T1> Clone() => new(Value1);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1> link && Equals(link) ||
+		obj is ValueTuple<T1> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(Link<T1> b) =>
+		Equate(Value1, b.Value1);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	public void Deconstruct(out T1 value1)
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Creates a link between objects.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		public LinkStruct(T1 value1, T2 value2)
-		{
-			Value1 = value1;
-			Value2 = value2;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 2;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 2 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2>((T1, T2) tuple) =>
-			new(tuple.Item1, tuple.Item2);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2)(LinkStruct<T1, T2> link) =>
-			(link.Value1, link.Value2);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2>(Tuple<T1, T2> tuple) =>
-			new(tuple.Item1, tuple.Item2);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2>(LinkStruct<T1, T2> link) =>
-			new(link.Value1, link.Value2);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator LinkStruct<T1, T2>(Link<T1, T2> link) =>
-			new(link.Value1, link.Value2);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public LinkStruct<T1, T2> Clone() => new(Value1, Value2);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2> link && Equals(link) ||
-			obj is ValueTuple<T1, T2> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(LinkStruct<T1, T2> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2)
-		{
-			value1 = Value1;
-			value2 = Value2;
-		}
-
-		#endregion
+		value1 = Value1;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	public class Link<T1, T2, T3> : Link, ICloneable<Link<T1, T2, T3>>
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+public struct LinkStruct<T1> : Link, ICloneable<LinkStruct<T1>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Creates a link between objects.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	public LinkStruct(T1 value1)
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Constructs a link of values.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		public Link(T1 value1, T2 value2, T3 value3)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 3;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 3 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3>((T1, T2, T3) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3)(Link<T1, T2, T3> link) =>
-			(link.Value1, link.Value2, link.Value3);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3>(Tuple<T1, T2, T3> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3>(Link<T1, T2, T3> link) =>
-			new(link.Value1, link.Value2, link.Value3);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator Link<T1, T2, T3>(LinkStruct<T1, T2, T3> link) =>
-			new(link.Value1, link.Value2, link.Value3);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public Link<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(Link<T1, T2, T3> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-		}
-
-		#endregion
+		Value1 = value1;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3> : Link, ICloneable<LinkStruct<T1, T2, T3>>
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 1;
+
+	/// <inheritdoc/>
+	public object this[int index]
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Creates a link between objects.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		public LinkStruct(T1 value1, T2 value2, T3 value3)
+		get => index switch
 		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 3;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 3 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3>((T1, T2, T3) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3)(LinkStruct<T1, T2, T3> link) =>
-			(link.Value1, link.Value2, link.Value3);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3>(Tuple<T1, T2, T3> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3>(LinkStruct<T1, T2, T3> link) =>
-			new(link.Value1, link.Value2, link.Value3);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3>(Link<T1, T2, T3> link) =>
-			new(link.Value1, link.Value2, link.Value3);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public LinkStruct<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(LinkStruct<T1, T2, T3> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-		}
-
-		#endregion
+			1 => Value1,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 1 < {nameof(index)}"),
+		};
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4> : Link, ICloneable<Link<T1, T2, T3, T4>>
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1>(ValueTuple<T1> tuple) =>
+		new(tuple.Item1);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator ValueTuple<T1>(LinkStruct<T1> link) =>
+		new(link.Value1);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1>(Tuple<T1> tuple) =>
+		new(tuple.Item1);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1>(LinkStruct<T1> link) =>
+		new(link.Value1);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator LinkStruct<T1>(Link<T1> link) =>
+		new(link.Value1);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Constructs a link of values.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		public Link(T1 value1, T2 value2, T3 value3, T4 value4)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 4;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 4 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4>((T1, T2, T3, T4) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4)(Link<T1, T2, T3, T4> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4>(Tuple<T1, T2, T3, T4> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4>(Link<T1, T2, T3, T4> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator Link<T1, T2, T3, T4>(LinkStruct<T1, T2, T3, T4> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public Link<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(Link<T1, T2, T3, T4> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-		}
-
-		#endregion
+		yield return Value1;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4> : Link, ICloneable<LinkStruct<T1, T2, T3, T4>>
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Creates a link between objects.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 4;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 4 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4>((T1, T2, T3, T4) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4)(LinkStruct<T1, T2, T3, T4> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4>(Tuple<T1, T2, T3, T4> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4>(LinkStruct<T1, T2, T3, T4> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4>(Link<T1, T2, T3, T4> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public LinkStruct<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(LinkStruct<T1, T2, T3, T4> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-		}
-
-		#endregion
+		if (step.Invoke(Value1) is Break) return Break;
+		return Continue;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4, T5> : Link, ICloneable<Link<T1, T2, T3, T4, T5>>
+	/// <inheritdoc/>
+	public LinkStruct<T1> Clone() => new(Value1);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1> link && Equals(link) ||
+		obj is ValueTuple<T1> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(LinkStruct<T1> b) =>
+		Equate(Value1, b.Value1);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	public void Deconstruct(out T1 value1)
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-		/// <summary>The #5 value of the link.</summary>
-		public T5 Value5 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Constructs a link of values.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		/// <param name="value5">The #5 value to be linked.</param>
-		public Link(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-			Value5 = value5;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 5;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				5 => Value5,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 5 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5>((T1, T2, T3, T4, T5) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4, T5)(Link<T1, T2, T3, T4, T5> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5>(Tuple<T1, T2, T3, T4, T5> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4, T5>(Link<T1, T2, T3, T4, T5> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5>(LinkStruct<T1, T2, T3, T4, T5> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-			yield return Value5;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			if (step.Invoke(Value5) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public Link<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4, T5> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4, T5> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4, T5> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4, T5> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(Link<T1, T2, T3, T4, T5> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4) &&
-			Equate(Value5, b.Value5);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		/// <param name="value5">The #5 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-			value5 = Value5;
-		}
-
-		#endregion
+		value1 = Value1;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4, T5> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5>>
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+public class Link<T1, T2> : Link, ICloneable<Link<T1, T2>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Constructs a link of values.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	public Link(T1 value1, T2 value2)
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-		/// <summary>The #5 value of the link.</summary>
-		public T5 Value5 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Creates a link between objects.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		/// <param name="value5">The #5 value to be linked.</param>
-		public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-			Value5 = value5;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 5;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				5 => Value5,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 5 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5>((T1, T2, T3, T4, T5) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4, T5)(LinkStruct<T1, T2, T3, T4, T5> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5>(Tuple<T1, T2, T3, T4, T5> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4, T5>(LinkStruct<T1, T2, T3, T4, T5> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5>(Link<T1, T2, T3, T4, T5> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-			yield return Value5;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			if (step.Invoke(Value5) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public LinkStruct<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4, T5> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4, T5> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4, T5> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4, T5> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(LinkStruct<T1, T2, T3, T4, T5> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4) &&
-			Equate(Value5, b.Value5);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		/// <param name="value5">The #5 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-			value5 = Value5;
-		}
-
-		#endregion
+		Value1 = value1;
+		Value2 = value2;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4, T5, T6> : Link, ICloneable<Link<T1, T2, T3, T4, T5, T6>>
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 2;
+
+	/// <inheritdoc/>
+	public object this[int index]
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-		/// <summary>The #5 value of the link.</summary>
-		public T5 Value5 { get; set; }
-		/// <summary>The #6 value of the link.</summary>
-		public T6 Value6 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Constructs a link of values.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		/// <param name="value5">The #5 value to be linked.</param>
-		/// <param name="value6">The #6 value to be linked.</param>
-		public Link(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6)
+		get => index switch
 		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-			Value5 = value5;
-			Value6 = value6;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 6;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				5 => Value5,
-				6 => Value6,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 6 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5, T6>((T1, T2, T3, T4, T5, T6) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4, T5, T6)(Link<T1, T2, T3, T4, T5, T6> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5, T6>(Tuple<T1, T2, T3, T4, T5, T6> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4, T5, T6>(Link<T1, T2, T3, T4, T5, T6> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5, T6>(LinkStruct<T1, T2, T3, T4, T5, T6> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-			yield return Value5;
-			yield return Value6;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			if (step.Invoke(Value5) is Break) return Break;
-			if (step.Invoke(Value6) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public Link<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4, T5, T6> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4, T5, T6> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4, T5, T6> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4, T5, T6> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(Link<T1, T2, T3, T4, T5, T6> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4) &&
-			Equate(Value5, b.Value5) &&
-			Equate(Value6, b.Value6);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		/// <param name="value5">The #5 value of the link.</param>
-		/// <param name="value6">The #6 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-			value5 = Value5;
-			value6 = Value6;
-		}
-
-		#endregion
+			1 => Value1,
+			2 => Value2,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 2 < {nameof(index)}"),
+		};
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4, T5, T6> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5, T6>>
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2>((T1, T2) tuple) =>
+		new(tuple.Item1, tuple.Item2);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2)(Link<T1, T2> link) =>
+		(link.Value1, link.Value2);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2>(Tuple<T1, T2> tuple) =>
+		new(tuple.Item1, tuple.Item2);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2>(Link<T1, T2> link) =>
+		new(link.Value1, link.Value2);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator Link<T1, T2>(LinkStruct<T1, T2> link) =>
+		new(link.Value1, link.Value2);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-		/// <summary>The #5 value of the link.</summary>
-		public T5 Value5 { get; set; }
-		/// <summary>The #6 value of the link.</summary>
-		public T6 Value6 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Creates a link between objects.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		/// <param name="value5">The #5 value to be linked.</param>
-		/// <param name="value6">The #6 value to be linked.</param>
-		public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-			Value5 = value5;
-			Value6 = value6;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 6;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				5 => Value5,
-				6 => Value6,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 6 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6>((T1, T2, T3, T4, T5, T6) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4, T5, T6)(LinkStruct<T1, T2, T3, T4, T5, T6> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6>(Tuple<T1, T2, T3, T4, T5, T6> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4, T5, T6>(LinkStruct<T1, T2, T3, T4, T5, T6> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6>(Link<T1, T2, T3, T4, T5, T6> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-			yield return Value5;
-			yield return Value6;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			if (step.Invoke(Value5) is Break) return Break;
-			if (step.Invoke(Value6) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public LinkStruct<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4, T5, T6> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4, T5, T6> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4, T5, T6> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4, T5, T6> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(LinkStruct<T1, T2, T3, T4, T5, T6> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4) &&
-			Equate(Value5, b.Value5) &&
-			Equate(Value6, b.Value6);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		/// <param name="value5">The #5 value of the link.</param>
-		/// <param name="value6">The #6 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-			value5 = Value5;
-			value6 = Value6;
-		}
-
-		#endregion
+		yield return Value1;
+		yield return Value2;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
-	/// <typeparam name="T7">The type of #7 value in the link.</typeparam>
-	public class Link<T1, T2, T3, T4, T5, T6, T7> : Link, ICloneable<Link<T1, T2, T3, T4, T5, T6, T7>>
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-		/// <summary>The #5 value of the link.</summary>
-		public T5 Value5 { get; set; }
-		/// <summary>The #6 value of the link.</summary>
-		public T6 Value6 { get; set; }
-		/// <summary>The #7 value of the link.</summary>
-		public T7 Value7 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Constructs a link of values.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		/// <param name="value5">The #5 value to be linked.</param>
-		/// <param name="value6">The #6 value to be linked.</param>
-		/// <param name="value7">The #7 value to be linked.</param>
-		public Link(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-			Value5 = value5;
-			Value6 = value6;
-			Value7 = value7;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 7;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				5 => Value5,
-				6 => Value6,
-				7 => Value7,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 7 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5, T6, T7>((T1, T2, T3, T4, T5, T6, T7) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4, T5, T6, T7)(Link<T1, T2, T3, T4, T5, T6, T7> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5, T6, T7>(Tuple<T1, T2, T3, T4, T5, T6, T7> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4, T5, T6, T7>(Link<T1, T2, T3, T4, T5, T6, T7> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator Link<T1, T2, T3, T4, T5, T6, T7>(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-			yield return Value5;
-			yield return Value6;
-			yield return Value7;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			if (step.Invoke(Value5) is Break) return Break;
-			if (step.Invoke(Value6) is Break) return Break;
-			if (step.Invoke(Value7) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public Link<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6, Value7 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4, T5, T6, T7> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4, T5, T6, T7> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4, T5, T6, T7> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4, T5, T6, T7> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(Link<T1, T2, T3, T4, T5, T6, T7> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4) &&
-			Equate(Value5, b.Value5) &&
-			Equate(Value6, b.Value6) &&
-			Equate(Value7, b.Value7);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		/// <param name="value5">The #5 value of the link.</param>
-		/// <param name="value6">The #6 value of the link.</param>
-		/// <param name="value7">The #7 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6, out T7 value7)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-			value5 = Value5;
-			value6 = Value6;
-			value7 = Value7;
-		}
-
-		#endregion
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		return Continue;
 	}
 
-	/// <summary>Represents a link between objects.</summary>
-	/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
-	/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
-	/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
-	/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
-	/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
-	/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
-	/// <typeparam name="T7">The type of #7 value in the link.</typeparam>
-	public struct LinkStruct<T1, T2, T3, T4, T5, T6, T7> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5, T6, T7>>
+	/// <inheritdoc/>
+	public Link<T1, T2> Clone() => new(Value1, Value2);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2> link && Equals(link) ||
+		obj is ValueTuple<T1, T2> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(Link<T1, T2> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2)
 	{
-		/// <summary>The #1 value of the link.</summary>
-		public T1 Value1 { get; set; }
-		/// <summary>The #2 value of the link.</summary>
-		public T2 Value2 { get; set; }
-		/// <summary>The #3 value of the link.</summary>
-		public T3 Value3 { get; set; }
-		/// <summary>The #4 value of the link.</summary>
-		public T4 Value4 { get; set; }
-		/// <summary>The #5 value of the link.</summary>
-		public T5 Value5 { get; set; }
-		/// <summary>The #6 value of the link.</summary>
-		public T6 Value6 { get; set; }
-		/// <summary>The #7 value of the link.</summary>
-		public T7 Value7 { get; set; }
-
-		#region Constructors
-
-		/// <summary>Creates a link between objects.</summary>
-		/// <param name="value1">The #1 value to be linked.</param>
-		/// <param name="value2">The #2 value to be linked.</param>
-		/// <param name="value3">The #3 value to be linked.</param>
-		/// <param name="value4">The #4 value to be linked.</param>
-		/// <param name="value5">The #5 value to be linked.</param>
-		/// <param name="value6">The #6 value to be linked.</param>
-		/// <param name="value7">The #7 value to be linked.</param>
-		public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7)
-		{
-			Value1 = value1;
-			Value2 = value2;
-			Value3 = value3;
-			Value4 = value4;
-			Value5 = value5;
-			Value6 = value6;
-			Value7 = value7;
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <inheritdoc/>
-		public int Size => 7;
-
-		/// <inheritdoc/>
-		public object this[int index]
-		{
-			get => index switch
-			{
-				1 => Value1,
-				2 => Value2,
-				3 => Value3,
-				4 => Value4,
-				5 => Value5,
-				6 => Value6,
-				7 => Value7,
-				_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 7 < {nameof(index)}"),
-			};
-		}
-
-		#endregion
-
-		#region Operators
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>((T1, T2, T3, T4, T5, T6, T7) tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator (T1, T2, T3, T4, T5, T6, T7)(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link) =>
-			(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
-
-		/// <summary>Converts a tuple to a link.</summary>
-		/// <param name="tuple">The tuple to convert to a link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>(Tuple<T1, T2, T3, T4, T5, T6, T7> tuple) =>
-			new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
-
-		/// <summary>Converts a link to a tuple.</summary>
-		/// <param name="link">The link to convert to a tuple.</param>
-		public static implicit operator Tuple<T1, T2, T3, T4, T5, T6, T7>(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
-
-		/// <summary>Converts a class link to a struct link.</summary>
-		/// <param name="link">The class link to convert to a struct link.</param>
-		public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>(Link<T1, T2, T3, T4, T5, T6, T7> link) =>
-			new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
-
-		#endregion
-
-		#region Methods
-
-		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
-
-		/// <inheritdoc/>
-		public System.Collections.Generic.IEnumerator<object> GetEnumerator()
-		{
-			yield return Value1;
-			yield return Value2;
-			yield return Value3;
-			yield return Value4;
-			yield return Value5;
-			yield return Value6;
-			yield return Value7;
-		}
-
-		/// <summary>Gets the types of the values of this link.</summary>
-		/// <returns>The types of the values of this link.</returns>
-		public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7) };
-
-		/// <inheritdoc/>
-		public StepStatus StepperBreak<TStep>(TStep step = default)
-			where TStep : struct, IFunc<object, StepStatus>
-		{
-			if (step.Invoke(Value1) is Break) return Break;
-			if (step.Invoke(Value2) is Break) return Break;
-			if (step.Invoke(Value3) is Break) return Break;
-			if (step.Invoke(Value4) is Break) return Break;
-			if (step.Invoke(Value5) is Break) return Break;
-			if (step.Invoke(Value6) is Break) return Break;
-			if (step.Invoke(Value7) is Break) return Break;
-			return Continue;
-		}
-
-		/// <inheritdoc/>
-		public LinkStruct<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
-
-		/// <inheritdoc/>
-		public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6, Value7 };
-
-		/// <inheritdoc/>
-		public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
-
-		/// <inheritdoc/>
-		public override bool Equals(object obj) =>
-			obj is LinkStruct<T1, T2, T3, T4, T5, T6, T7> linkStruct && Equals(linkStruct) ||
-			obj is Link<T1, T2, T3, T4, T5, T6, T7> link && Equals(link) ||
-			obj is ValueTuple<T1, T2, T3, T4, T5, T6, T7> valueTuple && Equals(valueTuple) ||
-			obj is Tuple<T1, T2, T3, T4, T5, T6, T7> tuple && Equals(tuple);
-
-		/// <summary>Check for equality with another link.</summary>
-		/// <param name="b">The other link to check for equality with.</param>
-		/// <returns>True if equal; false if not.</returns>
-		public bool Equals(LinkStruct<T1, T2, T3, T4, T5, T6, T7> b) =>
-			Equate(Value1, b.Value1) &&
-			Equate(Value2, b.Value2) &&
-			Equate(Value3, b.Value3) &&
-			Equate(Value4, b.Value4) &&
-			Equate(Value5, b.Value5) &&
-			Equate(Value6, b.Value6) &&
-			Equate(Value7, b.Value7);
-
-		/// <summary>Deconstructs the link.</summary>
-		/// <param name="value1">The #1 value of the link.</param>
-		/// <param name="value2">The #2 value of the link.</param>
-		/// <param name="value3">The #3 value of the link.</param>
-		/// <param name="value4">The #4 value of the link.</param>
-		/// <param name="value5">The #5 value of the link.</param>
-		/// <param name="value6">The #6 value of the link.</param>
-		/// <param name="value7">The #7 value of the link.</param>
-		public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6, out T7 value7)
-		{
-			value1 = Value1;
-			value2 = Value2;
-			value3 = Value3;
-			value4 = Value4;
-			value5 = Value5;
-			value6 = Value6;
-			value7 = Value7;
-		}
-
-		#endregion
+		value1 = Value1;
+		value2 = Value2;
 	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+public struct LinkStruct<T1, T2> : Link, ICloneable<LinkStruct<T1, T2>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Creates a link between objects.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	public LinkStruct(T1 value1, T2 value2)
+	{
+		Value1 = value1;
+		Value2 = value2;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 2;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 2 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2>((T1, T2) tuple) =>
+		new(tuple.Item1, tuple.Item2);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2)(LinkStruct<T1, T2> link) =>
+		(link.Value1, link.Value2);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2>(Tuple<T1, T2> tuple) =>
+		new(tuple.Item1, tuple.Item2);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2>(LinkStruct<T1, T2> link) =>
+		new(link.Value1, link.Value2);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator LinkStruct<T1, T2>(Link<T1, T2> link) =>
+		new(link.Value1, link.Value2);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public LinkStruct<T1, T2> Clone() => new(Value1, Value2);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2> link && Equals(link) ||
+		obj is ValueTuple<T1, T2> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(LinkStruct<T1, T2> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2)
+	{
+		value1 = Value1;
+		value2 = Value2;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+public class Link<T1, T2, T3> : Link, ICloneable<Link<T1, T2, T3>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Constructs a link of values.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	public Link(T1 value1, T2 value2, T3 value3)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 3;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 3 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3>((T1, T2, T3) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3)(Link<T1, T2, T3> link) =>
+		(link.Value1, link.Value2, link.Value3);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3>(Tuple<T1, T2, T3> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3>(Link<T1, T2, T3> link) =>
+		new(link.Value1, link.Value2, link.Value3);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator Link<T1, T2, T3>(LinkStruct<T1, T2, T3> link) =>
+		new(link.Value1, link.Value2, link.Value3);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public Link<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(Link<T1, T2, T3> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+public struct LinkStruct<T1, T2, T3> : Link, ICloneable<LinkStruct<T1, T2, T3>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Creates a link between objects.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	public LinkStruct(T1 value1, T2 value2, T3 value3)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 3;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 3 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3>((T1, T2, T3) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3)(LinkStruct<T1, T2, T3> link) =>
+		(link.Value1, link.Value2, link.Value3);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3>(Tuple<T1, T2, T3> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3>(LinkStruct<T1, T2, T3> link) =>
+		new(link.Value1, link.Value2, link.Value3);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3>(Link<T1, T2, T3> link) =>
+		new(link.Value1, link.Value2, link.Value3);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public LinkStruct<T1, T2, T3> Clone() => new(Value1, Value2, Value3);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(LinkStruct<T1, T2, T3> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+public class Link<T1, T2, T3, T4> : Link, ICloneable<Link<T1, T2, T3, T4>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Constructs a link of values.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	public Link(T1 value1, T2 value2, T3 value3, T4 value4)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 4;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 4 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4>((T1, T2, T3, T4) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4)(Link<T1, T2, T3, T4> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4>(Tuple<T1, T2, T3, T4> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4>(Link<T1, T2, T3, T4> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator Link<T1, T2, T3, T4>(LinkStruct<T1, T2, T3, T4> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public Link<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(Link<T1, T2, T3, T4> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+public struct LinkStruct<T1, T2, T3, T4> : Link, ICloneable<LinkStruct<T1, T2, T3, T4>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Creates a link between objects.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 4;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 4 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4>((T1, T2, T3, T4) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4)(LinkStruct<T1, T2, T3, T4> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4>(Tuple<T1, T2, T3, T4> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4>(LinkStruct<T1, T2, T3, T4> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4>(Link<T1, T2, T3, T4> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public LinkStruct<T1, T2, T3, T4> Clone() => new(Value1, Value2, Value3, Value4);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(LinkStruct<T1, T2, T3, T4> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
+public class Link<T1, T2, T3, T4, T5> : Link, ICloneable<Link<T1, T2, T3, T4, T5>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+	/// <summary>The #5 value of the link.</summary>
+	public T5 Value5 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Constructs a link of values.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	/// <param name="value5">The #5 value to be linked.</param>
+	public Link(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+		Value5 = value5;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 5;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			5 => Value5,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 5 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5>((T1, T2, T3, T4, T5) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4, T5)(Link<T1, T2, T3, T4, T5> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5>(Tuple<T1, T2, T3, T4, T5> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4, T5>(Link<T1, T2, T3, T4, T5> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5>(LinkStruct<T1, T2, T3, T4, T5> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+		yield return Value5;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		if (step.Invoke(Value5) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public Link<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4, T5> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4, T5> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4, T5> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4, T5> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(Link<T1, T2, T3, T4, T5> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4) &&
+		Equate(Value5, b.Value5);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	/// <param name="value5">The #5 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+		value5 = Value5;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
+public struct LinkStruct<T1, T2, T3, T4, T5> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+	/// <summary>The #5 value of the link.</summary>
+	public T5 Value5 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Creates a link between objects.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	/// <param name="value5">The #5 value to be linked.</param>
+	public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+		Value5 = value5;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 5;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			5 => Value5,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 5 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5>((T1, T2, T3, T4, T5) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4, T5)(LinkStruct<T1, T2, T3, T4, T5> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5>(Tuple<T1, T2, T3, T4, T5> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4, T5>(LinkStruct<T1, T2, T3, T4, T5> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5>(Link<T1, T2, T3, T4, T5> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+		yield return Value5;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		if (step.Invoke(Value5) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public LinkStruct<T1, T2, T3, T4, T5> Clone() => new(Value1, Value2, Value3, Value4, Value5);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4, T5> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4, T5> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4, T5> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4, T5> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(LinkStruct<T1, T2, T3, T4, T5> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4) &&
+		Equate(Value5, b.Value5);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	/// <param name="value5">The #5 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+		value5 = Value5;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
+/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
+public class Link<T1, T2, T3, T4, T5, T6> : Link, ICloneable<Link<T1, T2, T3, T4, T5, T6>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+	/// <summary>The #5 value of the link.</summary>
+	public T5 Value5 { get; set; }
+	/// <summary>The #6 value of the link.</summary>
+	public T6 Value6 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Constructs a link of values.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	/// <param name="value5">The #5 value to be linked.</param>
+	/// <param name="value6">The #6 value to be linked.</param>
+	public Link(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+		Value5 = value5;
+		Value6 = value6;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 6;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			5 => Value5,
+			6 => Value6,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 6 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5, T6>((T1, T2, T3, T4, T5, T6) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4, T5, T6)(Link<T1, T2, T3, T4, T5, T6> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5, T6>(Tuple<T1, T2, T3, T4, T5, T6> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4, T5, T6>(Link<T1, T2, T3, T4, T5, T6> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5, T6>(LinkStruct<T1, T2, T3, T4, T5, T6> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+		yield return Value5;
+		yield return Value6;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		if (step.Invoke(Value5) is Break) return Break;
+		if (step.Invoke(Value6) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public Link<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4, T5, T6> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4, T5, T6> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4, T5, T6> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4, T5, T6> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(Link<T1, T2, T3, T4, T5, T6> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4) &&
+		Equate(Value5, b.Value5) &&
+		Equate(Value6, b.Value6);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	/// <param name="value5">The #5 value of the link.</param>
+	/// <param name="value6">The #6 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+		value5 = Value5;
+		value6 = Value6;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
+/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
+public struct LinkStruct<T1, T2, T3, T4, T5, T6> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5, T6>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+	/// <summary>The #5 value of the link.</summary>
+	public T5 Value5 { get; set; }
+	/// <summary>The #6 value of the link.</summary>
+	public T6 Value6 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Creates a link between objects.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	/// <param name="value5">The #5 value to be linked.</param>
+	/// <param name="value6">The #6 value to be linked.</param>
+	public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+		Value5 = value5;
+		Value6 = value6;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 6;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			5 => Value5,
+			6 => Value6,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 6 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6>((T1, T2, T3, T4, T5, T6) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4, T5, T6)(LinkStruct<T1, T2, T3, T4, T5, T6> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6>(Tuple<T1, T2, T3, T4, T5, T6> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4, T5, T6>(LinkStruct<T1, T2, T3, T4, T5, T6> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6>(Link<T1, T2, T3, T4, T5, T6> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+		yield return Value5;
+		yield return Value6;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		if (step.Invoke(Value5) is Break) return Break;
+		if (step.Invoke(Value6) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public LinkStruct<T1, T2, T3, T4, T5, T6> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4, T5, T6> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4, T5, T6> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4, T5, T6> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4, T5, T6> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(LinkStruct<T1, T2, T3, T4, T5, T6> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4) &&
+		Equate(Value5, b.Value5) &&
+		Equate(Value6, b.Value6);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	/// <param name="value5">The #5 value of the link.</param>
+	/// <param name="value6">The #6 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+		value5 = Value5;
+		value6 = Value6;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
+/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
+/// <typeparam name="T7">The type of #7 value in the link.</typeparam>
+public class Link<T1, T2, T3, T4, T5, T6, T7> : Link, ICloneable<Link<T1, T2, T3, T4, T5, T6, T7>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+	/// <summary>The #5 value of the link.</summary>
+	public T5 Value5 { get; set; }
+	/// <summary>The #6 value of the link.</summary>
+	public T6 Value6 { get; set; }
+	/// <summary>The #7 value of the link.</summary>
+	public T7 Value7 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Constructs a link of values.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	/// <param name="value5">The #5 value to be linked.</param>
+	/// <param name="value6">The #6 value to be linked.</param>
+	/// <param name="value7">The #7 value to be linked.</param>
+	public Link(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+		Value5 = value5;
+		Value6 = value6;
+		Value7 = value7;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 7;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			5 => Value5,
+			6 => Value6,
+			7 => Value7,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 7 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5, T6, T7>((T1, T2, T3, T4, T5, T6, T7) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4, T5, T6, T7)(Link<T1, T2, T3, T4, T5, T6, T7> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5, T6, T7>(Tuple<T1, T2, T3, T4, T5, T6, T7> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4, T5, T6, T7>(Link<T1, T2, T3, T4, T5, T6, T7> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator Link<T1, T2, T3, T4, T5, T6, T7>(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+		yield return Value5;
+		yield return Value6;
+		yield return Value7;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		if (step.Invoke(Value5) is Break) return Break;
+		if (step.Invoke(Value6) is Break) return Break;
+		if (step.Invoke(Value7) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public Link<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6, Value7 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4, T5, T6, T7> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4, T5, T6, T7> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4, T5, T6, T7> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4, T5, T6, T7> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(Link<T1, T2, T3, T4, T5, T6, T7> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4) &&
+		Equate(Value5, b.Value5) &&
+		Equate(Value6, b.Value6) &&
+		Equate(Value7, b.Value7);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	/// <param name="value5">The #5 value of the link.</param>
+	/// <param name="value6">The #6 value of the link.</param>
+	/// <param name="value7">The #7 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6, out T7 value7)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+		value5 = Value5;
+		value6 = Value6;
+		value7 = Value7;
+	}
+
+	#endregion
+}
+
+/// <summary>Represents a link between objects.</summary>
+/// <typeparam name="T1">The type of #1 value in the link.</typeparam>
+/// <typeparam name="T2">The type of #2 value in the link.</typeparam>
+/// <typeparam name="T3">The type of #3 value in the link.</typeparam>
+/// <typeparam name="T4">The type of #4 value in the link.</typeparam>
+/// <typeparam name="T5">The type of #5 value in the link.</typeparam>
+/// <typeparam name="T6">The type of #6 value in the link.</typeparam>
+/// <typeparam name="T7">The type of #7 value in the link.</typeparam>
+public struct LinkStruct<T1, T2, T3, T4, T5, T6, T7> : Link, ICloneable<LinkStruct<T1, T2, T3, T4, T5, T6, T7>>
+{
+	/// <summary>The #1 value of the link.</summary>
+	public T1 Value1 { get; set; }
+	/// <summary>The #2 value of the link.</summary>
+	public T2 Value2 { get; set; }
+	/// <summary>The #3 value of the link.</summary>
+	public T3 Value3 { get; set; }
+	/// <summary>The #4 value of the link.</summary>
+	public T4 Value4 { get; set; }
+	/// <summary>The #5 value of the link.</summary>
+	public T5 Value5 { get; set; }
+	/// <summary>The #6 value of the link.</summary>
+	public T6 Value6 { get; set; }
+	/// <summary>The #7 value of the link.</summary>
+	public T7 Value7 { get; set; }
+
+	#region Constructors
+
+	/// <summary>Creates a link between objects.</summary>
+	/// <param name="value1">The #1 value to be linked.</param>
+	/// <param name="value2">The #2 value to be linked.</param>
+	/// <param name="value3">The #3 value to be linked.</param>
+	/// <param name="value4">The #4 value to be linked.</param>
+	/// <param name="value5">The #5 value to be linked.</param>
+	/// <param name="value6">The #6 value to be linked.</param>
+	/// <param name="value7">The #7 value to be linked.</param>
+	public LinkStruct(T1 value1, T2 value2, T3 value3, T4 value4, T5 value5, T6 value6, T7 value7)
+	{
+		Value1 = value1;
+		Value2 = value2;
+		Value3 = value3;
+		Value4 = value4;
+		Value5 = value5;
+		Value6 = value6;
+		Value7 = value7;
+	}
+
+	#endregion
+
+	#region Properties
+
+	/// <inheritdoc/>
+	public int Size => 7;
+
+	/// <inheritdoc/>
+	public object this[int index]
+	{
+		get => index switch
+		{
+			1 => Value1,
+			2 => Value2,
+			3 => Value3,
+			4 => Value4,
+			5 => Value5,
+			6 => Value6,
+			7 => Value7,
+			_ => throw new IndexOutOfRangeException($"{nameof(index)} < 1 || 7 < {nameof(index)}"),
+		};
+	}
+
+	#endregion
+
+	#region Operators
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>((T1, T2, T3, T4, T5, T6, T7) tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator (T1, T2, T3, T4, T5, T6, T7)(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link) =>
+		(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
+
+	/// <summary>Converts a tuple to a link.</summary>
+	/// <param name="tuple">The tuple to convert to a link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>(Tuple<T1, T2, T3, T4, T5, T6, T7> tuple) =>
+		new(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, tuple.Item6, tuple.Item7);
+
+	/// <summary>Converts a link to a tuple.</summary>
+	/// <param name="link">The link to convert to a tuple.</param>
+	public static implicit operator Tuple<T1, T2, T3, T4, T5, T6, T7>(LinkStruct<T1, T2, T3, T4, T5, T6, T7> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
+
+	/// <summary>Converts a class link to a struct link.</summary>
+	/// <param name="link">The class link to convert to a struct link.</param>
+	public static implicit operator LinkStruct<T1, T2, T3, T4, T5, T6, T7>(Link<T1, T2, T3, T4, T5, T6, T7> link) =>
+		new(link.Value1, link.Value2, link.Value3, link.Value4, link.Value5, link.Value6, link.Value7);
+
+	#endregion
+
+	#region Methods
+
+	System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+	/// <inheritdoc/>
+	public System.Collections.Generic.IEnumerator<object> GetEnumerator()
+	{
+		yield return Value1;
+		yield return Value2;
+		yield return Value3;
+		yield return Value4;
+		yield return Value5;
+		yield return Value6;
+		yield return Value7;
+	}
+
+	/// <summary>Gets the types of the values of this link.</summary>
+	/// <returns>The types of the values of this link.</returns>
+	public Type[] Types() => new[] { typeof(T1), typeof(T2), typeof(T3), typeof(T4), typeof(T5), typeof(T6), typeof(T7) };
+
+	/// <inheritdoc/>
+	public StepStatus StepperBreak<TStep>(TStep step = default)
+		where TStep : struct, IFunc<object, StepStatus>
+	{
+		if (step.Invoke(Value1) is Break) return Break;
+		if (step.Invoke(Value2) is Break) return Break;
+		if (step.Invoke(Value3) is Break) return Break;
+		if (step.Invoke(Value4) is Break) return Break;
+		if (step.Invoke(Value5) is Break) return Break;
+		if (step.Invoke(Value6) is Break) return Break;
+		if (step.Invoke(Value7) is Break) return Break;
+		return Continue;
+	}
+
+	/// <inheritdoc/>
+	public LinkStruct<T1, T2, T3, T4, T5, T6, T7> Clone() => new(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
+
+	/// <inheritdoc/>
+	public object[] ToArray() => new object[] { Value1, Value2, Value3, Value4, Value5, Value6, Value7 };
+
+	/// <inheritdoc/>
+	public override int GetHashCode() => HashCode.Combine(Value1, Value2, Value3, Value4, Value5, Value6, Value7);
+
+	/// <inheritdoc/>
+	public override bool Equals(object obj) =>
+		obj is LinkStruct<T1, T2, T3, T4, T5, T6, T7> linkStruct && Equals(linkStruct) ||
+		obj is Link<T1, T2, T3, T4, T5, T6, T7> link && Equals(link) ||
+		obj is ValueTuple<T1, T2, T3, T4, T5, T6, T7> valueTuple && Equals(valueTuple) ||
+		obj is Tuple<T1, T2, T3, T4, T5, T6, T7> tuple && Equals(tuple);
+
+	/// <summary>Check for equality with another link.</summary>
+	/// <param name="b">The other link to check for equality with.</param>
+	/// <returns>True if equal; false if not.</returns>
+	public bool Equals(LinkStruct<T1, T2, T3, T4, T5, T6, T7> b) =>
+		Equate(Value1, b.Value1) &&
+		Equate(Value2, b.Value2) &&
+		Equate(Value3, b.Value3) &&
+		Equate(Value4, b.Value4) &&
+		Equate(Value5, b.Value5) &&
+		Equate(Value6, b.Value6) &&
+		Equate(Value7, b.Value7);
+
+	/// <summary>Deconstructs the link.</summary>
+	/// <param name="value1">The #1 value of the link.</param>
+	/// <param name="value2">The #2 value of the link.</param>
+	/// <param name="value3">The #3 value of the link.</param>
+	/// <param name="value4">The #4 value of the link.</param>
+	/// <param name="value5">The #5 value of the link.</param>
+	/// <param name="value6">The #6 value of the link.</param>
+	/// <param name="value7">The #7 value of the link.</param>
+	public void Deconstruct(out T1 value1, out T2 value2, out T3 value3, out T4 value4, out T5 value5, out T6 value6, out T7 value7)
+	{
+		value1 = Value1;
+		value2 = Value2;
+		value3 = Value3;
+		value4 = Value4;
+		value5 = Value5;
+		value6 = Value6;
+		value7 = Value7;
+	}
+
+	#endregion
 }

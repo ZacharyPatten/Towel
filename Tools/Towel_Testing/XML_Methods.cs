@@ -20,7 +20,7 @@ public class XML_Methods
 				ObsoleteAttribute? obsolete = method.GetCustomAttribute<ObsoleteAttribute>();
 				Assert.IsTrue(obsolete is not null, method.Name);
 				Assert.IsTrue(obsolete!.IsError, method.Name);
-				Assert.IsTrue(obsolete!.Message is TowelConstants.NotIntended, method.Name);
+				Assert.IsTrue(obsolete!.Message is NotIntended, method.Name);
 				try
 				{
 					MethodInfo invoke = method;

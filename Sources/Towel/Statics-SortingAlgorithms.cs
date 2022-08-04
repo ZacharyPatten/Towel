@@ -59,7 +59,7 @@ public static partial class Statics
 	/// <param name="set">The set function.</param>
 	/// <param name="random">The random to shuffle with.</param>
 	/// <param name="span">The span to shuffle.</param>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_Shuffle() => throw new DocumentationMethodException();
 
 #pragma warning restore CS1711, CS1572
@@ -119,7 +119,7 @@ public static partial class Statics
 	/// <param name="end">The ending index of the sort.</param>
 	/// <param name="array">The array to be sorted.</param>
 	/// <param name="span">The span to be sorted.</param>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_Sort() => throw new DocumentationMethodException();
 
 #pragma warning restore SA1604, CS1572, CS1711
@@ -135,7 +135,7 @@ public static partial class Statics
 	/// Stable: True
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortBubble() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortBubble"/>
@@ -191,7 +191,7 @@ public static partial class Statics
 	/// Stable: False
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortSelection() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortSelection"/>
@@ -251,7 +251,7 @@ public static partial class Statics
 	/// Stable: True
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortInsertion() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortInsertion"/>
@@ -307,7 +307,7 @@ public static partial class Statics
 	/// Stable: False
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortQuick() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortQuick"/>
@@ -401,7 +401,7 @@ public static partial class Statics
 	/// Stable: True
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortMerge() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortMerge"/>
@@ -513,7 +513,7 @@ public static partial class Statics
 	/// Stable: False
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortHeap() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortHeap"/>
@@ -613,7 +613,7 @@ public static partial class Statics
 	/// Stable: True
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortOddEven() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortOddEven"/>
@@ -691,7 +691,7 @@ public static partial class Statics
 	/// Stable: False
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortBogo() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortBogo"/>
@@ -744,7 +744,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the slow sort algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortSlow() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortSlow"/>
@@ -807,7 +807,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the gnome sort algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortGnome() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortGnome"/>
@@ -864,7 +864,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the comb sort algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortComb() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortComb"/>
@@ -935,7 +935,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the shell sort algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortShell() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortShell"/>
@@ -994,7 +994,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the cocktail sort algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortCocktail() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortCocktail"/>
@@ -1083,7 +1083,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the cycle algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortCycle() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortCycle"/>
@@ -1204,7 +1204,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the pancake algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortPancake() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortPancake"/>
@@ -1253,7 +1253,7 @@ public static partial class Statics
 
 	/// <summary>Sorts values using the stooge algorithm.</summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortStooge() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortStooge"/>
@@ -1320,7 +1320,7 @@ public static partial class Statics
 	/// Stable: True
 	/// </summary>
 	/// <inheritdoc cref="XML_Sort"/>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortTim() => throw new DocumentationMethodException();
 
 	/// <inheritdoc cref="XML_SortHeap"/>
@@ -1831,7 +1831,7 @@ public static partial class Statics
 	/// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	/// SOFTWARE.
 	/// </citation>
-	[Obsolete(TowelConstants.NotIntended, true)]
+	[Obsolete(NotIntended, true)]
 	public static void XML_SortIntro() => throw new DocumentationMethodException();
 
 	internal const int IntrosortSizeThreshold = 16;

@@ -108,7 +108,7 @@ public class AvlTreeLinked<T, TCompare> : IAvlTree<T, TCompare>,
 	{
 		get
 		{
-			_ = _root ?? throw new InvalidOperationException("Attempting to get the current least value from an empty AVL tree.");
+			if (_root is null) throw new InvalidOperationException("Attempting to get the current least value from an empty AVL tree.");
 			Node node = _root;
 			while (node.LeftChild is not null)
 			{
@@ -123,7 +123,7 @@ public class AvlTreeLinked<T, TCompare> : IAvlTree<T, TCompare>,
 	{
 		get
 		{
-			_ = _root ?? throw new InvalidOperationException("Attempting to get the current greatest value from an empty AVL tree.");
+			if (_root is null) throw new InvalidOperationException("Attempting to get the current greatest value from an empty AVL tree.");
 			Node node = _root;
 			while (node.RightChild is not null)
 			{

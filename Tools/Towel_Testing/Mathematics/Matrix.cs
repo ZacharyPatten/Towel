@@ -267,7 +267,7 @@ public class Matrix_Testing
 		{
 			Matrix<decimal> A = new(2, 2);
 			Matrix<decimal> B = new(3, 3);
-			Assert.ThrowsException<MathematicsException>(() => A + B);
+			Assert.ThrowsException<ArgumentException>(() => A + B);
 		}
 	}
 
@@ -374,7 +374,7 @@ public class Matrix_Testing
 		{
 			Matrix<decimal> A = new(2, 2);
 			Matrix<decimal> B = new(3, 3);
-			Assert.ThrowsException<MathematicsException>(() => A - B);
+			Assert.ThrowsException<ArgumentException>(() => A - B);
 		}
 	}
 
@@ -473,7 +473,7 @@ public class Matrix_Testing
 		{
 			Matrix<decimal> A = new(2, 2);
 			Matrix<decimal> B = new(3, 3);
-			Assert.ThrowsException<MathematicsException>(() => A * B);
+			Assert.ThrowsException<ArgumentException>(() => A * B);
 		}
 	}
 
@@ -540,7 +540,7 @@ public class Matrix_Testing
 		{
 			Vector<int> V = new(1);
 			Matrix<int> M = new(2, 2);
-			Assert.ThrowsException<MathematicsException>(() => M * V);
+			Assert.ThrowsException<ArgumentException>(() => M * V);
 		}
 	}
 
@@ -766,7 +766,7 @@ public class Matrix_Testing
 		// Exceptions
 		{
 			Matrix<decimal> A = new(2, 3);
-			Assert.ThrowsException<MathematicsException>(() => A.Power(3));
+			Assert.ThrowsException<ArgumentException>(() => A.Power(3));
 		}
 	}
 
@@ -852,7 +852,7 @@ public class Matrix_Testing
 		// Exceptions
 		{
 			Matrix<decimal> a = new(2, 3);
-			Assert.ThrowsException<MathematicsException>(() => a.DeterminantLaplace());
+			Assert.ThrowsException<ArgumentException>(() => a.DeterminantLaplace());
 		}
 	}
 
@@ -934,7 +934,7 @@ public class Matrix_Testing
 		// Exceptions
 		{
 			Matrix<decimal> a = new(2, 3);
-			Assert.ThrowsException<MathematicsException>(() => a.DeterminantGaussian());
+			Assert.ThrowsException<ArgumentException>(() => a.DeterminantGaussian());
 		}
 	}
 
@@ -992,7 +992,7 @@ public class Matrix_Testing
 		// Exceptions
 		{
 			Matrix<decimal> a = new(2, 3);
-			Assert.ThrowsException<MathematicsException>(() => a.Trace());
+			Assert.ThrowsException<ArgumentException>(() => a.Trace());
 		}
 	}
 
@@ -1138,7 +1138,7 @@ public class Matrix_Testing
 				{
 						{ 1, },
 				};
-				Assert.ThrowsException<MathematicsException>(() => A.Minor(0, 0));
+				Assert.ThrowsException<ArgumentException>(() => A.Minor(0, 0));
 			}
 			// 2x2
 			{

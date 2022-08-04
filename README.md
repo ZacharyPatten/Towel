@@ -30,7 +30,7 @@
 
 <details>
 <summary>
-:page_facing_up: Run The Included Examples <sub>[Expand]</sub>
+Run The Included Examples <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -42,7 +42,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: Visual Studio <sub>[Expand]</sub>
+> Visual Studio <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -57,7 +57,7 @@
 >
 > <details>
 > <summary>
-> :page_facing_up: Visual Studio Code <sub>[Expand]</sub>
+> Visual Studio Code <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -87,15 +87,15 @@
 
 <details>
 <summary>
-:page_facing_up: Use Towel In Your .NET Projects <sub>[Expand]</sub>
+Use Towel In Your .NET Projects <sub>[Expand]</sub>
 </summary>
 <p>
 
-> - Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET: <sub><a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmain%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a></sub>
+> - Your project must target the same or newer version of .NET as Towel. [See this documentation on how to check the current target of your project](https://docs.microsoft.com/en-us/dotnet/standard/frameworks). Towel targets the following version of .NET: <sub><sub><a href="https://dotnet.microsoft.com/download"><img src="https://img.shields.io/badge/dynamic/xml?color=%23512bd4&label=target&query=%2F%2FTargetFramework%5B1%5D&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fmain%2FSources%2FTowel%2FTowel.csproj&logo=.net" title="Go To .NET Download"></a></sub></sub>
 >
-> - Towel has a nuget package: <sub><a href="https://www.nuget.org/packages/Towel"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package"/></a></sub><br/>Instructions on how to reference the package are included on nuget.org _(click the badge)_.
+> - Towel has a nuget package: <sub><sub><a href="https://www.nuget.org/packages/Towel"><img src="https://img.shields.io/nuget/v/Towel.svg?logo=nuget" title="Go To Nuget Package"/></a></sub></sub><br/>Instructions on how to reference the package are included on nuget.org _(click the badge)_.
 >
-> - If you use Towel and would be willing to show it, here is a badge you can copy-paste into your readme: <sub><a href="#"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a></sub>
+> - If you use Towel and would be willing to show it, here is a badge you can copy-paste into your readme: <sub><sub><a href="#"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a></sub></sub>
 >   ```html
 >   <a href="https://github.com/ZacharyPatten/Towel"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/UsingTowel.svg?raw=true" title="Go To Towel"></a>
 >   ```
@@ -107,13 +107,13 @@
 
 <details>
 <summary>
-:page_facing_up: View Documentation <sub>[Expand]</sub>
+View Documentation <sub>[Expand]</sub>
 </summary>
 <p>
 
 > - Change Log: https://github.com/ZacharyPatten/Towel/releases
-> - [docfx](https://github.com/dotnet/docfx) generated API documentation reference: <sub><a href="https://zacharypatten.github.io/Towel/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a></sub>
-> - [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report: <sub><a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report"/></a></sub>
+> - [docfx](https://github.com/dotnet/docfx) generated API documentation reference: <sub><sub><a href="https://zacharypatten.github.io/Towel/index.html"><img src="https://github.com/ZacharyPatten/Towel/blob/main/.github/Resources/docfx-badge.svg?raw=true" title="Go To Docfx Documentation"></a></sub></sub>
+> - [Coverlet](https://github.com/coverlet-coverage/coverlet) + [ReportGenerator](https://github.com/danielpalme/ReportGenerator) generated test coverage report: <sub><sub><a href="https://zacharypatten.github.io/Towel/coveragereport/index.html"><img src="https://img.shields.io/badge/dynamic/xml?color=yellow&label=coverage&query=%2F%2Fcoverage%5B1%5D%2F%40line-rate-percentage&url=https%3A%2F%2Fraw.githubusercontent.com%2FZacharyPatten%2FTowel%2Fgh-pages%2Fcoveragereport%2Fcoverage.xml" title="Go Test Coverage Report"/></a></sub></sub>
 > - [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet) generated benchmarking: https://zacharypatten.github.io/Towel/articles/benchmarks.html
 > 
 > Relevant Articles:
@@ -155,7 +155,7 @@
 
 <details>
 <summary>
-:page_facing_up: Get Involved <sub>[Expand]</sub>
+Get Involved <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -166,7 +166,7 @@
 > - If you notice anything in Towel that may be improved, please [create a new issue](https://github.com/ZacharyPatten/Towel/issues/new/choose).<br/>
 >   Feature requests are welcome.
 >
-> - You can chat with the developer(s) on discord: <sub><a href="https://discord.gg/4XbQbwF"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server"/></a></sub>
+> - You can chat with the developer(s) on discord: <sub><sub><a href="https://discord.gg/4XbQbwF"><img src="https://img.shields.io/discord/557244925712924684?logo=discord&logoColor=ffffff&color=7389D8" title="Go To Discord Server"/></a></sub></sub>
 >
 > - If you want to contribute to Towel:<br/>&nbsp;&nbsp;1. Fork this repository<br/>&nbsp;&nbsp;2. Make some changes<br/>&nbsp;&nbsp;3. Open a pull request
 
@@ -177,7 +177,7 @@
 
 <details>
 <summary>
-:page_facing_up: Algorithms <sub>[Expand]</sub>
+Algorithms <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -247,7 +247,7 @@
 
 <details>
 <summary>
-:page_facing_up: Extensions <sub>[Expand]</sub>
+Extensions <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -300,13 +300,13 @@
 
 <details>
 <summary>
-:page_facing_up: Data Structures <sub>[Expand]</sub>
+Data Structures <sub>[Expand]</sub>
 </summary>
 <p>
 
 > <details>
 > <summary>
-> :page_facing_up: Heap <sub>[Expand]</sub>
+> Heap <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -355,7 +355,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: AVL Tree <sub>[Expand]</sub>
+> AVL Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -406,7 +406,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: Red Black Tree <sub>[Expand]</sub>
+> Red Black Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -455,7 +455,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: Omnitree <sub>[Expand]</sub>
+> Omnitree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -592,7 +592,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: B-Tree <sub>[Expand]</sub>
+> B-Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -652,7 +652,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: Tree <sub>[Expand]</sub>
+> Tree <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -665,7 +665,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: Graph <sub>[Expand]</sub>
+> Graph <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -702,7 +702,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: SkipList <sub>[Expand]</sub>
+> SkipList <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -738,7 +738,7 @@
 > 
 > <details>
 > <summary>
-> :page_facing_up: Trie <sub>[Expand]</sub>
+> Trie <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -769,13 +769,13 @@
 
 <details>
 <summary>
-:page_facing_up: Generic Mathematics & Logic <sub>[Expand]</sub>
+Generic Mathematics & Logic <sub>[Expand]</sub>
 </summary>
 <p>
 
 > <details>
 > <summary>
-> :page_facing_up: How It Works <sub>[Expand]</sub>
+> How It Works <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -892,7 +892,7 @@
 
 <details>
 <summary>
-:page_facing_up: Symbolic Mathematics <sub>[Expand]</sub>
+Symbolic Mathematics <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -916,13 +916,13 @@
 
 <details>
 <summary>
-:page_facing_up: Measurement Mathematics <sub>[Expand]</sub>
+Measurement Mathematics <sub>[Expand]</sub>
 </summary>
 <p>
 
 > <details>
 > <summary>
-> :page_facing_up: Supported Measurements <sub>[Expand]</sub>
+> Supported Measurements <sub>[Expand]</sub>
 > </summary>
 > <p>
 > 
@@ -1027,7 +1027,7 @@
 
 <details>
 <summary>
-:page_facing_up: Console Helpers <sub>[Expand]</sub>
+Console Helpers <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -1055,7 +1055,7 @@
 
 <details>
 <summary>
-:page_facing_up: TagAttribute <sub>[Expand]</sub>
+TagAttribute <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -1081,7 +1081,7 @@
 
 <details>
 <summary>
-:page_facing_up: SLazy&lt;T&gt; + ValueLazy&lt;T&gt; <sub>[Expand]</sub>
+SLazy&lt;T&gt; + ValueLazy&lt;T&gt; <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -1112,7 +1112,7 @@
 
 <details>
 <summary>
-:page_facing_up: SpanBuilder&lt;T&gt; + SStringBuilder <sub>[Expand]</sub>
+SpanBuilder&lt;T&gt; + SStringBuilder <sub>[Expand]</sub>
 </summary>
 <p>
 
@@ -1135,7 +1135,7 @@
 
 <details>
 <summary>
-:page_facing_up: Command Line Parser <sub>[Expand]</sub>
+Command Line Parser <sub>[Expand]</sub>
 </summary>
 <p>
 
