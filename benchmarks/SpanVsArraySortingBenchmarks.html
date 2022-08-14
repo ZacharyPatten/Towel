@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Span vs Array Sorting </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Span vs Array Sorting ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="span-vs-array-sorting">Span vs Array Sorting</h1>
+
+<p><a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a></p>
+<p>The source code for all benchmarks are in <a href="https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking">Tools/Towel.Benchmarking</a>.</p>
+<pre><code class="lang-ini">
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.100-preview.6.21355.2
+  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+  Job-HBXSTX : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+
+InvocationCount=1  UnrollFactor=1  
+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>N</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+<th style="text-align: right;">Median</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ArrayBubbleRunTime</strong></td>
+<td><strong>10</strong></td>
+<td style="text-align: right;"><strong>2,268.4 ns</strong></td>
+<td style="text-align: right;"><strong>42.97 ns</strong></td>
+<td style="text-align: right;"><strong>47.76 ns</strong></td>
+<td style="text-align: right;"><strong>2,300.0 ns</strong></td>
+</tr>
+<tr>
+<td>ArrayBubbleCompileTime</td>
+<td>10</td>
+<td style="text-align: right;">1,101.1 ns</td>
+<td style="text-align: right;">23.74 ns</td>
+<td style="text-align: right;">66.19 ns</td>
+<td style="text-align: right;">1,100.0 ns</td>
+</tr>
+<tr>
+<td>SpanBubbleRunTime</td>
+<td>10</td>
+<td style="text-align: right;">1,870.0 ns</td>
+<td style="text-align: right;">39.16 ns</td>
+<td style="text-align: right;">95.33 ns</td>
+<td style="text-align: right;">1,900.0 ns</td>
+</tr>
+<tr>
+<td>SpanBubbleCompileTime</td>
+<td>10</td>
+<td style="text-align: right;">806.1 ns</td>
+<td style="text-align: right;">32.97 ns</td>
+<td style="text-align: right;">96.70 ns</td>
+<td style="text-align: right;">800.0 ns</td>
+</tr>
+<tr>
+<td><strong>ArrayBubbleRunTime</strong></td>
+<td><strong>1000</strong></td>
+<td style="text-align: right;"><strong>4,418,744.8 ns</strong></td>
+<td style="text-align: right;"><strong>74,527.92 ns</strong></td>
+<td style="text-align: right;"><strong>177,123.48 ns</strong></td>
+<td style="text-align: right;"><strong>4,361,000.0 ns</strong></td>
+</tr>
+<tr>
+<td>ArrayBubbleCompileTime</td>
+<td>1000</td>
+<td style="text-align: right;">4,829,523.7 ns</td>
+<td style="text-align: right;">77,343.79 ns</td>
+<td style="text-align: right;">196,864.63 ns</td>
+<td style="text-align: right;">4,759,050.0 ns</td>
+</tr>
+<tr>
+<td>SpanBubbleRunTime</td>
+<td>1000</td>
+<td style="text-align: right;">6,032,968.8 ns</td>
+<td style="text-align: right;">116,032.05 ns</td>
+<td style="text-align: right;">113,958.99 ns</td>
+<td style="text-align: right;">6,031,150.0 ns</td>
+</tr>
+<tr>
+<td>SpanBubbleCompileTime</td>
+<td>1000</td>
+<td style="text-align: right;">4,243,637.0 ns</td>
+<td style="text-align: right;">83,305.62 ns</td>
+<td style="text-align: right;">116,782.84 ns</td>
+<td style="text-align: right;">4,215,100.0 ns</td>
+</tr>
+<tr>
+<td><strong>ArrayBubbleRunTime</strong></td>
+<td><strong>10000</strong></td>
+<td style="text-align: right;"><strong>455,368,007.1 ns</strong></td>
+<td style="text-align: right;"><strong>2,358,146.70 ns</strong></td>
+<td style="text-align: right;"><strong>2,090,435.63 ns</strong></td>
+<td style="text-align: right;"><strong>454,983,900.0 ns</strong></td>
+</tr>
+<tr>
+<td>ArrayBubbleCompileTime</td>
+<td>10000</td>
+<td style="text-align: right;">510,762,966.7 ns</td>
+<td style="text-align: right;">1,215,746.52 ns</td>
+<td style="text-align: right;">949,174.91 ns</td>
+<td style="text-align: right;">511,029,800.0 ns</td>
+</tr>
+<tr>
+<td>SpanBubbleRunTime</td>
+<td>10000</td>
+<td style="text-align: right;">397,857,792.9 ns</td>
+<td style="text-align: right;">1,226,017.16 ns</td>
+<td style="text-align: right;">1,086,832.28 ns</td>
+<td style="text-align: right;">398,157,850.0 ns</td>
+</tr>
+<tr>
+<td>SpanBubbleCompileTime</td>
+<td>10000</td>
+<td style="text-align: right;">484,632,850.0 ns</td>
+<td style="text-align: right;">1,375,325.98 ns</td>
+<td style="text-align: right;">1,219,190.66 ns</td>
+<td style="text-align: right;">484,314,750.0 ns</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Tools/docfx_project/benchmarks/SpanVsArraySortingBenchmarks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

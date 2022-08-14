@@ -1,0 +1,531 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IGraphWeighted&lt;T, TWeight&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IGraphWeighted&lt;T, TWeight&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.IGraphWeighted`2">
+  
+  
+  <h1 id="Towel_DataStructures_IGraphWeighted_2" data-uid="Towel.DataStructures.IGraphWeighted`2" class="text-break">Interface IGraphWeighted&lt;T, TWeight&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A weighted graph data structure that stores nodes, edges with their corresponding weights.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_EdgeCount">IGraph&lt;T&gt;.EdgeCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_NodeCount">IGraph&lt;T&gt;.NodeCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_Adjacent__0__0_">IGraph&lt;T&gt;.Adjacent(T, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_Neighbors__0_Action__0__">IGraph&lt;T&gt;.Neighbors(T, Action&lt;T&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_GetNeighbours__0_">IGraph&lt;T&gt;.GetNeighbours(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_TryAdd__0__0_">IGraph&lt;T&gt;.TryAdd(T, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_TryRemove__0__0_">IGraph&lt;T&gt;.TryRemove(T, T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html#Towel_DataStructures_IGraph_1_EdgesBreak__1___0_">IGraph&lt;T&gt;.EdgesBreak&lt;TStep&gt;(TStep)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html#Towel_DataStructures_IDataStructure_1_ToArray">IDataStructure&lt;T&gt;.ToArray()</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.ISteppable-1.html#Towel_ISteppable_1_StepperBreak__1___0_">ISteppable&lt;T&gt;.StepperBreak&lt;TStep&gt;(TStep)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html#Towel_DataStructures_DataStructure_IAddable_1_TryAdd__0_">DataStructure.IAddable&lt;T&gt;.TryAdd(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html#Towel_DataStructures_DataStructure_IRemovable_1_TryRemove__0_">DataStructure.IRemovable&lt;T&gt;.TryRemove(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html#Towel_DataStructures_DataStructure_IClearable_Clear">DataStructure.IClearable.Clear()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_IGraphWeighted_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IGraphWeighted&lt;T, TWeight&gt; : IGraph&lt;T&gt;, IDataStructure&lt;T&gt;, ISteppable&lt;T&gt;, System.Collections.Generic.IEnumerable&lt;T&gt;, DataStructure.IAddable&lt;T&gt;, DataStructure.IRemovable&lt;T&gt;, DataStructure.IClearable</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic node type of this graph.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TWeight</span></td>
+        <td><p>The generic weight type of this graph.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_IGraphWeighted_2_Adjacent__0__0__1__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IGraphWeighted%602.Adjacent(%600%2C%600%2C%601%40)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L590">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IGraphWeighted_2_Adjacent_" data-uid="Towel.DataStructures.IGraphWeighted`2.Adjacent*"></a>
+  <h4 id="Towel_DataStructures_IGraphWeighted_2_Adjacent__0__0__1__" data-uid="Towel.DataStructures.IGraphWeighted`2.Adjacent(`0,`0,`1@)">Adjacent(T, T, out TWeight)</h4>
+  <div class="markdown level1 summary"><p>Checks if b is adjacent to a.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Adjacent(T a, T b, out TWeight weight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The starting point of the edge to check.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The ending point of the edge to check.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TWeight</span></td>
+        <td><span class="parametername">weight</span></td>
+        <td><p>The weight of the edge, if it exists.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if b is adjacent to a; False if not</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_IGraphWeighted_2_EdgesAndWeightsToArray.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IGraphWeighted%602.EdgesAndWeightsToArray%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L604">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IGraphWeighted_2_EdgesAndWeightsToArray_" data-uid="Towel.DataStructures.IGraphWeighted`2.EdgesAndWeightsToArray*"></a>
+  <h4 id="Towel_DataStructures_IGraphWeighted_2_EdgesAndWeightsToArray" data-uid="Towel.DataStructures.IGraphWeighted`2.EdgesAndWeightsToArray">EdgesAndWeightsToArray()</h4>
+  <div class="markdown level1 summary"><p>Enumerates and returns all edges present in the graph</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">(T, T, TWeight)[] EdgesAndWeightsToArray()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;T, T, TWeight&gt;[]</td>
+        <td><p>Array of Tuple of nodes and weight that represent an edge</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_IGraphWeighted_2_EdgesToArray.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IGraphWeighted%602.EdgesToArray%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L600">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IGraphWeighted_2_EdgesToArray_" data-uid="Towel.DataStructures.IGraphWeighted`2.EdgesToArray*"></a>
+  <h4 id="Towel_DataStructures_IGraphWeighted_2_EdgesToArray" data-uid="Towel.DataStructures.IGraphWeighted`2.EdgesToArray">EdgesToArray()</h4>
+  <div class="markdown level1 summary"><p>Enumerates and returns all edges present in the graph</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">(T, T)[] EdgesToArray()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;T, T&gt;[]</td>
+        <td><p>Array of Tuple of nodes that represent an edge</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_IGraphWeighted_2_GetWeight__0__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IGraphWeighted%602.GetWeight(%600%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L596">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IGraphWeighted_2_GetWeight_" data-uid="Towel.DataStructures.IGraphWeighted`2.GetWeight*"></a>
+  <h4 id="Towel_DataStructures_IGraphWeighted_2_GetWeight__0__0_" data-uid="Towel.DataStructures.IGraphWeighted`2.GetWeight(`0,`0)">GetWeight(T, T)</h4>
+  <div class="markdown level1 summary"><p>Gets the weight of an edge.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">TWeight GetWeight(T a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The starting node of the edge.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The ending node of the edge.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TWeight</span></td>
+        <td><p>The weight of the edge.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_IGraphWeighted_2_TryAdd__0__0__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IGraphWeighted%602.TryAdd(%600%2C%600%2C%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L583">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IGraphWeighted_2_TryAdd_" data-uid="Towel.DataStructures.IGraphWeighted`2.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_IGraphWeighted_2_TryAdd__0__0__1_" data-uid="Towel.DataStructures.IGraphWeighted`2.TryAdd(`0,`0,`1)">TryAdd(T, T, TWeight)</h4>
+  <div class="markdown level1 summary"><p>Adds a weighted edge to the graph</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">(bool Success, Exception? Exception) TryAdd(T start, T end, TWeight weight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The starting point of the edge to add</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending point of the edge to add</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">TWeight</span></td>
+        <td><span class="parametername">weight</span></td>
+        <td><p>The weight of the edge</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>(<see cref="!:System.Boolean"></see> Success, <see cref="!:Exception"></see>? Exception)<br></p>
+<ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the value was added or false<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the add was not successful</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="eii">Explicit Interface Implementations
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_IGraphWeighted_2_Towel_DataStructures_IGraph_T__TryAdd__0__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IGraphWeighted%602.Towel%23DataStructures%23IGraph%7BT%7D%23TryAdd(%600%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L572">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_IGraphWeighted_2_Towel_DataStructures_IGraph_T__TryAdd_" data-uid="Towel.DataStructures.IGraphWeighted`2.Towel#DataStructures#IGraph{T}#TryAdd*"></a>
+  <h4 id="Towel_DataStructures_IGraphWeighted_2_Towel_DataStructures_IGraph_T__TryAdd__0__0_" data-uid="Towel.DataStructures.IGraphWeighted`2.Towel#DataStructures#IGraph{T}#TryAdd(`0,`0)">IGraph&lt;T&gt;.TryAdd(T, T)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">(bool Success, Exception? Exception) IGraph&lt;T&gt;.TryAdd(T start, T end)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">start</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">end</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Towel.Steppable.html#Towel_Steppable_Stepper__1_Towel_ISteppable___0__Action___0__">Steppable.Stepper&lt;T&gt;(ISteppable&lt;T&gt;, Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Steppable.html#Towel_Steppable_Stepper__2_Towel_ISteppable___0____1_">Steppable.Stepper&lt;T, TStep&gt;(ISteppable&lt;T&gt;, TStep)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Steppable.html#Towel_Steppable_StepperBreak__1_Towel_ISteppable___0__Func___0_Towel_StepStatus__">Steppable.StepperBreak&lt;T&gt;(ISteppable&lt;T&gt;, Func&lt;T, StepStatus&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Add__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.Add&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Remove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.Remove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Graph.html#Towel_DataStructures_Graph_Add__1_Towel_DataStructures_IGraph___0____0___0_">Graph.Add&lt;T&gt;(IGraph&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Graph.html#Towel_DataStructures_Graph_Remove__1_Towel_DataStructures_IGraph___0____0_">Graph.Remove&lt;T&gt;(IGraph&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Graph.html#Towel_DataStructures_Graph_Remove__1_Towel_DataStructures_IGraph___0____0___0_">Graph.Remove&lt;T&gt;(IGraph&lt;T&gt;, T, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Graph.html#Towel_DataStructures_Graph_Edges__1_Towel_DataStructures_IGraph___0__Action_System_ValueTuple___0___0___">Graph.Edges&lt;T&gt;(IGraph&lt;T&gt;, Action&lt;(T, T)&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Graph.html#Towel_DataStructures_Graph_Edges__2_Towel_DataStructures_IGraph___0____1_">Graph.Edges&lt;T, TStep&gt;(IGraph&lt;T&gt;, TStep)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.Graph.html#Towel_DataStructures_Graph_EdgesBreak__1_Towel_DataStructures_IGraph___0__Func_System_ValueTuple___0___0__Towel_StepStatus__">Graph.EdgesBreak&lt;T&gt;(IGraph&lt;T&gt;, Func&lt;(T, T), StepStatus&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.GraphWeighted.html#Towel_DataStructures_GraphWeighted_Add__2_Towel_DataStructures_IGraphWeighted___0___1____0___0___1_">GraphWeighted.Add&lt;T, TWeight&gt;(IGraphWeighted&lt;T, TWeight&gt;, T, T, TWeight)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_IGraphWeighted_2.md&amp;value=---%0Auid%3A%20Towel.DataStructures.IGraphWeighted%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L568" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Data Structures </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Data Structures ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="data-structures">Data Structures</h1>
+
+<p><a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a></p>
+<p>The source code for all benchmarks are in <a href="https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking">Tools/Towel.Benchmarking</a>.</p>
+<pre><code class="lang-ini">
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.1469 (21H2)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.200-preview.21617.4
+  [Host]     : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+  DefaultJob : .NET 6.0.1 (6.0.121.56705), X64 RyuJIT
+
+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>RandomTestData</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ListArray_Add</strong></td>
+<td><strong>Person[1000]</strong></td>
+<td style="text-align: right;"><strong>11,953.79 ns</strong></td>
+<td style="text-align: right;"><strong>238.245 ns</strong></td>
+<td style="text-align: right;"><strong>512.847 ns</strong></td>
+</tr>
+<tr>
+<td>ListArray_AddWithCapacity</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">11,264.89 ns</td>
+<td style="text-align: right;">126.023 ns</td>
+<td style="text-align: right;">111.716 ns</td>
+</tr>
+<tr>
+<td>ListLinked_Add</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">14,724.64 ns</td>
+<td style="text-align: right;">260.631 ns</td>
+<td style="text-align: right;">243.795 ns</td>
+</tr>
+<tr>
+<td>QueueArray_Enqueue</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">10,033.62 ns</td>
+<td style="text-align: right;">156.998 ns</td>
+<td style="text-align: right;">146.856 ns</td>
+</tr>
+<tr>
+<td>QueueArray_EnqueueWithCapacity</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">10,556.92 ns</td>
+<td style="text-align: right;">121.369 ns</td>
+<td style="text-align: right;">107.590 ns</td>
+</tr>
+<tr>
+<td>QueueLinked_Enqueue</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">11,149.43 ns</td>
+<td style="text-align: right;">222.536 ns</td>
+<td style="text-align: right;">601.639 ns</td>
+</tr>
+<tr>
+<td>StackArray_Push</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">6,784.71 ns</td>
+<td style="text-align: right;">133.005 ns</td>
+<td style="text-align: right;">271.694 ns</td>
+</tr>
+<tr>
+<td>StackArray_PushWithCapacity</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">5,827.44 ns</td>
+<td style="text-align: right;">78.805 ns</td>
+<td style="text-align: right;">73.715 ns</td>
+</tr>
+<tr>
+<td>StackLinked_Push</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">9,975.14 ns</td>
+<td style="text-align: right;">179.241 ns</td>
+<td style="text-align: right;">167.662 ns</td>
+</tr>
+<tr>
+<td>AvlTreeLinked_AddRunTime</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">978,537.46 ns</td>
+<td style="text-align: right;">37,366.842 ns</td>
+<td style="text-align: right;">108,407.985 ns</td>
+</tr>
+<tr>
+<td>AvlTreeLinked_AddCompileTime</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">900,494.22 ns</td>
+<td style="text-align: right;">17,988.664 ns</td>
+<td style="text-align: right;">38,335.310 ns</td>
+</tr>
+<tr>
+<td>RedBlackTree_AddRunTime</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">889,709.68 ns</td>
+<td style="text-align: right;">16,173.330 ns</td>
+<td style="text-align: right;">13,505.463 ns</td>
+</tr>
+<tr>
+<td>RedBlackTree_AddCompileTime</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">1,034,283.42 ns</td>
+<td style="text-align: right;">20,464.748 ns</td>
+<td style="text-align: right;">58,717.198 ns</td>
+</tr>
+<tr>
+<td>SetHashLinked_AddRunTime</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">65,663.44 ns</td>
+<td style="text-align: right;">928.168 ns</td>
+<td style="text-align: right;">868.209 ns</td>
+</tr>
+<tr>
+<td>SetHashLinked_AddCompileTime</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">54,765.16 ns</td>
+<td style="text-align: right;">886.181 ns</td>
+<td style="text-align: right;">910.043 ns</td>
+</tr>
+<tr>
+<td>SkipList_Add</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">3,755,378.84 ns</td>
+<td style="text-align: right;">41,136.672 ns</td>
+<td style="text-align: right;">32,116.808 ns</td>
+</tr>
+<tr>
+<td>BTreeLinked_Add</td>
+<td>Person[1000]</td>
+<td style="text-align: right;">892,964.50 ns</td>
+<td style="text-align: right;">17,733.868 ns</td>
+<td style="text-align: right;">33,740.528 ns</td>
+</tr>
+<tr>
+<td><strong>ListArray_Add</strong></td>
+<td><strong>Person[100]</strong></td>
+<td style="text-align: right;"><strong>1,349.97 ns</strong></td>
+<td style="text-align: right;"><strong>26.256 ns</strong></td>
+<td style="text-align: right;"><strong>39.299 ns</strong></td>
+</tr>
+<tr>
+<td>ListArray_AddWithCapacity</td>
+<td>Person[100]</td>
+<td style="text-align: right;">1,012.64 ns</td>
+<td style="text-align: right;">6.842 ns</td>
+<td style="text-align: right;">6.400 ns</td>
+</tr>
+<tr>
+<td>ListLinked_Add</td>
+<td>Person[100]</td>
+<td style="text-align: right;">1,510.59 ns</td>
+<td style="text-align: right;">29.630 ns</td>
+<td style="text-align: right;">48.683 ns</td>
+</tr>
+<tr>
+<td>QueueArray_Enqueue</td>
+<td>Person[100]</td>
+<td style="text-align: right;">1,187.26 ns</td>
+<td style="text-align: right;">23.653 ns</td>
+<td style="text-align: right;">39.519 ns</td>
+</tr>
+<tr>
+<td>QueueArray_EnqueueWithCapacity</td>
+<td>Person[100]</td>
+<td style="text-align: right;">1,053.07 ns</td>
+<td style="text-align: right;">21.093 ns</td>
+<td style="text-align: right;">25.110 ns</td>
+</tr>
+<tr>
+<td>QueueLinked_Enqueue</td>
+<td>Person[100]</td>
+<td style="text-align: right;">1,110.71 ns</td>
+<td style="text-align: right;">21.718 ns</td>
+<td style="text-align: right;">23.238 ns</td>
+</tr>
+<tr>
+<td>StackArray_Push</td>
+<td>Person[100]</td>
+<td style="text-align: right;">837.50 ns</td>
+<td style="text-align: right;">15.113 ns</td>
+<td style="text-align: right;">17.404 ns</td>
+</tr>
+<tr>
+<td>StackArray_PushWithCapacity</td>
+<td>Person[100]</td>
+<td style="text-align: right;">596.88 ns</td>
+<td style="text-align: right;">11.342 ns</td>
+<td style="text-align: right;">11.648 ns</td>
+</tr>
+<tr>
+<td>StackLinked_Push</td>
+<td>Person[100]</td>
+<td style="text-align: right;">1,047.26 ns</td>
+<td style="text-align: right;">20.521 ns</td>
+<td style="text-align: right;">52.604 ns</td>
+</tr>
+<tr>
+<td>AvlTreeLinked_AddRunTime</td>
+<td>Person[100]</td>
+<td style="text-align: right;">59,298.06 ns</td>
+<td style="text-align: right;">961.996 ns</td>
+<td style="text-align: right;">852.784 ns</td>
+</tr>
+<tr>
+<td>AvlTreeLinked_AddCompileTime</td>
+<td>Person[100]</td>
+<td style="text-align: right;">54,780.93 ns</td>
+<td style="text-align: right;">867.949 ns</td>
+<td style="text-align: right;">677.637 ns</td>
+</tr>
+<tr>
+<td>RedBlackTree_AddRunTime</td>
+<td>Person[100]</td>
+<td style="text-align: right;">61,468.98 ns</td>
+<td style="text-align: right;">1,221.374 ns</td>
+<td style="text-align: right;">2,410.873 ns</td>
+</tr>
+<tr>
+<td>RedBlackTree_AddCompileTime</td>
+<td>Person[100]</td>
+<td style="text-align: right;">59,874.35 ns</td>
+<td style="text-align: right;">1,130.306 ns</td>
+<td style="text-align: right;">1,691.789 ns</td>
+</tr>
+<tr>
+<td>SetHashLinked_AddRunTime</td>
+<td>Person[100]</td>
+<td style="text-align: right;">6,387.72 ns</td>
+<td style="text-align: right;">107.977 ns</td>
+<td style="text-align: right;">101.002 ns</td>
+</tr>
+<tr>
+<td>SetHashLinked_AddCompileTime</td>
+<td>Person[100]</td>
+<td style="text-align: right;">5,188.74 ns</td>
+<td style="text-align: right;">68.079 ns</td>
+<td style="text-align: right;">60.350 ns</td>
+</tr>
+<tr>
+<td>SkipList_Add</td>
+<td>Person[100]</td>
+<td style="text-align: right;">648,496.75 ns</td>
+<td style="text-align: right;">8,526.228 ns</td>
+<td style="text-align: right;">7,975.439 ns</td>
+</tr>
+<tr>
+<td>BTreeLinked_Add</td>
+<td>Person[100]</td>
+<td style="text-align: right;">51,567.06 ns</td>
+<td style="text-align: right;">921.117 ns</td>
+<td style="text-align: right;">861.614 ns</td>
+</tr>
+<tr>
+<td><strong>ListArray_Add</strong></td>
+<td><strong>Person[10]</strong></td>
+<td style="text-align: right;"><strong>183.83 ns</strong></td>
+<td style="text-align: right;"><strong>3.361 ns</strong></td>
+<td style="text-align: right;"><strong>3.143 ns</strong></td>
+</tr>
+<tr>
+<td>ListArray_AddWithCapacity</td>
+<td>Person[10]</td>
+<td style="text-align: right;">118.53 ns</td>
+<td style="text-align: right;">1.141 ns</td>
+<td style="text-align: right;">1.067 ns</td>
+</tr>
+<tr>
+<td>ListLinked_Add</td>
+<td>Person[10]</td>
+<td style="text-align: right;">149.97 ns</td>
+<td style="text-align: right;">1.812 ns</td>
+<td style="text-align: right;">1.607 ns</td>
+</tr>
+<tr>
+<td>QueueArray_Enqueue</td>
+<td>Person[10]</td>
+<td style="text-align: right;">142.48 ns</td>
+<td style="text-align: right;">2.083 ns</td>
+<td style="text-align: right;">1.846 ns</td>
+</tr>
+<tr>
+<td>QueueArray_EnqueueWithCapacity</td>
+<td>Person[10]</td>
+<td style="text-align: right;">119.23 ns</td>
+<td style="text-align: right;">1.473 ns</td>
+<td style="text-align: right;">1.306 ns</td>
+</tr>
+<tr>
+<td>QueueLinked_Enqueue</td>
+<td>Person[10]</td>
+<td style="text-align: right;">119.53 ns</td>
+<td style="text-align: right;">2.377 ns</td>
+<td style="text-align: right;">2.920 ns</td>
+</tr>
+<tr>
+<td>StackArray_Push</td>
+<td>Person[10]</td>
+<td style="text-align: right;">147.56 ns</td>
+<td style="text-align: right;">2.933 ns</td>
+<td style="text-align: right;">2.880 ns</td>
+</tr>
+<tr>
+<td>StackArray_PushWithCapacity</td>
+<td>Person[10]</td>
+<td style="text-align: right;">70.39 ns</td>
+<td style="text-align: right;">1.349 ns</td>
+<td style="text-align: right;">1.262 ns</td>
+</tr>
+<tr>
+<td>StackLinked_Push</td>
+<td>Person[10]</td>
+<td style="text-align: right;">114.01 ns</td>
+<td style="text-align: right;">1.840 ns</td>
+<td style="text-align: right;">1.722 ns</td>
+</tr>
+<tr>
+<td>AvlTreeLinked_AddRunTime</td>
+<td>Person[10]</td>
+<td style="text-align: right;">2,569.00 ns</td>
+<td style="text-align: right;">49.350 ns</td>
+<td style="text-align: right;">56.832 ns</td>
+</tr>
+<tr>
+<td>AvlTreeLinked_AddCompileTime</td>
+<td>Person[10]</td>
+<td style="text-align: right;">2,389.07 ns</td>
+<td style="text-align: right;">47.099 ns</td>
+<td style="text-align: right;">46.258 ns</td>
+</tr>
+<tr>
+<td>RedBlackTree_AddRunTime</td>
+<td>Person[10]</td>
+<td style="text-align: right;">2,924.05 ns</td>
+<td style="text-align: right;">57.001 ns</td>
+<td style="text-align: right;">90.409 ns</td>
+</tr>
+<tr>
+<td>RedBlackTree_AddCompileTime</td>
+<td>Person[10]</td>
+<td style="text-align: right;">2,760.31 ns</td>
+<td style="text-align: right;">48.891 ns</td>
+<td style="text-align: right;">71.664 ns</td>
+</tr>
+<tr>
+<td>SetHashLinked_AddRunTime</td>
+<td>Person[10]</td>
+<td style="text-align: right;">701.38 ns</td>
+<td style="text-align: right;">5.353 ns</td>
+<td style="text-align: right;">4.180 ns</td>
+</tr>
+<tr>
+<td>SetHashLinked_AddCompileTime</td>
+<td>Person[10]</td>
+<td style="text-align: right;">560.00 ns</td>
+<td style="text-align: right;">6.663 ns</td>
+<td style="text-align: right;">5.907 ns</td>
+</tr>
+<tr>
+<td>SkipList_Add</td>
+<td>Person[10]</td>
+<td style="text-align: right;">577,439.00 ns</td>
+<td style="text-align: right;">11,119.887 ns</td>
+<td style="text-align: right;">12,359.725 ns</td>
+</tr>
+<tr>
+<td>BTreeLinked_Add</td>
+<td>Person[10]</td>
+<td style="text-align: right;">2,011.85 ns</td>
+<td style="text-align: right;">39.734 ns</td>
+<td style="text-align: right;">37.167 ns</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Tools/docfx_project/benchmarks/DataStructuresBenchmarks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,776 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AvlTreeLinked&lt;T, TCompare&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AvlTreeLinked&lt;T, TCompare&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.AvlTreeLinked`2">
+  
+  
+  <h1 id="Towel_DataStructures_AvlTreeLinked_2" data-uid="Towel.DataStructures.AvlTreeLinked`2" class="text-break">Class AvlTreeLinked&lt;T, TCompare&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A self-sorting binary tree based on the heights of each node.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">AvlTreeLinked&lt;T, TCompare&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Towel.DataStructures.IAvlTree-2.html">IAvlTree</a>&lt;T, TCompare&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IAvlTree-1.html">IAvlTree</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.ISortedBinaryTree-2.html">ISortedBinaryTree</a>&lt;T, TCompare&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html">ISortedBinaryTree</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.ISteppable-1.html">ISteppable</a>&lt;T&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a></div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html">DataStructure.IAuditable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IComparing-2.html">DataStructure.IComparing</a>&lt;T, TCompare&gt;</div>
+    <div><a class="xref" href="Towel.ICloneable-1.html">ICloneable</a>&lt;<a class="xref" href="Towel.DataStructures.AvlTreeLinked-2.html">AvlTreeLinked</a>&lt;T, TCompare&gt;&gt;</div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_AvlTreeLinked_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AvlTreeLinked&lt;T, TCompare&gt; : object, IAvlTree&lt;T, TCompare&gt;, IAvlTree&lt;T&gt;, ISortedBinaryTree&lt;T, TCompare&gt;, ISortedBinaryTree&lt;T&gt;, IDataStructure&lt;T&gt;, ISteppable&lt;T&gt;, System.Collections.Generic.IEnumerable&lt;T&gt;, DataStructure.IAddable&lt;T&gt;, DataStructure.IRemovable&lt;T&gt;, DataStructure.ICountable, DataStructure.IClearable, DataStructure.IAuditable&lt;T&gt;, DataStructure.IComparing&lt;T, TCompare&gt;, ICloneable&lt;AvlTreeLinked&lt;T, TCompare&gt;&gt; where TCompare : struct, IFunc&lt;T, T, CompareResult&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of values stored in this data structure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TCompare</span></td>
+        <td><p>The type that is comparing <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2__ctor__1_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.%23ctor(%601)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L80">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2__ctor_" data-uid="Towel.DataStructures.AvlTreeLinked`2.#ctor*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2__ctor__1_" data-uid="Towel.DataStructures.AvlTreeLinked`2.#ctor(`1)">AvlTreeLinked(TCompare)</h4>
+  <div class="markdown level1 summary"><p>Constructs an AVL Tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AvlTreeLinked(TCompare compare = default(TCompare))</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCompare</span></td>
+        <td><span class="parametername">compare</span></td>
+        <td><p>The comparison function for sorting <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_Compare.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.Compare%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L137">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_Compare_" data-uid="Towel.DataStructures.AvlTreeLinked`2.Compare*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_Compare" data-uid="Towel.DataStructures.AvlTreeLinked`2.Compare">Compare</h4>
+  <div class="markdown level1 summary"><p>Gets the value of the comparer that is comparing <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TCompare Compare { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TCompare</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_Count.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.Count%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L140">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_Count_" data-uid="Towel.DataStructures.AvlTreeLinked`2.Count*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_Count" data-uid="Towel.DataStructures.AvlTreeLinked`2.Count">Count</h4>
+  <div class="markdown level1 summary"><p>Gets the current count of the data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_CurrentGreatest.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.CurrentGreatest%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L122">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_CurrentGreatest_" data-uid="Towel.DataStructures.AvlTreeLinked`2.CurrentGreatest*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_CurrentGreatest" data-uid="Towel.DataStructures.AvlTreeLinked`2.CurrentGreatest">CurrentGreatest</h4>
+  <div class="markdown level1 summary"><p>Gets the current greated value in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T CurrentGreatest { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_CurrentLeast.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.CurrentLeast%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L107">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_CurrentLeast_" data-uid="Towel.DataStructures.AvlTreeLinked`2.CurrentLeast*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_CurrentLeast" data-uid="Towel.DataStructures.AvlTreeLinked`2.CurrentLeast">CurrentLeast</h4>
+  <div class="markdown level1 summary"><p>Gets the current least value in the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T CurrentLeast { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_Clear.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L178">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_Clear_" data-uid="Towel.DataStructures.AvlTreeLinked`2.Clear*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_Clear" data-uid="Towel.DataStructures.AvlTreeLinked`2.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Returns the data structure to an empty state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_Clone.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L185">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_Clone_" data-uid="Towel.DataStructures.AvlTreeLinked`2.Clone*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_Clone" data-uid="Towel.DataStructures.AvlTreeLinked`2.Clone">Clone()</h4>
+  <div class="markdown level1 summary"><p>Clones a <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AvlTreeLinked&lt;T, TCompare&gt; Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.AvlTreeLinked-2.html">AvlTreeLinked</a>&lt;T, TCompare&gt;</td>
+        <td><p>A clone of the <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_Contains__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.Contains(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L188">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_Contains_" data-uid="Towel.DataStructures.AvlTreeLinked`2.Contains*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_Contains__0_" data-uid="Towel.DataStructures.AvlTreeLinked`2.Contains(`0)">Contains(T)</h4>
+  <div class="markdown level1 summary"><p>Checks if the data structure contains a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to look for in the data structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value exists in the data structure. False if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_ContainsSift__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.ContainsSift%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L191">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_ContainsSift_" data-uid="Towel.DataStructures.AvlTreeLinked`2.ContainsSift*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_ContainsSift__1___0_" data-uid="Towel.DataStructures.AvlTreeLinked`2.ContainsSift``1(``0)">ContainsSift&lt;TSift&gt;(TSift)</h4>
+  <div class="markdown level1 summary"><p>Determines if the tree contains a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ContainsSift&lt;TSift&gt;(TSift sift = default(TSift))
+    where TSift : struct, IFunc&lt;T, CompareResult&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TSift</span></td>
+        <td><span class="parametername">sift</span></td>
+        <td><p>The sifting function that respects the sorting of the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if the value is in the tree or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TSift</span></td>
+        <td><p>The type of the sifting function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_TryAdd__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.TryAdd(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L147">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_TryAdd_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_TryAdd__0_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryAdd(`0)">TryAdd(T)</h4>
+  <div class="markdown level1 summary"><p>Tries to add a value to a data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryAdd(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to add to the data structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the value was added or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_TryGet__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.TryGet%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L213">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_TryGet_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryGet*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_TryGet__1___0_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryGet``1(``0)">TryGet&lt;TSift&gt;(TSift)</h4>
+  <div class="markdown level1 summary"><p>Tries to get a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, T Value, Exception? Exception) TryGet&lt;TSift&gt;(TSift sift = default(TSift))
+    where TSift : struct, IFunc&lt;T, CompareResult&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TSift</span></td>
+        <td><span class="parametername">sift</span></td>
+        <td><p>The sifting function that respects the sorting of the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, T, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the value was found or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TSift</span></td>
+        <td><p>The type of the sifting function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_TryRemove__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.TryRemove(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L232">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_TryRemove_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_TryRemove__0_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryRemove(`0)">TryRemove(T)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryRemove(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the value was removed or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2_TryRemoveSift__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602.TryRemoveSift%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L235">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_AvlTreeLinked_2_TryRemoveSift_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryRemoveSift*"></a>
+  <h4 id="Towel_DataStructures_AvlTreeLinked_2_TryRemoveSift__1___0_" data-uid="Towel.DataStructures.AvlTreeLinked`2.TryRemoveSift``1(``0)">TryRemoveSift&lt;TSift&gt;(TSift)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryRemoveSift&lt;TSift&gt;(TSift sift = default(TSift))
+    where TSift : struct, IFunc&lt;T, CompareResult&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TSift</span></td>
+        <td><span class="parametername">sift</span></td>
+        <td><p>The sifting function that respects the sorting of the tree.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the remove succeeded or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TSift</span></td>
+        <td><p>The type of the sifting function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IAvlTree-2.html">IAvlTree&lt;T, TCompare&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IAvlTree-1.html">IAvlTree&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-2.html">ISortedBinaryTree&lt;T, TCompare&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html">ISortedBinaryTree&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.ISteppable-1.html">ISteppable&lt;T&gt;</a>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;&gt;</span>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html">DataStructure.ICountable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html">DataStructure.IAuditable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IComparing-2.html">DataStructure.IComparing&lt;T, TCompare&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.ICloneable-1.html">ICloneable&lt;T&gt;</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_AvlTreeLinked_2.md&amp;value=---%0Auid%3A%20Towel.DataStructures.AvlTreeLinked%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/AvlTree.cs/#L44" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

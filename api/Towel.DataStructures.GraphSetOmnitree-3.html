@@ -1,0 +1,982 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GraphSetOmnitree&lt;T, TEquate, THash&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GraphSetOmnitree&lt;T, TEquate, THash&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.GraphSetOmnitree`3">
+  
+  
+  <h1 id="Towel_DataStructures_GraphSetOmnitree_3" data-uid="Towel.DataStructures.GraphSetOmnitree`3" class="text-break">Class GraphSetOmnitree&lt;T, TEquate, THash&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Stores the graph as a set-hash of nodes and quadtree of edges.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><span class="xref">System.Object</span></div>
+    <div class="level1"><span class="xref">GraphSetOmnitree&lt;T, TEquate, THash&gt;</span></div>
+  </div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Towel.DataStructures.IGraph-1.html">IGraph</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.ISteppable-1.html">ISteppable</a>&lt;T&gt;</div>
+    <div><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable</a>&lt;T&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a></div>
+    <div><a class="xref" href="Towel.ICloneable-1.html">ICloneable</a>&lt;<a class="xref" href="Towel.DataStructures.GraphSetOmnitree-3.html">GraphSetOmnitree</a>&lt;T, TEquate, THash&gt;&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IEquating-2.html">DataStructure.IEquating</a>&lt;T, TEquate&gt;</div>
+    <div><a class="xref" href="Towel.DataStructures.DataStructure.IHashing-2.html">DataStructure.IHashing</a>&lt;T, THash&gt;</div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_GraphSetOmnitree_3_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class GraphSetOmnitree&lt;T, TEquate, THash&gt; : object, IGraph&lt;T&gt;, IDataStructure&lt;T&gt;, ISteppable&lt;T&gt;, System.Collections.Generic.IEnumerable&lt;T&gt;, DataStructure.IAddable&lt;T&gt;, DataStructure.IRemovable&lt;T&gt;, DataStructure.IClearable, ICloneable&lt;GraphSetOmnitree&lt;T, TEquate, THash&gt;&gt;, DataStructure.IEquating&lt;T, TEquate&gt;, DataStructure.IHashing&lt;T, THash&gt; where TEquate : struct, IFunc&lt;T, T, bool&gt; where THash : struct, IFunc&lt;T, int&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The generic type of this data structure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TEquate</span></td>
+        <td><p>The type of function for quality checking <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">THash</span></td>
+        <td><p>The type of function for hashing <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3__ctor__1__2_System_Nullable_Func__0__0_Towel_CompareResult___.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.%23ctor(%601%2C%602%2CSystem.Nullable%7BFunc%7B%600%2C%600%2CTowel.CompareResult%7D%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L209">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3__ctor_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.#ctor*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3__ctor__1__2_System_Nullable_Func__0__0_Towel_CompareResult___" data-uid="Towel.DataStructures.GraphSetOmnitree`3.#ctor(`1,`2,System.Nullable{Func{`0,`0,Towel.CompareResult}})">GraphSetOmnitree(TEquate, THash, Nullable&lt;Func&lt;T, T, CompareResult&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new GraphSetOmnitree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GraphSetOmnitree(TEquate equate = default(TEquate), THash hash = default(THash), Func&lt;T, T, CompareResult&gt;? compare = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEquate</span></td>
+        <td><span class="parametername">equate</span></td>
+        <td><p>The equate delegate for the data structure to use.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">THash</span></td>
+        <td><span class="parametername">hash</span></td>
+        <td><p>The hash delegate for the datastructure to use.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">Func</span>&lt;T, T, <a class="xref" href="Towel.CompareResult.html">CompareResult</a>&gt;&gt;</td>
+        <td><span class="parametername">compare</span></td>
+        <td><p>The compare delegate for the data structure to use.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_EdgeCount.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.EdgeCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L236">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_EdgeCount_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.EdgeCount*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_EdgeCount" data-uid="Towel.DataStructures.GraphSetOmnitree`3.EdgeCount">EdgeCount</h4>
+  <div class="markdown level1 summary"><p>The number of edges in the graph.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int EdgeCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_Equate.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.Equate%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L230">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_Equate_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Equate*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_Equate" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Equate">Equate</h4>
+  <div class="markdown level1 summary"><p>Gets the value of the type that is checking <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values for equality.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TEquate Equate { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TEquate</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_Hash.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.Hash%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L233">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_Hash_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Hash*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_Hash" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Hash">Hash</h4>
+  <div class="markdown level1 summary"><p>Gets the value of the type that is hashing <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public THash Hash { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">THash</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_NodeCount.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.NodeCount%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L239">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_NodeCount_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.NodeCount*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_NodeCount" data-uid="Towel.DataStructures.GraphSetOmnitree`3.NodeCount">NodeCount</h4>
+  <div class="markdown level1 summary"><p>The number of nodes in the graph.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int NodeCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_Adjacent__0__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.Adjacent(%600%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L317">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_Adjacent_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Adjacent*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_Adjacent__0__0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Adjacent(`0,`0)">Adjacent(T, T)</h4>
+  <div class="markdown level1 summary"><p>Checks if an edge exists from <code data-dev-comment-type="paramref" class="paramref">a</code> to <code data-dev-comment-type="paramref" class="paramref">b</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Adjacent(T a, T b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The start of the edge.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The end of the edge.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if an edge exists from <code data-dev-comment-type="paramref" class="paramref">a</code> to <code data-dev-comment-type="paramref" class="paramref">b</code>; False if not</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_Clear.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.Clear%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L344">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_Clear_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Clear*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_Clear" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Returns the data structure to an empty state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_Clone.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.Clone%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L341">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_Clone_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Clone*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_Clone" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Clone">Clone()</h4>
+  <div class="markdown level1 summary"><p>Clones a <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GraphSetOmnitree&lt;T, TEquate, THash&gt; Clone()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.DataStructures.GraphSetOmnitree-3.html">GraphSetOmnitree</a>&lt;T, TEquate, THash&gt;</td>
+        <td><p>A clone of the <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_EdgesBreak__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.EdgesBreak%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L356">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_EdgesBreak_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.EdgesBreak*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_EdgesBreak__1___0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.EdgesBreak``1(``0)">EdgesBreak&lt;TStep&gt;(TStep)</h4>
+  <div class="markdown level1 summary"><p>Invokes a function on every edge in the graph.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus EdgesBreak&lt;TStep&gt;(TStep step = default(TStep))
+    where TStep : struct, IFunc&lt;(T, T), StepStatus&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TStep</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The function to perform on every edge in the graph.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The status of the traversal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TStep</span></td>
+        <td><p>The type of the step function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_GetEnumerator.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.GetEnumerator%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L364">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_GetEnumerator_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.GetEnumerator*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_GetEnumerator" data-uid="Towel.DataStructures.GraphSetOmnitree`3.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public System.Collections.Generic.IEnumerator&lt;T&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerator</span>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_GetNeighbours__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.GetNeighbours(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L367">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_GetNeighbours_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.GetNeighbours*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_GetNeighbours__0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.GetNeighbours(`0)">GetNeighbours(T)</h4>
+  <div class="markdown level1 summary"><p>Gets enumerator of all neighbours of a node</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public System.Collections.Generic.IEnumerable&lt;T&gt; GetNeighbours(T node)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">node</span></td>
+        <td><p>The node to get neighbours of</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Collections.Generic.IEnumerable</span>&lt;T&gt;</td>
+        <td><p>IEnumerable of all neighbours of the given node</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_Neighbors__0_Action__0__.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.Neighbors(%600%2CAction%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L329">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_Neighbors_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Neighbors*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_Neighbors__0_Action__0__" data-uid="Towel.DataStructures.GraphSetOmnitree`3.Neighbors(`0,Action{`0})">Neighbors(T, Action&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Gets all the nodes adjacent to a and performs the provided delegate on each.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Neighbors(T node, Action&lt;T&gt; step)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">node</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><span class="xref">Action</span>&lt;T&gt;</td>
+        <td><span class="parametername">step</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_StepperBreak__1___0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.StepperBreak%60%601(%60%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L351">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_StepperBreak_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.StepperBreak*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_StepperBreak__1___0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.StepperBreak``1(``0)">StepperBreak&lt;TStep&gt;(TStep)</h4>
+  <div class="markdown level1 summary"><p>Traverses values and invokes a function on every <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StepStatus StepperBreak&lt;TStep&gt;(TStep step = default(TStep))
+    where TStep : struct, IFunc&lt;T, StepStatus&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TStep</span></td>
+        <td><span class="parametername">step</span></td>
+        <td><p>The function to invoke on every <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.StepStatus.html">StepStatus</a></td>
+        <td><p>The status of the traversal.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TStep</span></td>
+        <td><p>The type of function to invoke on every <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_ToArray.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.ToArray%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L375">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_ToArray_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.ToArray*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_ToArray" data-uid="Towel.DataStructures.GraphSetOmnitree`3.ToArray">ToArray()</h4>
+  <div class="markdown level1 summary"><p>Constructs an array with the values of this data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T[] ToArray()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><p>An array with the values of this data structure.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_TryAdd__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.TryAdd(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L246">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_TryAdd_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_TryAdd__0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryAdd(`0)">TryAdd(T)</h4>
+  <div class="markdown level1 summary"><p>Tries to add a value to a data structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryAdd(T node)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">node</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the value was added or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_TryAdd__0__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.TryAdd(%600%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L257">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_TryAdd_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryAdd*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_TryAdd__0__0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryAdd(`0,`0)">TryAdd(T, T)</h4>
+  <div class="markdown level1 summary"><p>Adds an edge to the graph starting at a and ending at b.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryAdd(T start, T end)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The stating point of the edge to add.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending point of the edge to add.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the edge was added or false if not<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the add failed</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_TryRemove__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.TryRemove(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L280">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_TryRemove_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_TryRemove__0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryRemove(`0)">TryRemove(T)</h4>
+  <div class="markdown level1 summary"><p>Tries to remove a value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryRemove(T node)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">node</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><p>True if the value was removed or false if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3_TryRemove__0__0_.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603.TryRemove(%600%2C%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L293">View Source</a>
+  </span>
+  <a id="Towel_DataStructures_GraphSetOmnitree_3_TryRemove_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryRemove*"></a>
+  <h4 id="Towel_DataStructures_GraphSetOmnitree_3_TryRemove__0__0_" data-uid="Towel.DataStructures.GraphSetOmnitree`3.TryRemove(`0,`0)">TryRemove(T, T)</h4>
+  <div class="markdown level1 summary"><p>Removes an edge from the graph.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public (bool Success, Exception? Exception) TryRemove(T start, T end)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">start</span></td>
+        <td><p>The starting point of the edge to remove.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">end</span></td>
+        <td><p>The ending point of the edge to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.ValueTuple</span>&lt;<span class="xref">System.Boolean</span>, <span class="xref">System.Nullable</span>&lt;<span class="xref">Exception</span>&gt;&gt;</td>
+        <td><ul>
+<li><see cref="!:System.Boolean"></see> Success: true if the edge was removed or false if not<br></li>
+<li><see cref="!:Exception"></see>? Exception: the exception that occured if the remove failed</li>
+</ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IGraph-1.html">IGraph&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html">IDataStructure&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.ISteppable-1.html">ISteppable&lt;T&gt;</a>
+  </div>
+  <div>
+      <span class="xref">System.Collections.Generic.IEnumerable&lt;&gt;</span>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html">DataStructure.IAddable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html">DataStructure.IRemovable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html">DataStructure.IClearable</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.ICloneable-1.html">ICloneable&lt;T&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IEquating-2.html">DataStructure.IEquating&lt;T, TEquate&gt;</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IHashing-2.html">DataStructure.IHashing&lt;T, THash&gt;</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_GraphSetOmnitree_3.md&amp;value=---%0Auid%3A%20Towel.DataStructures.GraphSetOmnitree%603%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/Graph.cs/#L166" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

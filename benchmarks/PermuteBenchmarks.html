@@ -1,0 +1,521 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Permute </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Permute ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="permute">Permute</h1>
+
+<p><a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a></p>
+<p>The source code for all benchmarks are in <a href="https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking">Tools/Towel.Benchmarking</a>.</p>
+<pre><code class="lang-ini">
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.100-preview.6.21355.2
+  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+  Job-HBXSTX : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+
+InvocationCount=1  UnrollFactor=1  
+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>N</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+<th style="text-align: right;">Median</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>1</strong></td>
+<td style="text-align: right;"><strong>166.3 ns</strong></td>
+<td style="text-align: right;"><strong>20.85 ns</strong></td>
+<td style="text-align: right;"><strong>60.83 ns</strong></td>
+<td style="text-align: right;"><strong>200.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>1</td>
+<td style="text-align: right;">962.2 ns</td>
+<td style="text-align: right;">24.39 ns</td>
+<td style="text-align: right;">68.00 ns</td>
+<td style="text-align: right;">1,000.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>1</td>
+<td style="text-align: right;">150.0 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">150.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>1</td>
+<td style="text-align: right;">968.1 ns</td>
+<td style="text-align: right;">25.43 ns</td>
+<td style="text-align: right;">71.30 ns</td>
+<td style="text-align: right;">1,000.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>2</strong></td>
+<td style="text-align: right;"><strong>280.2 ns</strong></td>
+<td style="text-align: right;"><strong>13.88 ns</strong></td>
+<td style="text-align: right;"><strong>40.05 ns</strong></td>
+<td style="text-align: right;"><strong>300.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>2</td>
+<td style="text-align: right;">1,006.5 ns</td>
+<td style="text-align: right;">34.00 ns</td>
+<td style="text-align: right;">96.47 ns</td>
+<td style="text-align: right;">1,000.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>2</td>
+<td style="text-align: right;">200.0 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">200.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>2</td>
+<td style="text-align: right;">939.8 ns</td>
+<td style="text-align: right;">23.32 ns</td>
+<td style="text-align: right;">66.17 ns</td>
+<td style="text-align: right;">900.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>3</strong></td>
+<td style="text-align: right;"><strong>352.0 ns</strong></td>
+<td style="text-align: right;"><strong>17.70 ns</strong></td>
+<td style="text-align: right;"><strong>52.18 ns</strong></td>
+<td style="text-align: right;"><strong>400.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>3</td>
+<td style="text-align: right;">1,050.0 ns</td>
+<td style="text-align: right;">24.20 ns</td>
+<td style="text-align: right;">67.46 ns</td>
+<td style="text-align: right;">1,000.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>3</td>
+<td style="text-align: right;">300.0 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">300.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>3</td>
+<td style="text-align: right;">1,015.8 ns</td>
+<td style="text-align: right;">27.53 ns</td>
+<td style="text-align: right;">78.98 ns</td>
+<td style="text-align: right;">1,000.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>4</strong></td>
+<td style="text-align: right;"><strong>550.5 ns</strong></td>
+<td style="text-align: right;"><strong>20.59 ns</strong></td>
+<td style="text-align: right;"><strong>59.73 ns</strong></td>
+<td style="text-align: right;"><strong>500.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>4</td>
+<td style="text-align: right;">1,175.0 ns</td>
+<td style="text-align: right;">25.38 ns</td>
+<td style="text-align: right;">69.89 ns</td>
+<td style="text-align: right;">1,200.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>4</td>
+<td style="text-align: right;">500.0 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">0.00 ns</td>
+<td style="text-align: right;">500.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>4</td>
+<td style="text-align: right;">1,083.7 ns</td>
+<td style="text-align: right;">31.22 ns</td>
+<td style="text-align: right;">88.05 ns</td>
+<td style="text-align: right;">1,100.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>5</strong></td>
+<td style="text-align: right;"><strong>1,382.4 ns</strong></td>
+<td style="text-align: right;"><strong>23.96 ns</strong></td>
+<td style="text-align: right;"><strong>38.70 ns</strong></td>
+<td style="text-align: right;"><strong>1,400.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>5</td>
+<td style="text-align: right;">1,596.6 ns</td>
+<td style="text-align: right;">39.10 ns</td>
+<td style="text-align: right;">107.69 ns</td>
+<td style="text-align: right;">1,600.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>5</td>
+<td style="text-align: right;">1,268.9 ns</td>
+<td style="text-align: right;">24.61 ns</td>
+<td style="text-align: right;">46.82 ns</td>
+<td style="text-align: right;">1,300.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>5</td>
+<td style="text-align: right;">1,413.6 ns</td>
+<td style="text-align: right;">43.41 ns</td>
+<td style="text-align: right;">119.56 ns</td>
+<td style="text-align: right;">1,400.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>6</strong></td>
+<td style="text-align: right;"><strong>6,771.4 ns</strong></td>
+<td style="text-align: right;"><strong>112.18 ns</strong></td>
+<td style="text-align: right;"><strong>99.45 ns</strong></td>
+<td style="text-align: right;"><strong>6,700.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>6</td>
+<td style="text-align: right;">4,129.0 ns</td>
+<td style="text-align: right;">83.16 ns</td>
+<td style="text-align: right;">127.00 ns</td>
+<td style="text-align: right;">4,100.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>6</td>
+<td style="text-align: right;">6,150.0 ns</td>
+<td style="text-align: right;">117.57 ns</td>
+<td style="text-align: right;">115.47 ns</td>
+<td style="text-align: right;">6,100.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>6</td>
+<td style="text-align: right;">3,071.2 ns</td>
+<td style="text-align: right;">62.74 ns</td>
+<td style="text-align: right;">139.02 ns</td>
+<td style="text-align: right;">3,000.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>7</strong></td>
+<td style="text-align: right;"><strong>44,976.9 ns</strong></td>
+<td style="text-align: right;"><strong>121.28 ns</strong></td>
+<td style="text-align: right;"><strong>101.27 ns</strong></td>
+<td style="text-align: right;"><strong>44,900.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>7</td>
+<td style="text-align: right;">21,766.7 ns</td>
+<td style="text-align: right;">376.17 ns</td>
+<td style="text-align: right;">351.87 ns</td>
+<td style="text-align: right;">21,800.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>7</td>
+<td style="text-align: right;">40,836.8 ns</td>
+<td style="text-align: right;">638.44 ns</td>
+<td style="text-align: right;">709.62 ns</td>
+<td style="text-align: right;">40,900.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>7</td>
+<td style="text-align: right;">14,460.9 ns</td>
+<td style="text-align: right;">288.80 ns</td>
+<td style="text-align: right;">365.24 ns</td>
+<td style="text-align: right;">14,400.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>8</strong></td>
+<td style="text-align: right;"><strong>359,323.1 ns</strong></td>
+<td style="text-align: right;"><strong>4,958.63 ns</strong></td>
+<td style="text-align: right;"><strong>4,140.68 ns</strong></td>
+<td style="text-align: right;"><strong>358,700.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>8</td>
+<td style="text-align: right;">165,626.7 ns</td>
+<td style="text-align: right;">3,247.52 ns</td>
+<td style="text-align: right;">3,037.73 ns</td>
+<td style="text-align: right;">165,000.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>8</td>
+<td style="text-align: right;">333,953.1 ns</td>
+<td style="text-align: right;">6,665.80 ns</td>
+<td style="text-align: right;">19,232.35 ns</td>
+<td style="text-align: right;">325,750.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>8</td>
+<td style="text-align: right;">107,428.6 ns</td>
+<td style="text-align: right;">2,136.82 ns</td>
+<td style="text-align: right;">4,267.46 ns</td>
+<td style="text-align: right;">105,500.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>9</strong></td>
+<td style="text-align: right;"><strong>3,305,906.2 ns</strong></td>
+<td style="text-align: right;"><strong>65,816.35 ns</strong></td>
+<td style="text-align: right;"><strong>172,229.91 ns</strong></td>
+<td style="text-align: right;"><strong>3,267,500.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>9</td>
+<td style="text-align: right;">1,519,943.1 ns</td>
+<td style="text-align: right;">29,304.00 ns</td>
+<td style="text-align: right;">64,323.00 ns</td>
+<td style="text-align: right;">1,501,950.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>9</td>
+<td style="text-align: right;">2,986,047.3 ns</td>
+<td style="text-align: right;">58,014.04 ns</td>
+<td style="text-align: right;">123,632.65 ns</td>
+<td style="text-align: right;">2,969,900.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>9</td>
+<td style="text-align: right;">975,316.5 ns</td>
+<td style="text-align: right;">18,646.06 ns</td>
+<td style="text-align: right;">48,463.60 ns</td>
+<td style="text-align: right;">968,400.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>10</strong></td>
+<td style="text-align: right;"><strong>31,801,242.9 ns</strong></td>
+<td style="text-align: right;"><strong>530,535.11 ns</strong></td>
+<td style="text-align: right;"><strong>470,305.56 ns</strong></td>
+<td style="text-align: right;"><strong>31,582,700.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>10</td>
+<td style="text-align: right;">14,945,014.8 ns</td>
+<td style="text-align: right;">293,314.58 ns</td>
+<td style="text-align: right;">411,186.07 ns</td>
+<td style="text-align: right;">14,910,000.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>10</td>
+<td style="text-align: right;">30,084,138.5 ns</td>
+<td style="text-align: right;">570,505.14 ns</td>
+<td style="text-align: right;">476,397.63 ns</td>
+<td style="text-align: right;">30,097,800.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>10</td>
+<td style="text-align: right;">9,805,436.8 ns</td>
+<td style="text-align: right;">163,571.04 ns</td>
+<td style="text-align: right;">181,808.77 ns</td>
+<td style="text-align: right;">9,830,600.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>11</strong></td>
+<td style="text-align: right;"><strong>349,864,792.3 ns</strong></td>
+<td style="text-align: right;"><strong>3,421,849.76 ns</strong></td>
+<td style="text-align: right;"><strong>2,857,399.53 ns</strong></td>
+<td style="text-align: right;"><strong>349,054,900.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>11</td>
+<td style="text-align: right;">162,403,513.3 ns</td>
+<td style="text-align: right;">2,478,922.39 ns</td>
+<td style="text-align: right;">2,318,785.54 ns</td>
+<td style="text-align: right;">161,515,500.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>11</td>
+<td style="text-align: right;">329,529,384.6 ns</td>
+<td style="text-align: right;">3,945,566.33 ns</td>
+<td style="text-align: right;">3,294,726.58 ns</td>
+<td style="text-align: right;">328,491,000.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>11</td>
+<td style="text-align: right;">107,825,753.8 ns</td>
+<td style="text-align: right;">1,043,092.96 ns</td>
+<td style="text-align: right;">871,029.87 ns</td>
+<td style="text-align: right;">107,468,900.0 ns</td>
+</tr>
+<tr>
+<td><strong>Recursive</strong></td>
+<td><strong>12</strong></td>
+<td style="text-align: right;"><strong>4,294,935,545.5 ns</strong></td>
+<td style="text-align: right;"><strong>84,370,785.47 ns</strong></td>
+<td style="text-align: right;"><strong>133,821,006.55 ns</strong></td>
+<td style="text-align: right;"><strong>4,275,146,400.0 ns</strong></td>
+</tr>
+<tr>
+<td>Iterative</td>
+<td>12</td>
+<td style="text-align: right;">1,968,375,632.0 ns</td>
+<td style="text-align: right;">32,182,765.88 ns</td>
+<td style="text-align: right;">42,963,068.06 ns</td>
+<td style="text-align: right;">1,950,699,600.0 ns</td>
+</tr>
+<tr>
+<td>RecursiveStruct</td>
+<td>12</td>
+<td style="text-align: right;">4,029,030,530.8 ns</td>
+<td style="text-align: right;">49,457,784.88 ns</td>
+<td style="text-align: right;">41,299,490.33 ns</td>
+<td style="text-align: right;">4,009,864,600.0 ns</td>
+</tr>
+<tr>
+<td>IterativeStruct</td>
+<td>12</td>
+<td style="text-align: right;">1,313,628,035.7 ns</td>
+<td style="text-align: right;">5,360,420.71 ns</td>
+<td style="text-align: right;">4,751,873.34 ns</td>
+<td style="text-align: right;">1,312,349,500.0 ns</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Tools/docfx_project/benchmarks/PermuteBenchmarks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

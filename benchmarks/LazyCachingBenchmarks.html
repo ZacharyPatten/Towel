@@ -1,0 +1,768 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Lazy Caching </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lazy Caching ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lazy-caching">Lazy Caching</h1>
+
+<p><a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a></p>
+<p>The source code for all benchmarks are in <a href="https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking">Tools/Towel.Benchmarking</a>.</p>
+<pre><code class="lang-ini">
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.100-preview.6.21355.2
+  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+  DefaultJob : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+
+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>N</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+<th style="text-align: right;">Median</th>
+<th style="text-align: right;">Ratio</th>
+<th style="text-align: right;">RatioSD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lazy</strong></td>
+<td><strong>1</strong></td>
+<td style="text-align: right;"><strong>30.862 ns</strong></td>
+<td style="text-align: right;"><strong>0.4427 ns</strong></td>
+<td style="text-align: right;"><strong>0.3924 ns</strong></td>
+<td style="text-align: right;"><strong>30.724 ns</strong></td>
+<td style="text-align: right;"><strong>1.00</strong></td>
+<td style="text-align: right;"><strong>0.00</strong></td>
+</tr>
+<tr>
+<td>LazyNone</td>
+<td>1</td>
+<td style="text-align: right;">18.947 ns</td>
+<td style="text-align: right;">0.3677 ns</td>
+<td style="text-align: right;">0.3439 ns</td>
+<td style="text-align: right;">18.815 ns</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>LazyPublicationOnly</td>
+<td>1</td>
+<td style="text-align: right;">21.604 ns</td>
+<td style="text-align: right;">0.4601 ns</td>
+<td style="text-align: right;">0.8753 ns</td>
+<td style="text-align: right;">21.303 ns</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr>
+<td>SLazy</td>
+<td>1</td>
+<td style="text-align: right;">25.503 ns</td>
+<td style="text-align: right;">0.3819 ns</td>
+<td style="text-align: right;">0.3572 ns</td>
+<td style="text-align: right;">25.475 ns</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr>
+<td>SLazyNoCatch</td>
+<td>1</td>
+<td style="text-align: right;">23.901 ns</td>
+<td style="text-align: right;">0.0781 ns</td>
+<td style="text-align: right;">0.0609 ns</td>
+<td style="text-align: right;">23.897 ns</td>
+<td style="text-align: right;">0.77</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyPublicationLock</td>
+<td>1</td>
+<td style="text-align: right;">25.200 ns</td>
+<td style="text-align: right;">0.2728 ns</td>
+<td style="text-align: right;">0.2552 ns</td>
+<td style="text-align: right;">25.192 ns</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyPublicationLockNoCatch</td>
+<td>1</td>
+<td style="text-align: right;">24.802 ns</td>
+<td style="text-align: right;">0.1757 ns</td>
+<td style="text-align: right;">0.1467 ns</td>
+<td style="text-align: right;">24.798 ns</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLock</td>
+<td>1</td>
+<td style="text-align: right;">11.896 ns</td>
+<td style="text-align: right;">0.1831 ns</td>
+<td style="text-align: right;">0.1713 ns</td>
+<td style="text-align: right;">11.858 ns</td>
+<td style="text-align: right;">0.38</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLockNoCatch</td>
+<td>1</td>
+<td style="text-align: right;">10.111 ns</td>
+<td style="text-align: right;">0.0989 ns</td>
+<td style="text-align: right;">0.0826 ns</td>
+<td style="text-align: right;">10.097 ns</td>
+<td style="text-align: right;">0.33</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazy</td>
+<td>1</td>
+<td style="text-align: right;">20.179 ns</td>
+<td style="text-align: right;">0.2200 ns</td>
+<td style="text-align: right;">0.1837 ns</td>
+<td style="text-align: right;">20.232 ns</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoCatch</td>
+<td>1</td>
+<td style="text-align: right;">19.035 ns</td>
+<td style="text-align: right;">0.3854 ns</td>
+<td style="text-align: right;">0.3605 ns</td>
+<td style="text-align: right;">18.930 ns</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLock</td>
+<td>1</td>
+<td style="text-align: right;">21.487 ns</td>
+<td style="text-align: right;">0.4350 ns</td>
+<td style="text-align: right;">0.5954 ns</td>
+<td style="text-align: right;">21.489 ns</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLockNoCatch</td>
+<td>1</td>
+<td style="text-align: right;">20.290 ns</td>
+<td style="text-align: right;">0.1659 ns</td>
+<td style="text-align: right;">0.1471 ns</td>
+<td style="text-align: right;">20.234 ns</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoLock</td>
+<td>1</td>
+<td style="text-align: right;">7.458 ns</td>
+<td style="text-align: right;">0.1596 ns</td>
+<td style="text-align: right;">0.1333 ns</td>
+<td style="text-align: right;">7.401 ns</td>
+<td style="text-align: right;">0.24</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td>ValueLazyNoLockNoCatch</td>
+<td>1</td>
+<td style="text-align: right;">5.672 ns</td>
+<td style="text-align: right;">0.0416 ns</td>
+<td style="text-align: right;">0.0348 ns</td>
+<td style="text-align: right;">5.679 ns</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td><strong>Lazy</strong></td>
+<td><strong>10</strong></td>
+<td style="text-align: right;"><strong>40.699 ns</strong></td>
+<td style="text-align: right;"><strong>0.5908 ns</strong></td>
+<td style="text-align: right;"><strong>0.5527 ns</strong></td>
+<td style="text-align: right;"><strong>40.757 ns</strong></td>
+<td style="text-align: right;"><strong>1.00</strong></td>
+<td style="text-align: right;"><strong>0.00</strong></td>
+</tr>
+<tr>
+<td>LazyNone</td>
+<td>10</td>
+<td style="text-align: right;">25.093 ns</td>
+<td style="text-align: right;">0.2615 ns</td>
+<td style="text-align: right;">0.2446 ns</td>
+<td style="text-align: right;">25.074 ns</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>LazyPublicationOnly</td>
+<td>10</td>
+<td style="text-align: right;">27.518 ns</td>
+<td style="text-align: right;">0.5714 ns</td>
+<td style="text-align: right;">1.1927 ns</td>
+<td style="text-align: right;">26.964 ns</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr>
+<td>SLazy</td>
+<td>10</td>
+<td style="text-align: right;">28.954 ns</td>
+<td style="text-align: right;">0.2155 ns</td>
+<td style="text-align: right;">0.1682 ns</td>
+<td style="text-align: right;">28.921 ns</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoCatch</td>
+<td>10</td>
+<td style="text-align: right;">28.813 ns</td>
+<td style="text-align: right;">0.2420 ns</td>
+<td style="text-align: right;">0.2021 ns</td>
+<td style="text-align: right;">28.812 ns</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyPublicationLock</td>
+<td>10</td>
+<td style="text-align: right;">29.856 ns</td>
+<td style="text-align: right;">0.4875 ns</td>
+<td style="text-align: right;">0.5987 ns</td>
+<td style="text-align: right;">29.641 ns</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr>
+<td>SLazyPublicationLockNoCatch</td>
+<td>10</td>
+<td style="text-align: right;">28.951 ns</td>
+<td style="text-align: right;">0.0839 ns</td>
+<td style="text-align: right;">0.0655 ns</td>
+<td style="text-align: right;">28.963 ns</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLock</td>
+<td>10</td>
+<td style="text-align: right;">18.458 ns</td>
+<td style="text-align: right;">0.1508 ns</td>
+<td style="text-align: right;">0.1337 ns</td>
+<td style="text-align: right;">18.422 ns</td>
+<td style="text-align: right;">0.45</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLockNoCatch</td>
+<td>10</td>
+<td style="text-align: right;">16.861 ns</td>
+<td style="text-align: right;">0.0979 ns</td>
+<td style="text-align: right;">0.0764 ns</td>
+<td style="text-align: right;">16.863 ns</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazy</td>
+<td>10</td>
+<td style="text-align: right;">24.287 ns</td>
+<td style="text-align: right;">0.1536 ns</td>
+<td style="text-align: right;">0.1437 ns</td>
+<td style="text-align: right;">24.288 ns</td>
+<td style="text-align: right;">0.60</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoCatch</td>
+<td>10</td>
+<td style="text-align: right;">23.283 ns</td>
+<td style="text-align: right;">0.2339 ns</td>
+<td style="text-align: right;">0.1953 ns</td>
+<td style="text-align: right;">23.264 ns</td>
+<td style="text-align: right;">0.57</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLock</td>
+<td>10</td>
+<td style="text-align: right;">25.317 ns</td>
+<td style="text-align: right;">0.2061 ns</td>
+<td style="text-align: right;">0.1928 ns</td>
+<td style="text-align: right;">25.358 ns</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLockNoCatch</td>
+<td>10</td>
+<td style="text-align: right;">24.809 ns</td>
+<td style="text-align: right;">0.1341 ns</td>
+<td style="text-align: right;">0.1120 ns</td>
+<td style="text-align: right;">24.780 ns</td>
+<td style="text-align: right;">0.61</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoLock</td>
+<td>10</td>
+<td style="text-align: right;">14.965 ns</td>
+<td style="text-align: right;">0.0992 ns</td>
+<td style="text-align: right;">0.0928 ns</td>
+<td style="text-align: right;">14.958 ns</td>
+<td style="text-align: right;">0.37</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoLockNoCatch</td>
+<td>10</td>
+<td style="text-align: right;">12.874 ns</td>
+<td style="text-align: right;">0.0460 ns</td>
+<td style="text-align: right;">0.0384 ns</td>
+<td style="text-align: right;">12.862 ns</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td><strong>Lazy</strong></td>
+<td><strong>100</strong></td>
+<td style="text-align: right;"><strong>91.838 ns</strong></td>
+<td style="text-align: right;"><strong>0.5093 ns</strong></td>
+<td style="text-align: right;"><strong>0.4514 ns</strong></td>
+<td style="text-align: right;"><strong>91.656 ns</strong></td>
+<td style="text-align: right;"><strong>1.00</strong></td>
+<td style="text-align: right;"><strong>0.00</strong></td>
+</tr>
+<tr>
+<td>LazyNone</td>
+<td>100</td>
+<td style="text-align: right;">105.193 ns</td>
+<td style="text-align: right;">1.4903 ns</td>
+<td style="text-align: right;">1.3940 ns</td>
+<td style="text-align: right;">104.791 ns</td>
+<td style="text-align: right;">1.15</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr>
+<td>LazyPublicationOnly</td>
+<td>100</td>
+<td style="text-align: right;">81.861 ns</td>
+<td style="text-align: right;">0.4681 ns</td>
+<td style="text-align: right;">0.3655 ns</td>
+<td style="text-align: right;">82.008 ns</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td>SLazy</td>
+<td>100</td>
+<td style="text-align: right;">79.852 ns</td>
+<td style="text-align: right;">0.5897 ns</td>
+<td style="text-align: right;">0.4924 ns</td>
+<td style="text-align: right;">79.751 ns</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoCatch</td>
+<td>100</td>
+<td style="text-align: right;">81.056 ns</td>
+<td style="text-align: right;">1.6281 ns</td>
+<td style="text-align: right;">2.2286 ns</td>
+<td style="text-align: right;">81.134 ns</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr>
+<td>SLazyPublicationLock</td>
+<td>100</td>
+<td style="text-align: right;">81.578 ns</td>
+<td style="text-align: right;">0.4488 ns</td>
+<td style="text-align: right;">0.4198 ns</td>
+<td style="text-align: right;">81.479 ns</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyPublicationLockNoCatch</td>
+<td>100</td>
+<td style="text-align: right;">79.908 ns</td>
+<td style="text-align: right;">0.3864 ns</td>
+<td style="text-align: right;">0.3615 ns</td>
+<td style="text-align: right;">79.869 ns</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLock</td>
+<td>100</td>
+<td style="text-align: right;">71.874 ns</td>
+<td style="text-align: right;">0.5779 ns</td>
+<td style="text-align: right;">0.5123 ns</td>
+<td style="text-align: right;">71.746 ns</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLockNoCatch</td>
+<td>100</td>
+<td style="text-align: right;">69.266 ns</td>
+<td style="text-align: right;">0.4168 ns</td>
+<td style="text-align: right;">0.3695 ns</td>
+<td style="text-align: right;">69.131 ns</td>
+<td style="text-align: right;">0.75</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazy</td>
+<td>100</td>
+<td style="text-align: right;">72.879 ns</td>
+<td style="text-align: right;">0.2705 ns</td>
+<td style="text-align: right;">0.2112 ns</td>
+<td style="text-align: right;">72.913 ns</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td>ValueLazyNoCatch</td>
+<td>100</td>
+<td style="text-align: right;">74.209 ns</td>
+<td style="text-align: right;">0.2873 ns</td>
+<td style="text-align: right;">0.2687 ns</td>
+<td style="text-align: right;">74.206 ns</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLock</td>
+<td>100</td>
+<td style="text-align: right;">74.352 ns</td>
+<td style="text-align: right;">0.6568 ns</td>
+<td style="text-align: right;">0.6143 ns</td>
+<td style="text-align: right;">74.037 ns</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLockNoCatch</td>
+<td>100</td>
+<td style="text-align: right;">75.525 ns</td>
+<td style="text-align: right;">0.6337 ns</td>
+<td style="text-align: right;">0.5928 ns</td>
+<td style="text-align: right;">75.316 ns</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoLock</td>
+<td>100</td>
+<td style="text-align: right;">67.334 ns</td>
+<td style="text-align: right;">0.2796 ns</td>
+<td style="text-align: right;">0.2183 ns</td>
+<td style="text-align: right;">67.339 ns</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr>
+<td>ValueLazyNoLockNoCatch</td>
+<td>100</td>
+<td style="text-align: right;">64.932 ns</td>
+<td style="text-align: right;">0.2492 ns</td>
+<td style="text-align: right;">0.2331 ns</td>
+<td style="text-align: right;">64.937 ns</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr>
+<td><strong>Lazy</strong></td>
+<td><strong>1000</strong></td>
+<td style="text-align: right;"><strong>535.144 ns</strong></td>
+<td style="text-align: right;"><strong>3.5164 ns</strong></td>
+<td style="text-align: right;"><strong>3.2892 ns</strong></td>
+<td style="text-align: right;"><strong>534.105 ns</strong></td>
+<td style="text-align: right;"><strong>1.00</strong></td>
+<td style="text-align: right;"><strong>0.00</strong></td>
+</tr>
+<tr>
+<td>LazyNone</td>
+<td>1000</td>
+<td style="text-align: right;">550.618 ns</td>
+<td style="text-align: right;">3.6293 ns</td>
+<td style="text-align: right;">3.3949 ns</td>
+<td style="text-align: right;">550.567 ns</td>
+<td style="text-align: right;">1.03</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>LazyPublicationOnly</td>
+<td>1000</td>
+<td style="text-align: right;">524.728 ns</td>
+<td style="text-align: right;">2.3492 ns</td>
+<td style="text-align: right;">2.0825 ns</td>
+<td style="text-align: right;">525.565 ns</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazy</td>
+<td>1000</td>
+<td style="text-align: right;">523.096 ns</td>
+<td style="text-align: right;">3.4357 ns</td>
+<td style="text-align: right;">2.8689 ns</td>
+<td style="text-align: right;">523.300 ns</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoCatch</td>
+<td>1000</td>
+<td style="text-align: right;">518.426 ns</td>
+<td style="text-align: right;">1.8299 ns</td>
+<td style="text-align: right;">1.4287 ns</td>
+<td style="text-align: right;">518.825 ns</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyPublicationLock</td>
+<td>1000</td>
+<td style="text-align: right;">524.129 ns</td>
+<td style="text-align: right;">5.8493 ns</td>
+<td style="text-align: right;">5.1853 ns</td>
+<td style="text-align: right;">522.364 ns</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyPublicationLockNoCatch</td>
+<td>1000</td>
+<td style="text-align: right;">520.111 ns</td>
+<td style="text-align: right;">3.6929 ns</td>
+<td style="text-align: right;">3.0837 ns</td>
+<td style="text-align: right;">520.165 ns</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLock</td>
+<td>1000</td>
+<td style="text-align: right;">517.457 ns</td>
+<td style="text-align: right;">5.5981 ns</td>
+<td style="text-align: right;">5.2365 ns</td>
+<td style="text-align: right;">515.705 ns</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>SLazyNoLockNoCatch</td>
+<td>1000</td>
+<td style="text-align: right;">519.805 ns</td>
+<td style="text-align: right;">6.2953 ns</td>
+<td style="text-align: right;">5.8886 ns</td>
+<td style="text-align: right;">519.773 ns</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazy</td>
+<td>1000</td>
+<td style="text-align: right;">520.671 ns</td>
+<td style="text-align: right;">10.3221 ns</td>
+<td style="text-align: right;">11.8870 ns</td>
+<td style="text-align: right;">515.596 ns</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">0.02</td>
+</tr>
+<tr>
+<td>ValueLazyNoCatch</td>
+<td>1000</td>
+<td style="text-align: right;">518.974 ns</td>
+<td style="text-align: right;">7.2035 ns</td>
+<td style="text-align: right;">5.6240 ns</td>
+<td style="text-align: right;">517.924 ns</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLock</td>
+<td>1000</td>
+<td style="text-align: right;">525.665 ns</td>
+<td style="text-align: right;">10.4357 ns</td>
+<td style="text-align: right;">16.8517 ns</td>
+<td style="text-align: right;">524.213 ns</td>
+<td style="text-align: right;">0.98</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr>
+<td>ValueLazyPublicationLockNoCatch</td>
+<td>1000</td>
+<td style="text-align: right;">514.050 ns</td>
+<td style="text-align: right;">2.4043 ns</td>
+<td style="text-align: right;">2.1314 ns</td>
+<td style="text-align: right;">514.358 ns</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoLock</td>
+<td>1000</td>
+<td style="text-align: right;">507.868 ns</td>
+<td style="text-align: right;">3.8694 ns</td>
+<td style="text-align: right;">3.2312 ns</td>
+<td style="text-align: right;">506.572 ns</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+<tr>
+<td>ValueLazyNoLockNoCatch</td>
+<td>1000</td>
+<td style="text-align: right;">506.869 ns</td>
+<td style="text-align: right;">2.5243 ns</td>
+<td style="text-align: right;">2.2377 ns</td>
+<td style="text-align: right;">506.804 ns</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.01</td>
+</tr>
+</tbody>
+</table>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Tools/docfx_project/benchmarks/LazyCachingBenchmarks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

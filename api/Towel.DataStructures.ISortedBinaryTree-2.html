@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface ISortedBinaryTree&lt;T, TCompare&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface ISortedBinaryTree&lt;T, TCompare&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.DataStructures.ISortedBinaryTree`2">
+  
+  
+  <h1 id="Towel_DataStructures_ISortedBinaryTree_2" data-uid="Towel.DataStructures.ISortedBinaryTree`2" class="text-break">Interface ISortedBinaryTree&lt;T, TCompare&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>A self-sorting binary tree based on the heights of each node.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_CurrentLeast">ISortedBinaryTree&lt;T&gt;.CurrentLeast</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_CurrentGreatest">ISortedBinaryTree&lt;T&gt;.CurrentGreatest</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_ContainsSift__1___0_">ISortedBinaryTree&lt;T&gt;.ContainsSift&lt;TSift&gt;(TSift)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_TryGet__1___0_">ISortedBinaryTree&lt;T&gt;.TryGet&lt;TSift&gt;(TSift)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_TryRemoveSift__1___0_">ISortedBinaryTree&lt;T&gt;.TryRemoveSift&lt;TSift&gt;(TSift)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_StepperBreak__1__0__0___0_">ISortedBinaryTree&lt;T&gt;.StepperBreak&lt;TStep&gt;(T, T, TStep)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_StepperReverseBreak__1___0_">ISortedBinaryTree&lt;T&gt;.StepperReverseBreak&lt;TStep&gt;(TStep)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.ISortedBinaryTree-1.html#Towel_DataStructures_ISortedBinaryTree_1_StepperReverseBreak__1__0__0___0_">ISortedBinaryTree&lt;T&gt;.StepperReverseBreak&lt;TStep&gt;(T, T, TStep)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.IDataStructure-1.html#Towel_DataStructures_IDataStructure_1_ToArray">IDataStructure&lt;T&gt;.ToArray()</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.ISteppable-1.html#Towel_ISteppable_1_StepperBreak__1___0_">ISteppable&lt;T&gt;.StepperBreak&lt;TStep&gt;(TStep)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAddable-1.html#Towel_DataStructures_DataStructure_IAddable_1_TryAdd__0_">DataStructure.IAddable&lt;T&gt;.TryAdd(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IRemovable-1.html#Towel_DataStructures_DataStructure_IRemovable_1_TryRemove__0_">DataStructure.IRemovable&lt;T&gt;.TryRemove(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.ICountable.html#Towel_DataStructures_DataStructure_ICountable_Count">DataStructure.ICountable.Count</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IClearable.html#Towel_DataStructures_DataStructure_IClearable_Clear">DataStructure.IClearable.Clear()</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IAuditable-1.html#Towel_DataStructures_DataStructure_IAuditable_1_Contains__0_">DataStructure.IAuditable&lt;T&gt;.Contains(T)</a>
+    </div>
+    <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.IComparing-2.html#Towel_DataStructures_DataStructure_IComparing_2_Compare">DataStructure.IComparing&lt;T, TCompare&gt;.Compare</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.DataStructures.html">Towel.DataStructures</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_DataStructures_ISortedBinaryTree_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface ISortedBinaryTree&lt;T, TCompare&gt; : ISortedBinaryTree&lt;T&gt;, IDataStructure&lt;T&gt;, ISteppable&lt;T&gt;, System.Collections.Generic.IEnumerable&lt;T&gt;, DataStructure.IAddable&lt;T&gt;, DataStructure.IRemovable&lt;T&gt;, DataStructure.ICountable, DataStructure.IClearable, DataStructure.IAuditable&lt;T&gt;, DataStructure.IComparing&lt;T, TCompare&gt; where TCompare : struct, IFunc&lt;T, T, CompareResult&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of values stored in this data structure.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">TCompare</span></td>
+        <td><p>The type that is comparing <code data-dev-comment-type="typeparamref" class="typeparamref">T</code> values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Towel.Steppable.html#Towel_Steppable_Stepper__1_Towel_ISteppable___0__Action___0__">Steppable.Stepper&lt;T&gt;(ISteppable&lt;T&gt;, Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Steppable.html#Towel_Steppable_Stepper__2_Towel_ISteppable___0____1_">Steppable.Stepper&lt;T, TStep&gt;(ISteppable&lt;T&gt;, TStep)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.Steppable.html#Towel_Steppable_StepperBreak__1_Towel_ISteppable___0__Func___0_Towel_StepStatus__">Steppable.StepperBreak&lt;T&gt;(ISteppable&lt;T&gt;, Func&lt;T, StepStatus&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Add__1_Towel_DataStructures_DataStructure_IAddable___0____0_">DataStructure.Add&lt;T&gt;(DataStructure.IAddable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.DataStructure.html#Towel_DataStructures_DataStructure_Remove__1_Towel_DataStructures_DataStructure_IRemovable___0____0_">DataStructure.Remove&lt;T&gt;(DataStructure.IRemovable&lt;T&gt;, T)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_ContainsSift__1_Towel_DataStructures_ISortedBinaryTree___0__Func___0_Towel_CompareResult__">SortedBinaryTree.ContainsSift&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, Func&lt;T, CompareResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_TryGet__1_Towel_DataStructures_ISortedBinaryTree___0__Func___0_Towel_CompareResult__">SortedBinaryTree.TryGet&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, Func&lt;T, CompareResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_TryRemoveSift__1_Towel_DataStructures_ISortedBinaryTree___0__Func___0_Towel_CompareResult__">SortedBinaryTree.TryRemoveSift&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, Func&lt;T, CompareResult&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Stepper__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_Action___0__">SortedBinaryTree.Stepper&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T, Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_Stepper__2_Towel_DataStructures_ISortedBinaryTree___0____0___0___1_">SortedBinaryTree.Stepper&lt;T, TStep&gt;(ISortedBinaryTree&lt;T&gt;, T, T, TStep)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperBreak__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_Func___0_Towel_StepStatus__">SortedBinaryTree.StepperBreak&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T, Func&lt;T, StepStatus&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperReverse__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_Action___0__">SortedBinaryTree.StepperReverse&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T, Action&lt;T&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperReverse__2_Towel_DataStructures_ISortedBinaryTree___0____0___0___1_">SortedBinaryTree.StepperReverse&lt;T, TStep&gt;(ISortedBinaryTree&lt;T&gt;, T, T, TStep)</a>
+  </div>
+  <div>
+      <a class="xref" href="Towel.DataStructures.SortedBinaryTree.html#Towel_DataStructures_SortedBinaryTree_StepperReverseBreak__1_Towel_DataStructures_ISortedBinaryTree___0____0___0_Func___0_Towel_StepStatus__">SortedBinaryTree.StepperReverseBreak&lt;T&gt;(ISortedBinaryTree&lt;T&gt;, T, T, Func&lt;T, StepStatus&gt;)</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_DataStructures_ISortedBinaryTree_2.md&amp;value=---%0Auid%3A%20Towel.DataStructures.ISortedBinaryTree%602%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/DataStructures/SortedBinaryTree.cs/#L75" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

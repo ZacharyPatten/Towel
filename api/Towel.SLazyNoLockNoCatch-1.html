@@ -1,0 +1,706 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Struct SLazyNoLockNoCatch&lt;T&gt;
+   </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct SLazyNoLockNoCatch&lt;T&gt;
+   ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Towel.SLazyNoLockNoCatch`1">
+  
+  
+  <h1 id="Towel_SLazyNoLockNoCatch_1" data-uid="Towel.SLazyNoLockNoCatch`1" class="text-break">Struct SLazyNoLockNoCatch&lt;T&gt;
+  </h1>
+  <div class="markdown level0 summary"><p>Provides support for lazy initialization.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div classs="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Towel.ILazy-1.html">ILazy</a>&lt;T&gt;</div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Towel.html">Towel</a></h6>
+  <h6><strong>Assembly</strong>: Towel.dll</h6>
+  <h5 id="Towel_SLazyNoLockNoCatch_1_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct SLazyNoLockNoCatch&lt;T&gt; : ILazy&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of value that is being lazily initialized.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1__ctor__0_.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.%23ctor(%600)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L576">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1__ctor_" data-uid="Towel.SLazyNoLockNoCatch`1.#ctor*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1__ctor__0_" data-uid="Towel.SLazyNoLockNoCatch`1.#ctor(`0)">SLazyNoLockNoCatch(T)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch&lt;T&gt;</a> from a <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SLazyNoLockNoCatch(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to initialize <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a> with.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1__ctor_Func__0__.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.%23ctor(Func%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L585">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1__ctor_" data-uid="Towel.SLazyNoLockNoCatch`1.#ctor*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1__ctor_Func__0__" data-uid="Towel.SLazyNoLockNoCatch`1.#ctor(Func{`0})">SLazyNoLockNoCatch(Func&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch&lt;T&gt;</a> from a <see cref="!:Func&lt;T>"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SLazyNoLockNoCatch(Func&lt;T&gt; func)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T&gt;</td>
+        <td><span class="parametername">func</span></td>
+        <td><p>The method used to initialize <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_IsCachingExceptions.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.IsCachingExceptions%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L569">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_IsCachingExceptions_" data-uid="Towel.SLazyNoLockNoCatch`1.IsCachingExceptions*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_IsCachingExceptions" data-uid="Towel.SLazyNoLockNoCatch`1.IsCachingExceptions">IsCachingExceptions</h4>
+  <div class="markdown level1 summary"><p>True if exceptions thrown by the factory delegate are being cached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCachingExceptions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_IsStructCopySafe.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.IsStructCopySafe%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L572">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_IsStructCopySafe_" data-uid="Towel.SLazyNoLockNoCatch`1.IsStructCopySafe*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_IsStructCopySafe" data-uid="Towel.SLazyNoLockNoCatch`1.IsStructCopySafe">IsStructCopySafe</h4>
+  <div class="markdown level1 summary"><p>True if the lazy is safe from struct copies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsStructCopySafe { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_IsValueCreated.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.IsValueCreated%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L532">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_IsValueCreated_" data-uid="Towel.SLazyNoLockNoCatch`1.IsValueCreated*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_IsValueCreated" data-uid="Towel.SLazyNoLockNoCatch`1.IsValueCreated">IsValueCreated</h4>
+  <div class="markdown level1 summary"><p>True if <a class="xref" href="Towel.ILazy-1.html#Towel_ILazy_1_Value">Value</a> has been initialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsValueCreated { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_ThreadSafety.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.ThreadSafety%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L566">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_ThreadSafety_" data-uid="Towel.SLazyNoLockNoCatch`1.ThreadSafety*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_ThreadSafety" data-uid="Towel.SLazyNoLockNoCatch`1.ThreadSafety">ThreadSafety</h4>
+  <div class="markdown level1 summary"><p>The pattern of thread safety this lazy is using.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LazyThreadSafetyMode ThreadSafety { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">LazyThreadSafetyMode</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_Value.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.Value%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L552">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_Value_" data-uid="Towel.SLazyNoLockNoCatch`1.Value*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_Value" data-uid="Towel.SLazyNoLockNoCatch`1.Value">Value</h4>
+  <div class="markdown level1 summary"><p>Gets the lazily initialized value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public T Value { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_Equals_System_Nullable_System_Object__.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.Equals(System.Nullable%7BSystem.Object%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L604">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_Equals_" data-uid="Towel.SLazyNoLockNoCatch`1.Equals*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_Equals_System_Nullable_System_Object__" data-uid="Towel.SLazyNoLockNoCatch`1.Equals(System.Nullable{System.Object})">Equals(Nullable&lt;Object&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for equality between <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a> and <code data-dev-comment-type="paramref" class="paramref">obj</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.Object</span>&gt;</td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The value to compare to <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a> and <code data-dev-comment-type="paramref" class="paramref">obj</code> are equal or False if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_GetHashCode.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.GetHashCode%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L625">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_GetHashCode_" data-uid="Towel.SLazyNoLockNoCatch`1.GetHashCode*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_GetHashCode" data-uid="Towel.SLazyNoLockNoCatch`1.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Gets the hash code of <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Int32</span></td>
+        <td><p>The hash code of <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_ToString.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.ToString%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L621">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_ToString_" data-uid="Towel.SLazyNoLockNoCatch`1.ToString*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_ToString" data-uid="Towel.SLazyNoLockNoCatch`1.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a string that represents <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string? ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Nullable</span>&lt;<span class="xref">System.String</span>&gt;</td>
+        <td><p>A string that represents <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a></p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+  </h3>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_op_Equality_Towel_SLazyNoLockNoCatch__0__Towel_SLazyNoLockNoCatch__0__.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.op_Equality(Towel.SLazyNoLockNoCatch%7B%600%7D%2CTowel.SLazyNoLockNoCatch%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L631">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_op_Equality_" data-uid="Towel.SLazyNoLockNoCatch`1.op_Equality*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_op_Equality_Towel_SLazyNoLockNoCatch__0__Towel_SLazyNoLockNoCatch__0__" data-uid="Towel.SLazyNoLockNoCatch`1.op_Equality(Towel.SLazyNoLockNoCatch{`0},Towel.SLazyNoLockNoCatch{`0})">Equality(SLazyNoLockNoCatch&lt;T&gt;, SLazyNoLockNoCatch&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for equality between <code data-dev-comment-type="paramref" class="paramref">left</code> and <code data-dev-comment-type="paramref" class="paramref">right</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(SLazyNoLockNoCatch&lt;T&gt; left, SLazyNoLockNoCatch&lt;T&gt; right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch</a>&lt;T&gt;</td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first value of the equality check.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch</a>&lt;T&gt;</td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second value of the equality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if <code data-dev-comment-type="paramref" class="paramref">left</code> and <code data-dev-comment-type="paramref" class="paramref">right</code> are equal or False if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_op_Implicit__0__Towel_SLazyNoLockNoCatch__0_.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.op_Implicit(%600)~Towel.SLazyNoLockNoCatch%7B%600%7D%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L599">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_op_Implicit_" data-uid="Towel.SLazyNoLockNoCatch`1.op_Implicit*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_op_Implicit__0__Towel_SLazyNoLockNoCatch__0_" data-uid="Towel.SLazyNoLockNoCatch`1.op_Implicit(`0)~Towel.SLazyNoLockNoCatch{`0}">Implicit(T to SLazyNoLockNoCatch&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new <a class="xref" href="Towel.SLazyNoCatch-1.html">SLazyNoCatch&lt;T&gt;</a> from a <code data-dev-comment-type="typeparamref" class="typeparamref">T</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator SLazyNoLockNoCatch&lt;T&gt;(T value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value to initialize <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a> with.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_op_Implicit_Func__0___Towel_SLazyNoLockNoCatch__0_.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.op_Implicit(Func%7B%600%7D)~Towel.SLazyNoLockNoCatch%7B%600%7D%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L595">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_op_Implicit_" data-uid="Towel.SLazyNoLockNoCatch`1.op_Implicit*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_op_Implicit_Func__0___Towel_SLazyNoLockNoCatch__0_" data-uid="Towel.SLazyNoLockNoCatch`1.op_Implicit(Func{`0})~Towel.SLazyNoLockNoCatch{`0}">Implicit(Func&lt;T&gt; to SLazyNoLockNoCatch&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Constructs a new <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch&lt;T&gt;</a> from a <see cref="!:Func&lt;T>"></see>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static implicit operator SLazyNoLockNoCatch&lt;T&gt;(Func&lt;T&gt; func)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Func</span>&lt;T&gt;</td>
+        <td><span class="parametername">func</span></td>
+        <td><p>The method used to initialize <a class="xref" href="Towel.SLazyNoLockNoCatch-1.html#Towel_SLazyNoLockNoCatch_1_Value">Value</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch</a>&lt;T&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="small pull-right mobile-hide">
+    <span class="divider">|</span>
+    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1_op_Inequality_Towel_SLazyNoLockNoCatch__0__Towel_SLazyNoLockNoCatch__0__.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601.op_Inequality(Towel.SLazyNoLockNoCatch%7B%600%7D%2CTowel.SLazyNoLockNoCatch%7B%600%7D)%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A">Improve this Doc</a>
+  </span>
+  <span class="small pull-right mobile-hide">
+    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L637">View Source</a>
+  </span>
+  <a id="Towel_SLazyNoLockNoCatch_1_op_Inequality_" data-uid="Towel.SLazyNoLockNoCatch`1.op_Inequality*"></a>
+  <h4 id="Towel_SLazyNoLockNoCatch_1_op_Inequality_Towel_SLazyNoLockNoCatch__0__Towel_SLazyNoLockNoCatch__0__" data-uid="Towel.SLazyNoLockNoCatch`1.op_Inequality(Towel.SLazyNoLockNoCatch{`0},Towel.SLazyNoLockNoCatch{`0})">Inequality(SLazyNoLockNoCatch&lt;T&gt;, SLazyNoLockNoCatch&lt;T&gt;)</h4>
+  <div class="markdown level1 summary"><p>Checks for inequality between <code data-dev-comment-type="paramref" class="paramref">left</code> and <code data-dev-comment-type="paramref" class="paramref">right</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="decalaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(SLazyNoLockNoCatch&lt;T&gt; left, SLazyNoLockNoCatch&lt;T&gt; right)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch</a>&lt;T&gt;</td>
+        <td><span class="parametername">left</span></td>
+        <td><p>The first value of the inequality check.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Towel.SLazyNoLockNoCatch-1.html">SLazyNoLockNoCatch</a>&lt;T&gt;</td>
+        <td><span class="parametername">right</span></td>
+        <td><p>The second value of the inequality check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-striped table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">System.Boolean</span></td>
+        <td><p>True if <code data-dev-comment-type="paramref" class="paramref">left</code> and <code data-dev-comment-type="paramref" class="paramref">right</code> are not equal or False if not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Towel.ILazy-1.html">ILazy&lt;T&gt;</a>
+  </div>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/new/main/Tools/docfx_project/apidoc/new?filename=Towel_SLazyNoLockNoCatch_1.md&amp;value=---%0Auid%3A%20Towel.SLazyNoLockNoCatch%601%0Asummary%3A%20'*You%20can%20override%20summary%20for%20the%20API%20here%20using%20*MARKDOWN*%20syntax'%0A---%0A%0A*Please%20type%20below%20more%20information%20about%20this%20API%3A*%0A%0A" class="contribution-link">Improve this Doc</a>
+                  </li>
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Sources/Towel/Lazy.cs/#L526" class="contribution-link">View Source</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

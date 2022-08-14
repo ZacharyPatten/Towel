@@ -1,0 +1,4413 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Random With Exclusions </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Random With Exclusions ">
+    <meta name="generator" content="docfx 2.56.7.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="random-with-exclusions">Random With Exclusions</h1>
+
+<p><a href="https://github.com/ZacharyPatten/Towel" alt="Github Repository"><img alt="github repo" src="https://img.shields.io/badge/github-repo-black?logo=github&amp;style=flat" title="Go To Github Repo" alt="Github Repository"></a></p>
+<p>The source code for all benchmarks are in <a href="https://github.com/ZacharyPatten/Towel/tree/main/Tools/Towel_Benchmarking">Tools/Towel.Benchmarking</a>.</p>
+<pre><code class="lang-ini">
+BenchmarkDotNet=v0.13.0, OS=Windows 10.0.19042.1110 (20H2/October2020Update)
+Intel Core i7-4790K CPU 4.00GHz (Haswell), 1 CPU, 8 logical and 4 physical cores
+.NET SDK=6.0.100-preview.6.21355.2
+  [Host]     : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+  Job-HBXSTX : .NET 5.0.8 (5.0.821.31504), X64 RyuJIT
+
+InvocationCount=1  UnrollFactor=1  
+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>MinValue</th>
+<th>MaxValue</th>
+<th>Count</th>
+<th>Exclued</th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Error</th>
+<th style="text-align: right;">StdDev</th>
+<th style="text-align: right;">Median</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.512 μs</strong></td>
+<td style="text-align: right;"><strong>0.0322 μs</strong></td>
+<td style="text-align: right;"><strong>0.0777 μs</strong></td>
+<td style="text-align: right;"><strong>1.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.531 μs</td>
+<td style="text-align: right;">0.0324 μs</td>
+<td style="text-align: right;">0.0737 μs</td>
+<td style="text-align: right;">1.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.566 μs</td>
+<td style="text-align: right;">0.0343 μs</td>
+<td style="text-align: right;">0.0861 μs</td>
+<td style="text-align: right;">1.550 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">3.947 μs</td>
+<td style="text-align: right;">0.0779 μs</td>
+<td style="text-align: right;">0.0800 μs</td>
+<td style="text-align: right;">3.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.514 μs</strong></td>
+<td style="text-align: right;"><strong>0.0322 μs</strong></td>
+<td style="text-align: right;"><strong>0.0866 μs</strong></td>
+<td style="text-align: right;"><strong>1.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.542 μs</td>
+<td style="text-align: right;">0.0327 μs</td>
+<td style="text-align: right;">0.0815 μs</td>
+<td style="text-align: right;">1.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.651 μs</td>
+<td style="text-align: right;">0.0346 μs</td>
+<td style="text-align: right;">0.0823 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">4.007 μs</td>
+<td style="text-align: right;">0.0752 μs</td>
+<td style="text-align: right;">0.0704 μs</td>
+<td style="text-align: right;">4.000 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.607 μs</strong></td>
+<td style="text-align: right;"><strong>0.0341 μs</strong></td>
+<td style="text-align: right;"><strong>0.0816 μs</strong></td>
+<td style="text-align: right;"><strong>1.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.627 μs</td>
+<td style="text-align: right;">0.0344 μs</td>
+<td style="text-align: right;">0.0844 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.910 μs</td>
+<td style="text-align: right;">0.0391 μs</td>
+<td style="text-align: right;">0.0597 μs</td>
+<td style="text-align: right;">1.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">3.929 μs</td>
+<td style="text-align: right;">0.0802 μs</td>
+<td style="text-align: right;">0.1150 μs</td>
+<td style="text-align: right;">3.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.615 μs</strong></td>
+<td style="text-align: right;"><strong>0.0538 μs</strong></td>
+<td style="text-align: right;"><strong>0.1226 μs</strong></td>
+<td style="text-align: right;"><strong>2.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1.646 μs</td>
+<td style="text-align: right;">0.0348 μs</td>
+<td style="text-align: right;">0.0846 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">2.090 μs</td>
+<td style="text-align: right;">0.0434 μs</td>
+<td style="text-align: right;">0.0857 μs</td>
+<td style="text-align: right;">2.100 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">3.910 μs</td>
+<td style="text-align: right;">0.0747 μs</td>
+<td style="text-align: right;">0.0889 μs</td>
+<td style="text-align: right;">3.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.470 μs</strong></td>
+<td style="text-align: right;"><strong>0.0273 μs</strong></td>
+<td style="text-align: right;"><strong>0.0463 μs</strong></td>
+<td style="text-align: right;"><strong>1.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.521 μs</td>
+<td style="text-align: right;">0.0323 μs</td>
+<td style="text-align: right;">0.0791 μs</td>
+<td style="text-align: right;">1.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.626 μs</td>
+<td style="text-align: right;">0.0343 μs</td>
+<td style="text-align: right;">0.0861 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">3.962 μs</td>
+<td style="text-align: right;">0.0739 μs</td>
+<td style="text-align: right;">0.1083 μs</td>
+<td style="text-align: right;">3.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.548 μs</strong></td>
+<td style="text-align: right;"><strong>0.0326 μs</strong></td>
+<td style="text-align: right;"><strong>0.0837 μs</strong></td>
+<td style="text-align: right;"><strong>1.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.533 μs</td>
+<td style="text-align: right;">0.0326 μs</td>
+<td style="text-align: right;">0.0805 μs</td>
+<td style="text-align: right;">1.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.624 μs</td>
+<td style="text-align: right;">0.0343 μs</td>
+<td style="text-align: right;">0.0885 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">4.043 μs</td>
+<td style="text-align: right;">0.0729 μs</td>
+<td style="text-align: right;">0.0646 μs</td>
+<td style="text-align: right;">4.000 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.647 μs</strong></td>
+<td style="text-align: right;"><strong>0.0348 μs</strong></td>
+<td style="text-align: right;"><strong>0.0847 μs</strong></td>
+<td style="text-align: right;"><strong>1.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.659 μs</td>
+<td style="text-align: right;">0.0351 μs</td>
+<td style="text-align: right;">0.0740 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.854 μs</td>
+<td style="text-align: right;">0.0411 μs</td>
+<td style="text-align: right;">0.1097 μs</td>
+<td style="text-align: right;">1.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">3.913 μs</td>
+<td style="text-align: right;">0.0795 μs</td>
+<td style="text-align: right;">0.0743 μs</td>
+<td style="text-align: right;">3.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.542 μs</strong></td>
+<td style="text-align: right;"><strong>0.0513 μs</strong></td>
+<td style="text-align: right;"><strong>0.0703 μs</strong></td>
+<td style="text-align: right;"><strong>2.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1.667 μs</td>
+<td style="text-align: right;">0.0351 μs</td>
+<td style="text-align: right;">0.0764 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1.962 μs</td>
+<td style="text-align: right;">0.0493 μs</td>
+<td style="text-align: right;">0.1300 μs</td>
+<td style="text-align: right;">1.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">3.894 μs</td>
+<td style="text-align: right;">0.0589 μs</td>
+<td style="text-align: right;">0.0968 μs</td>
+<td style="text-align: right;">3.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.578 μs</strong></td>
+<td style="text-align: right;"><strong>0.0334 μs</strong></td>
+<td style="text-align: right;"><strong>0.0712 μs</strong></td>
+<td style="text-align: right;"><strong>1.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.576 μs</td>
+<td style="text-align: right;">0.0329 μs</td>
+<td style="text-align: right;">0.0756 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.675 μs</td>
+<td style="text-align: right;">0.0363 μs</td>
+<td style="text-align: right;">0.1023 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">4.865 μs</td>
+<td style="text-align: right;">0.0875 μs</td>
+<td style="text-align: right;">0.1198 μs</td>
+<td style="text-align: right;">4.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.593 μs</strong></td>
+<td style="text-align: right;"><strong>0.0338 μs</strong></td>
+<td style="text-align: right;"><strong>0.0756 μs</strong></td>
+<td style="text-align: right;"><strong>1.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.563 μs</td>
+<td style="text-align: right;">0.0330 μs</td>
+<td style="text-align: right;">0.0790 μs</td>
+<td style="text-align: right;">1.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.681 μs</td>
+<td style="text-align: right;">0.0383 μs</td>
+<td style="text-align: right;">0.1074 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">4.966 μs</td>
+<td style="text-align: right;">0.1001 μs</td>
+<td style="text-align: right;">0.1644 μs</td>
+<td style="text-align: right;">4.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.649 μs</strong></td>
+<td style="text-align: right;"><strong>0.0349 μs</strong></td>
+<td style="text-align: right;"><strong>0.0774 μs</strong></td>
+<td style="text-align: right;"><strong>1.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.633 μs</td>
+<td style="text-align: right;">0.0346 μs</td>
+<td style="text-align: right;">0.0774 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.925 μs</td>
+<td style="text-align: right;">0.0398 μs</td>
+<td style="text-align: right;">0.0786 μs</td>
+<td style="text-align: right;">1.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">4.994 μs</td>
+<td style="text-align: right;">0.1011 μs</td>
+<td style="text-align: right;">0.1662 μs</td>
+<td style="text-align: right;">5.000 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.597 μs</strong></td>
+<td style="text-align: right;"><strong>0.0539 μs</strong></td>
+<td style="text-align: right;"><strong>0.0870 μs</strong></td>
+<td style="text-align: right;"><strong>2.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1.638 μs</td>
+<td style="text-align: right;">0.0344 μs</td>
+<td style="text-align: right;">0.0733 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">2.118 μs</td>
+<td style="text-align: right;">0.0439 μs</td>
+<td style="text-align: right;">0.0992 μs</td>
+<td style="text-align: right;">2.100 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">5.159 μs</td>
+<td style="text-align: right;">0.1035 μs</td>
+<td style="text-align: right;">0.1672 μs</td>
+<td style="text-align: right;">5.150 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.633 μs</strong></td>
+<td style="text-align: right;"><strong>0.0346 μs</strong></td>
+<td style="text-align: right;"><strong>0.0774 μs</strong></td>
+<td style="text-align: right;"><strong>1.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.602 μs</td>
+<td style="text-align: right;">0.0340 μs</td>
+<td style="text-align: right;">0.0754 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1.724 μs</td>
+<td style="text-align: right;">0.0362 μs</td>
+<td style="text-align: right;">0.0824 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">5.854 μs</td>
+<td style="text-align: right;">0.1178 μs</td>
+<td style="text-align: right;">0.2063 μs</td>
+<td style="text-align: right;">5.800 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.608 μs</strong></td>
+<td style="text-align: right;"><strong>0.0341 μs</strong></td>
+<td style="text-align: right;"><strong>0.0879 μs</strong></td>
+<td style="text-align: right;"><strong>1.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.616 μs</td>
+<td style="text-align: right;">0.0343 μs</td>
+<td style="text-align: right;">0.0787 μs</td>
+<td style="text-align: right;">1.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1.712 μs</td>
+<td style="text-align: right;">0.0404 μs</td>
+<td style="text-align: right;">0.1153 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">5.870 μs</td>
+<td style="text-align: right;">0.1193 μs</td>
+<td style="text-align: right;">0.2410 μs</td>
+<td style="text-align: right;">5.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.550 μs</strong></td>
+<td style="text-align: right;"><strong>0.0527 μs</strong></td>
+<td style="text-align: right;"><strong>0.0607 μs</strong></td>
+<td style="text-align: right;"><strong>2.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.688 μs</td>
+<td style="text-align: right;">0.0356 μs</td>
+<td style="text-align: right;">0.0790 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1.977 μs</td>
+<td style="text-align: right;">0.0415 μs</td>
+<td style="text-align: right;">0.0927 μs</td>
+<td style="text-align: right;">2.000 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">6.125 μs</td>
+<td style="text-align: right;">0.1335 μs</td>
+<td style="text-align: right;">0.3787 μs</td>
+<td style="text-align: right;">6.100 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.681 μs</strong></td>
+<td style="text-align: right;"><strong>0.0553 μs</strong></td>
+<td style="text-align: right;"><strong>0.1202 μs</strong></td>
+<td style="text-align: right;"><strong>2.700 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1.693 μs</td>
+<td style="text-align: right;">0.0354 μs</td>
+<td style="text-align: right;">0.0940 μs</td>
+<td style="text-align: right;">1.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">2.170 μs</td>
+<td style="text-align: right;">0.0442 μs</td>
+<td style="text-align: right;">0.0559 μs</td>
+<td style="text-align: right;">2.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">6.159 μs</td>
+<td style="text-align: right;">0.1245 μs</td>
+<td style="text-align: right;">0.2114 μs</td>
+<td style="text-align: right;">6.200 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.672 μs</strong></td>
+<td style="text-align: right;"><strong>0.0343 μs</strong></td>
+<td style="text-align: right;"><strong>0.0458 μs</strong></td>
+<td style="text-align: right;"><strong>1.700 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.123 μs</td>
+<td style="text-align: right;">0.0444 μs</td>
+<td style="text-align: right;">0.0865 μs</td>
+<td style="text-align: right;">2.100 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.683 μs</td>
+<td style="text-align: right;">0.0499 μs</td>
+<td style="text-align: right;">0.0389 μs</td>
+<td style="text-align: right;">2.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">9.940 μs</td>
+<td style="text-align: right;">0.1960 μs</td>
+<td style="text-align: right;">0.2257 μs</td>
+<td style="text-align: right;">9.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.755 μs</strong></td>
+<td style="text-align: right;"><strong>0.0371 μs</strong></td>
+<td style="text-align: right;"><strong>0.0774 μs</strong></td>
+<td style="text-align: right;"><strong>1.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">2.296 μs</td>
+<td style="text-align: right;">0.0477 μs</td>
+<td style="text-align: right;">0.1273 μs</td>
+<td style="text-align: right;">2.300 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">3.337 μs</td>
+<td style="text-align: right;">0.0677 μs</td>
+<td style="text-align: right;">0.1254 μs</td>
+<td style="text-align: right;">3.300 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">11.620 μs</td>
+<td style="text-align: right;">0.2282 μs</td>
+<td style="text-align: right;">0.2628 μs</td>
+<td style="text-align: right;">11.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.839 μs</strong></td>
+<td style="text-align: right;"><strong>0.0384 μs</strong></td>
+<td style="text-align: right;"><strong>0.0875 μs</strong></td>
+<td style="text-align: right;"><strong>1.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">2.590 μs</td>
+<td style="text-align: right;">0.0536 μs</td>
+<td style="text-align: right;">0.1383 μs</td>
+<td style="text-align: right;">2.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">3.537 μs</td>
+<td style="text-align: right;">0.0739 μs</td>
+<td style="text-align: right;">0.1215 μs</td>
+<td style="text-align: right;">3.500 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">12.558 μs</td>
+<td style="text-align: right;">0.2515 μs</td>
+<td style="text-align: right;">0.2795 μs</td>
+<td style="text-align: right;">12.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>4.537 μs</strong></td>
+<td style="text-align: right;"><strong>0.0910 μs</strong></td>
+<td style="text-align: right;"><strong>0.1012 μs</strong></td>
+<td style="text-align: right;"><strong>4.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">2.800 μs</td>
+<td style="text-align: right;">0.0579 μs</td>
+<td style="text-align: right;">0.1270 μs</td>
+<td style="text-align: right;">2.800 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">4.086 μs</td>
+<td style="text-align: right;">0.0821 μs</td>
+<td style="text-align: right;">0.1177 μs</td>
+<td style="text-align: right;">4.100 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">12.958 μs</td>
+<td style="text-align: right;">0.2585 μs</td>
+<td style="text-align: right;">0.2874 μs</td>
+<td style="text-align: right;">13.000 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.790 μs</strong></td>
+<td style="text-align: right;"><strong>0.0378 μs</strong></td>
+<td style="text-align: right;"><strong>0.0763 μs</strong></td>
+<td style="text-align: right;"><strong>1.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.163 μs</td>
+<td style="text-align: right;">0.0449 μs</td>
+<td style="text-align: right;">0.0629 μs</td>
+<td style="text-align: right;">2.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.700 μs</td>
+<td style="text-align: right;">0.0510 μs</td>
+<td style="text-align: right;">0.0906 μs</td>
+<td style="text-align: right;">2.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">14.581 μs</td>
+<td style="text-align: right;">0.2832 μs</td>
+<td style="text-align: right;">0.3371 μs</td>
+<td style="text-align: right;">14.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.781 μs</strong></td>
+<td style="text-align: right;"><strong>0.0367 μs</strong></td>
+<td style="text-align: right;"><strong>0.0671 μs</strong></td>
+<td style="text-align: right;"><strong>1.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">2.370 μs</td>
+<td style="text-align: right;">0.0493 μs</td>
+<td style="text-align: right;">0.1255 μs</td>
+<td style="text-align: right;">2.400 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">3.287 μs</td>
+<td style="text-align: right;">0.0673 μs</td>
+<td style="text-align: right;">0.1008 μs</td>
+<td style="text-align: right;">3.300 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">16.731 μs</td>
+<td style="text-align: right;">0.3277 μs</td>
+<td style="text-align: right;">0.4804 μs</td>
+<td style="text-align: right;">16.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.897 μs</strong></td>
+<td style="text-align: right;"><strong>0.0393 μs</strong></td>
+<td style="text-align: right;"><strong>0.0870 μs</strong></td>
+<td style="text-align: right;"><strong>1.900 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">2.690 μs</td>
+<td style="text-align: right;">0.0555 μs</td>
+<td style="text-align: right;">0.1471 μs</td>
+<td style="text-align: right;">2.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">3.705 μs</td>
+<td style="text-align: right;">0.0744 μs</td>
+<td style="text-align: right;">0.1397 μs</td>
+<td style="text-align: right;">3.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">16.888 μs</td>
+<td style="text-align: right;">0.3303 μs</td>
+<td style="text-align: right;">0.4409 μs</td>
+<td style="text-align: right;">17.000 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>4.577 μs</strong></td>
+<td style="text-align: right;"><strong>0.0831 μs</strong></td>
+<td style="text-align: right;"><strong>0.1020 μs</strong></td>
+<td style="text-align: right;"><strong>4.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">2.749 μs</td>
+<td style="text-align: right;">0.0567 μs</td>
+<td style="text-align: right;">0.1079 μs</td>
+<td style="text-align: right;">2.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">4.050 μs</td>
+<td style="text-align: right;">0.0828 μs</td>
+<td style="text-align: right;">0.1384 μs</td>
+<td style="text-align: right;">4.050 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">17.509 μs</td>
+<td style="text-align: right;">0.3518 μs</td>
+<td style="text-align: right;">0.5476 μs</td>
+<td style="text-align: right;">17.550 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.822 μs</strong></td>
+<td style="text-align: right;"><strong>0.0381 μs</strong></td>
+<td style="text-align: right;"><strong>0.0912 μs</strong></td>
+<td style="text-align: right;"><strong>1.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.221 μs</td>
+<td style="text-align: right;">0.0462 μs</td>
+<td style="text-align: right;">0.1225 μs</td>
+<td style="text-align: right;">2.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.733 μs</td>
+<td style="text-align: right;">0.0553 μs</td>
+<td style="text-align: right;">0.0658 μs</td>
+<td style="text-align: right;">2.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">26.680 μs</td>
+<td style="text-align: right;">0.5287 μs</td>
+<td style="text-align: right;">0.4945 μs</td>
+<td style="text-align: right;">26.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1.838 μs</strong></td>
+<td style="text-align: right;"><strong>0.0383 μs</strong></td>
+<td style="text-align: right;"><strong>0.0561 μs</strong></td>
+<td style="text-align: right;"><strong>1.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">2.431 μs</td>
+<td style="text-align: right;">0.0505 μs</td>
+<td style="text-align: right;">0.1302 μs</td>
+<td style="text-align: right;">2.400 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">3.421 μs</td>
+<td style="text-align: right;">0.0653 μs</td>
+<td style="text-align: right;">0.0579 μs</td>
+<td style="text-align: right;">3.400 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">27.511 μs</td>
+<td style="text-align: right;">0.5406 μs</td>
+<td style="text-align: right;">0.6008 μs</td>
+<td style="text-align: right;">27.400 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>4.223 μs</strong></td>
+<td style="text-align: right;"><strong>0.0857 μs</strong></td>
+<td style="text-align: right;"><strong>0.1671 μs</strong></td>
+<td style="text-align: right;"><strong>4.200 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">2.649 μs</td>
+<td style="text-align: right;">0.0546 μs</td>
+<td style="text-align: right;">0.1530 μs</td>
+<td style="text-align: right;">2.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">3.676 μs</td>
+<td style="text-align: right;">0.0744 μs</td>
+<td style="text-align: right;">0.1283 μs</td>
+<td style="text-align: right;">3.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">27.773 μs</td>
+<td style="text-align: right;">0.5517 μs</td>
+<td style="text-align: right;">0.8751 μs</td>
+<td style="text-align: right;">27.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>4.694 μs</strong></td>
+<td style="text-align: right;"><strong>0.0816 μs</strong></td>
+<td style="text-align: right;"><strong>0.0873 μs</strong></td>
+<td style="text-align: right;"><strong>4.700 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">2.960 μs</td>
+<td style="text-align: right;">0.0598 μs</td>
+<td style="text-align: right;">0.0894 μs</td>
+<td style="text-align: right;">3.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">4.162 μs</td>
+<td style="text-align: right;">0.0824 μs</td>
+<td style="text-align: right;">0.1208 μs</td>
+<td style="text-align: right;">4.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">29.747 μs</td>
+<td style="text-align: right;">0.5967 μs</td>
+<td style="text-align: right;">1.2971 μs</td>
+<td style="text-align: right;">29.800 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.906 μs</strong></td>
+<td style="text-align: right;"><strong>0.0420 μs</strong></td>
+<td style="text-align: right;"><strong>0.0858 μs</strong></td>
+<td style="text-align: right;"><strong>1.900 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.352 μs</td>
+<td style="text-align: right;">0.0441 μs</td>
+<td style="text-align: right;">0.1066 μs</td>
+<td style="text-align: right;">2.300 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">2.864 μs</td>
+<td style="text-align: right;">0.0592 μs</td>
+<td style="text-align: right;">0.0727 μs</td>
+<td style="text-align: right;">2.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">47.938 μs</td>
+<td style="text-align: right;">0.5713 μs</td>
+<td style="text-align: right;">0.4770 μs</td>
+<td style="text-align: right;">47.800 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.077 μs</strong></td>
+<td style="text-align: right;"><strong>0.0428 μs</strong></td>
+<td style="text-align: right;"><strong>0.0803 μs</strong></td>
+<td style="text-align: right;"><strong>2.100 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">2.576 μs</td>
+<td style="text-align: right;">0.0601 μs</td>
+<td style="text-align: right;">0.1714 μs</td>
+<td style="text-align: right;">2.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">3.541 μs</td>
+<td style="text-align: right;">0.0715 μs</td>
+<td style="text-align: right;">0.1428 μs</td>
+<td style="text-align: right;">3.500 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">48.746 μs</td>
+<td style="text-align: right;">0.7343 μs</td>
+<td style="text-align: right;">0.6132 μs</td>
+<td style="text-align: right;">48.700 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>4.329 μs</strong></td>
+<td style="text-align: right;"><strong>0.0827 μs</strong></td>
+<td style="text-align: right;"><strong>0.0849 μs</strong></td>
+<td style="text-align: right;"><strong>4.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">2.840 μs</td>
+<td style="text-align: right;">0.0581 μs</td>
+<td style="text-align: right;">0.1033 μs</td>
+<td style="text-align: right;">2.800 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">3.913 μs</td>
+<td style="text-align: right;">0.0793 μs</td>
+<td style="text-align: right;">0.1566 μs</td>
+<td style="text-align: right;">3.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">49.147 μs</td>
+<td style="text-align: right;">0.8104 μs</td>
+<td style="text-align: right;">0.8323 μs</td>
+<td style="text-align: right;">49.300 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>4.846 μs</strong></td>
+<td style="text-align: right;"><strong>0.0930 μs</strong></td>
+<td style="text-align: right;"><strong>0.0776 μs</strong></td>
+<td style="text-align: right;"><strong>4.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">2.933 μs</td>
+<td style="text-align: right;">0.0580 μs</td>
+<td style="text-align: right;">0.1117 μs</td>
+<td style="text-align: right;">2.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">4.279 μs</td>
+<td style="text-align: right;">0.0863 μs</td>
+<td style="text-align: right;">0.1264 μs</td>
+<td style="text-align: right;">4.300 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">51.647 μs</td>
+<td style="text-align: right;">1.0190 μs</td>
+<td style="text-align: right;">1.9388 μs</td>
+<td style="text-align: right;">51.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.784 μs</strong></td>
+<td style="text-align: right;"><strong>0.0337 μs</strong></td>
+<td style="text-align: right;"><strong>0.0375 μs</strong></td>
+<td style="text-align: right;"><strong>1.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">6.553 μs</td>
+<td style="text-align: right;">0.1294 μs</td>
+<td style="text-align: right;">0.1328 μs</td>
+<td style="text-align: right;">6.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">9.385 μs</td>
+<td style="text-align: right;">0.0959 μs</td>
+<td style="text-align: right;">0.0801 μs</td>
+<td style="text-align: right;">9.400 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">114.259 μs</td>
+<td style="text-align: right;">2.1724 μs</td>
+<td style="text-align: right;">2.6679 μs</td>
+<td style="text-align: right;">113.350 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.027 μs</strong></td>
+<td style="text-align: right;"><strong>0.0425 μs</strong></td>
+<td style="text-align: right;"><strong>0.0809 μs</strong></td>
+<td style="text-align: right;"><strong>2.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">7.964 μs</td>
+<td style="text-align: right;">0.1602 μs</td>
+<td style="text-align: right;">0.2139 μs</td>
+<td style="text-align: right;">8.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">10.410 μs</td>
+<td style="text-align: right;">0.1950 μs</td>
+<td style="text-align: right;">0.2245 μs</td>
+<td style="text-align: right;">10.400 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">109.154 μs</td>
+<td style="text-align: right;">1.9796 μs</td>
+<td style="text-align: right;">1.6531 μs</td>
+<td style="text-align: right;">108.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.453 μs</strong></td>
+<td style="text-align: right;"><strong>0.0500 μs</strong></td>
+<td style="text-align: right;"><strong>0.0862 μs</strong></td>
+<td style="text-align: right;"><strong>2.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8.692 μs</td>
+<td style="text-align: right;">0.1782 μs</td>
+<td style="text-align: right;">0.4939 μs</td>
+<td style="text-align: right;">8.800 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">12.588 μs</td>
+<td style="text-align: right;">0.2496 μs</td>
+<td style="text-align: right;">0.4565 μs</td>
+<td style="text-align: right;">12.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">90.341 μs</td>
+<td style="text-align: right;">1.7740 μs</td>
+<td style="text-align: right;">3.5428 μs</td>
+<td style="text-align: right;">89.400 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>16.124 μs</strong></td>
+<td style="text-align: right;"><strong>0.3080 μs</strong></td>
+<td style="text-align: right;"><strong>0.7077 μs</strong></td>
+<td style="text-align: right;"><strong>16.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11.702 μs</td>
+<td style="text-align: right;">0.3284 μs</td>
+<td style="text-align: right;">0.9210 μs</td>
+<td style="text-align: right;">11.800 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">15.493 μs</td>
+<td style="text-align: right;">0.3109 μs</td>
+<td style="text-align: right;">0.6558 μs</td>
+<td style="text-align: right;">15.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">111.869 μs</td>
+<td style="text-align: right;">1.4531 μs</td>
+<td style="text-align: right;">1.2134 μs</td>
+<td style="text-align: right;">112.000 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.984 μs</strong></td>
+<td style="text-align: right;"><strong>0.0413 μs</strong></td>
+<td style="text-align: right;"><strong>0.0776 μs</strong></td>
+<td style="text-align: right;"><strong>2.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">6.884 μs</td>
+<td style="text-align: right;">0.1133 μs</td>
+<td style="text-align: right;">0.1259 μs</td>
+<td style="text-align: right;">6.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">9.247 μs</td>
+<td style="text-align: right;">0.1858 μs</td>
+<td style="text-align: right;">0.1908 μs</td>
+<td style="text-align: right;">9.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">302.858 μs</td>
+<td style="text-align: right;">3.4720 μs</td>
+<td style="text-align: right;">2.8993 μs</td>
+<td style="text-align: right;">301.550 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.226 μs</strong></td>
+<td style="text-align: right;"><strong>0.0464 μs</strong></td>
+<td style="text-align: right;"><strong>0.1182 μs</strong></td>
+<td style="text-align: right;"><strong>2.200 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">8.023 μs</td>
+<td style="text-align: right;">0.1592 μs</td>
+<td style="text-align: right;">0.2432 μs</td>
+<td style="text-align: right;">8.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">10.650 μs</td>
+<td style="text-align: right;">0.2130 μs</td>
+<td style="text-align: right;">0.2915 μs</td>
+<td style="text-align: right;">10.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">312.349 μs</td>
+<td style="text-align: right;">6.1923 μs</td>
+<td style="text-align: right;">11.7815 μs</td>
+<td style="text-align: right;">309.200 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.835 μs</strong></td>
+<td style="text-align: right;"><strong>0.0582 μs</strong></td>
+<td style="text-align: right;"><strong>0.0797 μs</strong></td>
+<td style="text-align: right;"><strong>2.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8.900 μs</td>
+<td style="text-align: right;">0.1802 μs</td>
+<td style="text-align: right;">0.5082 μs</td>
+<td style="text-align: right;">8.950 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">12.812 μs</td>
+<td style="text-align: right;">0.2579 μs</td>
+<td style="text-align: right;">0.5606 μs</td>
+<td style="text-align: right;">12.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">328.964 μs</td>
+<td style="text-align: right;">4.9172 μs</td>
+<td style="text-align: right;">4.3590 μs</td>
+<td style="text-align: right;">328.250 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>16.655 μs</strong></td>
+<td style="text-align: right;"><strong>0.3179 μs</strong></td>
+<td style="text-align: right;"><strong>0.7368 μs</strong></td>
+<td style="text-align: right;"><strong>16.650 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11.703 μs</td>
+<td style="text-align: right;">0.3102 μs</td>
+<td style="text-align: right;">0.9096 μs</td>
+<td style="text-align: right;">11.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">15.604 μs</td>
+<td style="text-align: right;">0.3086 μs</td>
+<td style="text-align: right;">0.6091 μs</td>
+<td style="text-align: right;">15.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">351.521 μs</td>
+<td style="text-align: right;">6.7344 μs</td>
+<td style="text-align: right;">7.4853 μs</td>
+<td style="text-align: right;">351.100 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>2.274 μs</strong></td>
+<td style="text-align: right;"><strong>0.0407 μs</strong></td>
+<td style="text-align: right;"><strong>0.0452 μs</strong></td>
+<td style="text-align: right;"><strong>2.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">6.983 μs</td>
+<td style="text-align: right;">0.1406 μs</td>
+<td style="text-align: right;">0.1505 μs</td>
+<td style="text-align: right;">6.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">9.662 μs</td>
+<td style="text-align: right;">0.1657 μs</td>
+<td style="text-align: right;">0.1628 μs</td>
+<td style="text-align: right;">9.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">581.576 μs</td>
+<td style="text-align: right;">9.0128 μs</td>
+<td style="text-align: right;">9.2555 μs</td>
+<td style="text-align: right;">577.300 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>2.518 μs</strong></td>
+<td style="text-align: right;"><strong>0.0538 μs</strong></td>
+<td style="text-align: right;"><strong>0.1074 μs</strong></td>
+<td style="text-align: right;"><strong>2.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">7.974 μs</td>
+<td style="text-align: right;">0.1604 μs</td>
+<td style="text-align: right;">0.2449 μs</td>
+<td style="text-align: right;">8.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">10.941 μs</td>
+<td style="text-align: right;">0.2130 μs</td>
+<td style="text-align: right;">0.3123 μs</td>
+<td style="text-align: right;">11.000 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">659.794 μs</td>
+<td style="text-align: right;">12.5001 μs</td>
+<td style="text-align: right;">25.2508 μs</td>
+<td style="text-align: right;">655.500 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>13.857 μs</strong></td>
+<td style="text-align: right;"><strong>0.2788 μs</strong></td>
+<td style="text-align: right;"><strong>0.4735 μs</strong></td>
+<td style="text-align: right;"><strong>14.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8.944 μs</td>
+<td style="text-align: right;">0.1807 μs</td>
+<td style="text-align: right;">0.5007 μs</td>
+<td style="text-align: right;">9.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">12.694 μs</td>
+<td style="text-align: right;">0.2517 μs</td>
+<td style="text-align: right;">0.5085 μs</td>
+<td style="text-align: right;">12.800 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">717.292 μs</td>
+<td style="text-align: right;">10.2793 μs</td>
+<td style="text-align: right;">8.5837 μs</td>
+<td style="text-align: right;">714.200 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>17.241 μs</strong></td>
+<td style="text-align: right;"><strong>0.3120 μs</strong></td>
+<td style="text-align: right;"><strong>0.6372 μs</strong></td>
+<td style="text-align: right;"><strong>17.400 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11.988 μs</td>
+<td style="text-align: right;">0.2396 μs</td>
+<td style="text-align: right;">0.6520 μs</td>
+<td style="text-align: right;">12.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">15.623 μs</td>
+<td style="text-align: right;">0.2951 μs</td>
+<td style="text-align: right;">0.7183 μs</td>
+<td style="text-align: right;">15.800 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">738.064 μs</td>
+<td style="text-align: right;">13.2229 μs</td>
+<td style="text-align: right;">24.8358 μs</td>
+<td style="text-align: right;">725.400 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>2.914 μs</strong></td>
+<td style="text-align: right;"><strong>0.0591 μs</strong></td>
+<td style="text-align: right;"><strong>0.0848 μs</strong></td>
+<td style="text-align: right;"><strong>2.900 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">7.271 μs</td>
+<td style="text-align: right;">0.1359 μs</td>
+<td style="text-align: right;">0.1204 μs</td>
+<td style="text-align: right;">7.250 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">10.063 μs</td>
+<td style="text-align: right;">0.1971 μs</td>
+<td style="text-align: right;">0.2191 μs</td>
+<td style="text-align: right;">10.100 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">1,210.574 μs</td>
+<td style="text-align: right;">23.7352 μs</td>
+<td style="text-align: right;">36.2462 μs</td>
+<td style="text-align: right;">1,195.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>3.335 μs</strong></td>
+<td style="text-align: right;"><strong>0.0683 μs</strong></td>
+<td style="text-align: right;"><strong>0.0702 μs</strong></td>
+<td style="text-align: right;"><strong>3.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">8.437 μs</td>
+<td style="text-align: right;">0.1625 μs</td>
+<td style="text-align: right;">0.2804 μs</td>
+<td style="text-align: right;">8.400 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">11.017 μs</td>
+<td style="text-align: right;">0.2206 μs</td>
+<td style="text-align: right;">0.2790 μs</td>
+<td style="text-align: right;">11.100 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">1,318.465 μs</td>
+<td style="text-align: right;">23.3225 μs</td>
+<td style="text-align: right;">19.4753 μs</td>
+<td style="text-align: right;">1,314.350 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>14.496 μs</strong></td>
+<td style="text-align: right;"><strong>0.2766 μs</strong></td>
+<td style="text-align: right;"><strong>0.5650 μs</strong></td>
+<td style="text-align: right;"><strong>14.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">9.282 μs</td>
+<td style="text-align: right;">0.1866 μs</td>
+<td style="text-align: right;">0.3977 μs</td>
+<td style="text-align: right;">9.300 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">13.189 μs</td>
+<td style="text-align: right;">0.2636 μs</td>
+<td style="text-align: right;">0.4330 μs</td>
+<td style="text-align: right;">13.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">1,379.938 μs</td>
+<td style="text-align: right;">26.1933 μs</td>
+<td style="text-align: right;">21.8726 μs</td>
+<td style="text-align: right;">1,376.600 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>16.756 μs</strong></td>
+<td style="text-align: right;"><strong>0.3355 μs</strong></td>
+<td style="text-align: right;"><strong>0.6219 μs</strong></td>
+<td style="text-align: right;"><strong>16.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11.804 μs</td>
+<td style="text-align: right;">0.3052 μs</td>
+<td style="text-align: right;">0.8609 μs</td>
+<td style="text-align: right;">11.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">16.216 μs</td>
+<td style="text-align: right;">0.3239 μs</td>
+<td style="text-align: right;">0.6084 μs</td>
+<td style="text-align: right;">16.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1,499.128 μs</td>
+<td style="text-align: right;">27.6820 μs</td>
+<td style="text-align: right;">36.9546 μs</td>
+<td style="text-align: right;">1,490.900 μs</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>1.969 μs</strong></td>
+<td style="text-align: right;"><strong>0.0412 μs</strong></td>
+<td style="text-align: right;"><strong>0.0676 μs</strong></td>
+<td style="text-align: right;"><strong>2.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">54.008 μs</td>
+<td style="text-align: right;">0.7008 μs</td>
+<td style="text-align: right;">0.5852 μs</td>
+<td style="text-align: right;">53.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">71.971 μs</td>
+<td style="text-align: right;">0.1793 μs</td>
+<td style="text-align: right;">0.1590 μs</td>
+<td style="text-align: right;">71.950 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>3.500 μs</strong></td>
+<td style="text-align: right;"><strong>0.0716 μs</strong></td>
+<td style="text-align: right;"><strong>0.0980 μs</strong></td>
+<td style="text-align: right;"><strong>3.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">56.011 μs</td>
+<td style="text-align: right;">0.8702 μs</td>
+<td style="text-align: right;">0.9672 μs</td>
+<td style="text-align: right;">56.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">89.436 μs</td>
+<td style="text-align: right;">1.2574 μs</td>
+<td style="text-align: right;">1.1147 μs</td>
+<td style="text-align: right;">89.150 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>6.514 μs</strong></td>
+<td style="text-align: right;"><strong>0.1317 μs</strong></td>
+<td style="text-align: right;"><strong>0.1167 μs</strong></td>
+<td style="text-align: right;"><strong>6.550 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">62.987 μs</td>
+<td style="text-align: right;">0.9286 μs</td>
+<td style="text-align: right;">1.6507 μs</td>
+<td style="text-align: right;">63.050 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">87.106 μs</td>
+<td style="text-align: right;">1.7024 μs</td>
+<td style="text-align: right;">1.8216 μs</td>
+<td style="text-align: right;">86.750 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>110.796 μs</strong></td>
+<td style="text-align: right;"><strong>2.1637 μs</strong></td>
+<td style="text-align: right;"><strong>2.7364 μs</strong></td>
+<td style="text-align: right;"><strong>110.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">72.930 μs</td>
+<td style="text-align: right;">1.1850 μs</td>
+<td style="text-align: right;">2.0123 μs</td>
+<td style="text-align: right;">72.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">101.566 μs</td>
+<td style="text-align: right;">1.3163 μs</td>
+<td style="text-align: right;">3.3741 μs</td>
+<td style="text-align: right;">101.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>2.859 μs</strong></td>
+<td style="text-align: right;"><strong>0.0591 μs</strong></td>
+<td style="text-align: right;"><strong>0.0867 μs</strong></td>
+<td style="text-align: right;"><strong>2.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">55.077 μs</td>
+<td style="text-align: right;">1.0105 μs</td>
+<td style="text-align: right;">1.8730 μs</td>
+<td style="text-align: right;">54.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">74.727 μs</td>
+<td style="text-align: right;">1.6507 μs</td>
+<td style="text-align: right;">4.4629 μs</td>
+<td style="text-align: right;">72.600 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>5.021 μs</strong></td>
+<td style="text-align: right;"><strong>0.1007 μs</strong></td>
+<td style="text-align: right;"><strong>0.0893 μs</strong></td>
+<td style="text-align: right;"><strong>5.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">58.995 μs</td>
+<td style="text-align: right;">1.6685 μs</td>
+<td style="text-align: right;">4.7060 μs</td>
+<td style="text-align: right;">56.850 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">85.283 μs</td>
+<td style="text-align: right;">1.3398 μs</td>
+<td style="text-align: right;">1.0461 μs</td>
+<td style="text-align: right;">85.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>9.221 μs</strong></td>
+<td style="text-align: right;"><strong>0.0653 μs</strong></td>
+<td style="text-align: right;"><strong>0.0579 μs</strong></td>
+<td style="text-align: right;"><strong>9.200 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">74.186 μs</td>
+<td style="text-align: right;">6.1819 μs</td>
+<td style="text-align: right;">18.0328 μs</td>
+<td style="text-align: right;">64.450 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">90.242 μs</td>
+<td style="text-align: right;">1.5021 μs</td>
+<td style="text-align: right;">1.1728 μs</td>
+<td style="text-align: right;">90.450 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>102.711 μs</strong></td>
+<td style="text-align: right;"><strong>1.9913 μs</strong></td>
+<td style="text-align: right;"><strong>2.7915 μs</strong></td>
+<td style="text-align: right;"><strong>101.700 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">70.695 μs</td>
+<td style="text-align: right;">1.3816 μs</td>
+<td style="text-align: right;">1.5357 μs</td>
+<td style="text-align: right;">70.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">98.805 μs</td>
+<td style="text-align: right;">1.9301 μs</td>
+<td style="text-align: right;">3.3293 μs</td>
+<td style="text-align: right;">98.450 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>3.900 μs</strong></td>
+<td style="text-align: right;"><strong>0.0791 μs</strong></td>
+<td style="text-align: right;"><strong>0.1109 μs</strong></td>
+<td style="text-align: right;"><strong>3.900 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">54.492 μs</td>
+<td style="text-align: right;">0.4752 μs</td>
+<td style="text-align: right;">0.3968 μs</td>
+<td style="text-align: right;">54.400 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">73.117 μs</td>
+<td style="text-align: right;">1.2865 μs</td>
+<td style="text-align: right;">1.0044 μs</td>
+<td style="text-align: right;">72.450 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>7.160 μs</strong></td>
+<td style="text-align: right;"><strong>0.0788 μs</strong></td>
+<td style="text-align: right;"><strong>0.0737 μs</strong></td>
+<td style="text-align: right;"><strong>7.200 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">57.542 μs</td>
+<td style="text-align: right;">0.6708 μs</td>
+<td style="text-align: right;">0.7456 μs</td>
+<td style="text-align: right;">57.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">90.667 μs</td>
+<td style="text-align: right;">0.8624 μs</td>
+<td style="text-align: right;">0.6733 μs</td>
+<td style="text-align: right;">90.750 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>95.725 μs</strong></td>
+<td style="text-align: right;"><strong>1.6045 μs</strong></td>
+<td style="text-align: right;"><strong>2.0862 μs</strong></td>
+<td style="text-align: right;"><strong>95.400 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">61.793 μs</td>
+<td style="text-align: right;">1.2139 μs</td>
+<td style="text-align: right;">1.0761 μs</td>
+<td style="text-align: right;">61.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">86.957 μs</td>
+<td style="text-align: right;">1.3686 μs</td>
+<td style="text-align: right;">1.2132 μs</td>
+<td style="text-align: right;">86.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>110.947 μs</strong></td>
+<td style="text-align: right;"><strong>2.0774 μs</strong></td>
+<td style="text-align: right;"><strong>3.8506 μs</strong></td>
+<td style="text-align: right;"><strong>111.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">71.600 μs</td>
+<td style="text-align: right;">1.3954 μs</td>
+<td style="text-align: right;">2.4070 μs</td>
+<td style="text-align: right;">71.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">138.058 μs</td>
+<td style="text-align: right;">2.2533 μs</td>
+<td style="text-align: right;">4.2872 μs</td>
+<td style="text-align: right;">137.400 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>5.753 μs</strong></td>
+<td style="text-align: right;"><strong>0.1095 μs</strong></td>
+<td style="text-align: right;"><strong>0.1125 μs</strong></td>
+<td style="text-align: right;"><strong>5.700 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">56.539 μs</td>
+<td style="text-align: right;">1.1253 μs</td>
+<td style="text-align: right;">2.3736 μs</td>
+<td style="text-align: right;">55.800 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">74.100 μs</td>
+<td style="text-align: right;">1.4494 μs</td>
+<td style="text-align: right;">1.2848 μs</td>
+<td style="text-align: right;">73.250 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>100.554 μs</strong></td>
+<td style="text-align: right;"><strong>1.9142 μs</strong></td>
+<td style="text-align: right;"><strong>2.7453 μs</strong></td>
+<td style="text-align: right;"><strong>99.650 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">62.348 μs</td>
+<td style="text-align: right;">2.9656 μs</td>
+<td style="text-align: right;">8.1182 μs</td>
+<td style="text-align: right;">58.300 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">89.950 μs</td>
+<td style="text-align: right;">1.7692 μs</td>
+<td style="text-align: right;">2.1727 μs</td>
+<td style="text-align: right;">89.450 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>96.489 μs</strong></td>
+<td style="text-align: right;"><strong>1.9231 μs</strong></td>
+<td style="text-align: right;"><strong>3.1597 μs</strong></td>
+<td style="text-align: right;"><strong>96.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">65.987 μs</td>
+<td style="text-align: right;">1.3176 μs</td>
+<td style="text-align: right;">1.2940 μs</td>
+<td style="text-align: right;">66.100 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">87.847 μs</td>
+<td style="text-align: right;">1.5177 μs</td>
+<td style="text-align: right;">1.4197 μs</td>
+<td style="text-align: right;">88.100 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>10000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>105.303 μs</strong></td>
+<td style="text-align: right;"><strong>2.0980 μs</strong></td>
+<td style="text-align: right;"><strong>3.6189 μs</strong></td>
+<td style="text-align: right;"><strong>104.100 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">73.076 μs</td>
+<td style="text-align: right;">1.4593 μs</td>
+<td style="text-align: right;">1.4986 μs</td>
+<td style="text-align: right;">73.400 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">103.573 μs</td>
+<td style="text-align: right;">2.0080 μs</td>
+<td style="text-align: right;">1.8782 μs</td>
+<td style="text-align: right;">104.300 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>10000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>2.362 μs</strong></td>
+<td style="text-align: right;"><strong>0.0488 μs</strong></td>
+<td style="text-align: right;"><strong>0.0828 μs</strong></td>
+<td style="text-align: right;"><strong>2.400 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">524.359 μs</td>
+<td style="text-align: right;">10.1951 μs</td>
+<td style="text-align: right;">10.4697 μs</td>
+<td style="text-align: right;">520.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">681.058 μs</td>
+<td style="text-align: right;">9.7626 μs</td>
+<td style="text-align: right;">7.6220 μs</td>
+<td style="text-align: right;">679.800 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>13.627 μs</strong></td>
+<td style="text-align: right;"><strong>0.1028 μs</strong></td>
+<td style="text-align: right;"><strong>0.0961 μs</strong></td>
+<td style="text-align: right;"><strong>13.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">534.438 μs</td>
+<td style="text-align: right;">10.3666 μs</td>
+<td style="text-align: right;">10.1813 μs</td>
+<td style="text-align: right;">531.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">767.654 μs</td>
+<td style="text-align: right;">10.1013 μs</td>
+<td style="text-align: right;">8.4350 μs</td>
+<td style="text-align: right;">768.800 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>39.886 μs</strong></td>
+<td style="text-align: right;"><strong>0.2686 μs</strong></td>
+<td style="text-align: right;"><strong>0.2381 μs</strong></td>
+<td style="text-align: right;"><strong>39.900 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">548.763 μs</td>
+<td style="text-align: right;">9.5315 μs</td>
+<td style="text-align: right;">17.1873 μs</td>
+<td style="text-align: right;">544.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">876.885 μs</td>
+<td style="text-align: right;">17.2499 μs</td>
+<td style="text-align: right;">24.1819 μs</td>
+<td style="text-align: right;">867.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1,175.669 μs</strong></td>
+<td style="text-align: right;"><strong>21.8461 μs</strong></td>
+<td style="text-align: right;"><strong>21.4557 μs</strong></td>
+<td style="text-align: right;"><strong>1,175.550 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">683.789 μs</td>
+<td style="text-align: right;">12.8770 μs</td>
+<td style="text-align: right;">22.2122 μs</td>
+<td style="text-align: right;">678.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1,406.233 μs</td>
+<td style="text-align: right;">19.9076 μs</td>
+<td style="text-align: right;">15.5425 μs</td>
+<td style="text-align: right;">1,401.500 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>5.746 μs</strong></td>
+<td style="text-align: right;"><strong>0.1159 μs</strong></td>
+<td style="text-align: right;"><strong>0.0967 μs</strong></td>
+<td style="text-align: right;"><strong>5.700 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">523.719 μs</td>
+<td style="text-align: right;">10.0685 μs</td>
+<td style="text-align: right;">9.8886 μs</td>
+<td style="text-align: right;">523.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">693.977 μs</td>
+<td style="text-align: right;">7.2968 μs</td>
+<td style="text-align: right;">6.0932 μs</td>
+<td style="text-align: right;">691.800 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>25.157 μs</strong></td>
+<td style="text-align: right;"><strong>0.3243 μs</strong></td>
+<td style="text-align: right;"><strong>0.2875 μs</strong></td>
+<td style="text-align: right;"><strong>25.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">539.986 μs</td>
+<td style="text-align: right;">10.2455 μs</td>
+<td style="text-align: right;">9.0823 μs</td>
+<td style="text-align: right;">537.100 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">790.953 μs</td>
+<td style="text-align: right;">15.4098 μs</td>
+<td style="text-align: right;">14.4144 μs</td>
+<td style="text-align: right;">789.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>62.500 μs</strong></td>
+<td style="text-align: right;"><strong>0.8174 μs</strong></td>
+<td style="text-align: right;"><strong>0.6382 μs</strong></td>
+<td style="text-align: right;"><strong>62.700 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">557.080 μs</td>
+<td style="text-align: right;">10.5508 μs</td>
+<td style="text-align: right;">9.8692 μs</td>
+<td style="text-align: right;">558.400 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">853.123 μs</td>
+<td style="text-align: right;">9.9619 μs</td>
+<td style="text-align: right;">8.3187 μs</td>
+<td style="text-align: right;">849.100 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1,202.500 μs</strong></td>
+<td style="text-align: right;"><strong>21.0413 μs</strong></td>
+<td style="text-align: right;"><strong>17.5705 μs</strong></td>
+<td style="text-align: right;"><strong>1,203.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">679.766 μs</td>
+<td style="text-align: right;">12.8489 μs</td>
+<td style="text-align: right;">27.6587 μs</td>
+<td style="text-align: right;">668.650 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1,119.178 μs</td>
+<td style="text-align: right;">21.6644 μs</td>
+<td style="text-align: right;">23.1807 μs</td>
+<td style="text-align: right;">1,116.450 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>9.181 μs</strong></td>
+<td style="text-align: right;"><strong>0.1792 μs</strong></td>
+<td style="text-align: right;"><strong>0.1759 μs</strong></td>
+<td style="text-align: right;"><strong>9.150 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">520.625 μs</td>
+<td style="text-align: right;">9.7202 μs</td>
+<td style="text-align: right;">7.5889 μs</td>
+<td style="text-align: right;">519.550 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">681.883 μs</td>
+<td style="text-align: right;">4.8779 μs</td>
+<td style="text-align: right;">3.8083 μs</td>
+<td style="text-align: right;">681.950 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>39.013 μs</strong></td>
+<td style="text-align: right;"><strong>0.2519 μs</strong></td>
+<td style="text-align: right;"><strong>0.2356 μs</strong></td>
+<td style="text-align: right;"><strong>39.100 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">542.974 μs</td>
+<td style="text-align: right;">7.9034 μs</td>
+<td style="text-align: right;">8.7846 μs</td>
+<td style="text-align: right;">544.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">808.495 μs</td>
+<td style="text-align: right;">3.9745 μs</td>
+<td style="text-align: right;">4.4177 μs</td>
+<td style="text-align: right;">808.200 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1,095.446 μs</strong></td>
+<td style="text-align: right;"><strong>17.1478 μs</strong></td>
+<td style="text-align: right;"><strong>14.3192 μs</strong></td>
+<td style="text-align: right;"><strong>1,094.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">550.800 μs</td>
+<td style="text-align: right;">10.0925 μs</td>
+<td style="text-align: right;">8.4277 μs</td>
+<td style="text-align: right;">551.300 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">894.773 μs</td>
+<td style="text-align: right;">16.8285 μs</td>
+<td style="text-align: right;">15.7414 μs</td>
+<td style="text-align: right;">895.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1,181.946 μs</strong></td>
+<td style="text-align: right;"><strong>23.0985 μs</strong></td>
+<td style="text-align: right;"><strong>37.9515 μs</strong></td>
+<td style="text-align: right;"><strong>1,170.100 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">684.100 μs</td>
+<td style="text-align: right;">11.6130 μs</td>
+<td style="text-align: right;">10.2946 μs</td>
+<td style="text-align: right;">683.050 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1,080.970 μs</td>
+<td style="text-align: right;">48.4010 μs</td>
+<td style="text-align: right;">129.1919 μs</td>
+<td style="text-align: right;">1,078.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>16.233 μs</strong></td>
+<td style="text-align: right;"><strong>0.3157 μs</strong></td>
+<td style="text-align: right;"><strong>0.3378 μs</strong></td>
+<td style="text-align: right;"><strong>16.250 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">530.200 μs</td>
+<td style="text-align: right;">10.3213 μs</td>
+<td style="text-align: right;">10.5992 μs</td>
+<td style="text-align: right;">525.900 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">693.650 μs</td>
+<td style="text-align: right;">12.0130 μs</td>
+<td style="text-align: right;">9.3789 μs</td>
+<td style="text-align: right;">694.050 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>866.850 μs</strong></td>
+<td style="text-align: right;"><strong>16.9351 μs</strong></td>
+<td style="text-align: right;"><strong>13.2218 μs</strong></td>
+<td style="text-align: right;"><strong>869.250 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">537.442 μs</td>
+<td style="text-align: right;">3.1979 μs</td>
+<td style="text-align: right;">2.4967 μs</td>
+<td style="text-align: right;">537.850 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">829.097 μs</td>
+<td style="text-align: right;">16.2801 μs</td>
+<td style="text-align: right;">28.5133 μs</td>
+<td style="text-align: right;">816.300 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>973.434 μs</strong></td>
+<td style="text-align: right;"><strong>19.4479 μs</strong></td>
+<td style="text-align: right;"><strong>35.0686 μs</strong></td>
+<td style="text-align: right;"><strong>959.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">551.175 μs</td>
+<td style="text-align: right;">10.6185 μs</td>
+<td style="text-align: right;">12.2283 μs</td>
+<td style="text-align: right;">547.450 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">868.976 μs</td>
+<td style="text-align: right;">12.7562 μs</td>
+<td style="text-align: right;">24.2700 μs</td>
+<td style="text-align: right;">860.800 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>100000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>1,147.648 μs</strong></td>
+<td style="text-align: right;"><strong>17.9643 μs</strong></td>
+<td style="text-align: right;"><strong>21.3852 μs</strong></td>
+<td style="text-align: right;"><strong>1,150.100 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">683.693 μs</td>
+<td style="text-align: right;">13.2526 μs</td>
+<td style="text-align: right;">19.4255 μs</td>
+<td style="text-align: right;">681.100 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">1,100.950 μs</td>
+<td style="text-align: right;">20.3045 μs</td>
+<td style="text-align: right;">17.9994 μs</td>
+<td style="text-align: right;">1,101.850 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>100000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>3.308 μs</strong></td>
+<td style="text-align: right;"><strong>0.0677 μs</strong></td>
+<td style="text-align: right;"><strong>0.0881 μs</strong></td>
+<td style="text-align: right;"><strong>3.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">5,931.787 μs</td>
+<td style="text-align: right;">118.4069 μs</td>
+<td style="text-align: right;">180.8198 μs</td>
+<td style="text-align: right;">5,926.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">8,127.361 μs</td>
+<td style="text-align: right;">161.1742 μs</td>
+<td style="text-align: right;">231.1512 μs</td>
+<td style="text-align: right;">8,088.950 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>96.715 μs</strong></td>
+<td style="text-align: right;"><strong>0.9118 μs</strong></td>
+<td style="text-align: right;"><strong>0.7614 μs</strong></td>
+<td style="text-align: right;"><strong>97.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">6,542.139 μs</td>
+<td style="text-align: right;">115.5361 μs</td>
+<td style="text-align: right;">176.4358 μs</td>
+<td style="text-align: right;">6,550.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">10,573.179 μs</td>
+<td style="text-align: right;">210.9036 μs</td>
+<td style="text-align: right;">186.9606 μs</td>
+<td style="text-align: right;">10,594.000 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>356.905 μs</strong></td>
+<td style="text-align: right;"><strong>7.1217 μs</strong></td>
+<td style="text-align: right;"><strong>8.7461 μs</strong></td>
+<td style="text-align: right;"><strong>356.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8,872.458 μs</td>
+<td style="text-align: right;">170.0559 μs</td>
+<td style="text-align: right;">221.1206 μs</td>
+<td style="text-align: right;">8,838.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8,686.576 μs</td>
+<td style="text-align: right;">169.2679 μs</td>
+<td style="text-align: right;">291.9788 μs</td>
+<td style="text-align: right;">8,645.050 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>9,681.273 μs</strong></td>
+<td style="text-align: right;"><strong>189.3883 μs</strong></td>
+<td style="text-align: right;"><strong>378.2289 μs</strong></td>
+<td style="text-align: right;"><strong>9,589.000 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11,726.050 μs</td>
+<td style="text-align: right;">221.9532 μs</td>
+<td style="text-align: right;">255.6017 μs</td>
+<td style="text-align: right;">11,731.150 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">9,382.335 μs</td>
+<td style="text-align: right;">132.2128 μs</td>
+<td style="text-align: right;">201.9029 μs</td>
+<td style="text-align: right;">9,378.600 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>1: sqrt(sqrt(range))</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>17.223 μs</strong></td>
+<td style="text-align: right;"><strong>0.1110 μs</strong></td>
+<td style="text-align: right;"><strong>0.0927 μs</strong></td>
+<td style="text-align: right;"><strong>17.200 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">5,992.002 μs</td>
+<td style="text-align: right;">118.5224 μs</td>
+<td style="text-align: right;">231.1688 μs</td>
+<td style="text-align: right;">5,925.100 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">7,823.658 μs</td>
+<td style="text-align: right;">153.2919 μs</td>
+<td style="text-align: right;">209.8277 μs</td>
+<td style="text-align: right;">7,805.850 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>218.715 μs</strong></td>
+<td style="text-align: right;"><strong>3.7543 μs</strong></td>
+<td style="text-align: right;"><strong>3.1350 μs</strong></td>
+<td style="text-align: right;"><strong>219.100 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">6,675.789 μs</td>
+<td style="text-align: right;">132.1309 μs</td>
+<td style="text-align: right;">281.5818 μs</td>
+<td style="text-align: right;">6,632.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">10,677.371 μs</td>
+<td style="text-align: right;">204.6702 μs</td>
+<td style="text-align: right;">181.4348 μs</td>
+<td style="text-align: right;">10,652.450 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>615.505 μs</strong></td>
+<td style="text-align: right;"><strong>11.9631 μs</strong></td>
+<td style="text-align: right;"><strong>13.7767 μs</strong></td>
+<td style="text-align: right;"><strong>609.250 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8,914.900 μs</td>
+<td style="text-align: right;">173.1675 μs</td>
+<td style="text-align: right;">170.0736 μs</td>
+<td style="text-align: right;">8,930.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8,835.350 μs</td>
+<td style="text-align: right;">147.9321 μs</td>
+<td style="text-align: right;">247.1614 μs</td>
+<td style="text-align: right;">8,832.550 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>9,442.768 μs</strong></td>
+<td style="text-align: right;"><strong>177.9920 μs</strong></td>
+<td style="text-align: right;"><strong>271.8126 μs</strong></td>
+<td style="text-align: right;"><strong>9,420.600 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11,934.731 μs</td>
+<td style="text-align: right;">231.5386 μs</td>
+<td style="text-align: right;">227.4018 μs</td>
+<td style="text-align: right;">11,870.000 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">9,568.015 μs</td>
+<td style="text-align: right;">189.9499 μs</td>
+<td style="text-align: right;">444.0019 μs</td>
+<td style="text-align: right;">9,448.300 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>2: .5*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>32.586 μs</strong></td>
+<td style="text-align: right;"><strong>0.3725 μs</strong></td>
+<td style="text-align: right;"><strong>0.3302 μs</strong></td>
+<td style="text-align: right;"><strong>32.500 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">5,957.269 μs</td>
+<td style="text-align: right;">117.9134 μs</td>
+<td style="text-align: right;">243.5117 μs</td>
+<td style="text-align: right;">5,906.800 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">6,086.689 μs</td>
+<td style="text-align: right;">120.6725 μs</td>
+<td style="text-align: right;">284.4393 μs</td>
+<td style="text-align: right;">6,023.700 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>349.731 μs</strong></td>
+<td style="text-align: right;"><strong>3.3062 μs</strong></td>
+<td style="text-align: right;"><strong>2.7609 μs</strong></td>
+<td style="text-align: right;"><strong>349.900 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">6,364.303 μs</td>
+<td style="text-align: right;">115.6387 μs</td>
+<td style="text-align: right;">270.3017 μs</td>
+<td style="text-align: right;">6,305.200 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">7,062.667 μs</td>
+<td style="text-align: right;">118.1383 μs</td>
+<td style="text-align: right;">243.9762 μs</td>
+<td style="text-align: right;">7,034.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>9,433.620 μs</strong></td>
+<td style="text-align: right;"><strong>185.9115 μs</strong></td>
+<td style="text-align: right;"><strong>396.1925 μs</strong></td>
+<td style="text-align: right;"><strong>9,333.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8,888.531 μs</td>
+<td style="text-align: right;">176.6772 μs</td>
+<td style="text-align: right;">241.8377 μs</td>
+<td style="text-align: right;">8,861.650 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8,690.118 μs</td>
+<td style="text-align: right;">172.0784 μs</td>
+<td style="text-align: right;">272.9346 μs</td>
+<td style="text-align: right;">8,648.900 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>9,432.558 μs</strong></td>
+<td style="text-align: right;"><strong>129.6752 μs</strong></td>
+<td style="text-align: right;"><strong>198.0278 μs</strong></td>
+<td style="text-align: right;"><strong>9,467.900 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11,760.619 μs</td>
+<td style="text-align: right;">231.2454 μs</td>
+<td style="text-align: right;">227.1139 μs</td>
+<td style="text-align: right;">11,752.450 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">9,383.345 μs</td>
+<td style="text-align: right;">180.1540 μs</td>
+<td style="text-align: right;">310.7567 μs</td>
+<td style="text-align: right;">9,325.150 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>3: sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>1: sqrt(sqrt(range))</strong></td>
+<td style="text-align: right;"><strong>62.400 μs</strong></td>
+<td style="text-align: right;"><strong>1.2387 μs</strong></td>
+<td style="text-align: right;"><strong>1.0344 μs</strong></td>
+<td style="text-align: right;"><strong>61.800 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">6,000.110 μs</td>
+<td style="text-align: right;">119.0096 μs</td>
+<td style="text-align: right;">243.1052 μs</td>
+<td style="text-align: right;">5,969.800 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">6,000.676 μs</td>
+<td style="text-align: right;">105.3549 μs</td>
+<td style="text-align: right;">222.2293 μs</td>
+<td style="text-align: right;">5,954.750 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>1: sqrt(sqrt(range))</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>2: .5*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>7,370.392 μs</strong></td>
+<td style="text-align: right;"><strong>128.5002 μs</strong></td>
+<td style="text-align: right;"><strong>256.6288 μs</strong></td>
+<td style="text-align: right;"><strong>7,354.300 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">6,650.873 μs</td>
+<td style="text-align: right;">130.7713 μs</td>
+<td style="text-align: right;">235.8077 μs</td>
+<td style="text-align: right;">6,611.700 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">6,913.412 μs</td>
+<td style="text-align: right;">134.3436 μs</td>
+<td style="text-align: right;">274.4284 μs</td>
+<td style="text-align: right;">6,881.000 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>2: .5*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>3: sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>8,801.070 μs</strong></td>
+<td style="text-align: right;"><strong>172.0775 μs</strong></td>
+<td style="text-align: right;"><strong>282.7283 μs</strong></td>
+<td style="text-align: right;"><strong>8,755.050 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">8,872.288 μs</td>
+<td style="text-align: right;">168.9004 μs</td>
+<td style="text-align: right;">272.7426 μs</td>
+<td style="text-align: right;">8,810.600 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">9,076.731 μs</td>
+<td style="text-align: right;">173.6727 μs</td>
+<td style="text-align: right;">304.1737 μs</td>
+<td style="text-align: right;">9,039.000 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>3: sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr>
+<td><strong>Towel</strong></td>
+<td><strong>0</strong></td>
+<td><strong>1000000</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td><strong>4: 2*sqrt(range)</strong></td>
+<td style="text-align: right;"><strong>9,390.041 μs</strong></td>
+<td style="text-align: right;"><strong>183.7147 μs</strong></td>
+<td style="text-align: right;"><strong>311.9615 μs</strong></td>
+<td style="text-align: right;"><strong>9,383.400 μs</strong></td>
+</tr>
+<tr>
+<td>HashSetAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">11,808.315 μs</td>
+<td style="text-align: right;">179.7810 μs</td>
+<td style="text-align: right;">150.1253 μs</td>
+<td style="text-align: right;">11,826.500 μs</td>
+</tr>
+<tr>
+<td>SetHashLinkedAndArray</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">9,324.665 μs</td>
+<td style="text-align: right;">130.7383 μs</td>
+<td style="text-align: right;">222.0036 μs</td>
+<td style="text-align: right;">9,351.000 μs</td>
+</tr>
+<tr>
+<td>RelativelySimpleCode</td>
+<td>0</td>
+<td>1000000</td>
+<td>4: 2*sqrt(range)</td>
+<td>4: 2*sqrt(range)</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+<p>Benchmarks with issues:
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=1: sqrt(sqrt(range)), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=1: sqrt(sqrt(range)), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=1: sqrt(sqrt(range)), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=1: sqrt(sqrt(range)), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=2: .5<em>sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=2: .5</em>sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=2: .5</em>sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=2: .5<em>sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=3: sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=3: sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=3: sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=3: sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=4: 2<em>sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=4: 2</em>sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=4: 2</em>sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=10000, Count=4: 2<em>sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=1: sqrt(sqrt(range)), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=1: sqrt(sqrt(range)), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=1: sqrt(sqrt(range)), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=1: sqrt(sqrt(range)), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=2: .5<em>sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=2: .5</em>sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=2: .5</em>sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=2: .5<em>sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=3: sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=3: sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=3: sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=3: sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=4: 2<em>sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=4: 2</em>sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=4: 2</em>sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=100000, Count=4: 2<em>sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=1: sqrt(sqrt(range)), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=1: sqrt(sqrt(range)), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=1: sqrt(sqrt(range)), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=1: sqrt(sqrt(range)), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=2: .5<em>sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=2: .5</em>sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=2: .5</em>sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=2: .5<em>sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=3: sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=3: sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=3: sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=3: sqrt(range), Exclued=4: 2</em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=4: 2<em>sqrt(range), Exclued=1: sqrt(sqrt(range))]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=4: 2</em>sqrt(range), Exclued=2: .5<em>sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=4: 2</em>sqrt(range), Exclued=3: sqrt(range)]
+RandomWithExclusionsBenchmarks.RelativelySimpleCode: Job-HBXSTX(InvocationCount=1, UnrollFactor=1) [MinValue=0, MaxValue=1000000, Count=4: 2<em>sqrt(range), Exclued=4: 2</em>sqrt(range)]</p>
+</article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/ZacharyPatten/Towel/blob/main/Tools/docfx_project/benchmarks/RandomWithExclusionsBenchmarks.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In This Article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
