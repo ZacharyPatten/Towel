@@ -32,21 +32,7 @@ public static class TagAttributeExtensions
 	public static (bool Found, object? Value) GetTag(this MemberInfo memberInfo, object? tag)
 	{
 		if (memberInfo is null) throw new ArgumentNullException(nameof(memberInfo));
-		bool found = false;
-		object? value = default;
-		foreach (TagAttribute valueAttribute in memberInfo.GetCustomAttributes<TagAttribute>())
-		{
-			if (ReferenceEquals(tag, valueAttribute.Tag) || (tag is not null && tag.Equals(valueAttribute.Tag)))
-			{
-				if (found)
-				{
-					return (false, default);
-				}
-				found = true;
-				value = valueAttribute.Value;
-			}
-		}
-		return (found, value);
+		return Find(memberInfo.GetCustomAttributes<TagAttribute>(), tag);
 	}
 
 	/// <summary>Gets a <see cref="TagAttribute"/> on a <see cref="ParameterInfo"/>.</summary>
@@ -59,21 +45,7 @@ public static class TagAttributeExtensions
 	public static (bool Found, object? Value) GetTag(this ParameterInfo parameterInfo, object? tag)
 	{
 		if (parameterInfo is null) throw new ArgumentNullException(nameof(parameterInfo));
-		bool found = false;
-		object? value = default;
-		foreach (TagAttribute valueAttribute in parameterInfo.GetCustomAttributes<TagAttribute>())
-		{
-			if (ReferenceEquals(tag, valueAttribute.Tag) || (tag is not null && tag.Equals(valueAttribute.Tag)))
-			{
-				if (found)
-				{
-					return (false, default);
-				}
-				found = true;
-				value = valueAttribute.Value;
-			}
-		}
-		return (found, value);
+		return Find(parameterInfo.GetCustomAttributes<TagAttribute>(), tag);
 	}
 
 	/// <summary>Gets a <see cref="TagAttribute"/> on a <see cref="MemberInfo"/>.</summary>
@@ -88,9 +60,14 @@ public static class TagAttributeExtensions
 		where TEnum : Enum
 	{
 		if (enumValue is null) throw new ArgumentNullException(nameof(enumValue));
+		return Find(enumValue.GetEnumAttributes<TagAttribute>(), tag);
+	}
+
+	internal static (bool Found, object? Value) Find(System.Collections.Generic.IEnumerable<TagAttribute> enumerable, object? tag)
+	{
 		bool found = false;
 		object? value = default;
-		foreach (TagAttribute valueAttribute in enumValue.GetEnumAttributes<TagAttribute>())
+		foreach (TagAttribute valueAttribute in enumerable)
 		{
 			if (ReferenceEquals(tag, valueAttribute.Tag) || (tag is not null && tag.Equals(valueAttribute.Tag)))
 			{
