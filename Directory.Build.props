@@ -5,4 +5,10 @@
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="Exists('$(MSBuildThisFileDirectory)/Sources/Key.snk')">
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)/Sources/Key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
 </Project>
